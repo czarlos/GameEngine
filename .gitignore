@@ -1,6 +1,1 @@
-*.class
-
-# Package Files #
-*.jar
-*.war
-*.ear
+ref: refs/remotes/origin/master
