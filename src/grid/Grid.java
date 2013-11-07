@@ -1,4 +1,6 @@
-package engine;
+package grid;
+
+import engine.GameObject;
 
 public class Grid {
 	
