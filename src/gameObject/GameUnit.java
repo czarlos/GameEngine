@@ -12,4 +12,5 @@ public class GameUnit extends GameObject {
     public Stats getStats () {
         return myUnitStats;
     }
+    
 }
