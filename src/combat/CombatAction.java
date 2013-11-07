@@ -44,9 +44,11 @@ public class CombatAction {
                             myDefenderStatsAndWeights.get(statName);
         }
 
-        // Creates a normalized (0.0 - 1.0) output based on max possible 
+        // Creates a normalized (0.0 - 1.0) output based on max possible
         // difference in favor of attacker
-        netStat = ((offensiveStatSum - defensiveStatSum) >= 0 ? (offensiveStatSum - defensiveStatSum) : 0)/(offensiveStatSum);
+        netStat =
+                ((offensiveStatSum - defensiveStatSum) >= 0 ? (offensiveStatSum - defensiveStatSum)
+                                                           : 0) / (offensiveStatSum);
 
         return netStat;
     }
@@ -58,7 +60,7 @@ public class CombatAction {
     public Map<String, Integer> getDefenderOutcomes () {
         return myDefenderOutcomes;
     }
-    
+
     public Map<String, Integer> getCosts () {
         return myCosts;
     }

@@ -22,12 +22,12 @@ public class Stage {
         run();
     }
 
-    public void run() {
-        while(!myWinCondition.isWinConditionMet()) {
-            for(String affiliate : myAffiliateList) {
+    public void run () {
+        while (!myWinCondition.isWinConditionMet()) {
+            for (String affiliate : myAffiliateList) {
                 // Do Player Moves
                 doPlayerMove();
-                // Do AI Moves 
+                // Do AI Moves
                 doAIMove();
             }
         }
@@ -35,14 +35,13 @@ public class Stage {
 
     private void doPlayerMove () {
         // TODO Add logic for movement during a players turn
-        
-    }
-    
-    private void doAIMove () {
-        // TODO Add logic for AI movement
-        
+
     }
 
+    private void doAIMove () {
+        // TODO Add logic for AI movement
+
+    }
 
     private void doCombat (GameUnit attacker, GameUnit defender, CombatAction action) {
         // netEffectiveness is a measurement of how effective an attacker is against a defender (0.0
