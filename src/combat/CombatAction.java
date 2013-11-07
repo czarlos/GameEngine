@@ -1,16 +1,19 @@
+package combat;
+
+import gameObject.GameUnit;
 import grid.Coordinate;
 import java.util.List;
 import java.util.Map;
 
 
-public class Action {
+public class CombatAction {
     private Map<String, Integer> myOffensiveStatsAndWeights;
     private Map<String, Integer> myDefensiveStatsAndWeights;
     private List<Coordinate> myRange;
 
-    public Action (Map<String, Integer> offensiveStats,
-                   Map<String, Integer> defensiveStats,
-                   List<Coordinate> range) {
+    public CombatAction (Map<String, Integer> offensiveStats,
+                         Map<String, Integer> defensiveStats,
+                         List<Coordinate> range) {
         myOffensiveStatsAndWeights = offensiveStats;
         myDefensiveStatsAndWeights = defensiveStats;
         myRange = range;
@@ -35,4 +38,5 @@ public class Action {
 
         return netStat;
     }
+
 }

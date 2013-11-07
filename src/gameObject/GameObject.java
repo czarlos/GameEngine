@@ -1,3 +1,5 @@
+package gameObject;
+
 public class GameObject extends JGObject {
 
     private String name;
