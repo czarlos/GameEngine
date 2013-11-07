@@ -1,6 +1,7 @@
 package grid;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -9,12 +10,14 @@ public class Grid {
     private int myRow;
     private Map<Coordinate, Tile> myTileMap;
     private Map<Coordinate, GameObject> myObjects;
+    private Map<Integer, List<GameObject>> myPassStatuses;
 
     public Grid (int col, int row) {
         myCol = col;
         myRow = row;
         myTileMap = new HashMap<Coordinate, Tile>();
         myObjects = new HashMap<Coordinate, GameObject>();
+        myPassStatuses = new HashMap<Integer, List<GameObject>>();
 
         initGrid();
     }

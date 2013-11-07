@@ -1,7 +1,9 @@
 package grid;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -11,6 +13,7 @@ public class Tile {
     private String myImagePath;
     private int myMoveCost;
     private String myName;
+    private List<String> passableList;
 
     public Tile () {
         isActive = false;
@@ -18,10 +21,19 @@ public class Tile {
         myImagePath = "Grass Path"; // TODO: Add in path to grass image
         myMoveCost = 1;
         myName = "Grass";
+        passableList = new ArrayList<String>();
     }
 
     public void paint (Graphics g) {
         // TODO
+    }
+
+    public boolean isPassable (GameObject unit) {
+        for (String object : passableList) {
+            if (object.equals(unit.getName())) { return true; }
+        }
+
+        return false;
     }
 
     public boolean isActive () {

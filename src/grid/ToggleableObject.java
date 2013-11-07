@@ -3,8 +3,8 @@ package grid;
 public class ToggleableObject extends GameObject {
     GameObject myNextState;
 
-    public ToggleableObject (String name, String imagePath, int passStatus, GameObject nextState) {
-        super(name, imagePath, passStatus);
+    public ToggleableObject (String name, String imagePath, GameObject nextState) {
+        super(name, imagePath);
         myNextState = nextState;
     }
 
