@@ -1,10 +1,18 @@
+import java.util.Map;
+
 
 public class Stats {
-	private int attack;
-	private int defense;
-	private int agility;
-	private int intelligence;
-	private int health;
-	private int criticalHit;
-	private int movement;
+    private Map<String, Integer> myStatList;
+
+    public Stats () {
+
+    }
+
+    public Integer getStat (String name) {
+        return myStatList.get(name);
+    }
+
+    public void makeStat (String name, Integer value) {
+        myStatList.put(name, value);
+    }
 }
