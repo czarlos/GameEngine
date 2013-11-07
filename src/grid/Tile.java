@@ -29,6 +29,7 @@ public class Tile {
     }
 
     public boolean isPassable (GameObject unit) {
+        // TODO: Want to let player pass through affiliated units
         for (String object : passableList) {
             if (object.equals(unit.getName())) { return true; }
         }
