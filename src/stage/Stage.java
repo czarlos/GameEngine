@@ -15,15 +15,34 @@ public class Stage {
 
     private Grid myGrid;
     // Affiliation subject to change (int/string/?)
-    private List<Integer> myAffiliateList;
+    private List<String> myAffiliateList;
+    private WinCondition myWinCondition;
 
     public Stage () {
-        init();
+        run();
     }
 
-    private void init () {
-
+    public void run() {
+        while(!myWinCondition.isWinConditionMet()) {
+            for(String affiliate : myAffiliateList) {
+                // Do Player Moves
+                doPlayerMove();
+                // Do AI Moves 
+                doAIMove();
+            }
+        }
     }
+
+    private void doPlayerMove () {
+        // TODO Add logic for movement during a players turn
+        
+    }
+    
+    private void doAIMove () {
+        // TODO Add logic for AI movement
+        
+    }
+
 
     private void doCombat (GameUnit attacker, GameUnit defender, CombatAction action) {
         // netEffectiveness is a measurement of how effective an attacker is against a defender (0.0
