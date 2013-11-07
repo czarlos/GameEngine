@@ -1,5 +1,4 @@
-
 public class Consumable extends Items {
-	private int amount;
-	private Effect effect;
+    private int amount;
+    private Effect effect;
 }

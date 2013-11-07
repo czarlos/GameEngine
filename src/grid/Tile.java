@@ -10,12 +10,14 @@ public class Tile {
     private Map<String, Double> myStatMods;
     private String myImagePath;
     private int myMoveCost;
+    private String myName;
 
     public Tile () {
         isActive = false;
         myStatMods = new HashMap<String, Double>();
-        myImagePath = "Grass"; // TODO: Add in path to grass image
+        myImagePath = "Grass Path"; // TODO: Add in path to grass image
         myMoveCost = 1;
+        myName = "Grass";
     }
 
     public void paint (Graphics g) {
@@ -52,5 +54,13 @@ public class Tile {
 
     public void setMoveCost (int moveCost) {
         myMoveCost = moveCost;
+    }
+
+    public String getName () {
+        return myName;
+    }
+
+    public void setName (String name) {
+        myName = name;
     }
 }
