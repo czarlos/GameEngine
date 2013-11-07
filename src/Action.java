@@ -8,9 +8,12 @@ public class Action {
     private Map<String, Integer> myDefensiveStatsAndWeights;
     private List<Coordinate> myRange;
 
-    public Action (Map<String, Integer> offensiveStats, Map<String, Integer> defensiveStats) {
+    public Action (Map<String, Integer> offensiveStats,
+                   Map<String, Integer> defensiveStats,
+                   List<Coordinate> range) {
         myOffensiveStatsAndWeights = offensiveStats;
         myDefensiveStatsAndWeights = defensiveStats;
+        myRange = range;
     }
 
     public Integer getNetStats (GameUnit attacker, GameUnit defender) {
