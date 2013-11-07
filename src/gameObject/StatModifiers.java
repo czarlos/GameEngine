@@ -1,3 +1,5 @@
+package gameObject;
+
 public class StatModifiers {
     private int strength;
     private int defense;
