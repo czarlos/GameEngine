@@ -1,7 +1,7 @@
 package combat;
 
-import gameObject.GameUnit;
 import grid.Coordinate;
+import grid.GameUnit;
 import java.util.List;
 import java.util.Map;
 
