@@ -1,7 +1,7 @@
 package combat;
 
+import gameObject.GameUnit;
 import grid.Coordinate;
-import grid.GameUnit;
 import java.util.List;
 import java.util.Map;
 
@@ -34,13 +34,13 @@ public class CombatAction {
 
         for (String statName : myAttackerStatsAndWeights.keySet()) {
             offensiveStatSum +=
-                    attacker.getStats().getStat(statName) *
+                    attacker.getStats().getStatValue(statName) *
                             myAttackerStatsAndWeights.get(statName);
         }
 
         for (String statName : myDefenderStatsAndWeights.keySet()) {
             defensiveStatSum +=
-                    defender.getStats().getStat(statName) *
+                    defender.getStats().getStatValue(statName) *
                             myDefenderStatsAndWeights.get(statName);
         }
 

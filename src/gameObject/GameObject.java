@@ -1,4 +1,4 @@
-package grid;
+package gameObject;
 
 import java.awt.Graphics;
 

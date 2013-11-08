@@ -1,5 +1,6 @@
 package grid;
 
+import gameObject.GameObject;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
