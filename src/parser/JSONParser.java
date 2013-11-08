@@ -13,6 +13,7 @@ public class JSONParser {
 
     public JSONParser () {
         myMapper = new ObjectMapper();
+        myMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
     }
 
     public void createJSON (String filename, Object object) {

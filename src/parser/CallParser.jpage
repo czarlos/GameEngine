@@ -1,8 +1,48 @@
+// Initialize parser
 parser.JSONParser p = new parser.JSONParser();
+
+// Make a new WinCondition object, with 0 conditions needed to win, wc.hasWon() is true
 engine.WinCondition wc = new engine.WinCondition();
 System.out.println(wc.hasWon());
+
+// set it so that 1 condition is needed to win, wc.hasWon() is false
 wc.setConditionsNeeded(1);
 System.out.println(wc.hasWon());
+
+// turn our WinCondition object into a file winconditions.json
 p.createJSON("winconditions", wc);
+
+// Make a WinCondition object from file winconditions.json
 engine.WinCondition wcFromJSON = (engine.WinCondition) p.createObjects("winconditions", engine.WinCondition.class);
+
+// Check to see that wc.hasWon() is still false
 System.out.println(wcFromJSON.hasWon());
+
+//// MORE ADVANCED OBJECT TESTING (Abstract Classes)
+
+// Create a false Condition
+engine.Condition cFalse = new engine.PositionCondition(10,10);
+cFalse.addData("x", "10");
+cFalse.addData("y", "15");
+
+// Add it to WinCondition
+wc.addCondition(cFalse);
+System.out.println(wc.hasWon());
+
+// Create a true Condition
+engine.Condition cTrue = new engine.PositionCondition(10,15);
+cTrue.addData("x", "10");
+cTrue.addData("y", "15");
+
+// Add it to WinCondition
+wc.addCondition(cTrue);
+System.out.println(wc.hasWon());
+
+// Turn our WinCondition object into a file winconditions.json
+p.createJSON("winconditions", wc);
+
+//Make a WinCondition object from file winconditions.json
+engine.WinCondition wcFromJSON2 = (engine.WinCondition) p.createObjects("winconditions", engine.WinCondition.class);
+
+//Check to see that wc.hasWon() is still true
+System.out.println(wcFromJSON2.hasWon());
