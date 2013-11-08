@@ -23,6 +23,6 @@ public abstract class Items {
      * Sets the stats that this item effects.
      * @param gameUnit 
      */
-    public abstract void effect(GameUnit gameUnit);
+    public abstract void statEffect(GameUnit gameUnit);
 
 }

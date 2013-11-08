@@ -23,7 +23,7 @@ public class Armor extends Equipment {
      * Weapons are level independent, thus stat modifiers are added to
      */
     @Override
-    public void effect (GameUnit unit) {
+    public void statEffect (GameUnit unit) {
         for(String statName : myStatMap.keySet()) {
             int modifiedValue = getModifiers().getStatModifier(statName)+myStatMap.get(statName);
             unit.getUnitStats().setStatValue(statName, modifiedValue);

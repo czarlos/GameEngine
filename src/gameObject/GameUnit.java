@@ -1,6 +1,6 @@
 package gameObject;
 
-import gameObject.item.Item;
+import gameObject.item.Items;
 import java.util.List;
 
 
@@ -8,7 +8,7 @@ public class GameUnit extends GameObject {
 
     private boolean isControllable;
     private boolean isActive;
-    private List<Item> myItemsList;
+    private List<Items> myItemsList;
     private Stat myUnitStats;
     private String myAffiliation;
 
@@ -16,7 +16,7 @@ public class GameUnit extends GameObject {
                      String imagePath,
                      String affiliation,
                      Stat stats,
-                     List<Item> items,
+                     List<Items> items,
                      boolean controllable) {
         super(name, imagePath);
         myAffiliation = affiliation;

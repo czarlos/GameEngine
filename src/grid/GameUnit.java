@@ -3,6 +3,7 @@ package grid;
 import gameObject.GameObject;
 import gameObject.Stat;
 import gameObject.item.Items;
+import gameObject.item.Weapon;
 import java.util.List;
 
 /**
@@ -18,6 +19,7 @@ public class GameUnit extends GameObject {
     private List<Items> myItemsList;
     private Stat myUnitStats;
     private String myAffiliation;
+    private Items myActiveWeapon;
     
     public GameUnit (String name, String imagePath) {
         super(name, imagePath);
@@ -33,7 +35,20 @@ public class GameUnit extends GameObject {
      */
     public void initializeStats () {
         for (Items item : myItemsList) {
-            item.effect(this);
+            item.statEffect(this);
+        }
+    }
+    
+    /**
+     * Sets the Game units active weapon to the weapon
+     * with a given string name.
+     * @param weaponName
+     */
+    public void selectWeapon(String weaponName) {
+        for(Items item : myItemsList) {
+            if(item.getName().equals(weaponName)) {
+                myActiveWeapon = item;
+            }
         }
     }
     
@@ -64,6 +79,14 @@ public class GameUnit extends GameObject {
 
     public void setControllable (boolean myControllable) {
         this.myControllable = myControllable;
+    }
+
+    public Items getActiveWeapon () {
+        return myActiveWeapon;
+    }
+
+    public void setActiveWeapon (Items myActiveItem) {
+        this.myActiveWeapon = myActiveItem;
     }
 
 }

@@ -6,6 +6,6 @@ public class Consumable extends Items {
     private int amount;
 
     @Override
-    public void effect (GameUnit gameUnit) {       
+    public void statEffect (GameUnit gameUnit) {       
     }
 }
