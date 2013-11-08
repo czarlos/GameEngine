@@ -10,8 +10,14 @@ public class Stats {
 
     }
 
-    public Integer getStat (String name) {
-        return myStatList.get(name);
+    public Integer getStat (String statName) {
+        return myStatList.get(statName);
+    }
+
+    public void setStat (String statName, Integer value) {
+        if (myStatList.containsKey(statName)) {
+            myStatList.put(statName, value);
+        }
     }
 
     public void makeStat (String name, Integer value) {
