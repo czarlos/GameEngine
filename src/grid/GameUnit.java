@@ -15,15 +15,23 @@ import java.util.List;
  *
  */
 public class GameUnit extends GameObject {
-    private boolean myControllable;
+    private boolean isControllable;
     private List<Items> myItemsList;
     private Stat myUnitStats;
     private String myAffiliation;
     private Items myActiveWeapon;
     
-    public GameUnit (String name, String imagePath) {
+    public GameUnit (String name,
+                     String imagePath,
+                     String affiliation,
+                     Stat stats,
+                     List<Items> items,
+                     boolean controllable) {
         super(name, imagePath);
-        // TODO Auto-generated constructor stub
+        myAffiliation = affiliation;
+        myUnitStats = stats;
+        myItemsList = items;
+        isControllable = controllable;
     }
 
     /**
@@ -74,11 +82,11 @@ public class GameUnit extends GameObject {
     }
 
     public boolean isControllable () {
-        return myControllable;
+        return isControllable;
     }
 
     public void setControllable (boolean myControllable) {
-        this.myControllable = myControllable;
+        this.isControllable = myControllable;
     }
 
     public Items getActiveWeapon () {
