@@ -1,6 +1,6 @@
-package gameObject;
+package gameObject.item;
 
-import combat.CombatAction;
+import action.CombatAction;
 import java.util.List;
 
 

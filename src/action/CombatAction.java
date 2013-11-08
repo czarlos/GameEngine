@@ -1,4 +1,4 @@
-package combat;
+package action;
 
 import gameObject.GameUnit;
 import grid.Coordinate;

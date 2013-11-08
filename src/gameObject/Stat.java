@@ -3,10 +3,10 @@ package gameObject;
 import java.util.Map;
 
 
-public class Stats {
+public class Stat {
     private Map<String, Integer> myStatList;
 
-    public Stats () {
+    public Stat () {
 
     }
 

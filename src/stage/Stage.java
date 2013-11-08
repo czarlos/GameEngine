@@ -2,9 +2,9 @@ package stage;
 
 import java.util.List;
 import java.util.Map;
-import combat.CombatAction;
+import action.CombatAction;
 import gameObject.GameUnit;
-import gameObject.Stats;
+import gameObject.Stat;
 import grid.Grid;
 
 
@@ -18,7 +18,7 @@ public class Stage {
     // Affiliation subject to change (int/string/?)
     private List<String> myAffiliateList;
     private WinCondition myWinCondition;
-    private Stats myMasterStats;
+    private Stat myMasterStats;
 
     public Stage () {
         run();
