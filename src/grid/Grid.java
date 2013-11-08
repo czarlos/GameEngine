@@ -75,4 +75,17 @@ public class Grid {
 
         myTileMap.put(new Coordinate(x, y), newTile);
     }
+
+    public Map<Coordinate, GameUnit> getGameUnits () {
+        Map<Coordinate, GameUnit> gameUnitMap = new HashMap<Coordinate, GameUnit>();
+
+        for (Coordinate coord : myObjects.keySet()) {
+            if (myObjects.get(coord) instanceof GameUnit) {
+                gameUnitMap.put(new Coordinate(coord.getX(), coord.getY()), new GameUnit(myObjects
+                        .get(coord).getName(), myObjects.get(coord).getImagePath()));
+            }
+        }
+
+        return gameUnitMap;
+    }
 }
