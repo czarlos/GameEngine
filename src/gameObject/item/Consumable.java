@@ -1,5 +1,11 @@
 package gameObject.item;
 
-public class Consumable extends Item {
+import grid.GameUnit;
+
+public class Consumable extends Items {
     private int amount;
+
+    @Override
+    public void effect (GameUnit gameUnit) {       
+    }
 }
