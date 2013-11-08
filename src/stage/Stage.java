@@ -3,7 +3,7 @@ package stage;
 import java.util.List;
 import java.util.Map;
 import combat.CombatAction;
-import gameObject.GameUnit;
+import grid.GameUnit;
 import grid.Grid;
 
 
