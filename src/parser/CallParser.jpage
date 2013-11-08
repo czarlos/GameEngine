@@ -1,0 +1,8 @@
+parser.JSONParser p = new parser.JSONParser();
+engine.WinCondition wc = new engine.WinCondition();
+System.out.println(wc.hasWon());
+wc.setConditionsNeeded(1);
+System.out.println(wc.hasWon());
+p.createJSON("winconditions", wc);
+engine.WinCondition wcFromJSON = (engine.WinCondition) p.createObjects("winconditions", engine.WinCondition.class);
+System.out.println(wcFromJSON.hasWon());
