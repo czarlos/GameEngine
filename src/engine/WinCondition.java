@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 @JsonAutoDetect
 public class WinCondition {
     @JsonProperty
     private int conditionsNeeded;
-    
+
     @JsonProperty
     private ArrayList<Condition> conditions;
 
@@ -20,14 +21,15 @@ public class WinCondition {
         conditionsNeeded = i;
     }
 
-    public void addCondition (Condition c){
+    public void addCondition (Condition c) {
         conditions.add(c);
     }
-    
-    public void testPrint(){
+
+    public void testPrint () {
         System.out.println(conditionsNeeded);
         System.out.println(conditions.size());
     }
+
     // no conditions = auto-win, but maybe we should make it never-win
     public boolean hasWon () {
         int count = 0;
