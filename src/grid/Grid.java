@@ -10,7 +10,9 @@ public class Grid {
     private int myRow;
     private Map<Coordinate, Tile> myTileMap;
     private Map<Coordinate, GameObject> myObjects;
-    private Map<Integer, List<GameObject>> myPassStatuses;
+    private Map<Integer, List<GameObject>> myPassStatuses; // TODO: Add pass statuses. 0 = nothing
+                                                           // passes, 1 = everything passes. Put
+                                                           // this map in stage controller?
 
     public Grid (int col, int row) {
         myCol = col;
