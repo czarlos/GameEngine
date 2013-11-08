@@ -6,13 +6,14 @@ import gameObject.item.Items;
 import gameObject.item.Weapon;
 import java.util.List;
 
+
 /**
  * Game Unit is any unit in the game that can be interacted with,
  * game units can be stationary or can move, these units can have stats
  * and they can hold items.
  * 
  * @author carlosreyes
- *
+ * 
  */
 public class GameUnit extends GameObject {
     private boolean isControllable;
@@ -20,7 +21,7 @@ public class GameUnit extends GameObject {
     private Stat myUnitStats;
     private String myAffiliation;
     private Items myActiveWeapon;
-    
+
     public GameUnit (String name,
                      String imagePath,
                      String affiliation,
@@ -46,31 +47,32 @@ public class GameUnit extends GameObject {
             item.statEffect(this);
         }
     }
-    
+
     /**
      * Sets the Game units active weapon to the weapon
      * with a given string name.
+     * 
      * @param weaponName
      */
-    public void selectWeapon(String weaponName) {
-        for(Items item : myItemsList) {
-            if(item.getName().equals(weaponName)) {
+    public void selectWeapon (String weaponName) {
+        for (Items item : myItemsList) {
+            if (item.getName().equals(weaponName)) {
                 myActiveWeapon = item;
             }
         }
     }
-    
+
     public Stat getStats () {
         return myUnitStats;
     }
-    
+
     public void setUnitStats (Stat myUnitStats) {
         this.myUnitStats = myUnitStats;
     }
 
     public Stat getUnitStats () {
         return myUnitStats;
-        
+
     }
 
     public String getAffiliation () {

@@ -13,17 +13,15 @@ public class Weapon extends Equipment {
 
     @Override
     public void statEffect (GameUnit unit) {
-        for(String statName : myStatMap.keySet()) {
-            int modifiedValue = getModifiers().getStatModifier(statName)+myStatMap.get(statName);
+        for (String statName : myStatMap.keySet()) {
+            int modifiedValue = getModifiers().getStatModifier(statName) + myStatMap.get(statName);
             unit.getUnitStats().setStatValue(statName, modifiedValue);
         }
     }
-    
+
     public CombatAction selectAction (CombatAction action) {
-        for(CombatAction a : myActionList) {
-            if (a.equals(action)) {
-                return a;
-            }
+        for (CombatAction a : myActionList) {
+            if (a.equals(action)) { return a; }
         }
         return action;
     }
@@ -35,5 +33,5 @@ public class Weapon extends Equipment {
     public void setActionList (List<CombatAction> myActionList) {
         this.myActionList = myActionList;
     }
-    
+
 }

@@ -3,7 +3,7 @@ package stage;
 import java.util.List;
 import java.util.Map;
 import action.CombatAction;
-import gameObject.GameUnit;
+import grid.GameUnit;
 import gameObject.Stat;
 import grid.Grid;
 
@@ -61,8 +61,8 @@ public class Stage {
         double netEffectiveness = action.getNetEffectiveness(attacker, defender);
 
         applyCosts(attacker, action.getCosts());
-        applyOutcomes(attacker, action.getAttackerOutcomes(), netEffectiveness);
-        applyOutcomes(defender, action.getDefenderOutcomes(), netEffectiveness);
+        applyOutcomes(attacker, action.getAttackerOutcomesMap(), netEffectiveness);
+        applyOutcomes(defender, action.getDefenderOutcomesMap(), netEffectiveness);
 
     }
 

@@ -2,11 +2,16 @@ package gameObject;
 
 import java.util.Map;
 
+
 public class StatModifier {
     private Map<String, Integer> myStatModifiers;
 
-    public StatModifier () {
+    public StatModifier (Map<String, Integer> stats) {
+        myStatModifiers = stats;
+    }
 
+    public Map<String, Integer> getStatModifierMap () {
+        return myStatModifiers;
     }
 
     public Integer getStatModifier (String statName) {

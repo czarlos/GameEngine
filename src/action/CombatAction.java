@@ -1,24 +1,25 @@
 package action;
 
-import gameObject.GameUnit;
+import grid.GameUnit;
+import gameObject.StatModifier;
 import grid.Coordinate;
 import java.util.List;
 import java.util.Map;
 
 
 public class CombatAction {
-    private Map<String, Integer> myAttackerStatsAndWeights;
-    private Map<String, Integer> myDefenderStatsAndWeights;
+    private StatModifier myAttackerStatsAndWeights;
+    private StatModifier myDefenderStatsAndWeights;
     private Map<String, Integer> myCosts;
-    private Map<String, Integer> myAttackerOutcomes;
-    private Map<String, Integer> myDefenderOutcomes;
+    private StatModifier myAttackerOutcomes;
+    private StatModifier myDefenderOutcomes;
     private List<Coordinate> myAOE;
 
-    public CombatAction (Map<String, Integer> offensiveStats,
-                         Map<String, Integer> defensiveStats,
+    public CombatAction (StatModifier offensiveStats,
+                         StatModifier defensiveStats,
                          Map<String, Integer> costs,
-                         Map<String, Integer> attackerOutcomes,
-                         Map<String, Integer> defenderOutcomes,
+                         StatModifier attackerOutcomes,
+                         StatModifier defenderOutcomes,
                          List<Coordinate> range) {
         myAttackerStatsAndWeights = offensiveStats;
         myDefenderStatsAndWeights = defensiveStats;
@@ -32,16 +33,16 @@ public class CombatAction {
         int offensiveStatSum = 0, defensiveStatSum = 0;
         double netStat = 0;
 
-        for (String statName : myAttackerStatsAndWeights.keySet()) {
+        for (String statName : myAttackerStatsAndWeights.getStatModifierMap().keySet()) {
             offensiveStatSum +=
                     attacker.getStats().getStatValue(statName) *
-                            myAttackerStatsAndWeights.get(statName);
+                            myAttackerStatsAndWeights.getStatModifier(statName);
         }
 
-        for (String statName : myDefenderStatsAndWeights.keySet()) {
+        for (String statName : myDefenderStatsAndWeights.getStatModifierMap().keySet()) {
             defensiveStatSum +=
                     defender.getStats().getStatValue(statName) *
-                            myDefenderStatsAndWeights.get(statName);
+                            myDefenderStatsAndWeights.getStatModifier(statName);
         }
 
         // Creates a normalized (0.0 - 1.0) output based on max possible
@@ -53,12 +54,12 @@ public class CombatAction {
         return netStat;
     }
 
-    public Map<String, Integer> getAttackerOutcomes () {
-        return myAttackerOutcomes;
+    public Map<String, Integer> getAttackerOutcomesMap () {
+        return myAttackerOutcomes.getStatModifierMap();
     }
 
-    public Map<String, Integer> getDefenderOutcomes () {
-        return myDefenderOutcomes;
+    public Map<String, Integer> getDefenderOutcomesMap () {
+        return myDefenderOutcomes.getStatModifierMap();
     }
 
     public Map<String, Integer> getCosts () {
