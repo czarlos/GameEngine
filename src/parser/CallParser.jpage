@@ -1,48 +1,29 @@
-// Initialize parser
+// Not completely sure how to test the parser without dummy classes and I don't want to tie it into an actual game class.
+// If I don't come up with anything, I'll try to make dummy classes/see if JUnit has something like that built in.
+// For now, the parser is working if you run all this code and get "true/false/true"
+
 parser.JSONParser p = new parser.JSONParser();
 
-// Make a new WinCondition object, with 0 conditions needed to win, wc.hasWon() is true
+java.util.ArrayList<engine.WinCondition> wcs = new java.util.ArrayList<engine.WinCondition>();
+
 engine.WinCondition wc = new engine.WinCondition();
-System.out.println(wc.hasWon());
+wc.setConditionsNeeded(0);
+engine.WinCondition wc2 = new engine.WinCondition();
+wc2.setConditionsNeeded(1);
+engine.WinCondition wc3 = new engine.WinCondition();
+wc3.setConditionsNeeded(1);
+engine.PositionCondition pc = new engine.PositionCondition(10, 15);
+pc.addData("x", "10");
+pc.addData("y", "15");
+wc3.addCondition(pc);
 
-// set it so that 1 condition is needed to win, wc.hasWon() is false
-wc.setConditionsNeeded(1);
-System.out.println(wc.hasWon());
+wcs.add(wc);
+wcs.add(wc2);
+wcs.add(wc3);
 
-// turn our WinCondition object into a file winconditions.json
-p.createJSON("winconditions", wc);
+p.createJSON("winconditions", wcs);
+java.util.ArrayList<engine.WinCondition> wcsFromJSON = p.createObject("winconditions", java.util.ArrayList.class);
 
-// Make a WinCondition object from file winconditions.json
-engine.WinCondition wcFromJSON = (engine.WinCondition) p.createObjects("winconditions", engine.WinCondition.class);
-
-// Check to see that wc.hasWon() is still false
-System.out.println(wcFromJSON.hasWon());
-
-//// MORE ADVANCED OBJECT TESTING (Abstract Classes)
-
-// Create a false Condition
-engine.Condition cFalse = new engine.PositionCondition(10,10);
-cFalse.addData("x", "10");
-cFalse.addData("y", "15");
-
-// Add it to WinCondition
-wc.addCondition(cFalse);
-System.out.println(wc.hasWon());
-
-// Create a true Condition
-engine.Condition cTrue = new engine.PositionCondition(10,15);
-cTrue.addData("x", "10");
-cTrue.addData("y", "15");
-
-// Add it to WinCondition
-wc.addCondition(cTrue);
-System.out.println(wc.hasWon());
-
-// Turn our WinCondition object into a file winconditions.json
-p.createJSON("winconditions", wc);
-
-//Make a WinCondition object from file winconditions.json
-engine.WinCondition wcFromJSON2 = (engine.WinCondition) p.createObjects("winconditions", engine.WinCondition.class);
-
-//Check to see that wc.hasWon() is still true
-System.out.println(wcFromJSON2.hasWon());
+for(engine.WinCondition success : wcsFromJSON){
+    System.out.println(success.hasWon());
+}

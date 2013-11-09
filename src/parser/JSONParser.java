@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -18,7 +19,8 @@ public class JSONParser {
 
     public void createJSON (String filename, Object object) {
         try {
-            myMapper.writeValue(new File(filename + ".json"), object);
+            myMapper.writerWithDefaultPrettyPrinter().writeValue(new File("JSONs/" + filename +
+                                                                          ".json"), object);
         }
         catch (JsonGenerationException e) {
             e.printStackTrace();
@@ -31,11 +33,11 @@ public class JSONParser {
         }
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    public Object createObjects (String filename, Class c) {
+    public <T> T createObject (String filename, Class<T> c) {
         try {
-            Object object = myMapper.readValue(new File(filename + ".json"), c);
-            return object;
+            return myMapper.readValue(new File("JSONs/" + filename + ".json"),
+                                      new TypeReference<T>() {
+                                      });
         }
         catch (JsonParseException e) {
             e.printStackTrace();

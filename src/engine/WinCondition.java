@@ -30,7 +30,7 @@ public class WinCondition {
         System.out.println(conditions.size());
     }
 
-    // no conditions = auto-win, but maybe we should make it never-win
+    // TODO: currently no conditions = auto-win, but maybe we should make it never-win
     public boolean hasWon () {
         int count = 0;
         for (Condition c : conditions) {

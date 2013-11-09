@@ -1,0 +1,17 @@
+[ "java.util.ArrayList", [ [ "engine.WinCondition", {
+  "conditionsNeeded" : 0,
+  "conditions" : [ "java.util.ArrayList", [ ] ]
+} ], [ "engine.WinCondition", {
+  "conditionsNeeded" : 1,
+  "conditions" : [ "java.util.ArrayList", [ ] ]
+} ], [ "engine.WinCondition", {
+  "conditionsNeeded" : 1,
+  "conditions" : [ "java.util.ArrayList", [ [ "engine.PositionCondition", {
+    "playersPositionX" : 10,
+    "myData" : [ "java.util.HashMap", {
+      "y" : "15",
+      "x" : "10"
+    } ],
+    "playersPositionY" : 15
+  } ] ] ]
+} ] ] ]
