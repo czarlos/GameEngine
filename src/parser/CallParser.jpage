@@ -1,0 +1,29 @@
+// Not completely sure how to test the parser without dummy classes and I don't want to tie it into an actual game class.
+// If I don't come up with anything, I'll try to make dummy classes/see if JUnit has something like that built in.
+// For now, the parser is working if you run all this code and get "true/false/true"
+
+parser.JSONParser p = new parser.JSONParser();
+
+java.util.ArrayList<engine.WinCondition> wcs = new java.util.ArrayList<engine.WinCondition>();
+
+engine.WinCondition wc = new engine.WinCondition();
+wc.setConditionsNeeded(0);
+engine.WinCondition wc2 = new engine.WinCondition();
+wc2.setConditionsNeeded(1);
+engine.WinCondition wc3 = new engine.WinCondition();
+wc3.setConditionsNeeded(1);
+engine.PositionCondition pc = new engine.PositionCondition(10, 15);
+pc.addData("x", "10");
+pc.addData("y", "15");
+wc3.addCondition(pc);
+
+wcs.add(wc);
+wcs.add(wc2);
+wcs.add(wc3);
+
+p.createJSON("winconditions", wcs);
+java.util.ArrayList<engine.WinCondition> wcsFromJSON = p.createObject("winconditions", java.util.ArrayList.class);
+
+for(engine.WinCondition success : wcsFromJSON){
+    System.out.println(success.hasWon());
+}
