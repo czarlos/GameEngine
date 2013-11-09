@@ -7,12 +7,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 import view.Drawable;
 
-public class Grid implements Drawable{
+
+public class Grid implements Drawable {
     private int myCol;
     private int myRow;
     private Map<Coordinate, Tile> myTileMap;
     private Map<Coordinate, GameObject> myObjects;
-    private Map<Integer, List<GameObject>> myPassStatuses;
+    private Map<Integer, List<GameObject>> myPassStatuses; // TODO: Add pass statuses. 0 = nothing
+                                                           // passes, 1 = everything passes. Put
+                                                           // this map in stage controller?
 
     public Grid (int col, int row) {
         myCol = col;
@@ -80,16 +83,29 @@ public class Grid implements Drawable{
 
     @Override
     public void draw (Graphics g, int x, int y, int width, int height) {
-        int tileWidth=width/myCol;
-        int tileHeight=height/myRow;
-        
-        for(Entry<Coordinate,Tile> entry:myTileMap.entrySet()){
-            Tile tile=entry.getValue();
-            x=entry.getKey().getX();
-            y=entry.getKey().getY();
-            
-            tile.draw(g,x*tileWidth,y*tileHeight,tileWidth,tileHeight);
-            
+        int tileWidth = width / myCol;
+        int tileHeight = height / myRow;
+
+        for (Entry<Coordinate, Tile> entry : myTileMap.entrySet()) {
+            Tile tile = entry.getValue();
+            x = entry.getKey().getX();
+            y = entry.getKey().getY();
+
+            tile.draw(g, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
         }
+
+    }
+
+    public Map<Coordinate, GameUnit> getGameUnits () {
+        Map<Coordinate, GameUnit> gameUnitMap = new HashMap<Coordinate, GameUnit>();
+
+        for (Coordinate coord : myObjects.keySet()) {
+            if (myObjects.get(coord) instanceof GameUnit) {
+                gameUnitMap.put(new Coordinate(coord.getX(), coord.getY()), new GameUnit(myObjects
+                        .get(coord).getName(), myObjects.get(coord).getImagePath()));
+            }
+        }
+
+        return gameUnitMap;
     }
 }

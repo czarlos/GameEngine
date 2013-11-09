@@ -1,16 +1,21 @@
 package grid;
 
 import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.imageio.ImageIO;
+import view.Drawable;
 
 
-public class Tile {
+public class Tile implements Drawable {
     private boolean isActive;
     private Map<String, Double> myStatMods;
-    private String myImagePath;
+    private Image myImage;
     private int myMoveCost;
     private String myName;
     private List<String> passableList;
@@ -18,7 +23,13 @@ public class Tile {
     public Tile () {
         isActive = false;
         myStatMods = new HashMap<String, Double>();
-        myImagePath = "Grass Path"; // TODO: Add in path to grass image
+        try {
+            myImage=ImageIO.read(new File("resources/tile.png"));
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         myMoveCost = 1;
         myName = "Grass";
         passableList = new ArrayList<String>();
@@ -53,12 +64,12 @@ public class Tile {
         myStatMods = statMods;
     }
 
-    public String getImagePath () {
-        return myImagePath;
+    public Image getImagePath () {
+        return myImage;
     }
 
-    public void setImagePath (String imagePath) {
-        myImagePath = imagePath;
+    public void setImagePath (Image image) {
+        myImage = image;
     }
 
     public int getMoveCost () {
@@ -75,5 +86,11 @@ public class Tile {
 
     public void setName (String name) {
         myName = name;
+    }
+
+    @Override
+    public void draw (Graphics g, int x, int y, int width, int height) {
+        // set ImageObserver null. Not needed.
+        g.drawImage(myImage, x, y, width, height, null);
     }
 }
