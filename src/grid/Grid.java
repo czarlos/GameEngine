@@ -1,11 +1,13 @@
 package grid;
 
+import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import view.Drawable;
 
-
-public class Grid {
+public class Grid implements Drawable{
     private int myCol;
     private int myRow;
     private Map<Coordinate, Tile> myTileMap;
@@ -74,5 +76,20 @@ public class Grid {
         }
 
         myTileMap.put(new Coordinate(x, y), newTile);
+    }
+
+    @Override
+    public void draw (Graphics g, int x, int y, int width, int height) {
+        int tileWidth=width/myCol;
+        int tileHeight=height/myRow;
+        
+        for(Entry<Coordinate,Tile> entry:myTileMap.entrySet()){
+            Tile tile=entry.getValue();
+            x=entry.getKey().getX();
+            y=entry.getKey().getY();
+            
+            tile.draw(g,x*tileWidth,y*tileHeight,tileWidth,tileHeight);
+            
+        }
     }
 }
