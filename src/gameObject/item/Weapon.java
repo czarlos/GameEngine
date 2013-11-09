@@ -2,10 +2,7 @@ package gameObject.item;
 
 import action.CombatAction;
 import gameObject.StatModifier;
-import grid.GameUnit;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -29,10 +26,12 @@ public class Weapon extends Equipment {
 
     /**
      * Select action takes in a given action and returns it from the action list.
+     * 
      * @param action
      * @return
      */
     public CombatAction selectAction (CombatAction action) {
+
         for (CombatAction a : myActionList) {
             if (a.equals(action)) { return a; }
         }

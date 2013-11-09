@@ -5,6 +5,7 @@ import gameObject.Stat;
 import gameObject.item.Items;
 import gameObject.item.Weapon;
 import java.util.List;
+import action.CombatAction;
 
 
 /**
@@ -20,19 +21,24 @@ public class GameUnit extends GameObject {
     private List<Items> myItemsList;
     private Stat myUnitStats;
     private String myAffiliation;
-    private Items myActiveWeapon;
+    private Weapon myActiveWeapon;
+
+    // Properties (these can be moved/changed/eliminated)
+    private double myHealth;
 
     public GameUnit (String name,
                      String imagePath,
                      String affiliation,
                      Stat stats,
                      List<Items> items,
-                     boolean controllable) {
+                     boolean controllable,
+                     int health) {
         super(name, imagePath);
         myAffiliation = affiliation;
         myUnitStats = stats;
         myItemsList = items;
         isControllable = controllable;
+        myHealth = health;
     }
 
     /**
@@ -57,9 +63,20 @@ public class GameUnit extends GameObject {
     public void selectWeapon (String weaponName) {
         for (Items item : myItemsList) {
             if (item.getName().equals(weaponName)) {
-                myActiveWeapon = item;
+                myActiveWeapon = (Weapon) item;
             }
         }
+    }
+
+    /**
+     * Selects an action from the current active weapon and executes the
+     * function of that action.
+     * 
+     * @param actionName
+     */
+    public void doAction (CombatAction action, GameUnit other) {
+        CombatAction selectedAction = myActiveWeapon.selectAction(action);
+        selectedAction.execute(this, other);
     }
 
     public Stat getStats () {
@@ -96,7 +113,15 @@ public class GameUnit extends GameObject {
     }
 
     public void setActiveWeapon (Items myActiveItem) {
-        this.myActiveWeapon = myActiveItem;
+        this.myActiveWeapon = (Weapon) myActiveItem;
+    }
+
+    public double getHealth () {
+        return myHealth;
+    }
+
+    public void setHealth (double d) {
+        this.myHealth = d;
     }
 
 }

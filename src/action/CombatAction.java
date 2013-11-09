@@ -54,6 +54,16 @@ public class CombatAction {
         return netStat;
     }
 
+    /**
+     * Executes this action, and lowers the health of the defender based
+     * on how much damage was done.
+     */
+    public void execute (GameUnit attacker, GameUnit defender) {
+        double effectiveness = getNetEffectiveness(attacker, defender);
+        double damage = defender.getHealth() * effectiveness;
+        defender.setHealth(defender.getHealth() - damage);
+    }
+
     public Map<String, Integer> getAttackerOutcomesMap () {
         return myAttackerOutcomes.getStatModifierMap();
     }
@@ -69,4 +79,5 @@ public class CombatAction {
     public List<Coordinate> getAOE () {
         return myAOE;
     }
+
 }
