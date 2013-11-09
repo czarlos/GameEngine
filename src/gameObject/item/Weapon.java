@@ -1,6 +1,7 @@
 package gameObject.item;
 
 import action.CombatAction;
+import gameObject.StatModifier;
 import grid.GameUnit;
 import java.util.HashMap;
 import java.util.List;
@@ -18,26 +19,16 @@ import java.util.Map;
  * 
  */
 public class Weapon extends Equipment {
-    private Map<String, Integer> myStatMap = new HashMap<String, Integer>();
     private List<CombatAction> myActionList;
 
-    public Weapon (String name, List<CombatAction> actionList, Map<String, Integer> statMap) {
+    public Weapon (String name, List<CombatAction> actionList, StatModifier modifiers) {
         super.setName(name);
-        myStatMap = statMap;
+        super.setModifier(modifiers);
         myActionList = actionList;
-    }
-
-    @Override
-    public void statEffect (GameUnit unit) {
-        for (String statName : myStatMap.keySet()) {
-            int modifiedValue = getModifiers().getStatModifier(statName) + myStatMap.get(statName);
-            unit.getUnitStats().setStatValue(statName, modifiedValue);
-        }
     }
 
     /**
      * Select action takes in a given action and returns it from the action list.
-     * 
      * @param action
      * @return
      */
