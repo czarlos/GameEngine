@@ -3,6 +3,7 @@ package dialog;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -41,7 +42,7 @@ public class UnitTableModel extends AbstractTableModel{
      * @param affiliation
      * @return added definition array CLONE
      */
-    public Object[] addNewUnit(String type, String name, Image img, StatsTestStub stats,
+    public Object[] addNewUnit(String type, String name, ImageIcon img, StatsTestStub stats,
                           ArrayList<ActionTestStub> actionList, String affiliation){
         
         Object[] rowToAdd = {type, name, img, stats, actionList, affiliation};

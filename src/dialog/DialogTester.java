@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
@@ -28,18 +29,21 @@ public class DialogTester {
         UnitTableModel model = new UnitTableModel();
         
         BufferedImage img = null;
+        ImageIcon icon = new ImageIcon();
         try {
             img = ImageIO.read(new File("src/dialog/doge.png"));
+            icon = new ImageIcon(img);
         } catch (IOException e) {
             System.out.println(e);
             
         }
         
+        
         ArrayList<ActionTestStub> actionList = new ArrayList<ActionTestStub>();
         actionList.add(new ActionTestStub());
                 
         
-        model.addNewUnit("Soldier", "Luke", img, new StatsTestStub(), new ArrayList<ActionTestStub>(), "offense");
+        model.addNewUnit("Soldier", "Luke", icon, new StatsTestStub(), new ArrayList<ActionTestStub>(), "offense");
 
         //Create and set up the content pane.
         JComponent newContentPane = new UnitEditorPanel(model);
