@@ -3,8 +3,11 @@ package dialog;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
+import javax.swing.JDialog;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
@@ -17,25 +20,43 @@ import javax.swing.table.TableCellEditor;
 public class ImageEditor extends AbstractCellEditor
                          implements TableCellEditor, ActionListener{
     
+    BufferedImage currentImage;
     JButton button;
+    ImageCreator imageCreator; // to be replaced with image editor dialog
+    JDialog dialog; // image editor dialog
+    protected static final String EDIT = "edit";
+
     
     public ImageEditor () {
         button = new JButton();
         button.setActionCommand("edit");
         button.addActionListener(this);
         button.setBorderPainted(false);
+        
+        imageCreator = new ImageCreator();
+        dialog = ImageCreator.createDialog(button,
+                                        "Pick a Color",
+                                        true,  //modal
+                                        imageCreator,
+                                        this,  // this class handles OK button selection
+                                        null); // nothing happens when 'cancel' is selected
     }
 
     @Override
     public Object getCellEditorValue () {
-        // TODO Auto-generated method stub
-        return null;
+        return currentImage;
     }
 
     @Override
-    public void actionPerformed (ActionEvent arg0) {
-        // TODO Auto-generated method stub
-        
+    public void actionPerformed (ActionEvent e) {
+        if (EDIT.equals(e.getActionCommand())) {
+            //The user has clicked the cell, so
+            //bring up the dialog.
+            dialog.setVisible(true);
+
+            //Make the renderer reappear.
+            fireEditingStopped();
+        }
     }
 
     @Override
@@ -44,8 +65,7 @@ public class ImageEditor extends AbstractCellEditor
                                                   boolean arg2,
                                                   int arg3,
                                                   int arg4) {
-        // TODO Auto-generated method stub
-        return null;
+        return button;
     }
 
 }
