@@ -33,7 +33,7 @@ public class UnitEditorPanel extends JPanel{
                                  new ThumbnailRenderer());
         table.setDefaultEditor(ImageIcon.class,
                                new ImageEditor());
-        
+        table.setRowHeight(52);
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
         table.setFillsViewportHeight(true);
         

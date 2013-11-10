@@ -17,6 +17,7 @@ public class DrawingPad extends JComponent{
     int currentX, currentY, oldX, oldY;
 
     public DrawingPad(){
+        
             setDoubleBuffered(false);
             addMouseListener(new MouseAdapter(){
                     public void mousePressed(MouseEvent e){
