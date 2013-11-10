@@ -47,7 +47,23 @@ public class Grid implements Drawable {
 
         return null;
     }
+    
+    /**
+     * Gets the number of columns that currently make up a row
+     * @return Number of columns in grid instance.
+     */
+    public int getNumColumns(){
+        return myCol;
+    }
 
+    /**
+     * Gets the number of rows that currently make up a row
+     * @return Number of rows in grid instance.
+     */
+    public int getNumRows(){
+        return myRow;
+    }
+    
     public void placeObject (GameObject newObject, int x, int y) {
         // TODO: Generic method?
         for (Coordinate coord : myObjects.keySet()) {
