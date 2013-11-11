@@ -9,8 +9,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-
 
 public class GridCanvas extends Canvas {
     Grid myGrid;
