@@ -9,22 +9,22 @@ import grid.FromJSONFactory;
 import grid.Grid;
 import grid.Tile;
 
-public class StageController {
+public class WorldManager {
 
     List<Stage> myStages;
     Stage myActiveStage;
     Grid myGrid;
     FromJSONFactory myFactory;
     
-    public StageController (int x, int y) {
+    public WorldManager (int tileID, int x, int y) {
         myStages = new ArrayList<Stage>();
-        setActiveStage(addStage(x,y));
+        setActiveStage(addStage(x,y, tileID));
         myFactory = new FromJSONFactory();
     }
     
     // returns Stage ID
-    public int addStage(int x, int y){
-        myStages.add(new Stage(x,y));
+    public int addStage(int tileID, int x, int y){
+        myStages.add(new Stage(x,y, tileID));
         return myStages.size()-1;
     }
     
@@ -67,6 +67,7 @@ public class StageController {
     }
     
     // EDITING DEFAULTS/CUSTOMIZING (with JSON)
+    
     // add new objects
     // read objects
     // edit objects

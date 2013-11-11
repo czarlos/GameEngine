@@ -34,31 +34,31 @@ public class Grid implements Drawable {
      * @param width - int of number of columns of tiles
      * @param height - int of number of rows of tiles
      */
-    public Grid (int width, int height) {
+    public Grid (int width, int height, int tileID) {
         myWidth = width;
         myHeight = height;
         myTileMap = new HashMap<Coordinate, Tile>();
         myObjects = new HashMap<Coordinate, GameObject>();
         myPassStatuses = new HashMap<Integer, List<GameObject>>();
         myTileFactory = new FromJSONFactory();
-        initGrid();
+        initGrid(tileID);
     }
 
     /**
      * Sets up default grid with tiles and objects
      */
-    private void initGrid () {
-        initTiles();
+    private void initGrid (int tileID) {
+        initTiles(tileID);
         testInitObjects();
     }
 
     /**
      * Creates default tiles for grid
      */
-    private void initTiles () {
+    private void initTiles (int tileID) {
         for (int i = 0; i < myWidth; i++) {
             for (int j = 0; j < myHeight; j++) {
-                myTileMap.put(new Coordinate(i, j), (Tile) myTileFactory.make("tile", 1));
+                myTileMap.put(new Coordinate(i, j), (Tile) myTileFactory.make("tile", tileID));
             }
         }
     }

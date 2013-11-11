@@ -20,8 +20,8 @@ public class Stage {
     private WinCondition myWinCondition;
     private Stat myMasterStats;
 
-    public Stage (int x, int y) {
-        myGrid = new Grid(x, y);
+    public Stage (int x, int y, int tileID) {
+        myGrid = new Grid(x, y, tileID);
         run();
     }
 
