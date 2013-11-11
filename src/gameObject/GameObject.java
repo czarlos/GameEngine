@@ -1,5 +1,6 @@
-package grid;
+package gameObject;
 
+import grid.GridConstants;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;

@@ -1,6 +1,7 @@
 package grid;
 
 import java.awt.Color;
+import gameObject.GameObject;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
