@@ -25,6 +25,7 @@ public class GameUnit extends GameObject {
 
     /**
      * default. currently using for testing
+     * eventually put on data sheet JSON and pull from there
      */
     public GameUnit () {
         myName = GridConstants.DEFAULT_UNIT_NAME;
@@ -32,7 +33,6 @@ public class GameUnit extends GameObject {
         myAffiliation = "test";
         myUnitStats = new Stat() {{makeStat("movement", 2);}};
     }
-    
     
     public GameUnit (String name,
                      String imagePath,
