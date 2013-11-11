@@ -20,10 +20,14 @@ public class Stage {
     private WinCondition myWinCondition;
     private Stat myMasterStats;
 
-    public Stage () {
+    public Stage (int x, int y) {
+        myGrid = new Grid(x, y);
         run();
     }
 
+    public Grid getGrid(){
+        return myGrid;
+    }
     /**
      * 
      */

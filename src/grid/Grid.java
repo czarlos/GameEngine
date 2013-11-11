@@ -265,7 +265,7 @@ public class Grid implements Drawable {
         }
 
     }
-
+    
     public Map<GameUnit, Coordinate> getGameUnits () {
         Map<GameUnit, Coordinate> gameUnitMap = new HashMap<GameUnit, Coordinate>();
 

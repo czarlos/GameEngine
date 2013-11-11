@@ -79,7 +79,7 @@ public class Tile implements Drawable {
         myImagePath = imagePath;
     }
 
-    private Image getImage () {
+    public Image getImage () {
         try {
             return ImageIO.read(new File(myImagePath));
         }
