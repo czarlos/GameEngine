@@ -10,9 +10,7 @@ import javax.swing.JFrame;
 
 public class GridCanvas extends Canvas {
     Grid myGrid;
-    /**
-	 * 
-	 */
+
     private static final long serialVersionUID = -3908147776463294489L;
 
     public GridCanvas (Grid grid) {

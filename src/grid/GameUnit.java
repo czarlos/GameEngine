@@ -2,13 +2,13 @@ package grid;
 
 import gameObject.Items;
 import gameObject.Stats;
+import java.awt.Image;
 import java.util.List;
 
 
 public class GameUnit extends GameObject {
-    public GameUnit (String name, String imagePath) {
-        super(name, imagePath);
-        // TODO Auto-generated constructor stub
+    public GameUnit (String name, Image image) {
+        super(name);
     }
 
     private boolean myControllable;

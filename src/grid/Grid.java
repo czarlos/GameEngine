@@ -90,8 +90,15 @@ public class Grid implements Drawable {
             Tile tile = entry.getValue();
             x = entry.getKey().getX();
             y = entry.getKey().getY();
-
             tile.draw(g, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+        }
+        
+        for (Entry<Coordinate, GameObject> entry : myObjects.entrySet()) {
+            GameObject gameObject = entry.getValue();
+            x = entry.getKey().getX();
+            y = entry.getKey().getY();
+
+            gameObject.draw(g, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
         }
 
     }
@@ -102,7 +109,7 @@ public class Grid implements Drawable {
         for (Coordinate coord : myObjects.keySet()) {
             if (myObjects.get(coord) instanceof GameUnit) {
                 gameUnitMap.put(new Coordinate(coord.getX(), coord.getY()), new GameUnit(myObjects
-                        .get(coord).getName(), myObjects.get(coord).getImagePath()));
+                        .get(coord).getName(), myObjects.get(coord).getImage()));
             }
         }
 
