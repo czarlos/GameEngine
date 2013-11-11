@@ -1,5 +1,7 @@
 package grid;
-
+ 
+import gameObject.GameObject;
+import gameObject.item.Properties;
 import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.List;
@@ -102,7 +104,7 @@ public class Grid implements Drawable {
         for (Coordinate coord : myObjects.keySet()) {
             if (myObjects.get(coord) instanceof GameUnit) {
                 gameUnitMap.put(new Coordinate(coord.getX(), coord.getY()), new GameUnit(myObjects
-                        .get(coord).getName(), myObjects.get(coord).getImagePath()));
+                        .get(coord).getName(), myObjects.get(coord).getImagePath(), null, null, null, false, new Properties(myCol, myCol)));
             }
         }
 

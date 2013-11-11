@@ -3,18 +3,18 @@ package gameObject;
 import java.util.Map;
 
 
-public class Stats {
+public class Stat {
     private Map<String, Integer> myStatList;
 
-    public Stats () {
+    public Stat () {
 
     }
 
-    public Integer getStat (String statName) {
+    public Integer getStatValue (String statName) {
         return myStatList.get(statName);
     }
 
-    public void setStat (String statName, Integer value) {
+    public void setStatValue (String statName, Integer value) {
         if (myStatList.containsKey(statName)) {
             myStatList.put(statName, value);
         }
