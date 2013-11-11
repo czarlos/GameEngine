@@ -35,10 +35,6 @@ public class Tile implements Drawable {
         passableList = new ArrayList<String>();
     }
 
-    public void paint (Graphics g) {
-        // TODO
-    }
-
     public boolean isPassable (GameObject unit) {
         // TODO: Want to let player pass through affiliated units
         for (String object : passableList) {
