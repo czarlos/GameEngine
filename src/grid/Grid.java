@@ -9,17 +9,17 @@ import view.Drawable;
 
 
 public class Grid implements Drawable {
-    private int myCol;
-    private int myRow;
+    private int myWidth;
+    private int myHeight;
     private Map<Coordinate, Tile> myTileMap;
     private Map<Coordinate, GameObject> myObjects;
     private Map<Integer, List<GameObject>> myPassStatuses; // TODO: Add pass statuses. 0 = nothing
                                                            // passes, 1 = everything passes. Put
                                                            // this map in stage controller?
 
-    public Grid (int col, int row) {
-        myCol = col;
-        myRow = row;
+    public Grid (int width, int height) {
+        myWidth = width;
+        myHeight = height;
         myTileMap = new HashMap<Coordinate, Tile>();
         myObjects = new HashMap<Coordinate, GameObject>();
         myPassStatuses = new HashMap<Integer, List<GameObject>>();
@@ -29,14 +29,19 @@ public class Grid implements Drawable {
 
     private void initGrid () {
         initTiles();
+        initObjects();
     }
 
     private void initTiles () {
-        for (int i = 0; i < myCol; i++) {
-            for (int j = 0; j < myRow; j++) {
+        for (int i = 0; i < myWidth; i++) {
+            for (int j = 0; j < myHeight; j++) {
                 myTileMap.put(new Coordinate(i, j), new Tile());
             }
         }
+    }
+    
+    private void initObjects() {
+        myObjects.put(new Coordinate(3, 5),  new GameObject());
     }
 
     public GameObject getObject (int x, int y) {
@@ -83,8 +88,8 @@ public class Grid implements Drawable {
 
     @Override
     public void draw (Graphics g, int x, int y, int width, int height) {
-        int tileWidth = width / myCol;
-        int tileHeight = height / myRow;
+        int tileWidth = width / myWidth;
+        int tileHeight = height / myHeight;
 
         for (Entry<Coordinate, Tile> entry : myTileMap.entrySet()) {
             Tile tile = entry.getValue();
@@ -93,6 +98,7 @@ public class Grid implements Drawable {
             tile.draw(g, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
         }
         
+        // TODO: dupe for tile and object. generic
         for (Entry<Coordinate, GameObject> entry : myObjects.entrySet()) {
             GameObject gameObject = entry.getValue();
             x = entry.getKey().getX();
@@ -103,13 +109,12 @@ public class Grid implements Drawable {
 
     }
 
-    public Map<Coordinate, GameUnit> getGameUnits () {
-        Map<Coordinate, GameUnit> gameUnitMap = new HashMap<Coordinate, GameUnit>();
+    public Map<GameUnit, Coordinate> getGameUnits () {
+        Map<GameUnit, Coordinate> gameUnitMap = new HashMap<GameUnit, Coordinate>();
 
         for (Coordinate coord : myObjects.keySet()) {
             if (myObjects.get(coord) instanceof GameUnit) {
-                gameUnitMap.put(new Coordinate(coord.getX(), coord.getY()), new GameUnit(myObjects
-                        .get(coord).getName(), myObjects.get(coord).getImage()));
+                gameUnitMap.put((GameUnit) myObjects.get(coord), coord);
             }
         }
 

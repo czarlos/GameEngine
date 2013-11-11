@@ -7,8 +7,8 @@ import java.util.List;
 
 
 public class GameUnit extends GameObject {
-    public GameUnit (String name, Image image) {
-        super(name);
+    public GameUnit () {
+        super();
     }
 
     private boolean myControllable;

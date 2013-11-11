@@ -12,17 +12,22 @@ public class GameObject implements Drawable {
     private String myName;
     private Image myImage;
 
-    public GameObject (String name) {
+    public GameObject () {
+        myName = GridConstants.DEFAULT_OBJECT_NAME;
+        setImage(GridConstants.DEFAULT_OBJECT_PATH);
+    }
+    
+    public GameObject (String name, String imagePath) {
         myName = name;
-        try {
-            myImage=ImageIO.read(new File("resources/tile.png"));
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        setImage(imagePath);
     }
 
+    @Override
+    public void draw (Graphics g, int x, int y, int width, int height) {
+        // set ImageObserver null. Not needed.
+        g.drawImage(myImage, x, y, width, height, null);
+    }
+    
     public String getName () {
         return myName;
     }
@@ -35,13 +40,13 @@ public class GameObject implements Drawable {
         return myImage;
     }
 
-    public void setImage (Image image) {
-        myImage = image;
+    public void setImage (String imagePath) {
+        try {
+            myImage=ImageIO.read(new File(imagePath));
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    
-    @Override
-    public void draw (Graphics g, int x, int y, int width, int height) {
-        // set ImageObserver null. Not needed.
-        g.drawImage(myImage, x, y, width, height, null);
-    }
+
 }

@@ -4,7 +4,7 @@ public class ToggleableObject extends GameObject {
     GameObject myNextState;
 
     public ToggleableObject (String name, String imagePath, GameObject nextState) {
-        super(name);
+        super();
         myNextState = nextState;
     }
 
