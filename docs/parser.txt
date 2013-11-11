@@ -15,7 +15,7 @@ To create object from JSON:
       - Will read from JSON file "JSONs/FILENAME.json" and return an object of type whatever CLASS is
       - Works with ALL Java types (as far as I've tested), so to efficiently store/load multiple objects (like default characters), just group them into a collection/list/map/whatever and then serialize/deserialize that.
       
-   --ex. WinCondition wc = (WinCondition) p.createObject("winconditions", WinCondition.class);
+   --ex. WinCondition wc = p.createObject("winconditions", WinCondition.class);
    
 Annotations for objects that will be serialized (turned into JSON):
    - @JsonAutoDetect goes above the class declaration
@@ -25,3 +25,4 @@ Annotations for objects that will be serialized (turned into JSON):
       - a constructor with parameters annotated with @JsonProperty("VARIABLEKEYNAME") before each parameter
       
    --ex. See "PositionCondition" object
+      https://github.com/duke-compsci308-fall2013/oogasalad_OMEGA_NU/blob/dev/src/engine/PositionCondition.java
