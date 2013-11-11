@@ -31,7 +31,7 @@ public class GameUnit extends GameObject {
         myName = GridConstants.DEFAULT_UNIT_NAME;
         setImage(GridConstants.DEFAULT_UNIT_PATH);
         myAffiliation = "test";
-        myUnitStats = new Stat() {{makeStat("movement", 2);}};
+        myUnitStats = new Stat() {{makeStat("movement", 3);}};
     }
     
     public GameUnit (String name,
@@ -88,6 +88,11 @@ public class GameUnit extends GameObject {
         selectedAction.execute(this, other);
     }
 
+    @Override
+    public boolean isPassable (GameObject unit) {
+        return super.isPassable(unit) || ((GameUnit) unit).getAffiliation().equals(myAffiliation);
+    }
+    
     public Stat getStats () {
         return myUnitStats;
     }

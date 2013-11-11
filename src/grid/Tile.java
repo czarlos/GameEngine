@@ -48,6 +48,14 @@ public class Tile implements Drawable {
 
         return false;
     }
+    
+    public void addPassable (String passable) {
+        myPassableList.add(passable);
+    }
+    
+    public List<String> getPassableList () {
+        return myPassableList;
+    }
 
     @Override
     public void draw (Graphics g, int x, int y, int width, int height) {

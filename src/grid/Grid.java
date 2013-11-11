@@ -42,9 +42,38 @@ public class Grid implements Drawable {
         }
     }
     
-    private void testInitObjects() {
+    private void testInitObjects () {
         myObjects.put(new Coordinate(3, 5),  new GameObject());
-        myObjects.put(new Coordinate(6, 3), new GameUnit());
+        GameUnit link = new GameUnit();
+        myObjects.put(new Coordinate(6, 3), link);
+        findMovementRange(new Coordinate(6, 3), link.getStats().getStatValue("movement"), link);
+    }
+    
+    private void findMovementRange (Coordinate coordinate, int range, GameObject gameObject) {
+        int[] rdelta = {-1, 0, 0, 1};
+        int[] cdelta = {0, -1, 1, 0};
+        
+        for (int i=0; i < rdelta.length; i++) {
+            int newX = coordinate.getX() + cdelta[i];
+            int newY = coordinate.getY() + rdelta[i];
+            if (onGrid(newX, newY)) {
+                Tile currTile = getTile(newX, newY);
+                int newRange = range - currTile.getMoveCost();
+                GameObject currObject = getObject(newX, newY);
+                if (currObject != null && currObject.isPassable(gameObject)) {
+                    findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
+                }
+                else if (newRange >= 0 ) {
+                    currTile.setActive(true);
+                    findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
+                }
+            }
+        }
+        
+    }
+    
+    private boolean onGrid (int x, int y) {
+        return (0 <= x && x < myWidth && 0 <= y && y < myHeight);
     }
 
     public GameObject getObject (int x, int y) {
