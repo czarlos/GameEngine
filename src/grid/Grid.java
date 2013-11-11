@@ -31,7 +31,7 @@ public class Grid implements Drawable {
 
     private void initGrid () {
         initTiles();
-        initObjects();
+        testInitObjects();
     }
 
     private void initTiles () {
@@ -42,8 +42,9 @@ public class Grid implements Drawable {
         }
     }
     
-    private void initObjects() {
+    private void testInitObjects() {
         myObjects.put(new Coordinate(3, 5),  new GameObject());
+        myObjects.put(new Coordinate(6, 3), new GameUnit());
     }
 
     public GameObject getObject (int x, int y) {

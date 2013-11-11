@@ -1,5 +1,6 @@
 package gameObject;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -7,7 +8,7 @@ public class Stat {
     private Map<String, Integer> myStatList;
 
     public Stat () {
-
+        myStatList = new HashMap<String, Integer>();
     }
 
     public Integer getStatValue (String statName) {

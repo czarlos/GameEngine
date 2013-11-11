@@ -1,8 +1,7 @@
 package gameObject;
 
-import java.awt.Image;
-import gameObject.*;
 import gameObject.item.*;
+import grid.GridConstants;
 import java.util.List;
 import action.CombatAction;
 
@@ -24,6 +23,17 @@ public class GameUnit extends GameObject {
     private Weapon myActiveWeapon;
     private Properties myProperties;
 
+    /**
+     * default. currently using for testing
+     */
+    public GameUnit () {
+        myName = GridConstants.DEFAULT_UNIT_NAME;
+        setImage(GridConstants.DEFAULT_UNIT_PATH);
+        myAffiliation = "test";
+        myUnitStats = new Stat() {{makeStat("movement", 2);}};
+    }
+    
+    
     public GameUnit (String name,
                      String imagePath,
                      String affiliation,

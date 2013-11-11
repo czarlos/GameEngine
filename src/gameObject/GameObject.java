@@ -10,8 +10,8 @@ import view.Drawable;
 
 
 public class GameObject implements Drawable {
-    private String myName;
-    private Image myImage;
+    protected String myName;
+    protected Image myImage;
 
     public GameObject () {
         myName = GridConstants.DEFAULT_OBJECT_NAME;
