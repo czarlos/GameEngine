@@ -19,10 +19,16 @@ To create object from JSON:
    
 Annotations for objects that will be serialized (turned into JSON):
    - @JsonAutoDetect goes above the class declaration
-   - @JsonProperty goes above things you want to store (just instance variables, I hope)
+   - @JsonProperty goes above instance variables you want to store that don't have clear getters/setters (JsonAutoDetect will automatically serialize variables returned in methods that start with "get" and deserialize with methods that start with "set")
    - Your class needs EITHER
       - a constructor with no parameters (easy, since all your data is loaded in anyways)
       - a constructor with parameters annotated with @JsonProperty("VARIABLEKEYNAME") before each parameter
       
    --ex. See "PositionCondition" object
       https://github.com/duke-compsci308-fall2013/oogasalad_OMEGA_NU/blob/dev/src/engine/PositionCondition.java
+      
+To make default json files:
+   1) Go to the CallParser.jpage scrapbook page.
+   2) If there hasn't already been a default json file created copy/paste and reuse code from previous file creations
+   3) Ctrl(Cmd) + U to run only the code for your file
+   4) Leave all code in case somebody wants to add/edit defaults

@@ -1,5 +1,5 @@
 package grid;
- 
+
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import java.awt.Graphics;
@@ -18,6 +18,7 @@ public class Grid implements Drawable {
     private Map<Integer, List<GameObject>> myPassStatuses; // TODO: Add pass statuses. 0 = nothing
                                                            // passes, 1 = everything passes. Put
                                                            // this map in stage controller?
+    private FromJSONFactory myTileFactory;
 
     public Grid (int width, int height) {
         myWidth = width;
@@ -25,7 +26,7 @@ public class Grid implements Drawable {
         myTileMap = new HashMap<Coordinate, Tile>();
         myObjects = new HashMap<Coordinate, GameObject>();
         myPassStatuses = new HashMap<Integer, List<GameObject>>();
-
+        myTileFactory = new FromJSONFactory();
         initGrid();
     }
 
@@ -37,23 +38,23 @@ public class Grid implements Drawable {
     private void initTiles () {
         for (int i = 0; i < myWidth; i++) {
             for (int j = 0; j < myHeight; j++) {
-                myTileMap.put(new Coordinate(i, j), new Tile());
+                myTileMap.put(new Coordinate(i, j), (Tile) myTileFactory.make("tile", 1));
             }
         }
     }
-    
+
     private void testInitObjects () {
-        myObjects.put(new Coordinate(3, 5),  new GameObject());
+        myObjects.put(new Coordinate(3, 5), new GameObject());
         GameUnit link = new GameUnit();
         myObjects.put(new Coordinate(6, 3), link);
         findMovementRange(new Coordinate(6, 3), link.getStats().getStatValue("movement"), link);
     }
-    
+
     private void findMovementRange (Coordinate coordinate, int range, GameObject gameObject) {
-        int[] rdelta = {-1, 0, 0, 1};
-        int[] cdelta = {0, -1, 1, 0};
-        
-        for (int i=0; i < rdelta.length; i++) {
+        int[] rdelta = { -1, 0, 0, 1 };
+        int[] cdelta = { 0, -1, 1, 0 };
+
+        for (int i = 0; i < rdelta.length; i++) {
             int newX = coordinate.getX() + cdelta[i];
             int newY = coordinate.getY() + rdelta[i];
             if (onGrid(newX, newY)) {
@@ -63,15 +64,15 @@ public class Grid implements Drawable {
                 if (currObject != null && currObject.isPassable(gameObject)) {
                     findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
                 }
-                else if (newRange >= 0 ) {
+                else if (newRange >= 0) {
                     currTile.setActive(true);
                     findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
                 }
             }
         }
-        
+
     }
-    
+
     private boolean onGrid (int x, int y) {
         return (0 <= x && x < myWidth && 0 <= y && y < myHeight);
     }
@@ -129,7 +130,7 @@ public class Grid implements Drawable {
             y = entry.getKey().getY();
             tile.draw(g, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
         }
-        
+
         // TODO: dupe for tile and object. generic
         for (Entry<Coordinate, GameObject> entry : myObjects.entrySet()) {
             GameObject gameObject = entry.getValue();
