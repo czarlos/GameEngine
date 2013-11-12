@@ -5,11 +5,12 @@
       "conditionsNeeded" : 0,
       "conditions" : [ "java.util.ArrayList", [ ] ]
     } ],
+    "name" : "stageOne",
     "grid" : [ "grid.Grid", {
       "myWidth" : 10,
       "myHeight" : 10,
       "myTileMap" : [ "java.util.HashMap", {
-        "grid.Coordinate@6e65603b" : [ "grid.Tile", {
+        "grid.Coordinate@690e1883" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -20,7 +21,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@6ff7b082" : [ "grid.Tile", {
+        "grid.Coordinate@2f5b6cc8" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -31,7 +32,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@2a35606a" : [ "grid.Tile", {
+        "grid.Coordinate@2bdf7750" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -42,7 +43,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@4ab0342e" : [ "grid.Tile", {
+        "grid.Coordinate@1280ecfd" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -53,7 +54,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@1afdd9ed" : [ "grid.Tile", {
+        "grid.Coordinate@2e1ddadc" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -64,7 +65,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@2d726d05" : [ "grid.Tile", {
+        "grid.Coordinate@1c2ce9f9" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -75,7 +76,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@8af80c6" : [ "grid.Tile", {
+        "grid.Coordinate@511dd546" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -86,7 +87,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@83800b5" : [ "grid.Tile", {
+        "grid.Coordinate@fed6a53" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -97,7 +98,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@47ca0b84" : [ "grid.Tile", {
+        "grid.Coordinate@65644dee" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -108,7 +109,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@38d2c6bd" : [ "grid.Tile", {
+        "grid.Coordinate@4981de30" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -119,7 +120,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@6fb08b78" : [ "grid.Tile", {
+        "grid.Coordinate@3ef6fd93" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -130,7 +131,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@6a2e7136" : [ "grid.Tile", {
+        "grid.Coordinate@7f90f46a" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -141,7 +142,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@14186330" : [ "grid.Tile", {
+        "grid.Coordinate@5d2572b8" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -152,7 +153,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@7ef699fc" : [ "grid.Tile", {
+        "grid.Coordinate@72b32c3e" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -163,7 +164,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@12411884" : [ "grid.Tile", {
+        "grid.Coordinate@4e048dc6" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -174,7 +175,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@17c6f9c5" : [ "grid.Tile", {
+        "grid.Coordinate@3bf0a35a" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -185,18 +186,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@777da320" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : true,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@7facb06d" : [ "grid.Tile", {
+        "grid.Coordinate@1e4f430f" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -207,7 +197,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@77a94411" : [ "grid.Tile", {
+        "grid.Coordinate@7d9d1044" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -218,7 +208,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@75d0d70a" : [ "grid.Tile", {
+        "grid.Coordinate@9376005" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -229,7 +219,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@21ba2bee" : [ "grid.Tile", {
+        "grid.Coordinate@65bb9d54" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -240,7 +230,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@5fa01e33" : [ "grid.Tile", {
+        "grid.Coordinate@5d39a1e2" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -251,7 +241,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@3f5fff9c" : [ "grid.Tile", {
+        "grid.Coordinate@529720c9" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -262,7 +252,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@43fa92cf" : [ "grid.Tile", {
+        "grid.Coordinate@6182d333" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -273,7 +263,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@30fe5ac" : [ "grid.Tile", {
+        "grid.Coordinate@51f35aea" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -284,7 +274,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@33437177" : [ "grid.Tile", {
+        "grid.Coordinate@2ae099cb" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -295,7 +285,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@29427773" : [ "grid.Tile", {
+        "grid.Coordinate@12dace3b" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -306,7 +296,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@15f5bf70" : [ "grid.Tile", {
+        "grid.Coordinate@5c123bb0" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -317,7 +307,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@23965883" : [ "grid.Tile", {
+        "grid.Coordinate@67a9cb9d" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -328,7 +318,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@459a278e" : [ "grid.Tile", {
+        "grid.Coordinate@4b38117e" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -339,7 +329,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@20836bc5" : [ "grid.Tile", {
+        "grid.Coordinate@39d141a0" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -350,7 +340,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@7acdff36" : [ "grid.Tile", {
+        "grid.Coordinate@4fa7b2bf" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -361,7 +351,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@74f508b9" : [ "grid.Tile", {
+        "grid.Coordinate@ac84274" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -372,7 +362,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@643c1156" : [ "grid.Tile", {
+        "grid.Coordinate@329a44d8" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -383,7 +373,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@3a2f4b9e" : [ "grid.Tile", {
+        "grid.Coordinate@5e402aaa" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -394,7 +384,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@26cf1128" : [ "grid.Tile", {
+        "grid.Coordinate@3c76e596" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -405,7 +395,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@e9e1e25" : [ "grid.Tile", {
+        "grid.Coordinate@3a37f44d" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -416,7 +406,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@43b17f94" : [ "grid.Tile", {
+        "grid.Coordinate@7039bb6d" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -427,7 +417,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@4190fa1c" : [ "grid.Tile", {
+        "grid.Coordinate@25591d82" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -438,7 +428,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@10ce55ec" : [ "grid.Tile", {
+        "grid.Coordinate@1c9549f2" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -449,7 +439,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@770d8fe9" : [ "grid.Tile", {
+        "grid.Coordinate@7cbc11d" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -460,7 +450,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@1e4e8204" : [ "grid.Tile", {
+        "grid.Coordinate@3fe9967b" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -471,7 +461,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@ac7c70c" : [ "grid.Tile", {
+        "grid.Coordinate@6a826bd1" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -482,7 +472,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@2d740e2c" : [ "grid.Tile", {
+        "grid.Coordinate@78561bc6" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -493,7 +483,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@2c2dfeb3" : [ "grid.Tile", {
+        "grid.Coordinate@c0cdd62" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -504,7 +494,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@3a2ef044" : [ "grid.Tile", {
+        "grid.Coordinate@441f4175" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -515,7 +505,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@2734469e" : [ "grid.Tile", {
+        "grid.Coordinate@2f253e54" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -526,51 +516,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@5827cdf7" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : false,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@5b85c9b" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : false,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@33537a92" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : false,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@37bf6255" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : false,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@60b38296" : [ "grid.Tile", {
+        "grid.Coordinate@209a531c" : [ "grid.Tile", {
           "name" : "water",
           "active" : true,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -581,7 +527,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@638d12b5" : [ "grid.Tile", {
+        "grid.Coordinate@968605" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -592,7 +538,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@55446de5" : [ "grid.Tile", {
+        "grid.Coordinate@65ce70c5" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -603,7 +549,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@91ed751" : [ "grid.Tile", {
+        "grid.Coordinate@cf7ea2e" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -614,7 +560,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@5e32ee9c" : [ "grid.Tile", {
+        "grid.Coordinate@4e46df88" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -625,7 +571,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@151465e5" : [ "grid.Tile", {
+        "grid.Coordinate@1a38b290" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -636,7 +582,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@1d434058" : [ "grid.Tile", {
+        "grid.Coordinate@1820af83" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -647,7 +593,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@49cd7bfe" : [ "grid.Tile", {
+        "grid.Coordinate@41216889" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -658,7 +604,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@22730597" : [ "grid.Tile", {
+        "grid.Coordinate@48b4e8e2" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -669,7 +615,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@61d60df3" : [ "grid.Tile", {
+        "grid.Coordinate@73c663fc" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -680,7 +626,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@61cf7414" : [ "grid.Tile", {
+        "grid.Coordinate@18749cf8" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -691,7 +637,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@38eb5d53" : [ "grid.Tile", {
+        "grid.Coordinate@310ccf09" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -702,7 +648,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@2c6914b7" : [ "grid.Tile", {
+        "grid.Coordinate@60028b43" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -713,7 +659,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@7f8b011e" : [ "grid.Tile", {
+        "grid.Coordinate@458ebdce" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -724,7 +670,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@5ba7491e" : [ "grid.Tile", {
+        "grid.Coordinate@1b42d6c2" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -735,7 +681,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@5960c729" : [ "grid.Tile", {
+        "grid.Coordinate@3977ef09" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -746,7 +692,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@6e2da832" : [ "grid.Tile", {
+        "grid.Coordinate@7da054f5" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -757,7 +703,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@646f6cff" : [ "grid.Tile", {
+        "grid.Coordinate@531963" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -768,7 +714,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@42c75c22" : [ "grid.Tile", {
+        "grid.Coordinate@47050cf3" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -779,7 +725,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@18927b25" : [ "grid.Tile", {
+        "grid.Coordinate@544dc9ba" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -790,7 +736,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@41dcea5b" : [ "grid.Tile", {
+        "grid.Coordinate@33748874" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -801,7 +747,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@2e71de6e" : [ "grid.Tile", {
+        "grid.Coordinate@2a0bb92b" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -812,51 +758,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@44b1d73a" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : false,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@55db68d4" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : false,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@4f5d0cdc" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : false,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@2d942191" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : false,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@5e070b7d" : [ "grid.Tile", {
+        "grid.Coordinate@300c2443" : [ "grid.Tile", {
           "name" : "water",
           "active" : true,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -867,7 +769,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@37867b45" : [ "grid.Tile", {
+        "grid.Coordinate@2929e142" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -878,7 +780,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@65f76838" : [ "grid.Tile", {
+        "grid.Coordinate@27aa9210" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -889,7 +791,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@9b3f577" : [ "grid.Tile", {
+        "grid.Coordinate@592b8d07" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -900,7 +802,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@5187868c" : [ "grid.Tile", {
+        "grid.Coordinate@53f7eb48" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -911,7 +813,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@35c21f94" : [ "grid.Tile", {
+        "grid.Coordinate@2ef353f9" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -922,7 +824,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@2ecd16a2" : [ "grid.Tile", {
+        "grid.Coordinate@7c83c92a" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -933,7 +835,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@5a6b0192" : [ "grid.Tile", {
+        "grid.Coordinate@2f880917" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -944,7 +846,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@1a88fdaf" : [ "grid.Tile", {
+        "grid.Coordinate@46b12f3d" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -955,7 +857,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@77bc76e6" : [ "grid.Tile", {
+        "grid.Coordinate@70ee5558" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -966,7 +868,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@29663452" : [ "grid.Tile", {
+        "grid.Coordinate@1f94008" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -977,7 +879,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@f0ac6b0" : [ "grid.Tile", {
+        "grid.Coordinate@21daf9dd" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -988,7 +890,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@164ce4cc" : [ "grid.Tile", {
+        "grid.Coordinate@738f651f" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -999,7 +901,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@4d17ee9e" : [ "grid.Tile", {
+        "grid.Coordinate@2f59f0d1" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1010,7 +912,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@5908432d" : [ "grid.Tile", {
+        "grid.Coordinate@6d20c359" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1021,7 +923,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@7631de50" : [ "grid.Tile", {
+        "grid.Coordinate@1c387843" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1032,7 +934,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@fee6473" : [ "grid.Tile", {
+        "grid.Coordinate@2f4a2d88" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1043,7 +945,117 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@14b66f4a" : [ "grid.Tile", {
+        "grid.Coordinate@efd81de" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@361f14fa" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5b198d28" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@3fec7107" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@73152e3f" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@682f78a8" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@6d224703" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@d29bd87" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@49a9308" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@3fd5e2ae" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@9e2cdd5" : [ "grid.Tile", {
           "name" : "water",
           "active" : true,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1054,7 +1066,18 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@c7a5487" : [ "grid.Tile", {
+        "grid.Coordinate@3f5f852e" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : true,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@1a94720d" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1065,7 +1088,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@3439e427" : [ "grid.Tile", {
+        "grid.Coordinate@59e9c94" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1076,29 +1099,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@76223373" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : false,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@2f94ac91" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : false,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@6c04c230" : [ "grid.Tile", {
+        "grid.Coordinate@402af494" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1111,7 +1112,15 @@
         } ]
       } ],
       "myObjects" : [ "java.util.HashMap", {
-        "grid.Coordinate@6cf12b66" : [ "gameObject.GameUnit", {
+        "grid.Coordinate@1c6b7657" : [ "gameObject.GameObject", {
+          "name" : "tree",
+          "imagePath" : "resources/tree.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@53265854" : [ "gameObject.GameUnit", {
           "stats" : [ "gameObject.Stat", {
             "myStatList" : [ "java.util.HashMap", {
               "movement" : 3
@@ -1129,20 +1138,12 @@
           "image" : [ "java.awt.image.BufferedImage", {
             "alphaPremultiplied" : false
           } ]
-        } ],
-        "grid.Coordinate@b9aff55" : [ "gameObject.GameObject", {
-          "name" : "tree",
-          "imagePath" : "resources/tree.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
         } ]
       } ],
       "myPassStatuses" : [ "java.util.HashMap", { } ],
       "name" : "Grid",
       "gameUnits" : [ "java.util.HashMap", {
-        "gameObject.GameUnit@2ff2ab91" : [ "grid.Coordinate", {
+        "gameObject.GameUnit@a10a9cd" : [ "grid.Coordinate", {
           "y" : 5,
           "x" : 4
         } ]
@@ -1156,11 +1157,12 @@
       "conditionsNeeded" : 0,
       "conditions" : [ "java.util.ArrayList", [ ] ]
     } ],
+    "name" : "stageOne",
     "grid" : [ "grid.Grid", {
       "myWidth" : 10,
       "myHeight" : 10,
       "myTileMap" : [ "java.util.HashMap", {
-        "grid.Coordinate@6e65603b" : [ "grid.Tile", {
+        "grid.Coordinate@690e1883" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1171,7 +1173,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@6ff7b082" : [ "grid.Tile", {
+        "grid.Coordinate@2f5b6cc8" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1182,7 +1184,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@2a35606a" : [ "grid.Tile", {
+        "grid.Coordinate@2bdf7750" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1193,7 +1195,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@4ab0342e" : [ "grid.Tile", {
+        "grid.Coordinate@1280ecfd" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1204,7 +1206,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@1afdd9ed" : [ "grid.Tile", {
+        "grid.Coordinate@2e1ddadc" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1215,7 +1217,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@2d726d05" : [ "grid.Tile", {
+        "grid.Coordinate@1c2ce9f9" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1226,7 +1228,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@8af80c6" : [ "grid.Tile", {
+        "grid.Coordinate@511dd546" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1237,7 +1239,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@83800b5" : [ "grid.Tile", {
+        "grid.Coordinate@fed6a53" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1248,7 +1250,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@47ca0b84" : [ "grid.Tile", {
+        "grid.Coordinate@65644dee" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1259,7 +1261,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@38d2c6bd" : [ "grid.Tile", {
+        "grid.Coordinate@4981de30" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1270,7 +1272,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@6fb08b78" : [ "grid.Tile", {
+        "grid.Coordinate@3ef6fd93" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1281,7 +1283,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@6a2e7136" : [ "grid.Tile", {
+        "grid.Coordinate@7f90f46a" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1292,7 +1294,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@14186330" : [ "grid.Tile", {
+        "grid.Coordinate@5d2572b8" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1303,7 +1305,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@7ef699fc" : [ "grid.Tile", {
+        "grid.Coordinate@72b32c3e" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1314,7 +1316,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@12411884" : [ "grid.Tile", {
+        "grid.Coordinate@4e048dc6" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1325,7 +1327,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@17c6f9c5" : [ "grid.Tile", {
+        "grid.Coordinate@3bf0a35a" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1336,18 +1338,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@777da320" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : true,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@7facb06d" : [ "grid.Tile", {
+        "grid.Coordinate@1e4f430f" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1358,7 +1349,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@77a94411" : [ "grid.Tile", {
+        "grid.Coordinate@7d9d1044" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1369,7 +1360,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@75d0d70a" : [ "grid.Tile", {
+        "grid.Coordinate@9376005" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1380,7 +1371,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@21ba2bee" : [ "grid.Tile", {
+        "grid.Coordinate@65bb9d54" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1391,7 +1382,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@5fa01e33" : [ "grid.Tile", {
+        "grid.Coordinate@5d39a1e2" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1402,7 +1393,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@3f5fff9c" : [ "grid.Tile", {
+        "grid.Coordinate@529720c9" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1413,7 +1404,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@43fa92cf" : [ "grid.Tile", {
+        "grid.Coordinate@6182d333" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1424,7 +1415,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@30fe5ac" : [ "grid.Tile", {
+        "grid.Coordinate@51f35aea" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1435,7 +1426,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@33437177" : [ "grid.Tile", {
+        "grid.Coordinate@2ae099cb" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1446,7 +1437,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@29427773" : [ "grid.Tile", {
+        "grid.Coordinate@12dace3b" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1457,7 +1448,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@15f5bf70" : [ "grid.Tile", {
+        "grid.Coordinate@5c123bb0" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1468,7 +1459,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@23965883" : [ "grid.Tile", {
+        "grid.Coordinate@67a9cb9d" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1479,7 +1470,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@459a278e" : [ "grid.Tile", {
+        "grid.Coordinate@4b38117e" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1490,7 +1481,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@20836bc5" : [ "grid.Tile", {
+        "grid.Coordinate@39d141a0" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1501,7 +1492,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@7acdff36" : [ "grid.Tile", {
+        "grid.Coordinate@4fa7b2bf" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1512,7 +1503,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@74f508b9" : [ "grid.Tile", {
+        "grid.Coordinate@ac84274" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1523,7 +1514,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@643c1156" : [ "grid.Tile", {
+        "grid.Coordinate@329a44d8" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1534,7 +1525,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@3a2f4b9e" : [ "grid.Tile", {
+        "grid.Coordinate@5e402aaa" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1545,7 +1536,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@26cf1128" : [ "grid.Tile", {
+        "grid.Coordinate@3c76e596" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1556,7 +1547,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@e9e1e25" : [ "grid.Tile", {
+        "grid.Coordinate@3a37f44d" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1567,7 +1558,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@43b17f94" : [ "grid.Tile", {
+        "grid.Coordinate@7039bb6d" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1578,7 +1569,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@4190fa1c" : [ "grid.Tile", {
+        "grid.Coordinate@25591d82" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1589,7 +1580,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@10ce55ec" : [ "grid.Tile", {
+        "grid.Coordinate@1c9549f2" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1600,7 +1591,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@770d8fe9" : [ "grid.Tile", {
+        "grid.Coordinate@7cbc11d" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1611,7 +1602,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@1e4e8204" : [ "grid.Tile", {
+        "grid.Coordinate@3fe9967b" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1622,7 +1613,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@ac7c70c" : [ "grid.Tile", {
+        "grid.Coordinate@6a826bd1" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1633,7 +1624,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@2d740e2c" : [ "grid.Tile", {
+        "grid.Coordinate@78561bc6" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1644,7 +1635,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@2c2dfeb3" : [ "grid.Tile", {
+        "grid.Coordinate@c0cdd62" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1655,7 +1646,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@3a2ef044" : [ "grid.Tile", {
+        "grid.Coordinate@441f4175" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1666,7 +1657,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@2734469e" : [ "grid.Tile", {
+        "grid.Coordinate@2f253e54" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1677,51 +1668,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@5827cdf7" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : false,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@5b85c9b" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : false,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@33537a92" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : false,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@37bf6255" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : false,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@60b38296" : [ "grid.Tile", {
+        "grid.Coordinate@209a531c" : [ "grid.Tile", {
           "name" : "water",
           "active" : true,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1732,7 +1679,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@638d12b5" : [ "grid.Tile", {
+        "grid.Coordinate@968605" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1743,7 +1690,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@55446de5" : [ "grid.Tile", {
+        "grid.Coordinate@65ce70c5" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1754,7 +1701,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@91ed751" : [ "grid.Tile", {
+        "grid.Coordinate@cf7ea2e" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1765,7 +1712,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@5e32ee9c" : [ "grid.Tile", {
+        "grid.Coordinate@4e46df88" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1776,7 +1723,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@151465e5" : [ "grid.Tile", {
+        "grid.Coordinate@1a38b290" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1787,7 +1734,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@1d434058" : [ "grid.Tile", {
+        "grid.Coordinate@1820af83" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1798,7 +1745,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@49cd7bfe" : [ "grid.Tile", {
+        "grid.Coordinate@41216889" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1809,7 +1756,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@22730597" : [ "grid.Tile", {
+        "grid.Coordinate@48b4e8e2" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1820,7 +1767,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@61d60df3" : [ "grid.Tile", {
+        "grid.Coordinate@73c663fc" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1831,7 +1778,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@61cf7414" : [ "grid.Tile", {
+        "grid.Coordinate@18749cf8" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1842,7 +1789,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@38eb5d53" : [ "grid.Tile", {
+        "grid.Coordinate@310ccf09" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1853,7 +1800,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@2c6914b7" : [ "grid.Tile", {
+        "grid.Coordinate@60028b43" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1864,7 +1811,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@7f8b011e" : [ "grid.Tile", {
+        "grid.Coordinate@458ebdce" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1875,7 +1822,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@5ba7491e" : [ "grid.Tile", {
+        "grid.Coordinate@1b42d6c2" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1886,7 +1833,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@5960c729" : [ "grid.Tile", {
+        "grid.Coordinate@3977ef09" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1897,7 +1844,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@6e2da832" : [ "grid.Tile", {
+        "grid.Coordinate@7da054f5" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1908,7 +1855,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@646f6cff" : [ "grid.Tile", {
+        "grid.Coordinate@531963" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1919,7 +1866,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@42c75c22" : [ "grid.Tile", {
+        "grid.Coordinate@47050cf3" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1930,7 +1877,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@18927b25" : [ "grid.Tile", {
+        "grid.Coordinate@544dc9ba" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1941,7 +1888,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@41dcea5b" : [ "grid.Tile", {
+        "grid.Coordinate@33748874" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1952,7 +1899,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@2e71de6e" : [ "grid.Tile", {
+        "grid.Coordinate@2a0bb92b" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -1963,51 +1910,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@44b1d73a" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : false,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@55db68d4" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : false,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@4f5d0cdc" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : false,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@2d942191" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : false,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@5e070b7d" : [ "grid.Tile", {
+        "grid.Coordinate@300c2443" : [ "grid.Tile", {
           "name" : "water",
           "active" : true,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2018,7 +1921,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@37867b45" : [ "grid.Tile", {
+        "grid.Coordinate@2929e142" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2029,7 +1932,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@65f76838" : [ "grid.Tile", {
+        "grid.Coordinate@27aa9210" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2040,7 +1943,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@9b3f577" : [ "grid.Tile", {
+        "grid.Coordinate@592b8d07" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2051,7 +1954,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@5187868c" : [ "grid.Tile", {
+        "grid.Coordinate@53f7eb48" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2062,7 +1965,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@35c21f94" : [ "grid.Tile", {
+        "grid.Coordinate@2ef353f9" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2073,7 +1976,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@2ecd16a2" : [ "grid.Tile", {
+        "grid.Coordinate@7c83c92a" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2084,7 +1987,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@5a6b0192" : [ "grid.Tile", {
+        "grid.Coordinate@2f880917" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2095,7 +1998,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@1a88fdaf" : [ "grid.Tile", {
+        "grid.Coordinate@46b12f3d" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2106,7 +2009,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@77bc76e6" : [ "grid.Tile", {
+        "grid.Coordinate@70ee5558" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2117,7 +2020,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@29663452" : [ "grid.Tile", {
+        "grid.Coordinate@1f94008" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2128,7 +2031,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@f0ac6b0" : [ "grid.Tile", {
+        "grid.Coordinate@21daf9dd" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2139,7 +2042,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@164ce4cc" : [ "grid.Tile", {
+        "grid.Coordinate@738f651f" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2150,7 +2053,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@4d17ee9e" : [ "grid.Tile", {
+        "grid.Coordinate@2f59f0d1" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2161,7 +2064,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@5908432d" : [ "grid.Tile", {
+        "grid.Coordinate@6d20c359" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2172,7 +2075,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@7631de50" : [ "grid.Tile", {
+        "grid.Coordinate@1c387843" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2183,7 +2086,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@fee6473" : [ "grid.Tile", {
+        "grid.Coordinate@2f4a2d88" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2194,7 +2097,117 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@14b66f4a" : [ "grid.Tile", {
+        "grid.Coordinate@efd81de" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@361f14fa" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5b198d28" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@3fec7107" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@73152e3f" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@682f78a8" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@6d224703" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@d29bd87" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@49a9308" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@3fd5e2ae" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@9e2cdd5" : [ "grid.Tile", {
           "name" : "water",
           "active" : true,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2205,7 +2218,18 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@c7a5487" : [ "grid.Tile", {
+        "grid.Coordinate@3f5f852e" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : true,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@1a94720d" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2216,7 +2240,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@3439e427" : [ "grid.Tile", {
+        "grid.Coordinate@59e9c94" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2227,29 +2251,7 @@
             "alphaPremultiplied" : false
           } ]
         } ],
-        "grid.Coordinate@76223373" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : false,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@2f94ac91" : [ "grid.Tile", {
-          "name" : "water",
-          "active" : false,
-          "statMods" : [ "java.util.HashMap", { } ],
-          "moveCost" : 2,
-          "imagePath" : "resources/water.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
-        } ],
-        "grid.Coordinate@6c04c230" : [ "grid.Tile", {
+        "grid.Coordinate@402af494" : [ "grid.Tile", {
           "name" : "water",
           "active" : false,
           "statMods" : [ "java.util.HashMap", { } ],
@@ -2262,7 +2264,15 @@
         } ]
       } ],
       "myObjects" : [ "java.util.HashMap", {
-        "grid.Coordinate@6cf12b66" : [ "gameObject.GameUnit", {
+        "grid.Coordinate@1c6b7657" : [ "gameObject.GameObject", {
+          "name" : "tree",
+          "imagePath" : "resources/tree.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@53265854" : [ "gameObject.GameUnit", {
           "stats" : [ "gameObject.Stat", {
             "myStatList" : [ "java.util.HashMap", {
               "movement" : 3
@@ -2280,20 +2290,12 @@
           "image" : [ "java.awt.image.BufferedImage", {
             "alphaPremultiplied" : false
           } ]
-        } ],
-        "grid.Coordinate@b9aff55" : [ "gameObject.GameObject", {
-          "name" : "tree",
-          "imagePath" : "resources/tree.png",
-          "passableList" : [ "java.util.ArrayList", [ ] ],
-          "image" : [ "java.awt.image.BufferedImage", {
-            "alphaPremultiplied" : false
-          } ]
         } ]
       } ],
       "myPassStatuses" : [ "java.util.HashMap", { } ],
       "name" : "Grid",
       "gameUnits" : [ "java.util.HashMap", {
-        "gameObject.GameUnit@2ff2ab91" : [ "grid.Coordinate", {
+        "gameObject.GameUnit@a10a9cd" : [ "grid.Coordinate", {
           "y" : 5,
           "x" : 4
         } ]
@@ -2359,7 +2361,7 @@
     "myWidth" : 10,
     "myHeight" : 10,
     "myTileMap" : [ "java.util.HashMap", {
-      "grid.Coordinate@6e65603b" : [ "grid.Tile", {
+      "grid.Coordinate@690e1883" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2370,7 +2372,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@6ff7b082" : [ "grid.Tile", {
+      "grid.Coordinate@2f5b6cc8" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2381,7 +2383,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@2a35606a" : [ "grid.Tile", {
+      "grid.Coordinate@2bdf7750" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2392,7 +2394,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@4ab0342e" : [ "grid.Tile", {
+      "grid.Coordinate@1280ecfd" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2403,7 +2405,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@1afdd9ed" : [ "grid.Tile", {
+      "grid.Coordinate@2e1ddadc" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2414,7 +2416,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@2d726d05" : [ "grid.Tile", {
+      "grid.Coordinate@1c2ce9f9" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2425,7 +2427,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@8af80c6" : [ "grid.Tile", {
+      "grid.Coordinate@511dd546" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2436,7 +2438,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@83800b5" : [ "grid.Tile", {
+      "grid.Coordinate@fed6a53" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2447,7 +2449,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@47ca0b84" : [ "grid.Tile", {
+      "grid.Coordinate@65644dee" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2458,7 +2460,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@38d2c6bd" : [ "grid.Tile", {
+      "grid.Coordinate@4981de30" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2469,7 +2471,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@6fb08b78" : [ "grid.Tile", {
+      "grid.Coordinate@3ef6fd93" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2480,7 +2482,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@6a2e7136" : [ "grid.Tile", {
+      "grid.Coordinate@7f90f46a" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2491,7 +2493,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@14186330" : [ "grid.Tile", {
+      "grid.Coordinate@5d2572b8" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2502,7 +2504,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@7ef699fc" : [ "grid.Tile", {
+      "grid.Coordinate@72b32c3e" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2513,7 +2515,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@12411884" : [ "grid.Tile", {
+      "grid.Coordinate@4e048dc6" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2524,7 +2526,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@17c6f9c5" : [ "grid.Tile", {
+      "grid.Coordinate@3bf0a35a" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2535,18 +2537,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@777da320" : [ "grid.Tile", {
-        "name" : "water",
-        "active" : true,
-        "statMods" : [ "java.util.HashMap", { } ],
-        "moveCost" : 2,
-        "imagePath" : "resources/water.png",
-        "passableList" : [ "java.util.ArrayList", [ ] ],
-        "image" : [ "java.awt.image.BufferedImage", {
-          "alphaPremultiplied" : false
-        } ]
-      } ],
-      "grid.Coordinate@7facb06d" : [ "grid.Tile", {
+      "grid.Coordinate@1e4f430f" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2557,7 +2548,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@77a94411" : [ "grid.Tile", {
+      "grid.Coordinate@7d9d1044" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2568,7 +2559,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@75d0d70a" : [ "grid.Tile", {
+      "grid.Coordinate@9376005" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2579,7 +2570,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@21ba2bee" : [ "grid.Tile", {
+      "grid.Coordinate@65bb9d54" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2590,7 +2581,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@5fa01e33" : [ "grid.Tile", {
+      "grid.Coordinate@5d39a1e2" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2601,7 +2592,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@3f5fff9c" : [ "grid.Tile", {
+      "grid.Coordinate@529720c9" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2612,7 +2603,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@43fa92cf" : [ "grid.Tile", {
+      "grid.Coordinate@6182d333" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2623,7 +2614,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@30fe5ac" : [ "grid.Tile", {
+      "grid.Coordinate@51f35aea" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2634,7 +2625,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@33437177" : [ "grid.Tile", {
+      "grid.Coordinate@2ae099cb" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2645,7 +2636,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@29427773" : [ "grid.Tile", {
+      "grid.Coordinate@12dace3b" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2656,7 +2647,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@15f5bf70" : [ "grid.Tile", {
+      "grid.Coordinate@5c123bb0" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2667,7 +2658,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@23965883" : [ "grid.Tile", {
+      "grid.Coordinate@67a9cb9d" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2678,7 +2669,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@459a278e" : [ "grid.Tile", {
+      "grid.Coordinate@4b38117e" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2689,7 +2680,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@20836bc5" : [ "grid.Tile", {
+      "grid.Coordinate@39d141a0" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2700,7 +2691,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@7acdff36" : [ "grid.Tile", {
+      "grid.Coordinate@4fa7b2bf" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2711,7 +2702,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@74f508b9" : [ "grid.Tile", {
+      "grid.Coordinate@ac84274" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2722,7 +2713,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@643c1156" : [ "grid.Tile", {
+      "grid.Coordinate@329a44d8" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2733,7 +2724,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@3a2f4b9e" : [ "grid.Tile", {
+      "grid.Coordinate@5e402aaa" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2744,7 +2735,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@26cf1128" : [ "grid.Tile", {
+      "grid.Coordinate@3c76e596" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2755,7 +2746,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@e9e1e25" : [ "grid.Tile", {
+      "grid.Coordinate@3a37f44d" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2766,7 +2757,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@43b17f94" : [ "grid.Tile", {
+      "grid.Coordinate@7039bb6d" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2777,7 +2768,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@4190fa1c" : [ "grid.Tile", {
+      "grid.Coordinate@25591d82" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2788,7 +2779,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@10ce55ec" : [ "grid.Tile", {
+      "grid.Coordinate@1c9549f2" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2799,7 +2790,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@770d8fe9" : [ "grid.Tile", {
+      "grid.Coordinate@7cbc11d" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2810,7 +2801,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@1e4e8204" : [ "grid.Tile", {
+      "grid.Coordinate@3fe9967b" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2821,7 +2812,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@ac7c70c" : [ "grid.Tile", {
+      "grid.Coordinate@6a826bd1" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2832,7 +2823,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@2d740e2c" : [ "grid.Tile", {
+      "grid.Coordinate@78561bc6" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2843,7 +2834,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@2c2dfeb3" : [ "grid.Tile", {
+      "grid.Coordinate@c0cdd62" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2854,7 +2845,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@3a2ef044" : [ "grid.Tile", {
+      "grid.Coordinate@441f4175" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2865,7 +2856,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@2734469e" : [ "grid.Tile", {
+      "grid.Coordinate@2f253e54" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2876,51 +2867,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@5827cdf7" : [ "grid.Tile", {
-        "name" : "water",
-        "active" : false,
-        "statMods" : [ "java.util.HashMap", { } ],
-        "moveCost" : 2,
-        "imagePath" : "resources/water.png",
-        "passableList" : [ "java.util.ArrayList", [ ] ],
-        "image" : [ "java.awt.image.BufferedImage", {
-          "alphaPremultiplied" : false
-        } ]
-      } ],
-      "grid.Coordinate@5b85c9b" : [ "grid.Tile", {
-        "name" : "water",
-        "active" : false,
-        "statMods" : [ "java.util.HashMap", { } ],
-        "moveCost" : 2,
-        "imagePath" : "resources/water.png",
-        "passableList" : [ "java.util.ArrayList", [ ] ],
-        "image" : [ "java.awt.image.BufferedImage", {
-          "alphaPremultiplied" : false
-        } ]
-      } ],
-      "grid.Coordinate@33537a92" : [ "grid.Tile", {
-        "name" : "water",
-        "active" : false,
-        "statMods" : [ "java.util.HashMap", { } ],
-        "moveCost" : 2,
-        "imagePath" : "resources/water.png",
-        "passableList" : [ "java.util.ArrayList", [ ] ],
-        "image" : [ "java.awt.image.BufferedImage", {
-          "alphaPremultiplied" : false
-        } ]
-      } ],
-      "grid.Coordinate@37bf6255" : [ "grid.Tile", {
-        "name" : "water",
-        "active" : false,
-        "statMods" : [ "java.util.HashMap", { } ],
-        "moveCost" : 2,
-        "imagePath" : "resources/water.png",
-        "passableList" : [ "java.util.ArrayList", [ ] ],
-        "image" : [ "java.awt.image.BufferedImage", {
-          "alphaPremultiplied" : false
-        } ]
-      } ],
-      "grid.Coordinate@60b38296" : [ "grid.Tile", {
+      "grid.Coordinate@209a531c" : [ "grid.Tile", {
         "name" : "water",
         "active" : true,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2931,7 +2878,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@638d12b5" : [ "grid.Tile", {
+      "grid.Coordinate@968605" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2942,7 +2889,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@55446de5" : [ "grid.Tile", {
+      "grid.Coordinate@65ce70c5" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2953,7 +2900,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@91ed751" : [ "grid.Tile", {
+      "grid.Coordinate@cf7ea2e" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2964,7 +2911,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@5e32ee9c" : [ "grid.Tile", {
+      "grid.Coordinate@4e46df88" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2975,7 +2922,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@151465e5" : [ "grid.Tile", {
+      "grid.Coordinate@1a38b290" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2986,7 +2933,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@1d434058" : [ "grid.Tile", {
+      "grid.Coordinate@1820af83" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -2997,7 +2944,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@49cd7bfe" : [ "grid.Tile", {
+      "grid.Coordinate@41216889" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3008,7 +2955,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@22730597" : [ "grid.Tile", {
+      "grid.Coordinate@48b4e8e2" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3019,7 +2966,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@61d60df3" : [ "grid.Tile", {
+      "grid.Coordinate@73c663fc" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3030,7 +2977,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@61cf7414" : [ "grid.Tile", {
+      "grid.Coordinate@18749cf8" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3041,7 +2988,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@38eb5d53" : [ "grid.Tile", {
+      "grid.Coordinate@310ccf09" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3052,7 +2999,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@2c6914b7" : [ "grid.Tile", {
+      "grid.Coordinate@60028b43" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3063,7 +3010,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@7f8b011e" : [ "grid.Tile", {
+      "grid.Coordinate@458ebdce" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3074,7 +3021,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@5ba7491e" : [ "grid.Tile", {
+      "grid.Coordinate@1b42d6c2" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3085,7 +3032,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@5960c729" : [ "grid.Tile", {
+      "grid.Coordinate@3977ef09" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3096,7 +3043,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@6e2da832" : [ "grid.Tile", {
+      "grid.Coordinate@7da054f5" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3107,7 +3054,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@646f6cff" : [ "grid.Tile", {
+      "grid.Coordinate@531963" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3118,7 +3065,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@42c75c22" : [ "grid.Tile", {
+      "grid.Coordinate@47050cf3" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3129,7 +3076,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@18927b25" : [ "grid.Tile", {
+      "grid.Coordinate@544dc9ba" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3140,7 +3087,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@41dcea5b" : [ "grid.Tile", {
+      "grid.Coordinate@33748874" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3151,7 +3098,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@2e71de6e" : [ "grid.Tile", {
+      "grid.Coordinate@2a0bb92b" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3162,51 +3109,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@44b1d73a" : [ "grid.Tile", {
-        "name" : "water",
-        "active" : false,
-        "statMods" : [ "java.util.HashMap", { } ],
-        "moveCost" : 2,
-        "imagePath" : "resources/water.png",
-        "passableList" : [ "java.util.ArrayList", [ ] ],
-        "image" : [ "java.awt.image.BufferedImage", {
-          "alphaPremultiplied" : false
-        } ]
-      } ],
-      "grid.Coordinate@55db68d4" : [ "grid.Tile", {
-        "name" : "water",
-        "active" : false,
-        "statMods" : [ "java.util.HashMap", { } ],
-        "moveCost" : 2,
-        "imagePath" : "resources/water.png",
-        "passableList" : [ "java.util.ArrayList", [ ] ],
-        "image" : [ "java.awt.image.BufferedImage", {
-          "alphaPremultiplied" : false
-        } ]
-      } ],
-      "grid.Coordinate@4f5d0cdc" : [ "grid.Tile", {
-        "name" : "water",
-        "active" : false,
-        "statMods" : [ "java.util.HashMap", { } ],
-        "moveCost" : 2,
-        "imagePath" : "resources/water.png",
-        "passableList" : [ "java.util.ArrayList", [ ] ],
-        "image" : [ "java.awt.image.BufferedImage", {
-          "alphaPremultiplied" : false
-        } ]
-      } ],
-      "grid.Coordinate@2d942191" : [ "grid.Tile", {
-        "name" : "water",
-        "active" : false,
-        "statMods" : [ "java.util.HashMap", { } ],
-        "moveCost" : 2,
-        "imagePath" : "resources/water.png",
-        "passableList" : [ "java.util.ArrayList", [ ] ],
-        "image" : [ "java.awt.image.BufferedImage", {
-          "alphaPremultiplied" : false
-        } ]
-      } ],
-      "grid.Coordinate@5e070b7d" : [ "grid.Tile", {
+      "grid.Coordinate@300c2443" : [ "grid.Tile", {
         "name" : "water",
         "active" : true,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3217,7 +3120,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@37867b45" : [ "grid.Tile", {
+      "grid.Coordinate@2929e142" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3228,7 +3131,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@65f76838" : [ "grid.Tile", {
+      "grid.Coordinate@27aa9210" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3239,7 +3142,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@9b3f577" : [ "grid.Tile", {
+      "grid.Coordinate@592b8d07" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3250,7 +3153,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@5187868c" : [ "grid.Tile", {
+      "grid.Coordinate@53f7eb48" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3261,7 +3164,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@35c21f94" : [ "grid.Tile", {
+      "grid.Coordinate@2ef353f9" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3272,7 +3175,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@2ecd16a2" : [ "grid.Tile", {
+      "grid.Coordinate@7c83c92a" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3283,7 +3186,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@5a6b0192" : [ "grid.Tile", {
+      "grid.Coordinate@2f880917" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3294,7 +3197,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@1a88fdaf" : [ "grid.Tile", {
+      "grid.Coordinate@46b12f3d" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3305,7 +3208,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@77bc76e6" : [ "grid.Tile", {
+      "grid.Coordinate@70ee5558" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3316,7 +3219,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@29663452" : [ "grid.Tile", {
+      "grid.Coordinate@1f94008" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3327,7 +3230,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@f0ac6b0" : [ "grid.Tile", {
+      "grid.Coordinate@21daf9dd" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3338,7 +3241,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@164ce4cc" : [ "grid.Tile", {
+      "grid.Coordinate@738f651f" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3349,7 +3252,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@4d17ee9e" : [ "grid.Tile", {
+      "grid.Coordinate@2f59f0d1" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3360,7 +3263,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@5908432d" : [ "grid.Tile", {
+      "grid.Coordinate@6d20c359" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3371,7 +3274,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@7631de50" : [ "grid.Tile", {
+      "grid.Coordinate@1c387843" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3382,7 +3285,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@fee6473" : [ "grid.Tile", {
+      "grid.Coordinate@2f4a2d88" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3393,7 +3296,117 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@14b66f4a" : [ "grid.Tile", {
+      "grid.Coordinate@efd81de" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@361f14fa" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@5b198d28" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@3fec7107" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@73152e3f" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@682f78a8" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@6d224703" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@d29bd87" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@49a9308" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@3fd5e2ae" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@9e2cdd5" : [ "grid.Tile", {
         "name" : "water",
         "active" : true,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3404,7 +3417,18 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@c7a5487" : [ "grid.Tile", {
+      "grid.Coordinate@3f5f852e" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : true,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@1a94720d" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3415,7 +3439,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@3439e427" : [ "grid.Tile", {
+      "grid.Coordinate@59e9c94" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3426,29 +3450,7 @@
           "alphaPremultiplied" : false
         } ]
       } ],
-      "grid.Coordinate@76223373" : [ "grid.Tile", {
-        "name" : "water",
-        "active" : false,
-        "statMods" : [ "java.util.HashMap", { } ],
-        "moveCost" : 2,
-        "imagePath" : "resources/water.png",
-        "passableList" : [ "java.util.ArrayList", [ ] ],
-        "image" : [ "java.awt.image.BufferedImage", {
-          "alphaPremultiplied" : false
-        } ]
-      } ],
-      "grid.Coordinate@2f94ac91" : [ "grid.Tile", {
-        "name" : "water",
-        "active" : false,
-        "statMods" : [ "java.util.HashMap", { } ],
-        "moveCost" : 2,
-        "imagePath" : "resources/water.png",
-        "passableList" : [ "java.util.ArrayList", [ ] ],
-        "image" : [ "java.awt.image.BufferedImage", {
-          "alphaPremultiplied" : false
-        } ]
-      } ],
-      "grid.Coordinate@6c04c230" : [ "grid.Tile", {
+      "grid.Coordinate@402af494" : [ "grid.Tile", {
         "name" : "water",
         "active" : false,
         "statMods" : [ "java.util.HashMap", { } ],
@@ -3461,7 +3463,15 @@
       } ]
     } ],
     "myObjects" : [ "java.util.HashMap", {
-      "grid.Coordinate@6cf12b66" : [ "gameObject.GameUnit", {
+      "grid.Coordinate@1c6b7657" : [ "gameObject.GameObject", {
+        "name" : "tree",
+        "imagePath" : "resources/tree.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@53265854" : [ "gameObject.GameUnit", {
         "stats" : [ "gameObject.Stat", {
           "myStatList" : [ "java.util.HashMap", {
             "movement" : 3
@@ -3479,24 +3489,17 @@
         "image" : [ "java.awt.image.BufferedImage", {
           "alphaPremultiplied" : false
         } ]
-      } ],
-      "grid.Coordinate@b9aff55" : [ "gameObject.GameObject", {
-        "name" : "tree",
-        "imagePath" : "resources/tree.png",
-        "passableList" : [ "java.util.ArrayList", [ ] ],
-        "image" : [ "java.awt.image.BufferedImage", {
-          "alphaPremultiplied" : false
-        } ]
       } ]
     } ],
     "myPassStatuses" : [ "java.util.HashMap", { } ],
     "name" : "Grid",
     "gameUnits" : [ "java.util.HashMap", {
-      "gameObject.GameUnit@2ff2ab91" : [ "grid.Coordinate", {
+      "gameObject.GameUnit@a10a9cd" : [ "grid.Coordinate", {
         "y" : 5,
         "x" : 4
       } ]
     } ],
     "image" : null
-  } ]
+  } ],
+  "stages" : [ "java.util.ArrayList", [ "stageOne" ] ]
 } ]
