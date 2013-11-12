@@ -54,12 +54,21 @@ hero.setItemList(new java.util.ArrayList<gameObject.item.Item>());
 list.add(hero);
 
 p.createJSON("defaults/GameUnit", list);
-
-// Saving/loading the game
+// Saving/loading the game
 parser.JSONParser p = new parser.JSONParser();
 
 controllers.WorldManager wm = new controllers.WorldManager("test");
-wm.addStage(10, 10, 1);
+wm.addStage(10, 10, 1, "stageOne");
 wm.saveGame();
 
-controllers.WorldManager loaded = p.createObject("saves/test", controllers.WorldManager.class);
+wm.loadGame("test");
+//Generic code to use the parser to make default WinConditions
+parser.JSONParser p = new parser.JSONParser();
+
+java.util.ArrayList<stage.WinCondition> list = new java.util.ArrayList<stage.WinCondition>();
+
+stage.WinCondition position = new stage.PositionCondition();
+list.add(position);
+
+p.createJSON("defaults/GameUnit", list);
+

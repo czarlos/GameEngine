@@ -22,31 +22,47 @@ public class Stage {
     private List<String> myAffiliateList;
     @JsonProperty
     private WinCondition myWinCondition;
+    private String myName;
 
     // only for use by deserializer
-    public Stage() {}
-    
-    public Stage (int x, int y, int tileID) {
+    public Stage () {
+    }
+
+    public Stage (int x, int y, int tileID, String name) {
         myGrid = new Grid(x, y, tileID);
         myAffiliateList = new ArrayList<String>();
         myWinCondition = new WinCondition();
+        myName = name;
     }
 
-    public Grid getGrid(){
+    public Grid getGrid () {
         return myGrid;
     }
-    
-    public void setWinCondition(WinCondition wc){
+
+    public void setName (String name) {
+        myName = name;
+    }
+
+    public String getName () {
+        return myName;
+    }
+
+    public void setWinCondition (WinCondition wc) {
         myWinCondition = wc;
     }
-    
-    public List<String> getAffiliateList(){
+
+    public void addCondition (Condition c) {
+        myWinCondition.addCondition(c);
+    }
+
+    public List<String> getAffiliateList () {
         return myAffiliateList;
     }
-    
-    public void setAffiliateList(List<String> affiliates){
+
+    public void setAffiliateList (List<String> affiliates) {
         myAffiliateList = affiliates;
     }
+
     /**
      * 
      */
