@@ -13,3 +13,45 @@ list.add(Water);
 
 p.createJSON("defaults/tile", list);
 
+
+parser.JSONParser p = new parser.JSONParser();
+//Generic code to use the parser to make default Objects
+java.util.ArrayList<gameObject.GameObject> list = new java.util.ArrayList<gameObject.GameObject>();
+
+gameObject.GameObject tree = new gameObject.GameObject();
+tree.setName("tree");
+tree.setImagePath("resources/tree.png");
+tree.setPassableList(new java.util.ArrayList<String>());
+
+p.createJSON("tree", tree);
+p.createObject("tree", gameObject.GameObject.class);
+
+list.add(tree);
+
+p.createJSON("defaults/GameObject", list);
+
+
+//Generic code to use the parser to make default Units
+parser.JSONParser p = new parser.JSONParser();
+
+java.util.ArrayList<gameObject.GameUnit> list = new java.util.ArrayList<gameObject.GameUnit>();
+
+gameObject.GameUnit hero = new gameObject.GameUnit();
+
+gameObject.Properties property = new gameObject.Properties(20, 0);
+gameObject.Stat stats = new gameObject.Stat();
+stats.makeStat("movement", 3);
+
+hero.setName("hero");
+hero.setImagePath("resources/hero.png");
+hero.setPassableList(new java.util.ArrayList<String>());
+hero.setAffiliation("dark");
+hero.setControllable(true);
+hero.setProperties(property);
+hero.setUnitStats(stats);
+hero.setItemList(new java.util.ArrayList<gameObject.item.Item>());        
+
+list.add(hero);
+
+p.createJSON("defaults/GameUnit", list);
+

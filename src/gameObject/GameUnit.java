@@ -1,8 +1,8 @@
 package gameObject;
 
 import gameObject.item.*;
-import grid.GridConstants;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import action.CombatAction;
 
 
@@ -14,6 +14,8 @@ import action.CombatAction;
  * @author carlosreyes
  * 
  */
+
+@JsonAutoDetect
 public class GameUnit extends GameObject {
 
     private boolean isControllable;
@@ -23,30 +25,7 @@ public class GameUnit extends GameObject {
     private Weapon myActiveWeapon;
     private Properties myProperties;
 
-    /**
-     * default. currently using for testing
-     * eventually put on data sheet JSON and pull from there
-     */
     public GameUnit () {
-        myName = GridConstants.DEFAULT_UNIT_NAME;
-        setImage(GridConstants.DEFAULT_UNIT_PATH);
-        myAffiliation = "test";
-        myUnitStats = new Stat() {{makeStat("movement", 3);}};
-    }
-    
-    public GameUnit (String name,
-                     String imagePath,
-                     String affiliation,
-                     Stat stats,
-                     List<Item> item,
-                     boolean controllable,
-                     Properties properties) {
-        super(name, imagePath);
-        myAffiliation = affiliation;
-        myUnitStats = stats;
-        myItemList = item;
-        isControllable = controllable;
-        myProperties = properties;
     }
 
     /**
@@ -92,7 +71,7 @@ public class GameUnit extends GameObject {
     public boolean isPassable (GameObject unit) {
         return super.isPassable(unit) || ((GameUnit) unit).getAffiliation().equals(myAffiliation);
     }
-    
+
     public Stat getStats () {
         return myUnitStats;
     }
@@ -103,7 +82,6 @@ public class GameUnit extends GameObject {
 
     public Stat getUnitStats () {
         return myUnitStats;
-
     }
 
     public String getAffiliation () {
@@ -136,6 +114,14 @@ public class GameUnit extends GameObject {
 
     public void setProperties (Properties myProperties) {
         this.myProperties = myProperties;
+    }
+
+    public List<Item> getItemList () {
+        return myItemList;
+    }
+
+    public void setItemList (List<Item> items) {
+        myItemList = items;
     }
 
 }

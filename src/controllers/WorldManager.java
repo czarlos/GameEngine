@@ -9,67 +9,75 @@ import grid.FromJSONFactory;
 import grid.Grid;
 import grid.Tile;
 
+
 public class WorldManager {
 
     List<Stage> myStages;
     Stage myActiveStage;
     Grid myGrid;
     FromJSONFactory myFactory;
-    
-    public WorldManager (int tileID, int x, int y) {
+
+    public WorldManager (int x, int y, int tileID) {
         myStages = new ArrayList<Stage>();
-        setActiveStage(addStage(x,y, tileID));
+        setActiveStage(addStage(x, y, tileID));
         myFactory = new FromJSONFactory();
     }
-    
+
     // returns Stage ID
-    public int addStage(int tileID, int x, int y){
-        myStages.add(new Stage(x,y, tileID));
-        return myStages.size()-1;
+    public int addStage (int x, int y, int tileID) {
+        myStages.add(new Stage(x, y, tileID));
+        return myStages.size() - 1;
     }
-    
-    public void setActiveStage(int stageID){
-        if(stageID < myStages.size())
+
+    public void setActiveStage (int stageID) {
+        if (stageID < myStages.size())
             myActiveStage = myStages.get(stageID);
     }
-    
-    public Grid getGrid() {
+
+    public Grid getGrid () {
         return myActiveStage.getGrid();
     }
-    
-    public Image getTileImage(int x, int y){
+
+    public Image getTileImage (int x, int y) {
         return myActiveStage.getGrid().getTile(x, y).getImage();
     }
-    
+
     // includes Units
-    public Image getObjectImage(int x, int y){
+    public Image getObjectImage (int x, int y) {
         GameObject o = myActiveStage.getGrid().getObject(x, y);
-        if(o != null)
+        if (o != null)
             return o.getImage();
         return null;
     }
-    
+
     // CHANGING THINGS/ACTIONS
-    public void setTile(int tileID, int x, int y){
+    public void setTile (int tileID, int x, int y) {
         myActiveStage.getGrid().placeTile((Tile) myFactory.make("tile", tileID), x, y);
     }
-    
-    public void placeUnit(int unitID, int x, int y){
-       // myActiveStage.getGrid().placeObject((Unit) myFactory.make("unit", unitID), x, y);
-        
-       // uncomment when I'm done JSONifying objects.
-    }
-    
-    public void placeObject(int objectID, int x, int y){
-        // myActiveStage.getGrid().placeObject((GameObject) myFactory.make("gameobject", objectID), x, y);
-         
+
+    public void placeUnit (int unitID, int x, int y) {
+        // myActiveStage.getGrid().placeObject((Unit) myFactory.make("unit", unitID), x, y);
+
         // uncomment when I'm done JSONifying objects.
     }
-    
+
+    public void placeObject (int objectID, int x, int y) {
+        // myActiveStage.getGrid().placeObject((GameObject) myFactory.make("gameobject", objectID),
+        // x, y);
+
+        // uncomment when I'm done JSONifying objects.
+    }
+
     // EDITING DEFAULTS/CUSTOMIZING (with JSON)
-    
+
+    public void getDefaultTiles () {
+        // return an array of strings from JSON
+    }
+
+    // return array
+
     // add new objects
     // read objects
     // edit objects
-    
+
 }
