@@ -28,8 +28,8 @@ public abstract class Equipment extends Item {
         for (String statName : getModifiers().getStatModifierMap().keySet()) {
             int modifiedValue =
                     getModifiers().getStatModifier(statName) +
-                            unit.getUnitStats().getStatValue(statName);
-            unit.getUnitStats().setStatValue(statName, modifiedValue);
+                            unit.getStats().getStatValue(statName);
+            unit.getStats().setStatValue(statName, modifiedValue);
         }
     }
 

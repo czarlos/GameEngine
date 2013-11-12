@@ -1,8 +1,8 @@
 package gameObject;
 
 import gameObject.item.*;
-import grid.GridConstants;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import action.CombatAction;
 
 
@@ -14,39 +14,23 @@ import action.CombatAction;
  * @author carlosreyes
  * 
  */
+
+@JsonAutoDetect
 public class GameUnit extends GameObject {
 
     private boolean isControllable;
     private List<Item> myItemList;
     private Stat myUnitStats;
-    private String myAffiliation;
+    private int myAffiliation;
     private Weapon myActiveWeapon;
-    private Properties myProperties;
+    private double myHealth;
+    private double myExperience;
 
-    /**
-     * default. currently using for testing
-     * eventually put on data sheet JSON and pull from there
-     */
     public GameUnit () {
-        myName = GridConstants.DEFAULT_UNIT_NAME;
-        setImage(GridConstants.DEFAULT_UNIT_PATH);
-        myAffiliation = "test";
-        myUnitStats = new Stat() {{makeStat("movement", 3);}};
-    }
-    
-    public GameUnit (String name,
-                     String imagePath,
-                     String affiliation,
-                     Stat stats,
-                     List<Item> item,
-                     boolean controllable,
-                     Properties properties) {
-        super(name, imagePath);
-        myAffiliation = affiliation;
-        myUnitStats = stats;
-        myItemList = item;
-        isControllable = controllable;
-        myProperties = properties;
+        super();
+        myUnitStats = new Stat();
+        myUnitStats.makeStat("movement", 3);
+        setItemList(new java.util.ArrayList<gameObject.item.Item>()); 
     }
 
     /**
@@ -90,27 +74,30 @@ public class GameUnit extends GameObject {
 
     @Override
     public boolean isPassable (GameObject unit) {
-        return super.isPassable(unit) || ((GameUnit) unit).getAffiliation().equals(myAffiliation);
+        return super.isPassable(unit) || ((GameUnit) unit).getAffiliation() == myAffiliation;
     }
     
-    public Stat getStats () {
-        return myUnitStats;
+    public int getTotalStat(String stat){
+        int value = myUnitStats.getStatValue(stat);
+        for (Item i : myItemList)
+            if (i instanceof Equipment)
+                value+=((Equipment) i).getModifiers().getStatModifier(stat);
+        return value;
     }
-
+    
     public void setUnitStats (Stat myUnitStats) {
         this.myUnitStats = myUnitStats;
     }
 
-    public Stat getUnitStats () {
+    public Stat getStats () {
         return myUnitStats;
-
     }
 
-    public String getAffiliation () {
+    public int getAffiliation () {
         return myAffiliation;
     }
 
-    public void setAffiliation (String myAffiliation) {
+    public void setAffiliation (int myAffiliation) {
         this.myAffiliation = myAffiliation;
     }
 
@@ -130,12 +117,36 @@ public class GameUnit extends GameObject {
         this.myActiveWeapon = (Weapon) myActiveItem;
     }
 
-    public Properties getProperties () {
+ /*   public Properties getProperties () {
         return myProperties;
     }
 
     public void setProperties (Properties myProperties) {
         this.myProperties = myProperties;
+    }*/
+
+    public List<Item> getItemList () {
+        return myItemList;
+    }
+
+    public void setItemList (List<Item> items) {
+        myItemList = items;
+    }
+    
+    public double getHealth () {
+        return myHealth;
+    }
+
+    public void setHealth (double myHealth) {
+        this.myHealth = myHealth;
+    }
+
+    public double getExperience () {
+        return myExperience;
+    }
+
+    public void setExperience (double myExperience) {
+        this.myExperience = myExperience;
     }
 
 }
