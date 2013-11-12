@@ -14,9 +14,11 @@ public class PositionCondition extends Condition {
     // You can specify the name of the JSON key like so:
     @JsonProperty("playersPositionY")
     private int playersPositionY;
-
     // All JSON serializable classes either need to have an empty constructor
     public PositionCondition () {
+        super();
+        neededData.add("x");
+        neededData.add("y");
     }
 
     // Or use the following notation

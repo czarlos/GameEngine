@@ -5,10 +5,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -21,6 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import controllers.WorldManager;
 import stage.Stage;
 
@@ -42,7 +48,6 @@ public class EditorFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setJMenuBar(createMenuBar(this));
         myBackground = addEditorBackground();
-
         add(myBackground);
         pack();
         setSize(800,600);
@@ -64,6 +69,7 @@ public class EditorFrame extends JFrame {
         myMenuBar.add(gameMenu);
         //add menu items
         JMenuItem newGame = new JMenuItem("New Game");
+        newGame.setAccelerator(KeyStroke.getKeyStroke("control G"));
         gameMenu.add(newGame);
         JMenuItem loadGame = new JMenuItem("Load Game");
         gameMenu.add(loadGame);
@@ -79,6 +85,10 @@ public class EditorFrame extends JFrame {
         addStage.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 addStagePanel();
+            }});
+        loadGame.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                loadGame();
             }});
         
         //second menu 
@@ -118,11 +128,32 @@ public class EditorFrame extends JFrame {
             this.revalidate();
             this.repaint();
             String gameName = gameNameTextField.getText();
+            this.setTitle(gameName);
             myWorldManager = new WorldManager(gameName);
             addStagePanel();
         } 
     }
     
+    private void loadGame(){
+        myWorldManager = new WorldManager("");
+        JPanel loadPanel = new JPanel();
+        loadPanel.setLayout(new GridLayout(0,2));
+        JLabel gameNames = new JLabel("Choose Game Name:");
+        JComboBox<String> gameNamesMenu = new JComboBox<String>();
+        File savesDir = new File("JSONs/saves");
+        for(File child: savesDir.listFiles()){
+            gameNamesMenu.addItem(child.getName().split("\\.")[0]);
+        }
+        loadPanel.add(gameNames);
+        loadPanel.add(gameNamesMenu);
+        
+        int value = JOptionPane.showConfirmDialog(this, loadPanel, "Choose Game", JOptionPane.OK_CANCEL_OPTION);
+        if(value == JOptionPane.OK_OPTION){
+            String game = (String) gameNamesMenu.getSelectedItem();
+            WorldManager newWM = myWorldManager.loadGame(game);
+            myWorldManager = newWM;
+        }
+    }
     
     /**
      * adds new stage panel to main editor frame after asking
@@ -139,9 +170,10 @@ public class EditorFrame extends JFrame {
         JTextField yTextField = new JTextField(6);
         JLabel imageLabel = new JLabel("Default Tile");
         JComboBox<String> imageMenu = new JComboBox<String>();
-        imageMenu.addItem("grass");
-        imageMenu.addItem("water");
-        
+        List<String> tileNames = myWorldManager.get("Tile");
+        for(String s:tileNames){
+            imageMenu.addItem(s);
+        }
         stageInfoPanel.add(stageNameLabel,BorderLayout.NORTH);
         stageInfoPanel.add(stageNameTextField);
         stageInfoPanel.add(xLabel);
@@ -158,11 +190,12 @@ public class EditorFrame extends JFrame {
             int gridWidth = Integer.parseInt(xTextField.getText());
             int gridHeight = Integer.parseInt(yTextField.getText());
             String image = (String) imageMenu.getSelectedItem();
-            //instantiate Stage and send it to controller
-            myWorldManager.addStage(gridWidth, gridHeight, 1);
-            StagePanel sp = new StagePanel(stageName, myWorldManager.getGrid());//stage.getGrid);
+            myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image), stageName);// **** fix
+            StagePanel sp = new StagePanel(stageName, myWorldManager.getGrid(), myWorldManager);
             myStagePanelList.add(sp);
             stageTabbedPane.addTab(stageName, sp);
+            stageTabbedPane.setSelectedIndex(myStagePanelList.size()-1);
+            this.repaint();
         }
 
     }

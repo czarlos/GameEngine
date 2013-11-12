@@ -47,10 +47,24 @@ public class WorldManager {
      * @param tileID, the type of tile to initially fill the background with
      * @return StageID
      */
-    public int addStage (int x, int y, int tileID) {
-        myStages.add(new Stage(x, y, tileID));
+
+    public int addStage (int x, int y, int tileID, String name) {
+        myStages.add(new Stage(x, y, tileID, name));
         setActiveStage(myStages.size() - 1);
         return myStages.size() - 1;
+    }
+
+    public List<String> getStages () {
+        List<String> ret = new ArrayList<String>();
+        for (Stage s : myStages) {
+            ret.add(s.getName());
+        }
+
+        return ret;
+    }
+
+    public void setStages (List<Stage> stages) {
+        myStages = stages;
     }
 
     public void setActiveStage (int stageID) {
@@ -103,15 +117,21 @@ public class WorldManager {
      * @param className
      * @return Map of Drawable names mapped to Images
      */
-    public Map<String, Image> get (String className) {
-        Map<String, Image> ret = new HashMap<String, Image>();
+    public List<String> get (String className) {
+        ArrayList<String> ret = new ArrayList<String>();
         ArrayList<Drawable> myList = (ArrayList<Drawable>) myEditorData.get(className);
 
-        for (Drawable item : myList) {
-            ret.put(item.getName(), item.getImage());
+        for (Drawable d : myList) {
+            ret.add(d.getName());
         }
 
         return ret;
+    }
+
+    public Image getImage (String className, int ID) {
+        ArrayList<Drawable> myList = (ArrayList<Drawable>) myEditorData.get(className);
+
+        return myList.get(ID).getImage();
     }
 
     public int setCustomTile (int ID, String name, String imagePath, int moveCost) throws Exception {
@@ -152,4 +172,7 @@ public class WorldManager {
         return myParser.createObject("saves/" + gameName, controllers.WorldManager.class);
     }
 
+    // get object information
+    // edit from brooks
+    // actions, win conditions, items
 }
