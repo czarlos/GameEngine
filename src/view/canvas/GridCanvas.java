@@ -9,10 +9,12 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 
 public class GridCanvas extends Canvas {
     Grid myGrid;
     Collection<GridMouseListener> myClickSubscribers;
+
     private static final long serialVersionUID = -3908147776463294489L;
 
     public GridCanvas (Grid grid) {
@@ -38,6 +40,15 @@ public class GridCanvas extends Canvas {
 
     public void addGridMouseListener (GridMouseListener l) {
         myClickSubscribers.add(l);
+    }
+    
+    public static void main (String args[]) {
+        GridCanvas myCanvas = new GridCanvas(new Grid(10,10));
+
+        JFrame myFrame = new JFrame();
+        myFrame.getContentPane().add(myCanvas);
+        myFrame.pack();
+        myFrame.setVisible(true);
     }
 
 

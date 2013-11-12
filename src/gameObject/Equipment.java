@@ -1,13 +1,13 @@
 package gameObject;
 
 public class Equipment extends Items {
-    private StatModifiers modifiers;
+    private StatModifier modifiers;
 
-    public StatModifiers getModifiers () {
+    public StatModifier getModifiers () {
         return modifiers;
     }
 
-    public void setModifiers (StatModifiers modifiers) {
+    public void setModifier (StatModifier modifiers) {
         this.modifiers = modifiers;
     }
 }

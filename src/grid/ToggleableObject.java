@@ -1,10 +1,13 @@
 package grid;
 
+import gameObject.GameObject;
+
+
 public class ToggleableObject extends GameObject {
     GameObject myNextState;
 
     public ToggleableObject (String name, String imagePath, GameObject nextState) {
-        super(name, imagePath);
+        super();
         myNextState = nextState;
     }
 
