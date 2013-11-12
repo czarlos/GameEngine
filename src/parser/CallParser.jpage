@@ -80,9 +80,10 @@ wm.loadGame("test");
 //Generic code to use the parser to make default WinConditions
 parser.JSONParser p = new parser.JSONParser();
 
-java.util.ArrayList<stage.WinCondition> list = new java.util.ArrayList<stage.WinCondition>();
+java.util.ArrayList<stage.Condition> list = new java.util.ArrayList<stage.Condition>();
 
-stage.WinCondition position = new stage.PositionCondition();
+stage.Condition position = new stage.PositionCondition();
 list.add(position);
 
-p.createJSON("defaults/GameUnit", list);
+p.createJSON("defaults/Conditions", list);
+

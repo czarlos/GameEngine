@@ -1,0 +1,5 @@
+[ "java.util.ArrayList", [ [ "stage.PositionCondition", {
+  "playersPositionX" : 0,
+  "myData" : [ "java.util.HashMap", { } ],
+  "playersPositionY" : 0
+} ] ] ]
