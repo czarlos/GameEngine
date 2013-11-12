@@ -3,12 +3,15 @@ package view.canvas;
 import grid.Grid;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Collection;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 
 
 public class GridCanvas extends Canvas {
+
     Grid myGrid;
+    Collection<GridMouseListener> myClickSubscribers;
 
     private static final long serialVersionUID = -3908147776463294489L;
 
