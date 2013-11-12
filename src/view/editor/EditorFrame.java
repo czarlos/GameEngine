@@ -113,7 +113,6 @@ public class EditorFrame extends JFrame {
     }
     
     private void newGame(){
-        stageTabbedPane.removeAll();
         JPanel newGamePanel = new JPanel();
         newGamePanel.setLayout(new GridLayout(1,2));
         JLabel gameNameLabel = new JLabel("Game Name:");
@@ -136,7 +135,6 @@ public class EditorFrame extends JFrame {
     }
     
     private void loadGame(){
-        //stageTabbedPane.removeAll();
         myWorldManager = new WorldManager("");
         JPanel loadPanel = new JPanel();
         loadPanel.setLayout(new GridLayout(0,2));
