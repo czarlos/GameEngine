@@ -13,6 +13,7 @@ import javax.swing.BorderFactory;
 public class GridCanvas extends Canvas {
     Grid myGrid;
     Collection<GridMouseListener> myClickSubscribers;
+
     private static final long serialVersionUID = -3908147776463294489L;
 
     public GridCanvas (Grid grid) {
