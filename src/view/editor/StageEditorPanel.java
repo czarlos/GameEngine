@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.util.List;
 import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -39,20 +40,23 @@ public class StageEditorPanel extends JTabbedPane {
         JScrollPane scroll = new JScrollPane(panel);
         scroll.setLayout(new ScrollPaneLayout());
         //make subpanels for each variation of type
-        Map<String, Image> map = myWorldManager.get(type);
-        for(String s:map.keySet()){
+        List<String> tileNames = myWorldManager.get(type);
+        for(int n = 0; n<tileNames.size(); n++){
             JPanel p = new JPanel();
             //p.setLayout(new BoxLayout(p, BoxLayout.LINE_AXIS));
             p.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             p.setSize(100,50);
-            ImageIcon i = new ImageIcon(map.get(s));
-            JLabel label = new JLabel(s, i, JLabel.NORTH_EAST);
+            ImageIcon i = new ImageIcon(myWorldManager.getImage(type, n));
+            JLabel label = new JLabel(tileNames.get(n), i, JLabel.NORTH_EAST);
             JButton edit = new JButton("Edit");
             edit.setBorder(BorderFactory.createRaisedBevelBorder());
             p.add(label);
             p.add(edit);
             panel.add(p);
         }
+        String typeAdd = "Add new " + type;
+        JButton addNewOfType = new JButton(typeAdd);
+        panel.add(addNewOfType);
         panel.revalidate();
         panel.repaint();
         return scroll;
