@@ -22,6 +22,9 @@ public class Tile implements Drawable {
     private List<String> myPassableList;
 
     public Tile () {
+        setPassableList(new java.util.ArrayList<String>());
+        setStatMods(new java.util.HashMap<String, Double>());
+        setActive(false);
     }
 
     public boolean isPassable (GameObject unit) {

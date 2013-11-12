@@ -9,6 +9,7 @@ import parser.JSONParser;
 import stage.Stage;
 import view.Drawable;
 import gameObject.GameObject;
+import gameObject.GameUnit;
 import grid.FromJSONFactory;
 import grid.Grid;
 import grid.Tile;
@@ -22,15 +23,24 @@ public class WorldManager {
     FromJSONFactory myFactory;
     JSONParser myParser;
     EditorData myEditorData;
+    String myGameName;
 
-    public WorldManager () {
+    public WorldManager (String gameName) {
         myStages = new ArrayList<Stage>();
         myFactory = new FromJSONFactory();
         myParser = new JSONParser();
         myEditorData = new EditorData("defaults");
+        myGameName = gameName;
     }
 
-    // returns Stage ID
+    /**
+     * Adds a stage to the game
+     * 
+     * @param x width of the grid in tiles
+     * @param y height of the grid in tiles
+     * @param tileID, the type of tile to initially fill the background with
+     * @return StageID
+     */
     public int addStage (int x, int y, int tileID) {
         myStages.add(new Stage(x, y, tileID));
         setActiveStage(myStages.size() - 1);
@@ -40,6 +50,14 @@ public class WorldManager {
     public void setActiveStage (int stageID) {
         if (stageID < myStages.size())
             myActiveStage = myStages.get(stageID);
+    }
+
+    public void setGameName (String gameName) {
+        myGameName = gameName;
+    }
+
+    public String getGameName () {
+        return myGameName;
     }
 
     public Grid getGrid () {
@@ -72,8 +90,13 @@ public class WorldManager {
                                             x, y);
     }
 
-    // EDITING DEFAULTS/CUSTOMIZING (with JSON)
-
+    /**
+     * Gives access to certain drawable attributes. Valid parameters are "GameUnit", "GameObject",
+     * "Tile"
+     * 
+     * @param className
+     * @return Map of Drawable names mapped to Images
+     */
     public Map<String, Image> get (String className) {
         Map<String, Image> ret = new HashMap<String, Image>();
         ArrayList<Drawable> myList = (ArrayList<Drawable>) myEditorData.get(className);
@@ -85,10 +108,33 @@ public class WorldManager {
         return ret;
     }
 
-    // return array
+    public int setCustomTile (int ID, String name, String imagePath, int moveCost) {
+        Tile t = new grid.Tile();
+        t.setName(name);
+        t.setImagePath(imagePath);
+        t.setMoveCost(moveCost);
+        return myEditorData.setDrawable("Tile", ID, t);
+    }
 
-    // add new objects
-    // read objects
-    // edit objects
+    public int setCustomUnit (int ID,
+                              String name,
+                              String imagePath,
+                              int affiliation,
+                              boolean controllable) {
+        GameUnit gu = new GameUnit();
 
+        gu.setName(name);
+        gu.setImagePath(imagePath);
+        gu.setAffiliation(affiliation);
+        gu.setControllable(controllable);
+        return myEditorData.setDrawable("GameUnit", ID, gu);
+    }
+
+    public int setCustomObject (int ID, String name, String imagePath) {
+        GameObject go = new GameObject();
+        go.setName(name);
+        go.setImagePath(imagePath);
+
+        return myEditorData.setDrawable("GameObject", ID, go);
+    }
 }

@@ -21,11 +21,16 @@ public class GameUnit extends GameObject {
     private boolean isControllable;
     private List<Item> myItemList;
     private Stat myUnitStats;
-    private String myAffiliation;
+    private int myAffiliation;
     private Weapon myActiveWeapon;
-    private Properties myProperties;
+    private double myHealth;
+    private double myExperience;
 
     public GameUnit () {
+        super();
+        myUnitStats = new Stat();
+        myUnitStats.makeStat("movement", 3);
+        setItemList(new java.util.ArrayList<gameObject.item.Item>()); 
     }
 
     /**
@@ -69,7 +74,7 @@ public class GameUnit extends GameObject {
 
     @Override
     public boolean isPassable (GameObject unit) {
-        return super.isPassable(unit) || ((GameUnit) unit).getAffiliation().equals(myAffiliation);
+        return super.isPassable(unit) || ((GameUnit) unit).getAffiliation() == myAffiliation;
     }
 
     public Stat getStats () {
@@ -84,11 +89,11 @@ public class GameUnit extends GameObject {
         return myUnitStats;
     }
 
-    public String getAffiliation () {
+    public int getAffiliation () {
         return myAffiliation;
     }
 
-    public void setAffiliation (String myAffiliation) {
+    public void setAffiliation (int myAffiliation) {
         this.myAffiliation = myAffiliation;
     }
 
@@ -108,13 +113,13 @@ public class GameUnit extends GameObject {
         this.myActiveWeapon = (Weapon) myActiveItem;
     }
 
-    public Properties getProperties () {
+ /*   public Properties getProperties () {
         return myProperties;
     }
 
     public void setProperties (Properties myProperties) {
         this.myProperties = myProperties;
-    }
+    }*/
 
     public List<Item> getItemList () {
         return myItemList;
@@ -122,6 +127,22 @@ public class GameUnit extends GameObject {
 
     public void setItemList (List<Item> items) {
         myItemList = items;
+    }
+    
+    public double getHealth () {
+        return myHealth;
+    }
+
+    public void setHealth (double myHealth) {
+        this.myHealth = myHealth;
+    }
+
+    public double getExperience () {
+        return myExperience;
+    }
+
+    public void setExperience (double myExperience) {
+        this.myExperience = myExperience;
     }
 
 }

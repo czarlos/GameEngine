@@ -17,6 +17,7 @@ public class GameObject implements Drawable {
     protected List<String> myPassableList;
 
     public GameObject () {
+        setPassableList(new java.util.ArrayList<String>());
     }
 
     public boolean isPassable (GameObject unit) {
