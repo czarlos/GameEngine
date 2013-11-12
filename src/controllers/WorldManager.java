@@ -175,4 +175,10 @@ public class WorldManager {
     // get object information
     // edit from brooks
     // actions, win conditions, items
+    
+    // when you make a condition, need to pass in Data
+    
+/*    public void addCondition(int ConditionID, ){
+        myActiveStage.addCondition(c)
+    }*/
 }
