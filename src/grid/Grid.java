@@ -43,9 +43,11 @@ public class Grid implements Drawable {
      * @param width - int of number of columns of tiles
      * @param height - int of number of rows of tiles
      */
-    
+
     // only for use by deserializer
-    public Grid(){}
+    public Grid () {
+    }
+
     public Grid (int width, int height, int tileID) {
         myWidth = width;
         myHeight = height;
@@ -73,6 +75,14 @@ public class Grid implements Drawable {
                 myTileMap.put(new Coordinate(i, j), (Tile) myFactory.make("Tile", tileID));
             }
         }
+    }
+
+    public int getWidth () {
+        return myWidth;
+    }
+
+    public int getHeight () {
+        return myHeight;
     }
 
     /**
@@ -231,14 +241,7 @@ public class Grid implements Drawable {
     }
 
     public Tile getTile (int x, int y) {
-        // TODO: Generic method?
-        // TODO: change hash so a coordinate can just be put into map and the tile will be returned,
-        // instead of looping through keySet
-        for (Coordinate coord : myTileMap.keySet()) {
-            if (coord.getX() == x && coord.getY() == y) { return myTileMap.get(coord); }
-        }
-
-        return null;
+        return myTileMap.get(new Coordinate(x, y));
     }
 
     public void placeTile (Tile newTile, int x, int y) {

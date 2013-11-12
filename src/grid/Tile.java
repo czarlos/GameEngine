@@ -3,6 +3,7 @@ package grid;
 import gameObject.GameObject;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -20,6 +21,7 @@ public class Tile implements Drawable {
     private int myMoveCost;
     private String myName;
     private List<String> myPassableList;
+    private BufferedImage myImage;
 
     public Tile () {
         setPassableList(new java.util.ArrayList<String>());
@@ -50,12 +52,7 @@ public class Tile implements Drawable {
     @Override
     public void draw (Graphics g, int x, int y, int width, int height) {
         // set ImageObserver null. Not needed.
-        if (!isActive) {
-            g.drawImage(getImage(), x, y, width, height, null);
-        }
-        else {
-            // TODO: make image highlighted if active
-        }
+        g.drawImage(getImage(), x, y, width, height, null);
     }
 
     public boolean isActive () {
@@ -64,6 +61,8 @@ public class Tile implements Drawable {
 
     public void setActive (boolean active) {
         isActive = active;
+        myImage = isActive ? ImageManager.getHightlightedTileImage(myImagePath)
+                          : ImageManager.getTileImage(myImagePath);
     }
 
     public Map<String, Double> getStatMods () {
@@ -78,18 +77,13 @@ public class Tile implements Drawable {
         return myImagePath;
     }
 
-    public void setImagePath (String imagePath) {
+    public void setImagePath (String imagePath) throws Exception {
         myImagePath = imagePath;
+        myImage = ImageManager.addImage(imagePath);
     }
 
     public Image getImage () {
-        try {
-            return ImageIO.read(new File(myImagePath));
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return myImage;
     }
 
     public int getMoveCost () {

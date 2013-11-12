@@ -114,7 +114,7 @@ public class WorldManager {
         return ret;
     }
 
-    public int setCustomTile (int ID, String name, String imagePath, int moveCost) {
+    public int setCustomTile (int ID, String name, String imagePath, int moveCost) throws Exception {
         Tile t = new grid.Tile();
         t.setName(name);
         t.setImagePath(imagePath);
