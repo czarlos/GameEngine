@@ -2,9 +2,11 @@ package parser;
 
 import java.io.File;
 import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -15,6 +17,13 @@ public class JSONParser {
     public JSONParser () {
         myMapper = new ObjectMapper();
         myMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        myMapper.setVisibilityChecker(myMapper.getSerializationConfig()
+                .getDefaultVisibilityChecker()
+                .withFieldVisibility(Visibility.NONE)
+                .withGetterVisibility(Visibility.NONE)
+                .withSetterVisibility(Visibility.NONE)
+                .withCreatorVisibility(Visibility.NONE));
+        myMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
     public void createJSON (String filename, Object object) {

@@ -1,11 +1,11 @@
 package view.canvas;
 
 import grid.Grid;
-import grid.Tile;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import controllers.WorldManager;
 
 
 public class GridCanvas extends Canvas {
@@ -19,8 +19,7 @@ public class GridCanvas extends Canvas {
     }
 
     public static void main (String args[]) {
-        GridCanvas myCanvas = new GridCanvas(new Grid(10,10));
-
+        GridCanvas myCanvas = new GridCanvas(new Grid(10, 10, 1));
         JFrame myFrame = new JFrame();
         myFrame.getContentPane().add(myCanvas);
         myFrame.pack();

@@ -1,0 +1,8 @@
+[ "gameObject.GameObject", {
+  "name" : "tree",
+  "imagePath" : "resources/tree.png",
+  "passableList" : [ "java.util.ArrayList", [ ] ],
+  "image" : [ "java.awt.image.BufferedImage", {
+    "alphaPremultiplied" : false
+  } ]
+} ]

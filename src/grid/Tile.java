@@ -1,44 +1,30 @@
 package grid;
 
-import java.awt.Color;
 import gameObject.GameObject;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import view.Drawable;
 
 
+@JsonAutoDetect
 public class Tile implements Drawable {
     private boolean isActive;
     private Map<String, Double> myStatMods;
-    private Image myImage;
+    private String myImagePath;
     private int myMoveCost;
     private String myName;
     private List<String> myPassableList;
 
     public Tile () {
-        // TODO: Put this on JSON, use data file for defaults
-        isActive = false;
-        myName = GridConstants.DEFAULT_TILE_NAME;
-        setImage(GridConstants.DEFAULT_TILE_PATH);
-        myMoveCost = 1;
-        myStatMods = new HashMap<String, Double>();
-        myPassableList = new ArrayList<String>();
-    }
-    
-    public Tile (String name, String imagePath, int moveCost, ArrayList<String> passableList, HashMap<String, Double> statMods) {
-        isActive = false;
-        myName = name;
-        setImage(imagePath);
-        myMoveCost = moveCost;
-        myStatMods = statMods;
-        myPassableList = passableList;
+        setPassableList(new java.util.ArrayList<String>());
+        setStatMods(new java.util.HashMap<String, Double>());
+        setActive(false);
     }
 
     public boolean isPassable (GameObject unit) {
@@ -48,11 +34,15 @@ public class Tile implements Drawable {
 
         return false;
     }
-    
+
     public void addPassable (String passable) {
         myPassableList.add(passable);
     }
-    
+
+    public void setPassableList (List<String> passables) {
+        myPassableList = passables;
+    }
+
     public List<String> getPassableList () {
         return myPassableList;
     }
@@ -60,14 +50,14 @@ public class Tile implements Drawable {
     @Override
     public void draw (Graphics g, int x, int y, int width, int height) {
         // set ImageObserver null. Not needed.
-        if (!isActive) { 
-            g.drawImage(myImage, x, y, width, height, null);
+        if (!isActive) {
+            g.drawImage(getImage(), x, y, width, height, null);
         }
         else {
             // TODO: make image highlighted if active
         }
     }
-    
+
     public boolean isActive () {
         return isActive;
     }
@@ -84,17 +74,22 @@ public class Tile implements Drawable {
         myStatMods = statMods;
     }
 
-    public Image getImage () {
-        return myImage;
+    public String getImagePath () {
+        return myImagePath;
     }
 
-    public void setImage (String imagePath) {
+    public void setImagePath (String imagePath) {
+        myImagePath = imagePath;
+    }
+
+    public Image getImage () {
         try {
-            myImage=ImageIO.read(new File(imagePath));
+            return ImageIO.read(new File(myImagePath));
         }
         catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public int getMoveCost () {
@@ -112,5 +107,5 @@ public class Tile implements Drawable {
     public void setName (String name) {
         myName = name;
     }
-    
+
 }

@@ -2,9 +2,12 @@ package gameObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-
+@JsonAutoDetect
 public class Stat {
+    @JsonProperty
     private Map<String, Integer> myStatList;
 
     public Stat () {

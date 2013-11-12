@@ -1,4 +1,6 @@
-package gameObject.item;
+package gameObject;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 /**
  * Properties are a part of gameunits that are not stats but are
@@ -8,11 +10,16 @@ package gameObject.item;
  * @author carlosreyes
  * 
  */
+@JsonAutoDetect
 public class Properties {
 
     private double myHealth;
     private double myExperience;
 
+    public Properties(){
+        
+    }
+    
     public Properties (int health, int experience) {
         setHealth(health);
         setExperience(experience);
