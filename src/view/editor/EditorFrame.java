@@ -5,10 +5,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -21,6 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import controllers.WorldManager;
 import stage.Stage;
 
@@ -64,6 +68,7 @@ public class EditorFrame extends JFrame {
         myMenuBar.add(gameMenu);
         //add menu items
         JMenuItem newGame = new JMenuItem("New Game");
+        newGame.setAccelerator(KeyStroke.getKeyStroke("control G"));
         gameMenu.add(newGame);
         JMenuItem loadGame = new JMenuItem("Load Game");
         gameMenu.add(loadGame);
@@ -118,6 +123,7 @@ public class EditorFrame extends JFrame {
             this.revalidate();
             this.repaint();
             String gameName = gameNameTextField.getText();
+            this.setTitle(gameName);
             myWorldManager = new WorldManager(gameName);
             addStagePanel();
         } 
@@ -139,9 +145,10 @@ public class EditorFrame extends JFrame {
         JTextField yTextField = new JTextField(6);
         JLabel imageLabel = new JLabel("Default Tile");
         JComboBox<String> imageMenu = new JComboBox<String>();
-        imageMenu.addItem("grass");
-        imageMenu.addItem("water");
-        
+        Map<String, Image> tiles = myWorldManager.get("Tile");
+        for(String s:tiles.keySet()){
+            imageMenu.addItem(s);
+        }
         stageInfoPanel.add(stageNameLabel,BorderLayout.NORTH);
         stageInfoPanel.add(stageNameTextField);
         stageInfoPanel.add(xLabel);
@@ -158,11 +165,12 @@ public class EditorFrame extends JFrame {
             int gridWidth = Integer.parseInt(xTextField.getText());
             int gridHeight = Integer.parseInt(yTextField.getText());
             String image = (String) imageMenu.getSelectedItem();
-            //instantiate Stage and send it to controller
-            myWorldManager.addStage(gridWidth, gridHeight, 1);
-            StagePanel sp = new StagePanel(stageName, myWorldManager.getGrid());//stage.getGrid);
+            myWorldManager.addStage(gridWidth, gridHeight, 0);
+            StagePanel sp = new StagePanel(stageName, myWorldManager.getGrid(), myWorldManager);
             myStagePanelList.add(sp);
             stageTabbedPane.addTab(stageName, sp);
+            stageTabbedPane.setSelectedIndex(myStagePanelList.size()-1);
+            this.repaint();
         }
 
     }
