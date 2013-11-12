@@ -18,6 +18,11 @@ public class GridController implements GridMouseListener {
     static{
         myCommands=new HashMap<>();
     }
+    
+    public GridController(Grid grid){
+        myGrid=grid;
+        mySelectedCoordinate=new Coordinate(0,0);
+    }
     public static void registerGridCommand (String commandName,
                                             Class<? extends AbstractGridCommand> command) {
         myCommands.put(commandName, command);
@@ -28,6 +33,7 @@ public class GridController implements GridMouseListener {
             AbstractGridCommand command =
                     myCommands.get(commandName).getConstructor(Grid.class, Coordinate.class)
                             .newInstance(myGrid, mySelectedCoordinate);
+            command.execute();
         }
         catch (IllegalArgumentException | SecurityException | InstantiationException
                 | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
@@ -38,5 +44,6 @@ public class GridController implements GridMouseListener {
     @Override
     public void gridClicked (Coordinate c) {
         mySelectedCoordinate = c;
+        doCommand("setactive");
     }
 }
