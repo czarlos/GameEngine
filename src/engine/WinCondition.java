@@ -1,4 +1,4 @@
-package stage;
+package engine;
 
 import java.util.ArrayList;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -23,6 +23,11 @@ public class WinCondition {
 
     public void addCondition (Condition c) {
         conditions.add(c);
+    }
+
+    public void testPrint () {
+        System.out.println(conditionsNeeded);
+        System.out.println(conditions.size());
     }
 
     // TODO: currently no conditions = auto-win, but maybe we should make it never-win
