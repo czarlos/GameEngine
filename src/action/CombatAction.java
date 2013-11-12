@@ -60,8 +60,8 @@ public class CombatAction {
      */
     public void execute (GameUnit attacker, GameUnit defender) {
         double effectiveness = getNetEffectiveness(attacker, defender);
-        double damage = defender.getProperties().getHealth() * effectiveness;
-        defender.getProperties().setHealth(defender.getProperties().getHealth() - damage);
+        double damage = defender.getHealth() * effectiveness;
+        defender.setHealth(defender.getHealth() - damage);
     }
 
     public Map<String, Integer> getAttackerOutcomesMap () {

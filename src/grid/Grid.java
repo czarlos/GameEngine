@@ -3,6 +3,7 @@ package grid;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +27,7 @@ public class Grid implements Drawable {
     private Map<Integer, List<GameObject>> myPassStatuses; // TODO: Add pass statuses. 0 = nothing
                                                            // passes, 1 = everything passes. Put
                                                            // this map in stage controller?
-    private FromJSONFactory myTileFactory;
+    private FromJSONFactory myFactory;
 
     /**
      * Creates a grid with the width and height set
@@ -40,7 +41,7 @@ public class Grid implements Drawable {
         myTileMap = new HashMap<Coordinate, Tile>();
         myObjects = new HashMap<Coordinate, GameObject>();
         myPassStatuses = new HashMap<Integer, List<GameObject>>();
-        myTileFactory = new FromJSONFactory();
+        myFactory = new FromJSONFactory();
         initGrid(tileID);
     }
 
@@ -58,7 +59,7 @@ public class Grid implements Drawable {
     private void initTiles (int tileID) {
         for (int i = 0; i < myWidth; i++) {
             for (int j = 0; j < myHeight; j++) {
-                myTileMap.put(new Coordinate(i, j), (Tile) myTileFactory.make("tile", tileID));
+                myTileMap.put(new Coordinate(i, j), (Tile) myFactory.make("Tile", tileID));
             }
         }
     }
@@ -67,8 +68,8 @@ public class Grid implements Drawable {
      * Creates default objects and units for grid
      */
     private void testInitObjects () {
-        myObjects.put(new Coordinate(3, 5), new GameObject());
-        GameObject link = new GameUnit();
+        myObjects.put(new Coordinate(3, 5), (GameObject) myFactory.make("GameObject", 0));
+        GameObject link = (GameUnit) myFactory.make("GameUnit", 0);
         myObjects.put(new Coordinate(4, 5), link);
         findMovementRange(new Coordinate(4, 5),
                           ((GameUnit) link).getStats().getStatValue("movement"), link);
@@ -203,23 +204,7 @@ public class Grid implements Drawable {
 
         return null;
     }
-    
-    /**
-     * Gets the number of columns that currently make up a row
-     * @return Number of columns in grid instance.
-     */
-    public int getNumColumns(){
-        return myCol;
-    }
 
-    /**
-     * Gets the number of rows that currently make up a row
-     * @return Number of rows in grid instance.
-     */
-    public int getNumRows(){
-        return myRow;
-    }
-    
     public void placeObject (GameObject newObject, int x, int y) {
         // TODO: Generic method?
         // TODO: change hash so a coordinate can just be put into map and the object will be placed,
@@ -281,7 +266,7 @@ public class Grid implements Drawable {
         }
 
     }
-    
+
     public Map<GameUnit, Coordinate> getGameUnits () {
         Map<GameUnit, Coordinate> gameUnitMap = new HashMap<GameUnit, Coordinate>();
 
@@ -292,5 +277,15 @@ public class Grid implements Drawable {
         }
 
         return gameUnitMap;
+    }
+
+    @Override
+    public String getName () {
+        return null;
+    }
+
+    @Override
+    public Image getImage () {
+        return null;
     }
 }

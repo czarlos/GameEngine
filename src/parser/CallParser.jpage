@@ -11,5 +11,51 @@ Water.setMoveCost(2);
 list.add(Grass);
 list.add(Water);
 
+<<<<<<< HEAD
 p.createJSON("defaults/tile", list);
+=======
+p.createJSON("defaults/Tile", list);
+
+
+parser.JSONParser p = new parser.JSONParser();
+//Generic code to use the parser to make default Objects
+java.util.ArrayList<gameObject.GameObject> list = new java.util.ArrayList<gameObject.GameObject>();
+
+gameObject.GameObject tree = new gameObject.GameObject();
+tree.setName("tree");
+tree.setImagePath("resources/tree.png");
+tree.setPassableList(new java.util.ArrayList<String>());
+
+p.createJSON("tree", tree);
+p.createObject("tree", gameObject.GameObject.class);
+
+list.add(tree);
+
+p.createJSON("defaults/GameObject", list);
+
+
+//Generic code to use the parser to make default Units
+parser.JSONParser p = new parser.JSONParser();
+
+java.util.ArrayList<gameObject.GameUnit> list = new java.util.ArrayList<gameObject.GameUnit>();
+
+gameObject.GameUnit hero = new gameObject.GameUnit();
+
+gameObject.Stat stats = new gameObject.Stat();
+stats.makeStat("movement", 3);
+
+hero.setName("hero");
+hero.setImagePath("resources/hero.png");
+hero.setPassableList(new java.util.ArrayList<String>());
+hero.setAffiliation(0);
+hero.setControllable(true);
+hero.setHealth(20);
+hero.setExperience(0);
+hero.setUnitStats(stats);
+hero.setItemList(new java.util.ArrayList<gameObject.item.Item>());        
+
+list.add(hero);
+
+p.createJSON("defaults/GameUnit", list);
+>>>>>>> f7fb00e358e0b2e38ad04ad2f845be4b30cba140
 
