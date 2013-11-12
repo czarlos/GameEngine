@@ -1,6 +1,8 @@
 package gameObject;
 
-public class Equipment extends Items {
+import gameObject.item.Item;
+
+public class Equipment extends Item {
     private StatModifier modifiers;
 
     public StatModifier getModifiers () {
@@ -9,5 +11,11 @@ public class Equipment extends Items {
 
     public void setModifier (StatModifier modifiers) {
         this.modifiers = modifiers;
+    }
+
+    @Override
+    public void statEffect (GameUnit gameUnit) {
+        // TODO Auto-generated method stub
+        
     }
 }
