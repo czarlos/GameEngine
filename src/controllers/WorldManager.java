@@ -102,21 +102,21 @@ public class WorldManager {
      * @param className
      * @return Map of Drawable names mapped to Images
      */
-    public Map<Integer, Image> get (String className) {
-        Map<Integer, Image> ret = new HashMap<Integer, Image>();
+    public List<String> get (String className) {
+        ArrayList<String> ret = new ArrayList<String>();
         ArrayList<Drawable> myList = (ArrayList<Drawable>) myEditorData.get(className);
 
-        for(int i = 0; i < myList.size();i++){
-            ret.put(i, myList.get(i).getImage());
+        for(Drawable d: myList){
+            ret.add(d.getName());
         }
 
         return ret;
     }
 
-    public String getName (String className, int ID) {
+    public Image getImage (String className, int ID) {
         ArrayList<Drawable> myList = (ArrayList<Drawable>) myEditorData.get(className);
 
-        return myList.get(ID).getName();
+        return myList.get(ID).getImage();
     }
     
     public int setCustomTile (int ID, String name, String imagePath, int moveCost) {
