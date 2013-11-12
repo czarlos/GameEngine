@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -34,18 +35,18 @@ public class EditorFrame extends JFrame {
     private JMenuBar myMenuBar;
     private JTabbedPane stageTabbedPane;
     private WorldManager myWorldManager;
+    private JPanel myBackground;
     
     public EditorFrame(){
         super("Omega_Nu Game Editor");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setJMenuBar(createMenuBar(this));
-        stageTabbedPane = new JTabbedPane();
-        stageTabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-        add(stageTabbedPane, BorderLayout.CENTER);
+        myBackground = addEditorBackground();
+
+        add(myBackground);
         pack();
         setSize(800,600);
         setVisible(true);
-        //addStagePanel();
     }
     
  
@@ -93,17 +94,31 @@ public class EditorFrame extends JFrame {
         return myMenuBar;
     }
     
+    private JPanel addEditorBackground(){
+        ImageIcon image = new ImageIcon("resources/omega_nu_3.png");
+        JLabel label = new JLabel("", image, JLabel.CENTER);
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add( label, BorderLayout.CENTER );
+        return panel;
+    }
+    
     private void newGame(){
-        System.out.print("new game!!");//checks actionlistener for now
         JPanel newGamePanel = new JPanel();
-        newGamePanel.setLayout(new GridLayout(0,2));
+        newGamePanel.setLayout(new GridLayout(1,2));
         JLabel gameNameLabel = new JLabel("Game Name:");
         JTextField gameNameTextField = new JTextField(25);
         newGamePanel.add(gameNameLabel);
         newGamePanel.add(gameNameTextField);
         int value = JOptionPane.showConfirmDialog(this, newGamePanel, "New Game!!", JOptionPane.OK_CANCEL_OPTION);
         if(value == JOptionPane.OK_OPTION){
+            stageTabbedPane = new JTabbedPane();
+            stageTabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+            this.remove(myBackground);
+            this.add(stageTabbedPane, BorderLayout.CENTER);
+            this.revalidate();
+            this.repaint();
             String gameName = gameNameTextField.getText();
+            myWorldManager = new WorldManager(gameName);
             addStagePanel();
         } 
     }
@@ -144,7 +159,7 @@ public class EditorFrame extends JFrame {
             int gridHeight = Integer.parseInt(yTextField.getText());
             String image = (String) imageMenu.getSelectedItem();
             //instantiate Stage and send it to controller
-            myWorldManager.addStage(1, gridWidth, gridHeight);
+            myWorldManager.addStage(gridWidth, gridHeight, 1);
             StagePanel sp = new StagePanel(stageName, myWorldManager.getGrid());//stage.getGrid);
             myStagePanelList.add(sp);
             stageTabbedPane.addTab(stageName, sp);
