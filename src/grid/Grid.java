@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import action.CombatAction;
 import view.Drawable;
 
@@ -19,11 +21,17 @@ import view.Drawable;
  * @author Kevin, Ken
  * 
  */
+@JsonAutoDetect
 public class Grid implements Drawable {
+    @JsonProperty
     private int myWidth;
+    @JsonProperty
     private int myHeight;
+    @JsonProperty
     private Map<Coordinate, Tile> myTileMap;
+    @JsonProperty
     private Map<Coordinate, GameObject> myObjects;
+    @JsonProperty
     private Map<Integer, List<GameObject>> myPassStatuses; // TODO: Add pass statuses. 0 = nothing
                                                            // passes, 1 = everything passes. Put
                                                            // this map in stage controller?
@@ -35,6 +43,9 @@ public class Grid implements Drawable {
      * @param width - int of number of columns of tiles
      * @param height - int of number of rows of tiles
      */
+    
+    // only for use by deserializer
+    public Grid(){}
     public Grid (int width, int height, int tileID) {
         myWidth = width;
         myHeight = height;
@@ -281,7 +292,7 @@ public class Grid implements Drawable {
 
     @Override
     public String getName () {
-        return null;
+        return "Grid";
     }
 
     @Override

@@ -1,7 +1,10 @@
 package stage;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import action.CombatAction;
 import gameObject.GameUnit;
 import gameObject.Stat;
@@ -12,17 +15,21 @@ import grid.Grid;
  * @author Andy Bradshaw
  * 
  */
+@JsonAutoDetect
 public class Stage {
 
     private Grid myGrid;
-    // Affiliation subject to change (int/string/?)
     private List<String> myAffiliateList;
+    @JsonProperty
     private WinCondition myWinCondition;
-    private Stat myMasterStats;
 
+    // only for use by deserializer
+    public Stage() {}
+    
     public Stage (int x, int y, int tileID) {
         myGrid = new Grid(x, y, tileID);
-  //      run(); // only needs to run in the actual gameplay
+        myAffiliateList = new ArrayList<String>();
+        myWinCondition = new WinCondition();
     }
 
     public Grid getGrid(){
@@ -31,6 +38,14 @@ public class Stage {
     
     public void setWinCondition(WinCondition wc){
         myWinCondition = wc;
+    }
+    
+    public List<String> getAffiliateList(){
+        return myAffiliateList;
+    }
+    
+    public void setAffiliateList(List<String> affiliates){
+        myAffiliateList = affiliates;
     }
     /**
      * 

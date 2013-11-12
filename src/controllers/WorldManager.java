@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import parser.JSONParser;
 import stage.Stage;
 import view.Drawable;
@@ -15,17 +17,20 @@ import grid.Grid;
 import grid.Tile;
 
 
+@JsonAutoDetect
 public class WorldManager {
-
+    @JsonProperty
     List<Stage> myStages;
+    @JsonProperty
     Stage myActiveStage;
-    Grid myGrid;
     FromJSONFactory myFactory;
     JSONParser myParser;
+    @JsonProperty
     EditorData myEditorData;
+    @JsonProperty
     String myGameName;
 
-    public WorldManager (String gameName) {
+    public WorldManager (@JsonProperty("myGameName") String gameName) {
         myStages = new ArrayList<Stage>();
         myFactory = new FromJSONFactory();
         myParser = new JSONParser();
@@ -97,17 +102,23 @@ public class WorldManager {
      * @param className
      * @return Map of Drawable names mapped to Images
      */
-    public Map<String, Image> get (String className) {
-        Map<String, Image> ret = new HashMap<String, Image>();
+    public Map<Integer, Image> get (String className) {
+        Map<Integer, Image> ret = new HashMap<Integer, Image>();
         ArrayList<Drawable> myList = (ArrayList<Drawable>) myEditorData.get(className);
 
-        for (Drawable item : myList) {
-            ret.put(item.getName(), item.getImage());
+        for(int i = 0; i < myList.size();i++){
+            ret.put(i, myList.get(i).getImage());
         }
 
         return ret;
     }
 
+    public String getName (String className, int ID) {
+        ArrayList<Drawable> myList = (ArrayList<Drawable>) myEditorData.get(className);
+
+        return myList.get(ID).getName();
+    }
+    
     public int setCustomTile (int ID, String name, String imagePath, int moveCost) {
         Tile t = new grid.Tile();
         t.setName(name);
@@ -137,4 +148,13 @@ public class WorldManager {
 
         return myEditorData.setDrawable("GameObject", ID, go);
     }
+
+    public void saveGame () {
+        myParser.createJSON("saves/" + myGameName, this);
+    }
+
+    public WorldManager loadGame (String gameName) {
+        return myParser.createObject("saves/" + gameName, controllers.WorldManager.class);
+    }
+
 }

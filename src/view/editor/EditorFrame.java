@@ -145,8 +145,9 @@ public class EditorFrame extends JFrame {
         JTextField yTextField = new JTextField(6);
         JLabel imageLabel = new JLabel("Default Tile");
         JComboBox<String> imageMenu = new JComboBox<String>();
-        Map<String, Image> tiles = myWorldManager.get("Tile");
-        for(String s:tiles.keySet()){
+        ArrayList<String> tileNames = myWorldManager.get("Tile");
+        
+        for(String s:tileNames){
             imageMenu.addItem(s);
         }
         stageInfoPanel.add(stageNameLabel,BorderLayout.NORTH);
@@ -165,7 +166,7 @@ public class EditorFrame extends JFrame {
             int gridWidth = Integer.parseInt(xTextField.getText());
             int gridHeight = Integer.parseInt(yTextField.getText());
             String image = (String) imageMenu.getSelectedItem();
-            myWorldManager.addStage(gridWidth, gridHeight, 0);
+            myWorldManager.addStage(gridWidth, gridHeight, 0);// **** fix
             StagePanel sp = new StagePanel(stageName, myWorldManager.getGrid(), myWorldManager);
             myStagePanelList.add(sp);
             stageTabbedPane.addTab(stageName, sp);
