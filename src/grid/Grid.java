@@ -28,9 +28,11 @@ public class Grid implements Drawable {
     @JsonProperty
     private int myHeight;
     @JsonProperty
-    private Map<Coordinate, Tile> myTileMap;
+    private Tile[][] myTiles;
     @JsonProperty
-    private Map<Coordinate, GameObject> myObjects;
+    private GameObject[][] myObjects;
+    @JsonProperty
+    private List<GameUnit> myUnits;
     @JsonProperty
     private Map<Integer, List<GameObject>> myPassStatuses; // TODO: Add pass statuses. 0 = nothing
                                                            // passes, 1 = everything passes. Put
@@ -43,14 +45,17 @@ public class Grid implements Drawable {
      * @param width - int of number of columns of tiles
      * @param height - int of number of rows of tiles
      */
-    
+
     // only for use by deserializer
-    public Grid(){}
+    public Grid () {
+    }
+
     public Grid (int width, int height, int tileID) {
         myWidth = width;
         myHeight = height;
-        myTileMap = new HashMap<Coordinate, Tile>();
-        myObjects = new HashMap<Coordinate, GameObject>();
+        myTiles = new Tile[width][height];
+        myObjects = new GameObject[width][height];
+        myUnits = new ArrayList<GameUnit>();
         myPassStatuses = new HashMap<Integer, List<GameObject>>();
         myFactory = new FromJSONFactory();
         initGrid(tileID);
@@ -70,7 +75,7 @@ public class Grid implements Drawable {
     private void initTiles (int tileID) {
         for (int i = 0; i < myWidth; i++) {
             for (int j = 0; j < myHeight; j++) {
-                myTileMap.put(new Coordinate(i, j), (Tile) myFactory.make("Tile", tileID));
+                myTiles[i][j] = (Tile) myFactory.make("Tile", tileID);
             }
         }
     }
@@ -79,9 +84,9 @@ public class Grid implements Drawable {
      * Creates default objects and units for grid
      */
     private void testInitObjects () {
-        myObjects.put(new Coordinate(3, 5), (GameObject) myFactory.make("GameObject", 0));
+        myObjects[3][5] = (GameObject) myFactory.make("GameObject", 0);
         GameObject link = (GameUnit) myFactory.make("GameUnit", 0);
-        myObjects.put(new Coordinate(4, 5), link);
+        myObjects[4][5] = link;
         findMovementRange(new Coordinate(4, 5),
                           ((GameUnit) link).getStats().getStatValue("movement"), link);
     }
@@ -209,50 +214,27 @@ public class Grid implements Drawable {
 
     public GameObject getObject (int x, int y) {
         // TODO: Generic method?
-        for (Coordinate coord : myObjects.keySet()) {
-            if (coord.getX() == x && coord.getY() == y) { return myObjects.get(coord); }
-        }
-
-        return null;
+        return myObjects[x][y];
     }
 
     public void placeObject (GameObject newObject, int x, int y) {
         // TODO: Generic method?
-        // TODO: change hash so a coordinate can just be put into map and the object will be placed,
-        // instead of looping through keySet
-        for (Coordinate coord : myObjects.keySet()) {
-            if (coord.getX() == x && coord.getY() == y) {
-                myObjects.put(coord, newObject);
-                return;
-            }
-        }
+        myObjects[x][y] = newObject;
 
-        myObjects.put(new Coordinate(x, y), newObject);
+        if (newObject instanceof GameObject) {
+            myUnits.add((GameUnit) newObject);
+        }
     }
 
     public Tile getTile (int x, int y) {
         // TODO: Generic method?
-        // TODO: change hash so a coordinate can just be put into map and the tile will be returned,
-        // instead of looping through keySet
-        for (Coordinate coord : myTileMap.keySet()) {
-            if (coord.getX() == x && coord.getY() == y) { return myTileMap.get(coord); }
-        }
-
-        return null;
+        return myTiles[x][y];
     }
 
     public void placeTile (Tile newTile, int x, int y) {
         // TODO: Generic method?
-        // TODO: change hash so a coordinate can just be put into map and the tile will be placed,
-        // instead of looping through keySet
-        for (Coordinate coord : myTileMap.keySet()) {
-            if (coord.getX() == x && coord.getY() == y) {
-                myTileMap.put(coord, newTile);
-                return;
-            }
-        }
 
-        myTileMap.put(new Coordinate(x, y), newTile);
+        myTiles[x][y] = newTile;
     }
 
     @Override
@@ -260,34 +242,26 @@ public class Grid implements Drawable {
         int tileWidth = width / myWidth;
         int tileHeight = height / myHeight;
 
-        for (Entry<Coordinate, Tile> entry : myTileMap.entrySet()) {
-            Tile tile = entry.getValue();
-            x = entry.getKey().getX();
-            y = entry.getKey().getY();
-            tile.draw(g, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
-        }
-
-        // TODO: dupe for tile and object. generic
-        for (Entry<Coordinate, GameObject> entry : myObjects.entrySet()) {
-            GameObject gameObject = entry.getValue();
-            x = entry.getKey().getX();
-            y = entry.getKey().getY();
-
-            gameObject.draw(g, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
-        }
-
-    }
-
-    public Map<GameUnit, Coordinate> getGameUnits () {
-        Map<GameUnit, Coordinate> gameUnitMap = new HashMap<GameUnit, Coordinate>();
-
-        for (Coordinate coord : myObjects.keySet()) {
-            if (myObjects.get(coord) instanceof GameUnit) {
-                gameUnitMap.put((GameUnit) myObjects.get(coord), coord);
+        for (int i = 0; i < myTiles.length; i++) {
+            for (int j = 0; j < myTiles[i].length; j++) {
+                Tile tile = myTiles[i][j];
+                tile.draw(g, i * tileWidth, j * tileHeight, tileWidth, tileHeight);
             }
         }
 
-        return gameUnitMap;
+        // TODO: dupe for tile and object. generic
+        for (int i = 0; i < myObjects.length; i++) {
+            for (int j = 0; j < myObjects[i].length; j++) {
+                GameObject gameObject = myObjects[i][j];
+                if (gameObject != null) {
+                    gameObject.draw(g, i * tileWidth, j * tileHeight, tileWidth, tileHeight);
+                }
+            }
+        }
+    }
+
+    public List<GameUnit> getGameUnits () {
+        return myUnits;
     }
 
     @Override
