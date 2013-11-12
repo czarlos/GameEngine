@@ -1,0 +1,3502 @@
+[ "controllers.WorldManager", {
+  "myGameName" : "test",
+  "myStages" : [ "java.util.ArrayList", [ [ "stage.Stage", {
+    "myWinCondition" : [ "stage.WinCondition", {
+      "conditionsNeeded" : 0,
+      "conditions" : [ "java.util.ArrayList", [ ] ]
+    } ],
+    "grid" : [ "grid.Grid", {
+      "myWidth" : 10,
+      "myHeight" : 10,
+      "myTileMap" : [ "java.util.HashMap", {
+        "grid.Coordinate@6e65603b" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@6ff7b082" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@2a35606a" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@4ab0342e" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@1afdd9ed" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@2d726d05" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@8af80c6" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@83800b5" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@47ca0b84" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@38d2c6bd" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@6fb08b78" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@6a2e7136" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@14186330" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@7ef699fc" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@12411884" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@17c6f9c5" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@777da320" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : true,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@7facb06d" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@77a94411" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@75d0d70a" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@21ba2bee" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5fa01e33" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@3f5fff9c" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@43fa92cf" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@30fe5ac" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@33437177" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@29427773" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@15f5bf70" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@23965883" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@459a278e" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@20836bc5" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@7acdff36" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@74f508b9" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@643c1156" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@3a2f4b9e" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@26cf1128" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@e9e1e25" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@43b17f94" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@4190fa1c" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@10ce55ec" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@770d8fe9" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@1e4e8204" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@ac7c70c" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@2d740e2c" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@2c2dfeb3" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@3a2ef044" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@2734469e" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5827cdf7" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5b85c9b" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@33537a92" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@37bf6255" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@60b38296" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : true,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@638d12b5" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@55446de5" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@91ed751" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5e32ee9c" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@151465e5" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@1d434058" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@49cd7bfe" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@22730597" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@61d60df3" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@61cf7414" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@38eb5d53" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@2c6914b7" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@7f8b011e" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5ba7491e" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5960c729" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@6e2da832" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@646f6cff" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@42c75c22" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@18927b25" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@41dcea5b" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@2e71de6e" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@44b1d73a" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@55db68d4" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@4f5d0cdc" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@2d942191" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5e070b7d" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : true,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@37867b45" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@65f76838" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@9b3f577" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5187868c" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@35c21f94" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@2ecd16a2" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5a6b0192" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@1a88fdaf" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@77bc76e6" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@29663452" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@f0ac6b0" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@164ce4cc" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@4d17ee9e" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5908432d" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@7631de50" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@fee6473" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@14b66f4a" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : true,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@c7a5487" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@3439e427" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@76223373" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@2f94ac91" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@6c04c230" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ]
+      } ],
+      "myObjects" : [ "java.util.HashMap", {
+        "grid.Coordinate@6cf12b66" : [ "gameObject.GameUnit", {
+          "stats" : [ "gameObject.Stat", {
+            "myStatList" : [ "java.util.HashMap", {
+              "movement" : 3
+            } ]
+          } ],
+          "itemList" : [ "java.util.ArrayList", [ ] ],
+          "affiliation" : 0,
+          "controllable" : true,
+          "activeWeapon" : null,
+          "experience" : 0.0,
+          "health" : 20.0,
+          "name" : "hero",
+          "imagePath" : "resources/hero.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@b9aff55" : [ "gameObject.GameObject", {
+          "name" : "tree",
+          "imagePath" : "resources/tree.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ]
+      } ],
+      "myPassStatuses" : [ "java.util.HashMap", { } ],
+      "name" : "Grid",
+      "gameUnits" : [ "java.util.HashMap", {
+        "gameObject.GameUnit@2ff2ab91" : [ "grid.Coordinate", {
+          "y" : 5,
+          "x" : 4
+        } ]
+      } ],
+      "image" : null
+    } ],
+    "affiliateList" : [ "java.util.ArrayList", [ ] ]
+  } ] ] ],
+  "myActiveStage" : [ "stage.Stage", {
+    "myWinCondition" : [ "stage.WinCondition", {
+      "conditionsNeeded" : 0,
+      "conditions" : [ "java.util.ArrayList", [ ] ]
+    } ],
+    "grid" : [ "grid.Grid", {
+      "myWidth" : 10,
+      "myHeight" : 10,
+      "myTileMap" : [ "java.util.HashMap", {
+        "grid.Coordinate@6e65603b" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@6ff7b082" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@2a35606a" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@4ab0342e" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@1afdd9ed" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@2d726d05" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@8af80c6" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@83800b5" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@47ca0b84" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@38d2c6bd" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@6fb08b78" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@6a2e7136" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@14186330" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@7ef699fc" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@12411884" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@17c6f9c5" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@777da320" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : true,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@7facb06d" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@77a94411" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@75d0d70a" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@21ba2bee" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5fa01e33" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@3f5fff9c" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@43fa92cf" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@30fe5ac" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@33437177" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@29427773" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@15f5bf70" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@23965883" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@459a278e" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@20836bc5" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@7acdff36" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@74f508b9" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@643c1156" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@3a2f4b9e" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@26cf1128" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@e9e1e25" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@43b17f94" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@4190fa1c" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@10ce55ec" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@770d8fe9" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@1e4e8204" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@ac7c70c" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@2d740e2c" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@2c2dfeb3" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@3a2ef044" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@2734469e" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5827cdf7" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5b85c9b" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@33537a92" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@37bf6255" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@60b38296" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : true,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@638d12b5" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@55446de5" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@91ed751" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5e32ee9c" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@151465e5" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@1d434058" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@49cd7bfe" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@22730597" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@61d60df3" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@61cf7414" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@38eb5d53" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@2c6914b7" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@7f8b011e" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5ba7491e" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5960c729" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@6e2da832" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@646f6cff" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@42c75c22" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@18927b25" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@41dcea5b" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@2e71de6e" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@44b1d73a" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@55db68d4" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@4f5d0cdc" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@2d942191" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5e070b7d" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : true,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@37867b45" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@65f76838" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@9b3f577" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5187868c" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@35c21f94" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@2ecd16a2" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5a6b0192" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@1a88fdaf" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@77bc76e6" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@29663452" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@f0ac6b0" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@164ce4cc" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@4d17ee9e" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@5908432d" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@7631de50" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@fee6473" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@14b66f4a" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : true,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@c7a5487" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@3439e427" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@76223373" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@2f94ac91" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@6c04c230" : [ "grid.Tile", {
+          "name" : "water",
+          "active" : false,
+          "statMods" : [ "java.util.HashMap", { } ],
+          "moveCost" : 2,
+          "imagePath" : "resources/water.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ]
+      } ],
+      "myObjects" : [ "java.util.HashMap", {
+        "grid.Coordinate@6cf12b66" : [ "gameObject.GameUnit", {
+          "stats" : [ "gameObject.Stat", {
+            "myStatList" : [ "java.util.HashMap", {
+              "movement" : 3
+            } ]
+          } ],
+          "itemList" : [ "java.util.ArrayList", [ ] ],
+          "affiliation" : 0,
+          "controllable" : true,
+          "activeWeapon" : null,
+          "experience" : 0.0,
+          "health" : 20.0,
+          "name" : "hero",
+          "imagePath" : "resources/hero.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ],
+        "grid.Coordinate@b9aff55" : [ "gameObject.GameObject", {
+          "name" : "tree",
+          "imagePath" : "resources/tree.png",
+          "passableList" : [ "java.util.ArrayList", [ ] ],
+          "image" : [ "java.awt.image.BufferedImage", {
+            "alphaPremultiplied" : false
+          } ]
+        } ]
+      } ],
+      "myPassStatuses" : [ "java.util.HashMap", { } ],
+      "name" : "Grid",
+      "gameUnits" : [ "java.util.HashMap", {
+        "gameObject.GameUnit@2ff2ab91" : [ "grid.Coordinate", {
+          "y" : 5,
+          "x" : 4
+        } ]
+      } ],
+      "image" : null
+    } ],
+    "affiliateList" : [ "java.util.ArrayList", [ ] ]
+  } ],
+  "myEditorData" : [ "controllers.EditorData", {
+    "myDataMap" : [ "java.util.HashMap", {
+      "GameObject" : [ "java.util.ArrayList", [ [ "gameObject.GameObject", {
+        "name" : "tree",
+        "imagePath" : "resources/tree.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ] ] ],
+      "Tile" : [ "java.util.ArrayList", [ [ "grid.Tile", {
+        "name" : "grass",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 1,
+        "imagePath" : "resources/grass.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ], [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ] ] ],
+      "GameUnit" : [ "java.util.ArrayList", [ [ "gameObject.GameUnit", {
+        "stats" : [ "gameObject.Stat", {
+          "myStatList" : [ "java.util.HashMap", {
+            "movement" : 3
+          } ]
+        } ],
+        "itemList" : [ "java.util.ArrayList", [ ] ],
+        "affiliation" : 0,
+        "controllable" : true,
+        "activeWeapon" : null,
+        "experience" : 0.0,
+        "health" : 20.0,
+        "name" : "hero",
+        "imagePath" : "resources/hero.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ] ] ]
+    } ]
+  } ],
+  "gameName" : "test",
+  "grid" : [ "grid.Grid", {
+    "myWidth" : 10,
+    "myHeight" : 10,
+    "myTileMap" : [ "java.util.HashMap", {
+      "grid.Coordinate@6e65603b" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@6ff7b082" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@2a35606a" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@4ab0342e" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@1afdd9ed" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@2d726d05" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@8af80c6" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@83800b5" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@47ca0b84" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@38d2c6bd" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@6fb08b78" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@6a2e7136" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@14186330" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@7ef699fc" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@12411884" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@17c6f9c5" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@777da320" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : true,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@7facb06d" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@77a94411" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@75d0d70a" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@21ba2bee" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@5fa01e33" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@3f5fff9c" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@43fa92cf" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@30fe5ac" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@33437177" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@29427773" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@15f5bf70" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@23965883" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@459a278e" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@20836bc5" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@7acdff36" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@74f508b9" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@643c1156" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@3a2f4b9e" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@26cf1128" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@e9e1e25" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@43b17f94" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@4190fa1c" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@10ce55ec" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@770d8fe9" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@1e4e8204" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@ac7c70c" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@2d740e2c" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@2c2dfeb3" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@3a2ef044" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@2734469e" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@5827cdf7" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@5b85c9b" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@33537a92" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@37bf6255" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@60b38296" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : true,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@638d12b5" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@55446de5" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@91ed751" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@5e32ee9c" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@151465e5" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@1d434058" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@49cd7bfe" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@22730597" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@61d60df3" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@61cf7414" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@38eb5d53" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@2c6914b7" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@7f8b011e" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@5ba7491e" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@5960c729" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@6e2da832" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@646f6cff" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@42c75c22" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@18927b25" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@41dcea5b" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@2e71de6e" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@44b1d73a" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@55db68d4" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@4f5d0cdc" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@2d942191" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@5e070b7d" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : true,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@37867b45" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@65f76838" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@9b3f577" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@5187868c" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@35c21f94" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@2ecd16a2" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@5a6b0192" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@1a88fdaf" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@77bc76e6" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@29663452" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@f0ac6b0" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@164ce4cc" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@4d17ee9e" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@5908432d" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@7631de50" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@fee6473" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@14b66f4a" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : true,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@c7a5487" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@3439e427" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@76223373" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@2f94ac91" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@6c04c230" : [ "grid.Tile", {
+        "name" : "water",
+        "active" : false,
+        "statMods" : [ "java.util.HashMap", { } ],
+        "moveCost" : 2,
+        "imagePath" : "resources/water.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ]
+    } ],
+    "myObjects" : [ "java.util.HashMap", {
+      "grid.Coordinate@6cf12b66" : [ "gameObject.GameUnit", {
+        "stats" : [ "gameObject.Stat", {
+          "myStatList" : [ "java.util.HashMap", {
+            "movement" : 3
+          } ]
+        } ],
+        "itemList" : [ "java.util.ArrayList", [ ] ],
+        "affiliation" : 0,
+        "controllable" : true,
+        "activeWeapon" : null,
+        "experience" : 0.0,
+        "health" : 20.0,
+        "name" : "hero",
+        "imagePath" : "resources/hero.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ],
+      "grid.Coordinate@b9aff55" : [ "gameObject.GameObject", {
+        "name" : "tree",
+        "imagePath" : "resources/tree.png",
+        "passableList" : [ "java.util.ArrayList", [ ] ],
+        "image" : [ "java.awt.image.BufferedImage", {
+          "alphaPremultiplied" : false
+        } ]
+      } ]
+    } ],
+    "myPassStatuses" : [ "java.util.HashMap", { } ],
+    "name" : "Grid",
+    "gameUnits" : [ "java.util.HashMap", {
+      "gameObject.GameUnit@2ff2ab91" : [ "grid.Coordinate", {
+        "y" : 5,
+        "x" : 4
+      } ]
+    } ],
+    "image" : null
+  } ]
+} ]

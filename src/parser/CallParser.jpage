@@ -55,3 +55,11 @@ list.add(hero);
 
 p.createJSON("defaults/GameUnit", list);
 
+// Saving/loading the game
+parser.JSONParser p = new parser.JSONParser();
+
+controllers.WorldManager wm = new controllers.WorldManager("test");
+wm.addStage(10, 10, 1);
+wm.saveGame();
+
+controllers.WorldManager loaded = p.createObject("saves/test", controllers.WorldManager.class);
