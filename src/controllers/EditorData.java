@@ -7,15 +7,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import parser.JSONParser;
 import view.Drawable;
 
-
+@JsonAutoDetect
 public class EditorData {
+    @JsonProperty
     Map<String, List<Drawable>> myDataMap;
-
     JSONParser myParser;
 
+    // Only for use by deserializer
+    public EditorData() {
+        myParser = new JSONParser();
+    }
+    
     public EditorData (String folderName) {
         myParser = new JSONParser();
         myDataMap = new HashMap<String, List<Drawable>>();

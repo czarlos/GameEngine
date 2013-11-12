@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import controllers.EditorData;
 import parser.JSONParser;
 import stage.Stage;
 import view.Drawable;
@@ -15,17 +18,20 @@ import grid.Grid;
 import grid.Tile;
 
 
+@JsonAutoDetect
 public class WorldManager {
-
+    @JsonProperty
     List<Stage> myStages;
+    @JsonProperty
     Stage myActiveStage;
-    Grid myGrid;
     FromJSONFactory myFactory;
     JSONParser myParser;
+    @JsonProperty
     EditorData myEditorData;
+    @JsonProperty
     String myGameName;
 
-    public WorldManager (String gameName) {
+    public WorldManager (@JsonProperty("myGameName") String gameName) {
         myStages = new ArrayList<Stage>();
         myFactory = new FromJSONFactory();
         myParser = new JSONParser();
@@ -137,4 +143,13 @@ public class WorldManager {
 
         return myEditorData.setDrawable("GameObject", ID, go);
     }
+
+    public void saveGame () {
+        myParser.createJSON("saves/" + myGameName, this);
+    }
+
+    public WorldManager loadGame (String gameName) {
+        return myParser.createObject("saves/" + gameName, controllers.WorldManager.class);
+    }
+
 }
