@@ -12,6 +12,7 @@ public class FromJSONFactory {
         p = new parser.JSONParser();
     }
 
+    @SuppressWarnings("unchecked")
     public <T> T make (String type, int ID) {
         ArrayList<T> list = p.createObject("defaults/" + type, ArrayList.class);
         if (ID < list.size() & ID > -1) { return list.get(ID); }

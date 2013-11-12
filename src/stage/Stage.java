@@ -22,17 +22,21 @@ public class Stage {
 
     public Stage (int x, int y, int tileID) {
         myGrid = new Grid(x, y, tileID);
-        run();
+  //      run(); // only needs to run in the actual gameplay
     }
 
     public Grid getGrid(){
         return myGrid;
     }
+    
+    public void setWinCondition(WinCondition wc){
+        myWinCondition = wc;
+    }
     /**
      * 
      */
     public void run () {
-        while (!myWinCondition.isWinConditionMet()) {
+        while (!myWinCondition.hasWon()) {
             for (String affiliate : myAffiliateList) {
                 // Do Player Moves
                 doPlayerMove();

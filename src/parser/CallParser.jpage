@@ -11,7 +11,7 @@ Water.setMoveCost(2);
 list.add(Grass);
 list.add(Water);
 
-p.createJSON("defaults/tile", list);
+p.createJSON("defaults/Tile", list);
 
 
 parser.JSONParser p = new parser.JSONParser();

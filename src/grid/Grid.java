@@ -3,6 +3,7 @@ package grid;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,7 +59,7 @@ public class Grid implements Drawable {
     private void initTiles (int tileID) {
         for (int i = 0; i < myWidth; i++) {
             for (int j = 0; j < myHeight; j++) {
-                myTileMap.put(new Coordinate(i, j), (Tile) myFactory.make("tile", tileID));
+                myTileMap.put(new Coordinate(i, j), (Tile) myFactory.make("Tile", tileID));
             }
         }
     }
@@ -276,5 +277,15 @@ public class Grid implements Drawable {
         }
 
         return gameUnitMap;
+    }
+
+    @Override
+    public String getName () {
+        return null;
+    }
+
+    @Override
+    public Image getImage () {
+        return null;
     }
 }

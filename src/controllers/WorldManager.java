@@ -2,8 +2,12 @@ package controllers;
 
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import parser.JSONParser;
 import stage.Stage;
+import view.Drawable;
 import gameObject.GameObject;
 import grid.FromJSONFactory;
 import grid.Grid;
@@ -16,16 +20,20 @@ public class WorldManager {
     Stage myActiveStage;
     Grid myGrid;
     FromJSONFactory myFactory;
+    JSONParser myParser;
+    EditorData myEditorData;
 
-    public WorldManager (int x, int y, int tileID) {
+    public WorldManager () {
         myStages = new ArrayList<Stage>();
-        setActiveStage(addStage(x, y, tileID));
         myFactory = new FromJSONFactory();
+        myParser = new JSONParser();
+        myEditorData = new EditorData("defaults");
     }
 
     // returns Stage ID
     public int addStage (int x, int y, int tileID) {
         myStages.add(new Stage(x, y, tileID));
+        setActiveStage(myStages.size() - 1);
         return myStages.size() - 1;
     }
 
@@ -56,22 +64,25 @@ public class WorldManager {
     }
 
     public void placeUnit (int unitID, int x, int y) {
-        // myActiveStage.getGrid().placeObject((Unit) myFactory.make("unit", unitID), x, y);
-
-        // uncomment when I'm done JSONifying objects.
+        myActiveStage.getGrid().placeObject((GameObject) myFactory.make("unit", unitID), x, y);
     }
 
     public void placeObject (int objectID, int x, int y) {
-        // myActiveStage.getGrid().placeObject((GameObject) myFactory.make("gameobject", objectID),
-        // x, y);
-
-        // uncomment when I'm done JSONifying objects.
+        myActiveStage.getGrid().placeObject((GameObject) myFactory.make("gameobject", objectID),
+                                            x, y);
     }
 
     // EDITING DEFAULTS/CUSTOMIZING (with JSON)
 
-    public void getDefaultTiles () {
-        // return an array of strings from JSON
+    public Map<String, Image> get (String className) {
+        Map<String, Image> ret = new HashMap<String, Image>();
+        ArrayList<Drawable> myList = (ArrayList<Drawable>) myEditorData.get(className);
+
+        for (Drawable item : myList) {
+            ret.put(item.getName(), item.getImage());
+        }
+
+        return ret;
     }
 
     // return array
