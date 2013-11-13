@@ -46,4 +46,25 @@ public class Weapon extends Equipment {
         this.myActionList = myActionList;
     }
 
+    @Override
+    public int hashCode () {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((myActionList == null) ? 0 : myActionList.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals (Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+        Weapon other = (Weapon) obj;
+        if (myActionList == null) {
+            if (other.myActionList != null) return false;
+        }
+        else if (!myActionList.equals(other.myActionList)) return false;
+        return true;
+    }
+
 }

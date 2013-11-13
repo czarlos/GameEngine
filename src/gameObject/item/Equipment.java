@@ -41,4 +41,25 @@ public abstract class Equipment extends Item {
         this.myModifiers = modifiers;
     }
 
+    @Override
+    public int hashCode () {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((myModifiers == null) ? 0 : myModifiers.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals (Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+        Equipment other = (Equipment) obj;
+        if (myModifiers == null) {
+            if (other.myModifiers != null) return false;
+        }
+        else if (!myModifiers.equals(other.myModifiers)) return false;
+        return true;
+    }
+
 }

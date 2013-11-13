@@ -151,4 +151,48 @@ public class GameUnit extends GameObject {
         this.myExperience = myExperience;
     }
 
+    @Override
+    public int hashCode () {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (isControllable ? 1231 : 1237);
+        result = prime * result + ((myActiveWeapon == null) ? 0 : myActiveWeapon.hashCode());
+        result = prime * result + myAffiliation;
+        long temp;
+        temp = Double.doubleToLongBits(myExperience);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(myHealth);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + ((myItemList == null) ? 0 : myItemList.hashCode());
+        result = prime * result + ((myUnitStats == null) ? 0 : myUnitStats.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals (Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+        GameUnit other = (GameUnit) obj;
+        if (isControllable != other.isControllable) return false;
+        if (myActiveWeapon == null) {
+            if (other.myActiveWeapon != null) return false;
+        }
+        else if (!myActiveWeapon.equals(other.myActiveWeapon)) return false;
+        if (myAffiliation != other.myAffiliation) return false;
+        if (Double.doubleToLongBits(myExperience) != Double.doubleToLongBits(other.myExperience))
+            return false;
+        if (Double.doubleToLongBits(myHealth) != Double.doubleToLongBits(other.myHealth))
+            return false;
+        if (myItemList == null) {
+            if (other.myItemList != null) return false;
+        }
+        else if (!myItemList.equals(other.myItemList)) return false;
+        if (myUnitStats == null) {
+            if (other.myUnitStats != null) return false;
+        }
+        else if (!myUnitStats.equals(other.myUnitStats)) return false;
+        return true;
+    }
+
 }
