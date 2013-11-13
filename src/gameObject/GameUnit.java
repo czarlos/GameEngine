@@ -27,6 +27,7 @@ public class GameUnit extends GameObject {
     private double myHealth;
     private double myExperience;
     private Properties myProperties;
+    private boolean isActive;
 
     public GameUnit () {
         super();
@@ -52,6 +53,9 @@ public class GameUnit extends GameObject {
         myItemList = item;
         isControllable = controllable;
         myProperties = properties;
+//        myUnitStats.makeStat("movement", 3);
+//        setItemList(new java.util.ArrayList<gameObject.item.Item>());
+//        setActive(false);
     }
 
     /**
@@ -130,15 +134,15 @@ public class GameUnit extends GameObject {
     public boolean isPassable (GameObject unit) {
         return super.isPassable(unit) || ((GameUnit) unit).getAffiliation() == myAffiliation;
     }
-    
-    public int getTotalStat(String stat){
+
+    public int getTotalStat (String stat) {
         int value = myUnitStats.getStatValue(stat);
         for (Item i : myItemList)
             if (i instanceof Equipment)
-                value+=((Equipment) i).getModifiers().getStatModifier(stat);
+                value += ((Equipment) i).getModifiers().getStatModifier(stat);
         return value;
     }
-    
+
     public void setUnitStats (Stat myUnitStats) {
         this.myUnitStats = myUnitStats;
     }
@@ -170,7 +174,15 @@ public class GameUnit extends GameObject {
     public void setActiveWeapon (Item myActiveItem) {
         this.myActiveWeapon = (Weapon) myActiveItem;
     }
-    
+
+    public void setActive (boolean active) {
+        this.isActive = active;
+    }
+
+    public boolean getActiveStatus () {
+        return this.isActive;
+    }
+
     public double getHealth () {
         return myHealth;
     }

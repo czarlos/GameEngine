@@ -6,6 +6,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import action.CombatAction;
+import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.Stat;
 import grid.Grid;
@@ -19,10 +20,13 @@ import grid.Grid;
 public class Stage {
 
     private Grid myGrid;
-    private List<String> myAffiliateList;
+    private List<Integer> myAffiliateList;
     @JsonProperty
     private WinCondition myWinCondition;
     private String myName;
+    private List<GameUnit> myCurrUnitList;
+    private String preText;
+    private String postText;
 
     // only for use by deserializer
     public Stage () {
@@ -30,9 +34,10 @@ public class Stage {
 
     public Stage (int x, int y, int tileID, String name) {
         myGrid = new Grid(x, y, tileID);
-        myAffiliateList = new ArrayList<String>();
+        myAffiliateList = new ArrayList<Integer>();
         myWinCondition = new WinCondition();
         myName = name;
+        myCurrUnitList = new ArrayList<GameUnit>();
     }
 
     public Grid getGrid () {
@@ -55,12 +60,28 @@ public class Stage {
         myWinCondition.addCondition(c);
     }
 
-    public List<String> getAffiliateList () {
+    public List<Integer> getAffiliateList () {
         return myAffiliateList;
     }
 
-    public void setAffiliateList (List<String> affiliates) {
+    public void setAffiliateList (List<Integer> affiliates) {
         myAffiliateList = affiliates;
+    }
+    
+    public void setPreStory(String pre) {  
+        preText = pre;
+    } 
+    
+    public void setPostStory(String post) {
+        postText = post;
+    }
+    
+    public String getPreStory() {
+        return preText;
+    }
+    
+    public String getPostStory() {
+        return postText;
     }
 
     /**
@@ -68,23 +89,40 @@ public class Stage {
      */
     public void run () {
         while (!myWinCondition.hasWon()) {
-            for (String affiliate : myAffiliateList) {
-                // Do Player Moves
-                doPlayerMove();
-                // Do AI Moves
-                doAIMove();
+            for (int i : myAffiliateList) { // for each affiliation
+                changeTurns(i);             // set those affiliations' units to active
+                if (myCurrUnitList == null) // if there are no units skip that affiliation's turn
+                    continue;
+                if (myCurrUnitList.get(0).isControllable())
+                    doPlayerMove();
+                else doAIMove();
+                myCurrUnitList.clear();
             }
         }
     }
 
     private void doPlayerMove () {
-        // TODO Add logic for movement during a players turn
-
+        // TODO wait until all units are done
+        for (GameUnit unit : myCurrUnitList) {
+            while (unit.getActiveStatus())
+                System.out.println("WE WAITIN UNTIL ALL UNITS ARE NOT ACTIVE");
+        }
     }
 
     private void doAIMove () {
-        // TODO Add logic for AI movement
+        // TODO Add logic for AI movement YO CARLOS YOUR STUFF GOES HERE
 
+    }
+
+    private void changeTurns (Integer currentTurnAffiliate) { // we are just going to be looping
+                                                              // through affiliations and setting
+                                                              // units to active
+        for (GameUnit unit : myGrid.getGameUnits().keySet()) {
+            if (currentTurnAffiliate == unit.getAffiliation()) {
+                unit.setActive(true);
+                myCurrUnitList.add(unit);
+            }
+        }
     }
 
     /**

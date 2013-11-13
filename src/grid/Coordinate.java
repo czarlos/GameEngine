@@ -3,12 +3,13 @@ package grid;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 @JsonAutoDetect
 public class Coordinate {
     private int myX;
     private int myY;
 
-    public Coordinate (@JsonProperty("X") int x,@JsonProperty("Y") int y) {
+    public Coordinate (@JsonProperty("X") int x, @JsonProperty("Y") int y) {
         myX = x;
         myY = y;
     }
