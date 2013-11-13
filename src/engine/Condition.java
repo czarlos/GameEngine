@@ -5,11 +5,12 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 @JsonAutoDetect
 public abstract class Condition {
     @JsonProperty
     protected Map<String, String> myData;
-    
+
     public Condition () {
         myData = new HashMap<String, String>();
     }

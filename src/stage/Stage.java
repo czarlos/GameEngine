@@ -20,7 +20,7 @@ import grid.Grid;
 public class Stage {
 
     private Grid myGrid;
-    private List<Integer> myAffiliateList; 
+    private List<Integer> myAffiliateList;
     @JsonProperty
     private WinCondition myWinCondition;
     private String myName;
@@ -71,15 +71,14 @@ public class Stage {
      */
     public void run () {
         while (!myWinCondition.hasWon()) {
-            for (int i : myAffiliateList) { //for each affiliation
-                changeTurns(i);             //set those affiliations' units to active
-                if (myCurrUnitList == null) //if there are no units skip that affiliation's turn
+            for (int i : myAffiliateList) { // for each affiliation
+                changeTurns(i);             // set those affiliations' units to active
+                if (myCurrUnitList == null) // if there are no units skip that affiliation's turn
                     continue;
                 if (myCurrUnitList.get(0).isControllable())
                     doPlayerMove();
-                else
-                    doAIMove();
-                myCurrUnitList.clear(); 
+                else doAIMove();
+                myCurrUnitList.clear();
             }
         }
     }
@@ -97,15 +96,17 @@ public class Stage {
 
     }
 
-    private void changeTurns (Integer currentTurnAffiliate) { //we are just going to be looping through affiliations and setting units to active
+    private void changeTurns (Integer currentTurnAffiliate) { // we are just going to be looping
+                                                              // through affiliations and setting
+                                                              // units to active
         for (GameUnit unit : myGrid.getGameUnits().keySet()) {
-                if(currentTurnAffiliate == unit.getAffiliation()){
-                   unit.setActive(true);
-                   myCurrUnitList.add(unit);
-                }
+            if (currentTurnAffiliate == unit.getAffiliation()) {
+                unit.setActive(true);
+                myCurrUnitList.add(unit);
             }
+        }
     }
-    
+
     /**
      * doCombat executes combat between two units.
      * 

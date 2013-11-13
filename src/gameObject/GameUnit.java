@@ -31,7 +31,7 @@ public class GameUnit extends GameObject {
         super();
         myUnitStats = new Stat();
         myUnitStats.makeStat("movement", 3);
-        setItemList(new java.util.ArrayList<gameObject.item.Item>()); 
+        setItemList(new java.util.ArrayList<gameObject.item.Item>());
         setActive(false);
     }
 
@@ -78,15 +78,15 @@ public class GameUnit extends GameObject {
     public boolean isPassable (GameObject unit) {
         return super.isPassable(unit) || ((GameUnit) unit).getAffiliation() == myAffiliation;
     }
-    
-    public int getTotalStat(String stat){
+
+    public int getTotalStat (String stat) {
         int value = myUnitStats.getStatValue(stat);
         for (Item i : myItemList)
             if (i instanceof Equipment)
-                value+=((Equipment) i).getModifiers().getStatModifier(stat);
+                value += ((Equipment) i).getModifiers().getStatModifier(stat);
         return value;
     }
-    
+
     public void setUnitStats (Stat myUnitStats) {
         this.myUnitStats = myUnitStats;
     }
@@ -119,21 +119,23 @@ public class GameUnit extends GameObject {
         this.myActiveWeapon = (Weapon) myActiveItem;
     }
 
-    public void setActive(boolean active) {
+    public void setActive (boolean active) {
         this.isActive = active;
     }
-    
-    public boolean getActiveStatus() {
+
+    public boolean getActiveStatus () {
         return this.isActive;
     }
-    
- /*   public Properties getProperties () {
-        return myProperties;
-    }
 
-    public void setProperties (Properties myProperties) {
-        this.myProperties = myProperties;
-    }*/
+    /*
+     * public Properties getProperties () {
+     * return myProperties;
+     * }
+     * 
+     * public void setProperties (Properties myProperties) {
+     * this.myProperties = myProperties;
+     * }
+     */
 
     public List<Item> getItemList () {
         return myItemList;
@@ -142,7 +144,7 @@ public class GameUnit extends GameObject {
     public void setItemList (List<Item> items) {
         myItemList = items;
     }
-    
+
     public double getHealth () {
         return myHealth;
     }
