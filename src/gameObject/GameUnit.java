@@ -25,12 +25,14 @@ public class GameUnit extends GameObject {
     private Weapon myActiveWeapon;
     private double myHealth;
     private double myExperience;
+    private boolean isActive;
 
     public GameUnit () {
         super();
         myUnitStats = new Stat();
         myUnitStats.makeStat("movement", 3);
         setItemList(new java.util.ArrayList<gameObject.item.Item>()); 
+        setActive(false);
     }
 
     /**
@@ -117,6 +119,14 @@ public class GameUnit extends GameObject {
         this.myActiveWeapon = (Weapon) myActiveItem;
     }
 
+    public void setActive(boolean active) {
+        this.isActive = active;
+    }
+    
+    public boolean getActiveStatus() {
+        return this.isActive;
+    }
+    
  /*   public Properties getProperties () {
         return myProperties;
     }
