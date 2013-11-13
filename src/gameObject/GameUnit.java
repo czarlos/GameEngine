@@ -109,6 +109,22 @@ public class GameUnit extends GameObject {
         }
         myItemList.add(itemName);
     }
+    
+    /**
+     * Removes a particular item from the units itemList, ensures that upon removal
+     * the unit's stats get decremented accordingly.
+     * @param itemName
+     */
+    public void removeItem (Item itemName) {
+        if (itemName instanceof Equipment) {
+            for(String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
+                int statVal = this.getStats().getStatValue(stat);
+                statVal-= ((Equipment) itemName).getModifiers().getStatModifier(stat);
+                this.getStats().setStatValue(stat, statVal);
+            }
+        }
+        myItemList.remove(itemName);
+    }
 
     @Override
     public boolean isPassable (GameObject unit) {
@@ -154,14 +170,6 @@ public class GameUnit extends GameObject {
     public void setActiveWeapon (Item myActiveItem) {
         this.myActiveWeapon = (Weapon) myActiveItem;
     }
-
- /*   public Properties getProperties () {
-        return myProperties;
-    }
-
-    public void setProperties (Properties myProperties) {
-        this.myProperties = myProperties;
-    }*/
     
     public double getHealth () {
         return myHealth;

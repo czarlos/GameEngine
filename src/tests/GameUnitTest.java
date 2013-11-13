@@ -109,6 +109,5 @@ public class GameUnitTest {
     public void testCurrentWeapon() {
         initializeCustom();
         assert(customUnit.getActiveWeapon().equals("sword"));
-        //assertEquals(customUnit.getActiveWeapon(), "sword");
     }
 }
