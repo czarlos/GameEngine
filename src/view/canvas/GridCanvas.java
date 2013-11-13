@@ -19,7 +19,7 @@ public class GridCanvas extends Canvas {
 
     public static void main (String args[]) {
         GridCanvas myCanvas = new GridCanvas(new Grid(10, 10, 1));
-        
+
         JFrame myFrame = new JFrame();
         myFrame.getContentPane().add(myCanvas);
         myFrame.pack();

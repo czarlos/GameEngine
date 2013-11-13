@@ -46,23 +46,23 @@ public class WorldManager {
      * @param tileID, the type of tile to initially fill the background with
      * @return StageID
      */
-    
+
     public int addStage (int x, int y, int tileID, String name) {
         myStages.add(new Stage(x, y, tileID, name));
         setActiveStage(myStages.size() - 1);
         return myStages.size() - 1;
     }
-    
-    public List<String> getStages(){
+
+    public List<String> getStages () {
         List<String> ret = new ArrayList<String>();
-        for(Stage s: myStages){
+        for (Stage s : myStages) {
             ret.add(s.getName());
         }
-        
+
         return ret;
     }
-    
-    public void setStages(List<Stage> stages){
+
+    public void setStages (List<Stage> stages) {
         myStages = stages;
     }
 
@@ -120,10 +120,10 @@ public class WorldManager {
         ArrayList<String> ret = new ArrayList<String>();
         ArrayList<Drawable> myList = (ArrayList<Drawable>) myEditorData.get(className);
 
-        for(Drawable d: myList){
+        for (Drawable d : myList) {
             ret.add(d.getName());
         }
-        
+
         return ret;
     }
 
@@ -132,7 +132,7 @@ public class WorldManager {
 
         return myList.get(ID).getImage();
     }
-    
+
     public int setCustomTile (int ID, String name, String imagePath, int moveCost) {
         Tile t = new grid.Tile();
         t.setName(name);
@@ -171,7 +171,6 @@ public class WorldManager {
         return myParser.createObject("saves/" + gameName, controllers.WorldManager.class);
     }
 
-    
     // get object information
     // edit from brooks
     // actions, win conditions, items
