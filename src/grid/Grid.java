@@ -245,6 +245,8 @@ public class Grid implements Drawable {
                 if (myObjects[i][j].equals(gameUnit)) { return new Coordinate(i, j); }
             }
         }
+        
+        return null;
     }
 
     public Tile getTile (int x, int y) {
