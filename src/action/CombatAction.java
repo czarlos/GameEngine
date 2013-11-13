@@ -14,19 +14,22 @@ public class CombatAction {
     private StatModifier myAttackerOutcomes;
     private StatModifier myDefenderOutcomes;
     private List<Coordinate> myAOE;
+    private boolean isAround;
 
     public CombatAction (StatModifier offensiveStats,
                          StatModifier defensiveStats,
                          Map<String, Integer> costs,
                          StatModifier attackerOutcomes,
                          StatModifier defenderOutcomes,
-                         List<Coordinate> range) {
+                         List<Coordinate> range,
+                         boolean around) {
         myAttackerStatsAndWeights = offensiveStats;
         myDefenderStatsAndWeights = defensiveStats;
         myCosts = costs;
         myAttackerOutcomes = attackerOutcomes;
         myDefenderOutcomes = defenderOutcomes;
         myAOE = range;
+        isAround = around;
     }
 
     public Double getNetEffectiveness (GameUnit attacker, GameUnit defender) {
@@ -78,6 +81,10 @@ public class CombatAction {
 
     public List<Coordinate> getAOE () {
         return myAOE;
+    }
+    
+    public boolean isAround() {
+        return isAround;
     }
 
 }
