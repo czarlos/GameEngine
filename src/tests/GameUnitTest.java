@@ -110,4 +110,17 @@ public class GameUnitTest {
         initializeCustom();
         assert(customUnit.getActiveWeapon().equals("sword"));
     }
+    
+    @Test
+    public void testRemoveItem() {
+        initializeCustom();
+        Map<String, Integer> statMods = new HashMap<String, Integer>();
+        statMods.put("defense", 20);
+        Item helmet = new Armor("helmet", new StatModifier(statMods));
+        customUnit.addItem(helmet);
+        assertEquals(customUnit.getStats().getStatValue("defense"), 28, 0);
+        
+        customUnit.removeItem(helmet);
+        assertEquals(customUnit.getStats().getStatValue("defense"), 8, 0);
+    }
 }
