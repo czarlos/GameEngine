@@ -169,7 +169,7 @@ public class Grid implements Drawable {
                                                         // otherwise the build is broken...
 
         GameObject movingObject = getObject(coordinate.getX(), coordinate.getY());
-        findActionRange(coordinate, combatAction.getAOE());
+        findActionRange(coordinate, combatAction.getAOE(), combatAction.isAround());
         // TODO: use cursor to select active tile to do action on. use canDo. find which way unit is
         // facing, use that orientation to call findAffectedObjects
     }
@@ -179,17 +179,26 @@ public class Grid implements Drawable {
      * 
      * @param coordinate - Coordinate where the action originates
      * @param area - List of Coordinates that map the area of the action
+     * @param isAround - boolean of whether the action only affects one direction, or is all around the unit
      */
-    private void findActionRange (Coordinate coordinate, List<Coordinate> area) {
-        for (Coordinate cell : area) {
-            getTile(coordinate.getX() + cell.getX(), coordinate.getY() + cell.getY())
-                    .setActive(true); // up
-            getTile(coordinate.getX() + cell.getY(), coordinate.getY() - cell.getX())
-                    .setActive(true); // right
-            getTile(coordinate.getX() - cell.getX(), coordinate.getY() - cell.getY())
-                    .setActive(true); // down
-            getTile(coordinate.getX() - cell.getY(), coordinate.getY() + cell.getX())
-                    .setActive(true); // left
+    private void findActionRange (Coordinate coordinate, List<Coordinate> area, boolean isAround) {
+        if (isAround) {
+            for (Coordinate cell: area) {
+                getTile(coordinate.getX() + cell.getX(), coordinate.getY() + cell.getY())
+                        .setActive(true); // up)
+            }
+        }
+        else {
+            for (Coordinate cell : area) {
+                getTile(coordinate.getX() + cell.getX(), coordinate.getY() + cell.getY())
+                        .setActive(true); // up
+                getTile(coordinate.getX() + cell.getY(), coordinate.getY() - cell.getX())
+                        .setActive(true); // right
+                getTile(coordinate.getX() - cell.getX(), coordinate.getY() - cell.getY())
+                        .setActive(true); // down
+                getTile(coordinate.getX() - cell.getY(), coordinate.getY() + cell.getX())
+                        .setActive(true); // left
+            }
         }
     }
 
@@ -225,6 +234,20 @@ public class Grid implements Drawable {
             myUnits.add((GameUnit) newObject);
         }
     }
+    
+    public List<GameUnit> getGameUnits () {
+        return myUnits;
+    }
+    
+    public Coordinate getUnitCoordinates (GameUnit gameUnit) {
+        for (int i=0; i < myObjects.length; i++ ){
+            for (int j=0; j < myObjects[i].length; j++) {
+                if (myObjects[i][j].equals(gameUnit)) { return new Coordinate(i, j); }
+            }
+        }
+        
+        return null;
+    }
 
     public Tile getTile (int x, int y) {
         // TODO: Generic method?
@@ -258,10 +281,6 @@ public class Grid implements Drawable {
                 }
             }
         }
-    }
-
-    public List<GameUnit> getGameUnits () {
-        return myUnits;
     }
 
     @Override
