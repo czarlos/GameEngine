@@ -27,7 +27,7 @@ public class Stage {
     private List<GameUnit> myCurrUnitList;
     private String preText;
     private String postText;
-    private List<List<GameUnit>> teamUnitList;
+    private List<List<GameUnit>> myTeamUnitList;
 
     // only for use by deserializer
     public Stage () {
@@ -111,9 +111,15 @@ public class Stage {
     }
 
     private void doAIMove () {
-        // TODO Add logic for AI movement YO CARLOS YOUR STUFF GOES HERE
+        int aiTeamIndex = 1;
+        for (GameUnit unit : myTeamUnitList.get(aiTeamIndex)) {
+            unit.snapToOpponent(unit);
+        }
+        
 
     }
+    
+    
 
     private void changeTurns (Integer currentTurnAffiliate) { // we are just going to be looping
                                                               // through affiliations and setting

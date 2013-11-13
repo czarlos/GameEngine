@@ -148,6 +148,22 @@ public class GameUnit extends GameObject {
                 value += ((Equipment) i).getModifiers().getStatModifier(stat);
         return value;
     }
+    
+    /**
+     * Initializes an attack from this unit to another unit based
+     * on a weapon, attack, and action chosen by the user. The execute method
+     * called by doAction actually executes the attack.
+     * @param other
+     */
+    public void attack (GameUnit other, String weaponName, CombatAction actionName) {
+        this.selectWeapon(weaponName);
+        this.doAction(actionName, other);        
+    }
+    
+
+    public void snapToOpponent (GameUnit other) {
+        
+    }
 
     public void setUnitStats (Stat myUnitStats) {
         this.myUnitStats = myUnitStats;
