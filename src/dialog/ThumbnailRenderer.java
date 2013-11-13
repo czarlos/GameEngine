@@ -29,7 +29,7 @@ public class ThumbnailRenderer extends DefaultTableCellRenderer {
         ((JLabel)cell).setText("");
         ((JLabel)cell).setHorizontalAlignment(JLabel.CENTER);
         if (isSelected) {
-            cell.setBackground(Color.blue);
+            cell.setBackground(Color.green);
         } else {
             cell.setBackground(null);
         }

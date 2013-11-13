@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -12,7 +13,7 @@ import javax.swing.JTable;
 /**
  * @author brooksmershon
  *
- * Presents a view of current units with the ability to add, remove operationss
+ * Presents a view of current units with the ability to add, remove operations
  * 
  * 
  */
@@ -34,7 +35,7 @@ public class UnitEditorPanel extends JPanel{
         table.setDefaultEditor(ImageIcon.class,
                                new ImageEditor());
         table.setRowHeight(52);
-        table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+        table.setPreferredScrollableViewportSize(new Dimension(500, 500));
         table.setFillsViewportHeight(true);
         
         JScrollPane scrollPane = new JScrollPane(table);

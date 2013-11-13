@@ -11,6 +11,9 @@ import javax.swing.table.AbstractTableModel;
  * Maintains a state for a JTable
  * Holds rows of Unit definitions
  * 
+ * graphic held in "Image column" is an ImageIcon, to preserve editing capabilities and allow for 
+ * use as a label on a button in the cell of a JTable
+ * 
  * @author brooksmershon
  *
  */

@@ -1,5 +1,6 @@
 package dialog;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -8,12 +9,17 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.image.BufferedImage;
 import javax.swing.JComponent;
 
+/**
+ * @author brooksmershon
+ *
+ * JComponent that presents a basic canvas to draw on and hold pictures for editing.
+ */
 public class DrawingPad extends JComponent{
     Image image;
     Graphics2D graphics2D;
-    //this is what we'll be using to draw on
     int currentX, currentY, oldX, oldY;
 
     public DrawingPad(){
@@ -39,6 +45,10 @@ public class DrawingPad extends JComponent{
             });
 
     }
+    
+    public Image getImage() {
+        return image;
+    }
 
     public void paintComponent(Graphics g){
             if(image == null){
@@ -49,6 +59,18 @@ public class DrawingPad extends JComponent{
 
             }
             g.drawImage(image, 0, 0, null);
+    }
+    
+    public void setPenColor(Color color) {
+        graphics2D.setPaint(color);
+    }
+    
+    public void setPenSize(int size){
+        graphics2D.setStroke(new BasicStroke(size));
+    }
+    
+    public void setBackgroundImage(Image image){
+        Image newImage = image;
     }
 
 

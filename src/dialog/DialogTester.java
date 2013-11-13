@@ -44,6 +44,10 @@ public class DialogTester {
                 
         
         model.addNewUnit("Soldier", "Luke", icon, new StatsTestStub(), new ArrayList<ActionTestStub>(), "offense");
+        model.addNewUnit("Soldier", "Bobby", icon, new StatsTestStub(), new ArrayList<ActionTestStub>(), "offense");
+        model.addNewUnit("Soldier", "Seth", icon, new StatsTestStub(), new ArrayList<ActionTestStub>(), "offense");
+
+
 
         //Create and set up the content pane.
         JComponent newContentPane = new UnitEditorPanel(model);

@@ -1,10 +1,12 @@
 package dialog;
 
 import java.awt.Component;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import javax.swing.AbstractCellEditor;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
@@ -20,7 +22,7 @@ import javax.swing.table.TableCellEditor;
 public class ImageEditor extends AbstractCellEditor
                          implements TableCellEditor, ActionListener{
     
-    BufferedImage currentImage;
+    Image currentImage;
     JButton button;
     ImageCreator imageCreator; // to be replaced with image editor dialog
     JDialog dialog; // image editor dialog
@@ -29,13 +31,13 @@ public class ImageEditor extends AbstractCellEditor
     
     public ImageEditor () {
         button = new JButton();
-        button.setActionCommand("edit");
+        button.setActionCommand(EDIT);
         button.addActionListener(this);
         button.setBorderPainted(false);
         
         imageCreator = new ImageCreator();
         dialog = ImageCreator.createDialog(button,
-                                        "Pick a Color",
+                                        "Image Editor",
                                         true,  //modal
                                         imageCreator,
                                         this,  // this class handles OK button selection
@@ -44,27 +46,28 @@ public class ImageEditor extends AbstractCellEditor
 
     @Override
     public Object getCellEditorValue () {
-        return currentImage;
+        return new ImageIcon(currentImage);
     }
 
     @Override
     public void actionPerformed (ActionEvent e) {
         if (EDIT.equals(e.getActionCommand())) {
-            //The user has clicked the cell, so
-            //bring up the dialog.
+            imageCreator.setImage(currentImage);
             dialog.setVisible(true);
 
-            //Make the renderer reappear.
             fireEditingStopped();
+        } else {
+            currentImage = imageCreator.getImage();
         }
     }
 
     @Override
-    public Component getTableCellEditorComponent (JTable arg0,
-                                                  Object arg1,
-                                                  boolean arg2,
-                                                  int arg3,
-                                                  int arg4) {
+    public Component getTableCellEditorComponent (JTable table,
+                                                  Object value,
+                                                  boolean isSelected,
+                                                  int row,
+                                                  int col) {
+        currentImage = ((ImageIcon)value).getImage();
         return button;
     }
 
