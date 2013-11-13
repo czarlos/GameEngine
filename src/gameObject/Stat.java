@@ -8,23 +8,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonAutoDetect
 public class Stat {
     @JsonProperty
-    private Map<String, Integer> myStatList;
+    private Map<String, Integer> myStatList = new HashMap<String, Integer>();
 
     public Stat () {
-        myStatList = new HashMap<String, Integer>();
     }
 
     public Integer getStatValue (String statName) {
         return myStatList.get(statName);
     }
 
-    public void setStatValue (String statName, Integer value) {
+    public void modExisting (String statName, Integer value) {
         if (myStatList.containsKey(statName)) {
             myStatList.put(statName, value);
         }
     }
 
-    public void makeStat (String name, Integer value) {
+    public void setStatValue (String name, Integer value) {
         myStatList.put(name, value);
     }
 }

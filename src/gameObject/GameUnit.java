@@ -1,6 +1,7 @@
 package gameObject;
 
 import gameObject.item.*;
+import grid.GridConstants;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import action.CombatAction;
@@ -25,12 +26,32 @@ public class GameUnit extends GameObject {
     private Weapon myActiveWeapon;
     private double myHealth;
     private double myExperience;
+    private Properties myProperties;
 
     public GameUnit () {
         super();
         myUnitStats = new Stat();
-        myUnitStats.makeStat("movement", 3);
+        myUnitStats.setStatValue("movement", 3);
         setItemList(new java.util.ArrayList<gameObject.item.Item>()); 
+        myName = GridConstants.DEFAULT_UNIT_NAME;
+        setImagePath(GridConstants.DEFAULT_UNIT_PATH);
+        myAffiliation = 0;
+        myUnitStats = new Stat() {{setStatValue("movement", 3);}};
+    }
+    
+    public GameUnit (String name,
+                     String imagePath,
+                     int affiliation,
+                     Stat stats,
+                     List<Item> item,
+                     boolean controllable,
+                     Properties properties) {
+        super();
+        myAffiliation = affiliation;
+        myUnitStats = stats;
+        myItemList = item;
+        isControllable = controllable;
+        myProperties = properties;
     }
 
     /**
@@ -70,6 +91,23 @@ public class GameUnit extends GameObject {
     public void doAction (CombatAction action, GameUnit other) {
         CombatAction selectedAction = myActiveWeapon.selectAction(action);
         selectedAction.execute(this, other);
+    }
+    
+    /**
+     * Takes an item and adds it to the list, if item is Equipment,
+     * then we modify the characters stats according to the stats of
+     * the item.
+     * @param itemName
+     */
+    public void addItem (Item itemName) {
+        if (itemName instanceof Equipment) {
+            for(String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
+                int statVal = this.getStats().getStatValue(stat);
+                statVal+= ((Equipment) itemName).getModifiers().getStatModifier(stat);
+                this.getStats().setStatValue(stat, statVal);
+            }
+        }
+        myItemList.add(itemName);
     }
 
     @Override
@@ -124,14 +162,6 @@ public class GameUnit extends GameObject {
     public void setProperties (Properties myProperties) {
         this.myProperties = myProperties;
     }*/
-
-    public List<Item> getItemList () {
-        return myItemList;
-    }
-
-    public void setItemList (List<Item> items) {
-        myItemList = items;
-    }
     
     public double getHealth () {
         return myHealth;
@@ -147,6 +177,22 @@ public class GameUnit extends GameObject {
 
     public void setExperience (double myExperience) {
         this.myExperience = myExperience;
+    }
+    
+    public List<Item> getItemList () {
+        return myItemList;
+    }
+
+    public void setItemList (List<Item> myItemList) {
+        this.myItemList = myItemList;
+    }
+
+    public Properties getProperties () {
+        return myProperties;
+    }
+
+    public void setProperties (Properties myProperties) {
+        this.myProperties = myProperties;
     }
 
 }

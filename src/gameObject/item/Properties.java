@@ -14,8 +14,8 @@ public class Properties {
     private double myExperience;
 
     public Properties (int health, int experience) {
-        setHealth(health);
-        setExperience(experience);
+        myHealth = health;
+        myExperience = experience;
     }
 
     public double getHealth () {
