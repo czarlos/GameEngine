@@ -25,6 +25,8 @@ public class Stage {
     private WinCondition myWinCondition;
     private String myName;
     private List<GameUnit> myCurrUnitList;
+    private String preText;
+    private String postText;
 
     // only for use by deserializer
     public Stage () {
@@ -64,6 +66,22 @@ public class Stage {
 
     public void setAffiliateList (List<Integer> affiliates) {
         myAffiliateList = affiliates;
+    }
+    
+    public void setPreStory(String pre) {  
+        preText = pre;
+    } 
+    
+    public void setPostStory(String post) {
+        postText = post;
+    }
+    
+    public String getPreStory() {
+        return preText;
+    }
+    
+    public String getPostStory() {
+        return postText;
     }
 
     /**
