@@ -41,5 +41,4 @@ public abstract class Equipment extends Item {
         this.myModifiers = modifiers;
     }
 
-
 }

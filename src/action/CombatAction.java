@@ -82,8 +82,8 @@ public class CombatAction {
     public List<Coordinate> getAOE () {
         return myAOE;
     }
-    
-    public boolean isAround() {
+
+    public boolean isAround () {
         return isAround;
     }
 

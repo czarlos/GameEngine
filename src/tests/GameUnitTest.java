@@ -13,73 +13,78 @@ import gameObject.item.Item;
 import gameObject.Properties;
 import gameObject.item.Weapon;
 import grid.GridConstants;
-import org.junit.Before;
 import org.junit.Test;
 import action.CombatAction;
 
+
 /**
  * Test for GameUnit class
+ * 
  * @author carlosreyes
- *
+ * 
  */
 public class GameUnitTest {
     private GameUnit customUnit;
     private GameUnit defaultUnit;
-    
-    public void initializeDefault() {
+
+    public void initializeDefault () {
         defaultUnit = new GameUnit();
     }
-    
+
     /**
      * Initialized the unit 'customUnit' a non-default
      * unit used for testing unit, combat, item, and interaction
      * functionality.
      */
-    public void initializeCustom() {
-        //Setting up the units base stats
+    public void initializeCustom () {
+        // Setting up the units base stats
         Stat stats = new Stat();
         stats.setStatValue("attack", 10);
         stats.setStatValue("defense", 5);
         stats.setStatValue("agility", 7);
         stats.setStatValue("health", 15);
-        
-        //Setting up a list of items
+
+        // Setting up a list of items
         List<Item> itemList = new ArrayList<Item>();
-        
+
         Map<String, Integer> statMods = new HashMap<String, Integer>();
         statMods.put("attack", 4);
         List<CombatAction> action = new ArrayList<CombatAction>();
-        CombatAction combAct = new CombatAction(new StatModifier(statMods), null, statMods, null, null, null, false);
+        CombatAction combAct =
+                new CombatAction(new StatModifier(statMods), null, statMods, null, null, null,
+                                 false);
         action.add(combAct);
         Item sword = new Weapon("sword", action, new StatModifier(statMods));
-        
+
         Map<String, Integer> statMods1 = new HashMap<String, Integer>();
         statMods1.put("defense", 3);
         Item shield = new Armor("shield", new StatModifier(statMods1));
 
         Properties properties = new Properties(15, 0);
-        customUnit = new GameUnit("Marth", GridConstants.DEFAULT_UNIT_PATH, 0, stats, itemList, true, properties);
+        customUnit =
+                new GameUnit("Marth", GridConstants.DEFAULT_UNIT_PATH, 0, stats, itemList, true,
+                             properties);
         customUnit.setActiveWeapon(sword);
-        //Note this is how all items must be added.
+        // Note this is how all items must be added.
         customUnit.addItem(sword);
         customUnit.addItem(shield);
     }
-    
+
     @Test
-    public void testName() {
-        assert(customUnit.getName().equals("Marth"));
+    public void testName () {
+        assert (customUnit.getName().equals("Marth"));
     }
-    
+
     @Test
-    public void testStats() {
+    public void testStats () {
         initializeCustom();
         assertEquals(customUnit.getStats().getStatValue("agility"), 7, 0);
         assertEquals(customUnit.getStats().getStatValue("health"), 15, 0);
 
     }
-    
+
     @Test
-    public void testArmor() {
+    public void testArmor () {
         initializeCustom();
         Map<String, Integer> statMods = new HashMap<String, Integer>();
         statMods.put("defense", 20);
@@ -87,9 +92,9 @@ public class GameUnitTest {
         customUnit.addItem(helmet);
         assertEquals(customUnit.getStats().getStatValue("defense"), 28, 0);
     }
-    
+
     @Test
-    public void testProperties() {
+    public void testProperties () {
         initializeCustom();
         System.out.println(customUnit.getProperties());
         double health = customUnit.getProperties().getHealth();
@@ -98,29 +103,42 @@ public class GameUnitTest {
         assertEquals(exp, 0, 0);
 
     }
-    
+
     @Test
-    public void testItems() {
+    public void testItems () {
         initializeCustom();
         assertEquals(customUnit.getStats().getStatValue("attack"), 14, 0.1);
     }
-    
+
     @Test
-    public void testCurrentWeapon() {
+    public void testCurrentWeapon () {
         initializeCustom();
-        assert(customUnit.getActiveWeapon().equals("sword"));
+        assert (customUnit.getActiveWeapon().equals("sword"));
     }
-    
+
     @Test
-    public void testRemoveItem() {
+    public void testRemoveItem () {
         initializeCustom();
         Map<String, Integer> statMods = new HashMap<String, Integer>();
         statMods.put("defense", 20);
         Item helmet = new Armor("helmet", new StatModifier(statMods));
         customUnit.addItem(helmet);
         assertEquals(customUnit.getStats().getStatValue("defense"), 28, 0);
-        
+
         customUnit.removeItem(helmet);
         assertEquals(customUnit.getStats().getStatValue("defense"), 8, 0);
+    }
+
+    @Test
+    public void addItem () {
+        initializeCustom();
+        Map<String, Integer> statMods = new HashMap<String, Integer>();
+        statMods.put("agility", 15);
+        statMods.put("attack", 10);
+        Item staff = new Armor("staff", new StatModifier(statMods));
+        customUnit.addItem(staff);
+        assertEquals(customUnit.getStats().getStatValue("agility"), 22, 0);
+        assertEquals(customUnit.getStats().getStatValue("attack"), 24, 0);
+
     }
 }

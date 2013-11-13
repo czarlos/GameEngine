@@ -33,13 +33,17 @@ public class GameUnit extends GameObject {
         super();
         myUnitStats = new Stat();
         myUnitStats.setStatValue("movement", 3);
-        setItemList(new java.util.ArrayList<gameObject.item.Item>()); 
+        setItemList(new java.util.ArrayList<gameObject.item.Item>());
         myName = GridConstants.DEFAULT_UNIT_NAME;
         setImagePath(GridConstants.DEFAULT_UNIT_PATH);
         myAffiliation = 0;
-        myUnitStats = new Stat() {{setStatValue("movement", 3);}};
+        myUnitStats = new Stat() {
+            {
+                setStatValue("movement", 3);
+            }
+        };
     }
-    
+
     public GameUnit (String name,
                      String imagePath,
                      int affiliation,
@@ -53,9 +57,9 @@ public class GameUnit extends GameObject {
         myItemList = item;
         isControllable = controllable;
         myProperties = properties;
-//        myUnitStats.makeStat("movement", 3);
-//        setItemList(new java.util.ArrayList<gameObject.item.Item>());
-//        setActive(false);
+        // myUnitStats.makeStat("movement", 3);
+        // setItemList(new java.util.ArrayList<gameObject.item.Item>());
+        // setActive(false);
     }
 
     /**
@@ -96,34 +100,36 @@ public class GameUnit extends GameObject {
         CombatAction selectedAction = myActiveWeapon.selectAction(action);
         selectedAction.execute(this, other);
     }
-    
+
     /**
      * Takes an item and adds it to the list, if item is Equipment,
      * then we modify the characters stats according to the stats of
      * the item.
+     * 
      * @param itemName
      */
     public void addItem (Item itemName) {
         if (itemName instanceof Equipment) {
-            for(String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
+            for (String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
                 int statVal = this.getStats().getStatValue(stat);
-                statVal+= ((Equipment) itemName).getModifiers().getStatModifier(stat);
+                statVal += ((Equipment) itemName).getModifiers().getStatModifier(stat);
                 this.getStats().setStatValue(stat, statVal);
             }
         }
         myItemList.add(itemName);
     }
-    
+
     /**
      * Removes a particular item from the units itemList, ensures that upon removal
      * the unit's stats get decremented accordingly.
+     * 
      * @param itemName
      */
     public void removeItem (Item itemName) {
         if (itemName instanceof Equipment) {
-            for(String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
+            for (String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
                 int statVal = this.getStats().getStatValue(stat);
-                statVal-= ((Equipment) itemName).getModifiers().getStatModifier(stat);
+                statVal -= ((Equipment) itemName).getModifiers().getStatModifier(stat);
                 this.getStats().setStatValue(stat, statVal);
             }
         }
@@ -198,7 +204,7 @@ public class GameUnit extends GameObject {
     public void setExperience (double myExperience) {
         this.myExperience = myExperience;
     }
-    
+
     public List<Item> getItemList () {
         return myItemList;
     }

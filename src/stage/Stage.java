@@ -27,6 +27,7 @@ public class Stage {
     private List<GameUnit> myCurrUnitList;
     private String preText;
     private String postText;
+    private List<List<GameUnit>> teamUnitList;
 
     // only for use by deserializer
     public Stage () {
@@ -67,20 +68,20 @@ public class Stage {
     public void setAffiliateList (List<Integer> affiliates) {
         myAffiliateList = affiliates;
     }
-    
-    public void setPreStory(String pre) {  
+
+    public void setPreStory (String pre) {
         preText = pre;
-    } 
-    
-    public void setPostStory(String post) {
+    }
+
+    public void setPostStory (String post) {
         postText = post;
     }
-    
-    public String getPreStory() {
+
+    public String getPreStory () {
         return preText;
     }
-    
-    public String getPostStory() {
+
+    public String getPostStory () {
         return postText;
     }
 
