@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import utils.UnitUtilities;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -70,7 +72,7 @@ public class Stage {
     }
     
     /**
-     * Moves the AI to attack your position.
+     * The AI will move to your unit's positions and attack them.
      */
     private void doAIMove () {
         int aiTeamIndex = 1;
@@ -87,12 +89,26 @@ public class Stage {
     private void moveToOpponents(int aiTeamIndex, int otherTeamIndex) {
         for (GameUnit unit : myTeamUnitList.get(aiTeamIndex)) {
         	int otherTeamSize = myTeamUnitList.get(otherTeamIndex).size();
+        	//Change to use a better method
         	Random rand = new Random();
         	int randomNum = rand.nextInt((otherTeamSize - 0) + 1) + 0;
         	GameUnit opponent = myTeamUnitList.get(otherTeamIndex).get(randomNum);
         	unit.snapToOpponent(opponent);
         	
         }
+    }
+    
+    /**
+     * Looks through another players unit list, looking for the closest units, ordering them from closest to
+     * furthest, marking each unit with a 1 if it was visited.
+     * into a set 
+     * @param unit
+     * @param otherUnits
+     */
+    private void findClosestUnit (GameUnit unit, List<GameUnit> otherUnits) {
+    	for (GameUnit other : otherUnits) {
+        	UnitUtilities.calculateLength(unit.getGridPosition(), other.getGridPosition());
+    	}
     }
     
 

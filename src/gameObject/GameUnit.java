@@ -186,10 +186,10 @@ public class GameUnit extends GameObject {
         
     }
 
-    private Coordinate getGridPosition() {
+    public Coordinate getGridPosition() {
 		return myGridPosition;
 	}
-    private void setGridPosition( Coordinate gridPosition ) {
+    public void setGridPosition( Coordinate gridPosition ) {
     	this.myGridPosition = gridPosition;
     }
 
