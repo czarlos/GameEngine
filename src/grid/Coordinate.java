@@ -1,5 +1,6 @@
 package grid;
 
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -48,6 +49,11 @@ public class Coordinate {
         if (myX != other.myX) return false;
         if (myY != other.myY) return false;
         return true;
+    }
+
+    public List<Coordinate> getNeighbors () {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

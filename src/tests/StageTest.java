@@ -11,7 +11,7 @@ import stage.Stage;
 public class StageTest {
 
     @Test
-    public void findClosestUnitsTest () {
+    public void findUnitsTest () {
         
         List<List<GameUnit>> fullUnitList = new ArrayList<List<GameUnit>>();
         
