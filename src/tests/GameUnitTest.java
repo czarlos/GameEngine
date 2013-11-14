@@ -141,4 +141,47 @@ public class GameUnitTest {
         assertEquals(customUnit.getStats().getStatValue("attack"), 24, 0);
 
     }
+    
+    @Test
+    public void testDefaultStat() {
+        initializeDefault();
+        assertEquals(defaultUnit.getStats().getStatValue("movement"), 3, 0);
+    }
+    
+    @Test
+    public void testAddItemToDefault() {
+        initializeDefault();
+        
+        Map<String, Integer> statMods = new HashMap<String, Integer>();
+        statMods.put("agility", 24);
+        statMods.put("attack", 28);
+        statMods.put("defense", 5);
+        
+        List<CombatAction> action = new ArrayList<CombatAction>();
+        CombatAction combAct =
+                new CombatAction(new StatModifier(statMods), null, statMods, null, null, null,
+                                 false);
+        action.add(combAct);
+        
+        Item bow = new Weapon("bow", action, new StatModifier(statMods));
+        
+        Stat stats = new Stat();
+        stats.setStatValue("agility", 0);
+        stats.setStatValue("attack", 0);
+        stats.setStatValue("defense", 0);
+
+                
+        defaultUnit.setUnitStats(stats);
+        
+        defaultUnit.addItem(bow);
+        defaultUnit.setActiveWeapon(bow);
+        assertEquals(defaultUnit.getStats().getStatValue("attack"), 28, 0);
+        assertEquals(defaultUnit.getActiveWeapon(), bow);
+    }
+    
+    @Test
+    public void testDefaultName() {
+        initializeDefault();
+        assertEquals(defaultUnit.getName(), GridConstants.DEFAULT_UNIT_NAME);
+    }
 }

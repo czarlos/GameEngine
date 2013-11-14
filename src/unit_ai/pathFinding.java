@@ -18,12 +18,34 @@ public class pathFinding {
                 return openStack;
             }
             else {
-                for (Coordinate neighbor : openStack.peek().getNeighbors()) {
-                    //Do some stuff, not really sure
-                    return openStack;
+                closedStack.add(node);
+                for (Coordinate neighbor : node.getNeighbors()) {
+                    if (closedStack.contains(neighbor)) {
+                        
+                    }
+                    else if (openStack.contains(neighbor)) {
+                        
+                    }
+                    else {
+                        
+                    }
                 }
+                
+                
+//                move the current node to the closed list and consider all of its neighbors
+//                for (each neighbor) {
+//                    if (this neighbor is in the closed list and our current g value is lower) {
+//                        update the neighbor with the new, lower, g value 
+//                        change the neighbor's parent to our current node
+//                    }
+//                    else if (this neighbor is in the open list and our current g value is lower) {
+//                        update the neighbor with the new, lower, g value 
+//                        change the neighbor's parent to our current node
+//                    }
+//                    else this neighbor is not in either the open or closed list {
+//                        add the neighbor to the open list and set its g value
+//                    }
             }
-            closedStack.push(node);
         }
         return openStack;
     }
