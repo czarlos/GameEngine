@@ -68,9 +68,15 @@ public class Stage {
                 System.out.println("WE WAITIN UNTIL ALL UNITS ARE NOT ACTIVE");
         }
     }
-
+    
+    /**
+     * Moves the AI to attack your position.
+     */
     private void doAIMove () {
-
+        int aiTeamIndex = 1;
+        int otherTeamIndex = 0;
+    	moveToOpponents(aiTeamIndex, otherTeamIndex);
+        
     }
     
     /**
@@ -78,9 +84,7 @@ public class Stage {
      * Used to assist the AI in attacking players on another team.
      * @param currentTurnAffiliate
      */
-    private void moveToOpponents() {
-        int aiTeamIndex = 1;
-        int otherTeamIndex = 0;
+    private void moveToOpponents(int aiTeamIndex, int otherTeamIndex) {
         for (GameUnit unit : myTeamUnitList.get(aiTeamIndex)) {
         	int otherTeamSize = myTeamUnitList.get(otherTeamIndex).size();
         	Random rand = new Random();

@@ -168,12 +168,20 @@ public class GameUnit extends GameObject {
     /**
      * Moves this game unit to the coordinates of the other game unit given.
      * Moves the character only a given number of spaces per turn.
+     * The string 'movement' must be fed in by the user to specify which
+     * stat is responsible for movement/range.
      * Note: Change this to use the a* path finding when it is done.
      * @param other
+     * @param movement
      */
     public void snapToOpponent (GameUnit other) {
-        
-    	Coordinate otherPosition = other.getGridPosition();
+        this.getStats().getStatValue(GameObjectConstants.DEFAULT_UNIT_MOVEMENT);
+    	
+        //These will be used at a later implementation
+        Coordinate otherPosition = other.getGridPosition();
+    	otherPosition.getX();
+    	otherPosition.getY();
+    	
     	this.setGridPosition(otherPosition);
         
     }
