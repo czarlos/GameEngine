@@ -60,7 +60,7 @@ public class Stage {
                     continue;
                 if (myCurrUnitList.get(0).isControllable())
                     doPlayerMove();
-                else doAIMove();
+                else doAIMove(1, 0);
                 myCurrUnitList.clear();
             }
         }
@@ -77,9 +77,8 @@ public class Stage {
     /**
      * The AI will move to your unit's positions and attack them.
      */
-    private void doAIMove () {
-        int aiTeamIndex = 1;
-        int otherTeamIndex = 0;
+    public void doAIMove (int aiTeamIndex, int otherTeamIndex) {
+        
     	moveToOpponents(aiTeamIndex, otherTeamIndex);
     }
     
@@ -208,7 +207,14 @@ public class Stage {
             unit.getStats().setStatValue(statAffected, newStatValue);
         }
     }
-    
+
+    public List<List<GameUnit>> getTeamUnitList () {
+        return myTeamUnitList;
+    }
+
+    public void setTeamUnitList (List<List<GameUnit>> myTeamUnitList) {
+        this.myTeamUnitList = myTeamUnitList;
+    }
 
     public Grid getGrid () {
         return myGrid;

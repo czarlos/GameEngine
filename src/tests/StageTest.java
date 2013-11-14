@@ -12,10 +12,15 @@ public class StageTest {
 
     @Test
     public void findClosestUnitsTest () {
+        
+        List<List<GameUnit>> fullUnitList = new ArrayList<List<GameUnit>>();
+        
         Stage stage = new Stage();
         GameUnit unit = new GameUnit();
         Coordinate coord = new Coordinate(0, 0);
         unit.setGridPosition(coord);
+        List<GameUnit> aiList = new ArrayList<GameUnit>();
+        aiList.add(unit);
         
         GameUnit unit1 = new GameUnit();
         GameUnit unit2 = new GameUnit();
@@ -27,8 +32,12 @@ public class StageTest {
         unitList.add(unit1);
         unitList.add(unit2);
         
-        stage.findClosestUnit(unit, unitList);
+        fullUnitList.add(unitList);
+        fullUnitList.add(aiList);
+        stage.setTeamUnitList(fullUnitList);
 
+        stage.doAIMove(1, 0);
+        assertEquals(unit.getGridPosition(), unit2.getGridPosition());
     }
 
 }
