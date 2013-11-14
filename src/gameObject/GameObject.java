@@ -1,19 +1,13 @@
 package gameObject;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import javax.imageio.ImageIO;
+import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import view.Drawable;
 
 
 @JsonAutoDetect
-public class GameObject implements Drawable {
-    protected String myName;
-    protected String myImagePath;
+public class GameObject extends Drawable {
     protected List<String> myPassableList;
 
     public GameObject () {
@@ -41,35 +35,9 @@ public class GameObject implements Drawable {
     }
 
     @Override
-    public void draw (Graphics g, int x, int y, int width, int height) {
-        // set ImageObserver null. Not needed.
-        g.drawImage(getImage(), x, y, width, height, null);
-    }
-
-    public String getName () {
-        return myName;
-    }
-
-    public void setName (String name) {
-        myName = name;
-    }
-
-    public Image getImage () {
-        try {
-            return ImageIO.read(new File(myImagePath));
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+    public Map<String, String> getData () {
+        // TODO: Needs to implement this for everything that extends GameObject (for GUI editing purposes)
         return null;
-    }
-
-    public String getImagePath () {
-        return myImagePath;
-    }
-
-    public void setImagePath (String imagePath) {
-        myImagePath = imagePath;
     }
 
 }

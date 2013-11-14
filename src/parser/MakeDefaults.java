@@ -98,7 +98,7 @@ public class MakeDefaults {
         list.add(new UnitCountCondition());
         list.add(new TurnCondition());
 
-        p.createJSON("defaults/Conditions", list);
+        p.createJSON("defaults/Condition", list);
     }
 
     public static void main (String[] args) throws Exception {

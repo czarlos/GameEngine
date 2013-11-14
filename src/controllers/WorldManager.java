@@ -2,14 +2,15 @@ package controllers;
 
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import controllers.EditorData;
 import parser.JSONParser;
+import stage.Condition;
 import stage.Stage;
+import view.Customizable;
 import view.Drawable;
 import gameObject.GameObject;
 import gameObject.GameUnit;
@@ -139,7 +140,7 @@ public class WorldManager {
         t.setName(name);
         t.setImagePath(imagePath);
         t.setMoveCost(moveCost);
-        return myEditorData.setDrawable("Tile", ID, t);
+        return myEditorData.setCustomizable("Tile", ID, t);
     }
 
     public int setCustomUnit (int ID,
@@ -153,7 +154,7 @@ public class WorldManager {
         gu.setImagePath(imagePath);
         gu.setAffiliation(affiliation);
         gu.setControllable(controllable);
-        return myEditorData.setDrawable("GameUnit", ID, gu);
+        return myEditorData.setCustomizable("GameUnit", ID, gu);
     }
 
     public int setCustomObject (int ID, String name, String imagePath) {
@@ -161,7 +162,7 @@ public class WorldManager {
         go.setName(name);
         go.setImagePath(imagePath);
 
-        return myEditorData.setDrawable("GameObject", ID, go);
+        return myEditorData.setCustomizable("GameObject", ID, go);
     }
 
     public void saveGame () {
@@ -172,13 +173,19 @@ public class WorldManager {
         return myParser.createObject("saves/" + gameName, controllers.WorldManager.class);
     }
 
-    // get object information
-    // edit from brooks
-    // actions, win conditions, items
-    
-    // when you make a condition, need to pass in Data
-    
-    public void addCondition(int ConditionID, ){
-        myActiveStage.addCondition(c)
+    // get object information... unit and things need to implement get?
+    // actions, items
+
+    // technically the gui can edit the internal list this way... but that's just a bad idea.
+    public List<String> getNeededData (int ConditionID, String type) {
+        Customizable c = (Customizable) myEditorData.get(type).get(ConditionID);
+        return c.getNeededData();
+    }
+
+    // when you make a condition, need to pass in all the data that's returned by getDataStrings
+    public void addCondition (int ConditionID, Map<String, String> data) {
+        Condition c = (Condition) myEditorData.get("Condition").get(ConditionID);
+        c.setData(data);
+        myActiveStage.addCondition(c);
     }
 }
