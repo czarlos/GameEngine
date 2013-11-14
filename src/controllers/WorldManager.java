@@ -178,7 +178,7 @@ public class WorldManager {
     
     // when you make a condition, need to pass in Data
     
-/*    public void addCondition(int ConditionID, ){
+    public void addCondition(int ConditionID, ){
         myActiveStage.addCondition(c)
-    }*/
+    }
 }
