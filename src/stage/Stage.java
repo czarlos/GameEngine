@@ -3,8 +3,11 @@ package stage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import action.CombatAction;
 import gameObject.GameObject;
 import gameObject.GameUnit;
@@ -41,50 +44,6 @@ public class Stage {
         myCurrUnitList = new ArrayList<GameUnit>();
     }
 
-    public Grid getGrid () {
-        return myGrid;
-    }
-
-    public void setName (String name) {
-        myName = name;
-    }
-
-    public String getName () {
-        return myName;
-    }
-
-    public void setWinCondition (WinCondition wc) {
-        myWinCondition = wc;
-    }
-
-    public void addCondition (Condition c) {
-        myWinCondition.addCondition(c);
-    }
-
-    public List<Integer> getAffiliateList () {
-        return myAffiliateList;
-    }
-
-    public void setAffiliateList (List<Integer> affiliates) {
-        myAffiliateList = affiliates;
-    }
-
-    public void setPreStory (String pre) {
-        preText = pre;
-    }
-
-    public void setPostStory (String post) {
-        postText = post;
-    }
-
-    public String getPreStory () {
-        return preText;
-    }
-
-    public String getPostStory () {
-        return postText;
-    }
-
     /**
      * 
      */
@@ -111,14 +70,26 @@ public class Stage {
     }
 
     private void doAIMove () {
-        int aiTeamIndex = 1;
-        for (GameUnit unit : myTeamUnitList.get(aiTeamIndex)) {
-            unit.snapToOpponent(unit);
-        }
-        
 
     }
     
+    /**
+     * Moves all units possible from one team to opponents to another team.
+     * Used to assist the AI in attacking players on another team.
+     * @param currentTurnAffiliate
+     */
+    private void moveToOpponents() {
+        int aiTeamIndex = 1;
+        int otherTeamIndex = 0;
+        for (GameUnit unit : myTeamUnitList.get(aiTeamIndex)) {
+        	int otherTeamSize = myTeamUnitList.get(otherTeamIndex).size();
+        	Random rand = new Random();
+        	int randomNum = rand.nextInt((otherTeamSize - 0) + 1) + 0;
+        	GameUnit opponent = myTeamUnitList.get(otherTeamIndex).get(randomNum);
+        	unit.snapToOpponent(opponent);
+        	
+        }
+    }
     
 
     private void changeTurns (Integer currentTurnAffiliate) { // we are just going to be looping
@@ -188,5 +159,51 @@ public class Stage {
             unit.getStats().setStatValue(statAffected, newStatValue);
         }
     }
+    
+
+    public Grid getGrid () {
+        return myGrid;
+    }
+
+    public void setName (String name) {
+        myName = name;
+    }
+
+    public String getName () {
+        return myName;
+    }
+
+    public void setWinCondition (WinCondition wc) {
+        myWinCondition = wc;
+    }
+
+    public void addCondition (Condition c) {
+        myWinCondition.addCondition(c);
+    }
+
+    public List<Integer> getAffiliateList () {
+        return myAffiliateList;
+    }
+
+    public void setAffiliateList (List<Integer> affiliates) {
+        myAffiliateList = affiliates;
+    }
+
+    public void setPreStory (String pre) {
+        preText = pre;
+    }
+
+    public void setPostStory (String post) {
+        postText = post;
+    }
+
+    public String getPreStory () {
+        return preText;
+    }
+
+    public String getPostStory () {
+        return postText;
+    }
+
 
 }

@@ -1,9 +1,13 @@
 package gameObject;
 
 import gameObject.item.*;
+import grid.Coordinate;
 import grid.GridConstants;
+
 import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
 import action.CombatAction;
 
 
@@ -28,6 +32,7 @@ public class GameUnit extends GameObject {
     private double myExperience;
     private Properties myProperties;
     private boolean isActive;
+    private Coordinate myGridPosition;
 
     public GameUnit () {
         super();
@@ -152,7 +157,7 @@ public class GameUnit extends GameObject {
     /**
      * Initializes an attack from this unit to another unit based
      * on a weapon, attack, and action chosen by the user. The execute method
-     * called by doAction actually executes the attack.
+     * called by doAction executes the attack.
      * @param other
      */
     public void attack (GameUnit other, String weaponName, CombatAction actionName) {
@@ -160,12 +165,27 @@ public class GameUnit extends GameObject {
         this.doAction(actionName, other);        
     }
     
-
+    /**
+     * Moves this game unit to the coordinates of the other game unit given.
+     * Moves the character only a given number of spaces per turn.
+     * Note: Change this to use the a* path finding when it is done.
+     * @param other
+     */
     public void snapToOpponent (GameUnit other) {
+        
+    	Coordinate otherPosition = other.getGridPosition();
+    	this.setGridPosition(otherPosition);
         
     }
 
-    public void setUnitStats (Stat myUnitStats) {
+    private Coordinate getGridPosition() {
+		return myGridPosition;
+	}
+    private void setGridPosition( Coordinate gridPosition ) {
+    	this.myGridPosition = gridPosition;
+    }
+
+	public void setUnitStats (Stat myUnitStats) {
         this.myUnitStats = myUnitStats;
     }
 
