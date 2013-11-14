@@ -1,9 +1,12 @@
 package stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Random;
+import java.util.TreeMap;
 
 import utils.UnitUtilities;
 
@@ -78,37 +81,63 @@ public class Stage {
         int aiTeamIndex = 1;
         int otherTeamIndex = 0;
     	moveToOpponents(aiTeamIndex, otherTeamIndex);
-        
     }
     
     /**
      * Moves all units possible from one team to opponents to another team.
      * Used to assist the AI in attacking players on another team.
+     * Works by looking through all of the AIs units and assigning them to
+     * attack the opponents units, starting with the closest ones. If there are
+     * more AI units than opponent units, the extra AI units attack the closest
+     * opponent units.
      * @param currentTurnAffiliate
      */
-    private void moveToOpponents(int aiTeamIndex, int otherTeamIndex) {
+    private void moveToOpponents(int aiTeamIndex, int otherTeamIndex) {  
+        int counter = 0;
         for (GameUnit unit : myTeamUnitList.get(aiTeamIndex)) {
-        	int otherTeamSize = myTeamUnitList.get(otherTeamIndex).size();
-        	//Change to use a better method
-        	Random rand = new Random();
-        	int randomNum = rand.nextInt((otherTeamSize - 0) + 1) + 0;
-        	GameUnit opponent = myTeamUnitList.get(otherTeamIndex).get(randomNum);
-        	unit.snapToOpponent(opponent);
-        	
+            if(counter > myTeamUnitList.get(otherTeamIndex).size()) {
+                counter = 0;
+            }
+            List<GameUnit> opponentList = makeSortedUnitList(unit, myTeamUnitList.get(otherTeamIndex));  
+            unit.snapToOpponent(opponentList.get(0));
+            counter ++;
         }
     }
     
     /**
-     * Looks through another players unit list, looking for the closest units, ordering them from closest to
-     * furthest, marking each unit with a 1 if it was visited.
-     * into a set 
+     * A different AI option where the AI units all simply move to the closest
+     * opponent's unit to their position.
+     */
+    public void moveToClosestOpponent (int aiTeamIndex, int otherTeamIndex) {
+        int counter = 0;
+        for (GameUnit unit : myTeamUnitList.get(aiTeamIndex)) {
+            if(counter > myTeamUnitList.get(otherTeamIndex).size()) {
+                counter = 0;
+            }
+            List<GameUnit> opponentList = makeSortedUnitList(unit, myTeamUnitList.get(otherTeamIndex));  
+            unit.snapToOpponent(opponentList.get(0));
+            counter ++;
+        }
+    }
+    
+    /**
+     * Makes a list of units sorted from closest to furthest.
      * @param unit
      * @param otherUnits
+     * @return
      */
-    private void findClosestUnit (GameUnit unit, List<GameUnit> otherUnits) {
+    public List<GameUnit> makeSortedUnitList (GameUnit unit, List<GameUnit> otherUnits) {
+        Map<Double, GameUnit> unitDistance = new TreeMap<Double, GameUnit>();
+        List<GameUnit> priorityUnitList = new ArrayList<GameUnit>();
+        
     	for (GameUnit other : otherUnits) {
-        	UnitUtilities.calculateLength(unit.getGridPosition(), other.getGridPosition());
+    	    double distance = UnitUtilities.calculateLength(unit.getGridPosition(), other.getGridPosition());
+    	    unitDistance.put(distance, other);
     	}
+    	for (Double distance : unitDistance.keySet()) {
+    	    priorityUnitList.add(unitDistance.get(distance));
+    	}
+    	return priorityUnitList;
     }
     
 
