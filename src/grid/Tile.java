@@ -1,6 +1,7 @@
 package grid;
 
 import gameObject.GameObject;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
@@ -69,6 +70,11 @@ public class Tile extends GameObject {
         }
     }
 
+    @Override
+    public Image getImage(){
+        return myImage;
+    }
+    
     public int getMoveCost () {
         return myMoveCost;
     }
