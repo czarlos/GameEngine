@@ -6,6 +6,7 @@ import java.util.Stack;
 import utils.UnitUtilities;
 import grid.Coordinate;
 import grid.Grid;
+import grid.Tile;
 
 
 public class PathFinding {
@@ -51,9 +52,10 @@ public class PathFinding {
      */
     public List<Node> coordinatesToNodes (Grid grid) {
         List<Node> nodeList = new ArrayList<Node>();
-        for (Coordinate coord : grid.getTileMap().keySet()) {
-            nodeList.add(new Node(null, coord));
-        }
+        
+//        for (Coordinate coord : grid.getTileMap().keySet()) {
+//            nodeList.add(new Node(null, coord));
+//        }
         return nodeList;
     }
 

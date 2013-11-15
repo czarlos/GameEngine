@@ -1,19 +1,13 @@
 package gameObject;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import javax.imageio.ImageIO;
+import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import view.Drawable;
 
 
 @JsonAutoDetect
-public class GameObject implements Drawable {
-    protected String myName;
-    protected String myImagePath;
+public class GameObject extends Drawable {
     protected List<String> myPassableList;
 
     public GameObject () {
@@ -41,26 +35,8 @@ public class GameObject implements Drawable {
     }
 
     @Override
-    public void draw (Graphics g, int x, int y, int width, int height) {
-        // set ImageObserver null. Not needed.
-        g.drawImage(getImage(), x, y, width, height, null);
-    }
-
-    public String getName () {
-        return myName;
-    }
-
-    public void setName (String name) {
-        myName = name;
-    }
-
-    public Image getImage () {
-        try {
-            return ImageIO.read(new File(myImagePath));
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+    public Map<String, String> getData () {
+        // TODO: Needs to implement this for everything that extends GameObject (for GUI editing purposes)
         return null;
     }
 
@@ -70,6 +46,37 @@ public class GameObject implements Drawable {
 
     public void setImagePath (String imagePath) {
         myImagePath = imagePath;
+    }
+
+    @Override
+    public int hashCode () {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((myImagePath == null) ? 0 : myImagePath.hashCode());
+        result = prime * result + ((myName == null) ? 0 : myName.hashCode());
+        result = prime * result + ((myPassableList == null) ? 0 : myPassableList.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals (Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+        GameObject other = (GameObject) obj;
+        if (myImagePath == null) {
+            if (other.myImagePath != null) return false;
+        }
+        else if (!myImagePath.equals(other.myImagePath)) return false;
+        if (myName == null) {
+            if (other.myName != null) return false;
+        }
+        else if (!myName.equals(other.myName)) return false;
+        if (myPassableList == null) {
+            if (other.myPassableList != null) return false;
+        }
+        else if (!myPassableList.equals(other.myPassableList)) return false;
+        return true;
     }
 
 }

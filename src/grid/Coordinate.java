@@ -15,6 +15,13 @@ public class Coordinate {
         myY = y;
     }
 
+//    @Override
+//    public int hashCode () {
+//        int hash = myX * 123456789;
+//        hash = hash + myY * 3;
+//        return hash;
+//    }
+
     public int getX () {
         return myX;
     }

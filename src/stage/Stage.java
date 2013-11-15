@@ -1,19 +1,14 @@
 package stage;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
-import java.util.Random;
 import java.util.TreeMap;
 import utils.UnitUtilities;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import action.CombatAction;
-import gameObject.GameObject;
 import gameObject.GameUnit;
-import gameObject.Stat;
 import grid.Grid;
 
 
@@ -50,7 +45,7 @@ public class Stage {
      * 
      */
     public void run () {
-        while (!myWinCondition.hasWon()) {
+        while (!myWinCondition.hasWon(myGrid)) {
             for (int i : myAffiliateList) { // for each affiliation
                 changeTurns(i);             // set those affiliations' units to active
                 if (myCurrUnitList == null) // if there are no units skip that affiliation's turn
@@ -144,7 +139,7 @@ public class Stage {
     private void changeTurns (Integer currentTurnAffiliate) { // we are just going to be looping
                                                               // through affiliations and setting
                                                               // units to active
-        for (GameUnit unit : myGrid.getGameUnits().keySet()) {
+        for (GameUnit unit : myGrid.getGameUnits()) {
             if (currentTurnAffiliate == unit.getAffiliation()) {
                 unit.setActive(true);
                 myCurrUnitList.add(unit);
