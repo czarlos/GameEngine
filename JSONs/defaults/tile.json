@@ -1,0 +1,15 @@
+[ "java.util.ArrayList", [ [ "grid.Tile", {
+  "name" : "grass",
+  "passableList" : [ "java.util.ArrayList", [ ] ],
+  "imagePath" : "resources/grass.png",
+  "moveCost" : 1,
+  "active" : false,
+  "statMods" : [ "java.util.HashMap", { } ]
+} ], [ "grid.Tile", {
+  "name" : "water",
+  "passableList" : [ "java.util.ArrayList", [ ] ],
+  "imagePath" : "resources/water.png",
+  "moveCost" : 2,
+  "active" : false,
+  "statMods" : [ "java.util.HashMap", { } ]
+} ] ] ]

@@ -1,40 +1,45 @@
 package grid;
 
-import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.HashMap;
+import gameObject.GameObject;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 
-public class Tile {
+@JsonAutoDetect
+public class Tile extends GameObject {
     private boolean isActive;
     private Map<String, Double> myStatMods;
-    private String myImagePath;
     private int myMoveCost;
-    private String myName;
-    private List<String> passableList;
+    private List<String> myPassableList;
+    private BufferedImage myImage;
 
     public Tile () {
-        isActive = false;
-        myStatMods = new HashMap<String, Double>();
-        myImagePath = "Grass Path"; // TODO: Add in path to grass image
-        myMoveCost = 1;
-        myName = "Grass";
-        passableList = new ArrayList<String>();
-    }
-
-    public void paint (Graphics g) {
-        // TODO
+        setPassableList(new java.util.ArrayList<String>());
+        setStatMods(new java.util.HashMap<String, Double>());
+        setActive(false);
     }
 
     public boolean isPassable (GameObject unit) {
-        // TODO: Want to let player pass through affiliated units
-        for (String object : passableList) {
+        for (String object : myPassableList) {
             if (object.equals(unit.getName())) { return true; }
         }
 
         return false;
+    }
+
+    public void addPassable (String passable) {
+        myPassableList.add(passable);
+    }
+
+    public void setPassableList (List<String> passables) {
+        myPassableList = passables;
+    }
+
+    public List<String> getPassableList () {
+        return myPassableList;
     }
 
     public boolean isActive () {
@@ -43,6 +48,8 @@ public class Tile {
 
     public void setActive (boolean active) {
         isActive = active;
+        myImage = isActive ? ImageManager.getHightlightedTileImage(myImagePath)
+                          : ImageManager.getTileImage(myImagePath);
     }
 
     public Map<String, Double> getStatMods () {
@@ -53,14 +60,21 @@ public class Tile {
         myStatMods = statMods;
     }
 
-    public String getImagePath () {
-        return myImagePath;
-    }
-
     public void setImagePath (String imagePath) {
         myImagePath = imagePath;
+        try {
+            myImage = ImageManager.addImage(imagePath);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
+    @Override
+    public Image getImage(){
+        return myImage;
+    }
+    
     public int getMoveCost () {
         return myMoveCost;
     }
@@ -69,11 +83,4 @@ public class Tile {
         myMoveCost = moveCost;
     }
 
-    public String getName () {
-        return myName;
-    }
-
-    public void setName (String name) {
-        myName = name;
-    }
 }
