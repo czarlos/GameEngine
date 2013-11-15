@@ -10,6 +10,7 @@ import java.util.Map;
 public class CombatAction {
     private StatModifier myAttackerStatsAndWeights;
     private StatModifier myDefenderStatsAndWeights;
+    private double myBaseDamage;
     private Map<String, Integer> myCosts;
     private StatModifier myAttackerOutcomes;
     private StatModifier myDefenderOutcomes;
@@ -18,6 +19,7 @@ public class CombatAction {
 
     public CombatAction (StatModifier offensiveStats,
                          StatModifier defensiveStats,
+                         double baseDamage,
                          Map<String, Integer> costs,
                          StatModifier attackerOutcomes,
                          StatModifier defenderOutcomes,
@@ -25,6 +27,7 @@ public class CombatAction {
                          boolean around) {
         myAttackerStatsAndWeights = offensiveStats;
         myDefenderStatsAndWeights = defensiveStats;
+        myBaseDamage = baseDamage;
         myCosts = costs;
         myAttackerOutcomes = attackerOutcomes;
         myDefenderOutcomes = defenderOutcomes;
@@ -33,7 +36,7 @@ public class CombatAction {
     }
 
     public Double getNetEffectiveness (GameUnit attacker, GameUnit defender) {
-        int offensiveStatSum = 0, defensiveStatSum = 0;
+        double offensiveStatSum = 0, defensiveStatSum = 0;
         double netStat = 0;
 
         for (String statName : myAttackerStatsAndWeights.getStatModifierMap().keySet()) {
@@ -63,8 +66,29 @@ public class CombatAction {
      */
     public void execute (GameUnit attacker, GameUnit defender) {
         double effectiveness = getNetEffectiveness(attacker, defender);
-        double damage = defender.getHealth() * effectiveness;
-        defender.setHealth(defender.getHealth() - damage);
+        double damage = myBaseDamage * effectiveness;
+        defender.getProperties().setHealth(defender.getProperties().getHealth() - damage);
+
+        applyOutcomes(attacker, myAttackerOutcomes, effectiveness);
+        applyOutcomes(defender, myDefenderOutcomes, effectiveness);
+    }
+    
+    /**
+     * applyOutcomes edits a units stats based on user specified
+     * stats and weights. These outcomes are affected by stat differences
+     * between units (effectiveness).
+     * 
+     * @param unit - GameUnit where stats are being edited
+     * @param outcomes - Map of which stats are affected and by how much
+     * @param effectiveness - A measurement of how much of an outcome should occur
+     */
+    private void applyOutcomes (GameUnit unit, StatModifier outcomes, double effectiveness) {
+        for (String statAffected : outcomes.getStatModifierMap().keySet()) {
+            int oldStatValue = unit.getStats().getStatValue(statAffected);
+            int newStatValue = (int) (oldStatValue + effectiveness * outcomes.getStatModifierMap().get(statAffected));
+
+            unit.getStats().setStatValue(statAffected, newStatValue);
+        }
     }
 
     public Map<String, Integer> getAttackerOutcomesMap () {
