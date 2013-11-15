@@ -13,6 +13,7 @@ import parser.JSONParser;
 import view.Customizable;
 
 
+
 @JsonAutoDetect
 public class EditorData {
     @JsonProperty

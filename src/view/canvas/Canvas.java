@@ -12,7 +12,7 @@ public class Canvas extends JPanel {
      * 
      */
     private static final long serialVersionUID = 5035575821683474890L;
-    
+
     protected static final int STARTING_X = 0;
     protected static final int STARTING_Y = 0;
 
@@ -33,13 +33,13 @@ public class Canvas extends JPanel {
     }
 
     public Dimension getPreferredSize () {
-    	return new Dimension(250, 200);
+        return new Dimension(250, 200);
     }
 
     /**
      * Method to define what gets painted to canvas.
      */
-    public void paintComponent (Graphics g){
+    public void paintComponent (Graphics g) {
         super.paintComponent(g);
     }
 

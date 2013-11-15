@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import controller.actions.grid.AbstractGridCommand;
 import controller.actions.grid.SetTileActive;
 import controller.editor.GridController;
 
