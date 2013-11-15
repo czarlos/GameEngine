@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import action.CombatAction;
@@ -46,6 +45,7 @@ public class Grid {
 
     // only for use by deserializer
     public Grid () {
+        myFactory = new FromJSONFactory();
     }
 
     public Grid (int width, int height, int tileID) {
@@ -368,12 +368,8 @@ public class Grid {
      * @return - Tile at coordinate
      */
     public Tile getTile (int x, int y) {
-<<<<<<< HEAD
         // TODO: Generic method?
         return myTiles[x][y];
-=======
-        return myTileMap.get(new Coordinate(x, y));
->>>>>>> 093456c871913e6abdc417d18b960acac8dea7a2
     }
 
     /**

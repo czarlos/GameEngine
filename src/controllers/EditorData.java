@@ -56,7 +56,7 @@ public class EditorData {
 
     }
 
-    public List get (String key) {
+    public List<Customizable> get (String key) {
         return myDataMap.get(key);
     }
 

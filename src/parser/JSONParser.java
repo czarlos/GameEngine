@@ -19,10 +19,11 @@ public class JSONParser {
         myMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         myMapper.setVisibilityChecker(myMapper.getSerializationConfig()
                 .getDefaultVisibilityChecker()
-                .withFieldVisibility(Visibility.NONE)
                 .withGetterVisibility(Visibility.NONE)
                 .withSetterVisibility(Visibility.NONE)
-                .withCreatorVisibility(Visibility.NONE));
+                .withFieldVisibility(Visibility.NONE)
+                .withCreatorVisibility(Visibility.NONE)
+                );
         myMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 

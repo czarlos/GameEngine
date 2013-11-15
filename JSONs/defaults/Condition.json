@@ -1,5 +1,46 @@
 [ "java.util.ArrayList", [ [ "stage.PositionCondition", {
-  "playersPositionX" : 0,
   "myData" : [ "java.util.HashMap", { } ],
-  "playersPositionY" : 0
+  "neededData" : [ "java.util.ArrayList", [ "x", "y", "affiliation" ] ],
+  "data" : [ "java.util.HashMap", { } ],
+  "name" : "",
+  "imagePath" : "resources/grass.png",
+  "image" : [ "java.awt.image.BufferedImage", {
+    "alphaPremultiplied" : false
+  } ]
+} ], [ "stage.StatCondition", {
+  "myData" : [ "java.util.HashMap", { } ],
+  "neededData" : [ "java.util.ArrayList", [ "statType", "value", "affilation" ] ],
+  "data" : [ "java.util.HashMap", { } ],
+  "name" : "",
+  "imagePath" : "resources/grass.png",
+  "image" : [ "java.awt.image.BufferedImage", {
+    "alphaPremultiplied" : false
+  } ]
+} ], [ "stage.ItemCondition", {
+  "myData" : [ "java.util.HashMap", { } ],
+  "neededData" : [ "java.util.ArrayList", [ "item" ] ],
+  "data" : [ "java.util.HashMap", { } ],
+  "name" : "",
+  "imagePath" : "resources/grass.png",
+  "image" : [ "java.awt.image.BufferedImage", {
+    "alphaPremultiplied" : false
+  } ]
+} ], [ "stage.UnitCountCondition", {
+  "myData" : [ "java.util.HashMap", { } ],
+  "neededData" : [ "java.util.ArrayList", [ "count", "affiliation" ] ],
+  "data" : [ "java.util.HashMap", { } ],
+  "name" : "",
+  "imagePath" : "resources/grass.png",
+  "image" : [ "java.awt.image.BufferedImage", {
+    "alphaPremultiplied" : false
+  } ]
+} ], [ "stage.TurnCondition", {
+  "myData" : [ "java.util.HashMap", { } ],
+  "neededData" : [ "java.util.ArrayList", [ "count" ] ],
+  "data" : [ "java.util.HashMap", { } ],
+  "name" : "",
+  "imagePath" : "resources/grass.png",
+  "image" : [ "java.awt.image.BufferedImage", {
+    "alphaPremultiplied" : false
+  } ]
 } ] ] ]
