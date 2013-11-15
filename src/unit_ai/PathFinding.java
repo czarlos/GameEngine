@@ -44,8 +44,8 @@ public class PathFinding {
 
     /**
      * Makes a list of all nodes on the graph from the grid. This list of nodes
-     * does not contain neighbor data, and gets send to the addNeighbors
-     * method to
+     * does not contain neighbor data, and gets sent to the addNeighbors
+     * method
      * 
      * @param grid
      * @return
@@ -64,18 +64,17 @@ public class PathFinding {
      * Adds a list of neighboring nodes to every node in the list of nodes in a grid.
      * 
      * @param nodeList
-     * @return
      */
-    public List<Node> addNeighbors (List<Node> nodeList) {
-        List<Node> nodeAdjacencyList = new ArrayList<>();
+    public void addNeighbors (List<Node> nodeList) {
         for (Node node : nodeList) {
+            List<Node> nodeAdjacencyList = new ArrayList<>();
             for (Node otherNode : nodeList) {
-                if (isNeighbor(node, otherNode)) {
+                if (isNeighbor(node, otherNode) && !otherNode.equals(node)) {
                     nodeAdjacencyList.add(otherNode);
                 }
             }
+            node.setNeighbors(nodeAdjacencyList);
         }
-        return nodeAdjacencyList;
     }
 
     /**
