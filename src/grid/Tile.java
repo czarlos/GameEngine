@@ -8,6 +8,11 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 
+/**
+ * Tile Class. Held by grid. Affects unit stats and movement.
+ * 
+ * @author Kevin, Ken
+ */
 @JsonAutoDetect
 public class Tile extends GameObject {
     private boolean isActive;
@@ -23,11 +28,7 @@ public class Tile extends GameObject {
     }
 
     public boolean isPassable (GameObject unit) {
-        for (String object : myPassableList) {
-            if (object.equals(unit.getName())) { return true; }
-        }
-
-        return false;
+        return myPassableList.contains(unit.getName());
     }
 
     public void addPassable (String passable) {

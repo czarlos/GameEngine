@@ -137,14 +137,16 @@ public class Grid {
             int newY = coordinate.getY() + rdelta[i];
             if (onGrid(newX, newY)) {
                 Tile currentTile = getTile(newX, newY);
-                int newRange = range - currentTile.getMoveCost();
-                GameObject currentObject = getObject(newX, newY);
-                if (currentObject != null && currentObject.isPassable(gameObject)) {
-                    findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
-                }
-                else if (newRange >= 0) {
-                    currentTile.setActive(true);
-                    findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
+                if (currentTile.isPassable(gameObject)) {
+                    int newRange = range - currentTile.getMoveCost();
+                    GameObject currentObject = getObject(newX, newY);
+                    if (currentObject != null && currentObject.isPassable(gameObject)) {
+                        findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
+                    }
+                    else if (newRange >= 0) {
+                        currentTile.setActive(true);
+                        findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
+                    }
                 }
             }
         }
