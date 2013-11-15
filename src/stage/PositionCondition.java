@@ -1,12 +1,14 @@
 package stage;
 
+import gameObject.GameUnit;
+import grid.Grid;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 @JsonAutoDetect
 public class PositionCondition extends Condition {
+
     // temp dummy variables
     @JsonProperty
     private int playersPositionX;
@@ -16,26 +18,27 @@ public class PositionCondition extends Condition {
     private int playersPositionY;
 
     // All JSON serializable classes either need to have an empty constructor
+
     public PositionCondition () {
         super();
         neededData.add("x");
         neededData.add("y");
+        neededData.add("affiliation");
     }
 
-    // Or use the following notation
-    @JsonCreator
-    public PositionCondition (@JsonProperty("playersPositionX") int X,
-                              @JsonProperty("PlayersPositionY") int Y) {
-        // TODO: needs to be passed in something that allows this condition to dynamically retrieve
-        // player's x and y
-        playersPositionX = X;
-        playersPositionY = Y;
-    }
-
+    /**
+     * Returns true if GameUnit of the correct affiliation is at x, y
+     */
     @Override
-    boolean isFulfilled () {
-        boolean isX = Integer.parseInt(myData.get("x")) == playersPositionX;
-        boolean isY = Integer.parseInt(myData.get("y")) == playersPositionY;
-        return isX & isY;
+    boolean isFulfilled (Grid grid) {
+        Object object =
+                grid.getObject(Integer.parseInt(myData.get("x")), Integer.parseInt(myData.get("y")));
+
+        if (object instanceof GameUnit) {
+            GameUnit gu = (GameUnit) object;
+            return gu.getAffiliation() == Integer.parseInt(myData.get("affiliation"));
+        }
+
+        return false;
     }
 }

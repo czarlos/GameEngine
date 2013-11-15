@@ -3,7 +3,6 @@ package grid;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.Map.Entry;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import action.CombatAction;
-import view.Drawable;
 
 
 /**
@@ -22,13 +20,14 @@ import view.Drawable;
  * 
  */
 @JsonAutoDetect
-public class Grid implements Drawable {
+public class Grid {
     @JsonProperty
     private int myWidth;
     @JsonProperty
     private int myHeight;
     @JsonProperty
     private Tile[][] myTiles;
+
     @JsonProperty
     private GameObject[][] myObjects;
     @JsonProperty
@@ -80,15 +79,24 @@ public class Grid implements Drawable {
         }
     }
 
+    public int getWidth () {
+        return myWidth;
+    }
+
+    public int getHeight () {
+        return myHeight;
+    }
+
     /**
      * Creates default objects and units for grid
      */
     private void testInitObjects () {
-        myObjects[3][5] = (GameObject) myFactory.make("GameObject", 0);
+        GameObject tree = (GameObject) myFactory.make("GameObject", 0);
+        placeObject(tree, 3, 5);
         GameObject link = (GameUnit) myFactory.make("GameUnit", 0);
-        myObjects[4][5] = link;
-        findMovementRange(new Coordinate(4, 5),
-                          ((GameUnit) link).getTotalStat("movement"), link);
+        placeObject(link, 5, 5);
+        findMovementRange(new Coordinate(4, 5), ((GameUnit) link).getTotalStat("movement"), link);
+        System.out.println("isActive: " + isActive(4, 4));
     }
 
     /**
@@ -119,7 +127,7 @@ public class Grid implements Drawable {
      * 
      * @param coordinate - Coordinate of the current position of the GameObject
      * @param range - int of range that the GameObject can move
-     * @param gameObject -
+     * @param gameObject - GameObject that we are finding the range of
      */
     private void findMovementRange (Coordinate coordinate, int range, GameObject gameObject) {
         int[] rdelta = { -1, 0, 0, 1 };
@@ -130,14 +138,16 @@ public class Grid implements Drawable {
             int newY = coordinate.getY() + rdelta[i];
             if (onGrid(newX, newY)) {
                 Tile currentTile = getTile(newX, newY);
-                int newRange = range - currentTile.getMoveCost();
-                GameObject currentObject = getObject(newX, newY);
-                if (currentObject != null && currentObject.isPassable(gameObject)) {
-                    findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
-                }
-                else if (newRange >= 0) {
-                    currentTile.setActive(true);
-                    findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
+                if (currentTile.isPassable(gameObject)) {
+                    int newRange = range - currentTile.getMoveCost();
+                    GameObject currentObject = getObject(newX, newY);
+                    if (currentObject != null && currentObject.isPassable(gameObject)) {
+                        findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
+                    }
+                    else if (newRange >= 0) {
+                        currentTile.setActive(true);
+                        findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
+                    }
                 }
             }
         }
@@ -389,7 +399,6 @@ public class Grid implements Drawable {
         }
     }
 
-    @Override
     public void draw (Graphics g, int x, int y, int width, int height) {
         int tileWidth = width / myWidth;
         int tileHeight = height / myHeight;
@@ -412,13 +421,19 @@ public class Grid implements Drawable {
         }
     }
 
-    @Override
-    public String getName () {
-        return "Grid";
+    public Tile[][] getMyTiles () {
+        return myTiles;
     }
 
-    @Override
-    public Image getImage () {
-        return null;
+    public void setMyTiles (Tile[][] myTiles) {
+        this.myTiles = myTiles;
     }
+
+    // public Map<, Tile> getTileMap () {
+    // return myTileMap;
+    // }
+    //
+    // public void setTileMap (Map<Coordinate, Tile> myTileMap) {
+    // this.myTileMap = myTileMap;
+    // }
 }
