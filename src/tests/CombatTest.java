@@ -32,7 +32,7 @@ public class CombatTest {
     public void setUp () throws Exception {
      // Setting up the units base stats
         Stat stats = new Stat();
-        stats.setStatValue("attack", 1);
+        stats.setStatValue("attack", 2);
         stats.setStatValue("defense", 1);
         
         // Setting up a list of items
@@ -48,7 +48,7 @@ public class CombatTest {
         defensiveStats.put("defense", 1);
         
         Map<String, Integer> offensiveOutcomes = new HashMap<String, Integer>();
-        defensiveStats.put("attack", 2);
+        defensiveStats.put("attack", 1);
         
         Map<String, Integer> defensiveOutcomes = new HashMap<String, Integer>();
         defensiveStats.put("defense", -1);
@@ -87,18 +87,32 @@ public class CombatTest {
 
 
     @Test
-    public void testPlayerAttack () {
+    public void testPlayerAttackDamage () {
         System.out.println(playerUnit.getStats().getStatValue("attack"));
         System.out.println(playerUnit.getItemList());
         
         playerUnit.attack(enemyUnit, playerUnit.getActiveWeapon().getName(), playerUnit.getActiveWeapon().getActionList().get(0));
         
         double enemyHealth = enemyUnit.getProperties().getHealth();
-        double expectedHealth = 10;
+        double expectedHealth = 11.666;
         
         assertEquals("Proper Damage Dealt",enemyHealth,expectedHealth, .001);
-        assertEquals("Proper Offensive Outcome",playerUnit.getStats().getStatValue("attack"),(Integer) 3);
     }
+    
+//    @Test
+//    public void testPlayerAttackOutcome () {
+//        System.out.println(playerUnit.getStats().getStatValue("attack"));
+//        System.out.println(playerUnit.getItemList());
+//        
+//        playerUnit.attack(enemyUnit, playerUnit.getActiveWeapon().getName(), playerUnit.getActiveWeapon().getActionList().get(0));
+//        
+//        double newAttack = playerUnit.getStats().getStatValue("attack");
+//        double expectedNewAttack = 4;
+//        
+//        assertEquals("Proper Outcome",newAttack,expectedNewAttack, .001);
+//        
+//    }
+    
     
 //    @Test
 //    public void testEnemyAttack () {
