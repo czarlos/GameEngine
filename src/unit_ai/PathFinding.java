@@ -44,18 +44,19 @@ public class PathFinding {
 
     /**
      * Makes a list of all nodes on the graph from the grid. This list of nodes
-     * does not contain neighbor data, and gets send to the addNeighbors
-     * method to
+     * does not contain neighbor data, and gets sent to the addNeighbors
+     * method
      * 
      * @param grid
      * @return
      */
     public List<Node> coordinatesToNodes (Grid grid) {
         List<Node> nodeList = new ArrayList<Node>();
-        
-//        for (Coordinate coord : grid.getTileMap().keySet()) {
-//            nodeList.add(new Node(null, coord));
-//        }
+        for(int i=0; i <grid.getMyTiles().length; i++) {
+            for (int j=0; j<grid.getMyTiles().length; j++) {
+                nodeList.add(new Node(null, new Coordinate(i, j)));
+            }
+        }
         return nodeList;
     }
 
@@ -63,18 +64,17 @@ public class PathFinding {
      * Adds a list of neighboring nodes to every node in the list of nodes in a grid.
      * 
      * @param nodeList
-     * @return
      */
-    public List<Node> addNeighbors (List<Node> nodeList) {
-        List<Node> nodeAdjacencyList = new ArrayList<>();
+    public void addNeighbors (List<Node> nodeList) {
         for (Node node : nodeList) {
+            List<Node> nodeAdjacencyList = new ArrayList<>();
             for (Node otherNode : nodeList) {
-                if (isNeighbor(node, otherNode)) {
+                if (isNeighbor(node, otherNode) && !otherNode.equals(node)) {
                     nodeAdjacencyList.add(otherNode);
                 }
             }
+            node.setNeighbors(nodeAdjacencyList);
         }
-        return nodeAdjacencyList;
     }
 
     /**
