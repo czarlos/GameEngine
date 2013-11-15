@@ -3,7 +3,6 @@ package grid;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.Map.Entry;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import action.CombatAction;
-import view.Drawable;
 
 
 /**
@@ -22,7 +20,7 @@ import view.Drawable;
  * 
  */
 @JsonAutoDetect
-public class Grid implements Drawable {
+public class Grid {
     @JsonProperty
     private int myWidth;
     @JsonProperty
@@ -78,6 +76,14 @@ public class Grid implements Drawable {
                 myTiles[i][j] = (Tile) myFactory.make("Tile", tileID);
             }
         }
+    }
+
+    public int getWidth () {
+        return myWidth;
+    }
+
+    public int getHeight () {
+        return myHeight;
     }
 
     /**
@@ -362,8 +368,12 @@ public class Grid implements Drawable {
      * @return - Tile at coordinate
      */
     public Tile getTile (int x, int y) {
+<<<<<<< HEAD
         // TODO: Generic method?
         return myTiles[x][y];
+=======
+        return myTileMap.get(new Coordinate(x, y));
+>>>>>>> 093456c871913e6abdc417d18b960acac8dea7a2
     }
 
     /**
@@ -389,7 +399,6 @@ public class Grid implements Drawable {
         }
     }
 
-    @Override
     public void draw (Graphics g, int x, int y, int width, int height) {
         int tileWidth = width / myWidth;
         int tileHeight = height / myHeight;
@@ -410,15 +419,5 @@ public class Grid implements Drawable {
                 }
             }
         }
-    }
-
-    @Override
-    public String getName () {
-        return "Grid";
-    }
-
-    @Override
-    public Image getImage () {
-        return null;
     }
 }

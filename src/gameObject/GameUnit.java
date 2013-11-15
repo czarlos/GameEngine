@@ -117,16 +117,6 @@ public class GameUnit extends GameObject {
         this.myActiveWeapon = (Weapon) myActiveItem;
     }
 
-    /*
-     * public Properties getProperties () {
-     * return myProperties;
-     * }
-     * 
-     * public void setProperties (Properties myProperties) {
-     * this.myProperties = myProperties;
-     * }
-     */
-
     public List<Item> getItemList () {
         return myItemList;
     }

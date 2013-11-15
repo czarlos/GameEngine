@@ -67,7 +67,7 @@ public class Stage {
      * 
      */
     public void run () {
-        while (!myWinCondition.hasWon()) {
+        while (!myWinCondition.hasWon(myGrid)) {
             for (String affiliate : myAffiliateList) {
                 // Do Player Moves
                 doPlayerMove();
