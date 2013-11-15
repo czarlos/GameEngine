@@ -3,11 +3,8 @@ package gameObject;
 import gameObject.item.*;
 import grid.Coordinate;
 import grid.GridConstants;
-
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-
 import action.CombatAction;
 
 
@@ -153,47 +150,50 @@ public class GameUnit extends GameObject {
                 value += ((Equipment) i).getModifiers().getStatModifier(stat);
         return value;
     }
-    
+
     /**
      * Initializes an attack from this unit to another unit based
      * on a weapon, attack, and action chosen by the user. The execute method
      * called by doAction executes the attack.
+     * 
      * @param other
      */
     public void attack (GameUnit other, String weaponName, CombatAction actionName) {
         this.selectWeapon(weaponName);
-        this.doAction(actionName, other);        
+        this.doAction(actionName, other);
     }
-    
+
     /**
      * Moves this game unit to the coordinates of the other game unit given.
      * Moves the character only a given number of spaces per turn.
      * The string 'movement' must be fed in by the user to specify which
      * stat is responsible for movement/range.
      * Note: Change this to use the a* path finding when it is done.
+     * 
      * @param other
      * @param movement
      */
     public void snapToOpponent (GameUnit other) {
         this.getStats().getStatValue(GameObjectConstants.DEFAULT_UNIT_MOVEMENT);
-    	
-        //These will be used at a later implementation
+
+        // These will be used at a later implementation
         Coordinate otherPosition = other.getGridPosition();
-    	otherPosition.getX();
-    	otherPosition.getY();
-    	
-    	this.setGridPosition(otherPosition);
-        
+        otherPosition.getX();
+        otherPosition.getY();
+
+        this.setGridPosition(otherPosition);
+
     }
 
-    public Coordinate getGridPosition() {
-		return myGridPosition;
-	}
-    public void setGridPosition( Coordinate gridPosition ) {
-    	this.myGridPosition = gridPosition;
+    public Coordinate getGridPosition () {
+        return myGridPosition;
     }
 
-	public void setUnitStats (Stat myUnitStats) {
+    public void setGridPosition (Coordinate gridPosition) {
+        this.myGridPosition = gridPosition;
+    }
+
+    public void setUnitStats (Stat myUnitStats) {
         this.myUnitStats = myUnitStats;
     }
 

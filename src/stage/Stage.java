@@ -7,12 +7,9 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 import java.util.TreeMap;
-
 import utils.UnitUtilities;
-
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import action.CombatAction;
 import gameObject.GameObject;
 import gameObject.GameUnit;
@@ -73,15 +70,15 @@ public class Stage {
                 System.out.println("WE WAITIN UNTIL ALL UNITS ARE NOT ACTIVE");
         }
     }
-    
+
     /**
      * The AI will move to your unit's positions and attack them.
      */
     public void doAIMove (int aiTeamIndex, int otherTeamIndex) {
-        
-    	moveToOpponents(aiTeamIndex, otherTeamIndex);
+
+        moveToOpponents(aiTeamIndex, otherTeamIndex);
     }
-    
+
     /**
      * Moves all units possible from one team to opponents to another team.
      * Used to assist the AI in attacking players on another team.
@@ -89,20 +86,22 @@ public class Stage {
      * attack the opponents units, starting with the closest ones. If there are
      * more AI units than opponent units, the extra AI units attack the closest
      * opponent units.
+     * 
      * @param currentTurnAffiliate
      */
-    private void moveToOpponents(int aiTeamIndex, int otherTeamIndex) {  
+    private void moveToOpponents (int aiTeamIndex, int otherTeamIndex) {
         int counter = 0;
         for (GameUnit unit : myTeamUnitList.get(aiTeamIndex)) {
-            if(counter > myTeamUnitList.get(otherTeamIndex).size()) {
+            if (counter > myTeamUnitList.get(otherTeamIndex).size()) {
                 counter = 0;
             }
-            List<GameUnit> opponentList = makeSortedUnitList(unit, myTeamUnitList.get(otherTeamIndex));  
+            List<GameUnit> opponentList =
+                    makeSortedUnitList(unit, myTeamUnitList.get(otherTeamIndex));
             unit.snapToOpponent(opponentList.get(0));
-            counter ++;
+            counter++;
         }
     }
-    
+
     /**
      * A different AI option where the AI units all simply move to the closest
      * opponent's unit to their position.
@@ -110,17 +109,19 @@ public class Stage {
     public void moveToClosestOpponent (int aiTeamIndex, int otherTeamIndex) {
         int counter = 0;
         for (GameUnit unit : myTeamUnitList.get(aiTeamIndex)) {
-            if(counter > myTeamUnitList.get(otherTeamIndex).size()) {
+            if (counter > myTeamUnitList.get(otherTeamIndex).size()) {
                 counter = 0;
             }
-            List<GameUnit> opponentList = makeSortedUnitList(unit, myTeamUnitList.get(otherTeamIndex));  
+            List<GameUnit> opponentList =
+                    makeSortedUnitList(unit, myTeamUnitList.get(otherTeamIndex));
             unit.snapToOpponent(opponentList.get(0));
-            counter ++;
+            counter++;
         }
     }
-    
+
     /**
      * Makes a list of units sorted from closest to furthest.
+     * 
      * @param unit
      * @param otherUnits
      * @return
@@ -128,17 +129,17 @@ public class Stage {
     public List<GameUnit> makeSortedUnitList (GameUnit unit, List<GameUnit> otherUnits) {
         Map<Double, GameUnit> unitDistance = new TreeMap<Double, GameUnit>();
         List<GameUnit> priorityUnitList = new ArrayList<GameUnit>();
-        
-    	for (GameUnit other : otherUnits) {
-    	    double distance = UnitUtilities.calculateLength(unit.getGridPosition(), other.getGridPosition());
-    	    unitDistance.put(distance, other);
-    	}
-    	for (Double distance : unitDistance.keySet()) {
-    	    priorityUnitList.add(unitDistance.get(distance));
-    	}
-    	return priorityUnitList;
+
+        for (GameUnit other : otherUnits) {
+            double distance =
+                    UnitUtilities.calculateLength(unit.getGridPosition(), other.getGridPosition());
+            unitDistance.put(distance, other);
+        }
+        for (Double distance : unitDistance.keySet()) {
+            priorityUnitList.add(unitDistance.get(distance));
+        }
+        return priorityUnitList;
     }
-    
 
     private void changeTurns (Integer currentTurnAffiliate) { // we are just going to be looping
                                                               // through affiliations and setting
@@ -259,6 +260,5 @@ public class Stage {
     public String getPostStory () {
         return postText;
     }
-
 
 }

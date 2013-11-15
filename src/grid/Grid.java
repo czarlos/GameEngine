@@ -302,7 +302,7 @@ public class Grid implements Drawable {
     public Image getImage () {
         return null;
     }
-    
+
     public Map<Coordinate, Tile> getTileMap () {
         return myTileMap;
     }
