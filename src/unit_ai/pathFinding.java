@@ -3,10 +3,11 @@ package unit_ai;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import utils.UnitUtilities;
 import grid.Coordinate;
 import grid.Grid;
 
-public class pathFinding {
+public class PathFinding {
     
     /**
      * Nodes are used as data structures to make pathfinding easier by holding
@@ -132,9 +133,23 @@ public class pathFinding {
         }
         return nodeAdjacencyList;
     }
-
+    
+    /**
+     * Determines whether or not a node is a neighbor of another node. Calls
+     * a utility function calculate length which calculates the distance (delta)
+     * between two coordinates. If this distance is less than the square root of two
+     * we know that one node is next to another.
+     * Note: This way counts diagonally positioned nodes as "next to" if this is not
+     * diagonal nodes are not desired, simply change Math.sqrt(2) to 1.
+     * @param node
+     * @param otherNode
+     * @return
+     */
     private boolean isNeighbor (Node node, Node otherNode) {
-        // TODO Auto-generated method stub
+        double delta = UnitUtilities.calculateLength(node.getCoordinate(), otherNode.getCoordinate());
+        if(delta <= Math.sqrt(2)) {
+            return true;
+        }
         return false;
     }
 }
