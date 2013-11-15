@@ -64,7 +64,7 @@ public class MakeDefaults {
         gameObject.GameUnit hero = new gameObject.GameUnit();
 
         gameObject.Stat stats = new gameObject.Stat();
-        stats.makeStat("movement", 3);
+        stats.setStatValue("movement", 3);
 
         hero.setName("hero");
         hero.setImagePath("resources/hero.png");

@@ -1,6 +1,8 @@
 package gameObject;
 
 import gameObject.item.*;
+import grid.Coordinate;
+import grid.GridConstants;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import action.CombatAction;
@@ -25,12 +27,41 @@ public class GameUnit extends GameObject {
     private Weapon myActiveWeapon;
     private double myHealth;
     private double myExperience;
+    private Properties myProperties;
+    private boolean isActive;
+    private Coordinate myGridPosition;
 
     public GameUnit () {
         super();
         myUnitStats = new Stat();
-        myUnitStats.makeStat("movement", 3);
+        myUnitStats.setStatValue("movement", 3);
         setItemList(new java.util.ArrayList<gameObject.item.Item>());
+        myName = GridConstants.DEFAULT_UNIT_NAME;
+        setImagePath(GridConstants.DEFAULT_UNIT_PATH);
+        myAffiliation = 0;
+        myUnitStats = new Stat() {
+            {
+                setStatValue("movement", 3);
+            }
+        };
+    }
+
+    public GameUnit (String name,
+                     String imagePath,
+                     int affiliation,
+                     Stat stats,
+                     List<Item> item,
+                     boolean controllable,
+                     Properties properties) {
+        super();
+        myAffiliation = affiliation;
+        myUnitStats = stats;
+        myItemList = item;
+        isControllable = controllable;
+        myProperties = properties;
+        // myUnitStats.makeStat("movement", 3);
+        // setItemList(new java.util.ArrayList<gameObject.item.Item>());
+        // setActive(false);
     }
 
     /**
@@ -72,6 +103,41 @@ public class GameUnit extends GameObject {
         selectedAction.execute(this, other);
     }
 
+    /**
+     * Takes an item and adds it to the list, if item is Equipment,
+     * then we modify the characters stats according to the stats of
+     * the item.
+     * 
+     * @param itemName
+     */
+    public void addItem (Item itemName) {
+        if (itemName instanceof Equipment) {
+            for (String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
+                int statVal = this.getStats().getStatValue(stat);
+                statVal += ((Equipment) itemName).getModifiers().getStatModifier(stat);
+                this.getStats().setStatValue(stat, statVal);
+            }
+        }
+        myItemList.add(itemName);
+    }
+
+    /**
+     * Removes a particular item from the units itemList, ensures that upon removal
+     * the unit's stats get decremented accordingly.
+     * 
+     * @param itemName
+     */
+    public void removeItem (Item itemName) {
+        if (itemName instanceof Equipment) {
+            for (String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
+                int statVal = this.getStats().getStatValue(stat);
+                statVal -= ((Equipment) itemName).getModifiers().getStatModifier(stat);
+                this.getStats().setStatValue(stat, statVal);
+            }
+        }
+        myItemList.remove(itemName);
+    }
+
     @Override
     public boolean isPassable (GameObject unit) {
         return super.isPassable(unit) || ((GameUnit) unit).getAffiliation() == myAffiliation;
@@ -83,6 +149,48 @@ public class GameUnit extends GameObject {
             if (i instanceof Equipment)
                 value += ((Equipment) i).getModifiers().getStatModifier(stat);
         return value;
+    }
+
+    /**
+     * Initializes an attack from this unit to another unit based
+     * on a weapon, attack, and action chosen by the user. The execute method
+     * called by doAction executes the attack.
+     * 
+     * @param other
+     */
+    public void attack (GameUnit other, String weaponName, CombatAction actionName) {
+        this.selectWeapon(weaponName);
+        this.doAction(actionName, other);
+    }
+
+    /**
+     * Moves this game unit to the coordinates of the other game unit given.
+     * Moves the character only a given number of spaces per turn.
+     * The string 'movement' must be fed in by the user to specify which
+     * stat is responsible for movement/range.
+     * Note: Change this to use the a* path finding when it is done.
+     * 
+     * @param other
+     * @param movement
+     */
+    public void snapToOpponent (GameUnit other) {
+        this.getStats().getStatValue(GameObjectConstants.DEFAULT_UNIT_MOVEMENT);
+
+        // These will be used at a later implementation
+        Coordinate otherPosition = other.getGridPosition();
+        otherPosition.getX();
+        otherPosition.getY();
+
+        this.setGridPosition(otherPosition);
+
+    }
+
+    public Coordinate getGridPosition () {
+        return myGridPosition;
+    }
+
+    public void setGridPosition (Coordinate gridPosition) {
+        this.myGridPosition = gridPosition;
     }
 
     public void setUnitStats (Stat myUnitStats) {
@@ -109,20 +217,20 @@ public class GameUnit extends GameObject {
         this.isControllable = myControllable;
     }
 
-    public Item getActiveWeapon () {
+    public Weapon getActiveWeapon () {
         return myActiveWeapon;
     }
 
-    public void setActiveWeapon (Item myActiveItem) {
-        this.myActiveWeapon = (Weapon) myActiveItem;
+    public void setActiveWeapon (Item activeItem) {
+        this.myActiveWeapon = (Weapon) activeItem;
     }
 
-    public List<Item> getItemList () {
-        return myItemList;
+    public void setActive (boolean active) {
+        this.isActive = active;
     }
 
-    public void setItemList (List<Item> items) {
-        myItemList = items;
+    public boolean getActiveStatus () {
+        return this.isActive;
     }
 
     public double getHealth () {
@@ -139,6 +247,22 @@ public class GameUnit extends GameObject {
 
     public void setExperience (double myExperience) {
         this.myExperience = myExperience;
+    }
+
+    public List<Item> getItemList () {
+        return myItemList;
+    }
+
+    public void setItemList (List<Item> myItemList) {
+        this.myItemList = myItemList;
+    }
+
+    public Properties getProperties () {
+        return myProperties;
+    }
+
+    public void setProperties (Properties myProperties) {
+        this.myProperties = myProperties;
     }
 
     @Override

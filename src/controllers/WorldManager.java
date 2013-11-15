@@ -173,6 +173,17 @@ public class WorldManager {
         return myParser.createObject("saves/" + gameName, controllers.WorldManager.class);
     }
 
+    // get object information
+    // edit from brooks
+    // actions, win conditions, items
+
+    // when you make a condition, need to pass in Data
+
+    /*
+     * public void addCondition(int ConditionID, ){
+     * myActiveStage.addCondition(c)
+     * }
+     */
     // get object information... unit and things need to implement get?
     // actions, items
 

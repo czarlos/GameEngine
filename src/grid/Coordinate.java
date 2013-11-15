@@ -1,5 +1,6 @@
 package grid;
 
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -14,12 +15,12 @@ public class Coordinate {
         myY = y;
     }
 
-    @Override
-    public int hashCode () {
-        int hash = myX * 123456789;
-        hash = hash + myY * 3;
-        return hash;
-    }
+    // @Override
+    // public int hashCode () {
+    // int hash = myX * 123456789;
+    // hash = hash + myY * 3;
+    // return hash;
+    // }
 
     public int getX () {
         return myX;
@@ -35,6 +36,31 @@ public class Coordinate {
 
     public void setY (int y) {
         myY = y;
+    }
+
+    @Override
+    public int hashCode () {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + myX;
+        result = prime * result + myY;
+        return result;
+    }
+
+    @Override
+    public boolean equals (Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+        Coordinate other = (Coordinate) obj;
+        if (myX != other.myX) return false;
+        if (myY != other.myY) return false;
+        return true;
+    }
+
+    public List<Coordinate> getNeighbors () {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
