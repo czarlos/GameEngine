@@ -27,6 +27,7 @@ public class Grid {
     private int myHeight;
     @JsonProperty
     private Tile[][] myTiles;
+
     @JsonProperty
     private GameObject[][] myObjects;
     @JsonProperty
@@ -95,7 +96,7 @@ public class Grid {
         GameObject link = (GameUnit) myFactory.make("GameUnit", 0);
         placeObject(link, 5, 5);
         findMovementRange(new Coordinate(4, 5), ((GameUnit) link).getTotalStat("movement"), link);
-        System.out.println("isActive: " + isActive(4,4));
+        System.out.println("isActive: " + isActive(4, 4));
     }
 
     /**
@@ -419,4 +420,20 @@ public class Grid {
             }
         }
     }
+
+    public Tile[][] getMyTiles () {
+        return myTiles;
+    }
+
+    public void setMyTiles (Tile[][] myTiles) {
+        this.myTiles = myTiles;
+    }
+
+    // public Map<, Tile> getTileMap () {
+    // return myTileMap;
+    // }
+    //
+    // public void setTileMap (Map<Coordinate, Tile> myTileMap) {
+    // this.myTileMap = myTileMap;
+    // }
 }

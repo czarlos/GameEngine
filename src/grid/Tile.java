@@ -72,10 +72,10 @@ public class Tile extends GameObject {
     }
 
     @Override
-    public Image getImage(){
+    public Image getImage () {
         return myImage;
     }
-    
+
     public int getMoveCost () {
         return myMoveCost;
     }

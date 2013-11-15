@@ -9,8 +9,8 @@ public class GridTests {
 
     @Test
     public void testTiles () {
-        Grid grid = new Grid(10,10,1);
-        assertTrue(grid.isActive(3,5));
+        Grid grid = new Grid(10, 10, 1);
+        assertTrue(grid.isActive(3, 5));
     }
 
 }
