@@ -217,12 +217,12 @@ public class GameUnit extends GameObject {
         this.isControllable = myControllable;
     }
 
-    public Item getActiveWeapon () {
+    public Weapon getActiveWeapon () {
         return myActiveWeapon;
     }
 
-    public void setActiveWeapon (Item myActiveItem) {
-        this.myActiveWeapon = (Weapon) myActiveItem;
+    public void setActiveWeapon (Item activeItem) {
+        this.myActiveWeapon = (Weapon) activeItem;
     }
 
     public void setActive (boolean active) {
