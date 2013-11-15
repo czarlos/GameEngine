@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import parser.JSONParser;
 import view.Drawable;
 
+
 @JsonAutoDetect
 public class EditorData {
     @JsonProperty
@@ -19,10 +20,10 @@ public class EditorData {
     JSONParser myParser;
 
     // Only for use by deserializer
-    public EditorData() {
+    public EditorData () {
         myParser = new JSONParser();
     }
-    
+
     public EditorData (String folderName) {
         myParser = new JSONParser();
         myDataMap = new HashMap<String, List<Drawable>>();

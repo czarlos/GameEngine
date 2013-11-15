@@ -2,6 +2,7 @@ package gameObject;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
+
 /**
  * Properties are a part of gameunits that are not stats but are
  * important aspects of a unit that can be change and affected by other
@@ -16,10 +17,10 @@ public class Properties {
     private double myHealth;
     private double myExperience;
 
-    public Properties(){
-        
+    public Properties () {
+
     }
-    
+
     public Properties (int health, int experience) {
         setHealth(health);
         setExperience(experience);
