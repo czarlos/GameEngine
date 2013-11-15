@@ -1,8 +1,10 @@
 package unit_ai;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 import grid.Coordinate;
+import grid.Grid;
 
 public class pathFinding {
     
@@ -19,11 +21,10 @@ public class pathFinding {
         private int myLength;
         private int myDistanceToGoal;
         private Coordinate myCoordinate;
-        
+
         public Node(List<Node> neighbors, Coordinate coordinate) {
             this.myNeighbors = neighbors;
             this.myCoordinate = coordinate;
-
         }
 
         public List<Node> getNeighbors () {
@@ -58,6 +59,13 @@ public class pathFinding {
             this.myDistanceToGoal = myDistanceToGoal;
         }
         
+        public Coordinate getCoordinate () {
+            return myCoordinate;
+        }
+
+        public void setCoordinate (Coordinate myCoordinate) {
+            this.myCoordinate = myCoordinate;
+        }
         
     }
 
@@ -91,5 +99,42 @@ public class pathFinding {
             }
         }
         return openStack;
+    }
+    
+    /**
+     * Makes a list of all nodes on the graph from the grid. This list of nodes
+     * does not contain neighbor data, and gets send to the addNeighbors
+     * method to 
+     * @param grid
+     * @return
+     */
+    public List<Node> coordinatesToNodes(Grid grid) {
+        List<Node> nodeList = new ArrayList<Node>();
+        for (Coordinate coord : grid.getTileMap().keySet()) {
+            nodeList.add(new Node(null, coord));
+        }
+        return nodeList;
+    }
+    
+    /**
+     * Adds a list of neighboring nodes to every node in the list of nodes in a grid.
+     * @param nodeList
+     * @return
+     */
+    public List<Node> addNeighbors(List<Node> nodeList) {
+        List<Node> nodeAdjacencyList = new ArrayList<>();
+        for (Node node : nodeList) {
+            for (Node otherNode : nodeList) {
+                if (isNeighbor(node, otherNode)) {
+                    nodeAdjacencyList.add(otherNode);
+                }
+            }
+        }
+        return nodeAdjacencyList;
+    }
+
+    private boolean isNeighbor (Node node, Node otherNode) {
+        // TODO Auto-generated method stub
+        return false;
     }
 }
