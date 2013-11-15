@@ -90,11 +90,12 @@ public class Grid {
      * Creates default objects and units for grid
      */
     private void testInitObjects () {
-        myObjects[3][5] = (GameObject) myFactory.make("GameObject", 0);
+        GameObject tree = (GameObject) myFactory.make("GameObject", 0);
+        placeObject(tree, 3, 5);
         GameObject link = (GameUnit) myFactory.make("GameUnit", 0);
-        myObjects[4][5] = link;
-        findMovementRange(new Coordinate(4, 5),
-                          ((GameUnit) link).getTotalStat("movement"), link);
+        placeObject(link, 5, 5);
+        findMovementRange(new Coordinate(4, 5), ((GameUnit) link).getTotalStat("movement"), link);
+        System.out.println("isActive: " + isActive(4,4));
     }
 
     /**
@@ -125,7 +126,7 @@ public class Grid {
      * 
      * @param coordinate - Coordinate of the current position of the GameObject
      * @param range - int of range that the GameObject can move
-     * @param gameObject -
+     * @param gameObject - GameObject that we are finding the range of
      */
     private void findMovementRange (Coordinate coordinate, int range, GameObject gameObject) {
         int[] rdelta = { -1, 0, 0, 1 };
@@ -368,12 +369,8 @@ public class Grid {
      * @return - Tile at coordinate
      */
     public Tile getTile (int x, int y) {
-<<<<<<< HEAD
         // TODO: Generic method?
         return myTiles[x][y];
-=======
-        return myTileMap.get(new Coordinate(x, y));
->>>>>>> 093456c871913e6abdc417d18b960acac8dea7a2
     }
 
     /**

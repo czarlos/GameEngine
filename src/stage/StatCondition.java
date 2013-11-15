@@ -2,6 +2,7 @@ package stage;
 
 import grid.Grid;
 
+
 public class StatCondition extends Condition {
 
     public StatCondition () {
@@ -12,11 +13,12 @@ public class StatCondition extends Condition {
     }
 
     /**
-     * Returns true if a unit of a certain "affiliation" has achieved a stat of "statType" higher than "value"
+     * Returns true if a unit of a certain "affiliation" has achieved a stat of "statType" higher
+     * than "value"
      */
     @Override
     boolean isFulfilled (Grid grid) {
-        
+
         return false;
     }
 

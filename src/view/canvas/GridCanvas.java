@@ -24,7 +24,7 @@ public class GridCanvas extends Canvas {
     public GridCanvas (Grid grid) {
         setBorder(BorderFactory.createLineBorder(Color.black));
         myGrid = grid;
-        myClickSubscribers=new ArrayList<>();
+        myClickSubscribers = new ArrayList<>();
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
@@ -59,7 +59,7 @@ public class GridCanvas extends Canvas {
 
     public static void main (String args[]) {
         GridCanvas myCanvas = new GridCanvas(new Grid(10, 10, 1));
-        GridController control=new GridController(myCanvas.myGrid);
+        GridController control = new GridController(myCanvas.myGrid);
         GridController.registerGridCommand("setactive", SetTileActive.class);
         myCanvas.addGridMouseListener(control);
 

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @JsonAutoDetect
 public class PositionCondition extends Condition {
-    
+
     public PositionCondition () {
         super();
         neededData.add("x");

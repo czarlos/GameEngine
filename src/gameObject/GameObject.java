@@ -36,7 +36,8 @@ public class GameObject extends Drawable {
 
     @Override
     public Map<String, String> getData () {
-        // TODO: Needs to implement this for everything that extends GameObject (for GUI editing purposes)
+        // TODO: Needs to implement this for everything that extends GameObject (for GUI editing
+        // purposes)
         return null;
     }
 
