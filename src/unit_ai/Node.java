@@ -3,6 +3,7 @@ package unit_ai;
 import grid.Coordinate;
 import java.util.List;
 
+
 /**
  * Nodes are used as data structures to make pathfinding easier by holding
  * more data than just coordinates. However the integral piece of this data

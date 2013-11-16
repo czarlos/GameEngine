@@ -52,8 +52,8 @@ public class PathFinding {
      */
     public List<Node> coordinatesToNodes (Grid grid) {
         List<Node> nodeList = new ArrayList<Node>();
-        for(int i=0; i <grid.getMyTiles().length; i++) {
-            for (int j=0; j<grid.getMyTiles().length; j++) {
+        for (int i = 0; i < grid.getMyTiles().length; i++) {
+            for (int j = 0; j < grid.getMyTiles().length; j++) {
                 nodeList.add(new Node(null, new Coordinate(i, j)));
             }
         }

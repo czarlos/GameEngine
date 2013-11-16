@@ -1,5 +1,28 @@
 [ "java.util.ArrayList", [ [ "stage.PositionCondition", {
-  "playersPositionX" : 0,
   "myData" : [ "java.util.HashMap", { } ],
-  "playersPositionY" : 0
+  "neededData" : [ "java.util.ArrayList", [ ] ],
+  "playersPositionX" : 0,
+  "playersPositionY" : 0,
+  "data" : [ "java.util.HashMap", { } ],
+  "name" : null
+} ], [ "stage.StatCondition", {
+  "myData" : [ "java.util.HashMap", { } ],
+  "neededData" : [ "java.util.ArrayList", [ ] ],
+  "data" : [ "java.util.HashMap", { } ],
+  "name" : null
+} ], [ "stage.ItemCondition", {
+  "myData" : [ "java.util.HashMap", { } ],
+  "neededData" : [ "java.util.ArrayList", [ ] ],
+  "data" : [ "java.util.HashMap", { } ],
+  "name" : null
+} ], [ "stage.UnitCountCondition", {
+  "myData" : [ "java.util.HashMap", { } ],
+  "neededData" : [ "java.util.ArrayList", [ ] ],
+  "data" : [ "java.util.HashMap", { } ],
+  "name" : null
+} ], [ "stage.TurnCondition", {
+  "myData" : [ "java.util.HashMap", { } ],
+  "neededData" : [ "java.util.ArrayList", [ ] ],
+  "data" : [ "java.util.HashMap", { } ],
+  "name" : null
 } ] ] ]

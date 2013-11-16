@@ -58,7 +58,7 @@ public class GridCanvas extends Canvas {
     }
 
     public static void main (String args[]) {
-        GridCanvas myCanvas = new GridCanvas(new Grid(10, 10, 1));
+        GridCanvas myCanvas = new GridCanvas(new Grid(10, 10, 0));
         GridController control = new GridController(myCanvas.myGrid);
         GridController.registerGridCommand("setactive", SetTileActive.class);
         myCanvas.addGridMouseListener(control);

@@ -9,6 +9,7 @@ import org.junit.Test;
 import unit_ai.PathFinding;
 import unit_ai.Node;
 
+
 public class PathfindingTests {
     Grid grid;
 
@@ -31,23 +32,23 @@ public class PathfindingTests {
     public void testIsNeighbor () {
         PathFinding pathFind = new PathFinding();
 
-        Node node = new Node(null, new Coordinate(1,1));
-        Node otherNode = new Node(null, new Coordinate(2,2));
+        Node node = new Node(null, new Coordinate(1, 1));
+        Node otherNode = new Node(null, new Coordinate(2, 2));
         assertEquals(pathFind.isNeighbor(node, otherNode), true);
     }
-    
+
     @Test
     public void testAddNeighbor () {
         PathFinding pathFind = new PathFinding();
         List<Node> nodeList = new ArrayList<Node>();
 
-        nodeList.add(new Node(null, new Coordinate(1,1)));
-        nodeList.add(new Node(null, new Coordinate(2,2)));
-        nodeList.add(new Node(null, new Coordinate(4,4)));
-        nodeList.add(new Node(null, new Coordinate(7,6)));
-        nodeList.add(new Node(null, new Coordinate(1,2)));
-        nodeList.add(new Node(null, new Coordinate(7,7)));
-        
+        nodeList.add(new Node(null, new Coordinate(1, 1)));
+        nodeList.add(new Node(null, new Coordinate(2, 2)));
+        nodeList.add(new Node(null, new Coordinate(4, 4)));
+        nodeList.add(new Node(null, new Coordinate(7, 6)));
+        nodeList.add(new Node(null, new Coordinate(1, 2)));
+        nodeList.add(new Node(null, new Coordinate(7, 7)));
+
         pathFind.addNeighbors(nodeList);
         assertEquals(nodeList.get(0).getNeighbors().size(), 2, 0);
         assertEquals(nodeList.get(1).getNeighbors().size(), 2, 0);
@@ -57,6 +58,7 @@ public class PathfindingTests {
         assertEquals(nodeList.get(5).getNeighbors().size(), 1, 0);
 
     }
+<<<<<<< HEAD
     
     @Test
     public void testPathFind() {
@@ -77,4 +79,7 @@ public class PathfindingTests {
         }
         
     }
+=======
+
+>>>>>>> 51b212edc050e0963cf058bd06c42b336e64d1a8
 }

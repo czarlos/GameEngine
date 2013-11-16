@@ -138,7 +138,7 @@ public class WorldManager {
     public int setCustomTile (int ID, String name, String imagePath, int moveCost) {
         Tile t = new grid.Tile();
         t.setName(name);
-        t.setImagePath(imagePath);
+        t.setImageAndPath(imagePath);
         t.setMoveCost(moveCost);
         return myEditorData.setCustomizable("Tile", ID, t);
     }
@@ -151,7 +151,7 @@ public class WorldManager {
         GameUnit gu = new GameUnit();
 
         gu.setName(name);
-        gu.setImagePath(imagePath);
+        gu.setImageAndPath(imagePath);
         gu.setAffiliation(affiliation);
         gu.setControllable(controllable);
         return myEditorData.setCustomizable("GameUnit", ID, gu);
@@ -160,7 +160,7 @@ public class WorldManager {
     public int setCustomObject (int ID, String name, String imagePath) {
         GameObject go = new GameObject();
         go.setName(name);
-        go.setImagePath(imagePath);
+        go.setImageAndPath(imagePath);
 
         return myEditorData.setCustomizable("GameObject", ID, go);
     }

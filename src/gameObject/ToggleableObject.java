@@ -1,7 +1,4 @@
-package grid;
-
-import gameObject.GameObject;
-
+package gameObject;
 
 public class ToggleableObject extends GameObject {
     GameObject myNextState;

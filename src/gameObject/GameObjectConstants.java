@@ -1,5 +1,6 @@
 package gameObject;
 
 public class GameObjectConstants {
-    public static String DEFAULT_UNIT_MOVEMENT = "movement";
+    public final static String MOVEMENT = "movement";
+    public final static String DEFAULT_PASS_EVERYTHING = "everything";
 }

@@ -72,7 +72,7 @@ public class CombatAction {
         applyOutcomes(attacker, myAttackerOutcomes, effectiveness);
         applyOutcomes(defender, myDefenderOutcomes, effectiveness);
     }
-    
+
     /**
      * applyOutcomes edits a units stats based on user specified
      * stats and weights. These outcomes are affected by stat differences
@@ -85,7 +85,9 @@ public class CombatAction {
     private void applyOutcomes (GameUnit unit, StatModifier outcomes, double effectiveness) {
         for (String statAffected : outcomes.getStatModifierMap().keySet()) {
             int oldStatValue = unit.getStats().getStatValue(statAffected);
-            int newStatValue = (int) (oldStatValue + effectiveness * outcomes.getStatModifierMap().get(statAffected));
+            int newStatValue =
+                    (int) (oldStatValue + effectiveness *
+                                          outcomes.getStatModifierMap().get(statAffected));
 
             unit.getStats().setStatValue(statAffected, newStatValue);
         }

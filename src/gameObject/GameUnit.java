@@ -37,7 +37,7 @@ public class GameUnit extends GameObject {
         myUnitStats.setStatValue("movement", 3);
         setItemList(new java.util.ArrayList<gameObject.item.Item>());
         myName = GridConstants.DEFAULT_UNIT_NAME;
-        setImagePath(GridConstants.DEFAULT_UNIT_PATH);
+        setImageAndPath(GridConstants.DEFAULT_UNIT_PATH);
         myAffiliation = 0;
         myUnitStats = new Stat() {
             {
@@ -174,7 +174,7 @@ public class GameUnit extends GameObject {
      * @param movement
      */
     public void snapToOpponent (GameUnit other) {
-        this.getStats().getStatValue(GameObjectConstants.DEFAULT_UNIT_MOVEMENT);
+        this.getStats().getStatValue(GameObjectConstants.MOVEMENT);
 
         // These will be used at a later implementation
         Coordinate otherPosition = other.getGridPosition();
@@ -264,7 +264,7 @@ public class GameUnit extends GameObject {
     public void setProperties (Properties myProperties) {
         this.myProperties = myProperties;
     }
-    
+
     @Override
     public int hashCode () {
         final int prime = 31;

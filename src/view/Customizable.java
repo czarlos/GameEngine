@@ -6,17 +6,18 @@ import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 public abstract class Customizable {
     @JsonProperty
     protected Map<String, String> myData;
     protected List<String> neededData;
     protected String myName;
-    
+
     public Customizable () {
         myData = new HashMap<String, String>();
         neededData = new ArrayList<String>();
     }
-    
+
     public String getName () {
         return myName;
     }
@@ -29,8 +30,8 @@ public abstract class Customizable {
     public void addData (String key, String data) {
         myData.put(key, data);
     }
-    
-    public void setData (Map<String, String> data){
+
+    public void setData (Map<String, String> data) {
         myData = data;
     }
 
