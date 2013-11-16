@@ -55,15 +55,22 @@ public class UnitTableModel extends AbstractTableModel{
         return rowToAdd.clone();
         
     }
-    
+    /**
+     * 
+     * @param index
+     * @return row removed as an Object[]
+     */
     public Object[] removeUnit(int index){
         return list.remove(index).clone();
     }
-    
+    /**
+     * 
+     * @return a new ArrayList of the definitions
+     */
     public List<Object[]> getData() {
         return new ArrayList<Object[]>(list);
     }
-
+    
     @Override
     public int getColumnCount () {
         return columnNames.length;
@@ -90,8 +97,10 @@ public class UnitTableModel extends AbstractTableModel{
         return getValueAt(0, c).getClass();
     }
     
+    /**
+     * returns whether a cell can be edited by a CellEditor
+     */
     public boolean isCellEditable(int row, int col) {
-        //everything editable
        return true;
     }
     

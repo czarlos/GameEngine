@@ -13,7 +13,8 @@ import javax.swing.JTable;
 /**
  * @author brooksmershon
  *
- * Presents a view of current units with the ability to add, remove operations
+ * Presents a view of current units with the ability to add, remove operations for a scrolling
+ * table view of row definitions for units
  * 
  * 
  */
@@ -25,7 +26,12 @@ public class UnitEditorPanel extends JPanel{
      * 
      */
     private static final long serialVersionUID = 370838418473171385L;
-
+    
+    /**
+     * 
+     * @param model - a TableModel class which provides getter and setter methods
+     * for cell rendering and editing
+     */
     public UnitEditorPanel(UnitTableModel model) {
         super(new GridLayout(1,0));
 

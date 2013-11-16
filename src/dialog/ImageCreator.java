@@ -33,6 +33,9 @@ public class ImageCreator extends JComponent{
     
     Image myImage;
     
+    /**
+     * Creates a new JComponent to permit loading, saving, and editing of images from file
+     */
     public ImageCreator() {
         
         myImage = new BufferedImage(100, 50, BufferedImage.TYPE_INT_ARGB);
@@ -53,7 +56,16 @@ public class ImageCreator extends JComponent{
         
         add(content);
     }
-
+    /**
+     * 
+     * @param component
+     * @param title
+     * @param modal
+     * @param imageCreator
+     * @param okListener
+     * @param cancelListener
+     * @return
+     */
     public static JDialog createDialog (Component component,
                                         String title,
                                         boolean modal, ImageCreator imageCreator,
@@ -83,11 +95,19 @@ public class ImageCreator extends JComponent{
         return dialog;
     }
     
+    /**
+     * 
+     * @param image
+     * @return ImageIcon with underlying image, usually a BufferedImage
+     */
     public ImageIcon setImage(Image image){
         myImage = image;
         return new ImageIcon(myImage);
     }
-
+    /**
+     * Returns underlying image that is usually a BufferedImage
+     * @return
+     */
     public Image getImage() {
         return myImage;
     }

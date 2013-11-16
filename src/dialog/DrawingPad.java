@@ -21,7 +21,10 @@ public class DrawingPad extends JComponent{
     Image image;
     Graphics2D graphics2D;
     int currentX, currentY, oldX, oldY;
-
+    
+    /**
+     * Crate new DrawingPad which allows for mouse movement to be tracked for drawing
+     */
     public DrawingPad(){
         
             setDoubleBuffered(false);
@@ -45,11 +48,15 @@ public class DrawingPad extends JComponent{
             });
 
     }
-    
+    /**
+     * 
+     * @return image - currentImage as image is being modified
+     */
     public Image getImage() {
         return image;
     }
-
+    
+    @Override
     public void paintComponent(Graphics g){
             if(image == null){
                     image = createImage(getSize().width, getSize().height);
@@ -61,19 +68,33 @@ public class DrawingPad extends JComponent{
             g.drawImage(image, 0, 0, null);
     }
     
+    /**
+     * 
+     * @param color - a Color object
+     */
     public void setPenColor(Color color) {
         graphics2D.setPaint(color);
     }
     
+    /**
+     * 
+     * @param size - integer
+     */
     public void setPenSize(int size){
         graphics2D.setStroke(new BasicStroke(size));
     }
     
+    /**
+     * 
+     * @param image - BufferedImage usually for drawing and easy saving/loading
+     */
     public void setBackgroundImage(Image image){
         Image newImage = image;
     }
 
-
+    /**
+     * leaves current image a white canvas
+     */
     public void clear(){
             graphics2D.setPaint(Color.white);
             graphics2D.fillRect(0, 0, getSize().width, getSize().height);

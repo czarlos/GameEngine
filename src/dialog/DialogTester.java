@@ -10,7 +10,11 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-
+/**
+ * 
+ * @author brooksmershon
+ * Testing setup for panel and table viewing
+ */
 public class DialogTester {
     public static void main(String[] args){
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -21,7 +25,9 @@ public class DialogTester {
         
         
     }
-    
+    /**
+     *  sets up a GUI for testing
+     */
     private static void createGUITester() {
         JFrame frame = new JFrame("Unit Editor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
