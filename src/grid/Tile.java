@@ -9,9 +9,12 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 
 /**
+ * 
  * Tile Class. Held by grid. Affects unit stats and movement.
  * 
- * @author Kevin, Ken
+ * @author Kevin
+ * @author Ken
+ * 
  */
 @JsonAutoDetect
 public class Tile extends GameObject {
@@ -55,10 +58,10 @@ public class Tile extends GameObject {
     }
 
     @Override
-    public Image getImage(){
+    public Image getImage () {
         return myImage;
     }
-    
+
     public int getMoveCost () {
         return myMoveCost;
     }

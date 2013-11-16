@@ -5,11 +5,26 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+/**
+ * 
+ * Contains an x and y for a coordinate on the grid
+ * 
+ * @author Kevin
+ * @author Ken
+ * 
+ */
+
 @JsonAutoDetect
 public class Coordinate {
     private int myX;
     private int myY;
 
+    /**
+     * Creates a new coordinate with a given x and y
+     * 
+     * @param x - The x location of a coordinate
+     * @param y - The y location of a coordinate
+     */
     public Coordinate (@JsonProperty("X") int x, @JsonProperty("Y") int y) {
         myX = x;
         myY = y;
@@ -22,18 +37,34 @@ public class Coordinate {
     // return hash;
     // }
 
+    /**
+     * @return The x location of the coordinate
+     */
     public int getX () {
         return myX;
     }
 
+    /**
+     * Sets the x location of the coordinate
+     * 
+     * @param x - The x location to set the coordinate to
+     */
     public void setX (int x) {
         myX = x;
     }
 
+    /**
+     * @return The y location of the coordinate
+     */
     public int getY () {
         return myY;
     }
 
+    /**
+     * Sets the y location of the coordinate
+     * 
+     * @param y - The y location to set the coordinate to
+     */
     public void setY (int y) {
         myY = y;
     }
@@ -57,10 +88,4 @@ public class Coordinate {
         if (myY != other.myY) return false;
         return true;
     }
-
-    public List<Coordinate> getNeighbors () {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }

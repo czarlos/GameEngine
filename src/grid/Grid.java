@@ -14,9 +14,11 @@ import action.CombatAction;
 
 
 /**
+ * 
  * Grid class. Holds all tiles and objects, calculates movement
  * 
- * @author Kevin, Ken
+ * @author Kevin
+ * @author Ken
  * 
  */
 @JsonAutoDetect
@@ -79,10 +81,16 @@ public class Grid {
         }
     }
 
+    /**
+     * @return The width of the grid
+     */
     public int getWidth () {
         return myWidth;
     }
 
+    /**
+     * @return The height of the grid
+     */
     public int getHeight () {
         return myHeight;
     }
