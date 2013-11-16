@@ -5,10 +5,12 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import view.Drawable;
 
+
 /**
  * GameObject class. Stuff like trees and shit.
+ * 
  * @author Kevin, Ken
- *
+ * 
  */
 @JsonAutoDetect
 public class GameObject extends Drawable {
@@ -16,18 +18,21 @@ public class GameObject extends Drawable {
 
     public GameObject () {
     }
-    
+
     /**
      * Checks if a unit can pass through the object
+     * 
      * @param unit - GameObject that is moving
      * @return - boolean of if unit can pass through
      */
     public boolean isPassable (GameObject unit) {
-        return myPassableList.contains(unit.getName()) || myPassableList.contains(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
+        return myPassableList.contains(unit.getName()) ||
+               myPassableList.contains(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
     }
 
     /**
      * Adds a new object that can be passed through
+     * 
      * @param passable - String of object name that can pass
      */
     public void addPassable (String passable) {
@@ -53,7 +58,7 @@ public class GameObject extends Drawable {
         return myImagePath;
     }
 
-    public void setImagePath (String imagePath) {
+    public void setImageAndPath (String imagePath) {
         myImagePath = imagePath;
     }
 

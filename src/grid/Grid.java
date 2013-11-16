@@ -14,9 +14,11 @@ import action.CombatAction;
 
 
 /**
+ * 
  * Grid class. Holds all tiles and objects, calculates movement
  * 
- * @author Kevin, Ken
+ * @author Kevin
+ * @author Ken
  * 
  */
 @JsonAutoDetect
@@ -31,31 +33,29 @@ public class Grid {
     @JsonProperty
     private GameObject[][] myObjects;
     @JsonProperty
-    private Map<GameUnit, Coordinate> myUnits;
-    @JsonProperty
-    private Map<Integer, List<GameObject>> myPassStatuses; // TODO: Add pass statuses. 0 = nothing
-                                                           // passes, 1 = everything passes. Put
-                                                           // this map in stage controller?
+    private List<ArrayList<GameUnit>> myUnits;
     private FromJSONFactory myFactory;
 
     /**
      * Creates a grid with the width and height set
-     * 
-     * @param width - int of number of columns of tiles
-     * @param height - int of number of rows of tiles
+     * Only for use by deserializer
      */
-
-    // only for use by deserializer
     public Grid () {
     }
 
+    /**
+     * Creates a grid with the width and height set, and default tiles of tileID
+     * 
+     * @param width - int of columns of grid
+     * @param height - int of rows of grid
+     * @param tileID - int that defines the tile type
+     */
     public Grid (int width, int height, int tileID) {
         myWidth = width;
         myHeight = height;
         myTiles = new Tile[width][height];
         myObjects = new GameObject[width][height];
-        myUnits = new HashMap<>();
-        myPassStatuses = new HashMap<>();
+        myUnits = new ArrayList<>();
         myFactory = new FromJSONFactory();
         initGrid(tileID);
     }
@@ -77,7 +77,6 @@ public class Grid {
                 myTiles[i][j] = (Tile) myFactory.make("Tile", tileID);
             }
         }
-        
     }
 
     /**
@@ -99,19 +98,21 @@ public class Grid {
      * 
      */
     public void beginMove (Coordinate coordinate, GameObject gameUnit) {
-        System.out.println("beginMove, getTotalStat movement: " + ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT));
-        findMovementRange(coordinate, ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT),
+        System.out.println("beginMove, getTotalStat movement: " +
+                           ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT));
+        findMovementRange(coordinate,
+                          ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT),
                           gameUnit);
     }
 
     /**
      * Moves the unit to a new coordinate
      * 
+     * @param oldCoordinate - Coordinate of the gameUnit's original position
      * @param gameUnit - GameUnit being moved
      * @param newCoordinate - Coordinate that unit is moving to
      */
-    public void doMove (GameUnit gameUnit, Coordinate newCoordinate) {
-        Coordinate oldCoordinate = getObjectCoordinate(gameUnit);
+    public void doMove (Coordinate oldCoordinate, GameUnit gameUnit, Coordinate newCoordinate) {
         removeObject(oldCoordinate.getX(), oldCoordinate.getY());
         placeObject(gameUnit, newCoordinate.getX(), newCoordinate.getY());
         setTilesInactive();
@@ -131,15 +132,15 @@ public class Grid {
         for (int i = 0; i < rdelta.length; i++) {
             int newX = coordinate.getX() + cdelta[i];
             int newY = coordinate.getY() + rdelta[i];
-            System.out.println("findMovementRange: newX, newY: "+newX+", "+newY);
+            System.out.println("findMovementRange: newX, newY: " + newX + ", " + newY);
             if (onGrid(newX, newY)) {
                 Tile currentTile = getTile(newX, newY);
                 if (currentTile.isPassable(gameObject) && !currentTile.isActive()) {
                     int newRange = range - currentTile.getMoveCost();
-                    System.out.println("findMovementRange: newRange: "+newRange);
+                    System.out.println("findMovementRange: newRange: " + newRange);
                     GameObject currentObject = getObject(newX, newY);
                     if (currentObject != null && currentObject.isPassable(gameObject)) {
-                        System.out.println("tree, coords: "+newX+", "+newY);
+                        System.out.println("tree, coords: " + newX + ", " + newY);
                         findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
                     }
                     else if (newRange >= 0) {
@@ -177,26 +178,26 @@ public class Grid {
     /**
      * Initiates the action process
      * 
+     * @param objectCoordinate - Coordinate where the action originates
      * @param gameUnit - GameUnit that is doing the action
      * @param combatAction - CombatAction that is being used
      */
-    public void beginAction (GameUnit gameUnit, CombatAction combatAction) {
-        Coordinate objectCoordinate = getObjectCoordinate(gameUnit);
+    public void beginAction (Coordinate objectCoordinate, GameUnit gameUnit, CombatAction combatAction) {
         findActionRange(objectCoordinate, combatAction.getAOE(), combatAction.isAround());
     }
 
     /**
      * Returns the game objects affected by the action
      * 
+     * @param objectCoordinate - Coordinate where the action originates
      * @param gameUnit - GameUnit that is doing the action
      * @param combatAction - CombatAction that is being used
      * @param actionCoordinate - Coordinate that the user selects for the action
      * @return - List of GameObjects that are affected
      */
-    public List<GameObject> doAction (GameUnit gameUnit,
+    public List<GameObject> doAction (Coordinate objectCoordinate, GameUnit gameUnit,
                                       CombatAction combatAction,
                                       Coordinate actionCoordinate) {
-        Coordinate objectCoordinate = getObjectCoordinate(gameUnit);
         String direction = findDirection(objectCoordinate, combatAction, actionCoordinate);
         return findAffectedObjects(objectCoordinate, combatAction, direction);
     }
@@ -328,7 +329,19 @@ public class Grid {
         myObjects[x][y] = gameObject;
 
         if (gameObject instanceof GameUnit) {
-            myUnits.put((GameUnit) gameObject, new Coordinate(x,y));
+            if (!myUnits.isEmpty()) {
+                for (ArrayList<GameUnit> unitList : myUnits) {
+                    if (((GameUnit) gameObject).getAffiliation() == unitList.get(0)
+                            .getAffiliation()) {
+                        unitList.add((GameUnit) gameObject);
+                    }
+                }
+                return;
+            }
+
+            ArrayList<GameUnit> newUnitList = new ArrayList<GameUnit>();
+            newUnitList.add((GameUnit) gameObject);
+            myUnits.add(newUnitList);
         }
     }
 
@@ -342,18 +355,8 @@ public class Grid {
         myObjects[x][y] = null;
     }
 
-    public Map<GameUnit, Coordinate> getGameUnits () {
+    public List<ArrayList<GameUnit>> getGameUnits () {
         return myUnits;
-    }
-
-    /**
-     * Returns the coordinate of a gameObject
-     * 
-     * @param gameObject - GameObject being located
-     * @return - Coordinate of object location
-     */
-    public Coordinate getObjectCoordinate (GameObject gameObject) {
-        return myUnits.get(gameObject);
     }
 
     /**
@@ -391,6 +394,14 @@ public class Grid {
         }
     }
 
+    /**
+     * Draws the tiles and objects on the grid
+     * @param g - Graphics for the image
+     * @param x - int of x coordinate on the grid
+     * @param y - int of y coordinate on the grid
+     * @param width - int of width of object
+     * @param height - int of height of object
+     */
     public void draw (Graphics g, int x, int y, int width, int height) {
         int tileWidth = width / myWidth;
         int tileHeight = height / myHeight;
@@ -418,9 +429,9 @@ public class Grid {
     }
 
     public void setMyTiles (Tile[][] myTiles) {
-        this.myTiles = myTiles;
+        myTiles = myTiles;
     }
-    
+
     public int getWidth () {
         return myWidth;
     }

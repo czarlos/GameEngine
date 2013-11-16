@@ -10,9 +10,12 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 
 /**
+ * 
  * Tile Class. Held by grid. Affects unit stats and movement.
  * 
- * @author Kevin, Ken
+ * @author Kevin
+ * @author Ken
+ * 
  */
 @JsonAutoDetect
 public class Tile extends GameObject {
@@ -28,6 +31,11 @@ public class Tile extends GameObject {
         return isActive;
     }
 
+    /**
+     * Sets tile to active, and changes the tile image to reflect the active state
+     * 
+     * @param active - boolean that is used to set
+     */
     public void setActive (boolean active) {
         isActive = active;
         myImage = isActive ? ImageManager.getHightlightedTileImage(myImagePath)
@@ -42,7 +50,11 @@ public class Tile extends GameObject {
         myStatMods = statMods;
     }
 
-    public void setImagePath (String imagePath) {
+    /**
+     * Sets the image path and image for the graphic that is drawn
+     * @param imagePath - String of image path
+     */
+    public void setImageAndPath (String imagePath) {
         myImagePath = imagePath;
         try {
             myImage = ImageManager.addImage(imagePath);
@@ -53,10 +65,10 @@ public class Tile extends GameObject {
     }
 
     @Override
-    public Image getImage(){
+    public Image getImage () {
         return myImage;
     }
-    
+
     public int getMoveCost () {
         return myMoveCost;
     }

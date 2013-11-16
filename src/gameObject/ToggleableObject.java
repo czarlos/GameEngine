@@ -1,7 +1,5 @@
 package gameObject;
 
-
-
 public class ToggleableObject extends GameObject {
     GameObject myNextState;
 
