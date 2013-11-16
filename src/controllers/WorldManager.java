@@ -12,7 +12,6 @@ import parser.JSONParser;
 import stage.Condition;
 import stage.Stage;
 import view.Customizable;
-import view.Drawable;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import grid.FromJSONFactory;
