@@ -99,6 +99,7 @@ public class CombatTest {
         assertEquals("Proper Damage Dealt",enemyHealth,expectedHealth, .001);
     }
     
+    
 //    @Test
 //    public void testPlayerAttackOutcome () {
 //        System.out.println(playerUnit.getStats().getStatValue("attack"));
