@@ -1,7 +1,6 @@
 package gameObject;
 
 import java.util.List;
-import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import view.Drawable;
 
@@ -32,12 +31,6 @@ public class GameObject extends Drawable {
 
     public List<String> getPassableList () {
         return myPassableList;
-    }
-
-    @Override
-    public Map<String, String> getData () {
-        // TODO: Needs to implement this for everything that extends GameObject (for GUI editing purposes)
-        return null;
     }
 
     public String getImagePath () {

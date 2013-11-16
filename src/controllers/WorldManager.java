@@ -12,6 +12,7 @@ import parser.JSONParser;
 import stage.Condition;
 import stage.Stage;
 import view.Customizable;
+import view.Drawable;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import grid.FromJSONFactory;
@@ -32,6 +33,11 @@ public class WorldManager {
     @JsonProperty
     String myGameName;
 
+    /**
+     * Intermediary between views and EditorData and Grid, stores List of Stages
+     * 
+     * @param gameName
+     */
     public WorldManager (@JsonProperty("myGameName") String gameName) {
         myStages = new ArrayList<Stage>();
         myFactory = new FromJSONFactory();
@@ -41,7 +47,7 @@ public class WorldManager {
     }
 
     /**
-     * Methods for managing stages
+     * Add a new stage
      * 
      * @param x width of the grid in tiles
      * @param y height of the grid in tiles
@@ -55,6 +61,10 @@ public class WorldManager {
         return myStages.size() - 1;
     }
 
+    /**
+     * Returns list of stage names
+     * @return
+     */
     @JsonIgnore
     public List<String> getStages () {
         List<String> ret = new ArrayList<String>();
@@ -65,35 +75,52 @@ public class WorldManager {
         return ret;
     }
 
+    /**
+     * Set list of stages, used by JSON deserializer
+     * @param stages
+     */
     public void setStages (List<Stage> stages) {
         myStages = stages;
     }
 
+    /**
+     * Set which stage to assign "active", this 
+     * is the stage that all methods will return information about by default.
+     * @param stageID
+     */
     public void setActiveStage (int stageID) {
         if (stageID < myStages.size())
             myActiveStage = myStages.get(stageID);
     }
 
     /**
-     * Methods for managing game name
+     * Set the name of the game
      * @param gameName
      */
     public void setGameName (String gameName) {
         myGameName = gameName;
     }
 
+    /**
+     * Gets the game name
+     * @return 
+     */
     public String getGameName () {
         return myGameName;
     }
 
     /**
-     * Method to getting the grid (is this necessary, it seems like too much power...)
+     * Method to getting a Drawable version of the grid
      * @return
      */
+    // TODO: Change this to Drawable when Patrick is around.
     public Grid getGrid () {
-    // TODO: Talk to chris or patrick about the need for this method.
         return myActiveStage.getGrid();
     }
+    
+/*    public Drawable getGrid () {
+        return (Drawable) myActiveStage.getGrid();
+    }*/
 
     /** 
      * Getting images
@@ -105,6 +132,12 @@ public class WorldManager {
         return myActiveStage.getGrid().getTile(x, y).getImage();
     }
 
+    /**
+     * Gets the Image of the object and location x and y
+     * @param x
+     * @param y
+     * @return
+     */
     public Image getObjectImage (int x, int y) {
         GameObject o = myActiveStage.getGrid().getObject(x, y);
         if (o != null)
@@ -113,7 +146,7 @@ public class WorldManager {
     }
 
     /**
-     * Placing (previously created) things on the board
+     * Placing (previously created) things on the board. These will be replaced by table editing stuff
      * @param ID of thing to place
      * @param x Coordinate
      * @param y Coordinate
@@ -151,6 +184,12 @@ public class WorldManager {
         return ret;
     }
 
+    /** 
+     * Get the image for the specific type of object located at ID 
+     * @param className
+     * @param ID
+     * @return
+     */
     public Image getImage (String className, int ID) {
         ArrayList<Customizable> myList = (ArrayList<Customizable>) myEditorData.get(className);
 

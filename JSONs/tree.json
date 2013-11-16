@@ -2,7 +2,6 @@
   "myData" : [ "java.util.HashMap", { } ],
   "neededData" : [ "java.util.ArrayList", [ ] ],
   "passableList" : [ "java.util.ArrayList", [ ] ],
-  "data" : null,
   "imagePath" : "resources/tree.png",
   "name" : "tree",
   "image" : [ "java.awt.image.BufferedImage", {

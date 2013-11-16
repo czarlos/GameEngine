@@ -20,17 +20,26 @@ public class EditorData {
     Map<String, List<Customizable>> myDataMap;
     JSONParser myParser;
 
+    // TODO: redo this whole thing to use JTables
     // Only for use by deserializer
     public EditorData () {
         myParser = new JSONParser();
     }
 
+    /**
+     * Loads the data located in JSONs/folderName
+     * @param folderName
+     */
     public EditorData (String folderName) {
         myParser = new JSONParser();
         myDataMap = new HashMap<String, List<Customizable>>();
         loadObjects(folderName);
     }
-
+    
+    /**
+     * Load in the objects (eventually JTable data) from the JSONs
+     * @param folderName
+     */
     @SuppressWarnings("unchecked")
     private void loadObjects (String folderName) {
         List<Customizable> gameObjects;
@@ -56,8 +65,15 @@ public class EditorData {
 
     }
 
-    public List<Customizable> get (String key) {
-        return myDataMap.get(key);
+    /**
+     * Returns the data associated with the type requested.
+
+     * @param String type of Object
+     * @return Collection of data
+     */
+    
+    public List<Customizable> get (String type) {
+        return myDataMap.get(type);
     }
 
     /**

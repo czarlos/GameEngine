@@ -65,6 +65,4 @@ public abstract class Customizable {
     public void setImagePath (String imagePath) {
         myImagePath = imagePath;
     }
-
-    public abstract Map<String, String> getData ();
 }
