@@ -5,10 +5,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,8 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import controllers.WorldManager;
 
-
-public class EditorFrame extends JFrame {
+public class EditorFrame extends GameView {
 
     /**
      * 
@@ -33,7 +30,6 @@ public class EditorFrame extends JFrame {
     private ArrayList<StagePanel> myStagePanelList = new ArrayList<StagePanel>();
     private JMenuBar myMenuBar;
     private JTabbedPane stageTabbedPane;
-    private WorldManager myWorldManager;
     private JPanel myBackground;
 
     public EditorFrame () {
@@ -53,7 +49,8 @@ public class EditorFrame extends JFrame {
      * @param frame
      * @return
      */
-    private JMenuBar createMenuBar (JFrame frame) {
+    @Override
+    protected JMenuBar createMenuBar(JFrame frame){
         myMenuBar = new JMenuBar();
 
         // first menu
@@ -100,14 +97,6 @@ public class EditorFrame extends JFrame {
         return myMenuBar;
     }
 
-    private JPanel addEditorBackground () {
-        ImageIcon image = new ImageIcon("resources/omega_nu_3.png");
-        JLabel label = new JLabel("", image, JLabel.CENTER);
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.add(label, BorderLayout.CENTER);
-        return panel;
-    }
-
     private void newGame () {
         JPanel newGamePanel = new JPanel();
         newGamePanel.setLayout(new GridLayout(1, 2));
@@ -132,29 +121,7 @@ public class EditorFrame extends JFrame {
         }
     }
 
-    private void loadGame () {
-        myWorldManager = new WorldManager("");
-        JPanel loadPanel = new JPanel();
-        loadPanel.setLayout(new GridLayout(0, 2));
-        JLabel gameNames = new JLabel("Choose Game Name:");
-        JComboBox<String> gameNamesMenu = new JComboBox<String>();
-        File savesDir = new File("JSONs/saves");
-        for (File child : savesDir.listFiles()) {
-            gameNamesMenu.addItem(child.getName().split("\\.")[0]);
-        }
-        loadPanel.add(gameNames);
-        loadPanel.add(gameNamesMenu);
-
-        int value =
-                JOptionPane.showConfirmDialog(this, loadPanel, "Choose Game",
-                                              JOptionPane.OK_CANCEL_OPTION);
-        if (value == JOptionPane.OK_OPTION) {
-            String game = (String) gameNamesMenu.getSelectedItem();
-            WorldManager newWM = myWorldManager.loadGame(game);
-            myWorldManager = newWM;
-        }
-    }
-
+    
     /**
      * adds new stage panel to main editor frame after asking
      * for information through dialog box.
