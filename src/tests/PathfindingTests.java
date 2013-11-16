@@ -58,7 +58,6 @@ public class PathfindingTests {
         assertEquals(nodeList.get(5).getNeighbors().size(), 1, 0);
 
     }
-<<<<<<< HEAD
     
     @Test
     public void testPathFind() {
@@ -79,7 +78,5 @@ public class PathfindingTests {
         }
         
     }
-=======
 
->>>>>>> 51b212edc050e0963cf058bd06c42b336e64d1a8
 }

@@ -3,8 +3,4 @@ ref: refs/remotes/origin/master
 .DS_Store
 bin/
 .settings/
-<<<<<<< HEAD
 .project
-=======
-.project
->>>>>>> 51b212edc050e0963cf058bd06c42b336e64d1a8
