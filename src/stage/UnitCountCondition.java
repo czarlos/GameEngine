@@ -2,6 +2,7 @@ package stage;
 
 import grid.Grid;
 
+
 public class UnitCountCondition extends Condition {
 
     public UnitCountCondition () {
@@ -12,7 +13,8 @@ public class UnitCountCondition extends Condition {
 
     @Override
     boolean isFulfilled (Grid grid) {
-        // TODO: when unit/grid interaction refactoring is done, count units of a certain affiliation
+        // TODO: when unit/grid interaction refactoring is done, count units of a certain
+        // affiliation
         return false;
     }
 

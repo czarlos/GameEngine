@@ -7,7 +7,7 @@ import java.util.TreeMap;
 import utils.UnitUtilities;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import action.CombatAction;
+import gameObject.CombatAction;
 import gameObject.GameUnit;
 import grid.Grid;
 
@@ -139,10 +139,12 @@ public class Stage {
     private void changeTurns (Integer currentTurnAffiliate) { // we are just going to be looping
                                                               // through affiliations and setting
                                                               // units to active
-        for (GameUnit unit : myGrid.getGameUnits()) {
-            if (currentTurnAffiliate == unit.getAffiliation()) {
-                unit.setActive(true);
-                myCurrUnitList.add(unit);
+        for (ArrayList<GameUnit> unitList : myGrid.getGameUnits()) {
+            for (GameUnit unit : unitList) {
+                if (currentTurnAffiliate == unit.getAffiliation()) {
+                    unit.setActive(true);
+                    myCurrUnitList.add(unit);
+                }
             }
         }
     }

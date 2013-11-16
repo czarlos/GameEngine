@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonAutoDetect
 public class PositionCondition extends Condition {
+
     // temp dummy variables
     @JsonProperty
     private int playersPositionX;

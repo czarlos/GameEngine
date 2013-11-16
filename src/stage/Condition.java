@@ -10,15 +10,14 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 @JsonAutoDetect
-public abstract class Condition extends Customizable{
-    
+public abstract class Condition extends Customizable {
+
     @JsonProperty
     protected Map<String, String> myData;
     protected List<String> neededData;
-    abstract boolean isFulfilled (Grid grid);
 
+    abstract boolean isFulfilled (Grid grid);
 
     public Condition () {
         myData = new HashMap<String, String>();

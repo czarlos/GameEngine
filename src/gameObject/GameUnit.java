@@ -5,7 +5,6 @@ import grid.Coordinate;
 import grid.GridConstants;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import action.CombatAction;
 
 
 /**
@@ -27,7 +26,6 @@ public class GameUnit extends GameObject {
     private Weapon myActiveWeapon;
     private double myHealth;
     private double myExperience;
-    private Properties myProperties;
     private boolean isActive;
     private Coordinate myGridPosition;
 
@@ -37,7 +35,7 @@ public class GameUnit extends GameObject {
         myUnitStats.setStatValue("movement", 3);
         setItemList(new java.util.ArrayList<gameObject.item.Item>());
         myName = GridConstants.DEFAULT_UNIT_NAME;
-        setImagePath(GridConstants.DEFAULT_UNIT_PATH);
+        setImageAndPath(GridConstants.DEFAULT_UNIT_PATH);
         myAffiliation = 0;
         myUnitStats = new Stat() {
             {
@@ -51,14 +49,12 @@ public class GameUnit extends GameObject {
                      int affiliation,
                      Stat stats,
                      List<Item> item,
-                     boolean controllable,
-                     Properties properties) {
+                     boolean controllable) {
         super();
         myAffiliation = affiliation;
         myUnitStats = stats;
         myItemList = item;
         isControllable = controllable;
-        myProperties = properties;
         // myUnitStats.makeStat("movement", 3);
         // setItemList(new java.util.ArrayList<gameObject.item.Item>());
         // setActive(false);
@@ -174,7 +170,7 @@ public class GameUnit extends GameObject {
      * @param movement
      */
     public void snapToOpponent (GameUnit other) {
-        this.getStats().getStatValue(GameObjectConstants.DEFAULT_UNIT_MOVEMENT);
+        this.getStats().getStatValue(GameObjectConstants.MOVEMENT);
 
         // These will be used at a later implementation
         Coordinate otherPosition = other.getGridPosition();
@@ -257,14 +253,6 @@ public class GameUnit extends GameObject {
         this.myItemList = myItemList;
     }
 
-    public Properties getProperties () {
-        return myProperties;
-    }
-
-    public void setProperties (Properties myProperties) {
-        this.myProperties = myProperties;
-    }
-    
     @Override
     public int hashCode () {
         final int prime = 31;
