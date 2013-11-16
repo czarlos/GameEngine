@@ -5,22 +5,35 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import view.Drawable;
 
 
+/**
+ * GameObject class. Stuff like trees and shit.
+ * 
+ * @author Kevin, Ken
+ * 
+ */
 @JsonAutoDetect
 public class GameObject extends Drawable {
     protected List<String> myPassableList;
 
     public GameObject () {
-        setPassableList(new java.util.ArrayList<String>());
     }
 
+    /**
+     * Checks if a unit can pass through the object
+     * 
+     * @param unit - GameObject that is moving
+     * @return - boolean of if unit can pass through
+     */
     public boolean isPassable (GameObject unit) {
-        for (String object : myPassableList) {
-            if (object.equals(unit.getName())) { return true; }
-        }
-
-        return false;
+        return myPassableList.contains(unit.getName()) ||
+               myPassableList.contains(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
     }
 
+    /**
+     * Adds a new object that can be passed through
+     * 
+     * @param passable - String of object name that can pass
+     */
     public void addPassable (String passable) {
         myPassableList.add(passable);
     }
@@ -37,7 +50,7 @@ public class GameObject extends Drawable {
         return myImagePath;
     }
 
-    public void setImagePath (String imagePath) {
+    public void setImageAndPath (String imagePath) {
         myImagePath = imagePath;
     }
 

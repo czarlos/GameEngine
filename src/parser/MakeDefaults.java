@@ -1,5 +1,8 @@
 package parser;
 
+import gameObject.GameObjectConstants;
+import java.util.ArrayList;
+import java.util.List;
 import stage.ItemCondition;
 import stage.PositionCondition;
 import stage.StatCondition;
@@ -17,19 +20,20 @@ public class MakeDefaults {
 
     public void makeTiles () throws Exception {
         java.util.ArrayList<grid.Tile> list = new java.util.ArrayList<grid.Tile>();
-
+        List<String> passableList = new ArrayList<>();
+        passableList.add(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
         grid.Tile Grass = new grid.Tile();
         Grass.setName("grass");
-        Grass.setImagePath("resources/grass.png");
-        Grass.setPassableList(new java.util.ArrayList<String>());
+        Grass.setImageAndPath("resources/grass.png");
+        Grass.setPassableList(passableList);
         Grass.setStatMods(new java.util.HashMap<String, Double>());
         Grass.setActive(false);
         Grass.setMoveCost(1);
 
         grid.Tile Water = new grid.Tile();
         Water.setName("water");
-        Water.setImagePath("resources/water.png");
-        Water.setPassableList(new java.util.ArrayList<String>());
+        Water.setImageAndPath("resources/water.png");
+        Water.setPassableList(passableList);
         Water.setStatMods(new java.util.HashMap<String, Double>());
         Water.setActive(false);
         Water.setMoveCost(2);
@@ -46,7 +50,7 @@ public class MakeDefaults {
 
         gameObject.GameObject tree = new gameObject.GameObject();
         tree.setName("tree");
-        tree.setImagePath("resources/tree.png");
+        tree.setImageAndPath("resources/tree.png");
         tree.setPassableList(new java.util.ArrayList<String>());
 
         p.createJSON("tree", tree);
@@ -64,11 +68,10 @@ public class MakeDefaults {
         gameObject.GameUnit hero = new gameObject.GameUnit();
 
         gameObject.Stat stats = new gameObject.Stat();
-        stats.makeStat("movement", 3);
-        stats.makeStat("strength", 10);
+        stats.setStatValue("movement", 3);
 
         hero.setName("hero");
-        hero.setImagePath("resources/hero.png");
+        hero.setImageAndPath("resources/hero.png");
         hero.setPassableList(new java.util.ArrayList<String>());
         hero.setAffiliation(0);
         hero.setControllable(true);

@@ -10,8 +10,8 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import parser.JSONParser;
+import stage.Condition;
 import view.Customizable;
-
 
 
 @JsonAutoDetect
@@ -60,7 +60,7 @@ public class EditorData {
 
         List<Customizable> conditions;
         conditions =
-                myParser.createObject(folderName + "/Condition", new ArrayList<Tile>().getClass());
+                myParser.createObject(folderName + "/Condition", new ArrayList<Condition>().getClass());
         myDataMap.put("Condition", conditions);
 
     }

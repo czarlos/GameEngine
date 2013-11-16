@@ -5,6 +5,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import controllers.WorldManager;
 import view.canvas.GridCanvas;
+import view.editor.StageEditorPanel;
 
 
 public class StagePanel extends JPanel {

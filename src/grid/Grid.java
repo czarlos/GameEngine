@@ -1,6 +1,7 @@
 package grid;
 
 import gameObject.GameObject;
+import gameObject.GameObjectConstants;
 import gameObject.GameUnit;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -14,9 +15,11 @@ import action.CombatAction;
 
 
 /**
+ * 
  * Grid class. Holds all tiles and objects, calculates movement
  * 
- * @author Kevin, Ken
+ * @author Kevin
+ * @author Ken
  * 
  */
 @JsonAutoDetect
@@ -27,35 +30,34 @@ public class Grid extends Drawable {
     private int myHeight;
     @JsonProperty
     private Tile[][] myTiles;
+
     @JsonProperty
     private GameObject[][] myObjects;
     @JsonProperty
-    private List<GameUnit> myUnits;
-    @JsonProperty
-    private Map<Integer, List<GameObject>> myPassStatuses; // TODO: Add pass statuses. 0 = nothing
-                                                           // passes, 1 = everything passes. Put
-                                                           // this map in stage controller?
+    private List<ArrayList<GameUnit>> myUnits;
     private FromJSONFactory myFactory;
 
     /**
      * Creates a grid with the width and height set
-     * 
-     * @param width - int of number of columns of tiles
-     * @param height - int of number of rows of tiles
+     * Only for use by deserializer
      */
-
-    // only for use by deserializer
     public Grid () {
         myFactory = new FromJSONFactory();
     }
 
+    /**
+     * Creates a grid with the width and height set, and default tiles of tileID
+     * 
+     * @param width - int of columns of grid
+     * @param height - int of rows of grid
+     * @param tileID - int that defines the tile type
+     */
     public Grid (int width, int height, int tileID) {
         myWidth = width;
         myHeight = height;
         myTiles = new Tile[width][height];
         myObjects = new GameObject[width][height];
-        myUnits = new ArrayList<GameUnit>();
-        myPassStatuses = new HashMap<Integer, List<GameObject>>();
+        myUnits = new ArrayList<>();
         myFactory = new FromJSONFactory();
         initGrid(tileID);
     }
@@ -79,43 +81,40 @@ public class Grid extends Drawable {
         }
     }
 
-    public int getWidth () {
-        return myWidth;
-    }
-
-    public int getHeight () {
-        return myHeight;
-    }
-
     /**
      * Creates default objects and units for grid
      */
     private void testInitObjects () {
-        myObjects[3][5] = (GameObject) myFactory.make("GameObject", 0);
+        GameObject tree = (GameObject) myFactory.make("GameObject", 0);
+        placeObject(tree, 3, 5);
         GameObject link = (GameUnit) myFactory.make("GameUnit", 0);
-        myObjects[4][5] = link;
-        findMovementRange(new Coordinate(4, 5),
-                          ((GameUnit) link).getTotalStat("movement"), link);
+        placeObject(link, 5, 5);
+        beginMove(new Coordinate(5, 5), link);
     }
 
     /**
      * Initiates the moving process for a gameUnit
      * 
+     * @param coordinate - Coordinate where the gameUnit is located
      * @param gameUnit - GameUnit that is moving
+     * 
      */
-    public void beginMove (GameUnit gameUnit) {
-        findMovementRange(getObjectCoordinate(gameUnit), gameUnit.getTotalStat("movement"),
+    public void beginMove (Coordinate coordinate, GameObject gameUnit) {
+        System.out.println("beginMove, getTotalStat movement: " +
+                           ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT));
+        findMovementRange(coordinate,
+                          ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT),
                           gameUnit);
     }
 
     /**
      * Moves the unit to a new coordinate
      * 
+     * @param oldCoordinate - Coordinate of the gameUnit's original position
      * @param gameUnit - GameUnit being moved
      * @param newCoordinate - Coordinate that unit is moving to
      */
-    public void doMove (GameUnit gameUnit, Coordinate newCoordinate) {
-        Coordinate oldCoordinate = getObjectCoordinate(gameUnit);
+    public void doMove (Coordinate oldCoordinate, GameUnit gameUnit, Coordinate newCoordinate) {
         removeObject(oldCoordinate.getX(), oldCoordinate.getY());
         placeObject(gameUnit, newCoordinate.getX(), newCoordinate.getY());
         setTilesInactive();
@@ -126,7 +125,7 @@ public class Grid extends Drawable {
      * 
      * @param coordinate - Coordinate of the current position of the GameObject
      * @param range - int of range that the GameObject can move
-     * @param gameObject -
+     * @param gameObject - GameObject that we are finding the range of
      */
     private void findMovementRange (Coordinate coordinate, int range, GameObject gameObject) {
         int[] rdelta = { -1, 0, 0, 1 };
@@ -135,16 +134,21 @@ public class Grid extends Drawable {
         for (int i = 0; i < rdelta.length; i++) {
             int newX = coordinate.getX() + cdelta[i];
             int newY = coordinate.getY() + rdelta[i];
+            System.out.println("findMovementRange: newX, newY: " + newX + ", " + newY);
             if (onGrid(newX, newY)) {
                 Tile currentTile = getTile(newX, newY);
-                int newRange = range - currentTile.getMoveCost();
-                GameObject currentObject = getObject(newX, newY);
-                if (currentObject != null && currentObject.isPassable(gameObject)) {
-                    findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
-                }
-                else if (newRange >= 0) {
-                    currentTile.setActive(true);
-                    findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
+                if (currentTile.isPassable(gameObject) && !currentTile.isActive()) {
+                    int newRange = range - currentTile.getMoveCost();
+                    System.out.println("findMovementRange: newRange: " + newRange);
+                    GameObject currentObject = getObject(newX, newY);
+                    if (currentObject != null && currentObject.isPassable(gameObject)) {
+                        System.out.println("tree, coords: " + newX + ", " + newY);
+                        findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
+                    }
+                    else if (newRange >= 0) {
+                        currentTile.setActive(true);
+                        findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
+                    }
                 }
             }
         }
@@ -176,26 +180,26 @@ public class Grid extends Drawable {
     /**
      * Initiates the action process
      * 
+     * @param objectCoordinate - Coordinate where the action originates
      * @param gameUnit - GameUnit that is doing the action
      * @param combatAction - CombatAction that is being used
      */
-    public void beginAction (GameUnit gameUnit, CombatAction combatAction) {
-        Coordinate objectCoordinate = getObjectCoordinate(gameUnit);
+    public void beginAction (Coordinate objectCoordinate, GameUnit gameUnit, CombatAction combatAction) {
         findActionRange(objectCoordinate, combatAction.getAOE(), combatAction.isAround());
     }
 
     /**
      * Returns the game objects affected by the action
      * 
+     * @param objectCoordinate - Coordinate where the action originates
      * @param gameUnit - GameUnit that is doing the action
      * @param combatAction - CombatAction that is being used
      * @param actionCoordinate - Coordinate that the user selects for the action
      * @return - List of GameObjects that are affected
      */
-    public List<GameObject> doAction (GameUnit gameUnit,
+    public List<GameObject> doAction (Coordinate objectCoordinate, GameUnit gameUnit,
                                       CombatAction combatAction,
                                       Coordinate actionCoordinate) {
-        Coordinate objectCoordinate = getObjectCoordinate(gameUnit);
         String direction = findDirection(objectCoordinate, combatAction, actionCoordinate);
         return findAffectedObjects(objectCoordinate, combatAction, direction);
     }
@@ -327,7 +331,19 @@ public class Grid extends Drawable {
         myObjects[x][y] = gameObject;
 
         if (gameObject instanceof GameUnit) {
-            myUnits.add((GameUnit) gameObject);
+            if (!myUnits.isEmpty()) {
+                for (ArrayList<GameUnit> unitList : myUnits) {
+                    if (((GameUnit) gameObject).getAffiliation() == unitList.get(0)
+                            .getAffiliation()) {
+                        unitList.add((GameUnit) gameObject);
+                    }
+                }
+                return;
+            }
+
+            ArrayList<GameUnit> newUnitList = new ArrayList<GameUnit>();
+            newUnitList.add((GameUnit) gameObject);
+            myUnits.add(newUnitList);
         }
     }
 
@@ -341,24 +357,8 @@ public class Grid extends Drawable {
         myObjects[x][y] = null;
     }
 
-    public List<GameUnit> getGameUnits () {
+    public List<ArrayList<GameUnit>> getGameUnits () {
         return myUnits;
-    }
-
-    /**
-     * Returns the coordinate of a gameObject
-     * 
-     * @param gameObject - GameObject being located
-     * @return - Coordinate of object location
-     */
-    public Coordinate getObjectCoordinate (GameObject gameObject) {
-        for (int i = 0; i < myObjects.length; i++) {
-            for (int j = 0; j < myObjects[i].length; j++) {
-                if (myObjects[i][j].equals(gameObject)) { return new Coordinate(i, j); }
-            }
-        }
-
-        return null;
     }
 
     /**
@@ -396,6 +396,14 @@ public class Grid extends Drawable {
         }
     }
 
+    /**
+     * Draws the tiles and objects on the grid
+     * @param g - Graphics for the image
+     * @param x - int of x coordinate on the grid
+     * @param y - int of y coordinate on the grid
+     * @param width - int of width of object
+     * @param height - int of height of object
+     */
     public void draw (Graphics g, int x, int y, int width, int height) {
         int tileWidth = width / myWidth;
         int tileHeight = height / myHeight;
@@ -416,5 +424,21 @@ public class Grid extends Drawable {
                 }
             }
         }
+    }
+
+    public Tile[][] getMyTiles () {
+        return myTiles;
+    }
+
+    public void setMyTiles (Tile[][] myTiles) {
+        myTiles = myTiles;
+    }
+
+    public int getWidth () {
+        return myWidth;
+    }
+
+    public int getHeight () {
+        return myHeight;
     }
 }

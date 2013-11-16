@@ -15,14 +15,15 @@ public class GridController implements GridMouseListener {
     private Grid myGrid;
     private static Map<String, Class<? extends AbstractGridCommand>> myCommands;
 
-    static{
-        myCommands=new HashMap<>();
+    static {
+        myCommands = new HashMap<>();
     }
-    
-    public GridController(Grid grid){
-        myGrid=grid;
-        mySelectedCoordinate=new Coordinate(0,0);
+
+    public GridController (Grid grid) {
+        myGrid = grid;
+        mySelectedCoordinate = new Coordinate(0, 0);
     }
+
     public static void registerGridCommand (String commandName,
                                             Class<? extends AbstractGridCommand> command) {
         myCommands.put(commandName, command);
