@@ -28,6 +28,7 @@ public class EditorData {
 
     /**
      * Loads the data located in JSONs/folderName
+     * 
      * @param folderName
      */
     public EditorData (String folderName) {
@@ -35,9 +36,10 @@ public class EditorData {
         myDataMap = new HashMap<String, List<Customizable>>();
         loadObjects(folderName);
     }
-    
+
     /**
      * Load in the objects (eventually JTable data) from the JSONs
+     * 
      * @param folderName
      */
     @SuppressWarnings("unchecked")
@@ -60,18 +62,19 @@ public class EditorData {
 
         List<Customizable> conditions;
         conditions =
-                myParser.createObject(folderName + "/Condition", new ArrayList<Condition>().getClass());
+                myParser.createObject(folderName + "/Condition",
+                                      new ArrayList<Condition>().getClass());
         myDataMap.put("Condition", conditions);
 
     }
 
     /**
      * Returns the data associated with the type requested.
-
+     * 
      * @param String type of Object
      * @return Collection of data
      */
-    
+
     public List<Customizable> get (String type) {
         return myDataMap.get(type);
     }

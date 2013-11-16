@@ -58,25 +58,25 @@ public class PathfindingTests {
         assertEquals(nodeList.get(5).getNeighbors().size(), 1, 0);
 
     }
-    
+
     @Test
-    public void testPathFind() {
-        
-        Grid grid = new Grid(7,7,0);
-        
+    public void testPathFind () {
+
+        Grid grid = new Grid(7, 7, 0);
+
         PathFinding pathFind = new PathFinding();
 
         List<Node> nodeGrid = pathFind.coordinatesToNodes(grid);
         pathFind.addNeighbors(nodeGrid);
-        
+
         Node start = nodeGrid.get(0);
         Node end = nodeGrid.get(nodeGrid.size());
-        
+
         List<Node> path = pathFind.aStar(start, end);
-        for(Node node : path) {
+        for (Node node : path) {
             System.out.println(node);
         }
-        
+
     }
 
 }

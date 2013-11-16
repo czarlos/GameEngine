@@ -18,12 +18,12 @@ import gameObject.StatModifier;
  */
 public class Equipment extends Item {
     private StatModifier myModifiers;
-    
+
     public Equipment (String name, StatModifier modifier) {
         super.setName(name);
         setModifier(modifier);
     }
-    
+
     /**
      * Stat effect runs through the stats in the piece of equipment that the unit has and
      * uses stat modifiers to increase the stats of the unit holding them.
