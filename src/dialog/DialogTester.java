@@ -23,16 +23,23 @@ public class DialogTester {
     }
     
     private static void createGUITester() {
-        JFrame frame = new JFrame("UnitEditorTests");
+        JFrame frame = new JFrame("Unit Editor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         UnitTableModel model = new UnitTableModel();
         
-        BufferedImage img = null;
+        BufferedImage doge_1 = null;
+        BufferedImage doge_2 = null;
+
         ImageIcon icon = new ImageIcon();
+        ImageIcon icon_2 = new ImageIcon();
         try {
-            img = ImageIO.read(new File("src/dialog/doge.png"));
-            icon = new ImageIcon(img);
+            doge_1 = ImageIO.read(new File("src/dialog/doge.png"));
+            icon = new ImageIcon(doge_1);
+            
+            doge_2 = ImageIO.read(new File("src/dialog/doge_soldier.jpeg"));
+            icon_2 = new ImageIcon(doge_2);
+
         } catch (IOException e) {
             System.out.println(e);
             
@@ -43,9 +50,9 @@ public class DialogTester {
         actionList.add(new ActionTestStub());
                 
         
-        model.addNewUnit("Soldier", "Luke", icon, new StatsTestStub(), new ArrayList<ActionTestStub>(), "offense");
-        model.addNewUnit("Soldier", "Bobby", icon, new StatsTestStub(), new ArrayList<ActionTestStub>(), "offense");
-        model.addNewUnit("Soldier", "Seth", icon, new StatsTestStub(), new ArrayList<ActionTestStub>(), "offense");
+        model.addNewUnit("Bobby D.oge", "Doge", icon, new StatsTestStub(), new ArrayList<ActionTestStub>(), "offense");
+        model.addNewUnit("Bobby D.oge", "Another Doge", icon, new StatsTestStub(), new ArrayList<ActionTestStub>(), "defense");
+        model.addNewUnit("Engineer", "Jean", icon_2, new StatsTestStub(), new ArrayList<ActionTestStub>(), "offense");
 
 
 

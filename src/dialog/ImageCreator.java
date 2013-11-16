@@ -1,7 +1,10 @@
 package dialog;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dialog;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,16 +54,31 @@ public class ImageCreator extends JComponent{
         add(content);
     }
 
-    public static JDialog createDialog (JButton button,
-                                        String string,
-                                        boolean b,
-                                        ImageCreator imageCreator,
-                                        ImageEditor imageEditor,
-                                        Object object) {
+    public static JDialog createDialog (Component component,
+                                        String title,
+                                        boolean modal, ImageCreator imageCreator,
+                                        ActionListener okListener,
+                                        ActionListener cancelListener) {
         
-        JDialog dialog = new JDialog();       
+
+        JDialog dialog = new JDialog();
         
+        dialog.getContentPane().setLayout(new BorderLayout());
         
+        //panel for option buttons
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
+        
+        JButton ok = new JButton("OK");
+        ok.addActionListener(okListener);
+        
+        JButton cancel = new JButton("Cancel");
+        cancel.addActionListener(cancelListener);
+        
+        panel.add(ok);
+        panel.add(cancel);
+        
+        dialog.getContentPane().add(panel, BorderLayout.SOUTH);        
         
         return dialog;
     }

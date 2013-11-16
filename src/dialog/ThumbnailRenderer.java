@@ -25,9 +25,16 @@ public class ThumbnailRenderer extends DefaultTableCellRenderer {
                                                    boolean hasFocus, int row, int column) {
         Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row,
                                                              column);
+        
+/*        Image img = value.getImage() ;  
+        Image newimg = img.getScaledInstance( NEW_WIDTH, NEW_HEIGHT,  java.awt.Image.SCALE_SMOOTH ) ;  
+        icon = new ImageIcon( newimg );*/
+        
         ((JLabel)cell).setIcon((Icon)value);
         ((JLabel)cell).setText("");
         ((JLabel)cell).setHorizontalAlignment(JLabel.CENTER);
+
+        
         if (isSelected) {
             cell.setBackground(Color.green);
         } else {

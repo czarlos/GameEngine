@@ -59,6 +59,10 @@ public class UnitTableModel extends AbstractTableModel{
     public Object[] removeUnit(int index){
         return list.remove(index).clone();
     }
+    
+    public List<Object[]> getData() {
+        return new ArrayList<Object[]>(list);
+    }
 
     @Override
     public int getColumnCount () {
@@ -87,13 +91,11 @@ public class UnitTableModel extends AbstractTableModel{
     }
     
     public boolean isCellEditable(int row, int col) {
-        if (col < 1) {
-            return false;
-        } else {
-            return true;
-        }
+        //everything editable
+       return true;
     }
     
+    @Override
     public void setValueAt(Object value, int row, int col) {
         if (DEBUG) {
             System.out.println("Setting value at " + row + "," + col
@@ -106,5 +108,9 @@ public class UnitTableModel extends AbstractTableModel{
         fireTableCellUpdated(row, col);
 
     }
+    
+    
+    
+    
 
 }

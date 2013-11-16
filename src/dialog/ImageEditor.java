@@ -42,6 +42,7 @@ public class ImageEditor extends AbstractCellEditor
                                         imageCreator,
                                         this,  // this class handles OK button selection
                                         null); // nothing happens when 'cancel' is selected
+        
     }
 
     @Override
