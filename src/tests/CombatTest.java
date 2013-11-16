@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import gameObject.CombatAction;
 import gameObject.GameUnit;
-import gameObject.Properties;
 import gameObject.Stat;
 import gameObject.StatModifier;
 import gameObject.item.Item;
@@ -15,8 +15,6 @@ import grid.GridConstants;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import action.CombatAction;
-import stage.Stage;
 
 
 public class CombatTest {
@@ -25,7 +23,7 @@ public class CombatTest {
 
     @BeforeClass
     public static void setUpBeforeClass () throws Exception {
-        Stage stage = new Stage();
+
     }
 
     @Before
@@ -68,19 +66,15 @@ public class CombatTest {
 
         Item sword = new Weapon("sword", action, new StatModifier(statMods));
 
-        Properties properties = new Properties(15, 0);
-
         // Creates Player Character
         playerUnit =
-                new GameUnit("Marth", GridConstants.DEFAULT_UNIT_PATH, 0, stats, itemList, true,
-                             properties);
+                new GameUnit("Marth", GridConstants.DEFAULT_UNIT_PATH, 0, stats, itemList, true);
         playerUnit.setActiveWeapon(sword);
         // playerUnit.addItem(sword);
 
         // Creates Enemy
         enemyUnit =
-                new GameUnit("Roy", GridConstants.DEFAULT_UNIT_PATH, 0, stats, itemList, true,
-                             properties);
+                new GameUnit("Roy", GridConstants.DEFAULT_UNIT_PATH, 0, stats, itemList, true);
         enemyUnit.setActiveWeapon(sword);
         enemyUnit.addItem(sword);
     }
@@ -93,7 +87,7 @@ public class CombatTest {
         playerUnit.attack(enemyUnit, playerUnit.getActiveWeapon().getName(), playerUnit
                 .getActiveWeapon().getActionList().get(0));
 
-        double enemyHealth = enemyUnit.getProperties().getHealth();
+        double enemyHealth = enemyUnit.getHealth();
         double expectedHealth = 11.666;
 
         assertEquals("Proper Damage Dealt", enemyHealth, expectedHealth, .001);

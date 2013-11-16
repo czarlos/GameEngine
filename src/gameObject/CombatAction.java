@@ -1,7 +1,5 @@
-package action;
+package gameObject;
 
-import gameObject.GameUnit;
-import gameObject.StatModifier;
 import grid.Coordinate;
 import java.util.List;
 import java.util.Map;
@@ -67,7 +65,7 @@ public class CombatAction {
     public void execute (GameUnit attacker, GameUnit defender) {
         double effectiveness = getNetEffectiveness(attacker, defender);
         double damage = myBaseDamage * effectiveness;
-        defender.getProperties().setHealth(defender.getProperties().getHealth() - damage);
+        defender.setHealth(defender.getHealth() - damage);
 
         applyOutcomes(attacker, myAttackerOutcomes, effectiveness);
         applyOutcomes(defender, myDefenderOutcomes, effectiveness);

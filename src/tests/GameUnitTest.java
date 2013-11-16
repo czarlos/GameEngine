@@ -5,16 +5,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import gameObject.CombatAction;
 import gameObject.GameUnit;
 import gameObject.Stat;
 import gameObject.StatModifier;
 import gameObject.item.Equipment;
 import gameObject.item.Item;
-import gameObject.Properties;
 import gameObject.item.Weapon;
 import grid.GridConstants;
 import org.junit.Test;
-import action.CombatAction;
 
 
 /**
@@ -60,10 +59,8 @@ public class GameUnitTest {
         statMods1.put("defense", 3);
         Item shield = new Equipment("shield", new StatModifier(statMods1));
 
-        Properties properties = new Properties(15, 0);
         customUnit =
-                new GameUnit("Marth", GridConstants.DEFAULT_UNIT_PATH, 0, stats, itemList, true,
-                             properties);
+                new GameUnit("Marth", GridConstants.DEFAULT_UNIT_PATH, 0, stats, itemList, true);
         customUnit.setActiveWeapon(sword);
         // Note this is how all items must be added.
         customUnit.addItem(sword);
@@ -96,9 +93,9 @@ public class GameUnitTest {
     @Test
     public void testProperties () {
         initializeCustom();
-        System.out.println(customUnit.getProperties());
-        double health = customUnit.getProperties().getHealth();
-        double exp = customUnit.getProperties().getExperience();
+        System.out.println(customUnit);
+        double health = customUnit.getHealth();
+        double exp = customUnit.getExperience();
         assertEquals(health, 15, 0);
         assertEquals(exp, 0, 0);
 

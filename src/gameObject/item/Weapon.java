@@ -1,6 +1,6 @@
 package gameObject.item;
 
-import action.CombatAction;
+import gameObject.CombatAction;
 import gameObject.StatModifier;
 import java.util.List;
 

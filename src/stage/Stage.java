@@ -7,7 +7,7 @@ import java.util.TreeMap;
 import utils.UnitUtilities;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import action.CombatAction;
+import gameObject.CombatAction;
 import gameObject.GameUnit;
 import grid.Grid;
 

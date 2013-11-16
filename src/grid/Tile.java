@@ -1,10 +1,8 @@
 package grid;
 
 import gameObject.GameObject;
-import gameObject.GameObjectConstants;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 

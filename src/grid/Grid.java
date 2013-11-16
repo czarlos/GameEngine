@@ -1,17 +1,15 @@
 package grid;
 
+import gameObject.CombatAction;
 import gameObject.GameObject;
 import gameObject.GameObjectConstants;
 import gameObject.GameUnit;
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import view.Drawable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import action.CombatAction;
 
 
 /**
@@ -429,12 +427,12 @@ public class Grid extends Drawable {
         }
     }
 
-    public Tile[][] getMyTiles () {
+    public Tile[][] getTiles () {
         return myTiles;
     }
 
-    public void setMyTiles (Tile[][] myTiles) {
-        myTiles = myTiles;
+    public void setTiles (Tile[][] tiles) {
+        myTiles = tiles;
     }
 
     public int getWidth () {

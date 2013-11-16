@@ -5,7 +5,6 @@ import grid.Coordinate;
 import grid.GridConstants;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import action.CombatAction;
 
 
 /**
@@ -27,7 +26,6 @@ public class GameUnit extends GameObject {
     private Weapon myActiveWeapon;
     private double myHealth;
     private double myExperience;
-    private Properties myProperties;
     private boolean isActive;
     private Coordinate myGridPosition;
 
@@ -51,14 +49,12 @@ public class GameUnit extends GameObject {
                      int affiliation,
                      Stat stats,
                      List<Item> item,
-                     boolean controllable,
-                     Properties properties) {
+                     boolean controllable) {
         super();
         myAffiliation = affiliation;
         myUnitStats = stats;
         myItemList = item;
         isControllable = controllable;
-        myProperties = properties;
         // myUnitStats.makeStat("movement", 3);
         // setItemList(new java.util.ArrayList<gameObject.item.Item>());
         // setActive(false);
@@ -255,14 +251,6 @@ public class GameUnit extends GameObject {
 
     public void setItemList (List<Item> myItemList) {
         this.myItemList = myItemList;
-    }
-
-    public Properties getProperties () {
-        return myProperties;
-    }
-
-    public void setProperties (Properties myProperties) {
-        this.myProperties = myProperties;
     }
 
     @Override

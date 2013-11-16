@@ -19,38 +19,37 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+
 /**
  * @author brooksmershon
- *
- * Panel capable of making a dialog (of itself) for drawing images and saving them
+ * 
+ *         Panel capable of making a dialog (of itself) for drawing images and saving them
  */
-public class ImageCreator extends JComponent{
+public class ImageCreator extends JComponent {
 
     /**
      * 
      */
     private static final long serialVersionUID = -38084645183859719L;
-    
+
     Image myImage;
-    
-    public ImageCreator() {
-        
+
+    public ImageCreator () {
+
         myImage = new BufferedImage(100, 50, BufferedImage.TYPE_INT_ARGB);
         JPanel content = new JPanel(new BorderLayout());
         JMenuBar menuBar = new JMenuBar();
-        
+
         JMenu fileMenu = new JMenu("File");
-        
+
         JMenuItem openItem = new JMenuItem("Open");
         fileMenu.add(openItem);
 
-        
         DrawingPad drawingPad = new DrawingPad();
-        
+
         content.add(drawingPad, BorderLayout.CENTER);
         content.add(fileMenu, BorderLayout.NORTH);
 
-        
         add(content);
     }
 
@@ -59,39 +58,36 @@ public class ImageCreator extends JComponent{
                                         boolean modal, ImageCreator imageCreator,
                                         ActionListener okListener,
                                         ActionListener cancelListener) {
-        
 
         JDialog dialog = new JDialog();
-        
+
         dialog.getContentPane().setLayout(new BorderLayout());
-        
-        //panel for option buttons
+
+        // panel for option buttons
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
-        
+
         JButton ok = new JButton("OK");
         ok.addActionListener(okListener);
-        
+
         JButton cancel = new JButton("Cancel");
         cancel.addActionListener(cancelListener);
-        
+
         panel.add(ok);
         panel.add(cancel);
-        
-        dialog.getContentPane().add(panel, BorderLayout.SOUTH);        
-        
+
+        dialog.getContentPane().add(panel, BorderLayout.SOUTH);
+
         return dialog;
     }
-    
-    public ImageIcon setImage(Image image){
+
+    public ImageIcon setImage (Image image) {
         myImage = image;
         return new ImageIcon(myImage);
     }
 
-    public Image getImage() {
+    public Image getImage () {
         return myImage;
     }
-    
-    
 
 }

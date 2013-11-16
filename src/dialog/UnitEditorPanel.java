@@ -12,22 +12,20 @@ import javax.swing.JTable;
 
 /**
  * @author brooksmershon
- *
- * Presents a view of current units with the ability to add, remove operations
+ * 
+ *         Presents a view of current units with the ability to add, remove operations
  * 
  * 
  */
-public class UnitEditorPanel extends JPanel{
-    
-
+public class UnitEditorPanel extends JPanel {
 
     /**
      * 
      */
     private static final long serialVersionUID = 370838418473171385L;
 
-    public UnitEditorPanel(UnitTableModel model) {
-        super(new GridLayout(1,0));
+    public UnitEditorPanel (UnitTableModel model) {
+        super(new GridLayout(1, 0));
 
         JTable table = new JTable(model);
         table.setDefaultRenderer(ImageIcon.class,
@@ -37,7 +35,7 @@ public class UnitEditorPanel extends JPanel{
         table.setRowHeight(52);
         table.setPreferredScrollableViewportSize(new Dimension(500, 500));
         table.setFillsViewportHeight(true);
-        
+
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane);
     }
