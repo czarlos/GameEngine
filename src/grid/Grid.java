@@ -184,7 +184,9 @@ public class Grid extends Drawable {
      * @param gameUnit - GameUnit that is doing the action
      * @param combatAction - CombatAction that is being used
      */
-    public void beginAction (Coordinate objectCoordinate, GameUnit gameUnit, CombatAction combatAction) {
+    public void beginAction (Coordinate objectCoordinate,
+                             GameUnit gameUnit,
+                             CombatAction combatAction) {
         findActionRange(objectCoordinate, combatAction.getAOE(), combatAction.isAround());
     }
 
@@ -398,6 +400,7 @@ public class Grid extends Drawable {
 
     /**
      * Draws the tiles and objects on the grid
+     * 
      * @param g - Graphics for the image
      * @param x - int of x coordinate on the grid
      * @param y - int of y coordinate on the grid

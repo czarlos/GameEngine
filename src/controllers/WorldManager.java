@@ -63,6 +63,7 @@ public class WorldManager {
 
     /**
      * Returns list of stage names
+     * 
      * @return
      */
     @JsonIgnore
@@ -77,6 +78,7 @@ public class WorldManager {
 
     /**
      * Set list of stages, used by JSON deserializer
+     * 
      * @param stages
      */
     public void setStages (List<Stage> stages) {
@@ -84,8 +86,9 @@ public class WorldManager {
     }
 
     /**
-     * Set which stage to assign "active", this 
+     * Set which stage to assign "active", this
      * is the stage that all methods will return information about by default.
+     * 
      * @param stageID
      */
     public void setActiveStage (int stageID) {
@@ -95,6 +98,7 @@ public class WorldManager {
 
     /**
      * Set the name of the game
+     * 
      * @param gameName
      */
     public void setGameName (String gameName) {
@@ -103,7 +107,8 @@ public class WorldManager {
 
     /**
      * Gets the game name
-     * @return 
+     * 
+     * @return
      */
     public String getGameName () {
         return myGameName;
@@ -111,19 +116,23 @@ public class WorldManager {
 
     /**
      * Method to getting a Drawable version of the grid
+     * 
      * @return
      */
     // TODO: Change this to Drawable when Patrick is around.
     public Grid getGrid () {
         return myActiveStage.getGrid();
     }
-    
-/*    public Drawable getGrid () {
-        return (Drawable) myActiveStage.getGrid();
-    }*/
 
-    /** 
+    /*
+     * public Drawable getGrid () {
+     * return (Drawable) myActiveStage.getGrid();
+     * }
+     */
+
+    /**
      * Getting images
+     * 
      * @param x
      * @param y
      * @return
@@ -134,6 +143,7 @@ public class WorldManager {
 
     /**
      * Gets the Image of the object and location x and y
+     * 
      * @param x
      * @param y
      * @return
@@ -146,7 +156,9 @@ public class WorldManager {
     }
 
     /**
-     * Placing (previously created) things on the board. These will be replaced by table editing stuff
+     * Placing (previously created) things on the board. These will be replaced by table editing
+     * stuff
+     * 
      * @param ID of thing to place
      * @param x Coordinate
      * @param y Coordinate
@@ -166,7 +178,8 @@ public class WorldManager {
     }
 
     /**
-     * Gives access to certain customizable attributes (name and image). Valid parameters are "GameUnit",
+     * Gives access to certain customizable attributes (name and image). Valid parameters are
+     * "GameUnit",
      * "GameObject",
      * "Tile", "Condition"
      * 
@@ -184,8 +197,9 @@ public class WorldManager {
         return ret;
     }
 
-    /** 
-     * Get the image for the specific type of object located at ID 
+    /**
+     * Get the image for the specific type of object located at ID
+     * 
      * @param className
      * @param ID
      * @return
@@ -198,6 +212,7 @@ public class WorldManager {
 
     /**
      * Customizable object creation!
+     * 
      * @param ID
      * @param name
      * @param imagePath
@@ -246,10 +261,12 @@ public class WorldManager {
     }
 
     /**
-     * Takes a data type and ID and returns a list of required data that needs to be passed in to create/edit one of those objects
+     * Takes a data type and ID and returns a list of required data that needs to be passed in to
+     * create/edit one of those objects
+     * 
      * @param ID of object
      * @param data type (i.e. "Condition"
-     * @return list of data that needs to be passed into "set" to create object. 
+     * @return list of data that needs to be passed into "set" to create object.
      */
     public List<String> getNeededData (int ID, String type) {
         Customizable c = (Customizable) myEditorData.get(type).get(ID);
@@ -257,7 +274,9 @@ public class WorldManager {
     }
 
     /**
-     * When you make a Condition (and maybe all generic things in the future?) pass in the ID and the data needed in map format.
+     * When you make a Condition (and maybe all generic things in the future?) pass in the ID and
+     * the data needed in map format.
+     * 
      * @param ConditionID
      * @param Map of NeededData mapped to what the user types in
      */
@@ -266,6 +285,6 @@ public class WorldManager {
         c.setData(data);
         myActiveStage.addCondition(c);
     }
-    
+
     // TODO: when people are done implementing things add methods for setting/getting actions, items
 }

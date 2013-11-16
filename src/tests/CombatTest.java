@@ -119,4 +119,24 @@ public class CombatTest {
     // fail("Not yet implemented");
     // }
 
+    // @Test
+    // public void testPlayerAttackOutcome () {
+    // System.out.println(playerUnit.getStats().getStatValue("attack"));
+    // System.out.println(playerUnit.getItemList());
+    //
+    // playerUnit.attack(enemyUnit, playerUnit.getActiveWeapon().getName(),
+    // playerUnit.getActiveWeapon().getActionList().get(0));
+    //
+    // double newAttack = playerUnit.getStats().getStatValue("attack");
+    // double expectedNewAttack = 4;
+    //
+    // assertEquals("Proper Outcome",newAttack,expectedNewAttack, .001);
+    //
+    // }
+
+    // @Test
+    // public void testEnemyAttack () {
+    // fail("Not yet implemented");
+    // }
+
 }

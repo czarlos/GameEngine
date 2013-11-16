@@ -19,8 +19,7 @@ public class Weapon extends Equipment {
     private List<CombatAction> myActionList;
 
     public Weapon (String name, List<CombatAction> actionList, StatModifier modifiers) {
-        super.setName(name);
-        super.setModifier(modifiers);
+        super(name, modifiers);
         myActionList = actionList;
     }
 
