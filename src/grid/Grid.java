@@ -33,7 +33,7 @@ public class Grid {
     @JsonProperty
     private GameObject[][] myObjects;
     @JsonProperty
-    private Map<GameUnit, Coordinate> myUnits;
+    private List<ArrayList<GameUnit>> myUnits;
     @JsonProperty
     private Map<Integer, List<GameObject>> myPassStatuses; // TODO: Add pass statuses. 0 = nothing
                                                            // passes, 1 = everything passes. Put
@@ -56,7 +56,7 @@ public class Grid {
         myHeight = height;
         myTiles = new Tile[width][height];
         myObjects = new GameObject[width][height];
-        myUnits = new HashMap<>();
+        myUnits = new ArrayList<>();
         myPassStatuses = new HashMap<>();
         myFactory = new FromJSONFactory();
         initGrid(tileID);
@@ -330,7 +330,19 @@ public class Grid {
         myObjects[x][y] = gameObject;
 
         if (gameObject instanceof GameUnit) {
-            myUnits.put((GameUnit) gameObject, new Coordinate(x, y));
+            if (!myUnits.isEmpty()) {
+                for (ArrayList<GameUnit> unitList : myUnits) {
+                    if (((GameUnit) gameObject).getAffiliation() == unitList.get(0)
+                            .getAffiliation()) {
+                        unitList.add((GameUnit) gameObject);
+                    }
+                }
+                return;
+            }
+
+            ArrayList<GameUnit> newUnitList = new ArrayList<GameUnit>();
+            newUnitList.add((GameUnit) gameObject);
+            myUnits.add(newUnitList);
         }
     }
 
@@ -344,7 +356,7 @@ public class Grid {
         myObjects[x][y] = null;
     }
 
-    public Map<GameUnit, Coordinate> getGameUnits () {
+    public List<ArrayList<GameUnit>> getGameUnits () {
         return myUnits;
     }
 
