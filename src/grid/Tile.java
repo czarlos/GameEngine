@@ -25,6 +25,7 @@ public class Tile extends GameObject {
     private BufferedImage myImage;
 
     public Tile () {
+        setImageAndPath(myImagePath);
     }
 
     public boolean isActive () {

@@ -95,7 +95,6 @@ public class MakeDefaults {
 
     public void makeConditions () {
         java.util.ArrayList<stage.Condition> list = new java.util.ArrayList<stage.Condition>();
-
         list.add(new PositionCondition());
         list.add(new StatCondition());
         list.add(new ItemCondition());
@@ -105,13 +104,19 @@ public class MakeDefaults {
         p.createJSON("defaults/Condition", list);
     }
 
+    /**
+     * Just run this to refresh the default JSONs
+     * 
+     * @param args
+     * @throws Exception
+     */
     public static void main (String[] args) throws Exception {
         MakeDefaults maker = new MakeDefaults();
         maker.makeTiles();
-        // maker.makeObjects();
-        // maker.makeConditions();
-        // maker.makeUnits();
-        // maker.saveAndLoadGame();
+        maker.makeObjects();
+        maker.makeConditions();
+        maker.makeUnits();
+        maker.saveAndLoadGame();
     }
 
 }

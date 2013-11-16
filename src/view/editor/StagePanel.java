@@ -1,14 +1,11 @@
 package view.editor;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import grid.Grid;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 import controllers.WorldManager;
-import stage.Stage;
 import view.canvas.GridCanvas;
+import view.editor.StageEditorPanel;
 
 
 public class StagePanel extends JPanel {

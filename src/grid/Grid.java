@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import view.Drawable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import action.CombatAction;
@@ -22,7 +23,7 @@ import action.CombatAction;
  * 
  */
 @JsonAutoDetect
-public class Grid {
+public class Grid extends Drawable {
     @JsonProperty
     private int myWidth;
     @JsonProperty
@@ -41,6 +42,7 @@ public class Grid {
      * Only for use by deserializer
      */
     public Grid () {
+        myFactory = new FromJSONFactory();
     }
 
     /**
