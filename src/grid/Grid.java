@@ -88,18 +88,19 @@ public class Grid {
         placeObject(tree, 3, 5);
         GameObject link = (GameUnit) myFactory.make("GameUnit", 0);
         placeObject(link, 5, 5);
-        beginMove(link);
-        System.out.println("isActive: " + isActive(4, 4));
+        beginMove(new Coordinate(5, 5), link);
     }
 
     /**
      * Initiates the moving process for a gameUnit
      * 
+     * @param coordinate - Coordinate where the gameUnit is located
      * @param gameUnit - GameUnit that is moving
+     * 
      */
-    public void beginMove (GameObject gameUnit) {
-        System.out.println("beginMove, getTotalStat movement: "+((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT));
-        findMovementRange(getObjectCoordinate(gameUnit), ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT),
+    public void beginMove (Coordinate coordinate, GameObject gameUnit) {
+        System.out.println("beginMove, getTotalStat movement: " + ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT));
+        findMovementRange(coordinate, ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT),
                           gameUnit);
     }
 
@@ -133,7 +134,7 @@ public class Grid {
             System.out.println("findMovementRange: newX, newY: "+newX+", "+newY);
             if (onGrid(newX, newY)) {
                 Tile currentTile = getTile(newX, newY);
-                if (currentTile.isPassable(gameObject)) {
+                if (currentTile.isPassable(gameObject) && !currentTile.isActive()) {
                     int newRange = range - currentTile.getMoveCost();
                     System.out.println("findMovementRange: newRange: "+newRange);
                     GameObject currentObject = getObject(newX, newY);
