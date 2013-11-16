@@ -1,6 +1,7 @@
 package grid;
 
 import gameObject.GameObject;
+import gameObject.GameObjectConstants;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -24,9 +25,6 @@ public class Tile extends GameObject {
     private BufferedImage myImage;
 
     public Tile () {
-        setPassableList(new java.util.ArrayList<String>());
-        setStatMods(new java.util.HashMap<String, Double>());
-        setActive(false);
     }
 
     public boolean isActive () {

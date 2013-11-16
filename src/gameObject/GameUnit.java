@@ -174,7 +174,7 @@ public class GameUnit extends GameObject {
      * @param movement
      */
     public void snapToOpponent (GameUnit other) {
-        this.getStats().getStatValue(GameObjectConstants.DEFAULT_UNIT_MOVEMENT);
+        this.getStats().getStatValue(GameObjectConstants.MOVEMENT);
 
         // These will be used at a later implementation
         Coordinate otherPosition = other.getGridPosition();
