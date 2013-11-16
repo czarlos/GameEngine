@@ -38,14 +38,6 @@ public class Equipment extends Item {
         }
     }
 
-    public StatModifier getModifiers () {
-        return myModifiers;
-    }
-
-    public void setModifier (StatModifier modifiers) {
-        this.myModifiers = modifiers;
-    }
-
     @Override
     public int hashCode () {
         final int prime = 31;
@@ -65,6 +57,14 @@ public class Equipment extends Item {
         }
         else if (!myModifiers.equals(other.myModifiers)) return false;
         return true;
+    }
+
+    public StatModifier getModifiers () {
+        return myModifiers;
+    }
+
+    public void setModifier (StatModifier modifiers) {
+        this.myModifiers = modifiers;
     }
 
 }
