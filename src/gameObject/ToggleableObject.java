@@ -1,6 +1,5 @@
-package grid;
+package gameObject;
 
-import gameObject.GameObject;
 
 
 public class ToggleableObject extends GameObject {

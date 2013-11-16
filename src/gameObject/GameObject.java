@@ -15,7 +15,6 @@ public class GameObject extends Drawable {
     protected List<String> myPassableList;
 
     public GameObject () {
-        setPassableList(new java.util.ArrayList<String>());
     }
     
     /**
@@ -24,7 +23,7 @@ public class GameObject extends Drawable {
      * @return - boolean of if unit can pass through
      */
     public boolean isPassable (GameObject unit) {
-        return myPassableList.contains(unit.getName());
+        return myPassableList.contains(unit.getName()) || myPassableList.contains(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
     }
 
     /**

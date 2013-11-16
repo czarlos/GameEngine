@@ -1,13 +1,13 @@
 package grid;
 
 import gameObject.GameObject;
+import gameObject.GameObjectConstants;
 import gameObject.GameUnit;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import action.CombatAction;
@@ -31,7 +31,7 @@ public class Grid {
     @JsonProperty
     private GameObject[][] myObjects;
     @JsonProperty
-    private List<GameUnit> myUnits;
+    private Map<GameUnit, Coordinate> myUnits;
     @JsonProperty
     private Map<Integer, List<GameObject>> myPassStatuses; // TODO: Add pass statuses. 0 = nothing
                                                            // passes, 1 = everything passes. Put
@@ -54,8 +54,8 @@ public class Grid {
         myHeight = height;
         myTiles = new Tile[width][height];
         myObjects = new GameObject[width][height];
-        myUnits = new ArrayList<GameUnit>();
-        myPassStatuses = new HashMap<Integer, List<GameObject>>();
+        myUnits = new HashMap<>();
+        myPassStatuses = new HashMap<>();
         myFactory = new FromJSONFactory();
         initGrid(tileID);
     }
@@ -77,14 +77,7 @@ public class Grid {
                 myTiles[i][j] = (Tile) myFactory.make("Tile", tileID);
             }
         }
-    }
-
-    public int getWidth () {
-        return myWidth;
-    }
-
-    public int getHeight () {
-        return myHeight;
+        
     }
 
     /**
@@ -95,7 +88,7 @@ public class Grid {
         placeObject(tree, 3, 5);
         GameObject link = (GameUnit) myFactory.make("GameUnit", 0);
         placeObject(link, 5, 5);
-        findMovementRange(new Coordinate(4, 5), ((GameUnit) link).getTotalStat("movement"), link);
+        beginMove(link);
         System.out.println("isActive: " + isActive(4, 4));
     }
 
@@ -104,8 +97,9 @@ public class Grid {
      * 
      * @param gameUnit - GameUnit that is moving
      */
-    public void beginMove (GameUnit gameUnit) {
-        findMovementRange(getObjectCoordinate(gameUnit), gameUnit.getTotalStat("movement"),
+    public void beginMove (GameObject gameUnit) {
+        System.out.println("beginMove, getTotalStat movement: "+((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT));
+        findMovementRange(getObjectCoordinate(gameUnit), ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT),
                           gameUnit);
     }
 
@@ -136,12 +130,15 @@ public class Grid {
         for (int i = 0; i < rdelta.length; i++) {
             int newX = coordinate.getX() + cdelta[i];
             int newY = coordinate.getY() + rdelta[i];
+            System.out.println("findMovementRange: newX, newY: "+newX+", "+newY);
             if (onGrid(newX, newY)) {
                 Tile currentTile = getTile(newX, newY);
                 if (currentTile.isPassable(gameObject)) {
                     int newRange = range - currentTile.getMoveCost();
+                    System.out.println("findMovementRange: newRange: "+newRange);
                     GameObject currentObject = getObject(newX, newY);
                     if (currentObject != null && currentObject.isPassable(gameObject)) {
+                        System.out.println("tree, coords: "+newX+", "+newY);
                         findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
                     }
                     else if (newRange >= 0) {
@@ -330,7 +327,7 @@ public class Grid {
         myObjects[x][y] = gameObject;
 
         if (gameObject instanceof GameUnit) {
-            myUnits.add((GameUnit) gameObject);
+            myUnits.put((GameUnit) gameObject, new Coordinate(x,y));
         }
     }
 
@@ -344,7 +341,7 @@ public class Grid {
         myObjects[x][y] = null;
     }
 
-    public List<GameUnit> getGameUnits () {
+    public Map<GameUnit, Coordinate> getGameUnits () {
         return myUnits;
     }
 
@@ -355,13 +352,7 @@ public class Grid {
      * @return - Coordinate of object location
      */
     public Coordinate getObjectCoordinate (GameObject gameObject) {
-        for (int i = 0; i < myObjects.length; i++) {
-            for (int j = 0; j < myObjects[i].length; j++) {
-                if (myObjects[i][j].equals(gameObject)) { return new Coordinate(i, j); }
-            }
-        }
-
-        return null;
+        return myUnits.get(gameObject);
     }
 
     /**
@@ -428,12 +419,12 @@ public class Grid {
     public void setMyTiles (Tile[][] myTiles) {
         this.myTiles = myTiles;
     }
+    
+    public int getWidth () {
+        return myWidth;
+    }
 
-    // public Map<, Tile> getTileMap () {
-    // return myTileMap;
-    // }
-    //
-    // public void setTileMap (Map<Coordinate, Tile> myTileMap) {
-    // this.myTileMap = myTileMap;
-    // }
+    public int getHeight () {
+        return myHeight;
+    }
 }
