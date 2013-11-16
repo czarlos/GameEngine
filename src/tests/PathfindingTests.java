@@ -62,14 +62,12 @@ public class PathfindingTests {
     public void testPathFind() {
         PathFinding pathFind = new PathFinding();
         List<Node> nodeList = new ArrayList<Node>();
-
-        nodeList.add(new Node(null, new Coordinate(1,1)));
-        nodeList.add(new Node(null, new Coordinate(2,2)));
-        nodeList.add(new Node(null, new Coordinate(4,4)));
-        nodeList.add(new Node(null, new Coordinate(7,6)));
-        nodeList.add(new Node(null, new Coordinate(1,2)));
-        nodeList.add(new Node(null, new Coordinate(7,7)));
         
         
+        
+        Node start = new Node(nodeList, null);
+        Node end = new Node(nodeList, null);
+        
+        pathFind.aStar(start, end);
     }
 }
