@@ -50,7 +50,7 @@ public class GameUnitTest {
         statMods.put("attack", 4);
         List<CombatAction> action = new ArrayList<CombatAction>();
         CombatAction combAct =
-                new CombatAction(new StatModifier(statMods), null, 0.0, statMods, null, null, null,
+                new CombatAction("Test", new StatModifier(statMods), null, null, null, null,
                                  false);
         action.add(combAct);
         Item sword = new Weapon("sword", action, new StatModifier(statMods));
@@ -156,7 +156,7 @@ public class GameUnitTest {
 
         List<CombatAction> action = new ArrayList<CombatAction>();
         CombatAction combAct =
-                new CombatAction(new StatModifier(statMods), null, 0.0, statMods, null, null, null,
+                new CombatAction("Test", new StatModifier(statMods), null, null, null, null,
                                  false);
         action.add(combAct);
 
