@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import controllers.WorldManager;
 
+
 public class EditorFrame extends GameView {
 
     /**
@@ -30,17 +31,15 @@ public class EditorFrame extends GameView {
     private ArrayList<StagePanel> myStagePanelList = new ArrayList<StagePanel>();
     private JMenuBar myMenuBar;
     private JTabbedPane stageTabbedPane;
-    private JPanel myBackground;
 
     public EditorFrame () {
         super("Omega_Nu Game Editor");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setJMenuBar(createMenuBar(this));
-        myBackground = addEditorBackground();
-        add(myBackground);
-        pack();
-        setSize(800, 600);
-        setVisible(true);
+    }
+
+    @Override
+    protected void initializeWindow () {
+        super.initializeWindow();
+
     }
 
     /**
@@ -50,7 +49,7 @@ public class EditorFrame extends GameView {
      * @return
      */
     @Override
-    protected JMenuBar createMenuBar(JFrame frame){
+    protected JMenuBar createMenuBar (JFrame frame) {
         myMenuBar = new JMenuBar();
 
         // first menu
@@ -121,7 +120,6 @@ public class EditorFrame extends GameView {
         }
     }
 
-    
     /**
      * adds new stage panel to main editor frame after asking
      * for information through dialog box.
