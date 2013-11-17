@@ -22,9 +22,10 @@ import view.editor.EditorFrame;
 import view.editor.GameView;
 import view.editor.StagePanel;
 
-public class PlayerView extends GameView{
-    public PlayerView(){
-        
+
+public class PlayerView extends GameView {
+    public PlayerView () {
+
     }
 
     @Override
@@ -47,9 +48,9 @@ public class PlayerView extends GameView{
 
         return menuBar;
     }
-    
+
     @Override
-    protected void loadGame(){
+    protected void loadGame () {
         JPanel newGamePanel = new JPanel();
         newGamePanel.setLayout(new GridLayout(1, 2));
         JLabel gameNameLabel = new JLabel("Game Name:");
@@ -57,27 +58,25 @@ public class PlayerView extends GameView{
         newGamePanel.add(gameNameLabel);
         newGamePanel.add(gameNameTextField);
 
-            this.remove(myBackground);
-            this.revalidate();
-            this.repaint();
-            String gameName = gameNameTextField.getText();
-            this.setTitle(gameName);
-            myWorldManager = new WorldManager(gameName);
-            setGame();
-    }
-    
-    private void setGame(){
+        this.remove(myBackground);
+        String gameName = gameNameTextField.getText();
+        this.setTitle(gameName);
+        myWorldManager = new WorldManager(gameName);
+        setGame();
+        revalidate();
+        repaint();
+      }
 
-            myWorldManager.addStage(10, 10, 0, "StageAwesome");// ****
-                                                                                                // fix
-            StagePanel sp = new StagePanel("StageAwesome", myWorldManager.getGrid(), myWorldManager);
-            add(sp);
-            this.repaint();
+    private void setGame () {
+
+        myWorldManager.addStage(10, 10, 0, "StageAwesome");// ****
+                                                           // fix
+        StagePlayerPanel sp = new StagePlayerPanel("MyStage", myWorldManager.getGrid());
+        add(sp);
     }
-    
-    public static void main(String[] args){
+
+    public static void main (String[] args) {
         new PlayerView();
     }
-    
-    
+
 }

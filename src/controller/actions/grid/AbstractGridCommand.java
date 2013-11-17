@@ -1,5 +1,6 @@
 package controller.actions.grid;
 
+import java.util.List;
 import grid.Coordinate;
 import grid.Grid;
 import controller.actions.AbstractUndoableCommand;
@@ -7,10 +8,10 @@ import controller.actions.AbstractUndoableCommand;
 
 public abstract class AbstractGridCommand extends AbstractUndoableCommand {
     protected Grid myGrid;
-    protected Coordinate mySelectedCoordinate;
+    protected List<Coordinate> mySelectedCoordinates;
 
-    public AbstractGridCommand (Grid grid, Coordinate selectedCoordinate) {
+    public AbstractGridCommand (Grid grid, List<Coordinate> selectedCoordinates) {
         myGrid = grid;
-        mySelectedCoordinate = selectedCoordinate;
+        mySelectedCoordinates = selectedCoordinates;
     }
 }
