@@ -248,34 +248,32 @@ public class GameUnit extends GameObject {
     public List<Item> getItemList () {
         return myItemList;
     }
-    
+
     // Adding for Outcomes, can potentially change later
     // Need to keep method names and signatures similar for reflection
     // since dealing with different data structures
-    public int getStat(String statName) {
-    	return myUnitStats.getStatValue(statName);
+    public int getStat (String statName) {
+        return myUnitStats.getStatValue(statName);
     }
-    
-    public void setStat(String statName, int statValue) {
-    	myUnitStats.setStatValue(statName, statValue);
+
+    public void setStat (String statName, int statValue) {
+        myUnitStats.setStatValue(statName, statValue);
     }
-    
-    public int getItem(String itemName) {
-    	for(Item i : myItemList) {
-    		if(i.getName().equals(itemName)) {
-    			return i.getAmount();
-    		}
-    	}
-    	return 0;
+
+    public int getItem (String itemName) {
+        for (Item i : myItemList) {
+            if (i.getName().equals(itemName)) { return i.getAmount(); }
+        }
+        return 0;
     }
-    
-    public void setItem(String itemName, int itemValue) {
-    	for(Item i : myItemList) {
-    		if(i.getName().equals(itemName)) {
-    			i.setAmount(itemValue);
-    		}
-    	}
-    	
+
+    public void setItem (String itemName, int itemValue) {
+        for (Item i : myItemList) {
+            if (i.getName().equals(itemName)) {
+                i.setAmount(itemValue);
+            }
+        }
+
     }
 
     public void setItemList (List<Item> myItemList) {
