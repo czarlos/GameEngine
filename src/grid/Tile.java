@@ -54,7 +54,7 @@ public class Tile extends GameObject {
      * Sets the image path and image for the graphic that is drawn
      * @param imagePath - String of image path
      */
-    public void setImageAndPath (String imagePath) {
+    public void setImagePath (String imagePath) {
         myImagePath = imagePath;
         try {
             myImage = ImageManager.addImage(imagePath);

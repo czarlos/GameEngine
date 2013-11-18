@@ -5,9 +5,7 @@ import gameObject.GameObjectConstants;
 import gameObject.GameUnit;
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import action.CombatAction;
@@ -86,8 +84,8 @@ public class Grid {
         GameObject tree = (GameObject) myFactory.make("GameObject", 0);
         placeObject(tree, 3, 5);
         GameObject link = (GameUnit) myFactory.make("GameUnit", 0);
-        placeObject(link, 5, 5);
-        beginMove(new Coordinate(5, 5), link);
+        placeObject(link, 4,5);
+        beginMove(new Coordinate(4,5), link);
     }
 
     /**
@@ -98,8 +96,6 @@ public class Grid {
      * 
      */
     public void beginMove (Coordinate coordinate, GameObject gameUnit) {
-        System.out.println("beginMove, getTotalStat movement: " +
-                           ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT));
         findMovementRange(coordinate,
                           ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT),
                           gameUnit);
@@ -132,25 +128,24 @@ public class Grid {
         for (int i = 0; i < rdelta.length; i++) {
             int newX = coordinate.getX() + cdelta[i];
             int newY = coordinate.getY() + rdelta[i];
-            System.out.println("findMovementRange: newX, newY: " + newX + ", " + newY);
             if (onGrid(newX, newY)) {
                 Tile currentTile = getTile(newX, newY);
-                if (currentTile.isPassable(gameObject) && !currentTile.isActive()) {
-                    int newRange = range - currentTile.getMoveCost();
-                    System.out.println("findMovementRange: newRange: " + newRange);
+                int newRange = range - currentTile.getMoveCost();
+                if (currentTile.isPassable(gameObject) && newRange >= 0) {  
                     GameObject currentObject = getObject(newX, newY);
-                    if (currentObject != null && currentObject.isPassable(gameObject)) {
-                        System.out.println("tree, coords: " + newX + ", " + newY);
-                        findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
+                    if (currentObject != null) {
+                        if (currentObject.isPassable(gameObject)) {
+                            findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
+                        }
+                        continue;
                     }
-                    else if (newRange >= 0) {
+                    else {
                         currentTile.setActive(true);
                         findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
                     }
                 }
             }
         }
-
     }
 
     /**
@@ -339,9 +334,9 @@ public class Grid {
                 return;
             }
 
-            ArrayList<GameUnit> newUnitList = new ArrayList<GameUnit>();
+            List<GameUnit> newUnitList = new ArrayList<>();
             newUnitList.add((GameUnit) gameObject);
-            myUnits.add(newUnitList);
+            myUnits.add((ArrayList<GameUnit>) newUnitList);
         }
     }
 
@@ -428,8 +423,8 @@ public class Grid {
         return myTiles;
     }
 
-    public void setMyTiles (Tile[][] myTiles) {
-        myTiles = myTiles;
+    public void setTiles (Tile[][] tiles) {
+        myTiles = tiles;
     }
 
     public int getWidth () {

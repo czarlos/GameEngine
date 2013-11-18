@@ -37,7 +37,7 @@ public class GameUnit extends GameObject {
         myUnitStats.setStatValue("movement", 3);
         setItemList(new java.util.ArrayList<gameObject.item.Item>());
         myName = GridConstants.DEFAULT_UNIT_NAME;
-        setImageAndPath(GridConstants.DEFAULT_UNIT_PATH);
+        setImagePath(GridConstants.DEFAULT_UNIT_PATH);
         myAffiliation = 0;
         myUnitStats = new Stat() {
             {
