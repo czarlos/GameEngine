@@ -85,12 +85,18 @@ public class ImageCreator extends JComponent{
         ok.addActionListener(okListener);
         
         JButton cancel = new JButton("Cancel");
-        cancel.addActionListener(cancelListener);
+        if(cancelListener != null)
+            cancel.addActionListener(cancelListener);
+        else
+            cancel.addActionListener(new DefaultListener(dialog));
         
         panel.add(ok);
         panel.add(cancel);
         
-        dialog.getContentPane().add(panel, BorderLayout.SOUTH);        
+        dialog.getContentPane().add(panel, BorderLayout.SOUTH);  
+        
+        dialog.getContentPane().add(imageCreator);
+        dialog.pack();
         
         return dialog;
     }
@@ -110,6 +116,21 @@ public class ImageCreator extends JComponent{
      */
     public Image getImage() {
         return myImage;
+    }
+    
+    private static class DefaultListener implements ActionListener{
+        
+        private JDialog dialog;
+        
+        public DefaultListener(JDialog dialog) {
+            super();
+            this.dialog = dialog; 
+            
+        }
+        
+        public void actionPerformed (ActionEvent e){
+            dialog.setVisible(false);
+        }
     }
     
     

@@ -55,9 +55,12 @@ public class ImageEditor extends AbstractCellEditor
         if (EDIT.equals(e.getActionCommand())) {
             imageCreator.setImage(currentImage);
             dialog.setVisible(true);
+            
+            System.out.println("edit");
 
             fireEditingStopped();
         } else {
+            System.out.println("ok");
             currentImage = imageCreator.getImage();
         }
     }
