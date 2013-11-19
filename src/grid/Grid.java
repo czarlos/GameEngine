@@ -44,9 +44,9 @@ public class Grid {
     /**
      * Creates a grid with the width and height set, and default tiles of tileID
      * 
-     * @param width - int of columns of grid
-     * @param height - int of rows of grid
-     * @param tileID - int that defines the tile type
+     * @param width int of columns of grid
+     * @param height int of rows of grid
+     * @param tileID int that defines the tile type
      */
     public Grid (int width, int height, int tileID) {
         myWidth = width;
@@ -91,8 +91,8 @@ public class Grid {
     /**
      * Initiates the moving process for a gameUnit
      * 
-     * @param coordinate - Coordinate where the gameUnit is located
-     * @param gameUnit - GameUnit that is moving
+     * @param coordinate Coordinate where the gameUnit is located
+     * @param gameUnit GameUnit that is moving
      * 
      */
     public void beginMove (Coordinate coordinate, GameObject gameUnit) {
@@ -101,14 +101,18 @@ public class Grid {
                           gameUnit);
     }
 
+    public boolean canMove (Coordinate coordinate, GameObject gameUnit) {
+        return isActive(coordinate.getX(), coordinate.getY()); // TODO: also check no object on that tile
+    }
+    
     /**
      * Moves the unit to a new coordinate
      * 
-     * @param oldCoordinate - Coordinate of the gameUnit's original position
-     * @param gameUnit - GameUnit being moved
-     * @param newCoordinate - Coordinate that unit is moving to
+     * @param oldCoordinate Coordinate of the gameUnit's original position
+     * @param gameUnit GameUnit being moved
+     * @param newCoordinate Coordinate that unit is moving to
      */
-    public void doMove (Coordinate oldCoordinate, GameUnit gameUnit, Coordinate newCoordinate) {
+    public void doMove (Coordinate oldCoordinate, GameObject gameUnit, Coordinate newCoordinate) {
         removeObject(oldCoordinate.getX(), oldCoordinate.getY());
         placeObject(gameUnit, newCoordinate.getX(), newCoordinate.getY());
         setTilesInactive();
@@ -117,9 +121,9 @@ public class Grid {
     /**
      * Sets the tiles active that the GameObject can move to
      * 
-     * @param coordinate - Coordinate of the current position of the GameObject
-     * @param range - int of range that the GameObject can move
-     * @param gameObject - GameObject that we are finding the range of
+     * @param coordinate Coordinate of the current position of the GameObject
+     * @param range int of range that the GameObject can move
+     * @param gameObject GameObject that we are finding the range of
      */
     private void findMovementRange (Coordinate coordinate, int range, GameObject gameObject) {
         int[] rdelta = { -1, 0, 0, 1 };
@@ -151,9 +155,9 @@ public class Grid {
     /**
      * Checks if the input coordinate is on the grid
      * 
-     * @param x - int of x coordinate
-     * @param y - int of y coordinate
-     * @return - boolean of if the coordinate is valid
+     * @param x int of x coordinate
+     * @param y int of y coordinate
+     * @return boolean of if the coordinate is valid
      */
     private boolean onGrid (int x, int y) {
         return (0 <= x && x < myWidth && 0 <= y && y < myHeight);
@@ -162,9 +166,9 @@ public class Grid {
     /**
      * Checks if a coordinate is a valid move or action (the tile is active)
      * 
-     * @param x - int of x coordinate
-     * @param y - int of y coordinate
-     * @return - boolean of if the coordinate is active
+     * @param x int of x coordinate
+     * @param y int of y coordinate
+     * @return boolean of if the coordinate is active
      */
     public boolean isActive (int x, int y) {
         return getTile(x, y).isActive();
@@ -173,9 +177,9 @@ public class Grid {
     /**
      * Initiates the action process
      * 
-     * @param objectCoordinate - Coordinate where the action originates
-     * @param gameUnit - GameUnit that is doing the action
-     * @param combatAction - CombatAction that is being used
+     * @param objectCoordinate Coordinate where the action originates
+     * @param gameUnit GameUnit that is doing the action
+     * @param combatAction CombatAction that is being used
      */
     public void beginAction (Coordinate objectCoordinate, GameUnit gameUnit, CombatAction combatAction) {
         findActionRange(objectCoordinate, combatAction.getAOE(), combatAction.isAround());
@@ -184,11 +188,11 @@ public class Grid {
     /**
      * Returns the game objects affected by the action
      * 
-     * @param objectCoordinate - Coordinate where the action originates
-     * @param gameUnit - GameUnit that is doing the action
-     * @param combatAction - CombatAction that is being used
-     * @param actionCoordinate - Coordinate that the user selects for the action
-     * @return - List of GameObjects that are affected
+     * @param objectCoordinate Coordinate where the action originates
+     * @param gameUnit GameUnit that is doing the action
+     * @param combatAction CombatAction that is being used
+     * @param actionCoordinate Coordinate that the user selects for the action
+     * @return List of GameObjects that are affected
      */
     public List<GameObject> doAction (Coordinate objectCoordinate, GameUnit gameUnit,
                                       CombatAction combatAction,
@@ -200,9 +204,9 @@ public class Grid {
     /**
      * Sets the tiles active that an action can affect
      * 
-     * @param coordinate - Coordinate where the action originates
-     * @param area - List of Coordinates that map the area of the action
-     * @param isAround - boolean of whether the action only affects one direction, or is all around
+     * @param coordinate Coordinate where the action originates
+     * @param area List of Coordinates that map the area of the action
+     * @param isAround boolean of whether the action only affects one direction, or is all around
      *        the unit
      */
     private void findActionRange (Coordinate coordinate, List<Coordinate> area, boolean isAround) {
@@ -229,10 +233,10 @@ public class Grid {
     /**
      * Finds direction of action user selects
      * 
-     * @param unitCoordinate - Coordinate of the unit
-     * @param area - List of Coordinates that action affects
-     * @param selectedCoordinate - Coordinate that the user selected for the action
-     * @return - String of the direction
+     * @param unitCoordinate Coordinate of the unit
+     * @param area List of Coordinates that action affects
+     * @param selectedCoordinate Coordinate that the user selected for the action
+     * @return String of the direction
      */
     private String findDirection (Coordinate unitCoordinate,
                                   CombatAction combatAction,
@@ -261,10 +265,10 @@ public class Grid {
     /**
      * Returns objects in an action's area of effectiveness
      * 
-     * @param coordinate - Coordinate where the action originates
-     * @param combatAction - CombatAction being used
-     * @param direction - String of the direction of the action
-     * @return - List of GameObjects that are affected by the action
+     * @param coordinate Coordinate where the action originates
+     * @param combatAction CombatAction being used
+     * @param direction String of the direction of the action
+     * @return List of GameObjects that are affected by the action
      */
     private List<GameObject> findAffectedObjects (Coordinate coordinate,
                                                   CombatAction combatAction,
@@ -303,9 +307,9 @@ public class Grid {
     /**
      * Returns an object at the given coordinates
      * 
-     * @param x - int of x coordinate
-     * @param y - int of y coordinate
-     * @return - GameObject at coordinate
+     * @param x int of x coordinate
+     * @param y int of y coordinate
+     * @return GameObject at coordinate
      */
     public GameObject getObject (int x, int y) {
         // TODO: Generic method?
@@ -315,9 +319,9 @@ public class Grid {
     /**
      * Places a GameObject at given coordinates
      * 
-     * @param gameObject - GameObject to be placed
-     * @param x - int of x coordinate
-     * @param y - int of y coordinate
+     * @param gameObject GameObject to be placed
+     * @param x int of x coordinate
+     * @param y int of y coordinate
      */
     public void placeObject (GameObject gameObject, int x, int y) {
         // TODO: Generic method?
@@ -343,8 +347,8 @@ public class Grid {
     /**
      * Sets position in myObjects map to null
      * 
-     * @param x - int of x coordinate
-     * @param y - int of y coordinate
+     * @param x int of x coordinate
+     * @param y int of y coordinate
      */
     private void removeObject (int x, int y) {
         myObjects[x][y] = null;
@@ -357,9 +361,9 @@ public class Grid {
     /**
      * Returns an tile at the given coordinates
      * 
-     * @param x - int of x coordinate
-     * @param y - int of y coordinate
-     * @return - Tile at coordinate
+     * @param x int of x coordinate
+     * @param y int of y coordinate
+     * @return Tile at coordinate
      */
     public Tile getTile (int x, int y) {
         // TODO: Generic method?
@@ -369,9 +373,9 @@ public class Grid {
     /**
      * Places a Tile at given coordinates
      * 
-     * @param tile - Tile to be placed
-     * @param x - int of x coordinate
-     * @param y - int of y coordinate
+     * @param tile Tile to be placed
+     * @param x int of x coordinate
+     * @param y int of y coordinate
      */
     public void placeTile (Tile tile, int x, int y) {
         // TODO: Generic method?
@@ -391,11 +395,11 @@ public class Grid {
 
     /**
      * Draws the tiles and objects on the grid
-     * @param g - Graphics for the image
-     * @param x - int of x coordinate on the grid
-     * @param y - int of y coordinate on the grid
-     * @param width - int of width of object
-     * @param height - int of height of object
+     * @param g Graphics for the image
+     * @param x int of x coordinate on the grid
+     * @param y int of y coordinate on the grid
+     * @param width int of width of object
+     * @param height int of height of object
      */
     public void draw (Graphics g, int x, int y, int width, int height) {
         int tileWidth = width / myWidth;
