@@ -143,7 +143,7 @@ public class CombatTest {
     }
 
     @Test
-    public void testPlayerItemDepletingAction() {
+    public void testPlayerItemDepletingAction () {
         Weapon weapon = enemyUnit.getActiveWeapon();
         CombatAction action = null;
         for (CombatAction ca : weapon.getActionList()) {
@@ -151,17 +151,17 @@ public class CombatTest {
                 action = ca;
             }
         }
-        
+
         enemyUnit.addItem(makeEmptyItem("potion", 5));
-        
+
         playerUnit.attack(enemyUnit, weapon.getName(), action);
-        
+
         int itemCount = enemyUnit.getItem("potion");
         int expectedItemCount = 3;
-        
+
         assertEquals("Proper Items Removed", itemCount, expectedItemCount);
     }
-    
+
     /**
      * Creates an action that deals 10 damage to opponent health at the cost of 5 of the attackers
      * health
