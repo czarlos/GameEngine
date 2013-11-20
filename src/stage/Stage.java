@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.TreeMap;
 import unit_ai.Node;
 import unit_ai.PathFinding;
@@ -20,6 +21,7 @@ import grid.Tile;
  * Stage is responsible for managing how turns are distributed and progressing
  * the game when it is won. The turns progress when the player indicates they are
  * done and when the AI deactivates all of their units.
+ * 
  * @author Andy Bradshaw
  * @author carlosreyes
  * 
@@ -52,16 +54,16 @@ public class Stage {
     /*
      * Carlos's Code starts here. Don't delete!
      */
-    
+
     /**
-     * Runs the game, if you are a player then you're turn will continue on until 
+     * Runs the game, if you are a player then you're turn will continue on until
      * you press the spacebar to end your turn.
      */
-    public void doInGame(KeyEvent event) {
+    public void doInGame (KeyEvent event) {
         while (!myWinCondition.hasWon(myGrid)) {
-            
+
             for (int i : myAffiliateList) {
-                //TODO: Decrement the #turn counter on the units, or set them all to active
+                // TODO: Decrement the #turn counter on the units, or set them all to active
                 if (myTeamUnitList.get(i).get(0).isControllable()) {
                     boolean flag = true;
                     while (flag) {
@@ -71,20 +73,23 @@ public class Stage {
                     }
                 }
                 else {
-                    for (GameUnit unit : myTeamUnitList.get(i)){
+                    for (GameUnit unit : myTeamUnitList.get(i)) {
                         doAIMove(unit, myCurrUnitList);
                     }
                 }
 
-                //TODO: if its an AI send all units to attack you
-                //TODO: if its me, wait for my signal to change turns
+                // TODO: if its an AI send all units to attack you
+                // TODO: if its me, wait for my signal to change turns
             }
-            
+
         }
     }
-    
+
     /**
-     * Sends enemy units to attack your units.
+     * Sends enemy units to attack your units, uses the pathfinding algorithm from
+     * the PathFinding class to find the shortest path and traverses as far as the unit can
+     * move on that path, when it encounters an enemy unit it attacks that unit with a randomly
+     * chosen attack from its active weapon.
      */
     public void doAIMove (GameUnit unit, List<GameUnit> allEnemies) {
         PathFinding.coordinatesToTiles(myGrid, unit);
@@ -92,30 +97,41 @@ public class Stage {
         
         Tile start = myGrid.getTile(unit.getGridPosition().getX(), unit.getGridPosition().getY());
         Tile end = myGrid.getTile(other.getGridPosition().getX(), other.getGridPosition().getY());
-        PathFinding.autoMove(start, end, unit);
+        
+        if(UnitUtilities.calculateLength(start.getCoordinate(), end.getCoordinate()) == 1) {
+            Random r = new Random();
+            int rand = r.nextInt(unit.getActiveWeapon().getActionList().size());
+            CombatAction randomAction = unit.getActiveWeapon().getActionList().get(rand);
+            String activeWeapon = unit.getActiveWeapon().toString();
+            unit.attack(other, activeWeapon, randomAction);
+        }
+        else {
+            PathFinding.autoMove(start, end, unit);
+        }
+
+
     }
 
     /*
      * And Ends here
      */
-    
-    
+
     /**
      * 
      */
-//    public void run () {
-//        while (!myWinCondition.hasWon(myGrid)) {
-//            for (int i : myAffiliateList) { // for each affiliation
-//                changeTurns(i);             // set those affiliations' units to active
-//                if (myCurrUnitList == null) // if there are no units skip that affiliation's turn
-//                    continue;
-//                if (myCurrUnitList.get(0).isControllable())
-//                    doPlayerMove();
-//                else doAIMove(1, 0);
-//                myCurrUnitList.clear();
-//            }
-//        }
-//    }
+    // public void run () {
+    // while (!myWinCondition.hasWon(myGrid)) {
+    // for (int i : myAffiliateList) { // for each affiliation
+    // changeTurns(i); // set those affiliations' units to active
+    // if (myCurrUnitList == null) // if there are no units skip that affiliation's turn
+    // continue;
+    // if (myCurrUnitList.get(0).isControllable())
+    // doPlayerMove();
+    // else doAIMove(1, 0);
+    // myCurrUnitList.clear();
+    // }
+    // }
+    // }
 
     private void doPlayerMove () {
         // TODO wait until all units are done
@@ -128,10 +144,10 @@ public class Stage {
     /**
      * The AI will move to your unit's positions and attack them.
      */
-//    public void doAIMove (int aiTeamIndex, int otherTeamIndex) {
-//
-//        moveToOpponents(aiTeamIndex, otherTeamIndex);
-//    }
+    // public void doAIMove (int aiTeamIndex, int otherTeamIndex) {
+    //
+    // moveToOpponents(aiTeamIndex, otherTeamIndex);
+    // }
 
     /**
      * Moves all units possible from one team to opponents to another team.

@@ -169,26 +169,32 @@ public class GameUnit extends GameObject {
         this.setGridPosition(otherPosition);
 
     }
-    
-   /**
-    * This unit searches for the closest unit on the grid.
-    * @param opponents
-    * @return
-    */
+
+    /**
+     * This unit searches for the closest unit on the grid.
+     * 
+     * @param opponents
+     * @return
+     */
     public GameUnit findClosestOpponent (List<GameUnit> opponents) {
         GameUnit closest = null;
         double distance = 0;
-        for(GameUnit opponent : opponents) {
+        for (GameUnit opponent : opponents) {
             if (closest == null) {
                 closest = opponent;
-                distance = UnitUtilities.calculateLength(this.getGridPosition(), opponent.getGridPosition());
+                distance =
+                        UnitUtilities.calculateLength(this.getGridPosition(),
+                                                      opponent.getGridPosition());
             }
-            else if (UnitUtilities.calculateLength(this.getGridPosition(), opponent.getGridPosition()) < distance){
+            else if (UnitUtilities.calculateLength(this.getGridPosition(),
+                                                   opponent.getGridPosition()) < distance) {
                 closest = opponent;
-                distance = UnitUtilities.calculateLength(this.getGridPosition(), opponent.getGridPosition());
+                distance =
+                        UnitUtilities.calculateLength(this.getGridPosition(),
+                                                      opponent.getGridPosition());
             }
         }
-        
+
         return closest;
     }
 
@@ -334,6 +340,5 @@ public class GameUnit extends GameObject {
         else if (!myUnitStats.equals(other.myUnitStats)) return false;
         return true;
     }
-
 
 }
