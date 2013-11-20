@@ -32,7 +32,7 @@ public class DialogTester {
         JFrame frame = new JFrame("Unit Editor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        UnitTableModel model = new UnitTableModel();
+        GameTableModel model = new UnitTableModel();
         
         BufferedImage doge_1 = null;
         BufferedImage doge_2 = null;
@@ -55,10 +55,14 @@ public class DialogTester {
         ArrayList<ActionTestStub> actionList = new ArrayList<ActionTestStub>();
         actionList.add(new ActionTestStub());
                 
+        Object[] row_1 = {"Bobby D.oge", "Doge", icon, new StatsTestStub(), new ArrayList<ActionTestStub>(), "offense"};
+        Object[] row_2 = {"Bobby D.oge", "Another Doge", icon, new StatsTestStub(), new ArrayList<ActionTestStub>(), "defense"};
+        Object[] row_3 = {"Engineer", "Jean", icon_2, new StatsTestStub(), new ArrayList<ActionTestStub>(), "offense"};
+
         
-        model.addNewUnit("Bobby D.oge", "Doge", icon, new StatsTestStub(), new ArrayList<ActionTestStub>(), "offense");
-        model.addNewUnit("Bobby D.oge", "Another Doge", icon, new StatsTestStub(), new ArrayList<ActionTestStub>(), "defense");
-        model.addNewUnit("Engineer", "Jean", icon_2, new StatsTestStub(), new ArrayList<ActionTestStub>(), "offense");
+        model.addNewRow(row_1);
+        model.addNewRow(row_2);
+        model.addNewRow(row_3);
 
 
 

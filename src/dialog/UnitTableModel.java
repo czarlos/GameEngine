@@ -17,21 +17,27 @@ import javax.swing.table.AbstractTableModel;
  * @author brooksmershon
  *
  */
-public class UnitTableModel extends AbstractTableModel{
+public class UnitTableModel extends GameTableModel{
     
 
     private static final long serialVersionUID = 9110749927413795404L;
     
     private final boolean DEBUG = true;
-
-    private String[] columnNames = {"Type",
-                                    "Name",
-                                    "Image",
-                                    "Stats",
-                                    "Actions",
-                                    "Affiliation"};
     
-    private final List<Object[]> list = new ArrayList<Object[]>();
+    
+    
+    public UnitTableModel() {
+        //super();
+        
+        String[] names = {"Type",
+                         "Name",
+                         "Image",
+                         "Stats",
+                         "Actions",
+                         "Affiliation"};
+       setColomnNames(names);
+        
+    }
     
     /**
      * 
@@ -45,10 +51,9 @@ public class UnitTableModel extends AbstractTableModel{
      * @param affiliation
      * @return added definition array CLONE
      */
-    public Object[] addNewUnit(String type, String name, ImageIcon img, StatsTestStub stats,
-                          ArrayList<ActionTestStub> actionList, String affiliation){
+    public Object[] addNewRow(Object[] row){
         
-        Object[] rowToAdd = {type, name, img, stats, actionList, affiliation};
+        Object[] rowToAdd = {row[0], row[1], row[2], row[3], row[4], row[5]};
         
         list.add(rowToAdd);
         
@@ -60,42 +65,10 @@ public class UnitTableModel extends AbstractTableModel{
      * @param index
      * @return row removed as an Object[]
      */
-    public Object[] removeUnit(int index){
+    public Object[] removeRow(int index){
         return list.remove(index).clone();
     }
-    /**
-     * 
-     * @return a new ArrayList of the definitions
-     */
-    public List<Object[]> getData() {
-        return new ArrayList<Object[]>(list);
-    }
-    
-    @Override
-    public int getColumnCount () {
-        return columnNames.length;
-    }
 
-    @Override
-    public int getRowCount () {
-        return list.size();
-    }
-    
-    @Override
-    public String getColumnName(int col) {
-        return columnNames[col];
-    }
-    
-
-    @Override
-    public Object getValueAt (int row, int col) {
-        return list.get(row)[col];
-    }
-    
-    @Override
-    public Class getColumnClass(int c) {
-        return getValueAt(0, c).getClass();
-    }
     
     /**
      * returns whether a cell can be edited by a CellEditor
@@ -106,13 +79,7 @@ public class UnitTableModel extends AbstractTableModel{
     
     @Override
     public void setValueAt(Object value, int row, int col) {
-        if (DEBUG) {
-            System.out.println("Setting value at " + row + "," + col
-                               + " to " + value
-                               + " (an instance of "
-                               + value.getClass() + ")");
-        }
-
+        
         list.get(row)[col] = value;
         fireTableCellUpdated(row, col);
 

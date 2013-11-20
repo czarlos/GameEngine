@@ -32,7 +32,7 @@ public class UnitEditorPanel extends JPanel{
      * @param model - a TableModel class which provides getter and setter methods
      * for cell rendering and editing
      */
-    public UnitEditorPanel(UnitTableModel model) {
+    public UnitEditorPanel(GameTableModel model) {
         super(new GridLayout(1,0));
 
         JTable table = new JTable(model);
