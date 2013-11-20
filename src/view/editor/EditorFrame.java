@@ -1,12 +1,17 @@
 package view.editor;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -67,14 +72,13 @@ public class EditorFrame extends GameView {
         JMenuItem addStage = new JMenuItem("Add Stage");
         gameMenu.add(addStage);
         // add action listeners
+        addStage.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                addStagePanel();
+            }});
         newGame.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
                 newGame();
-            }
-        });
-        addStage.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent event) {
-                addStagePanel();
             }
         });
         loadGame.addActionListener(new ActionListener() {
@@ -96,7 +100,22 @@ public class EditorFrame extends GameView {
         return myMenuBar;
     }
 
-    private void newGame () {
+
+    
+    private JPanel addEditorBackground(){
+        //ImageIcon image = new ImageIcon("resources/omega_nu_3.png");
+        ImageIcon imageIcon = new ImageIcon("resources/omega.gif");
+        
+        JLabel label = new JLabel();
+        label.setIcon(imageIcon);
+        label.setHorizontalAlignment(WIDTH/2);
+        label.setVerticalAlignment(HEIGHT/2);
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add( label, BorderLayout.CENTER );
+        return panel;
+    }
+    
+    private void newGame(){
         JPanel newGamePanel = new JPanel();
         newGamePanel.setLayout(new GridLayout(1, 2));
         JLabel gameNameLabel = new JLabel("Game Name:");

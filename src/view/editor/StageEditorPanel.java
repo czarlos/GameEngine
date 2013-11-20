@@ -50,8 +50,7 @@ public class StageEditorPanel extends JTabbedPane {
         panel.setPreferredSize(new Dimension(200, 600));
         JScrollPane scroll = new JScrollPane(panel);
         scroll.setLayout(new ScrollPaneLayout());
-        // add button
-        String typeAdd = "Add new " + type;
+        String typeAdd = "Edit " + type + "s";
         JButton addNewTypeOf = new JButton(typeAdd);
         final String curType = type;
         addNewTypeOf.addActionListener(new ActionListener() {
@@ -75,10 +74,10 @@ public class StageEditorPanel extends JTabbedPane {
 
             ImageIcon i = new ImageIcon(myWorldManager.getImage(type, n));
             JLabel label = new JLabel(i);
-            JButton edit = new JButton("Edit");
+            //JButton edit = new JButton("Edit");
             p.add(label);
-            p.add(edit);
-            p.setMaximumSize(new Dimension(170, 100));
+            //p.add(edit);
+            p.setMaximumSize(new Dimension(170,100));
             panel.add(p);
         }
         panel.revalidate();
@@ -221,14 +220,13 @@ public class StageEditorPanel extends JTabbedPane {
     private void addPaneltoTab (String type, String name, int imageID) {
         JPanel p = new JPanel();
         p.setLayout(new BoxLayout(p, BoxLayout.LINE_AXIS));
-        p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black),
-                                                     name));
-        p.setPreferredSize(new Dimension(170, 100));
+        p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), name));
+        p.setMaximumSize(new Dimension(170,100));
         ImageIcon i = new ImageIcon(myWorldManager.getImage(type, imageID));
         JLabel label = new JLabel(i);
-        JButton edit = new JButton("Edit");
+        //JButton edit = new JButton("Edit");
         p.add(label);
-        p.add(edit);
+        //p.add(edit);
         JPanel tab = myTabs.get(type);
         tab.add(p);
     }
