@@ -12,8 +12,10 @@ import parser.JSONParser;
 import stage.Condition;
 import stage.Stage;
 import view.Customizable;
+import view.Drawable;
 import gameObject.GameObject;
 import gameObject.GameUnit;
+import grid.Coordinate;
 import grid.FromJSONFactory;
 import grid.Grid;
 import grid.Tile;
@@ -119,15 +121,18 @@ public class WorldManager {
      * @return
      */
     // TODO: Change this to Drawable when Patrick is around.
-    public Grid getGrid () {
+/*    public Grid getGrid () {
         return myActiveStage.getGrid();
-    }
+    }*/
 
-    /*
-     * public Drawable getGrid () {
-     * return (Drawable) myActiveStage.getGrid();
-     * }
-     */
+    
+     public Drawable getGrid () {
+        return (Drawable) myActiveStage.getGrid();
+     }
+     
+     public Coordinate getCoordinate(double fracX, double fracY) {
+         return myActiveStage.getGrid().getCoordinate(fracX, fracY);
+     }
 
     /**
      * Getting images

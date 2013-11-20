@@ -12,18 +12,19 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import controller.actions.grid.SetTileActive;
 import controller.editor.GridController;
+import controllers.WorldManager;
 
 
 public class GridCanvas extends Canvas {
 
-    Grid myGrid;
+    WorldManager myWM;
     Collection<GridMouseListener> myClickSubscribers;
 
     private static final long serialVersionUID = -3908147776463294489L;
 
-    public GridCanvas (Grid grid) {
+    public GridCanvas (WorldManager wm) {
         setBorder(BorderFactory.createLineBorder(Color.black));
-        myGrid = grid;
+        myWM = wm;
         myClickSubscribers = new ArrayList<>();
         addMouseListener(new MouseAdapter() {
             @Override
@@ -34,7 +35,8 @@ public class GridCanvas extends Canvas {
     }
 
     public void notifySubscribersOfClick (MouseEvent e) {
-        Coordinate clickGridCoordinate = mapPixelsToGrid(e.getX(), e.getY());
+        
+        Coordinate clickGridCoordinate = myWM.getCoordinate(e.getX()/getSize().width, e.getY()/getSize().height);
 
         for (GridMouseListener subscriber : myClickSubscribers) {
             subscriber.gridClicked(clickGridCoordinate);
@@ -45,7 +47,7 @@ public class GridCanvas extends Canvas {
     public void addGridMouseListener (GridMouseListener l) {
         myClickSubscribers.add(l);
     }
-
+/*
     public Coordinate mapPixelsToGrid (int x, int y) {
         // cast x and y to double to enable non-integer values when evaluating division
         double doubleX = x;
@@ -55,26 +57,14 @@ public class GridCanvas extends Canvas {
         int gridY = (int) (doubleY / getSize().height * myGrid.getHeight());
 
         return new Coordinate((int) gridX, (int) gridY);
-    }
-
-    public static void main (String args[]) {
-        GridCanvas myCanvas = new GridCanvas(new Grid(10, 10, 0));
-        GridController control = new GridController(myCanvas.myGrid);
-        GridController.registerGridCommand("setactive", SetTileActive.class);
-        myCanvas.addGridMouseListener(control);
-
-        JFrame myFrame = new JFrame();
-        myFrame.getContentPane().add(myCanvas);
-        myFrame.pack();
-        myFrame.setVisible(true);
-    }
+    }*/
 
     @Override
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
         int height = getSize().height;
         int width = getSize().width;
-        myGrid.draw(g, STARTING_X, STARTING_Y, width, height);
+        myWM.getGrid().draw(g, STARTING_X, STARTING_Y, width, height);
     }
 
 }
