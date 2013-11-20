@@ -17,7 +17,6 @@ import gameObject.GameObject;
 import gameObject.GameUnit;
 import grid.Coordinate;
 import grid.FromJSONFactory;
-import grid.Grid;
 import grid.Tile;
 
 
@@ -120,19 +119,18 @@ public class WorldManager {
      * 
      * @return
      */
-    // TODO: Change this to Drawable when Patrick is around.
-/*    public Grid getGrid () {
-        return myActiveStage.getGrid();
-    }*/
 
-    
-     public Drawable getGrid () {
+    public Drawable getGrid () {
         return (Drawable) myActiveStage.getGrid();
-     }
-     
-     public Coordinate getCoordinate(double fracX, double fracY) {
-         return myActiveStage.getGrid().getCoordinate(fracX, fracY);
-     }
+    }
+
+    public Coordinate getCoordinate (double fracX, double fracY) {
+        return myActiveStage.getGrid().getCoordinate(fracX, fracY);
+    }
+
+    public void doMove (Coordinate a, Coordinate b) {
+        myActiveStage.getGrid().doMove(a, b);
+    }
 
     /**
      * Getting images

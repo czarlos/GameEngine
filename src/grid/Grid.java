@@ -446,11 +446,11 @@ public class Grid extends Drawable {
         return new Coordinate(gridX, gridY);
     }
     
-    public int getWidth () {
+  /*  public int getWidth () {
         return myWidth;
     }
 
     public int getHeight () {
         return myHeight;
-    }
+    }*/
 }
