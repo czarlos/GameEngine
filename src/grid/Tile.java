@@ -24,14 +24,14 @@ public class Tile extends GameObject {
     private Map<String, Double> myStatMods;
     private int myMoveCost;
     private BufferedImage myImage;
-    
-    //Moved from node class
+
+    // Moved from node class
     private List<Tile> myNeighbors;
     private Tile myParent;
     private int myLength;
     private int myDistanceToGoal;
     private Coordinate myCoordinate;
-    
+
     public Tile () {
         setImageAndPath(myImagePath);
     }
@@ -86,11 +86,11 @@ public class Tile extends GameObject {
     public void setMoveCost (int moveCost) {
         myMoveCost = moveCost;
     }
-    
+
     /*
      * Moved from node class
      */
-    
+
     public Tile (List<Tile> neighbors, Coordinate coordinate) {
         this.myNeighbors = neighbors;
         this.myCoordinate = coordinate;
