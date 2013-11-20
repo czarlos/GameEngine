@@ -2,6 +2,7 @@ package dialog;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -26,6 +27,7 @@ public class DrawingPad extends JComponent{
      * Crate new DrawingPad which allows for mouse movement to be tracked for drawing
      */
     public DrawingPad(){
+        
         
             setDoubleBuffered(false);
             addMouseListener(new MouseAdapter(){

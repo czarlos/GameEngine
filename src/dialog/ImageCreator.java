@@ -24,12 +24,16 @@ import javax.swing.JPanel;
  *
  * Panel capable of making a dialog (of itself) for drawing images and saving them
  */
-public class ImageCreator extends JComponent{
+public class ImageCreator extends JPanel{
 
     /**
      * 
      */
     private static final long serialVersionUID = -38084645183859719L;
+    
+    private static final int DEFAULT_RESOLUTION_X = 100;
+    private static final int DEFAULT_RESOLUTION_Y = 100;
+
     
     Image myImage;
     
@@ -38,23 +42,25 @@ public class ImageCreator extends JComponent{
      */
     public ImageCreator() {
         
-        myImage = new BufferedImage(100, 50, BufferedImage.TYPE_INT_ARGB);
-        JPanel content = new JPanel(new BorderLayout());
-        JMenuBar menuBar = new JMenuBar();
         
-        JMenu fileMenu = new JMenu("File");
-        
-        JMenuItem openItem = new JMenuItem("Open");
-        fileMenu.add(openItem);
+        myImage = new BufferedImage(DEFAULT_RESOLUTION_X, DEFAULT_RESOLUTION_Y, BufferedImage.TYPE_INT_ARGB);
 
+        //a JComponent
         
+        setLayout(new BorderLayout());
+
         DrawingPad drawingPad = new DrawingPad();
         
-        content.add(drawingPad, BorderLayout.CENTER);
-        content.add(fileMenu, BorderLayout.NORTH);
-
+        JMenuBar menuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("File");
+        JMenuItem openItem = new JMenuItem("Open");
+        fileMenu.add(openItem);
         
-        add(content);
+        add(menuBar, BorderLayout.NORTH);
+        
+        add(drawingPad, BorderLayout.CENTER);
+        
+        setPreferredSize(new Dimension(400, 400));
     }
     /**
      * 
@@ -64,7 +70,7 @@ public class ImageCreator extends JComponent{
      * @param imageCreator
      * @param okListener
      * @param cancelListener
-     * @return
+     * @return JDialog in its own parent dialog
      */
     public static JDialog createDialog (Component component,
                                         String title,
@@ -77,9 +83,12 @@ public class ImageCreator extends JComponent{
         
         dialog.getContentPane().setLayout(new BorderLayout());
         
+        
         //panel for option buttons
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
+        
+        
         
         JButton ok = new JButton("OK");
         ok.addActionListener(okListener);
@@ -90,12 +99,13 @@ public class ImageCreator extends JComponent{
         else
             cancel.addActionListener(new DefaultListener(dialog));
         
+        
         panel.add(ok);
         panel.add(cancel);
         
         dialog.getContentPane().add(panel, BorderLayout.SOUTH);  
         
-        dialog.getContentPane().add(imageCreator);
+        dialog.getContentPane().add(imageCreator, BorderLayout.CENTER);
         dialog.pack();
         
         return dialog;
