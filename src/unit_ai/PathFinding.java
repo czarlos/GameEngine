@@ -30,9 +30,9 @@ public class PathFinding {
      * Example usage: Whenever it is the AI's turn, if it can't attack, move
      * to closest target.
      * 
-     * @param start
-     * @param end
-     * @param unit
+     * @param start - The tile at which the move unit is at
+     * @param end - The tile at which the target unit is at
+     * @param unit - The unit being moved.
      */
     public static void autoMove (Tile start, Tile end, GameUnit unit) {
         int range = unit.getStat("movement");
@@ -47,9 +47,8 @@ public class PathFinding {
      * contructed by storing "pointers" to the parents of each tile visited, when the end
      * tile is found, it simply follows the pointers back to the start tile to determine the path.
      * 
-     * @param start
-     * @param end
-     * @param tileGrid
+     * @param start - The tile at which the move unit is at
+     * @param end - The tile at which the target unit is at
      * @return
      */
     public static List<Tile> findPath (Tile start, Tile end) {
@@ -89,7 +88,8 @@ public class PathFinding {
      * does not contain neighbor data, and gets sent to the addNeighbors
      * method
      * 
-     * @param grid
+     * @param grid - The grid in use
+     * @param unit - The unit being moved
      * @return
      */
     public static List<Tile> coordinatesToTiles (Grid grid, GameUnit unit) {
@@ -106,7 +106,7 @@ public class PathFinding {
     /**
      * Adds a list of neighboring tiles to every tile in the list of tiles in a grid.
      * 
-     * @param tileList
+     * @param tileList - The list of tiles in the grid
      */
     public static void addNeighbors (List<Tile> tileList) {
         for (Tile tile : tileList) {
@@ -128,8 +128,8 @@ public class PathFinding {
      * Note: This way counts diagonally positioned tiles as "next to" if this is not
      * diagonal tiles are not desired, simply change Math.sqrt(2) to 1.
      * 
-     * @param tile
-     * @param otherTile
+     * @param tile - A tile
+     * @param otherTile - A different tile
      * @return
      */
     public static boolean isNeighbor (Tile tile, Tile otherTile) {

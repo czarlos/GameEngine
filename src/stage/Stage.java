@@ -56,8 +56,11 @@ public class Stage {
      */
 
     /**
-     * Runs the game, if you are a player then you're turn will continue on until
-     * you press the spacebar to end your turn.
+     * Runs the game, only stopping when the win condition has been satisfied,
+     * continually loops through the players in the game, moving to the next player
+     * when the spacebar is pressed, or if the player is an AI if all of the units
+     * have been set to inactive.
+     * @param event - Listens for spacebar
      */
     public void doInGame (KeyEvent event) {
         while (!myWinCondition.hasWon(myGrid)) {
@@ -90,6 +93,9 @@ public class Stage {
      * the PathFinding class to find the shortest path and traverses as far as the unit can
      * move on that path, when it encounters an enemy unit it attacks that unit with a randomly
      * chosen attack from its active weapon.
+     * 
+     * @param unit - The game unit which is being moved by the AI
+     * @param allEnemies - A list of all of the enemy units
      */
     public void doAIMove (GameUnit unit, List<GameUnit> allEnemies) {
         PathFinding.coordinatesToTiles(myGrid, unit);
@@ -190,10 +196,10 @@ public class Stage {
     }
 
     /**
-     * Makes a list of units sorted from closest to furthest.
+     * Makes a list of units sorted from closest to farthest.
      * 
-     * @param unit
-     * @param otherUnits
+     * @param unit - The active unit
+     * @param otherUnits - All of the enemy units.
      * @return
      */
     public List<GameUnit> makeSortedUnitList (GameUnit unit, List<GameUnit> otherUnits) {
