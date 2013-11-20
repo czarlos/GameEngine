@@ -76,8 +76,9 @@ public class Stage {
                     }
                 }
                 else {
+                    List<GameUnit> opponentList = findAllEnemies(myTeamUnitList, i);
                     for (GameUnit unit : myTeamUnitList.get(i)) {
-                        doAIMove(unit, myCurrUnitList);
+                        doAIMove(unit, opponentList);
                     }
                 }
 
@@ -117,7 +118,27 @@ public class Stage {
 
 
     }
-
+    
+    /**
+     * Finds all units for a player (or AI) other than your own and adds them to a list
+     * of units which contains all of the opponents of that affiliation.
+     * @param teamList
+     * @param thisAffiliation
+     * @return
+     */
+    public List<GameUnit> findAllEnemies (List<List<GameUnit>> teamList, int thisAffiliation) {
+        List<GameUnit> opponentList = new ArrayList<GameUnit>();
+        for (List<GameUnit> team : teamList) {
+            if (!teamList.get(thisAffiliation).equals(team)) {
+                for (GameUnit unit : team) {
+                    opponentList.add(unit);
+                }
+            }
+        }
+        return opponentList;
+    }
+    
+    
     /*
      * And Ends here
      */
