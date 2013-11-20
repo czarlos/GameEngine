@@ -35,7 +35,7 @@ public class PathFinding {
         while(!queue.isEmpty()) {
             Node workingNode = queue.poll();
             if (workingNode.equals(end)) {
-                while(workingNode.getParent()!=null) {
+                while(!workingNode.equals(start)) {
                     path.add(workingNode);
                     workingNode = workingNode.getParent();
                 }
@@ -45,7 +45,10 @@ public class PathFinding {
                 if(!visited.contains(workingNode)) {
                     visited.add(workingNode);
                     for(Node neighbor : workingNode.getNeighbors()) {
-                        queue.add(neighbor);
+                        if(!visited.contains(neighbor)) {
+                            neighbor.setParent(workingNode);
+                            queue.add(neighbor);  
+                        }
                     }
                 }
             }

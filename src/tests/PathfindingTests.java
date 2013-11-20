@@ -64,20 +64,19 @@ public class PathfindingTests {
     @Test
     public void testPathFind () {
 
-        Grid grid = new Grid(7, 7, 0);
+        Grid grid = new Grid(6, 6, 0);
 
         PathFinding pathFind = new PathFinding();
         GameUnit unit = new GameUnit();
         
         List<Node> nodeGrid = pathFind.coordinatesToNodes(grid, unit);
         pathFind.addNeighbors(nodeGrid);
+        
         Node start = nodeGrid.get(0);
         Node end = nodeGrid.get(nodeGrid.size()-1);
-        
         List<Node> path = pathFind.findPath(start, end);
-        
         for (Node node : path) {
-            System.out.println(node);
+            System.out.println(node.getCoordinate().getX() + " " + node.getCoordinate().getY());
         }
 
     }
