@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Set;
-import java.util.Stack;
 import utils.UnitUtilities;
 import gameObject.GameUnit;
 import grid.Coordinate;
 import grid.Grid;
-import grid.Tile;
 
+/**
+ * This class is a utilities class for AI motion, it contains a method that
+ * can find a shortest valid path between two objects as well as a method that
+ * uses this class to seek out the closest unit.
+ * @author carlosreyes
+ *
+ */
 public class PathFinding {
     
     /**
@@ -26,7 +30,7 @@ public class PathFinding {
      * @param end
      * @param unit
      */
-    public void autoMove (Node start, Node end, GameUnit unit) {
+    public static void autoMove (Node start, Node end, GameUnit unit) {
         int range = unit.getStat("movement");
         List<Node> path = findPath(start, end);
         Node newNode = path.get(range);
@@ -43,7 +47,7 @@ public class PathFinding {
      * @param nodeGrid
      * @return
      */
-    public List<Node> findPath (Node start, Node end) {
+    public static List<Node> findPath (Node start, Node end) {
         Queue<Node> queue = new LinkedList<Node>();
         List<Node> visited = new ArrayList<Node>();
         List<Node> path = new ArrayList<Node>();
@@ -83,7 +87,7 @@ public class PathFinding {
      * @param grid
      * @return
      */
-    public List<Node> coordinatesToNodes (Grid grid, GameUnit unit) {
+    public static List<Node> coordinatesToNodes (Grid grid, GameUnit unit) {
         List<Node> nodeList = new ArrayList<Node>();
         for (int i = 0; i < grid.getTiles().length; i++) {
             for (int j = 0; j < grid.getTiles().length; j++) {
@@ -99,7 +103,7 @@ public class PathFinding {
      * 
      * @param nodeList
      */
-    public void addNeighbors (List<Node> nodeList) {
+    public static void addNeighbors (List<Node> nodeList) {
         for (Node node : nodeList) {
             List<Node> nodeAdjacencyList = new ArrayList<>();
             for (Node otherNode : nodeList) {
@@ -123,7 +127,7 @@ public class PathFinding {
      * @param otherNode
      * @return
      */
-    public boolean isNeighbor (Node node, Node otherNode) {
+    public static boolean isNeighbor (Node node, Node otherNode) {
         double delta =
                 UnitUtilities.calculateLength(node.getCoordinate(), otherNode.getCoordinate());
         if (delta <= Math.sqrt(2)) { return true; }
