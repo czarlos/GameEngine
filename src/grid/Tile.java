@@ -2,13 +2,9 @@ package grid;
 
 import gameObject.GameObject;
 import java.awt.Image;
-<<<<<<< HEAD
-=======
 import java.awt.image.BufferedImage;
 import java.util.List;
->>>>>>> Added doAIMove to stage, added the functionality of node to tile
 import java.util.Map;
-import unit_ai.Node;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 
