@@ -52,5 +52,4 @@ public class NClickAction {
         Command action = (Command) Reflection.createInstance(actionName, args, myCoordinates);
         action.execute();
     }
-
 }

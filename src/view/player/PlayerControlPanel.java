@@ -9,28 +9,30 @@ import controller.actions.grid.MoveCharacter;
 import controller.editor.GridController;
 import controller.editor.NClickAction;
 
-public class PlayerControlPanel extends JPanel{
+
+public class PlayerControlPanel extends JPanel {
     private GridController myGridController;
-    
-    public PlayerControlPanel(){
-        
+
+    public PlayerControlPanel () {
+
     }
-    public PlayerControlPanel(GridController controller){
-        myGridController=controller;
+
+    public PlayerControlPanel (GridController controller) {
+        myGridController = controller;
         generatePanel();
-        
+
     }
-    
-    private void generatePanel(){
+
+    private void generatePanel () {
         add(generateMoveButton());
-        setSize(100,200);
+        setSize(100, 200);
         repaint();
-        
+
     }
-    
-    public JButton generateMoveButton(){
-        JButton moveButton=new JButton("Move");
-        moveButton.addActionListener(new ActionListener(){
+
+    public JButton generateMoveButton () {
+        JButton moveButton = new JButton("Move");
+        moveButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed (ActionEvent e) {
@@ -38,10 +40,10 @@ public class PlayerControlPanel extends JPanel{
                 move.addPrecursorCommand(1,"controller.actions.grid.BeginMoveCharacter");
                 myGridController.doCommand(move);
             }
-            
+
         });
         moveButton.setEnabled(true);
-        
+
         return moveButton;
     }
 }
