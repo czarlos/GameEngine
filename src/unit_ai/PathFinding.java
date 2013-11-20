@@ -12,9 +12,27 @@ import grid.Coordinate;
 import grid.Grid;
 import grid.Tile;
 
-
 public class PathFinding {
-
+    
+    /**
+     * AutoMove moves a unit the appropriate amount of units forward
+     * (the max number possible based on that unit's movement stats)
+     * whenever it is called. It does so by finding the shortest distance
+     * from the unit to the target and moving as close to that target as
+     * possible.
+     * Example usage: Whenever it is the AI's turn, if it can't attack, move
+     * to closest target.
+     * @param start
+     * @param end
+     * @param unit
+     */
+    public void autoMove (Node start, Node end, GameUnit unit) {
+        int range = unit.getStat("movement");
+        List<Node> path = findPath(start, end);
+        Node newNode = path.get(range);
+        unit.setGridPosition(newNode.getCoordinate());
+    }
+    
     /**
      * nodeGrid must be made from the grid and all of its neighbors must be put in place,
      * start and end must be in the list nodeGrid. A BFS was used and the paths formed are
