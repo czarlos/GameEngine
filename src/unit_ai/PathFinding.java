@@ -8,16 +8,19 @@ import utils.UnitUtilities;
 import gameObject.GameUnit;
 import grid.Coordinate;
 import grid.Grid;
+import grid.Tile;
+
 
 /**
  * This class is a utilities class for AI motion, it contains a method that
  * can find a shortest valid path between two objects as well as a method that
  * uses this class to seek out the closest unit.
+ * 
  * @author carlosreyes
- *
+ * 
  */
 public class PathFinding {
-    
+
     /**
      * AutoMove moves a unit the appropriate amount of units forward
      * (the max number possible based on that unit's movement stats)
@@ -26,110 +29,112 @@ public class PathFinding {
      * possible.
      * Example usage: Whenever it is the AI's turn, if it can't attack, move
      * to closest target.
-     * @param start
-     * @param end
-     * @param unit
+     * 
+     * @param start - The tile at which the move unit is at
+     * @param end - The tile at which the target unit is at
+     * @param unit - The unit being moved.
      */
-    public static void autoMove (Node start, Node end, GameUnit unit) {
+    public static void autoMove (Tile start, Tile end, GameUnit unit) {
         int range = unit.getStat("movement");
-        List<Node> path = findPath(start, end);
-        Node newNode = path.get(range);
-        unit.setGridPosition(newNode.getCoordinate());
+        List<Tile> path = findPath(start, end);
+        Tile newTile = path.get(range);
+        unit.setGridPosition(newTile.getCoordinate());
     }
-    
+
     /**
-     * nodeGrid must be made from the grid and all of its neighbors must be put in place,
-     * start and end must be in the list nodeGrid. A BFS was used and the paths formed are
-     * contructed by storing "pointers" to the parents of each node visited, when the end
-     * node is found, it simply follows the pointers back to the start node to determine the path.
-     * @param start
-     * @param end
-     * @param nodeGrid
+     * tileGrid must be made from the grid and all of its neighbors must be put in place,
+     * start and end must be in the list tileGrid. A BFS was used and the paths formed are
+     * contructed by storing "pointers" to the parents of each tile visited, when the end
+     * tile is found, it simply follows the pointers back to the start tile to determine the path.
+     * 
+     * @param start - The tile at which the move unit is at
+     * @param end - The tile at which the target unit is at
      * @return
      */
-    public static List<Node> findPath (Node start, Node end) {
-        Queue<Node> queue = new LinkedList<Node>();
-        List<Node> visited = new ArrayList<Node>();
-        List<Node> path = new ArrayList<Node>();
+    public static List<Tile> findPath (Tile start, Tile end) {
+        Queue<Tile> queue = new LinkedList<Tile>();
+        List<Tile> visited = new ArrayList<Tile>();
+        List<Tile> path = new ArrayList<Tile>();
 
         queue.add(start);
-        
-        while(!queue.isEmpty()) {
-            Node workingNode = queue.poll();
-            if (workingNode.equals(end)) {
-                while(!workingNode.equals(start)) {
-                    path.add(workingNode);
-                    workingNode = workingNode.getParent();
+
+        while (!queue.isEmpty()) {
+            Tile workingTile = queue.poll();
+            if (workingTile.equals(end)) {
+                while (!workingTile.equals(start)) {
+                    path.add(workingTile);
+                    workingTile = workingTile.getParent();
                 }
                 return path;
             }
             else {
-                if(!visited.contains(workingNode)) {
-                    visited.add(workingNode);
-                    for(Node neighbor : workingNode.getNeighbors()) {
-                        if(!visited.contains(neighbor)) {
-                            neighbor.setParent(workingNode);
-                            queue.add(neighbor);  
+                if (!visited.contains(workingTile)) {
+                    visited.add(workingTile);
+                    for (Tile neighbor : workingTile.getNeighbors()) {
+                        if (!visited.contains(neighbor)) {
+                            neighbor.setParent(workingTile);
+                            queue.add(neighbor);
                         }
                     }
                 }
             }
         }
-        return path;       
-        
+        return path;
+
     }
 
     /**
-     * Makes a list of all nodes on the graph from the grid. This list of nodes
+     * Makes a list of all tiles on the graph from the grid. This list of tiles
      * does not contain neighbor data, and gets sent to the addNeighbors
      * method
      * 
-     * @param grid
+     * @param grid - The grid in use
+     * @param unit - The unit being moved
      * @return
      */
-    public static List<Node> coordinatesToNodes (Grid grid, GameUnit unit) {
-        List<Node> nodeList = new ArrayList<Node>();
+    public static List<Tile> coordinatesToTiles (Grid grid, GameUnit unit) {
+        List<Tile> tileList = new ArrayList<Tile>();
         for (int i = 0; i < grid.getTiles().length; i++) {
             for (int j = 0; j < grid.getTiles().length; j++) {
-                if(grid.getTile(i, j).isPassable(unit))
-                    nodeList.add(new Node(null, new Coordinate(i, j)));
+                if (grid.getTile(i, j).isPassable(unit))
+                    tileList.add(new Tile(null, new Coordinate(i, j)));
             }
         }
-        return nodeList;
+        return tileList;
     }
 
     /**
-     * Adds a list of neighboring nodes to every node in the list of nodes in a grid.
+     * Adds a list of neighboring tiles to every tile in the list of tiles in a grid.
      * 
-     * @param nodeList
+     * @param tileList - The list of tiles in the grid
      */
-    public static void addNeighbors (List<Node> nodeList) {
-        for (Node node : nodeList) {
-            List<Node> nodeAdjacencyList = new ArrayList<>();
-            for (Node otherNode : nodeList) {
-                if (isNeighbor(node, otherNode) && !otherNode.equals(node)) {
-                    nodeAdjacencyList.add(otherNode);
+    public static void addNeighbors (List<Tile> tileList) {
+        for (Tile tile : tileList) {
+            List<Tile> tileAdjacencyList = new ArrayList<>();
+            for (Tile otherTile : tileList) {
+                if (isNeighbor(tile, otherTile) && !otherTile.equals(tile)) {
+                    tileAdjacencyList.add(otherTile);
                 }
             }
-            node.setNeighbors(nodeAdjacencyList);
+            tile.setNeighbors(tileAdjacencyList);
         }
     }
 
     /**
-     * Determines whether or not a node is a neighbor of another node. Calls
+     * Determines whether or not a tile is a neighbor of another tile. Calls
      * a utility function calculate length which calculates the distance (delta)
      * between two coordinates. If this distance is less than the square root of two
-     * we know that one node is next to another.
-     * Note: This way counts diagonally positioned nodes as "next to" if this is not
-     * diagonal nodes are not desired, simply change Math.sqrt(2) to 1.
+     * we know that one tile is next to another.
+     * Note: This way counts diagonally positioned tiles as "next to" if this is not
+     * diagonal tiles are not desired, simply change Math.sqrt(2) to 1.
      * 
-     * @param node
-     * @param otherNode
+     * @param tile - A tile
+     * @param otherTile - A different tile
      * @return
      */
-    public static boolean isNeighbor (Node node, Node otherNode) {
+    public static boolean isNeighbor (Tile tile, Tile otherTile) {
         double delta =
-                UnitUtilities.calculateLength(node.getCoordinate(), otherNode.getCoordinate());
+                UnitUtilities.calculateLength(tile.getCoordinate(), otherTile.getCoordinate());
         if (delta <= Math.sqrt(2)) { return true; }
         return false;
     }

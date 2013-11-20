@@ -3,7 +3,9 @@ package grid;
 import gameObject.GameObject;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.List;
 import java.util.Map;
+import unit_ai.Node;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 
@@ -13,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
  * 
  * @author Kevin
  * @author Ken
+ * @author carlosreyes
  * 
  */
 @JsonAutoDetect
@@ -21,6 +24,13 @@ public class Tile extends GameObject {
     private Map<String, Double> myStatMods;
     private int myMoveCost;
     private BufferedImage myImage;
+
+    // Moved from node class
+    private List<Tile> myNeighbors;
+    private Tile myParent;
+    private int myLength;
+    private int myDistanceToGoal;
+    private Coordinate myCoordinate;
 
     public Tile () {
         setImageAndPath(myImagePath);
@@ -75,6 +85,55 @@ public class Tile extends GameObject {
 
     public void setMoveCost (int moveCost) {
         myMoveCost = moveCost;
+    }
+
+    /*
+     * Moved from node class
+     */
+
+    public Tile (List<Tile> neighbors, Coordinate coordinate) {
+        this.myNeighbors = neighbors;
+        this.myCoordinate = coordinate;
+    }
+
+    public List<Tile> getNeighbors () {
+        return myNeighbors;
+    }
+
+    public void setNeighbors (List<Tile> myNeighbors) {
+        this.myNeighbors = myNeighbors;
+    }
+
+    public Tile getParent () {
+        return myParent;
+    }
+
+    public void setParent (Tile myParent) {
+        this.myParent = myParent;
+    }
+
+    public int getLength () {
+        return myLength;
+    }
+
+    public void setLength (int myLength) {
+        this.myLength = myLength;
+    }
+
+    public int getDistanceToGoal () {
+        return myDistanceToGoal;
+    }
+
+    public void setDistanceToGoal (int myDistanceToGoal) {
+        this.myDistanceToGoal = myDistanceToGoal;
+    }
+
+    public Coordinate getCoordinate () {
+        return myCoordinate;
+    }
+
+    public void setCoordinate (Coordinate myCoordinate) {
+        this.myCoordinate = myCoordinate;
     }
 
 }
