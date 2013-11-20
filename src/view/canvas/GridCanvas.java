@@ -59,6 +59,17 @@ public class GridCanvas extends Canvas {
         return new Coordinate((int) gridX, (int) gridY);
     }*/
 
+/*    public static void main (String args[]) {
+        GridCanvas myCanvas = new GridCanvas(new Grid(10, 10, 0));
+        GridController control = new GridController(myCanvas.myGrid);
+        myCanvas.addGridMouseListener(control);
+
+        JFrame myFrame = new JFrame();
+        myFrame.getContentPane().add(myCanvas);
+        myFrame.pack();
+        myFrame.setVisible(true);
+    }*/
+
     @Override
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
