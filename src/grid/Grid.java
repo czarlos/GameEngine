@@ -99,8 +99,8 @@ public class Grid extends Drawable {
      * 
      */
     public void beginMove (Coordinate coordinate, GameObject gameUnit) {
-        System.out.println("beginMove, getTotalStat movement: " +
-                           ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT));
+//        System.out.println("beginMove, getTotalStat movement: " +
+//                           ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT));
         findMovementRange(coordinate,
                           ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT),
                           gameUnit);
@@ -132,25 +132,24 @@ public class Grid extends Drawable {
         for (int i = 0; i < rdelta.length; i++) {
             int newX = coordinate.getX() + cdelta[i];
             int newY = coordinate.getY() + rdelta[i];
-            System.out.println("findMovementRange: newX, newY: " + newX + ", " + newY);
             if (onGrid(newX, newY)) {
                 Tile currentTile = getTile(newX, newY);
-                if (currentTile.isPassable(gameObject) && !currentTile.isActive()) {
-                    int newRange = range - currentTile.getMoveCost();
-                    System.out.println("findMovementRange: newRange: " + newRange);
+                int newRange = range - currentTile.getMoveCost();
+                if (currentTile.isPassable(gameObject) && newRange >= 0) {  
                     GameObject currentObject = getObject(newX, newY);
-                    if (currentObject != null && currentObject.isPassable(gameObject)) {
-                        System.out.println("tree, coords: " + newX + ", " + newY);
-                        findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
+                    if (currentObject != null) {
+                        if (currentObject.isPassable(gameObject)) {
+                            findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
+                        }
+                        continue;
                     }
-                    else if (newRange >= 0) {
+                    else {
                         currentTile.setActive(true);
                         findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
                     }
                 }
             }
         }
-
     }
 
     /**

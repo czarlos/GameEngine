@@ -1,9 +1,13 @@
 package unit_ai;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Set;
 import java.util.Stack;
 import utils.UnitUtilities;
+import gameObject.GameUnit;
 import grid.Coordinate;
 import grid.Grid;
 import grid.Tile;
@@ -11,35 +15,43 @@ import grid.Tile;
 
 public class PathFinding {
 
-    public Stack<Node> aStar (Node start, Node end) {
-        Stack<Node> openStack = new Stack<>();
-        Stack<Node> closedStack = new Stack<>();
-        openStack.add(start);
+    /**
+     * nodeGrid must be made from the grid and all of its neighbors must be put in place,
+     * start and end must be in the list nodeGrid. A BFS was used and the paths formed are
+     * contructed by storing "pointers" to the parents of each node visited, when the end
+     * node is found, it simply follows the pointers back to the start node to determine the path.
+     * @param start
+     * @param end
+     * @param nodeGrid
+     * @return
+     */
+    public List<Node> findPath (Node start, Node end) {
+        Queue<Node> queue = new LinkedList<Node>();
+        List<Node> visited = new ArrayList<Node>();
+        List<Node> path = new ArrayList<Node>();
 
-        for (Node node : openStack) {
-            if (node.equals(end)) {
-                return openStack;
+        queue.add(start);
+        
+        while(!queue.isEmpty()) {
+            Node workingNode = queue.poll();
+            if (workingNode.equals(end)) {
+                while(workingNode.getParent()!=null) {
+                    path.add(workingNode);
+                    workingNode = workingNode.getParent();
+                }
+                return path;
             }
             else {
-                closedStack.add(node);
-                for (Node neighbor : node.getNeighbors()) {
-                    if (closedStack.contains(neighbor) && node.getLength() < neighbor.getLength()) {
-                        neighbor.setLength(node.getLength());
-                        neighbor.setParent(node);
-                    }
-                    else if (openStack.contains(neighbor) &&
-                             node.getLength() < neighbor.getLength()) {
-                        neighbor.setLength(node.getLength());
-                        neighbor.setParent(node);
-                    }
-                    else {
-                        neighbor.setLength(node.getLength());
-                        openStack.add(neighbor);
+                if(!visited.contains(workingNode)) {
+                    visited.add(workingNode);
+                    for(Node neighbor : workingNode.getNeighbors()) {
+                        queue.add(neighbor);
                     }
                 }
             }
         }
-        return openStack;
+        return path;       
+        
     }
 
     /**
@@ -50,11 +62,12 @@ public class PathFinding {
      * @param grid
      * @return
      */
-    public List<Node> coordinatesToNodes (Grid grid) {
+    public List<Node> coordinatesToNodes (Grid grid, GameUnit unit) {
         List<Node> nodeList = new ArrayList<Node>();
         for (int i = 0; i < grid.getTiles().length; i++) {
             for (int j = 0; j < grid.getTiles().length; j++) {
-                nodeList.add(new Node(null, new Coordinate(i, j)));
+                if(grid.getTile(i, j).isPassable(unit))
+                    nodeList.add(new Node(null, new Coordinate(i, j)));
             }
         }
         return nodeList;
