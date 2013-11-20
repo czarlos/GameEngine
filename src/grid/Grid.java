@@ -139,7 +139,6 @@ public class Grid extends Drawable {
         for (int i = 0; i < rdelta.length; i++) {
             int newX = coordinate.getX() + cdelta[i];
             int newY = coordinate.getY() + rdelta[i];
-
             if (onGrid(newX, newY)) {
                 Tile currentTile = getTile(newX, newY);
                 int newRange = range - currentTile.getMoveCost();

@@ -3,6 +3,7 @@ package tests;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
+import gameObject.GameUnit;
 import grid.Coordinate;
 import grid.Grid;
 import org.junit.Test;
@@ -24,7 +25,8 @@ public class PathfindingTests {
     public void testCoordinateToNode () {
         initializeGrid();
         PathFinding pathFind = new PathFinding();
-        List<Node> nodeList = pathFind.coordinatesToNodes(grid);
+        GameUnit unit = new GameUnit();
+        List<Node> nodeList = pathFind.coordinatesToNodes(grid, unit);
         assertEquals(nodeList.size(), 100, 0);
     }
 
@@ -65,14 +67,15 @@ public class PathfindingTests {
         Grid grid = new Grid(7, 7, 0);
 
         PathFinding pathFind = new PathFinding();
-
-        List<Node> nodeGrid = pathFind.coordinatesToNodes(grid);
+        GameUnit unit = new GameUnit();
+        
+        List<Node> nodeGrid = pathFind.coordinatesToNodes(grid, unit);
         pathFind.addNeighbors(nodeGrid);
-
         Node start = nodeGrid.get(0);
-        Node end = nodeGrid.get(nodeGrid.size());
-
-        List<Node> path = pathFind.aStar(start, end);
+        Node end = nodeGrid.get(nodeGrid.size()-1);
+        
+        List<Node> path = pathFind.findPath(start, end);
+        
         for (Node node : path) {
             System.out.println(node);
         }
