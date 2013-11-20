@@ -23,11 +23,11 @@ public class GridController implements GridMouseListener {
     @Override
     public void gridClicked (Coordinate c) {
         mySelectedCoordinate = c;
-        if(myCurrentAction!=null)
+        if (myCurrentAction != null)
             myCurrentAction.click(c);
     }
-    
-    public void clearCurrentCommand(){
-        myCurrentAction=null;
+
+    public void clearCurrentCommand () {
+        myCurrentAction = null;
     }
 }

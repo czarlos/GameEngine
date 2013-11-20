@@ -14,7 +14,7 @@ import view.canvas.GridMouseListener;
 public class StagePlayerPanel extends JPanel {
     private JPanel mySidePanel;
     private GridController myController;
-    
+
     public StagePlayerPanel (String stageName, Grid g) {
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
         GridCanvas gc = new GridCanvas(g);

@@ -1,19 +1,27 @@
 package stage;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import unit_ai.Node;
+import unit_ai.PathFinding;
 import utils.UnitUtilities;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.CombatAction;
 import gameObject.GameUnit;
 import grid.Grid;
+import grid.Tile;
 
 
 /**
+ * Stage is responsible for managing how turns are distributed and progressing
+ * the game when it is won. The turns progress when the player indicates they are
+ * done and when the AI deactivates all of their units.
  * @author Andy Bradshaw
+ * @author carlosreyes
  * 
  */
 @JsonAutoDetect
@@ -41,22 +49,73 @@ public class Stage {
         myCurrUnitList = new ArrayList<GameUnit>();
     }
 
+    /*
+     * Carlos's Code starts here. Don't delete!
+     */
+    
+    /**
+     * Runs the game, if you are a player then you're turn will continue on until 
+     * you press the spacebar to end your turn.
+     */
+    public void doInGame(KeyEvent event) {
+        while (!myWinCondition.hasWon(myGrid)) {
+            
+            for (int i : myAffiliateList) {
+                //TODO: Decrement the #turn counter on the units, or set them all to active
+                if (myTeamUnitList.get(i).get(0).isControllable()) {
+                    boolean flag = true;
+                    while (flag) {
+                        if (event.getKeyCode() == KeyEvent.VK_SPACE) {
+                            flag = false;
+                        }
+                    }
+                }
+                else {
+                    for (GameUnit unit : myTeamUnitList.get(i)){
+                        doAIMove(unit, myCurrUnitList);
+                    }
+                }
+
+                //TODO: if its an AI send all units to attack you
+                //TODO: if its me, wait for my signal to change turns
+            }
+            
+        }
+    }
+    
+    /**
+     * Sends enemy units to attack your units.
+     */
+    public void doAIMove (GameUnit unit, List<GameUnit> allEnemies) {
+        PathFinding.coordinatesToTiles(myGrid, unit);
+        GameUnit other = unit.findClosestOpponent(allEnemies);
+        
+        Tile start = myGrid.getTile(unit.getGridPosition().getX(), unit.getGridPosition().getY());
+        Tile end = myGrid.getTile(other.getGridPosition().getX(), other.getGridPosition().getY());
+        PathFinding.autoMove(start, end, unit);
+    }
+
+    /*
+     * And Ends here
+     */
+    
+    
     /**
      * 
      */
-    public void run () {
-        while (!myWinCondition.hasWon(myGrid)) {
-            for (int i : myAffiliateList) { // for each affiliation
-                changeTurns(i);             // set those affiliations' units to active
-                if (myCurrUnitList == null) // if there are no units skip that affiliation's turn
-                    continue;
-                if (myCurrUnitList.get(0).isControllable())
-                    doPlayerMove();
-                else doAIMove(1, 0);
-                myCurrUnitList.clear();
-            }
-        }
-    }
+//    public void run () {
+//        while (!myWinCondition.hasWon(myGrid)) {
+//            for (int i : myAffiliateList) { // for each affiliation
+//                changeTurns(i);             // set those affiliations' units to active
+//                if (myCurrUnitList == null) // if there are no units skip that affiliation's turn
+//                    continue;
+//                if (myCurrUnitList.get(0).isControllable())
+//                    doPlayerMove();
+//                else doAIMove(1, 0);
+//                myCurrUnitList.clear();
+//            }
+//        }
+//    }
 
     private void doPlayerMove () {
         // TODO wait until all units are done
@@ -69,10 +128,10 @@ public class Stage {
     /**
      * The AI will move to your unit's positions and attack them.
      */
-    public void doAIMove (int aiTeamIndex, int otherTeamIndex) {
-
-        moveToOpponents(aiTeamIndex, otherTeamIndex);
-    }
+//    public void doAIMove (int aiTeamIndex, int otherTeamIndex) {
+//
+//        moveToOpponents(aiTeamIndex, otherTeamIndex);
+//    }
 
     /**
      * Moves all units possible from one team to opponents to another team.

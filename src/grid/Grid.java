@@ -99,8 +99,8 @@ public class Grid extends Drawable {
      * 
      */
     public void beginMove (Coordinate coordinate, GameObject gameUnit) {
-//        System.out.println("beginMove, getTotalStat movement: " +
-//                           ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT));
+        // System.out.println("beginMove, getTotalStat movement: " +
+        // ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT));
         findMovementRange(coordinate,
                           ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT),
                           gameUnit);
@@ -113,7 +113,7 @@ public class Grid extends Drawable {
      * @param newCoordinate - Coordinate that unit is moving to
      */
     public void doMove (Coordinate oldCoordinate, Coordinate newCoordinate) {
-        GameObject gameUnit=removeObject(oldCoordinate.getX(), oldCoordinate.getY());
+        GameObject gameUnit = removeObject(oldCoordinate.getX(), oldCoordinate.getY());
         placeObject(gameUnit, newCoordinate.getX(), newCoordinate.getY());
         setTilesInactive();
     }
@@ -135,7 +135,7 @@ public class Grid extends Drawable {
             if (onGrid(newX, newY)) {
                 Tile currentTile = getTile(newX, newY);
                 int newRange = range - currentTile.getMoveCost();
-                if (currentTile.isPassable(gameObject) && newRange >= 0) {  
+                if (currentTile.isPassable(gameObject) && newRange >= 0) {
                     GameObject currentObject = getObject(newX, newY);
                     if (currentObject != null) {
                         if (currentObject.isPassable(gameObject)) {
@@ -354,7 +354,7 @@ public class Grid extends Drawable {
      * @return Object removed from position (x,y)
      */
     private GameObject removeObject (int x, int y) {
-        GameObject objToRemove=myObjects[x][y];
+        GameObject objToRemove = myObjects[x][y];
         myObjects[x][y] = null;
         return objToRemove;
     }

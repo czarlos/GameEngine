@@ -7,7 +7,7 @@ import grid.Grid;
 
 public class MoveCharacter extends AbstractGridCommand {
 
-    public MoveCharacter (Grid grid,List<Coordinate> selectedCoordinates) {
+    public MoveCharacter (Grid grid, List<Coordinate> selectedCoordinates) {
         super(grid, selectedCoordinates);
     }
 
