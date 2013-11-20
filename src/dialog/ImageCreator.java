@@ -36,6 +36,7 @@ public class ImageCreator extends JPanel{
 
     
     Image myImage;
+    DrawingPad canvas;
     
     /**
      * Creates a new JComponent to permit loading, saving, and editing of images from file
@@ -49,16 +50,9 @@ public class ImageCreator extends JPanel{
         
         setLayout(new BorderLayout());
 
-        DrawingPad drawingPad = new DrawingPad();
+        canvas = new DrawingPad();
         
-        JMenuBar menuBar = new JMenuBar();
-        JMenu fileMenu = new JMenu("File");
-        JMenuItem openItem = new JMenuItem("Open");
-        fileMenu.add(openItem);
-        
-        add(menuBar, BorderLayout.NORTH);
-        
-        add(drawingPad, BorderLayout.CENTER);
+        add(canvas, BorderLayout.CENTER);
         
         setPreferredSize(new Dimension(400, 400));
     }
@@ -83,10 +77,11 @@ public class ImageCreator extends JPanel{
         
         dialog.getContentPane().setLayout(new BorderLayout());
         
-        
-        //panel for option buttons
         JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout());
+        panel.setLayout(new BorderLayout());
+        //panel for option buttons
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
         
         
         
@@ -99,12 +94,22 @@ public class ImageCreator extends JPanel{
         else
             cancel.addActionListener(new DefaultListener(dialog));
         
+        JButton reset = new JButton("Reset");
+        reset.addActionListener(new ResetListener(imageCreator));
+
+        JMenuBar menuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("File");
+        JMenuItem openItem = new JMenuItem("Open");
+        fileMenu.add(openItem);        
         
-        panel.add(ok);
-        panel.add(cancel);
         
-        dialog.getContentPane().add(panel, BorderLayout.SOUTH);  
+        buttonPanel.add(ok);
+        buttonPanel.add(cancel);
+        buttonPanel.add(reset);
         
+        dialog.getContentPane().add(buttonPanel, BorderLayout.SOUTH);  
+        dialog.getContentPane().add(menuBar, BorderLayout.NORTH);
+
         dialog.getContentPane().add(imageCreator, BorderLayout.CENTER);
         dialog.pack();
         
@@ -118,6 +123,7 @@ public class ImageCreator extends JPanel{
      */
     public ImageIcon setImage(Image image){
         myImage = image;
+        canvas.setBackgroundImage(image);
         return new ImageIcon(myImage);
     }
     /**
@@ -141,6 +147,25 @@ public class ImageCreator extends JPanel{
         public void actionPerformed (ActionEvent e){
             dialog.setVisible(false);
         }
+    }
+    
+    private static class ResetListener implements ActionListener{
+        
+        private JDialog dialog;
+        private ImageCreator imageCreator;
+        
+        public ResetListener(ImageCreator imageCreator) {
+            super();
+            this.imageCreator = imageCreator;
+        }
+        
+        public void actionPerformed (ActionEvent e){
+            imageCreator.getCanvas().clear(); 
+        }
+    }
+    
+    public DrawingPad getCanvas() {
+        return canvas;
     }
     
     

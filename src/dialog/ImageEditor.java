@@ -52,6 +52,8 @@ public class ImageEditor extends AbstractCellEditor
 
     @Override
     public void actionPerformed (ActionEvent e) {
+        
+        // a cell is chosen for editing
         if (EDIT.equals(e.getActionCommand())) {
             imageCreator.setImage(currentImage);
             dialog.setVisible(true);
@@ -59,9 +61,11 @@ public class ImageEditor extends AbstractCellEditor
             System.out.println("edit");
 
             fireEditingStopped();
+            
+        // OK has been clicked in the ImageCreator
         } else {
-            System.out.println("ok");
             currentImage = imageCreator.getImage();
+            dialog.setVisible(false);
         }
     }
 

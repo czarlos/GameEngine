@@ -19,6 +19,11 @@ import javax.swing.JComponent;
  * JComponent that presents a basic canvas to draw on and hold pictures for editing.
  */
 public class DrawingPad extends JComponent{
+    
+    private static final int DEFAULT_WIDTH = 200;
+    private static final int DEFAULT_HEIGHT = 200;
+    private static final int DEFAULT_PENSIZE = 10;
+    
     Image image;
     Graphics2D graphics2D;
     int currentX, currentY, oldX, oldY;
@@ -29,6 +34,7 @@ public class DrawingPad extends JComponent{
     public DrawingPad(){
         
         
+            
             setDoubleBuffered(false);
             addMouseListener(new MouseAdapter(){
                     public void mousePressed(MouseEvent e){
@@ -61,11 +67,10 @@ public class DrawingPad extends JComponent{
     @Override
     public void paintComponent(Graphics g){
             if(image == null){
-                    image = createImage(getSize().width, getSize().height);
+                    image = createImage(DEFAULT_WIDTH, DEFAULT_HEIGHT);
                     graphics2D = (Graphics2D)image.getGraphics();
                     graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                     clear();
-
             }
             g.drawImage(image, 0, 0, null);
     }
@@ -91,13 +96,16 @@ public class DrawingPad extends JComponent{
      * @param image - BufferedImage usually for drawing and easy saving/loading
      */
     public void setBackgroundImage(Image image){
-        Image newImage = image;
+        
+        this.image = image;
+        graphics2D = (Graphics2D) image.getGraphics();
     }
 
     /**
      * leaves current image a white canvas
      */
     public void clear(){
+            image = createImage(getSize().width, getSize().height);
             graphics2D.setPaint(Color.white);
             graphics2D.fillRect(0, 0, getSize().width, getSize().height);
             graphics2D.setPaint(Color.black);
