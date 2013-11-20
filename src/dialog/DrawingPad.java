@@ -67,7 +67,7 @@ public class DrawingPad extends JComponent{
     @Override
     public void paintComponent(Graphics g){
             if(image == null){
-                    image = createImage(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+                    image = new BufferedImage(DEFAULT_WIDTH, DEFAULT_HEIGHT, BufferedImage.TYPE_INT_ARGB);
                     graphics2D = (Graphics2D)image.getGraphics();
                     graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                     clear();
@@ -105,7 +105,8 @@ public class DrawingPad extends JComponent{
      * leaves current image a white canvas
      */
     public void clear(){
-            image = createImage(getSize().width, getSize().height);
+            image = new BufferedImage(DEFAULT_WIDTH, DEFAULT_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+            graphics2D = (Graphics2D) image.getGraphics();
             graphics2D.setPaint(Color.white);
             graphics2D.fillRect(0, 0, getSize().width, getSize().height);
             graphics2D.setPaint(Color.black);
