@@ -18,13 +18,12 @@ public abstract class Customizable {
     protected Map<String, String> myData;
     protected List<String> neededData;
     protected String myName;
+    @JsonProperty
     protected String myImagePath;
 
     public Customizable () {
         myData = new HashMap<String, String>();
         neededData = new ArrayList<String>();
-        myImagePath = "resources/grass.png";
-        myName = "";
     }
 
     public String getName () {
@@ -62,6 +61,7 @@ public abstract class Customizable {
         return myImagePath;
     }
 
+    @JsonProperty("imagePath")
     public void setImagePath (String imagePath) {
         myImagePath = imagePath;
     }

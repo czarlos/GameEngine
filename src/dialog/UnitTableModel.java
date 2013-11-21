@@ -18,21 +18,19 @@ import javax.swing.table.AbstractTableModel;
  * @author brooksmershon
  * 
  */
-public class UnitTableModel extends AbstractTableModel {
+public class UnitTableModel extends GameTableModel {
 
     private static final long serialVersionUID = 9110749927413795404L;
 
-    private final boolean DEBUG = true;
-
-    private String[] columnNames = { "Type",
-                                    "Name",
-                                    "Image",
-                                    "Stats",
-                                    "Actions",
-                                    "Affiliation" };
-
-    private final List<Object[]> list = new ArrayList<Object[]>();
-
+    public UnitTableModel(){
+       String[] columns = { "Type",
+            "Name",
+            "Image",
+            "Stats",
+            "Actions",
+            "Affiliation" };
+       myColumnNames = columns;
+    }
     /**
      * 
      * Add definition of a unit to table model
@@ -45,49 +43,18 @@ public class UnitTableModel extends AbstractTableModel {
      * @param affiliation
      * @return added definition array CLONE
      */
+    
     public Object[] addNewUnit (String type, String name, ImageIcon img, StatsTestStub stats,
                                 ArrayList<ActionTestStub> actionList, String affiliation) {
 
         Object[] rowToAdd = { type, name, img, stats, actionList, affiliation };
 
-        list.add(rowToAdd);
+        myData.add(rowToAdd);
 
         return rowToAdd.clone();
 
     }
 
-    public Object[] removeUnit (int index) {
-        return list.remove(index).clone();
-    }
-
-    public List<Object[]> getData () {
-        return new ArrayList<Object[]>(list);
-    }
-
-    @Override
-    public int getColumnCount () {
-        return columnNames.length;
-    }
-
-    @Override
-    public int getRowCount () {
-        return list.size();
-    }
-
-    @Override
-    public String getColumnName (int col) {
-        return columnNames[col];
-    }
-
-    @Override
-    public Object getValueAt (int row, int col) {
-        return list.get(row)[col];
-    }
-
-    @Override
-    public Class getColumnClass (int c) {
-        return getValueAt(0, c).getClass();
-    }
 
     public boolean isCellEditable (int row, int col) {
         // everything editable
@@ -96,14 +63,7 @@ public class UnitTableModel extends AbstractTableModel {
 
     @Override
     public void setValueAt (Object value, int row, int col) {
-        if (DEBUG) {
-            System.out.println("Setting value at " + row + "," + col
-                               + " to " + value
-                               + " (an instance of "
-                               + value.getClass() + ")");
-        }
-
-        list.get(row)[col] = value;
+        myData.get(row)[col] = value;
         fireTableCellUpdated(row, col);
 
     }

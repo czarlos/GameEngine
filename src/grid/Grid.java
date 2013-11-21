@@ -438,11 +438,19 @@ public class Grid extends Drawable {
         myTiles = tiles;
     }
 
-    public int getWidth () {
+    public Coordinate getCoordinate(double fracX, double fracY){
+        
+        int gridX = (int) (fracX * myWidth);
+        int gridY = (int) (fracY * myHeight);
+
+        return new Coordinate(gridX, gridY);
+    }
+    
+  /*  public int getWidth () {
         return myWidth;
     }
 
     public int getHeight () {
         return myHeight;
-    }
+    }*/
 }

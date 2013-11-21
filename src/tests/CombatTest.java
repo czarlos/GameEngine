@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import gameObject.CombatAction;
-import gameObject.DynamicOutcome;
 import gameObject.FixedOutcome;
 import gameObject.GameUnit;
 import gameObject.Outcome;
