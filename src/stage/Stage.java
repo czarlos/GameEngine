@@ -41,7 +41,6 @@ public class Stage implements GridMouseListener {
     private String preText;
     private String postText;
     private List<List<GameUnit>> myTeamUnitList;
-    private Map<Integer, List<UnitFactory>> myUnitFactories;
 
     // only for use by deserializer
     public Stage () {
