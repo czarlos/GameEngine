@@ -1,10 +1,7 @@
 package grid;
 
 import gameObject.GameObject;
-import gameObject.GameObjectConstants;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
@@ -22,7 +19,6 @@ public class Tile extends GameObject {
     private boolean isActive;
     private Map<String, Double> myStatMods;
     private int myMoveCost;
-    private BufferedImage myImage;
 
     public Tile () {
     }
@@ -52,6 +48,7 @@ public class Tile extends GameObject {
 
     /**
      * Sets the image path and image for the graphic that is drawn
+     * 
      * @param imagePath - String of image path
      */
     public void setImagePath (String imagePath) {
@@ -63,7 +60,7 @@ public class Tile extends GameObject {
             e.printStackTrace();
         }
     }
-
+    
     @Override
     public Image getImage () {
         return myImage;

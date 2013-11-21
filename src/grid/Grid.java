@@ -1,14 +1,19 @@
 package grid;
 
+import gameObject.CombatAction;
 import gameObject.GameObject;
 import gameObject.GameObjectConstants;
 import gameObject.GameUnit;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
+=======
+import grid.Coordinate;
+import view.Drawable;
+>>>>>>> dev
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import action.CombatAction;
 
 
 /**
@@ -20,7 +25,7 @@ import action.CombatAction;
  * 
  */
 @JsonAutoDetect
-public class Grid {
+public class Grid extends Drawable {
     @JsonProperty
     private int myWidth;
     @JsonProperty
@@ -39,6 +44,7 @@ public class Grid {
      * Only for use by deserializer
      */
     public Grid () {
+        myFactory = new FromJSONFactory();
     }
 
     /**
@@ -108,12 +114,11 @@ public class Grid {
     /**
      * Moves the unit to a new coordinate
      * 
-     * @param oldCoordinate Coordinate of the gameUnit's original position
-     * @param gameUnit GameUnit being moved
-     * @param newCoordinate Coordinate that unit is moving to
+     * @param oldCoordinate - Coordinate of the gameUnit's original position
+     * @param newCoordinate - Coordinate that unit is moving to
      */
-    public void doMove (Coordinate oldCoordinate, GameObject gameUnit, Coordinate newCoordinate) {
-        removeObject(oldCoordinate.getX(), oldCoordinate.getY());
+    public void doMove (Coordinate oldCoordinate, Coordinate newCoordinate) {
+        GameObject gameUnit=removeObject(oldCoordinate.getX(), oldCoordinate.getY());
         placeObject(gameUnit, newCoordinate.getX(), newCoordinate.getY());
         setTilesInactive();
     }
@@ -181,7 +186,9 @@ public class Grid {
      * @param gameUnit GameUnit that is doing the action
      * @param combatAction CombatAction that is being used
      */
-    public void beginAction (Coordinate objectCoordinate, GameUnit gameUnit, CombatAction combatAction) {
+    public void beginAction (Coordinate objectCoordinate,
+                             GameUnit gameUnit,
+                             CombatAction combatAction) {
         findActionRange(objectCoordinate, combatAction.getAOE(), combatAction.isAround());
     }
 
@@ -349,9 +356,12 @@ public class Grid {
      * 
      * @param x int of x coordinate
      * @param y int of y coordinate
+     * @return Object removed from position (x,y)
      */
-    private void removeObject (int x, int y) {
+    private GameObject removeObject (int x, int y) {
+        GameObject objToRemove=myObjects[x][y];
         myObjects[x][y] = null;
+        return objToRemove;
     }
 
     public List<ArrayList<GameUnit>> getGameUnits () {
@@ -395,11 +405,20 @@ public class Grid {
 
     /**
      * Draws the tiles and objects on the grid
+<<<<<<< HEAD
      * @param g Graphics for the image
      * @param x int of x coordinate on the grid
      * @param y int of y coordinate on the grid
      * @param width int of width of object
      * @param height int of height of object
+=======
+     * 
+     * @param g - Graphics for the image
+     * @param x - int of x coordinate on the grid
+     * @param y - int of y coordinate on the grid
+     * @param width - int of width of object
+     * @param height - int of height of object
+>>>>>>> dev
      */
     public void draw (Graphics g, int x, int y, int width, int height) {
         int tileWidth = width / myWidth;
@@ -423,7 +442,7 @@ public class Grid {
         }
     }
 
-    public Tile[][] getMyTiles () {
+    public Tile[][] getTiles () {
         return myTiles;
     }
 
@@ -431,11 +450,19 @@ public class Grid {
         myTiles = tiles;
     }
 
-    public int getWidth () {
+    public Coordinate getCoordinate(double fracX, double fracY){
+        
+        int gridX = (int) (fracX * myWidth);
+        int gridY = (int) (fracY * myHeight);
+
+        return new Coordinate(gridX, gridY);
+    }
+    
+  /*  public int getWidth () {
         return myWidth;
     }
 
     public int getHeight () {
         return myHeight;
-    }
+    }*/
 }

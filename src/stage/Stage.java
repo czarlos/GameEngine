@@ -7,7 +7,7 @@ import java.util.TreeMap;
 import utils.UnitUtilities;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import action.CombatAction;
+import gameObject.CombatAction;
 import gameObject.GameUnit;
 import grid.Grid;
 
@@ -139,10 +139,12 @@ public class Stage {
     private void changeTurns (Integer currentTurnAffiliate) { // we are just going to be looping
                                                               // through affiliations and setting
                                                               // units to active
-        for (GameUnit unit : myGrid.getGameUnits()) {
-            if (currentTurnAffiliate == unit.getAffiliation()) {
-                unit.setActive(true);
-                myCurrUnitList.add(unit);
+        for (ArrayList<GameUnit> unitList : myGrid.getGameUnits()) {
+            for (GameUnit unit : unitList) {
+                if (currentTurnAffiliate == unit.getAffiliation()) {
+                    unit.setActive(true);
+                    myCurrUnitList.add(unit);
+                }
             }
         }
     }
@@ -155,53 +157,7 @@ public class Stage {
      * @param action - Action that is being executed
      */
     private void doCombat (GameUnit attacker, GameUnit defender, CombatAction action) {
-        // netEffectiveness is a measurement of how effective an attacker is against a defender (0.0
-        // - 1.0)
-        double netEffectiveness = action.getNetEffectiveness(attacker, defender);
-
-        applyCosts(attacker, action.getCosts());
-        applyOutcomes(attacker, action.getAttackerOutcomesMap(), netEffectiveness);
-        applyOutcomes(defender, action.getDefenderOutcomesMap(), netEffectiveness);
-
-    }
-
-    /**
-     * applyCosts is a way of making a unit have a cost for an action.
-     * This is a way of having fixed outcomes that aren't affected by
-     * stat differences (effectiveness).
-     * 
-     * (e.g. Mana cost for using a spell, Health cost for reckless action)
-     * 
-     * @param unit - GameUnit where stats are being edited
-     * @param costs - Map of which stats are affected and by how much
-     */
-    private void applyCosts (GameUnit unit, Map<String, Integer> costs) {
-        for (String statAffected : costs.keySet()) {
-            int oldStatValue = unit.getStats().getStatValue(statAffected);
-            int newStatValue = (oldStatValue - costs.get(statAffected));
-
-            unit.getStats().setStatValue(statAffected, newStatValue);
-        }
-    }
-
-    /**
-     * applyOutcomes edits a units stats based on user specified
-     * stats and weights. These outcomes are affected by stat differences
-     * between units (effectiveness).
-     * 
-     * (e.g. Unit loses Health and Mana from getting hit by spell)
-     * 
-     * @param unit - GameUnit where stats are being edited
-     * @param outcomes - Map of which stats are affected and by how much
-     * @param effectiveness - A measurement of how much of an outcome should occur
-     */
-    private void applyOutcomes (GameUnit unit, Map<String, Integer> outcomes, double effectiveness) {
-        for (String statAffected : outcomes.keySet()) {
-            int oldStatValue = unit.getStats().getStatValue(statAffected);
-            int newStatValue = (int) (oldStatValue + effectiveness * outcomes.get(statAffected));
-
-            unit.getStats().setStatValue(statAffected, newStatValue);
-        }
+        // TODO: Figure out how much of combat is determined outside of stage
     }
 
     public List<List<GameUnit>> getTeamUnitList () {

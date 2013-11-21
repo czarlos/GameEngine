@@ -1,28 +1,53 @@
 [ "java.util.ArrayList", [ [ "stage.PositionCondition", {
   "myData" : [ "java.util.HashMap", { } ],
   "neededData" : [ "java.util.ArrayList", [ ] ],
+  "myImagePath" : "resources/grass.png",
   "playersPositionX" : 0,
   "playersPositionY" : 0,
   "data" : [ "java.util.HashMap", { } ],
-  "name" : null
+  "name" : "",
+  "imagePath" : "resources/grass.png",
+  "image" : [ "java.awt.image.BufferedImage", {
+    "alphaPremultiplied" : false
+  } ]
 } ], [ "stage.StatCondition", {
   "myData" : [ "java.util.HashMap", { } ],
   "neededData" : [ "java.util.ArrayList", [ ] ],
+  "myImagePath" : "resources/grass.png",
   "data" : [ "java.util.HashMap", { } ],
-  "name" : null
+  "name" : "",
+  "imagePath" : "resources/grass.png",
+  "image" : [ "java.awt.image.BufferedImage", {
+    "alphaPremultiplied" : false
+  } ]
 } ], [ "stage.ItemCondition", {
   "myData" : [ "java.util.HashMap", { } ],
   "neededData" : [ "java.util.ArrayList", [ ] ],
+  "myImagePath" : "resources/grass.png",
   "data" : [ "java.util.HashMap", { } ],
-  "name" : null
+  "name" : "",
+  "imagePath" : "resources/grass.png",
+  "image" : [ "java.awt.image.BufferedImage", {
+    "alphaPremultiplied" : false
+  } ]
 } ], [ "stage.UnitCountCondition", {
   "myData" : [ "java.util.HashMap", { } ],
   "neededData" : [ "java.util.ArrayList", [ ] ],
+  "myImagePath" : "resources/grass.png",
   "data" : [ "java.util.HashMap", { } ],
-  "name" : null
+  "name" : "",
+  "imagePath" : "resources/grass.png",
+  "image" : [ "java.awt.image.BufferedImage", {
+    "alphaPremultiplied" : false
+  } ]
 } ], [ "stage.TurnCondition", {
   "myData" : [ "java.util.HashMap", { } ],
   "neededData" : [ "java.util.ArrayList", [ ] ],
+  "myImagePath" : "resources/grass.png",
   "data" : [ "java.util.HashMap", { } ],
-  "name" : null
+  "name" : "",
+  "imagePath" : "resources/grass.png",
+  "image" : [ "java.awt.image.BufferedImage", {
+    "alphaPremultiplied" : false
+  } ]
 } ] ] ]

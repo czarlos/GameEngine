@@ -2,10 +2,8 @@ package gameObject;
 
 import gameObject.item.*;
 import grid.Coordinate;
-import grid.GridConstants;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import action.CombatAction;
 
 
 /**
@@ -27,10 +25,10 @@ public class GameUnit extends GameObject {
     private Weapon myActiveWeapon;
     private double myHealth;
     private double myExperience;
-    private Properties myProperties;
     private boolean isActive;
     private Coordinate myGridPosition;
 
+    // reads defaults from JSON. To add/test new defaults, edit MakeDefaults.java
     public GameUnit () {
         super();
         myUnitStats = new Stat();
@@ -51,14 +49,12 @@ public class GameUnit extends GameObject {
                      int affiliation,
                      Stat stats,
                      List<Item> item,
-                     boolean controllable,
-                     Properties properties) {
+                     boolean controllable) {
         super();
         myAffiliation = affiliation;
         myUnitStats = stats;
         myItemList = item;
         isControllable = controllable;
-        myProperties = properties;
         // myUnitStats.makeStat("movement", 3);
         // setItemList(new java.util.ArrayList<gameObject.item.Item>());
         // setActive(false);
@@ -113,9 +109,9 @@ public class GameUnit extends GameObject {
     public void addItem (Item itemName) {
         if (itemName instanceof Equipment) {
             for (String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
-                int statVal = this.getStats().getStatValue(stat);
+                int statVal = this.getUnitStats().getStatValue(stat);
                 statVal += ((Equipment) itemName).getModifiers().getStatModifier(stat);
-                this.getStats().setStatValue(stat, statVal);
+                this.getUnitStats().setStatValue(stat, statVal);
             }
         }
         myItemList.add(itemName);
@@ -130,9 +126,9 @@ public class GameUnit extends GameObject {
     public void removeItem (Item itemName) {
         if (itemName instanceof Equipment) {
             for (String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
-                int statVal = this.getStats().getStatValue(stat);
+                int statVal = this.getUnitStats().getStatValue(stat);
                 statVal -= ((Equipment) itemName).getModifiers().getStatModifier(stat);
-                this.getStats().setStatValue(stat, statVal);
+                this.getUnitStats().setStatValue(stat, statVal);
             }
         }
         myItemList.remove(itemName);
@@ -174,7 +170,7 @@ public class GameUnit extends GameObject {
      * @param movement
      */
     public void snapToOpponent (GameUnit other) {
-        this.getStats().getStatValue(GameObjectConstants.MOVEMENT);
+        this.getUnitStats().getStatValue(GameObjectConstants.MOVEMENT);
 
         // These will be used at a later implementation
         Coordinate otherPosition = other.getGridPosition();
@@ -197,7 +193,7 @@ public class GameUnit extends GameObject {
         this.myUnitStats = myUnitStats;
     }
 
-    public Stat getStats () {
+    public Stat getUnitStats () {
         return myUnitStats;
     }
 
@@ -253,16 +249,35 @@ public class GameUnit extends GameObject {
         return myItemList;
     }
 
+    // Adding for Outcomes, can potentially change later
+    // Need to keep method names and signatures similar for reflection
+    // since dealing with different data structures
+    public int getStat (String statName) {
+        return myUnitStats.getStatValue(statName);
+    }
+
+    public void setStat (String statName, int statValue) {
+        myUnitStats.setStatValue(statName, statValue);
+    }
+
+    public int getItem (String itemName) {
+        for (Item i : myItemList) {
+            if (i.getName().equals(itemName)) { return i.getAmount(); }
+        }
+        return 0;
+    }
+
+    public void setItem (String itemName, int itemValue) {
+        for (Item i : myItemList) {
+            if (i.getName().equals(itemName)) {
+                i.setAmount(itemValue);
+            }
+        }
+
+    }
+
     public void setItemList (List<Item> myItemList) {
         this.myItemList = myItemList;
-    }
-
-    public Properties getProperties () {
-        return myProperties;
-    }
-
-    public void setProperties (Properties myProperties) {
-        this.myProperties = myProperties;
     }
 
     @Override
