@@ -10,10 +10,7 @@
   } ],
   "passableList" : [ "java.util.ArrayList", [ "everything" ] ],
   "imagePath" : "resources/grass.png",
-<<<<<<< HEAD
-=======
   "data" : null,
->>>>>>> fbb2a4759405bb50ce73786b411df01072fa73f7
   "name" : "grass"
 } ], [ "grid.Tile", {
   "myData" : [ "java.util.HashMap", { } ],
@@ -27,9 +24,6 @@
   } ],
   "passableList" : [ "java.util.ArrayList", [ "everything" ] ],
   "imagePath" : "resources/water.png",
-<<<<<<< HEAD
-=======
   "data" : null,
->>>>>>> fbb2a4759405bb50ce73786b411df01072fa73f7
   "name" : "water"
 } ] ] ]
