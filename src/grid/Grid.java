@@ -88,7 +88,7 @@ public class Grid extends Drawable {
         placeObject(tree, 3, 5);
         GameObject link = (GameUnit) myFactory.make("GameUnit", 0);
         placeObject(link, 5, 5);
-        beginMove(new Coordinate(5, 5), link);
+        //beginMove(new Coordinate(5, 5), link);
     }
 
     /**
@@ -98,9 +98,10 @@ public class Grid extends Drawable {
      * @param gameUnit - GameUnit that is moving
      * 
      */
-    public void beginMove (Coordinate coordinate, GameObject gameUnit) {
-        System.out.println("beginMove, getTotalStat movement: " +
-                           ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT));
+    public void beginMove (Coordinate coordinate ) {
+//        System.out.println("beginMove, getTotalStat movement: " +
+//                           ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT));
+        GameUnit gameUnit=(GameUnit) getObject(coordinate.getX(), coordinate.getY());
         findMovementRange(coordinate,
                           ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT),
                           gameUnit);
@@ -132,15 +133,15 @@ public class Grid extends Drawable {
         for (int i = 0; i < rdelta.length; i++) {
             int newX = coordinate.getX() + cdelta[i];
             int newY = coordinate.getY() + rdelta[i];
-            System.out.println("findMovementRange: newX, newY: " + newX + ", " + newY);
+//            System.out.println("findMovementRange: newX, newY: " + newX + ", " + newY);
             if (onGrid(newX, newY)) {
                 Tile currentTile = getTile(newX, newY);
                 if (currentTile.isPassable(gameObject) && !currentTile.isActive()) {
                     int newRange = range - currentTile.getMoveCost();
-                    System.out.println("findMovementRange: newRange: " + newRange);
+//                    System.out.println("findMovementRange: newRange: " + newRange);
                     GameObject currentObject = getObject(newX, newY);
                     if (currentObject != null && currentObject.isPassable(gameObject)) {
-                        System.out.println("tree, coords: " + newX + ", " + newY);
+//                        System.out.println("tree, coords: " + newX + ", " + newY);
                         findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
                     }
                     else if (newRange >= 0) {
@@ -438,11 +439,19 @@ public class Grid extends Drawable {
         myTiles = tiles;
     }
 
-    public int getWidth () {
+    public Coordinate getCoordinate(double fracX, double fracY){
+        
+        int gridX = (int) (fracX * myWidth);
+        int gridY = (int) (fracY * myHeight);
+
+        return new Coordinate(gridX, gridY);
+    }
+    
+  /*  public int getWidth () {
         return myWidth;
     }
 
     public int getHeight () {
         return myHeight;
-    }
+    }*/
 }
