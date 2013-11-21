@@ -23,5 +23,12 @@ public abstract class Outcome {
      */
     public abstract void applyOutcome (GameUnit unit, double effectiveness);
 
+    /**
+     * Checks whether or not an outcome is legal
+     * 
+     * @param unit
+     * @param effectiveness
+     * @return true if legal, false otherwise
+     */
     public abstract boolean checkVaildOutcome (GameUnit unit, double effectiveness);
 }
