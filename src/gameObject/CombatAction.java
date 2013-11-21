@@ -71,6 +71,16 @@ public class CombatAction {
 
     }
 
+    public boolean isValidAction (GameUnit attacker, GameUnit defender) {
+        double effectiveness = getNetEffectiveness(attacker, defender);
+
+        for (Outcome o : myAttackerOutcomes) {
+            if (!o.checkVaildOutcome(attacker, effectiveness)) { return false; }
+        }
+
+        return true;
+    }
+
     public String getName () {
         return myName;
     }

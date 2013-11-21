@@ -39,4 +39,33 @@ public class DynamicOutcome extends Outcome {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Checks whether a unit should be able to perform an action with this outcome against another
+     * unit
+     * 
+     * @return whether or not outcome is legal
+     */
+    @Override
+    public boolean checkVaildOutcome (GameUnit unit, double effectiveness) {
+        try {
+            Method get = unit.getClass().getDeclaredMethod("get" + myType,
+                                                           String.class);
+
+            int oldAmount = (int) get.invoke(unit, myName);
+            int newAmount = Math
+                    .round((float) ((int) get.invoke(unit, myName) + myAmount
+                                                                     * effectiveness));
+            if (oldAmount - newAmount < 0) { return false; }
+
+        }
+        catch (NoSuchMethodException | SecurityException
+                | IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException e) {
+            // TODO Figure out what to do
+            e.printStackTrace();
+        }
+
+        return true;
+    }
 }
