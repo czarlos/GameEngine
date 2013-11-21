@@ -29,7 +29,7 @@ public class GameUnit extends GameObject {
     private double myHealth;
     private double myExperience;
     private boolean isActive;
-    private Coordinate myGridPosition;
+    protected Coordinate myGridPosition;
 
     public GameUnit () {
         super();
