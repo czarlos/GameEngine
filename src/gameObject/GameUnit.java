@@ -192,7 +192,7 @@ public class GameUnit extends GameObject {
     }
 
     /**
-     * This unit searches for the closest unit on the grid.
+     * This unit searches for the closest unit on the grid
      * 
      * @param opponents - List of opponents
      * @return
@@ -217,6 +217,23 @@ public class GameUnit extends GameObject {
         }
 
         return closest;
+    }
+    
+    /**
+     * Trade allows one unit to swap an item with another unit, no matter
+     * what team they are affiliated with. Note: as of this implementation
+     * any character will trade with you for anything you want, a system must
+     * be implemented which allows the other unit to determine what trades are
+     * appropriate.
+     * @param other - The unit that this unit is trading with
+     * @param otherItem - The item that this unit wants
+     * @param item - The item that this unit is giving away
+     */
+    public void trade (GameUnit other, Item otherItem, Item item) {
+        other.removeItem(otherItem);
+        this.removeItem(item);
+        other.addItem(item);
+        this.addItem(otherItem);
     }
 
     public Coordinate getGridPosition () {

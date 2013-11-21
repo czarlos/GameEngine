@@ -9,10 +9,12 @@ import java.util.TreeMap;
 import unit_ai.Node;
 import unit_ai.PathFinding;
 import utils.UnitUtilities;
+import view.canvas.GridMouseListener;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.CombatAction;
 import gameObject.GameUnit;
+import grid.Coordinate;
 import grid.Grid;
 import grid.Tile;
 
@@ -27,7 +29,7 @@ import grid.Tile;
  * 
  */
 @JsonAutoDetect
-public class Stage {
+public class Stage implements GridMouseListener {
 
     private Grid myGrid;
     private List<Integer> myAffiliateList;
@@ -73,6 +75,9 @@ public class Stage {
                         if (event.getKeyCode() == KeyEvent.VK_SPACE) {
                             flag = false;
                         }
+                        else {
+                            //TODO: This is where a users turn happens
+                        }
                     }
                 }
                 else {
@@ -82,8 +87,6 @@ public class Stage {
                     }
                 }
 
-                // TODO: if its an AI send all units to attack you
-                // TODO: if its me, wait for my signal to change turns
             }
 
         }
@@ -312,6 +315,11 @@ public class Stage {
 
     public String getPostStory () {
         return postText;
+    }
+
+    @Override
+    public void gridClicked (Coordinate c) {
+        System.out.println(c);
     }
 
 }

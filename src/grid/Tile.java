@@ -135,5 +135,4 @@ public class Tile extends GameObject {
     public void setCoordinate (Coordinate myCoordinate) {
         this.myCoordinate = myCoordinate;
     }
-
 }
