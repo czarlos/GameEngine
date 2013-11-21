@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.CombatAction;
 import gameObject.GameUnit;
+import gameObject.UnitFactory;
 import grid.Coordinate;
 import grid.Grid;
 import grid.Tile;
@@ -40,6 +41,7 @@ public class Stage implements GridMouseListener {
     private String preText;
     private String postText;
     private List<List<GameUnit>> myTeamUnitList;
+    private Map<Integer, List<UnitFactory>> myUnitFactories;
 
     // only for use by deserializer
     public Stage () {

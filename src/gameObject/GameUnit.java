@@ -28,7 +28,7 @@ public class GameUnit extends GameObject {
     private double myHealth;
     private double myExperience;
     private boolean isActive;
-    private Coordinate myGridPosition;
+    protected Coordinate myGridPosition;
 
     // reads defaults from JSON. To add/test new defaults, edit MakeDefaults.java
     public GameUnit () {
