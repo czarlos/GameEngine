@@ -360,6 +360,11 @@ public class Grid extends Drawable {
      * @param x - int of x coordinate
      * @param y - int of y coordinate
      * @return Object removed from position (x,y)
+<<<<<<< HEAD
+=======
+     * @param x int of x coordinate
+     * @param y int of y coordinate
+>>>>>>> <Comabt> Added trading to gameunits
      */
     private GameObject removeObject (int x, int y) {
         GameObject objToRemove = myObjects[x][y];
@@ -408,13 +413,13 @@ public class Grid extends Drawable {
 
     /**
      * Draws the tiles and objects on the grid
-<<<<<<< HEAD
      * 
      * @param g - Graphics for the image
      * @param x - int of x coordinate on the grid
      * @param y - int of y coordinate on the grid
      * @param width - int of width of object
      * @param height - int of height of object
+<<<<<<< HEAD
 =======
      * @param g Graphics for the image
      * @param x int of x coordinate on the grid
@@ -422,6 +427,8 @@ public class Grid extends Drawable {
      * @param width int of width of object
      * @param height int of height of object
 >>>>>>> modifying move and action for view
+=======
+>>>>>>> <Comabt> Added trading to gameunits
      */
     public void draw (Graphics g, int x, int y, int width, int height) {
         int tileWidth = width / myWidth;

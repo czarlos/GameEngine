@@ -5,14 +5,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.BorderFactory;
 import controllers.WorldManager;
 
 
-public class GridCanvas extends Canvas implements MouseListener {
+public class GridCanvas extends Canvas {
 
     WorldManager myWM;
     Collection<GridMouseListener> myClickSubscribers;
@@ -26,6 +25,9 @@ public class GridCanvas extends Canvas implements MouseListener {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
+//                Coordinate c = mapPixelsToGrid(e.getX(), e.getY());
+//                t = myGrid.getTile(c.getX(), c.getY());
+//                System.out.println(c.getX());
                 notifySubscribersOfClick(e);
             }
         });
@@ -42,7 +44,7 @@ public class GridCanvas extends Canvas implements MouseListener {
         }
         repaint();
     }
-
+    
     public void addGridMouseListener (GridMouseListener l) {
         myClickSubscribers.add(l);
     }
@@ -54,36 +56,13 @@ public class GridCanvas extends Canvas implements MouseListener {
         int width = getSize().width;
         myWM.getGrid().draw(g, STARTING_X, STARTING_Y, width, height);
     }
-
-    @Override
-    public void mouseClicked (MouseEvent e) {
-        System.out.println("adhakfhalkdklsadklsd");
-        // TODO Auto-generated method stub
-        
+    
+    public int getHeight() {
+        return getSize().height;
     }
-
-    @Override
-    public void mousePressed (MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mouseReleased (MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mouseEntered (MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mouseExited (MouseEvent e) {
-        // TODO Auto-generated method stub
-        
+    
+    public int getWidth() {
+        return getSize().width;
     }
 
 }
