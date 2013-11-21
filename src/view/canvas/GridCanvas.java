@@ -5,13 +5,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.BorderFactory;
 import controllers.WorldManager;
 
 
-public class GridCanvas extends Canvas {
+public class GridCanvas extends Canvas implements MouseListener {
 
     WorldManager myWM;
     Collection<GridMouseListener> myClickSubscribers;
@@ -52,6 +53,37 @@ public class GridCanvas extends Canvas {
         int height = getSize().height;
         int width = getSize().width;
         myWM.getGrid().draw(g, STARTING_X, STARTING_Y, width, height);
+    }
+
+    @Override
+    public void mouseClicked (MouseEvent e) {
+        System.out.println("adhakfhalkdklsadklsd");
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mousePressed (MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseReleased (MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseEntered (MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseExited (MouseEvent e) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

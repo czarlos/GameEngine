@@ -8,6 +8,7 @@
   "moveCost" : 1,
   "passableList" : [ "java.util.ArrayList", [ "everything" ] ],
   "imagePath" : "resources/grass.png",
+
   "name" : "grass"
 } ], [ "grid.Tile", {
   "myData" : [ "java.util.HashMap", { } ],
