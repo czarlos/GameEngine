@@ -22,4 +22,6 @@ public abstract class Outcome {
      *        - A measurement of how much of an outcome should occur
      */
     public abstract void applyOutcome (GameUnit unit, double effectiveness);
+
+    public abstract boolean checkVaildOutcome (GameUnit unit, double effectiveness);
 }

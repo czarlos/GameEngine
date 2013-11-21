@@ -3,6 +3,7 @@ package gameObject;
 import gameObject.item.*;
 import grid.Coordinate;
 import grid.GridConstants;
+import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
@@ -247,6 +248,23 @@ public class GameUnit extends GameObject {
 
     public List<Item> getItemList () {
         return myItemList;
+    }
+
+    public List<CombatAction> getVaildActions (GameUnit defender) {
+        List<CombatAction> validActions = new ArrayList<CombatAction>();
+
+        for (Item i : myItemList) {
+            if (i instanceof Weapon) {
+                List<CombatAction> tempActions = ((Weapon) i).getActionList();
+                for (CombatAction ca : tempActions) {
+                    if (ca.isValidAction(this, defender)) {
+                        validActions.add(ca);
+                    }
+                }
+            }
+        }
+
+        return validActions;
     }
 
     // Adding for Outcomes, can potentially change later
