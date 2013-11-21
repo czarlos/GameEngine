@@ -7,6 +7,7 @@ import gameObject.GameUnit;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
+import grid.Coordinate;
 import view.Drawable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -109,11 +110,10 @@ public class Grid extends Drawable {
      * Moves the unit to a new coordinate
      * 
      * @param oldCoordinate - Coordinate of the gameUnit's original position
-     * @param gameUnit - GameUnit being moved
      * @param newCoordinate - Coordinate that unit is moving to
      */
-    public void doMove (Coordinate oldCoordinate, GameUnit gameUnit, Coordinate newCoordinate) {
-        removeObject(oldCoordinate.getX(), oldCoordinate.getY());
+    public void doMove (Coordinate oldCoordinate, Coordinate newCoordinate) {
+        GameObject gameUnit=removeObject(oldCoordinate.getX(), oldCoordinate.getY());
         placeObject(gameUnit, newCoordinate.getX(), newCoordinate.getY());
         setTilesInactive();
     }
@@ -352,9 +352,12 @@ public class Grid extends Drawable {
      * 
      * @param x - int of x coordinate
      * @param y - int of y coordinate
+     * @return Object removed from position (x,y)
      */
-    private void removeObject (int x, int y) {
+    private GameObject removeObject (int x, int y) {
+        GameObject objToRemove=myObjects[x][y];
         myObjects[x][y] = null;
+        return objToRemove;
     }
 
     public List<ArrayList<GameUnit>> getGameUnits () {
