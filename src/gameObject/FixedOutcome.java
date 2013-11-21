@@ -12,7 +12,7 @@ public class FixedOutcome extends Outcome {
 
     /**
      * Changes the amount of a supplies type, name, and amount in a fixed way,
-     * such that no stat interaction affects it.
+     * such that no stat interaction affects it. If it would make a value negative, makes it zero.
      * 
      * @param unit
      * @param effectiveness
@@ -26,6 +26,8 @@ public class FixedOutcome extends Outcome {
                                                            String.class, int.class);
 
             int newAmount = (int) get.invoke(unit, myName) + myAmount;
+
+            newAmount = (newAmount > 0 ? newAmount : 0);
 
             set.invoke(unit, myName, newAmount);
 

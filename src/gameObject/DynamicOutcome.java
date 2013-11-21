@@ -12,7 +12,7 @@ public class DynamicOutcome extends Outcome {
 
     /**
      * Changes the amount of a supplies type, name, and amount in a dynamic way,
-     * such that stat interaction affects it.
+     * such that stat interaction affects it. If it would make a value negative, makes it zero
      * 
      * @param unit
      * @param effectiveness
@@ -28,6 +28,8 @@ public class DynamicOutcome extends Outcome {
             int newAmount = Math
                     .round((float) ((int) get.invoke(unit, myName) + myAmount
                                                                      * effectiveness));
+
+            newAmount = (newAmount > 0 ? newAmount : 0);
 
             set.invoke(unit, myName, newAmount);
 
