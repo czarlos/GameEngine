@@ -2,7 +2,6 @@ package gameObject;
 
 import gameObject.item.*;
 import grid.Coordinate;
-import grid.GridConstants;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
@@ -29,19 +28,8 @@ public class GameUnit extends GameObject {
     private boolean isActive;
     private Coordinate myGridPosition;
 
+    // reads defaults from JSON. To add/test new defaults, edit MakeDefaults.java
     public GameUnit () {
-        super();
-        myUnitStats = new Stat();
-        myUnitStats.setStatValue("movement", 3);
-        setItemList(new java.util.ArrayList<gameObject.item.Item>());
-        myName = GridConstants.DEFAULT_UNIT_NAME;
-        setImageAndPath(GridConstants.DEFAULT_UNIT_PATH);
-        myAffiliation = 0;
-        myUnitStats = new Stat() {
-            {
-                setStatValue("movement", 3);
-            }
-        };
     }
 
     public GameUnit (String name,
@@ -109,9 +97,9 @@ public class GameUnit extends GameObject {
     public void addItem (Item itemName) {
         if (itemName instanceof Equipment) {
             for (String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
-                int statVal = this.getStats().getStatValue(stat);
+                int statVal = this.getUnitStats().getStatValue(stat);
                 statVal += ((Equipment) itemName).getModifiers().getStatModifier(stat);
-                this.getStats().setStatValue(stat, statVal);
+                this.getUnitStats().setStatValue(stat, statVal);
             }
         }
         myItemList.add(itemName);
@@ -126,9 +114,9 @@ public class GameUnit extends GameObject {
     public void removeItem (Item itemName) {
         if (itemName instanceof Equipment) {
             for (String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
-                int statVal = this.getStats().getStatValue(stat);
+                int statVal = this.getUnitStats().getStatValue(stat);
                 statVal -= ((Equipment) itemName).getModifiers().getStatModifier(stat);
-                this.getStats().setStatValue(stat, statVal);
+                this.getUnitStats().setStatValue(stat, statVal);
             }
         }
         myItemList.remove(itemName);
@@ -170,7 +158,7 @@ public class GameUnit extends GameObject {
      * @param movement
      */
     public void snapToOpponent (GameUnit other) {
-        this.getStats().getStatValue(GameObjectConstants.MOVEMENT);
+        this.getUnitStats().getStatValue(GameObjectConstants.MOVEMENT);
 
         // These will be used at a later implementation
         Coordinate otherPosition = other.getGridPosition();
@@ -193,7 +181,7 @@ public class GameUnit extends GameObject {
         this.myUnitStats = myUnitStats;
     }
 
-    public Stat getStats () {
+    public Stat getUnitStats () {
         return myUnitStats;
     }
 

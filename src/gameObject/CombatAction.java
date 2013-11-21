@@ -39,13 +39,13 @@ public class CombatAction {
 
         for (String statName : myAttackerStatsAndWeights.getStatModifierMap().keySet()) {
             offensiveStatSum +=
-                    attacker.getStats().getStatValue(statName) *
+                    attacker.getUnitStats().getStatValue(statName) *
                             myAttackerStatsAndWeights.getStatModifier(statName);
         }
 
         for (String statName : myDefenderStatsAndWeights.getStatModifierMap().keySet()) {
             defensiveStatSum +=
-                    defender.getStats().getStatValue(statName) *
+                    defender.getUnitStats().getStatValue(statName) *
                             myDefenderStatsAndWeights.getStatModifier(statName);
         }
 
@@ -82,12 +82,12 @@ public class CombatAction {
      */
     private void applyOutcomes (GameUnit unit, StatModifier outcomes, double effectiveness) {
         for (String statAffected : outcomes.getStatModifierMap().keySet()) {
-            int oldStatValue = unit.getStats().getStatValue(statAffected);
+            int oldStatValue = unit.getUnitStats().getStatValue(statAffected);
             int newStatValue =
                     (int) (oldStatValue + effectiveness *
                                           outcomes.getStatModifierMap().get(statAffected));
 
-            unit.getStats().setStatValue(statAffected, newStatValue);
+            unit.getUnitStats().setStatValue(statAffected, newStatValue);
         }
     }
 

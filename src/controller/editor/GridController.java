@@ -24,7 +24,6 @@ public class GridController implements GridMouseListener {
     public void gridClicked (Coordinate c) {
 
         mySelectedCoordinate = c;
-        System.out.println(c.getX() + " " + c.getY());
         if (myCurrentAction != null)
             myCurrentAction.click(c);
     }

@@ -81,7 +81,7 @@ public class CombatTest {
 
     @Test
     public void testPlayerAttackDamage () {
-        System.out.println(playerUnit.getStats().getStatValue("attack"));
+        System.out.println(playerUnit.getUnitStats().getStatValue("attack"));
         System.out.println(playerUnit.getItemList());
 
         playerUnit.attack(enemyUnit, playerUnit.getActiveWeapon().getName(), playerUnit

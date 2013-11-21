@@ -179,10 +179,10 @@ public class Stage {
      */
     private void applyCosts (GameUnit unit, Map<String, Integer> costs) {
         for (String statAffected : costs.keySet()) {
-            int oldStatValue = unit.getStats().getStatValue(statAffected);
+            int oldStatValue = unit.getUnitStats().getStatValue(statAffected);
             int newStatValue = (oldStatValue - costs.get(statAffected));
 
-            unit.getStats().setStatValue(statAffected, newStatValue);
+            unit.getUnitStats().setStatValue(statAffected, newStatValue);
         }
     }
 
@@ -199,10 +199,10 @@ public class Stage {
      */
     private void applyOutcomes (GameUnit unit, Map<String, Integer> outcomes, double effectiveness) {
         for (String statAffected : outcomes.keySet()) {
-            int oldStatValue = unit.getStats().getStatValue(statAffected);
+            int oldStatValue = unit.getUnitStats().getStatValue(statAffected);
             int newStatValue = (int) (oldStatValue + effectiveness * outcomes.get(statAffected));
 
-            unit.getStats().setStatValue(statAffected, newStatValue);
+            unit.getUnitStats().setStatValue(statAffected, newStatValue);
         }
     }
 
