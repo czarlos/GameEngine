@@ -5,6 +5,7 @@ import grid.Coordinate;
 import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.List;
+import utils.UnitUtilities;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 
@@ -36,7 +37,7 @@ public class GameUnit extends GameObject {
         myUnitStats.setStatValue("movement", 3);
         setItemList(new java.util.ArrayList<gameObject.item.Item>());
         myName = GridConstants.DEFAULT_UNIT_NAME;
-        setImageAndPath(GridConstants.DEFAULT_UNIT_PATH);
+        setImagePath(GridConstants.DEFAULT_UNIT_PATH);
         myAffiliation = 0;
         myUnitStats = new Stat() {
             {
@@ -78,7 +79,7 @@ public class GameUnit extends GameObject {
      * Sets the Game units active weapon to the weapon
      * with a given string name.
      * 
-     * @param weaponName
+     * @param weaponName - The string which represents a weapon
      */
     public void selectWeapon (String weaponName) {
         for (Item item : myItemList) {
@@ -93,7 +94,8 @@ public class GameUnit extends GameObject {
      * function of that action. Takes in the action chosen to be executed
      * and the unit that the action will be used on.
      * 
-     * @param actionName
+     * @param actionName - The name of an action, not a string
+     * @param other - The unit onto which the action is executed
      */
     public void doAction (CombatAction action, GameUnit other) {
         CombatAction selectedAction = myActiveWeapon.selectAction(action);
@@ -105,7 +107,7 @@ public class GameUnit extends GameObject {
      * then we modify the characters stats according to the stats of
      * the item.
      * 
-     * @param itemName
+     * @param itemName - The name of the item, not a string
      */
     public void addItem (Item itemName) {
         if (itemName instanceof Equipment) {
@@ -122,7 +124,7 @@ public class GameUnit extends GameObject {
      * Removes a particular item from the units itemList, ensures that upon removal
      * the unit's stats get decremented accordingly.
      * 
-     * @param itemName
+     * @param itemName - The name of the item, not a string
      */
     public void removeItem (Item itemName) {
         if (itemName instanceof Equipment) {
@@ -140,6 +142,12 @@ public class GameUnit extends GameObject {
         return super.isPassable(unit) || ((GameUnit) unit).getAffiliation() == myAffiliation;
     }
 
+    /**
+     * Gets the total stat value for a given stat of a character
+     * after all of the item's stats have been applied.
+     * @param stat - The stat that we want to see
+     * @return
+     */
     public int getTotalStat (String stat) {
         int value = myUnitStats.getStatValue(stat);
         for (Item i : myItemList)
@@ -153,7 +161,9 @@ public class GameUnit extends GameObject {
      * on a weapon, attack, and action chosen by the user. The execute method
      * called by doAction executes the attack.
      * 
-     * @param other
+     * @param other - The unit being attacked.
+     * @param weaponName - The weapon being used
+     * @param actionName - The action chosen from the weapon being used
      */
     public void attack (GameUnit other, String weaponName, CombatAction actionName) {
         this.selectWeapon(weaponName);
@@ -167,8 +177,8 @@ public class GameUnit extends GameObject {
      * stat is responsible for movement/range.
      * Note: Change this to use the a* path finding when it is done.
      * 
-     * @param other
-     * @param movement
+     * @param other - The opponent
+     * @param movement - The range of movement of this unit
      */
     public void snapToOpponent (GameUnit other) {
         this.getStats().getStatValue(GameObjectConstants.MOVEMENT);
@@ -180,6 +190,51 @@ public class GameUnit extends GameObject {
 
         this.setGridPosition(otherPosition);
 
+    }
+
+    /**
+     * This unit searches for the closest unit on the grid
+     * 
+     * @param opponents - List of opponents
+     * @return
+     */
+    public GameUnit findClosestOpponent (List<GameUnit> opponents) {
+        GameUnit closest = null;
+        double distance = 0;
+        for (GameUnit opponent : opponents) {
+            if (closest == null) {
+                closest = opponent;
+                distance =
+                        UnitUtilities.calculateLength(this.getGridPosition(),
+                                                      opponent.getGridPosition());
+            }
+            else if (UnitUtilities.calculateLength(this.getGridPosition(),
+                                                   opponent.getGridPosition()) < distance) {
+                closest = opponent;
+                distance =
+                        UnitUtilities.calculateLength(this.getGridPosition(),
+                                                      opponent.getGridPosition());
+            }
+        }
+
+        return closest;
+    }
+    
+    /**
+     * Trade allows one unit to swap an item with another unit, no matter
+     * what team they are affiliated with. Note: as of this implementation
+     * any character will trade with you for anything you want, a system must
+     * be implemented which allows the other unit to determine what trades are
+     * appropriate.
+     * @param other - The unit that this unit is trading with
+     * @param otherItem - The item that this unit wants
+     * @param item - The item that this unit is giving away
+     */
+    public void trade (GameUnit other, Item otherItem, Item item) {
+        other.removeItem(otherItem);
+        this.removeItem(item);
+        other.addItem(item);
+        this.addItem(otherItem);
     }
 
     public Coordinate getGridPosition () {

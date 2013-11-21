@@ -65,7 +65,7 @@ public class PlayerView extends GameView {
         setGame();
         revalidate();
         repaint();
-      }
+    }
 
     private void setGame () {
 

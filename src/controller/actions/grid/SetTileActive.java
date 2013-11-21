@@ -9,8 +9,6 @@ import grid.Tile;
 
 public abstract class SetTileActive extends AbstractGridCommand {
 
-
-
     public SetTileActive (Grid grid, List<Coordinate> selectedCoordinates) {
         super(grid, (ArrayList<Coordinate>) selectedCoordinates);
         // TODO Auto-generated constructor stub

@@ -28,7 +28,7 @@ public abstract class Drawable extends Customizable {
         return myImagePath;
     }
 
-    public void setImageAndPath (String imagePath) {
+    public void setImagePath (String imagePath) {
         myImagePath = imagePath;
     }
 }
