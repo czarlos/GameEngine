@@ -7,11 +7,8 @@ import gameObject.GameUnit;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
-<<<<<<< HEAD
-=======
 import grid.Coordinate;
 import view.Drawable;
->>>>>>> dev
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
