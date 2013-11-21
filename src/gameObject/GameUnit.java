@@ -2,6 +2,7 @@ package gameObject;
 
 import gameObject.item.*;
 import grid.Coordinate;
+import grid.GridConstants;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
