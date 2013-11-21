@@ -50,7 +50,7 @@ public class GameObject extends Drawable {
         return myImagePath;
     }
 
-    public void setImageAndPath (String imagePath) {
+    public void setImagePath (String imagePath) {
         myImagePath = imagePath;
     }
 

@@ -2,6 +2,7 @@
   "myData" : [ "java.util.HashMap", { } ],
   "neededData" : [ "java.util.ArrayList", [ ] ],
   "statMods" : [ "java.util.HashMap", { } ],
+  "moveCost" : 1,
   "active" : false,
   "moveCost" : 1,
   "image" : [ "java.awt.image.BufferedImage", {
@@ -9,11 +10,16 @@
   } ],
   "passableList" : [ "java.util.ArrayList", [ "everything" ] ],
   "imagePath" : "resources/grass.png",
+<<<<<<< HEAD
+=======
+  "data" : null,
+>>>>>>> fbb2a4759405bb50ce73786b411df01072fa73f7
   "name" : "grass"
 } ], [ "grid.Tile", {
   "myData" : [ "java.util.HashMap", { } ],
   "neededData" : [ "java.util.ArrayList", [ ] ],
   "statMods" : [ "java.util.HashMap", { } ],
+  "moveCost" : 2,
   "active" : false,
   "moveCost" : 2,
   "image" : [ "java.awt.image.BufferedImage", {
@@ -21,5 +27,9 @@
   } ],
   "passableList" : [ "java.util.ArrayList", [ "everything" ] ],
   "imagePath" : "resources/water.png",
+<<<<<<< HEAD
+=======
+  "data" : null,
+>>>>>>> fbb2a4759405bb50ce73786b411df01072fa73f7
   "name" : "water"
 } ] ] ]

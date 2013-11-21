@@ -33,7 +33,7 @@ public class Tile extends GameObject {
     private Coordinate myCoordinate;
 
     public Tile () {
-        setImageAndPath(myImagePath);
+        setImagePath(myImagePath);
     }
 
     public boolean isActive () {
@@ -64,7 +64,7 @@ public class Tile extends GameObject {
      * 
      * @param imagePath - String of image path
      */
-    public void setImageAndPath (String imagePath) {
+    public void setImagePath (String imagePath) {
         myImagePath = imagePath;
         try {
             myImage = ImageManager.addImage(imagePath);
