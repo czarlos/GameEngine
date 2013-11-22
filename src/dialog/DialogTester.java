@@ -1,15 +1,23 @@
 package dialog;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Desktop.Action;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 /**
  * 
  * @author brooksmershon
@@ -65,14 +73,33 @@ public class DialogTester {
         model.addNewRow(row_3);
 
 
+        
+        Container content = frame.getContentPane();
+        //Creates a new container
+        content.setLayout(new BorderLayout());
+        
+        final JDialog unitEditor = new UnitEditorDialog(model);
+        
+        
+        JPanel panel = new JPanel();
+        panel.setPreferredSize(new Dimension(40, 68));
+        panel.setMinimumSize(new Dimension(32, 68));
+        panel.setMaximumSize(new Dimension(32, 68));
+        
+        JButton launchButton = new JButton("UnitEditor");
+        launchButton.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e){
+                    unitEditor.setVisible(true);
+                }
+        });
 
-        //Create and set up the content pane.
-        JComponent newContentPane = new UnitEditorPanel(model);
-        newContentPane.setOpaque(true); //content panes must be opaque
-        frame.setContentPane(newContentPane);
 
-        //Display the window.
-        frame.pack();
+        panel.add(launchButton);
+
+        content.add(panel, BorderLayout.WEST);
+        
+        frame.setSize(300, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
 
