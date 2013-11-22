@@ -89,7 +89,7 @@ public class Grid extends Drawable {
         placeObject(tree, 3, 5);
         GameObject link = (GameUnit) myFactory.make("GameUnit", 0);
         placeObject(link, 4,5);
-        beginMove(new Coordinate(4,5), link);
+        beginMove(new Coordinate(4,5));
     }
 
     /**
@@ -99,7 +99,8 @@ public class Grid extends Drawable {
      * @param gameUnit GameUnit that is moving
      * 
      */
-    public void beginMove (Coordinate coordinate, GameObject gameUnit) {
+    public void beginMove (Coordinate coordinate) {
+        GameObject gameUnit = myUnits[coordinate.getX()][coordinate.getY()];
         findMovementRange(coordinate,
                           ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT),
                           gameUnit);
