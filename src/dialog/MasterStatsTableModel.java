@@ -11,5 +11,7 @@ public class MasterStatsTableModel extends GameTableModel{
     
     
     
+    
+    
 
 }

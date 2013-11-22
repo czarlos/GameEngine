@@ -23,7 +23,6 @@ import javax.swing.JTable;
 public class UnitEditorDialog extends JDialog{
     
 
-
     /**
      * 
      */
@@ -47,7 +46,7 @@ public class UnitEditorDialog extends JDialog{
         table.setRowHeight(52);
         table.setPreferredScrollableViewportSize(new Dimension(500, 500));
         table.setFillsViewportHeight(true);
-        
+
         JScrollPane scrollPane = new JScrollPane(table);
         
         

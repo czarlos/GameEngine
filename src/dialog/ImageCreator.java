@@ -19,12 +19,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+
 /**
  * @author brooksmershon
- *
- * Panel capable of making a dialog (of itself) for drawing images and saving them
+ * 
+ *         Panel capable of making a dialog (of itself) for drawing images and saving them
  */
 public class ImageCreator extends JPanel{
+
 
     /**
      * 
@@ -55,6 +57,7 @@ public class ImageCreator extends JPanel{
         add(canvas, BorderLayout.CENTER);
         
         setPreferredSize(new Dimension(400, 400));
+
     }
     /**
      * 
@@ -71,10 +74,9 @@ public class ImageCreator extends JPanel{
                                         boolean modal, ImageCreator imageCreator,
                                         ActionListener okListener,
                                         ActionListener cancelListener) {
-        
 
         JDialog dialog = new JDialog();
-        
+
         dialog.getContentPane().setLayout(new BorderLayout());
         
         JPanel panel = new JPanel();
@@ -83,11 +85,9 @@ public class ImageCreator extends JPanel{
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
         
-        
-        
         JButton ok = new JButton("OK");
         ok.addActionListener(okListener);
-        
+
         JButton cancel = new JButton("Cancel");
         
         if(cancelListener != null)
@@ -123,6 +123,7 @@ public class ImageCreator extends JPanel{
      * @return ImageIcon with underlying image, usually a BufferedImage
      */
     public ImageIcon setImage(Image image){
+
         myImage = image;
         canvas.setBackgroundImage(image);
         return new ImageIcon(myImage);
@@ -183,7 +184,5 @@ public class ImageCreator extends JPanel{
     public DrawingPad getCanvas() {
         return canvas;
     }
-    
-    
 
 }

@@ -23,15 +23,15 @@ import javax.swing.JPanel;
  * @author brooksmershon
  * Testing setup for panel and table viewing
  */
+
 public class DialogTester {
-    public static void main(String[] args){
+    public static void main (String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+            public void run () {
                 createGUITester();
             }
         });
-        
-        
+
     }
     /**
      *  sets up a GUI for testing
@@ -42,6 +42,7 @@ public class DialogTester {
         
         GameTableModel model = new UnitTableModel();
         
+
         BufferedImage doge_1 = null;
         BufferedImage doge_2 = null;
 
@@ -50,16 +51,16 @@ public class DialogTester {
         try {
             doge_1 = ImageIO.read(new File("src/dialog/doge.png"));
             icon = new ImageIcon(doge_1);
-            
+
             doge_2 = ImageIO.read(new File("src/dialog/doge_soldier.jpeg"));
             icon_2 = new ImageIcon(doge_2);
 
-        } catch (IOException e) {
-            System.out.println(e);
-            
         }
-        
-        
+        catch (IOException e) {
+            System.out.println(e);
+
+        }
+
         ArrayList<ActionTestStub> actionList = new ArrayList<ActionTestStub>();
         actionList.add(new ActionTestStub());
                 
@@ -100,6 +101,7 @@ public class DialogTester {
         
         frame.setSize(300, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         frame.setVisible(true);
     }
 

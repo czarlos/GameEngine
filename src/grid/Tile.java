@@ -1,48 +1,44 @@
 package grid;
 
-import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import gameObject.GameObject;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 
-public class Tile {
+/**
+ * 
+ * Tile Class. Held by grid. Affects unit stats and movement.
+ * 
+ * @author Kevin
+ * @author Ken
+ * 
+ */
+@JsonAutoDetect
+public class Tile extends GameObject {
     private boolean isActive;
     private Map<String, Double> myStatMods;
-    private String myImagePath;
     private int myMoveCost;
-    private String myName;
-    private List<String> passableList;
+    private BufferedImage myImage;
 
     public Tile () {
-        isActive = false;
-        myStatMods = new HashMap<String, Double>();
-        myImagePath = "Grass Path"; // TODO: Add in path to grass image
-        myMoveCost = 1;
-        myName = "Grass";
-        passableList = new ArrayList<String>();
-    }
-
-    public void paint (Graphics g) {
-        // TODO
-    }
-
-    public boolean isPassable (GameObject unit) {
-        // TODO: Want to let player pass through affiliated units
-        for (String object : passableList) {
-            if (object.equals(unit.getName())) { return true; }
-        }
-
-        return false;
+        setImageAndPath(myImagePath);
     }
 
     public boolean isActive () {
         return isActive;
     }
 
+    /**
+     * Sets tile to active, and changes the tile image to reflect the active state
+     * 
+     * @param active - boolean that is used to set
+     */
     public void setActive (boolean active) {
         isActive = active;
+        myImage = isActive ? ImageManager.getHightlightedTileImage(myImagePath)
+                          : ImageManager.getTileImage(myImagePath);
     }
 
     public Map<String, Double> getStatMods () {
@@ -53,12 +49,24 @@ public class Tile {
         myStatMods = statMods;
     }
 
-    public String getImagePath () {
-        return myImagePath;
+    /**
+     * Sets the image path and image for the graphic that is drawn
+     * 
+     * @param imagePath - String of image path
+     */
+    public void setImageAndPath (String imagePath) {
+        myImagePath = imagePath;
+        try {
+            myImage = ImageManager.addImage(imagePath);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setImagePath (String imagePath) {
-        myImagePath = imagePath;
+    @Override
+    public Image getImage () {
+        return myImage;
     }
 
     public int getMoveCost () {
@@ -69,11 +77,4 @@ public class Tile {
         myMoveCost = moveCost;
     }
 
-    public String getName () {
-        return myName;
-    }
-
-    public void setName (String name) {
-        myName = name;
-    }
 }

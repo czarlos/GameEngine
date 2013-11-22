@@ -2,3 +2,5 @@ ref: refs/remotes/origin/master
 .classpath
 .DS_Store
 bin/
+.settings/
+.project

@@ -1,5 +1,6 @@
 package dialog;
 
+import grid.Tile;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class TileTableModel extends GameTableModel{
     }
 
     public void buildTable(List<Tile> tiles){
+        
         
     }
 }
