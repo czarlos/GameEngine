@@ -319,6 +319,10 @@ public class Grid extends Drawable {
         return affectedObjects;
     }
     
+    public List<String> generateInfoList(Coordinate coordinate) {
+        return null;
+    }
+
     /**
      * 
      * @param coordinate
