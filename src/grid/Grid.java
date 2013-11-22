@@ -34,7 +34,7 @@ public class Grid extends Drawable {
     @JsonProperty
     private GameObject[][] myObjects;
     @JsonProperty
-    private List<ArrayList<GameUnit>> myUnits;
+    private GameUnit[][] myUnits; //TODO: move to STAGE/ WORLD MANAGER/TEAMS List<ArrayList<GameUnit>>
     private FromJSONFactory myFactory;
 
     /**
@@ -57,7 +57,7 @@ public class Grid extends Drawable {
         myHeight = height;
         myTiles = new Tile[width][height];
         myObjects = new GameObject[width][height];
-        myUnits = new ArrayList<>();
+        myUnits = new GameUnit[width][height];
         myFactory = new FromJSONFactory();
         initGrid(tileID);
     }
@@ -123,7 +123,7 @@ public class Grid extends Drawable {
      * 
      */
     public void doMove (Coordinate oldCoordinate, Coordinate newCoordinate) {
-        if (canMove(newCoordinate, myUnits.get(oldCoordinate.getX()).get(oldCoordinate.getY()))) {
+        if (canMove(newCoordinate, myUnits[oldCoordinate.getX()][oldCoordinate.getY()])) {
             GameObject gameUnit=removeObject(oldCoordinate.getX(), oldCoordinate.getY());
             placeObject(gameUnit, newCoordinate.getX(), newCoordinate.getY());
             setTilesInactive();
@@ -355,7 +355,6 @@ public class Grid extends Drawable {
         return myObjects[x][y];
     }
     
-    // TODO: why is it a double arraylist................
     /*
      * Returns the coordinates of a unit's location
      * 
@@ -363,9 +362,9 @@ public class Grid extends Drawable {
      * @return Coordinate unit's location
      */
     private Coordinate getUnitCoordinate (GameUnit gameUnit) {
-        for (int i=0; i<myUnits.size(); i++) {
-            for (int j=0; j< myUnits.get(0).size(); j++) {
-                if (myUnits.get(i).get(j).equals(gameUnit)) return new Coordinate(i, j);
+        for (int i=0; i<myUnits.length; i++) {
+            for (int j=0; j< myUnits[0].length; j++) {
+                if (myUnits[i][j].equals(gameUnit)) return new Coordinate(i, j);
             }
         }
         return null;
@@ -383,19 +382,7 @@ public class Grid extends Drawable {
         myObjects[x][y] = gameObject;
 
         if (gameObject instanceof GameUnit) {
-            if (!myUnits.isEmpty()) {
-                for (ArrayList<GameUnit> unitList : myUnits) {
-                    if (((GameUnit) gameObject).getAffiliation() == unitList.get(0)
-                            .getAffiliation()) {
-                        unitList.add((GameUnit) gameObject);
-                    }
-                }
-                return;
-            }
-
-            List<GameUnit> newUnitList = new ArrayList<>();
-            newUnitList.add((GameUnit) gameObject);
-            myUnits.add((ArrayList<GameUnit>) newUnitList);
+            myUnits[x][y] = (GameUnit) gameObject;
         }
     }
 
@@ -412,7 +399,7 @@ public class Grid extends Drawable {
         return objToRemove;
     }
 
-    public List<ArrayList<GameUnit>> getGameUnits () {
+    public GameUnit[][] getGameUnits () {
         return myUnits;
     }
 
