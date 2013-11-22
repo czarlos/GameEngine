@@ -114,9 +114,9 @@ public class MakeDefaults {
         MakeDefaults maker = new MakeDefaults();
         maker.makeTiles();
         maker.makeObjects();
-        maker.makeConditions();
+//        maker.makeConditions();
         maker.makeUnits();
-        maker.saveAndLoadGame();
+//        maker.saveAndLoadGame();
     }
 
 }

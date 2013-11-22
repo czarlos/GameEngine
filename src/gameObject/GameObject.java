@@ -20,7 +20,7 @@ import view.Drawable;
 public class GameObject extends Drawable {
     protected List<String> myPassableList;
     protected BufferedImage myImage;
-    
+
     public GameObject () {
     }
 
@@ -52,18 +52,9 @@ public class GameObject extends Drawable {
         return myPassableList;
     }
 
-    public Map<String, String> getData () {
-        // TODO: Needs to implement this for everything that extends GameObject (for GUI editing
-        // purposes)
-        return null;
-    }
-
-    public String getImagePath () {
-        return myImagePath;
-    }
-    
     @JsonProperty("imagePath")
     public void setImageAndPath (String imagePath) {
+
         myImagePath = imagePath;
         try {
             myImage = ImageManager.addImage(imagePath);

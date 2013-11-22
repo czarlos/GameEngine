@@ -349,9 +349,9 @@ public class Grid extends Drawable {
     }
     
     private Action getInteraction(Coordinate coordinate) {
-        if (onGrid(coordinate.getX(), coordinate.getY())) {
-            if (myObjects[coordinate.getX()][coordinate.getY()] != null) {
-                return myObjects[coordinate.getX()][coordinate.getY()].getInteraction();
+        if (onGrid(coordinate)) {
+            if (getObjects(coordinate) != null) {
+                return getObjects(coordinate).getInteraction();
             }
         }
         return null;
@@ -454,11 +454,11 @@ public class Grid extends Drawable {
 
     /**
      * Draws the tiles and objects on the grid
-     * @param g Graphics for the image
-     * @param x int of x coordinate on the grid
-     * @param y int of y coordinate on the grid
-     * @param width int of width of object
-     * @param height int of height of object
+     * @param g - Graphics for the image
+     * @param x - int of x coordinate on the grid
+     * @param y - int of y coordinate on the grid
+     * @param width - int of width of object
+     * @param height - int of height of object
      */
     public void draw (Graphics g, int x, int y, int width, int height) {
         int tileWidth = width / myWidth;

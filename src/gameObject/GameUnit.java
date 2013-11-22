@@ -323,7 +323,7 @@ public class GameUnit extends GameObject {
         }
         return validActions;
     }
-    
+
     // TODO: trade with affiliates
     @Override
     public Action getInteraction(){

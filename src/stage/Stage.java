@@ -69,7 +69,7 @@ public class Stage implements GridMouseListener {
 
             for (int i : myAffiliateList) { //TODO: update with Teams object Carlos made
                 // TODO: Decrement the #turn counter on the units, or set them all to active
-                if (myTeamList.get(i).isHauman()) {
+                if (myTeamList.get(i).isHuman()) {
                     boolean flag = true;
                     while (flag) {
                         if (event.getKeyCode() == KeyEvent.VK_SPACE) {
@@ -91,6 +91,23 @@ public class Stage implements GridMouseListener {
 
         }
     }
+
+    /**
+     * 
+     */
+    // public void run () {
+    // while (!myWinCondition.hasWon(myGrid)) {
+    // for (int i : myAffiliateList) { // for each affiliation
+    // changeTurns(i); // set those affiliations' units to active
+    // if (myCurrUnitList == null) // if there are no units skip that affiliation's turn
+    // continue;
+    // if (myCurrUnitList.get(0).isControllable())
+    // doPlayerMove();
+    // else doAIMove(1, 0);
+    // myCurrUnitList.clear();
+    // }
+    // }
+    // }
 
     /**
      * Sends enemy units to attack your units, uses the pathfinding algorithm from
@@ -144,23 +161,6 @@ public class Stage implements GridMouseListener {
     /*
      * And Ends here
      */
-
-    /**
-     * 
-     */
-    // public void run () {
-    // while (!myWinCondition.hasWon(myGrid)) {
-    // for (int i : myAffiliateList) { // for each affiliation
-    // changeTurns(i); // set those affiliations' units to active
-    // if (myCurrUnitList == null) // if there are no units skip that affiliation's turn
-    // continue;
-    // if (myCurrUnitList.get(0).isControllable())
-    // doPlayerMove();
-    // else doAIMove(1, 0);
-    // myCurrUnitList.clear();
-    // }
-    // }
-    // }
 
     private void doPlayerMove () {
         // TODO wait until all units are done
@@ -240,10 +240,11 @@ public class Stage implements GridMouseListener {
         return priorityUnitList;
     }
 
+
     private void changeTurns (Integer currentTurnAffiliate) { // we are just going to be looping
                                                               // through affiliations and setting
                                                               // units to active
-        for (ArrayList<GameUnit> unitList : myGrid.getGameUnits()) { //TODO: fix this to work with new Teams object Carlos made
+        for (GameUnit[] unitList : myGrid.getGameUnits()) { //TODO: fix this to work with new Teams object Carlos made
             for (GameUnit unit : unitList) {
                 if (currentTurnAffiliate == unit.getAffiliation()) {
                     unit.setActive(true);
