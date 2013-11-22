@@ -23,6 +23,8 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import controllers.WorldManager;
 
 
@@ -100,20 +102,6 @@ public class EditorFrame extends GameView {
         return myMenuBar;
     }
 
-
-    
-    private JPanel addEditorBackground(){
-        //ImageIcon image = new ImageIcon("resources/omega_nu_3.png");
-        ImageIcon imageIcon = new ImageIcon("resources/omega.gif");
-        
-        JLabel label = new JLabel();
-        label.setIcon(imageIcon);
-        label.setHorizontalAlignment(WIDTH/2);
-        label.setVerticalAlignment(HEIGHT/2);
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.add( label, BorderLayout.CENTER );
-        return panel;
-    }
     
     private void newGame(){
         JPanel newGamePanel = new JPanel();
@@ -175,15 +163,25 @@ public class EditorFrame extends GameView {
             int gridWidth = Integer.parseInt(xTextField.getText());
             int gridHeight = Integer.parseInt(yTextField.getText());
             String image = (String) imageMenu.getSelectedItem();
-            myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image), stageName);// ****
+            int stageID = myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image), stageName);// ****
                                                                                                 // fix
             StagePanel sp = new StagePanel(stageName, myWorldManager);
             myStagePanelList.add(sp);
             stageTabbedPane.addTab(stageName, sp);
             stageTabbedPane.setSelectedIndex(myStagePanelList.size() - 1);
+            stageTabbedPane.addChangeListener(new ChangeListener(){
+                @Override
+                public void stateChanged(ChangeEvent e){
+                    switchActiveStage();
+                }   
+            });
             this.repaint();
         }
 
+    }
+    
+    private void switchActiveStage(){
+        myWorldManager.setActiveStage(stageTabbedPane.getSelectedIndex());
     }
 
     public static void main (String[] args) {
