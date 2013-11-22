@@ -58,10 +58,6 @@ public class GameObject extends Drawable {
         return null;
     }
 
-    public String getImagePath () {
-        return myImagePath;
-    }
-    
     @JsonProperty("imagePath")
     public void setImageAndPath (String imagePath) {
         myImagePath = imagePath;

@@ -69,7 +69,7 @@ public class Stage implements GridMouseListener {
 
             for (int i : myAffiliateList) { //TODO: update with Teams object Carlos made
                 // TODO: Decrement the #turn counter on the units, or set them all to active
-                if (myTeamList.get(i).isHauman()) {
+                if (myTeamList.get(i).isHuman()) {
                     boolean flag = true;
                     while (flag) {
                         if (event.getKeyCode() == KeyEvent.VK_SPACE) {
@@ -238,19 +238,6 @@ public class Stage implements GridMouseListener {
             priorityUnitList.add(unitDistance.get(distance));
         }
         return priorityUnitList;
-    }
-
-    private void changeTurns (Integer currentTurnAffiliate) { // we are just going to be looping
-                                                              // through affiliations and setting
-                                                              // units to active
-        for (ArrayList<GameUnit> unitList : myGrid.getGameUnits()) { //TODO: fix this to work with new Teams object Carlos made
-            for (GameUnit unit : unitList) {
-                if (currentTurnAffiliate == unit.getAffiliation()) {
-                    unit.setActive(true);
-                    myCurrUnitList.add(unit);
-                }
-            }
-        }
     }
 
     /**
