@@ -240,18 +240,18 @@ public class Stage implements GridMouseListener {
         return priorityUnitList;
     }
 
-    private void changeTurns (Integer currentTurnAffiliate) { // we are just going to be looping
-                                                              // through affiliations and setting
-                                                              // units to active
-        for (ArrayList<GameUnit> unitList : myGrid.getGameUnits()) {
-            for (GameUnit unit : unitList) {
-                if (currentTurnAffiliate == unit.getAffiliation()) {
-                    unit.setActive(true);
-                    myCurrUnitList.add(unit);
-                }
-            }
-        }
-    }
+//    private void changeTurns (Integer currentTurnAffiliate) { // we are just going to be looping
+//                                                              // through affiliations and setting
+//                                                              // units to active
+//        for (ArrayList<GameUnit> unitList : myGrid.getGameUnits()) {
+//            for (GameUnit unit : unitList) {
+//                if (currentTurnAffiliate == unit.getAffiliation()) {
+//                    unit.setActive(true);
+//                    myCurrUnitList.add(unit);
+//                }
+//            }
+//        }
+//    }
 
     /**
      * doCombat executes combat between two units.
