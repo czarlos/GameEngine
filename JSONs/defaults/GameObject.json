@@ -3,9 +3,8 @@
   "neededData" : [ "java.util.ArrayList", [ ] ],
   "myImagePath" : "resources/tree.png",
   "passableList" : [ "java.util.ArrayList", [ ] ],
-  "image" : [ "java.awt.image.BufferedImage", {
-    "alphaPremultiplied" : false
-  } ],
+  "data" : null,
   "imagePath" : "resources/tree.png",
+  "interaction" : null,
   "name" : "tree"
 } ] ] ]

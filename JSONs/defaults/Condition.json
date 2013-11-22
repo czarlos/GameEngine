@@ -4,5 +4,35 @@
   "myImagePath" : null,
   "playersPositionX" : 0,
   "playersPositionY" : 0,
-  "data" : [ "java.util.HashMap", { } ]
+  "data" : [ "java.util.HashMap", { } ],
+  "name" : null,
+  "imagePath" : null
+} ], [ "stage.StatCondition", {
+  "myData" : [ "java.util.HashMap", { } ],
+  "neededData" : [ "java.util.ArrayList", [ ] ],
+  "myImagePath" : null,
+  "data" : [ "java.util.HashMap", { } ],
+  "name" : null,
+  "imagePath" : null
+} ], [ "stage.ItemCondition", {
+  "myData" : [ "java.util.HashMap", { } ],
+  "neededData" : [ "java.util.ArrayList", [ ] ],
+  "myImagePath" : null,
+  "data" : [ "java.util.HashMap", { } ],
+  "name" : null,
+  "imagePath" : null
+} ], [ "stage.UnitCountCondition", {
+  "myData" : [ "java.util.HashMap", { } ],
+  "neededData" : [ "java.util.ArrayList", [ ] ],
+  "myImagePath" : null,
+  "data" : [ "java.util.HashMap", { } ],
+  "name" : null,
+  "imagePath" : null
+} ], [ "stage.TurnCondition", {
+  "myData" : [ "java.util.HashMap", { } ],
+  "neededData" : [ "java.util.ArrayList", [ ] ],
+  "myImagePath" : null,
+  "data" : [ "java.util.HashMap", { } ],
+  "name" : null,
+  "imagePath" : null
 } ] ] ]
