@@ -51,7 +51,16 @@ public class Tile extends GameObject {
      * 
      * @param imagePath - String of image path
      */
-
+    public void setImagePath (String imagePath) {
+        myImagePath = imagePath;
+        try {
+            myImage = ImageManager.addImage(imagePath);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     @Override
     public Image getImage () {
         return myImage;

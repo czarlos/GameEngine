@@ -3,6 +3,7 @@ package gameObject;
 import grid.ImageManager;
 import java.awt.image.BufferedImage;
 import java.util.List;
+import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import view.Drawable;
@@ -48,6 +49,16 @@ public class GameObject extends Drawable {
 
     public List<String> getPassableList () {
         return myPassableList;
+    }
+
+    public Map<String, String> getData () {
+        // TODO: Needs to implement this for everything that extends GameObject (for GUI editing
+        // purposes)
+        return null;
+    }
+
+    public String getImagePath () {
+        return myImagePath;
     }
     
     @JsonProperty("imagePath")

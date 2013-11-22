@@ -4,10 +4,13 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.swing.table.AbstractTableModel;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import controllers.EditorData;
+import dialog.GameTableModel;
+import dialog.UnitTableModel;
 import parser.JSONParser;
 import stage.Condition;
 import stage.Stage;
@@ -32,6 +35,8 @@ public class WorldManager {
     EditorData myEditorData;
     @JsonProperty
     String myGameName;
+    
+    private UnitTableModel myUnitModel;
 
     /**
      * Intermediary between views and EditorData and Grid, stores List of Stages
@@ -44,8 +49,22 @@ public class WorldManager {
         myParser = new JSONParser();
         myEditorData = new EditorData("defaults");
         myGameName = gameName;
+        myUnitModel = new UnitTableModel();
     }
 
+    public GameTableModel getViewModel(String type){
+        switch(type.toLowerCase()){
+            case "tile":
+                return null;
+            case "gameunit":
+                return myUnitModel;
+            case "gameobject":
+                return null; //fix
+        }
+        return null;
+    }
+    
+    
     /**
      * Add a new stage
      * 
@@ -224,7 +243,7 @@ public class WorldManager {
     public int setCustomTile (int ID, String name, String imagePath, int moveCost) {
         Tile t = new grid.Tile();
         t.setName(name);
-        t.setImageAndPath(imagePath);
+        t.setImagePath(imagePath);
         t.setMoveCost(moveCost);
         return myEditorData.setCustomizable("Tile", ID, t);
     }
@@ -237,7 +256,7 @@ public class WorldManager {
         GameUnit gu = new GameUnit();
 
         gu.setName(name);
-        gu.setImageAndPath(imagePath);
+        gu.setImagePath(imagePath);
         gu.setAffiliation(affiliation);
         gu.setControllable(controllable);
         return myEditorData.setCustomizable("GameUnit", ID, gu);
@@ -246,7 +265,7 @@ public class WorldManager {
     public int setCustomObject (int ID, String name, String imagePath) {
         GameObject go = new GameObject();
         go.setName(name);
-        go.setImageAndPath(imagePath);
+        go.setImagePath(imagePath);
 
         return myEditorData.setCustomizable("GameObject", ID, go);
     }
