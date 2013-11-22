@@ -32,7 +32,7 @@ import grid.Tile;
 public class Stage implements GridMouseListener {
 
     private Grid myGrid;
-    private List<Integer> myAffiliateList;
+    private List<Integer> myAffiliateList; //TODO: Update to use teams
     @JsonProperty
     private WinCondition myWinCondition;
     private String myName;
@@ -47,7 +47,7 @@ public class Stage implements GridMouseListener {
 
     public Stage (int x, int y, int tileID, String name) {
         myGrid = new Grid(x, y, tileID);
-        myAffiliateList = new ArrayList<Integer>();
+        myAffiliateList = new ArrayList<Integer>(); 
         myWinCondition = new WinCondition();
         myName = name;
         myCurrUnitList = new ArrayList<GameUnit>();
@@ -67,7 +67,7 @@ public class Stage implements GridMouseListener {
     public void doInGame (KeyEvent event) {
         while (!myWinCondition.hasWon(myGrid)) {
 
-            for (int i : myAffiliateList) {
+            for (int i : myAffiliateList) { //TODO: update with Teams object Carlos made
                 // TODO: Decrement the #turn counter on the units, or set them all to active
                 if (myTeamList.get(i).isHuman()) {
                     boolean flag = true;
@@ -240,18 +240,19 @@ public class Stage implements GridMouseListener {
         return priorityUnitList;
     }
 
-//    private void changeTurns (Integer currentTurnAffiliate) { // we are just going to be looping
-//                                                              // through affiliations and setting
-//                                                              // units to active
-//        for (ArrayList<GameUnit> unitList : myGrid.getGameUnits()) {
-//            for (GameUnit unit : unitList) {
-//                if (currentTurnAffiliate == unit.getAffiliation()) {
-//                    unit.setActive(true);
-//                    myCurrUnitList.add(unit);
-//                }
-//            }
-//        }
-//    }
+
+    private void changeTurns (Integer currentTurnAffiliate) { // we are just going to be looping
+                                                              // through affiliations and setting
+                                                              // units to active
+        for (GameUnit[] unitList : myGrid.getGameUnits()) { //TODO: fix this to work with new Teams object Carlos made
+            for (GameUnit unit : unitList) {
+                if (currentTurnAffiliate == unit.getAffiliation()) {
+                    unit.setActive(true);
+                    myCurrUnitList.add(unit);
+                }
+            }
+        }
+    }
 
     /**
      * doCombat executes combat between two units.

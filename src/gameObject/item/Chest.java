@@ -4,8 +4,6 @@ import java.util.List;
 import gameObject.action.*;
 import gameObject.GameObject;
 import gameObject.action.Action;
-import gameObject.action.FixedOutcome;
-import gameObject.action.Outcome;
 
 /**
  * Holds a list of items that a unit can retrieve.
@@ -36,4 +34,8 @@ public class Chest extends GameObject {
 //        Action getContents = new Action
 //        return null;
 //    };
+    @Override
+    public Action getInteraction(){
+        return null;
+    };
 }
