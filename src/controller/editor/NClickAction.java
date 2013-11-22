@@ -11,6 +11,7 @@ import controller.actions.Command;
 import controller.actions.CommandShell;
 
 
+
 public class NClickAction {
     protected List<Coordinate> myCoordinates;
     protected String myAction;
@@ -60,5 +61,4 @@ public class NClickAction {
         Command action = (Command) Reflection.createInstance(actionName, args, myCoordinates);
         action.execute();
     }
-
 }
