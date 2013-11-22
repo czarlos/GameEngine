@@ -89,7 +89,7 @@ public class Grid extends Drawable {
         placeObject(new Coordinate(3, 5), tree);
         GameObject hero = (GameUnit) myFactory.make("GameUnit", 0);
         placeObject(new Coordinate(4, 5), hero);
-        beginMove(new Coordinate(4,5), hero);
+        beginMove(new Coordinate(4,5));
     }
 
     /**
@@ -99,7 +99,11 @@ public class Grid extends Drawable {
      * @param gameUnit GameUnit that is moving
      * 
      */
-    public void beginMove (Coordinate coordinate, GameObject gameUnit) {
+
+    public void beginMove (Coordinate coordinate ) {
+//        System.out.println("beginMove, getTotalStat movement: " +
+//                           ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT));
+        GameUnit gameUnit=(GameUnit) getObject(coordinate);
         findMovementRange(coordinate,
                           ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT),
                           gameUnit);
@@ -126,7 +130,7 @@ public class Grid extends Drawable {
         if (canMove(newCoordinate)) {
             GameObject gameUnit = removeObject(oldCoordinate);
             placeObject(newCoordinate, gameUnit);
-            setTilesInactive();
+            setTilesInactive(); //TODO: front end, if coordinate clicked is invalid, tiles will still be active, but will they call doMove again?
         }
     }
 
@@ -533,6 +537,11 @@ public class Grid extends Drawable {
      * @param y int of y coordinate on the grid
      * @param width int of width of object
      * @param height int of height of object
+     * @param g - Graphics for the image
+     * @param x - int of x coordinate on the grid
+     * @param y - int of y coordinate on the grid
+     * @param width - int of width of object
+     * @param height - int of height of object
      */
     public void draw (Graphics g, int x, int y, int width, int height) {
         int tileWidth = width / myWidth;

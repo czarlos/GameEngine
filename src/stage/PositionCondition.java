@@ -1,6 +1,7 @@
 package stage;
 
 import gameObject.GameUnit;
+import grid.Coordinate;
 import grid.Grid;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -32,7 +33,7 @@ public class PositionCondition extends Condition {
     @Override
     boolean isFulfilled (Grid grid) {
         Object object =
-                grid.getObject(Integer.parseInt(myData.get("x")), Integer.parseInt(myData.get("y")));
+                grid.getObject(new Coordinate(Integer.parseInt(myData.get("x")), Integer.parseInt(myData.get("y"))));
 
         if (object instanceof GameUnit) {
             GameUnit gu = (GameUnit) object;

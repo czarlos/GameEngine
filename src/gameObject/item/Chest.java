@@ -27,6 +27,13 @@ public class Chest extends GameObject {
     }
     
     // TODO: give objects to person
+
+//    @Override
+//    public Action getInteraction(){
+//        Outcome getContentsOutcome = new FixedOutcome();
+//        Action getContents = new Action
+//        return null;
+//    };
     @Override
     public Action getInteraction(){
         return null;

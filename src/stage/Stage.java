@@ -86,7 +86,6 @@ public class Stage implements GridMouseListener {
                         doAIMove(unit, opponentList);
                     }
                 }
-
             }
 
         }
@@ -105,8 +104,8 @@ public class Stage implements GridMouseListener {
         PathFinding.coordinatesToTiles(myGrid, unit);
         GameUnit other = unit.findClosestOpponent(allEnemies);
         
-        Tile start = myGrid.getTile(unit.getGridPosition().getX(), unit.getGridPosition().getY());
-        Tile end = myGrid.getTile(other.getGridPosition().getX(), other.getGridPosition().getY());
+        Tile start = myGrid.getTile(unit.getGridPosition());
+        Tile end = myGrid.getTile(other.getGridPosition());
         
         if(UnitUtilities.calculateLength(start.getCoordinate(), end.getCoordinate()) == 1) {
             Random r = new Random();
@@ -136,6 +135,7 @@ public class Stage implements GridMouseListener {
             if (!team.isHuman()) {
                 opponentList.addAll(team.getGameUnits());
             }
+
         }
         return opponentList;
     }
@@ -238,6 +238,20 @@ public class Stage implements GridMouseListener {
             priorityUnitList.add(unitDistance.get(distance));
         }
         return priorityUnitList;
+    }
+
+    private void changeTurns (Integer currentTurnAffiliate) { // we are just going to be looping
+                                                              // through affiliations and setting
+                                                              // units to active
+
+        for (GameUnit[] unitList : myGrid.getGameUnits()) { //TODO: fix this to work with new Teams object Carlos made
+            for (GameUnit unit : unitList) {
+                if (currentTurnAffiliate == unit.getAffiliation()) {
+                    unit.setActive(true);
+                    myCurrUnitList.add(unit);
+                }
+            }
+        }
     }
 
     /**

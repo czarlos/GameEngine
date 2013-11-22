@@ -1,53 +1,38 @@
 [ "java.util.ArrayList", [ [ "stage.PositionCondition", {
   "myData" : [ "java.util.HashMap", { } ],
   "neededData" : [ "java.util.ArrayList", [ ] ],
-  "myImagePath" : "resources/grass.png",
+  "myImagePath" : null,
   "playersPositionX" : 0,
   "playersPositionY" : 0,
   "data" : [ "java.util.HashMap", { } ],
-  "name" : "",
-  "imagePath" : "resources/grass.png",
-  "image" : [ "java.awt.image.BufferedImage", {
-    "alphaPremultiplied" : false
-  } ]
+  "name" : null,
+  "imagePath" : null
 } ], [ "stage.StatCondition", {
   "myData" : [ "java.util.HashMap", { } ],
   "neededData" : [ "java.util.ArrayList", [ ] ],
-  "myImagePath" : "resources/grass.png",
+  "myImagePath" : null,
   "data" : [ "java.util.HashMap", { } ],
-  "name" : "",
-  "imagePath" : "resources/grass.png",
-  "image" : [ "java.awt.image.BufferedImage", {
-    "alphaPremultiplied" : false
-  } ]
+  "name" : null,
+  "imagePath" : null
 } ], [ "stage.ItemCondition", {
   "myData" : [ "java.util.HashMap", { } ],
   "neededData" : [ "java.util.ArrayList", [ ] ],
-  "myImagePath" : "resources/grass.png",
+  "myImagePath" : null,
   "data" : [ "java.util.HashMap", { } ],
-  "name" : "",
-  "imagePath" : "resources/grass.png",
-  "image" : [ "java.awt.image.BufferedImage", {
-    "alphaPremultiplied" : false
-  } ]
+  "name" : null,
+  "imagePath" : null
 } ], [ "stage.UnitCountCondition", {
   "myData" : [ "java.util.HashMap", { } ],
   "neededData" : [ "java.util.ArrayList", [ ] ],
-  "myImagePath" : "resources/grass.png",
+  "myImagePath" : null,
   "data" : [ "java.util.HashMap", { } ],
-  "name" : "",
-  "imagePath" : "resources/grass.png",
-  "image" : [ "java.awt.image.BufferedImage", {
-    "alphaPremultiplied" : false
-  } ]
+  "name" : null,
+  "imagePath" : null
 } ], [ "stage.TurnCondition", {
   "myData" : [ "java.util.HashMap", { } ],
   "neededData" : [ "java.util.ArrayList", [ ] ],
-  "myImagePath" : "resources/grass.png",
+  "myImagePath" : null,
   "data" : [ "java.util.HashMap", { } ],
-  "name" : "",
-  "imagePath" : "resources/grass.png",
-  "image" : [ "java.awt.image.BufferedImage", {
-    "alphaPremultiplied" : false
-  } ]
+  "name" : null,
+  "imagePath" : null
 } ] ] ]
