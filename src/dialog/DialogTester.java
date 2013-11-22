@@ -63,9 +63,9 @@ public class DialogTester {
         ArrayList<ActionTestStub> actionList = new ArrayList<ActionTestStub>();
         actionList.add(new ActionTestStub());
                 
-        Object[] row_1 = {"Bobby D.oge", "Doge", icon, new StatsTestStub(), new ArrayList<ActionTestStub>(), "offense"};
-        Object[] row_2 = {"Bobby D.oge", "Another Doge", icon, new StatsTestStub(), new ArrayList<ActionTestStub>(), "defense"};
-        Object[] row_3 = {"Engineer", "Jean", icon_2, new StatsTestStub(), new ArrayList<ActionTestStub>(), "offense"};
+        Object[] row_1 = {"Bobby D.oge", "Doge", icon, new Stats(), new ArrayList<ActionTestStub>(), "offense"};
+        Object[] row_2 = {"Bobby D.oge", "Another Doge", icon, new Stats(), new ArrayList<ActionTestStub>(), "defense"};
+        Object[] row_3 = {"Engineer", "Jean", icon_2, new Stats(), new ArrayList<ActionTestStub>(), "offense"};
 
         
         model.addNewRow(row_1);

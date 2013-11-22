@@ -8,7 +8,9 @@ import javax.swing.table.AbstractTableModel;
 public abstract class GameTableModel extends AbstractTableModel{
     
     protected final List<Object[]> list = new ArrayList<Object[]>();
-    private String[] columnNames;
+    private List<String> columnNames;
+    
+    
     
     public String[] setColomnNames(String[] names){
         

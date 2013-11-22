@@ -54,7 +54,6 @@ public class UnitEditorDialog extends JDialog{
        panel.add(scrollPane);
        add(panel);
        setSize(new Dimension(500, 500));
-       ;
     }
 
 }
