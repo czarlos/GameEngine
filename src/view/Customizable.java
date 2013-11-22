@@ -47,7 +47,7 @@ public abstract class Customizable {
     public List<String> getNeededData () {
         return neededData;
     }
-    
+
     @JsonIgnore
     public Image getImage () {
         try {

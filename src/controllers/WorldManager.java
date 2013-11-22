@@ -35,7 +35,7 @@ public class WorldManager {
     EditorData myEditorData;
     @JsonProperty
     String myGameName;
-    
+
     private UnitTableModel myUnitModel;
 
     /**
@@ -52,19 +52,18 @@ public class WorldManager {
         myUnitModel = new UnitTableModel();
     }
 
-    public GameTableModel getViewModel(String type){
-        switch(type.toLowerCase()){
+    public GameTableModel getViewModel (String type) {
+        switch (type.toLowerCase()) {
             case "tile":
                 return null;
             case "gameunit":
                 return myUnitModel;
             case "gameobject":
-                return null; //fix
+                return null; // fix
         }
         return null;
     }
-    
-    
+
     /**
      * Add a new stage
      * 
@@ -185,16 +184,19 @@ public class WorldManager {
      * @param y Coordinate
      */
     public void setTile (int tileID, int x, int y) {
-        myActiveStage.getGrid().placeTile(new Coordinate(x, y), (Tile) myFactory.make("tile", tileID));
+        myActiveStage.getGrid().placeTile(new Coordinate(x, y),
+                                          (Tile) myFactory.make("tile", tileID));
     }
 
     // if you need to make any more of these, then just combine all these placeObjects into one
     public void placeUnit (int unitID, int x, int y) {
-        myActiveStage.getGrid().placeObject(new Coordinate(x, y), (GameObject) myFactory.make("unit", unitID));
+        myActiveStage.getGrid().placeObject(new Coordinate(x, y),
+                                            (GameObject) myFactory.make("unit", unitID));
     }
 
     public void placeObject (int objectID, int x, int y) {
-        myActiveStage.getGrid().placeObject(new Coordinate(x, y), (GameObject) myFactory.make("gameobject", objectID));
+        myActiveStage.getGrid().placeObject(new Coordinate(x, y),
+                                            (GameObject) myFactory.make("gameobject", objectID));
     }
 
     /**

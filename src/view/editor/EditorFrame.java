@@ -75,9 +75,10 @@ public class EditorFrame extends GameView {
         gameMenu.add(addStage);
         // add action listeners
         addStage.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
+            public void actionPerformed (ActionEvent event) {
                 addStagePanel();
-            }});
+            }
+        });
         newGame.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
                 newGame();
@@ -102,8 +103,7 @@ public class EditorFrame extends GameView {
         return myMenuBar;
     }
 
-    
-    private void newGame(){
+    private void newGame () {
         JPanel newGamePanel = new JPanel();
         newGamePanel.setLayout(new GridLayout(1, 2));
         JLabel gameNameLabel = new JLabel("Game Name:");
@@ -131,7 +131,7 @@ public class EditorFrame extends GameView {
             JMenuItem objective = new JMenuItem("Set Objective");
             objective.setAccelerator(KeyStroke.getKeyStroke("control O"));
             stageMenu.add(objective);
-            
+
         }
     }
 
@@ -171,24 +171,26 @@ public class EditorFrame extends GameView {
             int gridWidth = Integer.parseInt(xTextField.getText());
             int gridHeight = Integer.parseInt(yTextField.getText());
             String image = (String) imageMenu.getSelectedItem();
-            int stageID = myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image), stageName);// ****
-                                                                                                // fix
+            int stageID =
+                    myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image),
+                                            stageName);// ****
+            // fix
             StagePanel sp = new StagePanel(stageName, myWorldManager);
             myStagePanelList.add(sp);
             stageTabbedPane.addTab(stageName, sp);
             stageTabbedPane.setSelectedIndex(myStagePanelList.size() - 1);
-            stageTabbedPane.addChangeListener(new ChangeListener(){
+            stageTabbedPane.addChangeListener(new ChangeListener() {
                 @Override
-                public void stateChanged(ChangeEvent e){
+                public void stateChanged (ChangeEvent e) {
                     switchActiveStage();
-                }   
+                }
             });
             this.repaint();
         }
 
     }
-    
-    private void switchActiveStage(){
+
+    private void switchActiveStage () {
         myWorldManager.setActiveStage(stageTabbedPane.getSelectedIndex());
     }
 

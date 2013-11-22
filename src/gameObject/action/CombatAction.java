@@ -6,7 +6,7 @@ import grid.Coordinate;
 import java.util.List;
 
 
-public class CombatAction extends Action{
+public class CombatAction extends Action {
     private String myName;
     private StatModifier myAttackerStatsAndWeights;
     private StatModifier myDefenderStatsAndWeights;

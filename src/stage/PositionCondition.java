@@ -33,7 +33,8 @@ public class PositionCondition extends Condition {
     @Override
     boolean isFulfilled (Grid grid) {
         Object object =
-                grid.getObject(new Coordinate(Integer.parseInt(myData.get("x")), Integer.parseInt(myData.get("y"))));
+                grid.getObject(new Coordinate(Integer.parseInt(myData.get("x")), Integer
+                        .parseInt(myData.get("y"))));
 
         if (object instanceof GameUnit) {
             GameUnit gu = (GameUnit) object;

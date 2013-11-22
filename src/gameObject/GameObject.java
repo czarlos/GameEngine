@@ -69,8 +69,8 @@ public class GameObject extends Drawable {
             e.printStackTrace();
         }
     }
-    
-    public Action getInteraction(){
+
+    public Action getInteraction () {
         return null;
     };
 

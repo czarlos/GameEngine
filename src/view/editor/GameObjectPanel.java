@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-public class GameObjectPanel extends JPanel implements MouseListener{
+public class GameObjectPanel extends JPanel implements MouseListener {
 
     /**
      * 
@@ -22,19 +22,19 @@ public class GameObjectPanel extends JPanel implements MouseListener{
     private ImageIcon myImage;
     private boolean isSelected;
     private StageEditorPanel myEditorPanel;
-    
-    public GameObjectPanel(ImageIcon image, String name, StageEditorPanel editor){
+
+    public GameObjectPanel (ImageIcon image, String name, StageEditorPanel editor) {
         myEditorPanel = editor;
-        setLayout(new GridLayout(1,2));
-        //setMaximumSize(new Dimension(100,50));
+        setLayout(new GridLayout(1, 2));
+        // setMaximumSize(new Dimension(100,50));
         setBorder(BorderFactory.createLineBorder(Color.black));
         myName = name;
         myImage = image;
         isSelected = false;
         initPanel();
     }
-    
-    private void initPanel(){
+
+    private void initPanel () {
         JLabel label = new JLabel(myImage);
         JLabel name = new JLabel(myName);
         add(label);
@@ -43,11 +43,11 @@ public class GameObjectPanel extends JPanel implements MouseListener{
         repaint();
     }
 
-    public void deSelect(){
+    public void deSelect () {
         isSelected = false;
         setBorder(BorderFactory.createLineBorder(Color.black));
     }
-    
+
     @Override
     public void mouseClicked (MouseEvent e) {
         isSelected = true;
@@ -57,17 +57,22 @@ public class GameObjectPanel extends JPanel implements MouseListener{
     }
 
     @Override
-    public void mousePressed (MouseEvent e) {}
+    public void mousePressed (MouseEvent e) {
+    }
+
     @Override
-    public void mouseReleased (MouseEvent e) {}
+    public void mouseReleased (MouseEvent e) {
+    }
+
     @Override
     public void mouseEntered (MouseEvent e) {
-        if(!isSelected)
-            setBorder(BorderFactory.createLineBorder(Color.red,2));
+        if (!isSelected)
+            setBorder(BorderFactory.createLineBorder(Color.red, 2));
     }
+
     @Override
     public void mouseExited (MouseEvent e) {
-        if(!isSelected)
+        if (!isSelected)
             setBorder(BorderFactory.createLineBorder(Color.black));
     }
 }

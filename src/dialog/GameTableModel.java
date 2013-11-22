@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
+
 public abstract class GameTableModel extends AbstractTableModel {
     protected String[] myColumnNames;
     protected final List<Object[]> myData = new ArrayList<Object[]>();
@@ -12,11 +13,10 @@ public abstract class GameTableModel extends AbstractTableModel {
         return new ArrayList<Object[]>(myData);
     }
 
-
     public Object[] removeRow (int index) {
         return myData.remove(index).clone();
     }
-    
+
     @Override
     public int getColumnCount () {
         return myColumnNames.length;

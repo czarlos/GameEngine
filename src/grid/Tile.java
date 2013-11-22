@@ -55,7 +55,7 @@ public class Tile extends GameObject {
     public void setStatMods (Map<String, Double> statMods) {
         myStatMods = statMods;
     }
-    
+
     @Override
     public Image getImage () {
         return myImage;
