@@ -36,7 +36,6 @@ public class Stage implements GridMouseListener {
     @JsonProperty
     private WinCondition myWinCondition;
     private String myName;
-    private List<GameUnit> myCurrUnitList;
     private String preText;
     private String postText;
     private List<Team> myTeamList;
@@ -50,7 +49,6 @@ public class Stage implements GridMouseListener {
         myAffiliateList = new ArrayList<Integer>();
         myWinCondition = new WinCondition();
         myName = name;
-        myCurrUnitList = new ArrayList<GameUnit>();
     }
 
     /*
@@ -162,9 +160,9 @@ public class Stage implements GridMouseListener {
     // }
     // }
 
-    private void doPlayerMove () {
+    private void doPlayerMove (int affliation) {
         // TODO wait until all units are done
-        for (GameUnit unit : myCurrUnitList) {
+        for (GameUnit unit : myTeamList.get(affliation).getGameUnits()) {
             while (unit.getActiveStatus())
                 System.out.println("WE WAITIN UNTIL ALL UNITS ARE NOT ACTIVE");
         }
@@ -240,18 +238,14 @@ public class Stage implements GridMouseListener {
         return priorityUnitList;
     }
 
-    private void changeTurns (Integer currentTurnAffiliate) { // we are just going to be looping
-                                                              // through affiliations and setting
-                                                              // units to active
-
-        for (GameUnit[] unitList : myGrid.getGameUnits()) { // TODO: fix this to work with new Teams
-                                                            // object Carlos made
-            for (GameUnit unit : unitList) {
-                if (currentTurnAffiliate == unit.getAffiliation()) {
-                    unit.setActive(true);
-                    myCurrUnitList.add(unit);
-                }
-            }
+    /**
+     * Loops through all of the game units in the current team (whose turn it is)
+     * and sets all of the units to active.
+     * @param currentTeam
+     */
+    private void changeTurns (Team currentTeam) {
+        for (GameUnit unit : currentTeam.getGameUnits()) {
+            unit.setActive(true);
         }
     }
 
