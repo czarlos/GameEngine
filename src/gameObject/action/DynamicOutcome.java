@@ -50,7 +50,7 @@ public class DynamicOutcome extends Outcome {
      * @return whether or not outcome is legal
      */
     @Override
-    public boolean checkVaildOutcome (GameUnit unit, double effectiveness) {
+    public boolean checkValidOutcome (GameUnit unit, double effectiveness) {
         try {
             Method get = unit.getClass().getDeclaredMethod("get" + myType,
                                                            String.class);

@@ -1,8 +1,11 @@
 package gameObject;
 
+import gameObject.action.Action;
 import gameObject.action.CombatAction;
 import gameObject.item.*;
 import grid.Coordinate;
+import grid.Grid;
+import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.List;
 import utils.UnitUtilities;
@@ -294,9 +297,8 @@ public class GameUnit extends GameObject {
         return myItemList;
     }
 
-    public List<CombatAction> getVaildActions (GameUnit defender) {
-        List<CombatAction> validActions = new ArrayList<CombatAction>();
-
+    public List<Action> getValidActions (Grid grid, GameUnit defender) {
+        List<Action> validActions = new ArrayList<>();
         for (Item i : myItemList) {
             if (i instanceof Weapon) {
                 List<CombatAction> tempActions = ((Weapon) i).getActionList();
@@ -307,9 +309,19 @@ public class GameUnit extends GameObject {
                 }
             }
         }
-
+//        validActions.addAll(getInteractions(grid, this));
         return validActions;
     }
+    
+//    public List<Action> getInteractions(Grid grid, GameUnit gameUnit) {
+//        return grid.getInteractions(this);
+//    }
+    
+    // TODO: trade with affiliates
+    @Override
+    public Action getInteraction(){
+        return null;
+    };
 
     // Adding for Outcomes, can potentially change later
     // Need to keep method names and signatures similar for reflection

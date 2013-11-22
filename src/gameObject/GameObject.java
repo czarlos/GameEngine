@@ -1,5 +1,6 @@
 package gameObject;
 
+import gameObject.action.Action;
 import grid.ImageManager;
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -61,6 +62,10 @@ public class GameObject extends Drawable {
             e.printStackTrace();
         }
     }
+    
+    public Action getInteraction(){
+        return null;
+    };
 
     @Override
     public int hashCode () {
