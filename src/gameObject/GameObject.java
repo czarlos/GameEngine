@@ -1,10 +1,12 @@
 package gameObject;
 
 import grid.ImageManager;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import view.Customizable;
 import view.Drawable;
 
 
@@ -15,7 +17,7 @@ import view.Drawable;
  * 
  */
 @JsonAutoDetect
-public class GameObject extends Drawable {
+public class GameObject extends Customizable implements Drawable {
     protected List<String> myPassableList;
     protected BufferedImage myImage;
     
@@ -90,5 +92,10 @@ public class GameObject extends Drawable {
         }
         else if (!myPassableList.equals(other.myPassableList)) return false;
         return true;
+    }
+
+    @Override
+    public void draw (Graphics g, int x, int y, int width, int height) {
+        g.drawImage(getImage(), x, y, width, height, null);
     }
 }
