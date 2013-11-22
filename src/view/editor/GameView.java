@@ -60,7 +60,7 @@ public abstract class GameView extends JFrame {
     protected abstract JMenuBar createMenuBar (JFrame frame);
 
     protected JPanel createBackground () {
-        ImageIcon image = new ImageIcon("resources/omega_nu_3.png");
+        ImageIcon image = new ImageIcon("resources/omega2.gif");
         JLabel label = new JLabel("", image, JLabel.CENTER);
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(label, BorderLayout.CENTER);
