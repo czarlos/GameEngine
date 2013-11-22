@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
+import team.Team;
 import unit_ai.Node;
 import unit_ai.PathFinding;
 import utils.UnitUtilities;
@@ -41,6 +42,7 @@ public class Stage implements GridMouseListener {
     private String preText;
     private String postText;
     private List<List<GameUnit>> myTeamUnitList;
+    private List<Team> myTeamList;
 
     // only for use by deserializer
     public Stage () {
