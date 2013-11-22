@@ -219,7 +219,7 @@ public class Grid extends Drawable {
                                       Coordinate actionCoordinate) {
 //        String direction = findDirection(objectCoordinate, combatAction, actionCoordinate);
 //        return findAffectedObjects(objectCoordinate, combatAction, direction);
-        return null
+        return null;
     }
 
     // TODO: fix so that it just sets adjacent tiles to active. or units to trade with, or chests to open
