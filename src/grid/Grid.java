@@ -111,12 +111,18 @@ public class Grid extends Drawable {
                           gameUnit);
     }
 
+    /**
+     * Return boolean of if a gameUnit can move to a given coordinate
+     * @param coordinate Coordiante being moved to
+     * @param gameUnit GameObject that is moving
+     * @return boolean of if move is possible
+     */
     public boolean canMove (Coordinate coordinate, GameObject gameUnit) {
         return isActive(coordinate.getX(), coordinate.getY()); // TODO: also check no object on that tile
     }
     
     /**
-     * Moves the unit to a new coordinate
+     * Moves the unit to a new coordinate if the move is valid
      * 
      * @param oldCoordinate - Coordinate of the gameUnit's original position
      * @param newCoordinate - Coordinate that unit is moving to
@@ -126,6 +132,11 @@ public class Grid extends Drawable {
         GameObject gameUnit = removeObject(oldCoordinate.getX(), oldCoordinate.getY());
         placeObject(gameUnit, newCoordinate.getX(), newCoordinate.getY());
         setTilesInactive();
+        if (canMove(newCoordinate, myUnits.get(oldCoordinate.getX()).get(oldCoordinate.getY()))) {
+            GameObject gameUnit1 =removeObject(oldCoordinate.getX(), oldCoordinate.getY());
+            placeObject(gameUnit1, newCoordinate.getX(), newCoordinate.getY());
+            setTilesInactive();
+        }
     }
 
     /**
