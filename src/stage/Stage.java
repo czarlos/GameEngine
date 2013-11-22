@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
-import unit_ai.Node;
 import unit_ai.PathFinding;
 import utils.UnitUtilities;
 import view.canvas.GridMouseListener;

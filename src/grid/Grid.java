@@ -115,15 +115,7 @@ public class Grid extends Drawable {
      * @param newCoordinate - Coordinate that unit is moving to
      */
     public void doMove (Coordinate oldCoordinate, Coordinate newCoordinate) {
-        GameObject gameUnit = removeObject(oldCoordinate.getX(), oldCoordinate.getY());
-    }
-     /**
-     * @param oldCoordinate Coordinate of the gameUnit's original position
-     * @param gameUnit GameUnit being moved
-     * @param newCoordinate Coordinate that unit is moving to
-     */
-    public void doMove (Coordinate oldCoordinate, GameObject gameUnit, Coordinate newCoordinate) {
-        removeObject(oldCoordinate.getX(), oldCoordinate.getY());
+        GameObject gameUnit=removeObject(oldCoordinate.getX(), oldCoordinate.getY());
         placeObject(gameUnit, newCoordinate.getX(), newCoordinate.getY());
         setTilesInactive();
     }
@@ -359,11 +351,17 @@ public class Grid extends Drawable {
     /**
      * Sets position in myObjects map to null
      * 
+<<<<<<< HEAD
      * @param x - int of x coordinate
      * @param y - int of y coordinate
      * @return Object removed from position (x,y)
      * @param x int of x coordinate
      * @param y int of y coordinate
+=======
+     * @param x int of x coordinate
+     * @param y int of y coordinate
+     * @return Object removed from position (x,y)
+>>>>>>> dev
      */
     private GameObject removeObject (int x, int y) {
         GameObject objToRemove = myObjects[x][y];
@@ -412,12 +410,26 @@ public class Grid extends Drawable {
 
     /**
      * Draws the tiles and objects on the grid
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+     * @param g Graphics for the image
+     * @param x int of x coordinate on the grid
+     * @param y int of y coordinate on the grid
+     * @param width int of width of object
+     * @param height int of height of object
+=======
+>>>>>>> dev
      * 
      * @param g - Graphics for the image
      * @param x - int of x coordinate on the grid
      * @param y - int of y coordinate on the grid
      * @param width - int of width of object
      * @param height - int of height of object
+<<<<<<< HEAD
+=======
+>>>>>>> dev
+>>>>>>> dev
      */
     public void draw (Graphics g, int x, int y, int width, int height) {
         int tileWidth = width / myWidth;
@@ -449,11 +461,19 @@ public class Grid extends Drawable {
         myTiles = tiles;
     }
 
-    public int getWidth () {
+    public Coordinate getCoordinate(double fracX, double fracY){
+        
+        int gridX = (int) (fracX * myWidth);
+        int gridY = (int) (fracY * myHeight);
+
+        return new Coordinate(gridX, gridY);
+    }
+    
+  /*  public int getWidth () {
         return myWidth;
     }
 
     public int getHeight () {
         return myHeight;
-    }
+    }*/
 }

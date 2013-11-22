@@ -158,7 +158,7 @@ public class EditorFrame extends GameView {
             String image = (String) imageMenu.getSelectedItem();
             myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image), stageName);// ****
                                                                                                 // fix
-            StagePanel sp = new StagePanel(stageName, myWorldManager.getGrid(), myWorldManager);
+            StagePanel sp = new StagePanel(stageName, myWorldManager);
             myStagePanelList.add(sp);
             stageTabbedPane.addTab(stageName, sp);
             stageTabbedPane.setSelectedIndex(myStagePanelList.size() - 1);

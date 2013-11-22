@@ -31,6 +31,7 @@ public class GameUnit extends GameObject {
     private boolean isActive;
     protected Coordinate myGridPosition;
 
+    // reads defaults from JSON. To add/test new defaults, edit MakeDefaults.java
     public GameUnit () {
         super();
         myUnitStats = new Stat();
@@ -112,9 +113,9 @@ public class GameUnit extends GameObject {
     public void addItem (Item itemName) {
         if (itemName instanceof Equipment) {
             for (String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
-                int statVal = this.getStats().getStatValue(stat);
+                int statVal = this.getUnitStats().getStatValue(stat);
                 statVal += ((Equipment) itemName).getModifiers().getStatModifier(stat);
-                this.getStats().setStatValue(stat, statVal);
+                this.getUnitStats().setStatValue(stat, statVal);
             }
         }
         myItemList.add(itemName);
@@ -129,9 +130,9 @@ public class GameUnit extends GameObject {
     public void removeItem (Item itemName) {
         if (itemName instanceof Equipment) {
             for (String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
-                int statVal = this.getStats().getStatValue(stat);
+                int statVal = this.getUnitStats().getStatValue(stat);
                 statVal -= ((Equipment) itemName).getModifiers().getStatModifier(stat);
-                this.getStats().setStatValue(stat, statVal);
+                this.getUnitStats().setStatValue(stat, statVal);
             }
         }
         myItemList.remove(itemName);
@@ -181,7 +182,7 @@ public class GameUnit extends GameObject {
      * @param movement - The range of movement of this unit
      */
     public void snapToOpponent (GameUnit other) {
-        this.getStats().getStatValue(GameObjectConstants.MOVEMENT);
+        this.getUnitStats().getStatValue(GameObjectConstants.MOVEMENT);
 
         // These will be used at a later implementation
         Coordinate otherPosition = other.getGridPosition();
@@ -249,7 +250,7 @@ public class GameUnit extends GameObject {
         this.myUnitStats = myUnitStats;
     }
 
-    public Stat getStats () {
+    public Stat getUnitStats () {
         return myUnitStats;
     }
 

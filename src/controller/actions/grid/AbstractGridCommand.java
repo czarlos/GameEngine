@@ -2,16 +2,16 @@ package controller.actions.grid;
 
 import java.util.List;
 import grid.Coordinate;
-import grid.Grid;
 import controller.actions.AbstractUndoableCommand;
+import controllers.WorldManager;
 
 
 public abstract class AbstractGridCommand extends AbstractUndoableCommand {
-    protected Grid myGrid;
+    protected WorldManager myWM;
     protected List<Coordinate> mySelectedCoordinates;
 
-    public AbstractGridCommand (Grid grid, List<Coordinate> selectedCoordinates) {
-        myGrid = grid;
+    public AbstractGridCommand (WorldManager wm, List<Coordinate> selectedCoordinates) {
+        myWM = wm;
         mySelectedCoordinates = selectedCoordinates;
     }
 }

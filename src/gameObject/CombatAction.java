@@ -29,16 +29,16 @@ public class CombatAction {
         double offensiveStatSum = 0, defensiveStatSum = 0;
         double netStat = 0;
 
-        for (String statName : myAttackerStatsAndWeights.getStatModifierMap()
-                .keySet()) {
-            offensiveStatSum += attacker.getStats().getStatValue(statName)
-                                * myAttackerStatsAndWeights.getStatModifier(statName);
+        for (String statName : myAttackerStatsAndWeights.getStatModifierMap().keySet()) {
+            offensiveStatSum +=
+                    attacker.getUnitStats().getStatValue(statName) *
+                            myAttackerStatsAndWeights.getStatModifier(statName);
         }
 
-        for (String statName : myDefenderStatsAndWeights.getStatModifierMap()
-                .keySet()) {
-            defensiveStatSum += defender.getStats().getStatValue(statName)
-                                * myDefenderStatsAndWeights.getStatModifier(statName);
+        for (String statName : myDefenderStatsAndWeights.getStatModifierMap().keySet()) {
+            defensiveStatSum +=
+                    defender.getUnitStats().getStatValue(statName) *
+                            myDefenderStatsAndWeights.getStatModifier(statName);
         }
 
         // Creates a normalized output based on max possible difference in favor
@@ -62,6 +62,7 @@ public class CombatAction {
 
         for (Outcome o : myAttackerOutcomes) {
             o.applyOutcome(attacker, effectiveness);
+
         }
 
         for (Outcome o : myDefenderOutcomes) {

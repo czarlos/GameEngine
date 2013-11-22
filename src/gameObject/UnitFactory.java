@@ -13,7 +13,6 @@ import java.util.Map;
 public class UnitFactory extends GameUnit {
     
     private Map<String, GameUnit> myPossibleUnits;
-    //Number of turns to make a given unit
     private Map<String, Integer> myNumberOfTurns;
     private int myAffiliation;
     private int myCounter = 0;
