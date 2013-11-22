@@ -32,7 +32,7 @@ import grid.Tile;
 public class Stage implements GridMouseListener {
 
     private Grid myGrid;
-    private List<Integer> myAffiliateList; //TODO: Update to use teams
+    private List<Integer> myAffiliateList; // TODO: Update to use teams
     @JsonProperty
     private WinCondition myWinCondition;
     private String myName;
@@ -47,7 +47,7 @@ public class Stage implements GridMouseListener {
 
     public Stage (int x, int y, int tileID, String name) {
         myGrid = new Grid(x, y, tileID);
-        myAffiliateList = new ArrayList<Integer>(); 
+        myAffiliateList = new ArrayList<Integer>();
         myWinCondition = new WinCondition();
         myName = name;
         myCurrUnitList = new ArrayList<GameUnit>();
@@ -62,12 +62,13 @@ public class Stage implements GridMouseListener {
      * continually loops through the players in the game, moving to the next player
      * when the spacebar is pressed, or if the player is an AI if all of the units
      * have been set to inactive.
+     * 
      * @param event - Listens for spacebar
      */
     public void doInGame (KeyEvent event) {
         while (!myWinCondition.hasWon(myGrid)) {
 
-            for (int i : myAffiliateList) { //TODO: update with Teams object Carlos made
+            for (int i : myAffiliateList) { // TODO: update with Teams object Carlos made
                 // TODO: Decrement the #turn counter on the units, or set them all to active
                 if (myTeamList.get(i).isHuman()) {
                     boolean flag = true;
@@ -76,7 +77,7 @@ public class Stage implements GridMouseListener {
                             flag = false;
                         }
                         else {
-                            //TODO: This is where a users turn happens
+                            // TODO: This is where a users turn happens
                         }
                     }
                 }
@@ -86,28 +87,10 @@ public class Stage implements GridMouseListener {
                         doAIMove(unit, opponentList);
                     }
                 }
-
             }
 
         }
     }
-
-    /**
-     * 
-     */
-    // public void run () {
-    // while (!myWinCondition.hasWon(myGrid)) {
-    // for (int i : myAffiliateList) { // for each affiliation
-    // changeTurns(i); // set those affiliations' units to active
-    // if (myCurrUnitList == null) // if there are no units skip that affiliation's turn
-    // continue;
-    // if (myCurrUnitList.get(0).isControllable())
-    // doPlayerMove();
-    // else doAIMove(1, 0);
-    // myCurrUnitList.clear();
-    // }
-    // }
-    // }
 
     /**
      * Sends enemy units to attack your units, uses the pathfinding algorithm from
@@ -121,11 +104,11 @@ public class Stage implements GridMouseListener {
     public void doAIMove (GameUnit unit, List<GameUnit> allEnemies) {
         PathFinding.coordinatesToTiles(myGrid, unit);
         GameUnit other = unit.findClosestOpponent(allEnemies);
-        
-        Tile start = myGrid.getTile(unit.getGridPosition().getX(), unit.getGridPosition().getY());
-        Tile end = myGrid.getTile(other.getGridPosition().getX(), other.getGridPosition().getY());
-        
-        if(UnitUtilities.calculateLength(start.getCoordinate(), end.getCoordinate()) == 1) {
+
+        Tile start = myGrid.getTile(unit.getGridPosition());
+        Tile end = myGrid.getTile(other.getGridPosition());
+
+        if (UnitUtilities.calculateLength(start.getCoordinate(), end.getCoordinate()) == 1) {
             Random r = new Random();
             int rand = r.nextInt(unit.getActiveWeapon().getActionList().size());
             CombatAction randomAction = unit.getActiveWeapon().getActionList().get(rand);
@@ -136,28 +119,28 @@ public class Stage implements GridMouseListener {
             PathFinding.autoMove(start, end, unit);
         }
 
-
     }
-    
+
     /**
      * Finds all units for a player (or AI) other than your own and adds them to a list
      * of units which contains all of the opponents of that affiliation.
+     * 
      * @param teamList
      * @param thisAffiliation
      * @return
      */
     public List<GameUnit> findAllEnemies (int thisAffiliation) {
         List<GameUnit> opponentList = new ArrayList<GameUnit>();
-        
+
         for (Team team : myTeamList) {
             if (!team.isHuman()) {
                 opponentList.addAll(team.getGameUnits());
             }
+
         }
         return opponentList;
     }
-    
-    
+
     /*
      * And Ends here
      */
@@ -240,11 +223,12 @@ public class Stage implements GridMouseListener {
         return priorityUnitList;
     }
 
-
     private void changeTurns (Integer currentTurnAffiliate) { // we are just going to be looping
                                                               // through affiliations and setting
                                                               // units to active
-        for (GameUnit[] unitList : myGrid.getGameUnits()) { //TODO: fix this to work with new Teams object Carlos made
+
+        for (GameUnit[] unitList : myGrid.getGameUnits()) { // TODO: fix this to work with new Teams
+                                                            // object Carlos made
             for (GameUnit unit : unitList) {
                 if (currentTurnAffiliate == unit.getAffiliation()) {
                     unit.setActive(true);

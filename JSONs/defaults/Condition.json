@@ -7,4 +7,35 @@
   "data" : [ "java.util.HashMap", { } ],
   "imagePath" : null,
   "name" : null
+<<<<<<< HEAD
+=======
+} ], [ "stage.StatCondition", {
+  "myData" : [ "java.util.HashMap", { } ],
+  "neededData" : [ "java.util.ArrayList", [ ] ],
+  "myImagePath" : null,
+  "data" : [ "java.util.HashMap", { } ],
+  "imagePath" : null,
+  "name" : null
+} ], [ "stage.ItemCondition", {
+  "myData" : [ "java.util.HashMap", { } ],
+  "neededData" : [ "java.util.ArrayList", [ ] ],
+  "myImagePath" : null,
+  "data" : [ "java.util.HashMap", { } ],
+  "imagePath" : null,
+  "name" : null
+} ], [ "stage.UnitCountCondition", {
+  "myData" : [ "java.util.HashMap", { } ],
+  "neededData" : [ "java.util.ArrayList", [ ] ],
+  "myImagePath" : null,
+  "data" : [ "java.util.HashMap", { } ],
+  "imagePath" : null,
+  "name" : null
+} ], [ "stage.TurnCondition", {
+  "myData" : [ "java.util.HashMap", { } ],
+  "neededData" : [ "java.util.ArrayList", [ ] ],
+  "myImagePath" : null,
+  "data" : [ "java.util.HashMap", { } ],
+  "imagePath" : null,
+  "name" : null
+>>>>>>> combat
 } ] ] ]

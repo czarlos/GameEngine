@@ -149,6 +149,7 @@ public class GameUnit extends GameObject {
     /**
      * Gets the total stat value for a given stat of a character
      * after all of the item's stats have been applied.
+     * 
      * @param stat - The stat that we want to see
      * @return
      */
@@ -223,13 +224,14 @@ public class GameUnit extends GameObject {
 
         return closest;
     }
-    
+
     /**
      * Trade allows one unit to swap an item with another unit, no matter
      * what team they are affiliated with. Note: as of this implementation
      * any character will trade with you for anything you want, a system must
      * be implemented which allows the other unit to determine what trades are
      * appropriate.
+     * 
      * @param other - The unit that this unit is trading with
      * @param otherItem - The item that this unit wants
      * @param item - The item that this unit is giving away
@@ -326,7 +328,7 @@ public class GameUnit extends GameObject {
 
     // TODO: trade with affiliates
     @Override
-    public Action getInteraction(){
+    public Action getInteraction () {
         return null;
     };
 

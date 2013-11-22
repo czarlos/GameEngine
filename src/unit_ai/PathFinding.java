@@ -96,7 +96,7 @@ public class PathFinding {
         List<Tile> tileList = new ArrayList<Tile>();
         for (int i = 0; i < grid.getTiles().length; i++) {
             for (int j = 0; j < grid.getTiles().length; j++) {
-                if (grid.getTile(i, j).isPassable(unit))
+                if (grid.getTile(new Coordinate(i, j)).isPassable(unit))
                     tileList.add(new Tile(null, new Coordinate(i, j)));
             }
         }

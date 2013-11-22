@@ -22,15 +22,16 @@ public class UnitTableModel extends GameTableModel {
 
     private static final long serialVersionUID = 9110749927413795404L;
 
-    public UnitTableModel(){
-       String[] columns = { "Type",
-            "Name",
-            "Image",
-            "Stats",
-            "Actions",
-            "Affiliation" };
-       myColumnNames = columns;
+    public UnitTableModel () {
+        String[] columns = { "Type",
+                            "Name",
+                            "Image",
+                            "Stats",
+                            "Actions",
+                            "Affiliation" };
+        myColumnNames = columns;
     }
+
     /**
      * 
      * Add definition of a unit to table model
@@ -43,7 +44,7 @@ public class UnitTableModel extends GameTableModel {
      * @param affiliation
      * @return added definition array CLONE
      */
-    
+
     public Object[] addNewUnit (String type, String name, ImageIcon img, StatsTestStub stats,
                                 ArrayList<ActionTestStub> actionList, String affiliation) {
 
@@ -54,7 +55,6 @@ public class UnitTableModel extends GameTableModel {
         return rowToAdd.clone();
 
     }
-
 
     public boolean isCellEditable (int row, int col) {
         // everything editable

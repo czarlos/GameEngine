@@ -11,7 +11,6 @@ import controller.actions.Command;
 import controller.actions.CommandShell;
 
 
-
 public class NClickAction {
     protected List<Coordinate> myCoordinates;
     protected String myAction;

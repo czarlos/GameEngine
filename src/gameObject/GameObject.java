@@ -52,6 +52,12 @@ public class GameObject extends Drawable {
         return myPassableList;
     }
 
+    public Map<String, String> getData () {
+        // TODO: Needs to implement this for everything that extends GameObject (for GUI editing
+        // purposes)
+        return null;
+    }
+
     @JsonProperty("imagePath")
     public void setImageAndPath (String imagePath) {
 
@@ -63,8 +69,8 @@ public class GameObject extends Drawable {
             e.printStackTrace();
         }
     }
-    
-    public Action getInteraction(){
+
+    public Action getInteraction () {
         return null;
     };
 

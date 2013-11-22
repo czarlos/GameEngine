@@ -20,10 +20,10 @@ public class GridController implements GridMouseListener {
         myCurrentAction = new NClickAction(numClicks, commandName, myWM, args);
         myCurrentAction.click(mySelectedCoordinate);
     }
-    
-    public void doCommand(NClickAction action,Object... args){
-        myCurrentAction=action;
-        args=ArrayUtils.add(args,0,myWM);
+
+    public void doCommand (NClickAction action, Object ... args) {
+        myCurrentAction = action;
+        args = ArrayUtils.add(args, 0, myWM);
         action.setArgs(args);
         myCurrentAction.click(mySelectedCoordinate);
     }
@@ -39,5 +39,5 @@ public class GridController implements GridMouseListener {
     public void clearCurrentCommand () {
         myCurrentAction = null;
     }
-    
+
 }

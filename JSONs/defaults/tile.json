@@ -2,34 +2,60 @@
   "myData" : [ "java.util.HashMap", { } ],
   "neededData" : [ "java.util.ArrayList", [ ] ],
   "myImagePath" : "resources/grass.png",
+<<<<<<< HEAD
   "moveCost" : 1,
   "statMods" : [ "java.util.HashMap", { } ],
   "neighbors" : null,
   "coordinate" : null,
+=======
+  "statMods" : [ "java.util.HashMap", { } ],
+  "moveCost" : 1,
+  "coordinate" : null,
+  "neighbors" : null,
+>>>>>>> combat
   "distanceToGoal" : 0,
   "parent" : null,
   "length" : 0,
   "active" : false,
+<<<<<<< HEAD
   "image" : null,
   "passableList" : [ "java.util.ArrayList", [ "everything" ] ],
   "interaction" : null,
+=======
+  "passableList" : [ "java.util.ArrayList", [ "everything" ] ],
+  "interaction" : null,
+  "data" : null,
+>>>>>>> combat
   "imagePath" : "resources/grass.png",
   "name" : "grass"
 } ], [ "grid.Tile", {
   "myData" : [ "java.util.HashMap", { } ],
   "neededData" : [ "java.util.ArrayList", [ ] ],
   "myImagePath" : "resources/water.png",
+<<<<<<< HEAD
   "moveCost" : 2,
   "statMods" : [ "java.util.HashMap", { } ],
   "neighbors" : null,
   "coordinate" : null,
+=======
+  "statMods" : [ "java.util.HashMap", { } ],
+  "moveCost" : 2,
+  "coordinate" : null,
+  "neighbors" : null,
+>>>>>>> combat
   "distanceToGoal" : 0,
   "parent" : null,
   "length" : 0,
   "active" : false,
+<<<<<<< HEAD
   "image" : null,
   "passableList" : [ "java.util.ArrayList", [ "everything" ] ],
   "interaction" : null,
+=======
+  "passableList" : [ "java.util.ArrayList", [ "everything" ] ],
+  "interaction" : null,
+  "data" : null,
+>>>>>>> combat
   "imagePath" : "resources/water.png",
   "name" : "water"
 } ] ] ]
