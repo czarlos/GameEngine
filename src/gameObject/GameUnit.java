@@ -321,12 +321,7 @@ public class GameUnit extends GameObject {
                 }
             }
         }
-        validActions.addAll(getInteractions(grid, this));
         return validActions;
-    }
-    
-    public List<Action> getInteractions(Grid grid, GameUnit gameUnit) {
-        return grid.getInteractions(this);
     }
     
     // TODO: trade with affiliates

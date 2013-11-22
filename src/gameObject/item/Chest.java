@@ -3,8 +3,6 @@ package gameObject.item;
 import java.util.List;
 import gameObject.GameObject;
 import gameObject.action.Action;
-import gameObject.action.FixedOutcome;
-import gameObject.action.Outcome;
 
 /**
  * Holds a list of items that a unit can retrieve.
@@ -31,8 +29,6 @@ public class Chest extends GameObject {
     // TODO: give objects to person
     @Override
     public Action getInteraction(){
-        Outcome getContentsOutcome = new FixedOutcome();
-        Action getContents = new Action
         return null;
     };
 }

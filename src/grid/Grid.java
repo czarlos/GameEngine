@@ -34,7 +34,7 @@ public class Grid extends Drawable {
     @JsonProperty
     private GameObject[][] myObjects;
     @JsonProperty
-    private GameUnit[][] myUnits; //TODO: move to STAGE/ WORLD MANAGER/TEAMS List<ArrayList<GameUnit>>
+    private GameUnit[][] myUnits;
     private FromJSONFactory myFactory;
 
     /**
@@ -317,6 +317,15 @@ public class Grid extends Drawable {
             }
         }
         return affectedObjects;
+    }
+    
+    /**
+     * 
+     * @param coordinate
+     * @return
+     */
+    public List<String> generateActionList(Coordinate coordinate) {
+        return null;
     }
     
     public List<Action> getInteractions(GameUnit gameUnit) {
