@@ -1,4 +1,6 @@
-package gameObject;
+package gameObject.action;
+
+import gameObject.GameUnit;
 
 public abstract class Outcome {
     protected String myType;
