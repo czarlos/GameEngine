@@ -20,6 +20,7 @@ import view.Drawable;
 public class GameObject extends Drawable {
     protected List<String> myPassableList;
     protected BufferedImage myImage;
+    protected List<String> myDisplayData;
 
     public GameObject () {
     }
@@ -68,6 +69,14 @@ public class GameObject extends Drawable {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public List<String> getDisplayData () {
+        return myDisplayData;
+    }
+    
+    public void setDisplayData (List<String> displayData) {
+        myDisplayData = displayData;
     }
 
     public Action getInteraction () {

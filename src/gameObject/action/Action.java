@@ -1,5 +1,6 @@
 package gameObject.action;
 
+import gameObject.GameObject;
 import gameObject.GameUnit;
 import grid.Coordinate;
 import java.util.ArrayList;
@@ -40,6 +41,11 @@ public class Action {
         }
     }
 
+    public boolean isValidAction (GameUnit gameUnit, GameObject gameObject) {
+        //TODO: fill in based on action
+        return false;
+    }
+    
     public String getName () {
         return myName;
     }

@@ -122,7 +122,7 @@ public class Grid extends Drawable {
     /**
      * Moves the unit to a new coordinate if the move is valid
      * 
-     * @param oldCoordinate - Coordinate of the gameUnit's original position
+      * @param oldCoordinate - Coordinate of the gameUnit's original position
      * @param newCoordinate - Coordinate that unit is moving to
      * 
      */
@@ -349,30 +349,35 @@ public class Grid extends Drawable {
      * @param coordinate Coordinate that is being asked for
      * @return List of Strings that contain information about the coordinate
      */
-    public List<String> generateInfoList (Coordinate coordinate) {
-        List<String> data = new ArrayList<>();
-        Tile tile = myTiles[coordinate.getX()][coordinate.getY()];
-        data.add("Tile");
-        data.addAll(tile.getNeededData());
-        GameObject gameObject = myObjects[coordinate.getX()][coordinate.getY()];
-        if (gameObject != null) {
-            data.add("");
-            data.add(gameObject.getName());
-            data.addAll(gameObject.getNeededData());
-        }
-        return data;
+    public List<String> generateTileInfoList (Coordinate coordinate) {
+        Tile tile = getTile(coordinate);
+        return tile.getDisplayData();
     }
 
+    /**
+     * Creates a list of information that a coordinate contains about a Game Object
+     * 
+     * @param coordinate Coordinate that is being asked for
+     * @return List of Strings that contain information about the coordinate
+     */
+    public List<String> generateObjectInfoList (Coordinate coordinate) {
+        GameObject gameObject = getObject(coordinate);
+        if (gameObject != null) {
+            return gameObject.getDisplayData();
+        }
+        return null;
+    }
+    
     /**
      * Generates a list of names of actions that a unit at the given coordinate can perform
      * 
      * @param coordinate Coordinate of the unit's location
      * @return List of Strings of the action names. Null if there is no unit at coordinate
      */
-    public List<String> generateActionList (Coordinate coordinate) {
+    public List<String> generateActionNameList (Coordinate coordinate) {
         if (getUnit(coordinate) != null) {
             List<String> actionList = new ArrayList<>();
-            for (Action action : generateActions(coordinate)) {
+            for (Action action : generateActionList(coordinate)) {
                 actionList.add(action.getName());
             }
             return actionList;
@@ -386,7 +391,7 @@ public class Grid extends Drawable {
      * @param coordinate Coordinate of the unit's location
      * @return List of Actions
      */
-    private List<Action> generateActions (Coordinate coordinate) {
+    private List<Action> generateActionList (Coordinate coordinate) {
         List<Action> actions = new ArrayList<>();
         GameUnit gameUnit = myUnits[coordinate.getX()][coordinate.getY()];
         actions.addAll(gameUnit.getActions());

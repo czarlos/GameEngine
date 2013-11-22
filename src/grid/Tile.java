@@ -2,6 +2,7 @@ package grid;
 
 import gameObject.GameObject;
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -29,6 +30,14 @@ public class Tile extends GameObject {
 
     public Tile () {
         setImagePath(myImagePath);
+        List<String> displayData = new ArrayList<>();
+        displayData.add("Name: " + myName);
+        displayData.add("Movement cost: "+ myMoveCost);
+        displayData.add("Stat Modifiers: ");
+        for (String stat: myStatMods.keySet()) {
+            displayData.add(stat + ": " + myStatMods.get(stat));
+        }
+        myDisplayData = displayData;
     }
 
     public boolean isActive () {
@@ -45,8 +54,7 @@ public class Tile extends GameObject {
         myImage = isActive ? ImageManager.getHightlightedTileImage(myImagePath)
                           : ImageManager.getTileImage(myImagePath);
     }
-
-    public Map<String, Double> getStatMods () {
+        public Map<String, Double> getStatMods () {
         return myStatMods;
     }
 
@@ -68,8 +76,8 @@ public class Tile extends GameObject {
     }
 
     public Tile (List<Tile> neighbors, Coordinate coordinate) {
-        this.myNeighbors = neighbors;
-        this.myCoordinate = coordinate;
+        myNeighbors = neighbors;
+        myCoordinate = coordinate;
     }
 
     public List<Tile> getNeighbors () {
@@ -77,7 +85,7 @@ public class Tile extends GameObject {
     }
 
     public void setNeighbors (List<Tile> myNeighbors) {
-        this.myNeighbors = myNeighbors;
+        myNeighbors = myNeighbors;
     }
 
     public Tile getParent () {
@@ -85,7 +93,7 @@ public class Tile extends GameObject {
     }
 
     public void setParent (Tile myParent) {
-        this.myParent = myParent;
+        myParent = myParent;
     }
 
     public int getLength () {
@@ -93,7 +101,7 @@ public class Tile extends GameObject {
     }
 
     public void setLength (int myLength) {
-        this.myLength = myLength;
+        myLength = myLength;
     }
 
     public int getDistanceToGoal () {
@@ -101,7 +109,7 @@ public class Tile extends GameObject {
     }
 
     public void setDistanceToGoal (int myDistanceToGoal) {
-        this.myDistanceToGoal = myDistanceToGoal;
+        myDistanceToGoal = myDistanceToGoal;
     }
 
     public Coordinate getCoordinate () {
@@ -109,6 +117,6 @@ public class Tile extends GameObject {
     }
 
     public void setCoordinate (Coordinate myCoordinate) {
-        this.myCoordinate = myCoordinate;
+        myCoordinate = myCoordinate;
     }
 }
