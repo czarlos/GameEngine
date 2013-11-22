@@ -329,6 +329,13 @@ public class GameUnit extends GameObject {
     public Action getInteraction(){
         return null;
     };
+    
+    public Item hasItem(String itemName) {
+        for (Item i : myItemList) {
+            if (i.getName().equals(itemName)) { return i;}
+        }
+        return null;
+    }
 
     // Adding for Outcomes, can potentially change later
     // Need to keep method names and signatures similar for reflection
@@ -349,10 +356,13 @@ public class GameUnit extends GameObject {
     }
 
     public void setItem (String itemName, int itemValue) {
-        for (Item i : myItemList) {
-            if (i.getName().equals(itemName)) {
-                i.setAmount(itemValue);
-            }
+        Item i = hasItem(itemName);
+        if (i != null){
+            i.setAmount(itemValue);
+        }
+        else {
+            // Get item from master list of items?? Not sure how to add here
+            //TODO: Add new Item to units item list
         }
 
     }
