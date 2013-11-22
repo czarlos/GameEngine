@@ -18,7 +18,7 @@ import view.Drawable;
 public class GameObject extends Drawable {
     protected List<String> myPassableList;
     protected BufferedImage myImage;
-    
+
     public GameObject () {
     }
 
@@ -49,9 +49,10 @@ public class GameObject extends Drawable {
     public List<String> getPassableList () {
         return myPassableList;
     }
-    
+
     @JsonProperty("imagePath")
     public void setImageAndPath (String imagePath) {
+
         myImagePath = imagePath;
         try {
             myImage = ImageManager.addImage(imagePath);

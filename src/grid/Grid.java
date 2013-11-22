@@ -87,8 +87,9 @@ public class Grid extends Drawable {
         GameObject tree = (GameObject) myFactory.make("GameObject", 0);
         placeObject(tree, 3, 5);
         GameObject link = (GameUnit) myFactory.make("GameUnit", 0);
-        placeObject(link, 5, 5);
-        //beginMove(new Coordinate(5, 5), link);
+
+        placeObject(link, 4,5);
+        beginMove(new Coordinate(4,5));
     }
 
     /**
@@ -98,6 +99,7 @@ public class Grid extends Drawable {
      * @param gameUnit - GameUnit that is moving
      * 
      */
+
     public void beginMove (Coordinate coordinate ) {
 //        System.out.println("beginMove, getTotalStat movement: " +
 //                           ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT));
@@ -133,25 +135,25 @@ public class Grid extends Drawable {
         for (int i = 0; i < rdelta.length; i++) {
             int newX = coordinate.getX() + cdelta[i];
             int newY = coordinate.getY() + rdelta[i];
-//            System.out.println("findMovementRange: newX, newY: " + newX + ", " + newY);
+
             if (onGrid(newX, newY)) {
                 Tile currentTile = getTile(newX, newY);
-                if (currentTile.isPassable(gameObject) && !currentTile.isActive()) {
-                    int newRange = range - currentTile.getMoveCost();
-//                    System.out.println("findMovementRange: newRange: " + newRange);
+                int newRange = range - currentTile.getMoveCost();
+                if (currentTile.isPassable(gameObject) && newRange >= 0) {  
                     GameObject currentObject = getObject(newX, newY);
-                    if (currentObject != null && currentObject.isPassable(gameObject)) {
-//                        System.out.println("tree, coords: " + newX + ", " + newY);
-                        findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
+                    if (currentObject != null) {
+                        if (currentObject.isPassable(gameObject)) {
+                            findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
+                        }
+                        continue;
                     }
-                    else if (newRange >= 0) {
+                    else {
                         currentTile.setActive(true);
                         findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
                     }
                 }
             }
         }
-
     }
 
     /**
@@ -342,9 +344,9 @@ public class Grid extends Drawable {
                 return;
             }
 
-            ArrayList<GameUnit> newUnitList = new ArrayList<GameUnit>();
+            List<GameUnit> newUnitList = new ArrayList<>();
             newUnitList.add((GameUnit) gameObject);
-            myUnits.add(newUnitList);
+            myUnits.add((ArrayList<GameUnit>) newUnitList);
         }
     }
 
