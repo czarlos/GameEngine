@@ -89,10 +89,11 @@ public class ImageCreator extends JPanel{
         ok.addActionListener(okListener);
         
         JButton cancel = new JButton("Cancel");
+        
         if(cancelListener != null)
             cancel.addActionListener(cancelListener);
         else
-            cancel.addActionListener(new DefaultListener(dialog));
+            cancel.addActionListener(new DefaultCancelListener(dialog));
         
         JButton reset = new JButton("Reset");
         reset.addActionListener(new ResetListener(imageCreator));
@@ -149,6 +150,21 @@ public class ImageCreator extends JPanel{
         }
     }
     
+    private static class DefaultCancelListener implements ActionListener{
+        
+        private JDialog dialog;
+        
+        public DefaultCancelListener(JDialog dialog) {
+            super();
+            this.dialog = dialog; 
+            
+        }
+        
+        public void actionPerformed (ActionEvent e){
+            dialog.setVisible(false);
+        }
+    }
+    
     private static class ResetListener implements ActionListener{
         
         private JDialog dialog;
@@ -160,7 +176,7 @@ public class ImageCreator extends JPanel{
         }
         
         public void actionPerformed (ActionEvent e){
-            imageCreator.getCanvas().clear(); 
+            imageCreator.getCanvas().clear();
         }
     }
     
