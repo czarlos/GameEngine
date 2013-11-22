@@ -199,10 +199,8 @@ public class Grid extends Drawable {
      * @param gameUnit GameUnit that is doing the action
      * @param combatAction CombatAction that is being used
      */
-    public void beginAction (Coordinate objectCoordinate,
-                             GameUnit gameUnit,
-                             CombatAction combatAction) {
-        findActionRange(objectCoordinate, combatAction.getAOE(), combatAction.isAround());
+    public void beginAction (Coordinate coordinate, Action action) {
+        findActionRange(coordinate, action);
     }
 
     // TODO: fix so that doAction can be called with two coordinates and action being used. make
@@ -219,11 +217,12 @@ public class Grid extends Drawable {
     public List<GameObject> doAction (Coordinate objectCoordinate, GameUnit gameUnit,
                                       CombatAction combatAction,
                                       Coordinate actionCoordinate) {
-        String direction = findDirection(objectCoordinate, combatAction, actionCoordinate);
-        return findAffectedObjects(objectCoordinate, combatAction, direction);
+//        String direction = findDirection(objectCoordinate, combatAction, actionCoordinate);
+//        return findAffectedObjects(objectCoordinate, combatAction, direction);
+        return null
     }
 
-    // TODO: fix so that it just sets adjacent tiles to active.
+    // TODO: fix so that it just sets adjacent tiles to active. or units to trade with, or chests to open
     /**
      * Sets the tiles active that an action can affect
      * 
@@ -232,117 +231,121 @@ public class Grid extends Drawable {
      * @param isAround boolean of whether the action only affects one direction, or is all around
      *        the unit
      */
-    private void findActionRange (Coordinate coordinate, List<Coordinate> area, boolean isAround) {
-        if (isAround) {
-            for (Coordinate cell : area) {
-                getTile(
-                        new Coordinate(coordinate.getX() + cell.getX(), coordinate.getY() +
-                                                                        cell.getY()))
-                        .setActive(true); // up)
-            }
-        }
-        else {
-            for (Coordinate cell : area) {
-                getTile(
-                        new Coordinate(coordinate.getX() + cell.getX(), coordinate.getY() +
-                                                                        cell.getY()))
-                        .setActive(true); // up
-                getTile(
-                        new Coordinate(coordinate.getX() + cell.getY(), coordinate.getY() -
-                                                                        cell.getX()))
-                        .setActive(true); // right
-                getTile(
-                        new Coordinate(coordinate.getX() - cell.getX(), coordinate.getY() -
-                                                                        cell.getY()))
-                        .setActive(true); // down
-                getTile(
-                        new Coordinate(coordinate.getX() - cell.getY(), coordinate.getY() +
-                                                                        cell.getX()))
-                        .setActive(true); // left
-            }
-        }
+    private void findActionRange (Coordinate coordinate, Action action) {
+        
     }
+        
+//    private void findActionRange (Coordinate coordinate, List<Coordinate> area, boolean isAround) {
+//        if (isAround) {
+//            for (Coordinate cell : area) {
+//                getTile(
+//                        new Coordinate(coordinate.getX() + cell.getX(), coordinate.getY() +
+//                                                                        cell.getY()))
+//                        .setActive(true); // up)
+//            }
+//        }
+//        else {
+//            for (Coordinate cell : area) {
+//                getTile(
+//                        new Coordinate(coordinate.getX() + cell.getX(), coordinate.getY() +
+//                                                                        cell.getY()))
+//                        .setActive(true); // up
+//                getTile(
+//                        new Coordinate(coordinate.getX() + cell.getY(), coordinate.getY() -
+//                                                                        cell.getX()))
+//                        .setActive(true); // right
+//                getTile(
+//                        new Coordinate(coordinate.getX() - cell.getX(), coordinate.getY() -
+//                                                                        cell.getY()))
+//                        .setActive(true); // down
+//                getTile(
+//                        new Coordinate(coordinate.getX() - cell.getY(), coordinate.getY() +
+//                                                                        cell.getX()))
+//                        .setActive(true); // left
+//            }
+//        }
+//    }
 
     // TODO: not really necessary anymore. legacy
-    /**
-     * Finds direction of action user selects
-     * 
-     * @param unitCoordinate Coordinate of the unit
-     * @param area List of Coordinates that action affects
-     * @param selectedCoordinate Coordinate that the user selected for the action
-     * @return String of the direction
-     */
-    private String findDirection (Coordinate unitCoordinate,
-                                  CombatAction combatAction,
-                                  Coordinate selectedCoordinate) {
-        List<Coordinate> area = combatAction.getAOE();
-        if (combatAction.isAround()) { return "around"; }
-        for (Coordinate cell : area) {
-            if (selectedCoordinate.equals(new Coordinate(unitCoordinate.getX() + cell.getX(),
-                                                         unitCoordinate.getY() + cell.getY()))) {
-                return "up";
-            }
-            else if (selectedCoordinate.equals(new Coordinate(unitCoordinate.getX() + cell.getY(),
-                                                              unitCoordinate.getY() - cell.getX()))) {
-                return "right";
-            }
-            else if (selectedCoordinate.equals(new Coordinate(unitCoordinate.getX() - cell.getX(),
-                                                              unitCoordinate.getY() - cell.getY()))) {
-                return "down";
-            }
-            else if (selectedCoordinate.equals(new Coordinate(unitCoordinate.getX() - cell.getY(),
-                                                              unitCoordinate.getY() + cell.getX()))) { return "left"; }
-        }
-        return null;
-    }
+//    /**
+//     * Finds direction of action user selects
+//     * 
+//     * @param unitCoordinate Coordinate of the unit
+//     * @param area List of Coordinates that action affects
+//     * @param selectedCoordinate Coordinate that the user selected for the action
+//     * @return String of the direction
+//     */
+//    private String findDirection (Coordinate unitCoordinate,
+//                                  CombatAction combatAction,
+//                                  Coordinate selectedCoordinate) {
+//        List<Coordinate> area = combatAction.getAOE();
+//        if (combatAction.isAround()) { return "around"; }
+//        for (Coordinate cell : area) {
+//            if (selectedCoordinate.equals(new Coordinate(unitCoordinate.getX() + cell.getX(),
+//                                                         unitCoordinate.getY() + cell.getY()))) {
+//                return "up";
+//            }
+//            else if (selectedCoordinate.equals(new Coordinate(unitCoordinate.getX() + cell.getY(),
+//                                                              unitCoordinate.getY() - cell.getX()))) {
+//                return "right";
+//            }
+//            else if (selectedCoordinate.equals(new Coordinate(unitCoordinate.getX() - cell.getX(),
+//                                                              unitCoordinate.getY() - cell.getY()))) {
+//                return "down";
+//            }
+//            else if (selectedCoordinate.equals(new Coordinate(unitCoordinate.getX() - cell.getY(),
+//                                                              unitCoordinate.getY() + cell.getX()))) { return "left"; }
+//        }
+//        return null;
+//    }
 
     // TODO: not really necessary anymore. legacy.
-    /**
-     * Returns objects in an action's area of effectiveness
-     * 
-     * @param coordinate Coordinate where the action originates
-     * @param combatAction CombatAction being used
-     * @param direction String of the direction of the action
-     * @return List of GameObjects that are affected by the action
-     */
-    private List<GameObject> findAffectedObjects (Coordinate coordinate,
-                                                  CombatAction combatAction,
-                                                  String direction) {
-        List<Coordinate> area = combatAction.getAOE();
-        List<GameObject> affectedObjects = new ArrayList<GameObject>();
-        GameObject currentObject;
-        for (Coordinate cell : area) {
-            if (direction.equals("all")) {
-                currentObject =
-                        getObject(new Coordinate(coordinate.getX() + cell.getX(),
-                                                 coordinate.getY() + cell.getY()));
-            }
-            else if (direction.equals("up")) {
-                currentObject =
-                        getObject(new Coordinate(coordinate.getX() + cell.getX(),
-                                                 coordinate.getY() + cell.getY()));
-            }
-            else if (direction.equals("right")) {
-                currentObject =
-                        getObject(new Coordinate(coordinate.getX() + cell.getY(),
-                                                 coordinate.getY() - cell.getX()));
-            }
-            else if (direction.equals("down")) {
-                currentObject =
-                        getObject(new Coordinate(coordinate.getX() - cell.getX(),
-                                                 coordinate.getY() - cell.getY()));
-            }
-            else {
-                currentObject =
-                        getObject(new Coordinate(coordinate.getX() - cell.getY(),
-                                                 coordinate.getY() + cell.getX()));
-            }
-            if (currentObject != null) {
-                affectedObjects.add(currentObject);
-            }
-        }
-        return affectedObjects;
-    }
+//    /**
+//     * Returns objects in an action's area of effectiveness
+//     * 
+//     * @param coordinate Coordinate where the action originates
+//     * @param combatAction CombatAction being used
+//     * @param direction String of the direction of the action
+//     * @return List of GameObjects that are affected by the action
+//     */
+//    private List<GameObject> findAffectedObjects (Coordinate coordinate,
+//                                                  CombatAction combatAction,
+//                                                  String direction) {
+//        List<Coordinate> area = combatAction.getAOE();
+//        List<GameObject> affectedObjects = new ArrayList<GameObject>();
+//        GameObject currentObject;
+//        for (Coordinate cell : area) {
+//            if (direction.equals("all")) {
+//                currentObject =
+//                        getObject(new Coordinate(coordinate.getX() + cell.getX(),
+//                                                 coordinate.getY() + cell.getY()));
+//            }
+//            else if (direction.equals("up")) {
+//                currentObject =
+//                        getObject(new Coordinate(coordinate.getX() + cell.getX(),
+//                                                 coordinate.getY() + cell.getY()));
+//            }
+//            else if (direction.equals("right")) {
+//                currentObject =
+//                        getObject(new Coordinate(coordinate.getX() + cell.getY(),
+//                                                 coordinate.getY() - cell.getX()));
+//            }
+//            else if (direction.equals("down")) {
+//                currentObject =
+//                        getObject(new Coordinate(coordinate.getX() - cell.getX(),
+//                                                 coordinate.getY() - cell.getY()));
+//            }
+//            else {
+//                currentObject =
+//                        getObject(new Coordinate(coordinate.getX() - cell.getY(),
+//                                                 coordinate.getY() + cell.getX()));
+//            }
+//            if (currentObject != null) {
+//                affectedObjects.add(currentObject);
+//            }
+//        }
+//        return affectedObjects;
+//    }
 
     /**
      * Creates a list of information that a coordinate contains, including tiles and objects
