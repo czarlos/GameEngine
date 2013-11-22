@@ -1,5 +1,6 @@
-package gameObject;
+package gameObject.action;
 
+import gameObject.GameUnit;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 

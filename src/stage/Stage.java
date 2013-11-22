@@ -7,15 +7,13 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 import team.Team;
-import unit_ai.Node;
 import unit_ai.PathFinding;
 import utils.UnitUtilities;
 import view.canvas.GridMouseListener;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import gameObject.CombatAction;
 import gameObject.GameUnit;
-import gameObject.UnitFactory;
+import gameObject.action.CombatAction;
 import grid.Coordinate;
 import grid.Grid;
 import grid.Tile;
@@ -41,7 +39,6 @@ public class Stage implements GridMouseListener {
     private List<GameUnit> myCurrUnitList;
     private String preText;
     private String postText;
-    private List<List<GameUnit>> myTeamUnitList;
     private List<Team> myTeamList;
 
     // only for use by deserializer
@@ -72,7 +69,7 @@ public class Stage implements GridMouseListener {
 
             for (int i : myAffiliateList) {
                 // TODO: Decrement the #turn counter on the units, or set them all to active
-                if (myTeamUnitList.get(i).get(0).isControllable()) {
+                if (myTeamList.get(i).isHuman()) {
                     boolean flag = true;
                     while (flag) {
                         if (event.getKeyCode() == KeyEvent.VK_SPACE) {
@@ -84,8 +81,8 @@ public class Stage implements GridMouseListener {
                     }
                 }
                 else {
-                    List<GameUnit> opponentList = findAllEnemies(myTeamUnitList, i);
-                    for (GameUnit unit : myTeamUnitList.get(i)) {
+                    List<GameUnit> opponentList = findAllEnemies(i);
+                    for (GameUnit unit : myTeamList.get(i).getGameUnits()) {
                         doAIMove(unit, opponentList);
                     }
                 }
@@ -132,13 +129,12 @@ public class Stage implements GridMouseListener {
      * @param thisAffiliation
      * @return
      */
-    public List<GameUnit> findAllEnemies (List<List<GameUnit>> teamList, int thisAffiliation) {
+    public List<GameUnit> findAllEnemies (int thisAffiliation) {
         List<GameUnit> opponentList = new ArrayList<GameUnit>();
-        for (List<GameUnit> team : teamList) {
-            if (!teamList.get(thisAffiliation).equals(team)) {
-                for (GameUnit unit : team) {
-                    opponentList.add(unit);
-                }
+        
+        for (Team team : myTeamList) {
+            if (!team.isHuman()) {
+                opponentList.addAll(team.getGameUnits());
             }
         }
         return opponentList;
@@ -194,12 +190,12 @@ public class Stage implements GridMouseListener {
      */
     private void moveToOpponents (int aiTeamIndex, int otherTeamIndex) {
         int counter = 0;
-        for (GameUnit unit : myTeamUnitList.get(aiTeamIndex)) {
-            if (counter > myTeamUnitList.get(otherTeamIndex).size()) {
+        for (GameUnit unit : myTeamList.get(aiTeamIndex).getGameUnits()) {
+            if (counter > myTeamList.get(otherTeamIndex).getGameUnits().size()) {
                 counter = 0;
             }
             List<GameUnit> opponentList =
-                    makeSortedUnitList(unit, myTeamUnitList.get(otherTeamIndex));
+                    makeSortedUnitList(unit, myTeamList.get(otherTeamIndex).getGameUnits());
             unit.snapToOpponent(opponentList.get(0));
             counter++;
         }
@@ -211,12 +207,12 @@ public class Stage implements GridMouseListener {
      */
     public void moveToClosestOpponent (int aiTeamIndex, int otherTeamIndex) {
         int counter = 0;
-        for (GameUnit unit : myTeamUnitList.get(aiTeamIndex)) {
-            if (counter > myTeamUnitList.get(otherTeamIndex).size()) {
+        for (GameUnit unit : myTeamList.get(aiTeamIndex).getGameUnits()) {
+            if (counter > myTeamList.get(otherTeamIndex).getGameUnits().size()) {
                 counter = 0;
             }
             List<GameUnit> opponentList =
-                    makeSortedUnitList(unit, myTeamUnitList.get(otherTeamIndex));
+                    makeSortedUnitList(unit, myTeamList.get(otherTeamIndex).getGameUnits());
             unit.snapToOpponent(opponentList.get(0));
             counter++;
         }
@@ -266,14 +262,6 @@ public class Stage implements GridMouseListener {
      */
     private void doCombat (GameUnit attacker, GameUnit defender, CombatAction action) {
         // TODO: Figure out how much of combat is determined outside of stage
-    }
-
-    public List<List<GameUnit>> getTeamUnitList () {
-        return myTeamUnitList;
-    }
-
-    public void setTeamUnitList (List<List<GameUnit>> myTeamUnitList) {
-        this.myTeamUnitList = myTeamUnitList;
     }
 
     public Grid getGrid () {

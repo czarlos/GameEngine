@@ -16,6 +16,14 @@ public class Team {
     private List<GameUnit> myGameUnits;
     private int myGold;
     private int myAffiliation;
+    private boolean isHuman;
+    
+    public Team (List<GameUnit> gameUnits, int affliation, boolean human) {
+        myGold = 0;
+        myAffiliation = affliation;
+        isHuman = human;
+        
+    }
     
     /**
      * Gets a list of the factories that the team has in its game units.
@@ -46,4 +54,21 @@ public class Team {
     public void setAffiliation (int myAffiliation) {
         this.myAffiliation = myAffiliation;
     }
+
+    public boolean isHuman () {
+        return isHuman;
+    }
+
+    public void setHuman (boolean isHuman) {
+        this.isHuman = isHuman;
+    }
+    
+    public List<GameUnit> getGameUnits () {
+        return myGameUnits;
+    }
+
+    public void setGameUnits (List<GameUnit> myGameUnits) {
+        this.myGameUnits = myGameUnits;
+    }
+
 }
