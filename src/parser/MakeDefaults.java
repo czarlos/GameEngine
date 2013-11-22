@@ -24,7 +24,7 @@ public class MakeDefaults {
         passableList.add(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
         grid.Tile Grass = new grid.Tile();
         Grass.setName("grass");
-        Grass.setImageAndPath("resources/grass.png");
+        Grass.setImagePath("resources/grass.png");
         Grass.setPassableList(passableList);
         Grass.setStatMods(new java.util.HashMap<String, Double>());
         Grass.setActive(false);
@@ -32,7 +32,7 @@ public class MakeDefaults {
 
         grid.Tile Water = new grid.Tile();
         Water.setName("water");
-        Water.setImageAndPath("resources/water.png");
+        Water.setImagePath("resources/water.png");
         Water.setPassableList(passableList);
         Water.setStatMods(new java.util.HashMap<String, Double>());
         Water.setActive(false);
@@ -50,7 +50,7 @@ public class MakeDefaults {
 
         gameObject.GameObject tree = new gameObject.GameObject();
         tree.setName("tree");
-        tree.setImageAndPath("resources/tree.png");
+        tree.setImagePath("resources/tree.png");
         tree.setPassableList(new java.util.ArrayList<String>());
 
         p.createJSON("tree", tree);
@@ -71,7 +71,7 @@ public class MakeDefaults {
         stats.setStatValue("movement", 3);
 
         hero.setName("hero");
-        hero.setImageAndPath("resources/hero.png");
+        hero.setImagePath("resources/hero.png");
         hero.setPassableList(new java.util.ArrayList<String>());
         hero.setAffiliation(0);
         hero.setControllable(true);

@@ -1,5 +1,6 @@
 package gameObject;
 
+import gameObject.action.Action;
 import grid.ImageManager;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -20,7 +21,7 @@ import view.Drawable;
 public class GameObject extends Customizable implements Drawable {
     protected List<String> myPassableList;
     protected BufferedImage myImage;
-    
+
     public GameObject () {
     }
 
@@ -51,9 +52,10 @@ public class GameObject extends Customizable implements Drawable {
     public List<String> getPassableList () {
         return myPassableList;
     }
-    
+
     @JsonProperty("imagePath")
     public void setImageAndPath (String imagePath) {
+
         myImagePath = imagePath;
         try {
             myImage = ImageManager.addImage(imagePath);
@@ -62,6 +64,10 @@ public class GameObject extends Customizable implements Drawable {
             e.printStackTrace();
         }
     }
+    
+    public Action getInteraction(){
+        return null;
+    };
 
     @Override
     public int hashCode () {

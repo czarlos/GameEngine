@@ -3,6 +3,7 @@
   "neededData" : [ "java.util.ArrayList", [ ] ],
   "myImagePath" : "resources/tree.png",
   "passableList" : [ "java.util.ArrayList", [ ] ],
+  "interaction" : null,
   "name" : "tree",
   "imagePath" : "resources/tree.png"
 } ] ] ]
