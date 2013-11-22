@@ -35,9 +35,9 @@ public class StageTest {
 
         fullUnitList.add(unitList);
         fullUnitList.add(aiList);
-        stage.setTeamUnitList(fullUnitList);
+        // stage.setTeamUnitList(fullUnitList);
 
-        stage.doAIMove(1, 0);
+        // stage.doAIMove(1, 0);
         assertEquals(unit.getGridPosition(), unit2.getGridPosition());
     }
 

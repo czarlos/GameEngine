@@ -1,5 +1,6 @@
-package gameObject;
+package gameObject.action;
 
+import gameObject.GameUnit;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -12,7 +13,7 @@ public class FixedOutcome extends Outcome {
 
     /**
      * Changes the amount of a supplies type, name, and amount in a fixed way,
-     * such that no stat interaction affects it.
+     * such that no stat interaction affects it. If it would make a value negative, makes it zero.
      * 
      * @param unit
      * @param effectiveness
@@ -27,6 +28,8 @@ public class FixedOutcome extends Outcome {
 
             int newAmount = (int) get.invoke(unit, myName) + myAmount;
 
+            newAmount = (newAmount > 0 ? newAmount : 0);
+
             set.invoke(unit, myName, newAmount);
 
         }
@@ -36,6 +39,34 @@ public class FixedOutcome extends Outcome {
             // TODO Figure out what to do
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Checks whether a unit should be able to perform an action with this outcome against another
+     * unit
+     * 
+     * @return whether or not outcome is legal
+     */
+    @Override
+    public boolean checkValidOutcome (GameUnit unit, double effectiveness) {
+        try {
+            Method get = unit.getClass().getDeclaredMethod("get" + myType,
+                                                           String.class);
+
+            int oldAmount = (int) get.invoke(unit, myName);
+            int newAmount = (int) get.invoke(unit, myName) + myAmount;
+
+            if (oldAmount - newAmount < 0) { return false; }
+
+        }
+        catch (NoSuchMethodException | SecurityException
+                | IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException e) {
+            // TODO Figure out what to do
+            e.printStackTrace();
+        }
+
+        return true;
     }
 
 }

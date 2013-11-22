@@ -1,8 +1,7 @@
 package reflection;
 
-
 /**
- * A general exception that represents all possible Java Reflection exceptions. 
+ * A general exception that represents all possible Java Reflection exceptions.
  * 
  * @author Robert C. Duvall
  */

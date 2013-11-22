@@ -1,4 +1,7 @@
-package gameObject;
+package gameObject.action;
+
+import gameObject.GameUnit;
+
 
 public abstract class Outcome {
     protected String myType;
@@ -22,4 +25,13 @@ public abstract class Outcome {
      *        - A measurement of how much of an outcome should occur
      */
     public abstract void applyOutcome (GameUnit unit, double effectiveness);
+
+    /**
+     * Checks whether or not an outcome is legal
+     * 
+     * @param unit
+     * @param effectiveness
+     * @return true if legal, false otherwise
+     */
+    public abstract boolean checkValidOutcome (GameUnit unit, double effectiveness);
 }

@@ -1,16 +1,17 @@
 package tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import gameObject.CombatAction;
-import gameObject.FixedOutcome;
 import gameObject.GameUnit;
-import gameObject.Outcome;
 import gameObject.Stat;
 import gameObject.StatModifier;
+import gameObject.action.CombatAction;
+import gameObject.action.FixedOutcome;
+import gameObject.action.Outcome;
 import gameObject.item.Equipment;
 import gameObject.item.Item;
 import gameObject.item.Weapon;
@@ -254,6 +255,7 @@ public class CombatTest {
     public Item makeEmptyItem (String name, int quantity) {
         Equipment e = new Equipment(name, new StatModifier());
         e.setAmount(quantity);
+        e.setModifier(new StatModifier(new HashMap<String, Integer>()));
 
         return e;
     }

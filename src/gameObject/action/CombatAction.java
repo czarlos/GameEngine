@@ -1,10 +1,12 @@
-package gameObject;
+package gameObject.action;
 
+import gameObject.GameUnit;
+import gameObject.StatModifier;
 import grid.Coordinate;
 import java.util.List;
 
 
-public class CombatAction {
+public class CombatAction extends Action {
     private String myName;
     private StatModifier myAttackerStatsAndWeights;
     private StatModifier myDefenderStatsAndWeights;
@@ -57,6 +59,7 @@ public class CombatAction {
      * @param attacker
      * @param defender
      */
+    @Override
     public void execute (GameUnit attacker, GameUnit defender) {
         double effectiveness = getNetEffectiveness(attacker, defender);
 
@@ -71,8 +74,14 @@ public class CombatAction {
 
     }
 
-    public String getName () {
-        return myName;
+    public boolean isValidAction (GameUnit attacker, GameUnit defender) {
+        double effectiveness = getNetEffectiveness(attacker, defender);
+
+        for (Outcome o : myAttackerOutcomes) {
+            if (!o.checkValidOutcome(attacker, effectiveness)) { return false; }
+        }
+
+        return true;
     }
 
     public List<Coordinate> getAOE () {
