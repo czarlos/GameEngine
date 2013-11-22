@@ -1,8 +1,8 @@
 package gameObject.item;
 
 import java.util.List;
-import gameObject.Action;
 import gameObject.GameObject;
+import gameObject.action.Action;
 
 /**
  * Holds a list of items that a unit can retrieve.

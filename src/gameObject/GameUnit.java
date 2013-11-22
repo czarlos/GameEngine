@@ -1,5 +1,6 @@
 package gameObject;
 
+import gameObject.action.Action;
 import gameObject.action.CombatAction;
 import gameObject.item.*;
 import grid.Coordinate;
