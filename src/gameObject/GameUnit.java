@@ -2,7 +2,6 @@ package gameObject;
 
 import gameObject.item.*;
 import grid.Coordinate;
-import grid.GridConstants;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
@@ -31,18 +30,6 @@ public class GameUnit extends GameObject {
 
     // reads defaults from JSON. To add/test new defaults, edit MakeDefaults.java
     public GameUnit () {
-        super();
-        myUnitStats = new Stat();
-        myUnitStats.setStatValue("movement", 3);
-        setItemList(new java.util.ArrayList<gameObject.item.Item>());
-        myName = GridConstants.DEFAULT_UNIT_NAME;
-        setImagePath(GridConstants.DEFAULT_UNIT_PATH);
-        myAffiliation = 0;
-        myUnitStats = new Stat() {
-            {
-                setStatValue("movement", 3);
-            }
-        };
     }
 
     public GameUnit (String name,

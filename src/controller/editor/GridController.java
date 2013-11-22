@@ -1,7 +1,6 @@
 package controller.editor;
 
 import controllers.WorldManager;
-import org.apache.commons.lang3.ArrayUtils;
 import grid.Coordinate;
 import view.canvas.GridMouseListener;
 
@@ -20,13 +19,6 @@ public class GridController implements GridMouseListener {
         myCurrentAction = new NClickAction(numClicks, commandName, myWM, args);
         myCurrentAction.click(mySelectedCoordinate);
     }
-    
-    public void doCommand(NClickAction action,Object... args){
-        myCurrentAction=action;
-        args=ArrayUtils.add(args,0,myWM);
-        action.setArgs(args);
-        myCurrentAction.click(mySelectedCoordinate);
-    }
 
     @Override
     public void gridClicked (Coordinate c) {
@@ -39,5 +31,4 @@ public class GridController implements GridMouseListener {
     public void clearCurrentCommand () {
         myCurrentAction = null;
     }
-    
 }
