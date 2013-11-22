@@ -311,7 +311,8 @@ public class GameUnit extends GameObject {
         return myItemList;
     }
 
-    public List<Action> getValidActions (Grid grid, GameUnit defender) {
+    // TODO: get rid of this? unit shouldn't know about defenders. that's grid.
+    public List<Action> getValidActions (GameUnit defender) {
         List<Action> validActions = new ArrayList<>();
         for (Item i : myItemList) {
             if (i instanceof Weapon) {
@@ -324,6 +325,16 @@ public class GameUnit extends GameObject {
             }
         }
         return validActions;
+    }
+    
+    public List<Action> getActions () {
+        List<Action> actions = new ArrayList<>();
+        for (Item item: myItemList) {
+            if (item instanceof Weapon) {
+                actions.addAll(((Weapon) item).getActionList());
+            }
+        }
+        return actions;
     }
 
     // TODO: trade with affiliates

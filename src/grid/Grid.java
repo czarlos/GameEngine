@@ -100,6 +100,7 @@ public class Grid extends Drawable {
      * 
      */
     public void beginMove (Coordinate coordinate) {
+        setTilesInactive();
         GameUnit gameUnit = (GameUnit) getObject(coordinate);
         findMovementRange(coordinate,
                           ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT),
@@ -117,6 +118,7 @@ public class Grid extends Drawable {
                myObjects[coordinate.getX()][coordinate.getY()] == null;
     }
 
+    // TODO: move canMove() check to controller
     /**
      * Moves the unit to a new coordinate if the move is valid
      * 
@@ -189,8 +191,6 @@ public class Grid extends Drawable {
         return getTile(coordinate).isActive();
     }
 
-    // TODO: fix so that beginAction can be called with objectCoordinate it's originating from, and
-    // action being used
     /**
      * Initiates the action process
      * 
@@ -208,16 +208,13 @@ public class Grid extends Drawable {
      * Returns the game objects affected by the action
      * 
      * @param objectCoordinate Coordinate where the action originates
-     * @param gameUnit GameUnit that is doing the action
      * @param combatAction CombatAction that is being used
      * @param actionCoordinate Coordinate that the user selects for the action
      * @return List of GameObjects that are affected
      */
-    public List<GameObject> doAction (Coordinate objectCoordinate, GameUnit gameUnit,
-                                      CombatAction combatAction,
-                                      Coordinate actionCoordinate) {
+    public List<GameObject> doAction (Coordinate objectCoordinate, Coordinate actionCoordinate, CombatAction combatAction) {
 //        String direction = findDirection(objectCoordinate, combatAction, actionCoordinate);
-//        return findAffectedObjects(objectCoordinate, combatAction, direction);
+//        return findAffectedObjects(objectCoordinate, combatAction, direction); 
         return null;
     }
 
@@ -392,9 +389,8 @@ public class Grid extends Drawable {
     private List<Action> generateActions (Coordinate coordinate) {
         List<Action> actions = new ArrayList<>();
         GameUnit gameUnit = myUnits[coordinate.getX()][coordinate.getY()];
-        // TODO: actions.addAll(gameUnit.getValidInteractions(coordinate)) needs to be fixed in
-        // gameUnit/action
-        actions.addAll(getInteractions(coordinate));
+        actions.addAll(gameUnit.getActions());
+//        actions.addAll(getInteractions(coordinate)); //TODO: currently no interactions.
         return actions;
     }
 
@@ -402,7 +398,6 @@ public class Grid extends Drawable {
      * Returns the action that matches the action name provided
      * 
      * @param actionName String of name of action being searched for
-     * 
      * @return Action of the action being searched for, and null if no action found
      */
     private Action selectAction (String actionName, Coordinate coordinate) {
@@ -413,6 +408,7 @@ public class Grid extends Drawable {
     }
 
     // TODO: when getting interactions, trade should only be valid between matching affiliations
+    // TODO: currently no interactions supported.
     /**
      * Gets a list of valid actions that the unit can perform on the objects around him
      * 
@@ -435,6 +431,7 @@ public class Grid extends Drawable {
         return interactions;
     }
 
+    // TODO: currently no interactions supported
     /**
      * Gets an interaction if one exists at the given coordinate
      * 
@@ -471,6 +468,7 @@ public class Grid extends Drawable {
         return myUnits[coordinate.getX()][coordinate.getY()];
     }
 
+    // TODO: may not be necessary
     /**
      * Returns the coordinates of a unit's location
      * 
@@ -553,15 +551,6 @@ public class Grid extends Drawable {
 
     /**
      * Draws the tiles and objects on the grid
-<<<<<<< HEAD
-=======
-     * 
-     * @param g Graphics for the image
-     * @param x int of x coordinate on the grid
-     * @param y int of y coordinate on the grid
-     * @param width int of width of object
-     * @param height int of height of object
->>>>>>> combat
      * @param g - Graphics for the image
      * @param x - int of x coordinate on the grid
      * @param y - int of y coordinate on the grid
