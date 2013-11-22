@@ -22,7 +22,6 @@ public class Tile extends GameObject {
     private boolean isActive;
     private Map<String, Double> myStatMods;
     private int myMoveCost;
-    private BufferedImage myImage;
 
     // Moved from node class
     private List<Tile> myNeighbors;
