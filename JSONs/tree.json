@@ -5,6 +5,6 @@
   "passableList" : [ "java.util.ArrayList", [ ] ],
   "interaction" : null,
   "data" : null,
-  "imagePath" : "resources/tree.png",
-  "name" : "tree"
+  "name" : "tree",
+  "imagePath" : "resources/tree.png"
 } ]

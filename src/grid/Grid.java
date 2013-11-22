@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * 
  */
 @JsonAutoDetect
-public class Grid extends Drawable {
+public class Grid implements Drawable {
     @JsonProperty
     private int myWidth;
     @JsonProperty

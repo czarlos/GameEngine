@@ -1,38 +1,33 @@
 [ "java.util.ArrayList", [ [ "stage.PositionCondition", {
   "myData" : [ "java.util.HashMap", { } ],
-  "neededData" : [ "java.util.ArrayList", [ ] ],
+  "neededData" : [ "java.util.ArrayList", [ "x", "y", "affiliation" ] ],
   "myImagePath" : null,
   "playersPositionX" : 0,
   "playersPositionY" : 0,
-  "data" : [ "java.util.HashMap", { } ],
-  "imagePath" : null,
-  "name" : null
+  "name" : null,
+  "imagePath" : null
 } ], [ "stage.StatCondition", {
   "myData" : [ "java.util.HashMap", { } ],
-  "neededData" : [ "java.util.ArrayList", [ ] ],
+  "neededData" : [ "java.util.ArrayList", [ "statType", "value", "affilation" ] ],
   "myImagePath" : null,
-  "data" : [ "java.util.HashMap", { } ],
-  "imagePath" : null,
-  "name" : null
+  "name" : null,
+  "imagePath" : null
 } ], [ "stage.ItemCondition", {
   "myData" : [ "java.util.HashMap", { } ],
-  "neededData" : [ "java.util.ArrayList", [ ] ],
+  "neededData" : [ "java.util.ArrayList", [ "item" ] ],
   "myImagePath" : null,
-  "data" : [ "java.util.HashMap", { } ],
-  "imagePath" : null,
-  "name" : null
+  "name" : null,
+  "imagePath" : null
 } ], [ "stage.UnitCountCondition", {
   "myData" : [ "java.util.HashMap", { } ],
-  "neededData" : [ "java.util.ArrayList", [ ] ],
+  "neededData" : [ "java.util.ArrayList", [ "count", "affiliation" ] ],
   "myImagePath" : null,
-  "data" : [ "java.util.HashMap", { } ],
-  "imagePath" : null,
-  "name" : null
+  "name" : null,
+  "imagePath" : null
 } ], [ "stage.TurnCondition", {
   "myData" : [ "java.util.HashMap", { } ],
-  "neededData" : [ "java.util.ArrayList", [ ] ],
+  "neededData" : [ "java.util.ArrayList", [ "count" ] ],
   "myImagePath" : null,
-  "data" : [ "java.util.HashMap", { } ],
-  "imagePath" : null,
-  "name" : null
+  "name" : null,
+  "imagePath" : null
 } ] ] ]
