@@ -1,15 +1,13 @@
 package stage;
 
-import grid.Grid;
-
 
 public class StatCondition extends Condition {
 
     public StatCondition () {
         super();
-        neededData.add("statType");
-        neededData.add("value");
-        neededData.add("affilation");
+        myNeededData.add("statType");
+        myNeededData.add("value");
+        myNeededData.add("affilation");
     }
 
     /**
@@ -17,7 +15,7 @@ public class StatCondition extends Condition {
      * than "value"
      */
     @Override
-    boolean isFulfilled (Grid grid) {
+    boolean isFulfilled (Stage stage) {
 
         return false;
     }

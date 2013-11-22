@@ -1,7 +1,6 @@
 package stage;
 
 import gameObject.GameUnit;
-import grid.Grid;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -21,18 +20,18 @@ public class PositionCondition extends Condition {
 
     public PositionCondition () {
         super();
-        neededData.add("x");
-        neededData.add("y");
-        neededData.add("affiliation");
+        myNeededData.add("x");
+        myNeededData.add("y");
+        myNeededData.add("affiliation");
     }
 
     /**
      * Returns true if GameUnit of the correct affiliation is at x, y
      */
     @Override
-    boolean isFulfilled (Grid grid) {
+    boolean isFulfilled (Stage stage) {
         Object object =
-                grid.getObject(Integer.parseInt(myData.get("x")), Integer.parseInt(myData.get("y")));
+                stage.getGrid().getObject(Integer.parseInt(myData.get("x")), Integer.parseInt(myData.get("y")));
 
         if (object instanceof GameUnit) {
             GameUnit gu = (GameUnit) object;

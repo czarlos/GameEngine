@@ -1,17 +1,15 @@
 package stage;
 
-import grid.Grid;
-
 
 public class TurnCondition extends Condition {
 
     public TurnCondition () {
         super();
-        neededData.add("count");
+        myNeededData.add("count");
     }
 
     @Override
-    boolean isFulfilled (Grid grid) {
+    boolean isFulfilled (Stage stage) {
         // TODO: when we have something that keeps track of the game/turns, it needs to be stored
         // and accessible from Grid
         return false;

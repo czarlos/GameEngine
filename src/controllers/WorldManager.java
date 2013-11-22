@@ -4,7 +4,6 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import javax.swing.table.AbstractTableModel;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -35,7 +34,7 @@ public class WorldManager {
     EditorData myEditorData;
     @JsonProperty
     String myGameName;
-    
+
     private UnitTableModel myUnitModel;
 
     /**
@@ -52,19 +51,18 @@ public class WorldManager {
         myUnitModel = new UnitTableModel();
     }
 
-    public GameTableModel getViewModel(String type){
-        switch(type.toLowerCase()){
+    public GameTableModel getViewModel (String type) {
+        switch (type.toLowerCase()) {
             case "tile":
                 return null;
             case "gameunit":
                 return myUnitModel;
             case "gameobject":
-                return null; //fix
+                return null; // fix
         }
         return null;
     }
-    
-    
+
     /**
      * Add a new stage
      * 

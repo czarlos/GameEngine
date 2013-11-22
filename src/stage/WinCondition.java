@@ -1,6 +1,5 @@
 package stage;
 
-import grid.Grid;
 import java.util.ArrayList;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -27,12 +26,12 @@ public class WinCondition {
     }
 
     // TODO: currently no conditions = auto-win, but maybe we should make it never-win
-    public boolean hasWon (Grid grid) {
+    public boolean hasWon (Stage stage) {
         int count = 0;
         for (Condition c : conditions) {
-            if (c.isFulfilled(grid))
+            if (c.isFulfilled(stage))
                 count++;
         }
-        return count == conditionsNeeded;
+        return count >= conditionsNeeded;
     }
 }

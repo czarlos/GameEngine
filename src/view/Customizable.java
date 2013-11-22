@@ -17,14 +17,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public abstract class Customizable {
     @JsonProperty
     protected Map<String, String> myData;
-    protected List<String> neededData;
+    protected List<String> myNeededData;
     protected String myName;
     @JsonProperty
     protected String myImagePath;
 
     public Customizable () {
         myData = new HashMap<String, String>();
-        neededData = new ArrayList<String>();
+        myNeededData = new ArrayList<String>();
     }
 
     public String getName () {
@@ -45,7 +45,7 @@ public abstract class Customizable {
     }
 
     public List<String> getNeededData () {
-        return neededData;
+        return myNeededData;
     }
     
     @JsonIgnore

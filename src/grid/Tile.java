@@ -2,7 +2,6 @@ package grid;
 
 import gameObject.GameObject;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -61,7 +60,6 @@ public class Tile extends GameObject {
      * 
      * @param imagePath - String of image path
      */
-
 
     @Override
     public Image getImage () {
