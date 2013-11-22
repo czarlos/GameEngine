@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import gameObject.CombatAction;
-import gameObject.DynamicOutcome;
 import gameObject.FixedOutcome;
 import gameObject.GameUnit;
 import gameObject.Outcome;
@@ -255,6 +254,7 @@ public class CombatTest {
     public Item makeEmptyItem (String name, int quantity) {
         Equipment e = new Equipment(name, new StatModifier());
         e.setAmount(quantity);
+        e.setModifier(new StatModifier(new HashMap<String,Integer>()));
 
         return e;
     }
