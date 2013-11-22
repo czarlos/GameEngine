@@ -7,8 +7,6 @@
   "data" : [ "java.util.HashMap", { } ],
   "imagePath" : null,
   "name" : null
-<<<<<<< HEAD
-=======
 } ], [ "stage.StatCondition", {
   "myData" : [ "java.util.HashMap", { } ],
   "neededData" : [ "java.util.ArrayList", [ ] ],
@@ -37,5 +35,4 @@
   "data" : [ "java.util.HashMap", { } ],
   "imagePath" : null,
   "name" : null
->>>>>>> combat
 } ] ] ]
