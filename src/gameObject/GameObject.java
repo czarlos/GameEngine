@@ -71,6 +71,10 @@ public class GameObject extends Drawable {
             e.printStackTrace();
         }
     }
+    
+    public List<Action> getInteraction(){
+        return null;
+    };
 
     @Override
     public int hashCode () {

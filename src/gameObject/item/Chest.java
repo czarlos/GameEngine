@@ -1,6 +1,7 @@
 package gameObject.item;
 
 import java.util.List;
+import gameObject.Action;
 import gameObject.GameObject;
 
 /**
@@ -24,4 +25,10 @@ public class Chest extends GameObject {
     public void setItemList (List<Item> myItemList) {
         this.myItemList = myItemList;
     }
+    
+    // TODO: give objects to person
+    @Override
+    public Action getInteraction(){
+        return null;
+    };
 }

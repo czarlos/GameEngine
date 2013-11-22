@@ -7,6 +7,7 @@ import gameObject.GameUnit;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.Action;
 import grid.Coordinate;
 import view.Drawable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -113,6 +114,7 @@ public class Grid extends Drawable {
      * 
      * @param oldCoordinate - Coordinate of the gameUnit's original position
      * @param newCoordinate - Coordinate that unit is moving to
+     * 
      */
     public void doMove (Coordinate oldCoordinate, Coordinate newCoordinate) {
         GameObject gameUnit=removeObject(oldCoordinate.getX(), oldCoordinate.getY());
@@ -126,6 +128,7 @@ public class Grid extends Drawable {
      * @param coordinate Coordinate of the current position of the GameObject
      * @param range int of range that the GameObject can move
      * @param gameObject GameObject that we are finding the range of
+     * 
      */
     private void findMovementRange (Coordinate coordinate, int range, GameObject gameObject) {
         int[] rdelta = { -1, 0, 0, 1 };
@@ -307,6 +310,30 @@ public class Grid extends Drawable {
         }
         return affectedObjects;
     }
+    
+    public List<Action> getInteractions(GameUnit gameUnit) {
+        List<Action> interactions = new ArrayList<>();
+        int[] rdelta = { -1, 0, 0, 1 };
+        int[] cdelta = { 0, -1, 1, 0 };
+        
+        Coordinate unitCoordinate = getUnitCoordinate(gameUnit); //TODO: what is our getUnitCoordinate now
+        for (int i=0; i<rdelta.length; i++) {
+            Action interaction = getInteraction(new Coordinate(unitCoordinate.getX()+cdelta[i], unitCoordinate.getY()+rdelta[i]));
+            if (interaction != null) {
+                interactions.add(interaction);
+            }
+        }
+        return interactions;
+    }
+    
+    private Action getInteraction(Coordinate coordinate) {
+        if (onGrid(coordinate.getX(), coordinate.getY())) {
+            if (myObjects[coordinate.getX()][coordinate.getY()] != null) {
+                return myObjects[coordinate.getX()][coordinate.getY()].getInteraction();
+            }
+        }
+        return null;
+    }
 
     /**
      * Returns an object at the given coordinates
@@ -318,6 +345,22 @@ public class Grid extends Drawable {
     public GameObject getObject (int x, int y) {
         // TODO: Generic method?
         return myObjects[x][y];
+    }
+    
+    // TODO: why is it a double arraylist................
+    /*
+     * Returns the coordinates of a unit's location
+     * 
+     * @param gameUnit GameUnit object that is being located
+     * @return Coordinate unit's location
+     */
+    private Coordinate getUnitCoordinate (GameUnit gameUnit) {
+        for (int i=0; i<myUnits.size(); i++) {
+            for (int j=0; j< myUnits.get(0).size(); j++) {
+                if (myUnits.get(i).get(j).equals(gameUnit)) return new Coordinate(i, j);
+            }
+        }
+        return null;
     }
 
     /**
@@ -351,17 +394,9 @@ public class Grid extends Drawable {
     /**
      * Sets position in myObjects map to null
      * 
-<<<<<<< HEAD
-     * @param x - int of x coordinate
-     * @param y - int of y coordinate
-     * @return Object removed from position (x,y)
-     * @param x int of x coordinate
-     * @param y int of y coordinate
-=======
      * @param x int of x coordinate
      * @param y int of y coordinate
      * @return Object removed from position (x,y)
->>>>>>> dev
      */
     private GameObject removeObject (int x, int y) {
         GameObject objToRemove = myObjects[x][y];
@@ -410,26 +445,11 @@ public class Grid extends Drawable {
 
     /**
      * Draws the tiles and objects on the grid
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
      * @param g Graphics for the image
      * @param x int of x coordinate on the grid
      * @param y int of y coordinate on the grid
      * @param width int of width of object
      * @param height int of height of object
-=======
->>>>>>> dev
-     * 
-     * @param g - Graphics for the image
-     * @param x - int of x coordinate on the grid
-     * @param y - int of y coordinate on the grid
-     * @param width - int of width of object
-     * @param height - int of height of object
-<<<<<<< HEAD
-=======
->>>>>>> dev
->>>>>>> dev
      */
     public void draw (Graphics g, int x, int y, int width, int height) {
         int tileWidth = width / myWidth;
@@ -468,12 +488,5 @@ public class Grid extends Drawable {
 
         return new Coordinate(gridX, gridY);
     }
-    
-  /*  public int getWidth () {
-        return myWidth;
-    }
-
-    public int getHeight () {
-        return myHeight;
-    }*/
+   
 }

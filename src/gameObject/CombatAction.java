@@ -75,7 +75,7 @@ public class CombatAction {
         double effectiveness = getNetEffectiveness(attacker, defender);
 
         for (Outcome o : myAttackerOutcomes) {
-            if (!o.checkVaildOutcome(attacker, effectiveness)) { return false; }
+            if (!o.checkValidOutcome(attacker, effectiveness)) { return false; }
         }
 
         return true;
