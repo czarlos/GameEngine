@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
+import view.Customizable;
 
 
 /**
@@ -52,22 +53,21 @@ public class UnitTableModel extends GameTableModel{
      * @param affiliation
      * @return added definition array CLONE
      */
-    public Object[] addNewRow(Object[] row){
+    public void addNewRow(Object[] row){
         
         Object[] rowToAdd = {row[0], row[1], row[2], row[3], row[4], row[5]};
         
-        list.add(rowToAdd);
+        myList.add(rowToAdd);
 
-        return rowToAdd.clone();
-
+        
     }
     /**
      * 
      * @param index
      * @return row removed as an Object[]
      */
-    public Object[] removeRow(int index){
-        return list.remove(index).clone();
+    public void removeRow(int index){
+        myList.remove(index).clone();
     }
 
     
@@ -80,9 +80,15 @@ public class UnitTableModel extends GameTableModel{
 
     @Override
     public void setValueAt(Object value, int row, int col) {
-        list.get(row)[col] = value;
+        myList.get(row)[col] = value;
         fireTableCellUpdated(row, col);
 
+    }
+
+    @Override
+    void addPreviouslyDefined (List<Customizable> list) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

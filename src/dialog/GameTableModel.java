@@ -3,26 +3,24 @@ package dialog;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import view.Customizable;
 
 @SuppressWarnings("serial")
 public abstract class GameTableModel extends AbstractTableModel{
     
-    protected final List<Object[]> list = new ArrayList<Object[]>();
-    private String[] columnNames;
+    protected final List<Object[]> myList = new ArrayList<Object[]>();
+    protected String[] myColumnNames;
     
-    
-    
-    public String[] setColumnNames(String[] names){
-        
-        this.columnNames = names;
-        return names.clone();
+    public void setColumnNames(String[] names){
+        this.myColumnNames = names;
     }
-     
-    public abstract Object[] addNewRow(Object[] row);
     
-    public Object[] removeRow(int index){
-        return list.remove(index);
-        
+    public void addNewRow (Object[] row) {
+        myList.add(row);
+    }
+    
+    public void removeRow(int index){
+        myList.remove(index);
     }
 
     /**
@@ -30,28 +28,28 @@ public abstract class GameTableModel extends AbstractTableModel{
      * @return a new ArrayList of the definitions
      */
     public List<Object[]> getData() {
-        return new ArrayList<Object[]>(list);
+        return new ArrayList<Object[]>(myList);
     }
     
     @Override
     public int getColumnCount () {
-        return columnNames.length;
+        return myColumnNames.length;
     }
 
     @Override
     public int getRowCount () {
-        return list.size();
+        return myList.size();
     }
     
     @Override
     public String getColumnName(int col) {
-        return columnNames[col];
+        return myColumnNames[col];
     }
     
 
     @Override
     public Object getValueAt (int row, int col) {
-        return list.get(row)[col];
+        return myList.get(row)[col];
     }
     
     @Override
@@ -59,6 +57,6 @@ public abstract class GameTableModel extends AbstractTableModel{
         return getValueAt(0, c).getClass();
     }
     
-    
+    abstract void addPreviouslyDefined(List<Customizable> list);    
 
 }

@@ -1,11 +1,20 @@
 package dialog;
 
+import java.util.List;
+import view.Customizable;
+
 public class ItemTableModel extends GameTableModel{
 
     @Override
-    public Object[] addNewRow (Object[] row) {
+    public void addNewRow (Object[] row) {
         // TODO Auto-generated method stub
-        return null;
+        
+    }
+
+    @Override
+    void addPreviouslyDefined (List<Customizable> list) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

@@ -1,20 +1,28 @@
 package dialog;
 
+import java.util.List;
+import view.Customizable;
+
 public class StatsTableModel extends GameTableModel{
 
     @Override
-    public Object[] addNewRow (Object[] row) {
+    public void addNewRow (Object[] row) {
         
         Object[] rowToAdd = {row[0], row[1]};
         
-        list.add(rowToAdd);
+        myList.add(rowToAdd);
         
-        return rowToAdd.clone();
     }
     
     @Override
     public boolean isCellEditable(int row, int col) {
         return col < 1 ? false : true;
      }
+
+    @Override
+    void addPreviouslyDefined (List<Customizable> list) {
+        // TODO Auto-generated method stub
+        
+    }
      
 }
