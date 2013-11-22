@@ -1,9 +1,9 @@
 package grid;
 
-import gameObject.CombatAction;
 import gameObject.GameObject;
 import gameObject.GameObjectConstants;
 import gameObject.GameUnit;
+import gameObject.action.CombatAction;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
