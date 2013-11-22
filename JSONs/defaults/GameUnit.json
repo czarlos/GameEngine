@@ -3,8 +3,8 @@
   "neededData" : [ "java.util.ArrayList", [ ] ],
   "myImagePath" : "resources/hero.png",
   "affiliation" : 0,
-  "experience" : 0.0,
   "controllable" : true,
+  "experience" : 0.0,
   "health" : 20.0,
   "itemList" : [ "java.util.ArrayList", [ ] ],
   "unitStats" : [ "gameObject.Stat", {
@@ -17,8 +17,5 @@
   "activeStatus" : false,
   "passableList" : [ "java.util.ArrayList", [ ] ],
   "name" : "hero",
-  "imagePath" : "resources/hero.png",
-  "image" : [ "java.awt.image.BufferedImage", {
-    "alphaPremultiplied" : false
-  } ]
+  "imagePath" : "resources/hero.png"
 } ] ] ]

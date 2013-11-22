@@ -3,11 +3,8 @@
   "neededData" : [ "java.util.ArrayList", [ ] ],
   "myImagePath" : "resources/grass.png",
   "statMods" : [ "java.util.HashMap", { } ],
-  "moveCost" : 1,
   "active" : false,
-  "image" : [ "java.awt.image.BufferedImage", {
-    "alphaPremultiplied" : false
-  } ],
+  "moveCost" : 1,
   "passableList" : [ "java.util.ArrayList", [ "everything" ] ],
   "name" : "grass",
   "imagePath" : "resources/grass.png"
@@ -16,11 +13,8 @@
   "neededData" : [ "java.util.ArrayList", [ ] ],
   "myImagePath" : "resources/water.png",
   "statMods" : [ "java.util.HashMap", { } ],
-  "moveCost" : 2,
   "active" : false,
-  "image" : [ "java.awt.image.BufferedImage", {
-    "alphaPremultiplied" : false
-  } ],
+  "moveCost" : 2,
   "passableList" : [ "java.util.ArrayList", [ "everything" ] ],
   "name" : "water",
   "imagePath" : "resources/water.png"

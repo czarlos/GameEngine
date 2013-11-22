@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -46,7 +47,8 @@ public abstract class Customizable {
     public List<String> getNeededData () {
         return neededData;
     }
-
+    
+    @JsonIgnore
     public Image getImage () {
         try {
             return ImageIO.read(new File(myImagePath));

@@ -4,8 +4,5 @@
   "myImagePath" : "resources/tree.png",
   "passableList" : [ "java.util.ArrayList", [ ] ],
   "name" : "tree",
-  "imagePath" : "resources/tree.png",
-  "image" : [ "java.awt.image.BufferedImage", {
-    "alphaPremultiplied" : false
-  } ]
+  "imagePath" : "resources/tree.png"
 } ] ] ]
