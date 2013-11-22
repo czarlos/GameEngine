@@ -124,6 +124,14 @@ public class EditorFrame extends GameView {
             this.setTitle(gameName);
             myWorldManager = new WorldManager(gameName);
             addStagePanel();
+            JMenu stageMenu = new JMenu("Stage");
+            stageMenu.setMnemonic(KeyEvent.VK_S);
+            myMenuBar.add(stageMenu);
+            // add menu items
+            JMenuItem objective = new JMenuItem("Set Objective");
+            objective.setAccelerator(KeyStroke.getKeyStroke("control O"));
+            stageMenu.add(objective);
+            
         }
     }
 
