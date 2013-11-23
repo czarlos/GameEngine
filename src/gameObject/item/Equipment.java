@@ -16,8 +16,13 @@ import gameObject.StatModifier;
  * @author carlosreyes
  * 
  */
-public abstract class Equipment extends Item {
+public class Equipment extends Item {
     private StatModifier myModifiers;
+
+    public Equipment (String name, StatModifier modifier) {
+        super.setName(name);
+        setModifier(modifier);
+    }
 
     /**
      * Stat effect runs through the stats in the piece of equipment that the unit has and
@@ -28,17 +33,9 @@ public abstract class Equipment extends Item {
         for (String statName : getModifiers().getStatModifierMap().keySet()) {
             int modifiedValue =
                     getModifiers().getStatModifier(statName) +
-                            unit.getStats().getStatValue(statName);
-            unit.getStats().setStatValue(statName, modifiedValue);
+                            unit.getUnitStats().getStatValue(statName);
+            unit.getUnitStats().setStatValue(statName, modifiedValue);
         }
-    }
-
-    public StatModifier getModifiers () {
-        return myModifiers;
-    }
-
-    public void setModifier (StatModifier modifiers) {
-        this.myModifiers = modifiers;
     }
 
     @Override
@@ -60,6 +57,14 @@ public abstract class Equipment extends Item {
         }
         else if (!myModifiers.equals(other.myModifiers)) return false;
         return true;
+    }
+
+    public StatModifier getModifiers () {
+        return myModifiers;
+    }
+
+    public void setModifier (StatModifier modifiers) {
+        this.myModifiers = modifiers;
     }
 
 }

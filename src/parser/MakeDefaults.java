@@ -1,5 +1,8 @@
 package parser;
 
+import gameObject.GameObjectConstants;
+import java.util.ArrayList;
+import java.util.List;
 import stage.ItemCondition;
 import stage.PositionCondition;
 import stage.StatCondition;
@@ -17,11 +20,12 @@ public class MakeDefaults {
 
     public void makeTiles () throws Exception {
         java.util.ArrayList<grid.Tile> list = new java.util.ArrayList<grid.Tile>();
-
+        List<String> passableList = new ArrayList<>();
+        passableList.add(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
         grid.Tile Grass = new grid.Tile();
         Grass.setName("grass");
         Grass.setImagePath("resources/grass.png");
-        Grass.setPassableList(new java.util.ArrayList<String>());
+        Grass.setPassableList(passableList);
         Grass.setStatMods(new java.util.HashMap<String, Double>());
         Grass.setActive(false);
         Grass.setMoveCost(1);
@@ -29,7 +33,7 @@ public class MakeDefaults {
         grid.Tile Water = new grid.Tile();
         Water.setName("water");
         Water.setImagePath("resources/water.png");
-        Water.setPassableList(new java.util.ArrayList<String>());
+        Water.setPassableList(passableList);
         Water.setStatMods(new java.util.HashMap<String, Double>());
         Water.setActive(false);
         Water.setMoveCost(2);
@@ -64,7 +68,7 @@ public class MakeDefaults {
         gameObject.GameUnit hero = new gameObject.GameUnit();
 
         gameObject.Stat stats = new gameObject.Stat();
-        stats.makeStat("movement", 3);
+        stats.setStatValue("movement", 3);
 
         hero.setName("hero");
         hero.setImagePath("resources/hero.png");
@@ -91,7 +95,6 @@ public class MakeDefaults {
 
     public void makeConditions () {
         java.util.ArrayList<stage.Condition> list = new java.util.ArrayList<stage.Condition>();
-
         list.add(new PositionCondition());
         list.add(new StatCondition());
         list.add(new ItemCondition());
@@ -101,6 +104,12 @@ public class MakeDefaults {
         p.createJSON("defaults/Condition", list);
     }
 
+    /**
+     * Just run this to refresh the default JSONs
+     * 
+     * @param args
+     * @throws Exception
+     */
     public static void main (String[] args) throws Exception {
         MakeDefaults maker = new MakeDefaults();
         maker.makeTiles();

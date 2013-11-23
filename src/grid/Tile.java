@@ -2,50 +2,44 @@ package grid;
 
 import gameObject.GameObject;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 
+/**
+ * 
+ * Tile Class. Held by grid. Affects unit stats and movement.
+ * 
+ * @author Kevin
+ * @author Ken
+ * @author carlosreyes
+ * 
+ */
 @JsonAutoDetect
 public class Tile extends GameObject {
     private boolean isActive;
     private Map<String, Double> myStatMods;
     private int myMoveCost;
-    private List<String> myPassableList;
-    private BufferedImage myImage;
+    private List<Tile> myNeighbors;
+    private Tile myParent;
+    private int myLength;
+    private int myDistanceToGoal;
+    private Coordinate myCoordinate;
 
     public Tile () {
-        setPassableList(new java.util.ArrayList<String>());
-        setStatMods(new java.util.HashMap<String, Double>());
-        setActive(false);
-    }
-
-    public boolean isPassable (GameObject unit) {
-        for (String object : myPassableList) {
-            if (object.equals(unit.getName())) { return true; }
-        }
-
-        return false;
-    }
-
-    public void addPassable (String passable) {
-        myPassableList.add(passable);
-    }
-
-    public void setPassableList (List<String> passables) {
-        myPassableList = passables;
-    }
-
-    public List<String> getPassableList () {
-        return myPassableList;
+        setImagePath(myImagePath);
     }
 
     public boolean isActive () {
         return isActive;
     }
 
+    /**
+     * Sets tile to active, and changes the tile image to reflect the active state
+     * 
+     * @param active - boolean that is used to set
+     */
     public void setActive (boolean active) {
         isActive = active;
         myImage = isActive ? ImageManager.getHightlightedTileImage(myImagePath)
@@ -60,21 +54,11 @@ public class Tile extends GameObject {
         myStatMods = statMods;
     }
 
-    public void setImagePath (String imagePath) {
-        myImagePath = imagePath;
-        try {
-            myImage = ImageManager.addImage(imagePath);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
-    public Image getImage(){
+    public Image getImage () {
         return myImage;
     }
-    
+
     public int getMoveCost () {
         return myMoveCost;
     }
@@ -83,4 +67,48 @@ public class Tile extends GameObject {
         myMoveCost = moveCost;
     }
 
+    public Tile (List<Tile> neighbors, Coordinate coordinate) {
+        this.myNeighbors = neighbors;
+        this.myCoordinate = coordinate;
+    }
+
+    public List<Tile> getNeighbors () {
+        return myNeighbors;
+    }
+
+    public void setNeighbors (List<Tile> myNeighbors) {
+        this.myNeighbors = myNeighbors;
+    }
+
+    public Tile getParent () {
+        return myParent;
+    }
+
+    public void setParent (Tile myParent) {
+        this.myParent = myParent;
+    }
+
+    public int getLength () {
+        return myLength;
+    }
+
+    public void setLength (int myLength) {
+        this.myLength = myLength;
+    }
+
+    public int getDistanceToGoal () {
+        return myDistanceToGoal;
+    }
+
+    public void setDistanceToGoal (int myDistanceToGoal) {
+        this.myDistanceToGoal = myDistanceToGoal;
+    }
+
+    public Coordinate getCoordinate () {
+        return myCoordinate;
+    }
+
+    public void setCoordinate (Coordinate myCoordinate) {
+        this.myCoordinate = myCoordinate;
+    }
 }

@@ -8,14 +8,10 @@ import javax.imageio.ImageIO;
 
 
 public abstract class Drawable extends Customizable {
-
-    protected String myImagePath;
-
     public void draw (Graphics g, int x, int y, int width, int height) {
-        // set ImageObserver null. Not needed.
         g.drawImage(getImage(), x, y, width, height, null);
     }
-    
+
     public Image getImage () {
         try {
             return ImageIO.read(new File(myImagePath));

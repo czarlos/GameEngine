@@ -1,6 +1,9 @@
 package grid;
 
 public class GridConstants {
-    public static int TRANSPARENCY = 50;
+    public final static int TRANSPARENCY = 50;
 
+    // TODO: In for testing only
+    public final static String DEFAULT_UNIT_PATH = "tree";
+    public final static String DEFAULT_UNIT_NAME = "hero";
 }
