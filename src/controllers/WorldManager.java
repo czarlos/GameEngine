@@ -23,17 +23,14 @@ import grid.Tile;
 
 
 @JsonAutoDetect
-public class WorldManager {
-    @JsonProperty
-    List<Stage> myStages;
+public class WorldManager extends Manager {
+
     @JsonProperty
     Stage myActiveStage;
     FromJSONFactory myFactory;
     JSONParser myParser;
     @JsonProperty
     EditorData myEditorData;
-    @JsonProperty
-    String myGameName;
 
     private UnitTableModel myUnitModel;
 
@@ -42,12 +39,11 @@ public class WorldManager {
      * 
      * @param gameName
      */
-    public WorldManager (@JsonProperty("myGameName") String gameName) {
-        myStages = new ArrayList<Stage>();
+    public WorldManager (String gameName) {
+        super(gameName);
         myFactory = new FromJSONFactory();
         myParser = new JSONParser();
         myEditorData = new EditorData("defaults");
-        myGameName = gameName;
         myUnitModel = new UnitTableModel();
     }
 
