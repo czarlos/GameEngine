@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import utils.UnitUtilities;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -36,6 +37,7 @@ public class GameUnit extends GameObject {
     public GameUnit () {
         myItemList = new ArrayList<Item>();
         myUnitStats = new Stat();
+        myAffiliation = "";
     }
 
     // should ONLY be called by stage when adding units to a team
@@ -124,6 +126,8 @@ public class GameUnit extends GameObject {
 
     @Override
     public boolean isPassable (GameUnit unit) {
+        unit.getAffiliation();
+        System.out.println(myAffiliation);
         return super.isPassable(unit) || unit.getAffiliation().equals(myAffiliation);
     }
 

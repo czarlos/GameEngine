@@ -36,6 +36,9 @@ public class Grid implements Drawable {
     @JsonProperty
     private GameUnit[][] myUnits;
     private FromJSONFactory myFactory;
+    
+    protected static final int TILE_WIDTH = 35;
+    protected static final int TILE_HEIGHT = 35;
 
     /**
      * Creates a grid with the width and height set

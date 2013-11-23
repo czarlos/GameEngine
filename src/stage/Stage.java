@@ -139,8 +139,15 @@ public class Stage implements GridMouseListener {
     }
 
     /**
+<<<<<<< HEAD
      * Finds all units for a player (or AI) other than your own and adds them to a list
      * of units which contains all of the opponents of that affiliation.
+=======
+     * Sends enemy units to attack your units, uses the pathfinding algorithm from
+     * the PathFinding class to find the shortest path and traverses as far as the unit can
+     * move on that path, when it encounters an enemy unit it attacks that unit with a randomly
+     * chosen attack from its active weapon.
+>>>>>>> gui
      * 
      * @param teamList
      * @param thisAffiliation
@@ -286,6 +293,7 @@ public class Stage implements GridMouseListener {
             unit.setActive(true);
         }
     }
+
 
     /**
      * doCombat executes combat between two units.

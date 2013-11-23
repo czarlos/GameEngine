@@ -36,6 +36,8 @@ public class WorldManager {
     String myGameName;
 
     private UnitTableModel myUnitModel;
+    private String activeEditType;
+    private int activeEditID;
 
     /**
      * Intermediary between views and EditorData and Grid, stores List of Stages
@@ -54,15 +56,27 @@ public class WorldManager {
     public GameTableModel getViewModel (String type) {
         switch (type.toLowerCase()) {
             case "tile":
-                return null;
+                return null; //add
             case "gameunit":
                 return myUnitModel;
             case "gameobject":
-                return null; // fix
+
+                return null; //add
         }
         return null;
     }
-
+    
+    public void setActiveObject(String type, int id){
+        activeEditType = type;
+        activeEditID = id;
+    }
+    
+    public String getActiveType(){
+        return activeEditType;
+    }
+    public int getActiveID(){
+        return activeEditID;
+    }
     /**
      * Add a new stage
      * 
@@ -190,7 +204,8 @@ public class WorldManager {
     // if you need to make any more of these, then just combine all these placeObjects into one
     public void placeUnit (int unitID, int x, int y) {
         myActiveStage.getGrid().placeObject(new Coordinate(x, y),
-                                            (GameObject) myFactory.make("unit", unitID));
+                                            (GameObject) myFactory.make("gameunit", unitID));
+
     }
 
     public void placeObject (int objectID, int x, int y) {
