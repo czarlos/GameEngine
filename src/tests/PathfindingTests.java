@@ -89,7 +89,7 @@ public class PathfindingTests {
         Tile end = tileGrid.get(tileGrid.size() - 1);
         // List<Tile> path = PathFinding.findPath(start, end);
 
-        PathFinding.autoMove(start, end, unit);
+        PathFinding.autoMove(start, end, unit, grid);
     }
 
 }

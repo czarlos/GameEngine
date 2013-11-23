@@ -86,7 +86,6 @@ public class Grid extends Drawable {
      */
     private void initObjects () {
         GameObject tree = (GameObject) myFactory.make("GameObject", 0);
-
         placeObject(new Coordinate(3, 5), tree);
         GameObject hero = (GameUnit) myFactory.make("GameUnit", 0);
         placeObject(new Coordinate(4, 5), hero);
@@ -97,7 +96,6 @@ public class Grid extends Drawable {
      * Initiates the moving process for a gameUnit
      * 
      * @param coordinate Coordinate where the gameUnit is located
-     * @param gameUnit GameUnit that is moving
      * 
      */
     public void beginMove (Coordinate coordinate) {

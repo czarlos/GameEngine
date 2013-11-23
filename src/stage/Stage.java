@@ -101,10 +101,10 @@ public class Stage implements GridMouseListener {
      */
     public void doAIMove (GameUnit unit, List<GameUnit> allEnemies) {
         PathFinding.coordinatesToTiles(myGrid, unit);
-        GameUnit other = unit.findClosestOpponent(allEnemies);
+        GameUnit other = findClosestOpponent(unit, allEnemies);
 
-        Tile start = myGrid.getTile(unit.getGridPosition());
-        Tile end = myGrid.getTile(other.getGridPosition());
+        Tile start = myGrid.getTile(myGrid.getUnitCoordinate(unit));
+        Tile end = myGrid.getTile(myGrid.getUnitCoordinate(other));
 
         if (UnitUtilities.calculateLength(start.getCoordinate(), end.getCoordinate()) == 1) {
             Random r = new Random();
@@ -114,7 +114,7 @@ public class Stage implements GridMouseListener {
             unit.attack(other, activeWeapon, randomAction);
         }
         else {
-            PathFinding.autoMove(start, end, unit);
+            PathFinding.autoMove(start, end, unit, myGrid);
         }
 
     }
@@ -213,8 +213,7 @@ public class Stage implements GridMouseListener {
             }
             List<GameUnit> opponentList =
                     makeSortedUnitList(unit, myTeamList.get(otherTeamIndex).getGameUnits());
-            unit.snapToOpponent(opponentList.get(0));
-            goToOpponent(unit, opponentList.get(0));
+            myGrid.doMove(myGrid.getUnitCoordinate(unit), myGrid.getUnitCoordinate(opponentList.get(0)));
             counter++;
         }
     }
@@ -231,7 +230,7 @@ public class Stage implements GridMouseListener {
             }
             List<GameUnit> opponentList =
                     makeSortedUnitList(unit, myTeamList.get(otherTeamIndex).getGameUnits());
-            unit.snapToOpponent(opponentList.get(0));
+            myGrid.doMove(myGrid.getUnitCoordinate(unit), myGrid.getUnitCoordinate(opponentList.get(0)));
             counter++;
         }
     }
@@ -249,7 +248,7 @@ public class Stage implements GridMouseListener {
 
         for (GameUnit other : otherUnits) {
             double distance =
-                    UnitUtilities.calculateLength(unit.getGridPosition(), other.getGridPosition());
+                    UnitUtilities.calculateLength(myGrid.getUnitCoordinate(unit), myGrid.getUnitCoordinate(other));
             unitDistance.put(distance, other);
         }
         for (Double distance : unitDistance.keySet()) {
