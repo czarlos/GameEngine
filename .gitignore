@@ -4,4 +4,8 @@ ref: refs/remotes/origin/master
 bin/
 .settings/
 .project
+<<<<<<< HEAD
 JSONs/
+=======
+JSONS/
+>>>>>>> combat
