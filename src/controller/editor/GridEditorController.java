@@ -4,20 +4,20 @@ import controllers.WorldManager;
 import grid.Coordinate;
 import view.canvas.GridMouseListener;
 
+
 public class GridEditorController implements GridMouseListener {
 
     private WorldManager myWM;
-    
-    public GridEditorController(WorldManager wm){
+
+    public GridEditorController (WorldManager wm) {
         myWM = wm;
     }
-    
+
     @Override
     public void gridClicked (Coordinate c) {
         int id = myWM.getActiveID();
-        System.out.println(c.getX() +" "+ c.getY() + " " + myWM.getActiveID());
-        if(myWM.getActiveType()!=null){
-            switch(myWM.getActiveType().toLowerCase()){
+        if (myWM.getActiveType() != null) {
+            switch (myWM.getActiveType().toLowerCase()) {
                 case "tile":
                     myWM.setTile(id, c.getX(), c.getY());
                     break;

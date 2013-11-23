@@ -9,7 +9,6 @@ public class MoveCharacter extends AbstractGridCommand {
 
     public MoveCharacter (WorldManager wm, List<Coordinate> selectedCoordinates) {
         super(wm, selectedCoordinates);
-
     }
 
     @Override

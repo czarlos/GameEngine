@@ -40,12 +40,11 @@ public class NClickAction {
     public void click (Coordinate coor) {
         myCoordinates.add(coor);
         if (myCoordinates.size() == myNumClicks) {
-            doAction();
+            checkActions();
         }
     }
 
-    private void doAction () {
-        Command action = (Command) Reflection.createInstance(myAction, myArgs, myCoordinates);
+    protected void checkActions () {
         if (precursorCommands.containsKey(myCoordinates.size())) {
             CommandShell pCmd = precursorCommands.get(myCoordinates.size());
             doAction(pCmd.getCommandName(), ArrayUtils.addAll(myArgs, pCmd.getArguments()));

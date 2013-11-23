@@ -3,18 +3,33 @@ package dialog;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import view.Customizable;
 
 
+@SuppressWarnings("serial")
 public abstract class GameTableModel extends AbstractTableModel {
-    protected String[] myColumnNames;
-    protected final List<Object[]> myData = new ArrayList<Object[]>();
 
-    public List<Object[]> getData () {
-        return new ArrayList<Object[]>(myData);
+    protected final List<Object[]> myList = new ArrayList<Object[]>();
+    protected String[] myColumnNames;
+
+    public void setColumnNames (String[] names) {
+        this.myColumnNames = names;
     }
 
-    public Object[] removeRow (int index) {
-        return myData.remove(index).clone();
+    public void addNewRow (Object[] row) {
+        myList.add(row);
+    }
+
+    public void removeRow (int index) {
+        myList.remove(index);
+    }
+
+    /**
+     * 
+     * @return a new ArrayList of the definitions
+     */
+    public List<Object[]> getData () {
+        return new ArrayList<Object[]>(myList);
     }
 
     @Override
@@ -24,7 +39,7 @@ public abstract class GameTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount () {
-        return myData.size();
+        return myList.size();
     }
 
     @Override
@@ -34,11 +49,14 @@ public abstract class GameTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt (int row, int col) {
-        return myData.get(row)[col];
+        return myList.get(row)[col];
     }
 
     @Override
     public Class getColumnClass (int c) {
         return getValueAt(0, c).getClass();
     }
+
+    abstract void addPreviouslyDefined (List<Customizable> list);
+
 }

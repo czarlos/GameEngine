@@ -1,10 +1,12 @@
 package dialog;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -13,19 +15,27 @@ import javax.swing.JTable;
 /**
  * @author brooksmershon
  * 
- *         Presents a view of current units with the ability to add, remove operations
+ *         Presents a view of current units with the ability to add, remove operations for a
+ *         scrolling
+ *         table view of row definitions for units
  * 
  * 
  */
-public class UnitEditorPanel extends JPanel {
+public class UnitEditorDialog extends JDialog {
 
     /**
      * 
      */
     private static final long serialVersionUID = 370838418473171385L;
 
-    public UnitEditorPanel (UnitTableModel model) {
-        super(new GridLayout(1, 0));
+    /**
+     * 
+     * @param model - a TableModel class which provides getter and setter methods
+     *        for cell rendering and editing
+     */
+    public UnitEditorDialog (GameTableModel model) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
 
         JTable table = new JTable(model);
         table.setDefaultRenderer(ImageIcon.class,
@@ -37,7 +47,10 @@ public class UnitEditorPanel extends JPanel {
         table.setFillsViewportHeight(true);
 
         JScrollPane scrollPane = new JScrollPane(table);
-        add(scrollPane);
+
+        panel.add(scrollPane);
+        add(panel);
+        setSize(new Dimension(500, 500));
     }
 
 }

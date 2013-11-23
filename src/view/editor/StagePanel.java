@@ -1,13 +1,11 @@
 package view.editor;
 
 import java.awt.Dimension;
-import grid.Grid;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
-import controller.editor.GridController;
 import controller.editor.GridEditorController;
 import controllers.WorldManager;
 import view.canvas.GridCanvas;
@@ -25,7 +23,6 @@ public class StagePanel extends JPanel {
     private WorldManager myWorldManager;
 
     public StagePanel (String stageName, WorldManager wm) {
-
         GridEditorController gridcontrol = new GridEditorController(wm);
         myCanvas = new GridCanvas(wm);
         myCanvas.addGridMouseListener(gridcontrol);
@@ -48,5 +45,4 @@ public class StagePanel extends JPanel {
 
         repaint();
     }
-
 }

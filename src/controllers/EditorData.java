@@ -20,7 +20,6 @@ public class EditorData {
     Map<String, List<Customizable>> myDataMap;
     JSONParser myParser;
 
-    // TODO: redo this whole thing to use JTables
     // Only for use by deserializer
     public EditorData () {
         myParser = new JSONParser();
@@ -96,6 +95,4 @@ public class EditorData {
             return list.size() - 1;
         }
     }
-
-    // affiliation
 }

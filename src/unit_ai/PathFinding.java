@@ -20,7 +20,6 @@ import grid.Tile;
  * 
  */
 public class PathFinding {
-
     /**
      * AutoMove moves a unit the appropriate amount of units forward
      * (the max number possible based on that unit's movement stats)
@@ -34,11 +33,11 @@ public class PathFinding {
      * @param end - The tile at which the target unit is at
      * @param unit - The unit being moved.
      */
-    public static void autoMove (Tile start, Tile end, GameUnit unit) {
+    public static void autoMove (Tile start, Tile end, GameUnit unit, Grid grid) {
         int range = unit.getStat("movement");
         List<Tile> path = findPath(start, end);
         Tile newTile = path.get(range);
-        unit.setGridPosition(newTile.getCoordinate());
+        grid.doMove(grid.getUnitCoordinate(unit), newTile.getCoordinate());
     }
 
     /**

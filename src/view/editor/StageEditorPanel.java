@@ -1,49 +1,33 @@
 package view.editor;
 
-import gameObject.GameObject;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
 import controllers.WorldManager;
-import dialog.UnitEditorPanel;
+import dialog.UnitEditorDialog;
 import dialog.UnitTableModel;
 
 
 public class StageEditorPanel extends JTabbedPane {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 2009073373970060149L;
 
     private WorldManager myWorldManager;
     private HashMap<String, JScrollPane> myTabs = new HashMap<String, JScrollPane>();
-    private ArrayList<GameObject> availableDrawables = new ArrayList<GameObject>();
     private GameObjectPanel selectedPanel;
 
     public StageEditorPanel (WorldManager wm, String[] defaultTypes) {
@@ -70,6 +54,28 @@ public class StageEditorPanel extends JTabbedPane {
         int index = this.indexOfTab(type);
         this.remove(myTabs.get(type));
         this.add(replacement, index);
+    }
+
+    // TODO: Chris, change this to support UnitEditorDialog
+    private void createUnitEditor () {
+        EditorTableFrame frame = new EditorTableFrame("Unit", this);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        // Create and set up the content pane.
+        JDialog newContentPane =
+                new UnitEditorDialog((UnitTableModel) myWorldManager.getViewModel("unit"));
+        // newContentPane.setOpaque(true); // content panes must be opaque
+        frame.setContentPane(newContentPane);
+        // Display the window.
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    public void changeSelected (GameObjectPanel selected) {
+        if (selectedPanel != null)
+            selectedPanel.deSelect();
+        selectedPanel = selected;
+        myWorldManager.setActiveObject(selected.getType(), myWorldManager.get(selected.getType())
+                .indexOf(selected.getName()));
     }
 
     private JScrollPane makeTab (String type) {
@@ -101,6 +107,7 @@ public class StageEditorPanel extends JTabbedPane {
                         break;// createTileEditor();
                     case "gameunit":
                         createUnitEditor();
+                        break;
                     case "gameobject":
                         // createObjectEditor();
                 }
@@ -113,7 +120,8 @@ public class StageEditorPanel extends JTabbedPane {
         List<String> tileNames = myWorldManager.get(type);
         for (int n = 0; n < tileNames.size(); n++) {
             GameObjectPanel gop =
-                    new GameObjectPanel("tile",new ImageIcon(myWorldManager.getImage(type, n)),
+
+                    new GameObjectPanel(type, new ImageIcon(myWorldManager.getImage(type, n)),
                                         tileNames.get(n), this);
             panel.add(gop);
             sg.addComponent(gop, 70, 70, 70);
@@ -126,24 +134,4 @@ public class StageEditorPanel extends JTabbedPane {
         panel.repaint();
         return scroll;
     }
-
-    public void changeSelected (GameObjectPanel selected) {
-        if (selectedPanel != null)
-            selectedPanel.deSelect();
-        selectedPanel = selected;
-    }
-
-    private void createUnitEditor () {
-        EditorTableFrame frame = new EditorTableFrame("Unit", this);
-        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        // Create and set up the content pane.
-        JComponent newContentPane =
-                new UnitEditorPanel((UnitTableModel) myWorldManager.getViewModel("unit"));
-        newContentPane.setOpaque(true); // content panes must be opaque
-        frame.setContentPane(newContentPane);
-        // Display the window.
-        frame.pack();
-        frame.setVisible(true);
-    }
-
 }
