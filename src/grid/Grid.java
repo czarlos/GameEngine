@@ -461,10 +461,6 @@ public class Grid implements Drawable {
 
     /**
      * Draws the tiles and objects on the grid
-     * <<<<<<< HEAD
-     * 
-     * =======
-     * >>>>>>> grid
      * 
      * @param g - Graphics for the image
      * @param x - int of x coordinate on the grid

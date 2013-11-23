@@ -2,9 +2,13 @@ package gameObject;
 
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
+import gameObject.action.MoveAction;
+import gameObject.action.WaitAction;
 import gameObject.item.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,40 +26,60 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class GameUnit extends GameObject {
 
     private boolean isControllable;
-    private List<Item> myItemList;
+    private Map<Item, Integer> myItemMap;
+    private List<Action> myActionList;
     private Stat myUnitStats;
-    private String myAffiliation;
+    private String myTeamName;
     private Weapon myActiveWeapon;
     private double myHealth;
     private double myExperience;
     private boolean isActive;
+    private boolean hasMoved;
 
     // reads defaults from JSON. To add/test new defaults, edit MakeDefaults.java
     public GameUnit () {
-        myItemList = new ArrayList<Item>();
+        myItemMap = new HashMap<Item, Integer>();
         myUnitStats = new Stat();
-        myAffiliation = "";
+        myTeamName = "";
     }
 
     // should ONLY be called by stage when adding units to a team
     public void setAffiliation (String affiliation) {
-        myAffiliation = affiliation;
+        myTeamName = affiliation;
     }
 
     public String getAffiliation () {
-        return myAffiliation;
+        return myTeamName;
     }
 
+    public List<Action> getActionList() {
+        List<Action> actionListOther = new ArrayList<Action>();
+        if (!hasMoved) {
+            for(Action a : myActionList) {
+                actionListOther.add(a);
+            }
+            actionListOther.add(new MoveAction());
+            actionListOther.add(new WaitAction());
+            return actionListOther;
+        }
+        return myActionList;
+    }
+    
+    
     /**
-     * Will update the stats of a player holding an
-     * item if that item passively updates the players
-     * stats, this is particularly evident in armor
-     * where armor has no action but simply ups
-     * a players stats.
+     * Loops through all of a players items and ups their stats
+     * according to the stat value of each item if the player has
+     * a stat field in line with that item.
      */
     public void initializeStats () {
-        for (Item item : myItemList) {
-            item.statEffect(this);
+        for (Item item : myItemMap.keySet()) {
+            for (String statName : item.getStats().getStatMap().keySet()) {
+                if (this.myUnitStats.getStatMap().containsKey(statName)) {
+                    int fromItem = item.getStats().getStatValue(statName);
+                    int current = this.myUnitStats.getStatValue(statName);
+                    this.myUnitStats.getStatMap().put(statName, current+fromItem);
+                }
+            }
         }
     }
 
@@ -66,7 +90,7 @@ public class GameUnit extends GameObject {
      * @param weaponName - The string which represents a weapon
      */
     public void selectWeapon (String weaponName) {
-        for (Item item : myItemList) {
+        for (Item item : myItemMap.keySet()) {
             if (item.getName().equals(weaponName)) {
                 myActiveWeapon = (Weapon) item;
             }
@@ -74,34 +98,26 @@ public class GameUnit extends GameObject {
     }
 
     /**
-     * Selects an action from the current active weapon and executes the
-     * function of that action. Takes in the action chosen to be executed
-     * and the unit that the action will be used on.
-     * 
-     * @param actionName - The name of an action, not a string
-     * @param other - The unit onto which the action is executed
-     */
-    public void doAction (CombatAction action, GameUnit other) {
-        CombatAction selectedAction = myActiveWeapon.selectAction(action);
-        selectedAction.execute(this, other);
-    }
-
-    /**
-     * Takes an item and adds it to the list, if item is Equipment,
-     * then we modify the characters stats according to the stats of
-     * the item.
+     * Takes an item and adds it to the list of items, adding
+     * to the stats of the unit as it adds in an item.
      * 
      * @param itemName - The name of the item, not a string
      */
     public void addItem (Item itemName) {
-        if (itemName instanceof Equipment) {
-            for (String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
-                int statVal = this.getUnitStats().getStatValue(stat);
-                statVal += ((Equipment) itemName).getModifiers().getStatModifier(stat);
-                this.getUnitStats().setStatValue(stat, statVal);
+        for (String stat : itemName.getStats().getStatMap().keySet()) {
+            if (this.myUnitStats.getStatMap().keySet().contains(stat)) {
+                int fromItem = itemName.getStats().getStatValue(stat);
+                int current = this.myUnitStats.getStatValue(stat);
+                this.myUnitStats.getStatMap().put(stat, current+fromItem);
             }
         }
-        myItemList.add(itemName);
+        
+        if (!myItemMap.containsKey(itemName)) {
+            myItemMap.put(itemName, 1);
+        }
+        else {
+            myItemMap.put(itemName, myItemMap.get(itemName)+1);
+        }
     }
 
     /**
@@ -111,50 +127,33 @@ public class GameUnit extends GameObject {
      * @param itemName - The name of the item, not a string
      */
     public void removeItem (Item itemName) {
-        if (itemName instanceof Equipment) {
-            for (String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
-                int statVal = this.getUnitStats().getStatValue(stat);
-                statVal -= ((Equipment) itemName).getModifiers().getStatModifier(stat);
-                this.getUnitStats().setStatValue(stat, statVal);
+        for (String stat : itemName.getStats().getStatMap().keySet()) {
+            if (this.myUnitStats.getStatMap().keySet().contains(stat)) {
+                int fromItem = itemName.getStats().getStatValue(stat);
+                int current = this.myUnitStats.getStatValue(stat);
+                this.myUnitStats.getStatMap().put(stat, current-fromItem);
             }
         }
-        myItemList.remove(itemName);
+        myItemMap.remove(itemName);
     }
 
     @Override
     public boolean isPassable (GameUnit unit) {
         unit.getAffiliation();
-        System.out.println(myAffiliation);
-        return super.isPassable(unit) || unit.getAffiliation().equals(myAffiliation);
+        System.out.println(myTeamName);
+        return super.isPassable(unit) || unit.getAffiliation().equals(myTeamName);
     }
 
     /**
      * Gets the total stat value for a given stat of a character
-     * after all of the item's stats have been applied.
+     * after all of the item's stats have been applied. Assuming
+     * initializeStats has been called.
      * 
      * @param stat - The stat that we want to see
      * @return
      */
     public int getTotalStat (String stat) {
-        int value = myUnitStats.getStatValue(stat);
-        for (Item i : myItemList)
-            if (i instanceof Equipment)
-                value += ((Equipment) i).getModifiers().getStatModifier(stat);
-        return value;
-    }
-
-    /**
-     * Initializes an attack from this unit to another unit based
-     * on a weapon, attack, and action chosen by the user. The execute method
-     * called by doAction executes the attack.
-     * 
-     * @param other - The unit being attacked.
-     * @param weaponName - The weapon being used
-     * @param actionName - The action chosen from the weapon being used
-     */
-    public void attack (GameUnit other, String weaponName, CombatAction actionName) {
-        this.selectWeapon(weaponName);
-        this.doAction(actionName, other);
+        return this.myUnitStats.getStatValue(stat);
     }
 
     /**
@@ -200,6 +199,7 @@ public class GameUnit extends GameObject {
     }
 
     public void setActive (boolean active) {
+        this.hasMoved = active;
         this.isActive = active;
     }
 
@@ -223,17 +223,15 @@ public class GameUnit extends GameObject {
         this.myExperience = myExperience;
     }
 
-    public List<Item> getItemList () {
-        return myItemList;
+    public Map<Item, Integer> getItemMap () {
+        return myItemMap;
     }
 
     @JsonIgnore
     public List<Action> getActions () {
         List<Action> actions = new ArrayList<>();
-        for (Item item : myItemList) {
-            if (item instanceof Weapon) {
-                actions.addAll(((Weapon) item).getActionList());
-            }
+        for (Item item : myItemMap.keySet()) {
+            actions.addAll(item.getActions());
         }
         return actions;
     }
@@ -254,24 +252,9 @@ public class GameUnit extends GameObject {
     public void setStat (String statName, int statValue) {
         myUnitStats.setStatValue(statName, statValue);
     }
-
-    public int getItemCount (String itemName) {
-        for (Item i : myItemList) {
-            if (i.getName().equals(itemName)) { return i.getAmount(); }
-        }
-        return 0;
-    }
-
-    public void setItem (String itemName, int itemValue) {
-        for (Item i : myItemList) {
-            if (i.getName().equals(itemName)) {
-                i.setAmount(itemValue);
-            }
-        }
-    }
-
-    public void setItemList (List<Item> myItemList) {
-        this.myItemList = myItemList;
+    
+    public void hasMoved () {
+        this.hasMoved = true;
     }
 
     @Override
@@ -285,7 +268,7 @@ public class GameUnit extends GameObject {
         result = prime * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(myHealth);
         result = prime * result + (int) (temp ^ (temp >>> 32));
-        result = prime * result + ((myItemList == null) ? 0 : myItemList.hashCode());
+        result = prime * result + ((myItemMap == null) ? 0 : myItemMap.hashCode());
         result = prime * result + ((myUnitStats == null) ? 0 : myUnitStats.hashCode());
         return result;
     }
@@ -301,15 +284,15 @@ public class GameUnit extends GameObject {
             if (other.myActiveWeapon != null) return false;
         }
         else if (!myActiveWeapon.equals(other.myActiveWeapon)) return false;
-        if (myAffiliation != other.myAffiliation) return false;
+        if (myTeamName != other.myTeamName) return false;
         if (Double.doubleToLongBits(myExperience) != Double.doubleToLongBits(other.myExperience))
             return false;
         if (Double.doubleToLongBits(myHealth) != Double.doubleToLongBits(other.myHealth))
             return false;
-        if (myItemList == null) {
-            if (other.myItemList != null) return false;
+        if (myItemMap == null) {
+            if (other.myItemMap != null) return false;
         }
-        else if (!myItemList.equals(other.myItemList)) return false;
+        else if (!myItemMap.equals(other.myItemMap)) return false;
         if (myUnitStats == null) {
             if (other.myUnitStats != null) return false;
         }
