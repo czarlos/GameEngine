@@ -238,6 +238,7 @@ public class Stage implements GridMouseListener {
         }
     }
 
+
     /**
      * doCombat executes combat between two units.
      * 

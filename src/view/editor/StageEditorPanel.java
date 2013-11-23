@@ -113,7 +113,7 @@ public class StageEditorPanel extends JTabbedPane {
         List<String> tileNames = myWorldManager.get(type);
         for (int n = 0; n < tileNames.size(); n++) {
             GameObjectPanel gop =
-                    new GameObjectPanel(new ImageIcon(myWorldManager.getImage(type, n)),
+                    new GameObjectPanel("tile",new ImageIcon(myWorldManager.getImage(type, n)),
                                         tileNames.get(n), this);
             panel.add(gop);
             sg.addComponent(gop, 70, 70, 70);
