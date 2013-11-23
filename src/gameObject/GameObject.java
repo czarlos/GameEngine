@@ -72,7 +72,13 @@ public class GameObject extends Drawable {
         }
     }
 
+    /**
+     * Generates the List of Strings that the unit will display to the user
+     */
     public void generateDisplayData () {
+        List<String> displayData = new ArrayList<>();
+        displayData.add("Name: " + myName);
+        setDisplayData(displayData);
     }
 
     public List<String> getDisplayData () {
