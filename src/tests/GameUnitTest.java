@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import gameObject.CombatAction;
 import gameObject.GameUnit;
 import gameObject.Stat;
 import gameObject.StatModifier;
+import gameObject.action.CombatAction;
 import gameObject.item.Equipment;
 import gameObject.item.Item;
 import gameObject.item.Weapon;
@@ -50,8 +50,7 @@ public class GameUnitTest {
         statMods.put("attack", 4);
         List<CombatAction> action = new ArrayList<CombatAction>();
         CombatAction combAct =
-                new CombatAction(new StatModifier(statMods), null, 0.0, statMods, null, null, null,
-                                 false);
+                new CombatAction("Test", new StatModifier(statMods), null, null, null);
         action.add(combAct);
         Item sword = new Weapon("sword", action, new StatModifier(statMods));
 
@@ -59,8 +58,7 @@ public class GameUnitTest {
         statMods1.put("defense", 3);
         Item shield = new Equipment("shield", new StatModifier(statMods1));
 
-        customUnit =
-                new GameUnit("Marth", GridConstants.DEFAULT_UNIT_PATH, 0, stats, itemList, true);
+        customUnit = new GameUnit();
         customUnit.setActiveWeapon(sword);
         // Note this is how all items must be added.
         customUnit.addItem(sword);
@@ -75,8 +73,8 @@ public class GameUnitTest {
     @Test
     public void testStats () {
         initializeCustom();
-        assertEquals(customUnit.getStats().getStatValue("agility"), 7, 0);
-        assertEquals(customUnit.getStats().getStatValue("health"), 15, 0);
+        assertEquals(customUnit.getUnitStats().getStatValue("agility"), 7, 0);
+        assertEquals(customUnit.getUnitStats().getStatValue("health"), 15, 0);
 
     }
 
@@ -87,7 +85,7 @@ public class GameUnitTest {
         statMods.put("defense", 20);
         Item helmet = new Equipment("helmet", new StatModifier(statMods));
         customUnit.addItem(helmet);
-        assertEquals(customUnit.getStats().getStatValue("defense"), 28, 0);
+        assertEquals(customUnit.getUnitStats().getStatValue("defense"), 28, 0);
     }
 
     @Test
@@ -104,7 +102,7 @@ public class GameUnitTest {
     @Test
     public void testItems () {
         initializeCustom();
-        assertEquals(customUnit.getStats().getStatValue("attack"), 14, 0.1);
+        assertEquals(customUnit.getUnitStats().getStatValue("attack"), 14, 0.1);
     }
 
     @Test
@@ -120,10 +118,10 @@ public class GameUnitTest {
         statMods.put("defense", 20);
         Item helmet = new Equipment("helmet", new StatModifier(statMods));
         customUnit.addItem(helmet);
-        assertEquals(customUnit.getStats().getStatValue("defense"), 28, 0);
+        assertEquals(customUnit.getUnitStats().getStatValue("defense"), 28, 0);
 
         customUnit.removeItem(helmet);
-        assertEquals(customUnit.getStats().getStatValue("defense"), 8, 0);
+        assertEquals(customUnit.getUnitStats().getStatValue("defense"), 8, 0);
     }
 
     @Test
@@ -134,15 +132,15 @@ public class GameUnitTest {
         statMods.put("attack", 10);
         Item staff = new Equipment("staff", new StatModifier(statMods));
         customUnit.addItem(staff);
-        assertEquals(customUnit.getStats().getStatValue("agility"), 22, 0);
-        assertEquals(customUnit.getStats().getStatValue("attack"), 24, 0);
+        assertEquals(customUnit.getUnitStats().getStatValue("agility"), 22, 0);
+        assertEquals(customUnit.getUnitStats().getStatValue("attack"), 24, 0);
 
     }
 
     @Test
     public void testDefaultStat () {
         initializeDefault();
-        assertEquals(defaultUnit.getStats().getStatValue("movement"), 3, 0);
+        assertEquals(defaultUnit.getUnitStats().getStatValue("movement"), 3, 0);
     }
 
     @Test
@@ -156,8 +154,7 @@ public class GameUnitTest {
 
         List<CombatAction> action = new ArrayList<CombatAction>();
         CombatAction combAct =
-                new CombatAction(new StatModifier(statMods), null, 0.0, statMods, null, null, null,
-                                 false);
+                new CombatAction("Test", new StatModifier(statMods), null, null, null);
         action.add(combAct);
 
         Item bow = new Weapon("bow", action, new StatModifier(statMods));
@@ -171,7 +168,7 @@ public class GameUnitTest {
 
         defaultUnit.addItem(bow);
         defaultUnit.setActiveWeapon(bow);
-        assertEquals(defaultUnit.getStats().getStatValue("attack"), 28, 0);
+        assertEquals(defaultUnit.getUnitStats().getStatValue("attack"), 28, 0);
         assertEquals(defaultUnit.getActiveWeapon(), bow);
     }
 

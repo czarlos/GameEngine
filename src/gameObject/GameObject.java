@@ -1,30 +1,50 @@
 package gameObject;
 
+import gameObject.action.Action;
+import grid.ImageManager;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import view.Customizable;
 import view.Drawable;
 
 
 /**
- * GameObject class. Stuff like trees and shit.
+ * GameObject class. Stuff like trees.
  * 
  * @author Kevin, Ken
  * 
  */
 @JsonAutoDetect
-public class GameObject extends Drawable {
+public class GameObject extends Customizable implements Drawable {
     protected List<String> myPassableList;
+    protected BufferedImage myImage;
+    protected List<String> myInfo;
 
     public GameObject () {
+        myInfo = new ArrayList<String>();
+        myPassableList = new ArrayList<String>();
+    }
+
+    public List<String> getInfo () {
+        return myInfo;
+    }
+    
+    public void setInfo(List<String> info) {
+        myInfo = info;
     }
 
     /**
      * Checks if a unit can pass through the object
      * 
-     * @param unit - GameObject that is moving
+     * @param unit - GameUnit that is moving
      * @return - boolean of if unit can pass through
      */
-    public boolean isPassable (GameObject unit) {
+    
+    public boolean isPassable (GameUnit unit) {
         return myPassableList.contains(unit.getName()) ||
                myPassableList.contains(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
     }
@@ -46,13 +66,21 @@ public class GameObject extends Drawable {
         return myPassableList;
     }
 
-    public String getImagePath () {
-        return myImagePath;
+    @JsonProperty("imagePath")
+    public void setImageAndPath (String imagePath) {
+
+        myImagePath = imagePath;
+        try {
+            myImage = ImageManager.addImage(imagePath);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setImageAndPath (String imagePath) {
-        myImagePath = imagePath;
-    }
+    public Action getInteraction () {
+        return null;
+    };
 
     @Override
     public int hashCode () {
@@ -85,4 +113,8 @@ public class GameObject extends Drawable {
         return true;
     }
 
+    @Override
+    public void draw (Graphics g, int x, int y, int width, int height) {
+        g.drawImage(getImage(), x, y, width, height, null);
+    }
 }

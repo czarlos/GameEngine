@@ -8,14 +8,17 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import controllers.EditorData;
+import dialog.GameTableModel;
+import dialog.UnitTableModel;
 import parser.JSONParser;
 import stage.Condition;
 import stage.Stage;
 import view.Customizable;
+import view.Drawable;
 import gameObject.GameObject;
 import gameObject.GameUnit;
+import grid.Coordinate;
 import grid.FromJSONFactory;
-import grid.Grid;
 import grid.Tile;
 
 
@@ -32,6 +35,10 @@ public class WorldManager {
     @JsonProperty
     String myGameName;
 
+    private UnitTableModel myUnitModel;
+    private String activeEditType;
+    private int activeEditID;
+
     /**
      * Intermediary between views and EditorData and Grid, stores List of Stages
      * 
@@ -43,8 +50,33 @@ public class WorldManager {
         myParser = new JSONParser();
         myEditorData = new EditorData("defaults");
         myGameName = gameName;
+        myUnitModel = new UnitTableModel();
     }
 
+    public GameTableModel getViewModel (String type) {
+        switch (type.toLowerCase()) {
+            case "tile":
+                return null; //add
+            case "gameunit":
+                return myUnitModel;
+            case "gameobject":
+
+                return null; //add
+        }
+        return null;
+    }
+    
+    public void setActiveObject(String type, int id){
+        activeEditType = type;
+        activeEditID = id;
+    }
+    
+    public String getActiveType(){
+        return activeEditType;
+    }
+    public int getActiveID(){
+        return activeEditID;
+    }
     /**
      * Add a new stage
      * 
@@ -118,16 +150,18 @@ public class WorldManager {
      * 
      * @return
      */
-    // TODO: Change this to Drawable when Patrick is around.
-    public Grid getGrid () {
-        return myActiveStage.getGrid();
+
+    public Drawable getGrid () {
+        return (Drawable) myActiveStage.getGrid();
     }
 
-    /*
-     * public Drawable getGrid () {
-     * return (Drawable) myActiveStage.getGrid();
-     * }
-     */
+    public Coordinate getCoordinate (double fracX, double fracY) {
+        return myActiveStage.getGrid().getCoordinate(fracX, fracY);
+    }
+
+    public void doMove (Coordinate a, Coordinate b) {
+        myActiveStage.getGrid().doMove(a, b);
+    }
 
     /**
      * Getting images
@@ -137,7 +171,7 @@ public class WorldManager {
      * @return
      */
     public Image getTileImage (int x, int y) {
-        return myActiveStage.getGrid().getTile(x, y).getImage();
+        return myActiveStage.getGrid().getTile(new Coordinate(x, y)).getImage();
     }
 
     /**
@@ -148,7 +182,7 @@ public class WorldManager {
      * @return
      */
     public Image getObjectImage (int x, int y) {
-        GameObject o = myActiveStage.getGrid().getObject(x, y);
+        GameObject o = myActiveStage.getGrid().getObject(new Coordinate(x, y));
         if (o != null)
             return o.getImage();
         return null;
@@ -163,17 +197,20 @@ public class WorldManager {
      * @param y Coordinate
      */
     public void setTile (int tileID, int x, int y) {
-        myActiveStage.getGrid().placeTile((Tile) myFactory.make("tile", tileID), x, y);
+        myActiveStage.getGrid().placeTile(new Coordinate(x, y),
+                                          (Tile) myFactory.make("tile", tileID));
     }
 
     // if you need to make any more of these, then just combine all these placeObjects into one
     public void placeUnit (int unitID, int x, int y) {
-        myActiveStage.getGrid().placeObject((GameObject) myFactory.make("unit", unitID), x, y);
+        myActiveStage.getGrid().placeObject(new Coordinate(x, y),
+                                            (GameObject) myFactory.make("gameunit", unitID));
+
     }
 
     public void placeObject (int objectID, int x, int y) {
-        myActiveStage.getGrid().placeObject((GameObject) myFactory.make("gameobject", objectID),
-                                            x, y);
+        myActiveStage.getGrid().placeObject(new Coordinate(x, y),
+                                            (GameObject) myFactory.make("gameobject", objectID));
     }
 
     /**
@@ -221,7 +258,7 @@ public class WorldManager {
     public int setCustomTile (int ID, String name, String imagePath, int moveCost) {
         Tile t = new grid.Tile();
         t.setName(name);
-        t.setImageAndPath(imagePath);
+        t.setImagePath(imagePath);
         t.setMoveCost(moveCost);
         return myEditorData.setCustomizable("Tile", ID, t);
     }
@@ -234,8 +271,7 @@ public class WorldManager {
         GameUnit gu = new GameUnit();
 
         gu.setName(name);
-        gu.setImageAndPath(imagePath);
-        gu.setAffiliation(affiliation);
+        gu.setImagePath(imagePath);
         gu.setControllable(controllable);
         return myEditorData.setCustomizable("GameUnit", ID, gu);
     }
@@ -243,7 +279,7 @@ public class WorldManager {
     public int setCustomObject (int ID, String name, String imagePath) {
         GameObject go = new GameObject();
         go.setName(name);
-        go.setImageAndPath(imagePath);
+        go.setImagePath(imagePath);
 
         return myEditorData.setCustomizable("GameObject", ID, go);
     }
@@ -267,8 +303,8 @@ public class WorldManager {
      * @param data type (i.e. "Condition"
      * @return list of data that needs to be passed into "set" to create object.
      */
-    public List<String> getNeededData (int ID, String type) {
-        Customizable c = (Customizable) myEditorData.get(type).get(ID);
+    public List<String> getNeededConditionData (int ID) {
+        Condition c = (Condition) myEditorData.get("Condition").get(ID);
         return c.getNeededData();
     }
 

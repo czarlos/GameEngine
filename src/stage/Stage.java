@@ -1,33 +1,45 @@
 package stage;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.TreeMap;
+import team.Team;
+import unit_ai.PathFinding;
 import utils.UnitUtilities;
+import view.canvas.GridMouseListener;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import gameObject.CombatAction;
 import gameObject.GameUnit;
+import gameObject.action.CombatAction;
+import grid.Coordinate;
 import grid.Grid;
+import grid.Tile;
 
 
 /**
+ * Stage is responsible for managing how turns are distributed and progressing
+ * the game when it is won. The turns progress when the player indicates they are
+ * done and when the AI deactivates all of their units.
+ * 
  * @author Andy Bradshaw
+ * @author carlosreyes
+ * @author Leevi
  * 
  */
 @JsonAutoDetect
-public class Stage {
+public class Stage implements GridMouseListener {
 
     private Grid myGrid;
-    private List<Integer> myAffiliateList;
     @JsonProperty
     private WinCondition myWinCondition;
     private String myName;
-    private List<GameUnit> myCurrUnitList;
     private String preText;
     private String postText;
-    private List<List<GameUnit>> myTeamUnitList;
+    private List<Team> myTeamList;
 
     // only for use by deserializer
     public Stage () {
@@ -35,32 +47,167 @@ public class Stage {
 
     public Stage (int x, int y, int tileID, String name) {
         myGrid = new Grid(x, y, tileID);
-        myAffiliateList = new ArrayList<Integer>();
         myWinCondition = new WinCondition();
         myName = name;
-        myCurrUnitList = new ArrayList<GameUnit>();
     }
 
-    /**
-     * 
+    /*
+     * Returns true if unit was added to team, false if teamID was invalid
+     * Note this logic works best if editor has a "team editor" tab that 
+     * allows users to make teams and assign units to those teams.
      */
-    public void run () {
-        while (!myWinCondition.hasWon(myGrid)) {
-            for (int i : myAffiliateList) { // for each affiliation
-                changeTurns(i);             // set those affiliations' units to active
-                if (myCurrUnitList == null) // if there are no units skip that affiliation's turn
-                    continue;
-                if (myCurrUnitList.get(0).isControllable())
-                    doPlayerMove();
-                else doAIMove(1, 0);
-                myCurrUnitList.clear();
+    
+    public boolean addUnitToTeam(int teamID, GameUnit gu){
+        if(teamID< myTeamList.size()){
+            myTeamList.get(teamID).addGameUnit(gu);
+            gu.setAffiliation(myTeamList.get(teamID).getName());
+            return true;
+        }
+        return false;
+    }
+    
+    public void addTeam(String teamName){
+        myTeamList.add(new Team(teamName));
+    }
+    
+    /*
+     * Carlos's Code starts here. Don't delete!
+     */
+
+    /**
+     * Runs the game, only stopping when the win condition has been satisfied,
+     * continually loops through the players in the game, moving to the next player
+     * when the spacebar is pressed, or if the player is an AI if all of the units
+     * have been set to inactive.
+     * 
+     * @param event - Listens for spacebar
+     */
+    public void doInGame (KeyEvent event) {
+        while (!myWinCondition.isFulfilled(this)) {
+
+            for (int i = 0; i < myTeamList.size(); i++) {
+                // TODO: Decrement the #turn counter on the units, or set them all to active
+                if (myTeamList.get(i).isHuman()) {
+                    boolean flag = true;
+                    while (flag) {
+                        if (event.getKeyCode() == KeyEvent.VK_SPACE) {
+                            flag = false;
+                        }
+                        else {
+                            // TODO: This is where a users turn happens
+                        }
+                    }
+                }
+                else {
+                    List<GameUnit> opponentList = findAllEnemies(i);
+                    for (GameUnit unit : myTeamList.get(i).getGameUnits()) {
+                        doAIMove(unit, opponentList);
+                    }
+                }
             }
+
         }
     }
 
-    private void doPlayerMove () {
+    /**
+     * Sends enemy units to attack your units, uses the pathfinding algorithm from
+     * the PathFinding class to find the shortest path and traverses as far as the unit can
+     * move on that path, when it encounters an enemy unit it attacks that unit with a randomly
+     * chosen attack from its active weapon.
+     * 
+     * @param unit - The game unit which is being moved by the AI
+     * @param allEnemies - A list of all of the enemy units
+     */
+    public void doAIMove (GameUnit unit, List<GameUnit> allEnemies) {
+        PathFinding.coordinatesToTiles(myGrid, unit);
+        GameUnit other = findClosestOpponent(unit, allEnemies);
+
+        Tile start = myGrid.getTile(myGrid.getUnitCoordinate(unit));
+        Tile end = myGrid.getTile(myGrid.getUnitCoordinate(other));
+
+        if (UnitUtilities.calculateLength(start.getCoordinate(), end.getCoordinate()) == 1) {
+            Random r = new Random();
+            int rand = r.nextInt(unit.getActiveWeapon().getActionList().size());
+            CombatAction randomAction = unit.getActiveWeapon().getActionList().get(rand);
+            String activeWeapon = unit.getActiveWeapon().toString();
+            unit.attack(other, activeWeapon, randomAction);
+        }
+        else {
+            PathFinding.autoMove(start, end, unit, myGrid);
+        }
+
+    }
+
+    /**
+<<<<<<< HEAD
+     * Finds all units for a player (or AI) other than your own and adds them to a list
+     * of units which contains all of the opponents of that affiliation.
+=======
+     * Sends enemy units to attack your units, uses the pathfinding algorithm from
+     * the PathFinding class to find the shortest path and traverses as far as the unit can
+     * move on that path, when it encounters an enemy unit it attacks that unit with a randomly
+     * chosen attack from its active weapon.
+>>>>>>> gui
+     * 
+     * @param teamList
+     * @param thisAffiliation
+     * @return
+     */
+    public List<GameUnit> findAllEnemies (int thisAffiliation) {
+        List<GameUnit> opponentList = new ArrayList<GameUnit>();
+
+        for (Team team : myTeamList) {
+            if (!team.isHuman()) {
+                opponentList.addAll(team.getGameUnits());
+            }
+
+        }
+        return opponentList;
+    }
+
+    /**
+     * This unit searches for the closest unit on the grid
+     * 
+     * @param opponents - List of opponents
+     * @return
+     */
+      public GameUnit findClosestOpponent (GameUnit unit, List<GameUnit> opponents) {
+          GameUnit closest = null;
+          double distance = 0;
+          for (GameUnit opponent : opponents) {
+              if (closest == null) {
+                  closest = opponent;
+                  distance =
+                          UnitUtilities.calculateLength(myGrid.getUnitCoordinate(unit),
+                                                        myGrid.getUnitCoordinate(opponent));
+              }
+              else if (UnitUtilities.calculateLength(myGrid.getUnitCoordinate(unit),
+                                                     myGrid.getUnitCoordinate(opponent)) < distance) {
+                  closest = opponent;
+                  distance =
+                          UnitUtilities.calculateLength(myGrid.getUnitCoordinate(unit),
+                                                        myGrid.getUnitCoordinate(opponent));
+              }
+          }
+        
+          return closest;
+    }
+    
+      /**
+       * One unit goes to another units side.
+       * @param unit - The unit to move
+       * @param opponenent - The unit to move to
+       */
+    public void goToOpponent (GameUnit unit, GameUnit opponenent) {
+        Coordinate myUnitPosition = myGrid.getUnitCoordinate(unit);
+        Coordinate myOpponentPosition = myGrid.getUnitCoordinate(opponenent);
+        myGrid.placeObject(myOpponentPosition, unit);
+        
+    }
+      
+    private void doPlayerMove (int affliation) {
         // TODO wait until all units are done
-        for (GameUnit unit : myCurrUnitList) {
+        for (GameUnit unit : myTeamList.get(affliation).getGameUnits()) {
             while (unit.getActiveStatus())
                 System.out.println("WE WAITIN UNTIL ALL UNITS ARE NOT ACTIVE");
         }
@@ -69,10 +216,10 @@ public class Stage {
     /**
      * The AI will move to your unit's positions and attack them.
      */
-    public void doAIMove (int aiTeamIndex, int otherTeamIndex) {
-
-        moveToOpponents(aiTeamIndex, otherTeamIndex);
-    }
+    // public void doAIMove (int aiTeamIndex, int otherTeamIndex) {
+    //
+    // moveToOpponents(aiTeamIndex, otherTeamIndex);
+    // }
 
     /**
      * Moves all units possible from one team to opponents to another team.
@@ -86,13 +233,13 @@ public class Stage {
      */
     private void moveToOpponents (int aiTeamIndex, int otherTeamIndex) {
         int counter = 0;
-        for (GameUnit unit : myTeamUnitList.get(aiTeamIndex)) {
-            if (counter > myTeamUnitList.get(otherTeamIndex).size()) {
+        for (GameUnit unit : myTeamList.get(aiTeamIndex).getGameUnits()) {
+            if (counter > myTeamList.get(otherTeamIndex).getGameUnits().size()) {
                 counter = 0;
             }
             List<GameUnit> opponentList =
-                    makeSortedUnitList(unit, myTeamUnitList.get(otherTeamIndex));
-            unit.snapToOpponent(opponentList.get(0));
+                    makeSortedUnitList(unit, myTeamList.get(otherTeamIndex).getGameUnits());
+            myGrid.doMove(myGrid.getUnitCoordinate(unit), myGrid.getUnitCoordinate(opponentList.get(0)));
             counter++;
         }
     }
@@ -103,22 +250,22 @@ public class Stage {
      */
     public void moveToClosestOpponent (int aiTeamIndex, int otherTeamIndex) {
         int counter = 0;
-        for (GameUnit unit : myTeamUnitList.get(aiTeamIndex)) {
-            if (counter > myTeamUnitList.get(otherTeamIndex).size()) {
+        for (GameUnit unit : myTeamList.get(aiTeamIndex).getGameUnits()) {
+            if (counter > myTeamList.get(otherTeamIndex).getGameUnits().size()) {
                 counter = 0;
             }
             List<GameUnit> opponentList =
-                    makeSortedUnitList(unit, myTeamUnitList.get(otherTeamIndex));
-            unit.snapToOpponent(opponentList.get(0));
+                    makeSortedUnitList(unit, myTeamList.get(otherTeamIndex).getGameUnits());
+            myGrid.doMove(myGrid.getUnitCoordinate(unit), myGrid.getUnitCoordinate(opponentList.get(0)));
             counter++;
         }
     }
 
     /**
-     * Makes a list of units sorted from closest to furthest.
+     * Makes a list of units sorted from closest to farthest.
      * 
-     * @param unit
-     * @param otherUnits
+     * @param unit - The active unit
+     * @param otherUnits - All of the enemy units.
      * @return
      */
     public List<GameUnit> makeSortedUnitList (GameUnit unit, List<GameUnit> otherUnits) {
@@ -127,7 +274,7 @@ public class Stage {
 
         for (GameUnit other : otherUnits) {
             double distance =
-                    UnitUtilities.calculateLength(unit.getGridPosition(), other.getGridPosition());
+                    UnitUtilities.calculateLength(myGrid.getUnitCoordinate(unit), myGrid.getUnitCoordinate(other));
             unitDistance.put(distance, other);
         }
         for (Double distance : unitDistance.keySet()) {
@@ -136,18 +283,17 @@ public class Stage {
         return priorityUnitList;
     }
 
-    private void changeTurns (Integer currentTurnAffiliate) { // we are just going to be looping
-                                                              // through affiliations and setting
-                                                              // units to active
-        for (ArrayList<GameUnit> unitList : myGrid.getGameUnits()) {
-            for (GameUnit unit : unitList) {
-                if (currentTurnAffiliate == unit.getAffiliation()) {
-                    unit.setActive(true);
-                    myCurrUnitList.add(unit);
-                }
-            }
+    /**
+     * Loops through all of the game units in the current team (whose turn it is)
+     * and sets all of the units to active.
+     * @param currentTeam
+     */
+    private void changeTurns (Team currentTeam) {
+        for (GameUnit unit : currentTeam.getGameUnits()) {
+            unit.setActive(true);
         }
     }
+
 
     /**
      * doCombat executes combat between two units.
@@ -157,61 +303,7 @@ public class Stage {
      * @param action - Action that is being executed
      */
     private void doCombat (GameUnit attacker, GameUnit defender, CombatAction action) {
-        // netEffectiveness is a measurement of how effective an attacker is against a defender (0.0
-        // - 1.0)
-        double netEffectiveness = action.getNetEffectiveness(attacker, defender);
-
-        applyCosts(attacker, action.getCosts());
-        applyOutcomes(attacker, action.getAttackerOutcomesMap(), netEffectiveness);
-        applyOutcomes(defender, action.getDefenderOutcomesMap(), netEffectiveness);
-
-    }
-
-    /**
-     * applyCosts is a way of making a unit have a cost for an action.
-     * This is a way of having fixed outcomes that aren't affected by
-     * stat differences (effectiveness).
-     * 
-     * (e.g. Mana cost for using a spell, Health cost for reckless action)
-     * 
-     * @param unit - GameUnit where stats are being edited
-     * @param costs - Map of which stats are affected and by how much
-     */
-    private void applyCosts (GameUnit unit, Map<String, Integer> costs) {
-        for (String statAffected : costs.keySet()) {
-            int oldStatValue = unit.getStats().getStatValue(statAffected);
-            int newStatValue = (oldStatValue - costs.get(statAffected));
-
-            unit.getStats().setStatValue(statAffected, newStatValue);
-        }
-    }
-
-    /**
-     * applyOutcomes edits a units stats based on user specified
-     * stats and weights. These outcomes are affected by stat differences
-     * between units (effectiveness).
-     * 
-     * (e.g. Unit loses Health and Mana from getting hit by spell)
-     * 
-     * @param unit - GameUnit where stats are being edited
-     * @param outcomes - Map of which stats are affected and by how much
-     * @param effectiveness - A measurement of how much of an outcome should occur
-     */
-    private void applyOutcomes (GameUnit unit, Map<String, Integer> outcomes, double effectiveness) {
-        for (String statAffected : outcomes.keySet()) {
-            int oldStatValue = unit.getStats().getStatValue(statAffected);
-            int newStatValue = (int) (oldStatValue + effectiveness * outcomes.get(statAffected));
-
-            unit.getStats().setStatValue(statAffected, newStatValue);
-        }
-    }
-
-    public List<List<GameUnit>> getTeamUnitList () {
-        return myTeamUnitList;
-    }
-
-    public void setTeamUnitList (List<List<GameUnit>> myTeamUnitList) {
-        this.myTeamUnitList = myTeamUnitList;
+        // TODO: Figure out how much of combat is determined outside of stage
     }
 
     public Grid getGrid () {
@@ -234,12 +326,22 @@ public class Stage {
         myWinCondition.addCondition(c);
     }
 
-    public List<Integer> getAffiliateList () {
-        return myAffiliateList;
+    @JsonIgnore
+    public List<String> getTeamNames () {
+        List<String> ret = new ArrayList<String>();
+        for (Team t : myTeamList) {
+            ret.add(t.getName());
+        }
+
+        return ret;
     }
 
-    public void setAffiliateList (List<Integer> affiliates) {
-        myAffiliateList = affiliates;
+    public List<GameUnit> getTeamUnits (int ID) {
+        if (ID < myTeamList.size()) {
+            return myTeamList.get(ID).getGameUnits();
+        }
+
+        return null;
     }
 
     public void setPreStory (String pre) {
@@ -258,4 +360,8 @@ public class Stage {
         return postText;
     }
 
+    @Override
+    public void gridClicked (Coordinate c) {
+        System.out.println(c);
+    }
 }
