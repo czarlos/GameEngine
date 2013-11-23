@@ -113,9 +113,9 @@ public class GameUnit extends GameObject {
     public void addItem (Item itemName) {
         if (itemName instanceof Equipment) {
             for (String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
-                int statVal = this.getUnitStats().getStatValue(stat);
+                int statVal = this.getStats().getStatValue(stat);
                 statVal += ((Equipment) itemName).getModifiers().getStatModifier(stat);
-                this.getUnitStats().setStatValue(stat, statVal);
+                this.getStats().setStatValue(stat, statVal);
             }
         }
         myItemList.add(itemName);
@@ -130,9 +130,9 @@ public class GameUnit extends GameObject {
     public void removeItem (Item itemName) {
         if (itemName instanceof Equipment) {
             for (String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
-                int statVal = this.getUnitStats().getStatValue(stat);
+                int statVal = this.getStats().getStatValue(stat);
                 statVal -= ((Equipment) itemName).getModifiers().getStatModifier(stat);
-                this.getUnitStats().setStatValue(stat, statVal);
+                this.getStats().setStatValue(stat, statVal);
             }
         }
         myItemList.remove(itemName);
@@ -183,7 +183,7 @@ public class GameUnit extends GameObject {
      * @param movement - The range of movement of this unit
      */
     public void snapToOpponent (GameUnit other) {
-        this.getUnitStats().getStatValue(GameObjectConstants.MOVEMENT);
+        this.getStats().getStatValue(GameObjectConstants.MOVEMENT);
 
         // These will be used at a later implementation
         Coordinate otherPosition = other.getGridPosition();
@@ -248,12 +248,23 @@ public class GameUnit extends GameObject {
         this.myGridPosition = gridPosition;
     }
 
-    public void setUnitStats (Stat myUnitStats) {
-        this.myStats = myUnitStats;
+    public void setStats (Stat stats) {
+        myStats = stats;
     }
 
-    public Stat getUnitStats () {
+    public Stat getStats () {
         return myStats;
+    }
+    
+    // Adding for Outcomes, can potentially change later
+    // Need to keep method names and signatures similar for reflection
+    // since dealing with different data structures
+    public int getStat (String statName) {
+        return myStats.getStatValue(statName);
+    }
+
+    public void setStat (String statName, int statValue) {
+        myStats.setStatValue(statName, statValue);
     }
 
     public int getAffiliation () {
@@ -352,17 +363,6 @@ public class GameUnit extends GameObject {
     public Action getInteraction () {
         return null;
     };
-
-    // Adding for Outcomes, can potentially change later
-    // Need to keep method names and signatures similar for reflection
-    // since dealing with different data structures
-    public int getStat (String statName) {
-        return myStats.getStatValue(statName);
-    }
-
-    public void setStat (String statName, int statValue) {
-        myStats.setStatValue(statName, statValue);
-    }
 
     public int getItem (String itemName) {
         for (Item i : myItemList) {

@@ -74,8 +74,8 @@ public class GameUnitTest {
     @Test
     public void testStats () {
         initializeCustom();
-        assertEquals(customUnit.getUnitStats().getStatValue("agility"), 7, 0);
-        assertEquals(customUnit.getUnitStats().getStatValue("health"), 15, 0);
+        assertEquals(customUnit.getStats().getStatValue("agility"), 7, 0);
+        assertEquals(customUnit.getStats().getStatValue("health"), 15, 0);
 
     }
 
@@ -86,7 +86,7 @@ public class GameUnitTest {
         statMods.put("defense", 20);
         Item helmet = new Equipment("helmet", new StatModifier(statMods));
         customUnit.addItem(helmet);
-        assertEquals(customUnit.getUnitStats().getStatValue("defense"), 28, 0);
+        assertEquals(customUnit.getStats().getStatValue("defense"), 28, 0);
     }
 
     @Test
@@ -103,7 +103,7 @@ public class GameUnitTest {
     @Test
     public void testItems () {
         initializeCustom();
-        assertEquals(customUnit.getUnitStats().getStatValue("attack"), 14, 0.1);
+        assertEquals(customUnit.getStats().getStatValue("attack"), 14, 0.1);
     }
 
     @Test
@@ -119,10 +119,10 @@ public class GameUnitTest {
         statMods.put("defense", 20);
         Item helmet = new Equipment("helmet", new StatModifier(statMods));
         customUnit.addItem(helmet);
-        assertEquals(customUnit.getUnitStats().getStatValue("defense"), 28, 0);
+        assertEquals(customUnit.getStats().getStatValue("defense"), 28, 0);
 
         customUnit.removeItem(helmet);
-        assertEquals(customUnit.getUnitStats().getStatValue("defense"), 8, 0);
+        assertEquals(customUnit.getStats().getStatValue("defense"), 8, 0);
     }
 
     @Test
@@ -133,15 +133,15 @@ public class GameUnitTest {
         statMods.put("attack", 10);
         Item staff = new Equipment("staff", new StatModifier(statMods));
         customUnit.addItem(staff);
-        assertEquals(customUnit.getUnitStats().getStatValue("agility"), 22, 0);
-        assertEquals(customUnit.getUnitStats().getStatValue("attack"), 24, 0);
+        assertEquals(customUnit.getStats().getStatValue("agility"), 22, 0);
+        assertEquals(customUnit.getStats().getStatValue("attack"), 24, 0);
 
     }
 
     @Test
     public void testDefaultStat () {
         initializeDefault();
-        assertEquals(defaultUnit.getUnitStats().getStatValue("movement"), 3, 0);
+        assertEquals(defaultUnit.getStats().getStatValue("movement"), 3, 0);
     }
 
     @Test
@@ -165,11 +165,11 @@ public class GameUnitTest {
         stats.setStatValue("attack", 0);
         stats.setStatValue("defense", 0);
 
-        defaultUnit.setUnitStats(stats);
+        defaultUnit.setStats(stats);
 
         defaultUnit.addItem(bow);
         defaultUnit.setActiveWeapon(bow);
-        assertEquals(defaultUnit.getUnitStats().getStatValue("attack"), 28, 0);
+        assertEquals(defaultUnit.getStats().getStatValue("attack"), 28, 0);
         assertEquals(defaultUnit.getActiveWeapon(), bow);
     }
 
