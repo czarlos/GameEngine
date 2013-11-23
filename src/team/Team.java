@@ -1,5 +1,6 @@
 package team;
 
+import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.UnitFactory;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 public class Team {
     private List<GameUnit> myGameUnits;
+    private List<GameObject> myGameObjects;
     private int myGold;
     private boolean isHuman;
     private String myName;
@@ -37,9 +39,9 @@ public class Team {
      */
     public List<UnitFactory> getFactories () {
         List<UnitFactory> factoryList = new ArrayList<UnitFactory>();
-        for (GameUnit unit : myGameUnits) {
-            if (unit instanceof UnitFactory) {
-                factoryList.add((UnitFactory) unit);
+        for (GameObject obj : myGameUnits) {
+            if (obj instanceof UnitFactory) {
+                factoryList.add((UnitFactory) obj);
             }
         }
         return factoryList;
@@ -72,5 +74,4 @@ public class Team {
     public void addGameUnit (GameUnit gu) {
         myGameUnits.add(gu);
     }
-
 }

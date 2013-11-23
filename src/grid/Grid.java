@@ -96,7 +96,6 @@ public class Grid implements Drawable {
      * Initiates the moving process for a gameUnit
      * 
      * @param coordinate Coordinate where the gameUnit is located
-     * @param gameUnit GameUnit that is moving
      * 
      */
     public void beginMove (Coordinate coordinate) {
@@ -233,7 +232,6 @@ public class Grid implements Drawable {
      *        the unit
      */
     private void findActionRange (Coordinate coordinate, Action action) {
-
     }
 
     /**
@@ -368,7 +366,7 @@ public class Grid implements Drawable {
      * @param gameUnit GameUnit that is being located
      * @return Coordinate of unit's location
      */
-    private Coordinate getUnitCoordinate (GameUnit gameUnit) {
+    public Coordinate getUnitCoordinate (GameUnit gameUnit) {
         for (int i = 0; i < myUnits.length; i++) {
             for (int j = 0; j < myUnits[0].length; j++) {
                 if (myUnits[i][j].equals(gameUnit)) return new Coordinate(i, j);
@@ -408,7 +406,24 @@ public class Grid implements Drawable {
     public GameUnit[][] getGameUnits () {
         return myUnits;
     }
+    
+    /**
+     * Finds all coordinates adjacent to the coordinate
+     * given.
+     * 
+     * @param - Coordinate from which to find adjacent coords
+     * @return
+     */
+    public List<Coordinate> adjacentCoordinates(Coordinate coord) {
+        List<Coordinate> returnArray = new ArrayList<Coordinate>();
+        returnArray.add(new Coordinate(coord.getX()+1, coord.getY()));
+        returnArray.add(new Coordinate(coord.getX(), coord.getY()+1));
+        returnArray.add(new Coordinate(coord.getX()-1, coord.getY()));
+        returnArray.add(new Coordinate(coord.getX(), coord.getY()-1));
+        return returnArray;
 
+    }
+    
     /**
      * Returns an tile at the given coordinates
      * 
