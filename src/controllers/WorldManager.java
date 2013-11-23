@@ -5,16 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import controllers.EditorData;
 import dialog.GameTableModel;
 import dialog.UnitTableModel;
 import parser.JSONParser;
 import stage.Condition;
 import stage.Stage;
 import view.Customizable;
-import view.Drawable;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import grid.Coordinate;
@@ -25,12 +21,8 @@ import grid.Tile;
 @JsonAutoDetect
 public class WorldManager extends Manager {
 
-    @JsonProperty
-    Stage myActiveStage;
     FromJSONFactory myFactory;
     JSONParser myParser;
-    @JsonProperty
-    EditorData myEditorData;
 
     private UnitTableModel myUnitModel;
     private String activeEditType;
@@ -45,7 +37,6 @@ public class WorldManager extends Manager {
         super(gameName);
         myFactory = new FromJSONFactory();
         myParser = new JSONParser();
-        myEditorData = new EditorData("defaults");
         myUnitModel = new UnitTableModel();
     }
 
@@ -90,40 +81,6 @@ public class WorldManager extends Manager {
         return myStages.size() - 1;
     }
 
-    /**
-     * Returns list of stage names
-     * 
-     * @return
-     */
-    @JsonIgnore
-    public List<String> getStages () {
-        List<String> ret = new ArrayList<String>();
-        for (Stage s : myStages) {
-            ret.add(s.getName());
-        }
-
-        return ret;
-    }
-
-    /**
-     * Set list of stages, used by JSON deserializer
-     * 
-     * @param stages
-     */
-    public void setStages (List<Stage> stages) {
-        myStages = stages;
-    }
-
-    /**
-     * Set which stage to assign "active", this
-     * is the stage that all methods will return information about by default.
-     * 
-     * @param stageID
-     */
-    public void setActiveStage (int stageID) {
-        if (stageID < myStages.size())
-            myActiveStage = myStages.get(stageID);
-    }
 
     /**
      * Set the name of the game
@@ -134,60 +91,15 @@ public class WorldManager extends Manager {
         myGameName = gameName;
     }
 
-    /**
-     * Gets the game name
-     * 
-     * @return
-     */
-    public String getGameName () {
-        return myGameName;
-    }
 
-    /**
-     * Method to getting a Drawable version of the grid
-     * 
-     * @return
-     */
-
-    public Drawable getGrid () {
-        return (Drawable) myActiveStage.getGrid();
-    }
-
-    public Coordinate getCoordinate (double fracX, double fracY) {
-        return myActiveStage.getGrid().getCoordinate(fracX, fracY);
-    }
-
+    // WILL BE REMOVED, USE GAMEMANAGER
     public void doMove (Coordinate a, Coordinate b) {
         myActiveStage.getGrid().doMove(a, b);
     }
 
+    // WILL BE REMOVED, USE GAMEMANAGER
     public void doAction (Coordinate object, Coordinate action, String actionName) {
         myActiveStage.getGrid().doAction(object, action, actionName);
-    }
-
-    /**
-     * Getting images
-     * 
-     * @param x
-     * @param y
-     * @return
-     */
-    public Image getTileImage (int x, int y) {
-        return myActiveStage.getGrid().getTile(new Coordinate(x, y)).getImage();
-    }
-
-    /**
-     * Gets the Image of the object and location x and y
-     * 
-     * @param x
-     * @param y
-     * @return
-     */
-    public Image getObjectImage (int x, int y) {
-        GameObject o = myActiveStage.getGrid().getObject(new Coordinate(x, y));
-        if (o != null)
-            return o.getImage();
-        return null;
     }
 
     /**
@@ -215,7 +127,7 @@ public class WorldManager extends Manager {
     }
 
     /**
-     * Gives access to certain customizable attributes (name and image). Valid parameters are
+     * Gives access to certain names of customizables. Valid parameters are
      * "GameUnit",
      * "GameObject",
      * "Tile", "Condition"
@@ -286,7 +198,7 @@ public class WorldManager extends Manager {
     }
 
     /**
-     * Save game and load game
+     * Save game and load game. TODO: see if we can refactor this into manager?
      */
     public void saveGame () {
         myParser.createJSON("saves/" + myGameName, this);
