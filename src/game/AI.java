@@ -32,6 +32,7 @@ public class AI {
         List<GameUnit> opponentList = findAllEnemies();
         for (GameUnit unit : myTeam.getGameUnits()) {
             doAIMove(unit, opponentList);
+            //Sleep?
         }
     }
 

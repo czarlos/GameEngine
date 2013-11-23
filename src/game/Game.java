@@ -25,12 +25,8 @@ public class Game {
     }
 
 
-    public void doHumanTurn(){
+    public void doHumanTurn(){    
         
-        
-        
-        // ends when no active units or button click, set all units to inactive
-        myGM.nextTurn();
     }
     
     
