@@ -33,8 +33,8 @@ public class WorldManager extends Manager {
      * 
      * @param gameName
      */
-    public WorldManager (String gameName) {
-        super(gameName);
+    public WorldManager () {
+        super();
         myFactory = new FromJSONFactory();
         myParser = new JSONParser();
         myUnitModel = new UnitTableModel();
@@ -96,11 +96,8 @@ public class WorldManager extends Manager {
     public void doMove (Coordinate a, Coordinate b) {
         myActiveStage.getGrid().doMove(a, b);
     }
-
-    // WILL BE REMOVED, USE GAMEMANAGER
-    public void doAction (Coordinate object, Coordinate action, String actionName) {
-        myActiveStage.getGrid().doAction(object, action, actionName);
-    }
+    
+    // do action is in gamemanager
 
     /**
      * Placing (previously created) things on the board. These will be replaced by table editing

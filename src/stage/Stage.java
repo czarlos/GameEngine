@@ -29,7 +29,8 @@ public class Stage implements GridMouseListener {
     private String preText;
     private String postText;
     private List<Team> myTeamList;
-
+    private Team myWinningTeam;
+    
     // only for use by deserializer
     public Stage () {
     }
@@ -121,8 +122,16 @@ public class Stage implements GridMouseListener {
 
         for (Team t : myTeamList) {
             conditionsMet = conditionsMet || t.hasWon(this);
+            if(t.hasWon(this)){
+                myWinningTeam = t;
+                // teams with lower IDs have a slight disadvantage here but that's offset by the fact that their turn comes up later.
+            }
         }
 
         return conditionsMet;
+    }
+    
+    public Team getWinningTeam(){
+        return myWinningTeam;
     }
 }

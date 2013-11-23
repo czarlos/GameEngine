@@ -32,6 +32,7 @@ public class AI {
     public void doTurn () {
         List<GameUnit> opponentList = findAllEnemies();
         for (GameUnit unit : myTeam.getGameUnits()) {
+            // delay?
             doAIMove(unit, opponentList);
             //Sleep?
         }

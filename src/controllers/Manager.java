@@ -11,20 +11,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public abstract class Manager {
 
     @JsonProperty
-    Stage myActiveStage;
+    protected Stage myActiveStage;
     @JsonProperty
-    List<Stage> myStages;
+    protected List<Stage> myStages;
     @JsonProperty
-    String myGameName;
+    protected String myGameName;
     @JsonProperty
-    EditorData myEditorData;
+    protected EditorData myEditorData;
     
-    // TODO: When chris is around, refactor to add gameName as a method not constructor call
-    public Manager (@JsonProperty("myGameName") String gameName) {
+    public Manager () {
         myStages = new ArrayList<Stage>();
-        myGameName = gameName;
+        myGameName = "";
         myEditorData = new EditorData("defaults");
-        // TODO Auto-generated constructor stub
     }
     
 
