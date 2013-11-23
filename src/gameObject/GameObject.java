@@ -2,11 +2,13 @@ package gameObject;
 
 import gameObject.action.Action;
 import grid.ImageManager;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import view.Customizable;
 import view.Drawable;
 
 
@@ -17,20 +19,26 @@ import view.Drawable;
  * 
  */
 @JsonAutoDetect
-public class GameObject extends Drawable {
+public class GameObject extends Customizable implements Drawable {
     protected List<String> myPassableList;
     protected BufferedImage myImage;
+    protected List<String> myInfo;
 
     public GameObject () {
+        myInfo = new ArrayList<String>();
+    }
+
+    public List<String> getInfo () {
+        return myInfo;
     }
 
     /**
      * Checks if a unit can pass through the object
      * 
-     * @param unit - GameObject that is moving
+     * @param unit - GameUnit that is moving
      * @return - boolean of if unit can pass through
      */
-    public boolean isPassable (GameObject unit) {
+    public boolean isPassable (GameUnit unit) {
         return myPassableList.contains(unit.getName()) ||
                myPassableList.contains(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
     }
@@ -50,12 +58,6 @@ public class GameObject extends Drawable {
 
     public List<String> getPassableList () {
         return myPassableList;
-    }
-
-    public Map<String, String> getData () {
-        // TODO: Needs to implement this for everything that extends GameObject (for GUI editing
-        // purposes)
-        return null;
     }
 
     @JsonProperty("imagePath")
@@ -103,5 +105,10 @@ public class GameObject extends Drawable {
         }
         else if (!myPassableList.equals(other.myPassableList)) return false;
         return true;
+    }
+
+    @Override
+    public void draw (Graphics g, int x, int y, int width, int height) {
+        g.drawImage(getImage(), x, y, width, height, null);
     }
 }

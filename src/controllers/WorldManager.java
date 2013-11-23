@@ -4,7 +4,6 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import javax.swing.table.AbstractTableModel;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -258,7 +257,6 @@ public class WorldManager {
 
         gu.setName(name);
         gu.setImagePath(imagePath);
-        gu.setAffiliation(affiliation);
         gu.setControllable(controllable);
         return myEditorData.setCustomizable("GameUnit", ID, gu);
     }
@@ -290,8 +288,8 @@ public class WorldManager {
      * @param data type (i.e. "Condition"
      * @return list of data that needs to be passed into "set" to create object.
      */
-    public List<String> getNeededData (int ID, String type) {
-        Customizable c = (Customizable) myEditorData.get(type).get(ID);
+    public List<String> getNeededConditionData (int ID) {
+        Condition c = (Condition) myEditorData.get("Condition").get(ID);
         return c.getNeededData();
     }
 

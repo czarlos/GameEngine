@@ -96,6 +96,4 @@ public class EditorData {
             return list.size() - 1;
         }
     }
-
-    // affiliation
 }

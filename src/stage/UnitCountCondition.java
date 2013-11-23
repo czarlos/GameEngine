@@ -1,21 +1,33 @@
 package stage;
 
-import grid.Grid;
+import gameObject.GameUnit;
+import java.util.List;
 
 
+/**
+ * Is fulfilled when the number of units of a certain affiliation are greater than or less than a
+ * certain amount
+ * 
+ * @author Leevi
+ * 
+ */
 public class UnitCountCondition extends Condition {
 
     public UnitCountCondition () {
         super();
-        neededData.add("count");
-        neededData.add("affiliation");
+        myNeededData.add("count");
+        myNeededData.add("affiliation");
+        myNeededData.add("greater?");
     }
 
     @Override
-    boolean isFulfilled (Grid grid) {
-        // TODO: when unit/grid interaction refactoring is done, count units of a certain
-        // affiliation
-        return false;
+    boolean isFulfilled (Stage stage) {
+        List<GameUnit> theTeam = stage.getTeamUnits(Integer.parseInt(myData.get("affiliation")));
+        if (Boolean.parseBoolean(myData.get("boolean"))) {
+            return Integer.parseInt("count") < theTeam.size();
+        }
+        else {
+            return Integer.parseInt("count") > theTeam.size();
+        }
     }
-
 }

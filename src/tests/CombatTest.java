@@ -59,14 +59,12 @@ public class CombatTest {
         Item sword = new Weapon("sword", action, itemStats);
 
         // Creates Player Character
-        playerUnit = new GameUnit("Marth", GridConstants.DEFAULT_UNIT_PATH, 0,
-                                  playerStats, itemList, true);
+        playerUnit = new GameUnit();
         playerUnit.setActiveWeapon(sword);
         // playerUnit.addItem(sword);
 
         // Creates Enemy
-        enemyUnit = new GameUnit("Roy", GridConstants.DEFAULT_UNIT_PATH, 0,
-                                 enemyStats, itemList, true);
+        enemyUnit = new GameUnit();
         enemyUnit.setActiveWeapon(sword);
     }
 
@@ -156,7 +154,7 @@ public class CombatTest {
 
         playerUnit.attack(enemyUnit, weapon.getName(), action);
 
-        int itemCount = enemyUnit.getItem("potion");
+        int itemCount = enemyUnit.getItemCount("potion");
         int expectedItemCount = 3;
 
         assertEquals("Proper Items Removed", itemCount, expectedItemCount);

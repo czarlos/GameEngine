@@ -59,8 +59,7 @@ public class GameUnitTest {
         statMods1.put("defense", 3);
         Item shield = new Equipment("shield", new StatModifier(statMods1));
 
-        customUnit =
-                new GameUnit("Marth", GridConstants.DEFAULT_UNIT_PATH, 0, stats, itemList, true);
+        customUnit = new GameUnit();
         customUnit.setActiveWeapon(sword);
         // Note this is how all items must be added.
         customUnit.addItem(sword);

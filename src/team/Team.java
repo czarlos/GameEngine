@@ -12,19 +12,22 @@ import java.util.List;
  * this team has.
  * 
  * @author carlosreyes
+ * @author Leevi
  * 
  */
 public class Team {
     private List<GameUnit> myGameUnits;
     private int myGold;
-    private int myAffiliation;
     private boolean isHuman;
+    private String myName;
 
-    public Team (List<GameUnit> gameUnits, int affliation, boolean human) {
+    public Team (String name) {
         myGold = 0;
-        myAffiliation = affliation;
-        isHuman = human;
+        myName = name;
+    }
 
+    public String getName () {
+        return myName;
     }
 
     /**
@@ -50,20 +53,12 @@ public class Team {
         this.myGold = myGold;
     }
 
-    public int getAffiliation () {
-        return myAffiliation;
-    }
-
-    public void setAffiliation (int myAffiliation) {
-        this.myAffiliation = myAffiliation;
-    }
-
     public boolean isHuman () {
         return isHuman;
     }
 
-    public void setHuman (boolean isHuman) {
-        this.isHuman = isHuman;
+    public void setIsHuman (boolean humanity) {
+        isHuman = humanity;
     }
 
     public List<GameUnit> getGameUnits () {
@@ -72,6 +67,10 @@ public class Team {
 
     public void setGameUnits (List<GameUnit> myGameUnits) {
         this.myGameUnits = myGameUnits;
+    }
+
+    public void addGameUnit (GameUnit gu) {
+        myGameUnits.add(gu);
     }
 
 }

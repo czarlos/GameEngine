@@ -5,7 +5,6 @@ import gameObject.action.CombatAction;
 import gameObject.item.*;
 import grid.Coordinate;
 import grid.Grid;
-import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.List;
 import utils.UnitUtilities;
@@ -27,7 +26,7 @@ public class GameUnit extends GameObject {
     private boolean isControllable;
     private List<Item> myItemList;
     private Stat myUnitStats;
-    private int myAffiliation;
+    private String myAffiliation;
     private Weapon myActiveWeapon;
     private double myHealth;
     private double myExperience;
@@ -36,36 +35,19 @@ public class GameUnit extends GameObject {
 
     // reads defaults from JSON. To add/test new defaults, edit MakeDefaults.java
     public GameUnit () {
-        super();
+        myItemList = new ArrayList<Item>();
         myUnitStats = new Stat();
-        myUnitStats.setStatValue("movement", 3);
-        setItemList(new java.util.ArrayList<gameObject.item.Item>());
-        myName = GridConstants.DEFAULT_UNIT_NAME;
-        setImagePath(GridConstants.DEFAULT_UNIT_PATH);
-        myAffiliation = 0;
-        myUnitStats = new Stat() {
-            {
-                setStatValue("movement", 3);
-            }
-        };
     }
 
-    public GameUnit (String name,
-                     String imagePath,
-                     int affiliation,
-                     Stat stats,
-                     List<Item> item,
-                     boolean controllable) {
-        super();
+    // should ONLY be called by stage when adding units to a team
+    public void setAffiliation(String affiliation){
         myAffiliation = affiliation;
-        myUnitStats = stats;
-        myItemList = item;
-        isControllable = controllable;
-        // myUnitStats.makeStat("movement", 3);
-        // setItemList(new java.util.ArrayList<gameObject.item.Item>());
-        // setActive(false);
     }
-
+    
+    public String getAffiliation(){
+        return myAffiliation;
+    }
+    
     /**
      * Will update the stats of a player holding an
      * item if that item passively updates the players
@@ -142,8 +124,8 @@ public class GameUnit extends GameObject {
     }
 
     @Override
-    public boolean isPassable (GameObject unit) {
-        return super.isPassable(unit) || ((GameUnit) unit).getAffiliation() == myAffiliation;
+    public boolean isPassable (GameUnit unit) {
+        return super.isPassable(unit) || unit.getAffiliation().equals(myAffiliation);
     }
 
     /**
@@ -259,14 +241,6 @@ public class GameUnit extends GameObject {
         return myUnitStats;
     }
 
-    public int getAffiliation () {
-        return myAffiliation;
-    }
-
-    public void setAffiliation (int myAffiliation) {
-        this.myAffiliation = myAffiliation;
-    }
-
     public boolean isControllable () {
         return isControllable;
     }
@@ -325,7 +299,6 @@ public class GameUnit extends GameObject {
         }
         return validActions;
     }
-
     // TODO: trade with affiliates
     @Override
     public Action getInteraction () {
@@ -343,7 +316,7 @@ public class GameUnit extends GameObject {
         myUnitStats.setStatValue(statName, statValue);
     }
 
-    public int getItem (String itemName) {
+    public int getItemCount (String itemName) {
         for (Item i : myItemList) {
             if (i.getName().equals(itemName)) { return i.getAmount(); }
         }
@@ -369,7 +342,6 @@ public class GameUnit extends GameObject {
         int result = 1;
         result = prime * result + (isControllable ? 1231 : 1237);
         result = prime * result + ((myActiveWeapon == null) ? 0 : myActiveWeapon.hashCode());
-        result = prime * result + myAffiliation;
         long temp;
         temp = Double.doubleToLongBits(myExperience);
         result = prime * result + (int) (temp ^ (temp >>> 32));
