@@ -34,6 +34,7 @@ public class GameUnit extends GameObject {
     private boolean isActive;
     protected Coordinate myGridPosition;
 
+    //TODO: this is in make defaults. doesn't have to be here then?
     // reads defaults from JSON. To add/test new defaults, edit MakeDefaults.java
     public GameUnit () {
         super();
@@ -61,6 +62,7 @@ public class GameUnit extends GameObject {
         myStats = stats;
         myItemList = items;
         isControllable = controllable;
+        myMaxHealth = getStat(GameObjectConstants.HEALTH);
     }
 
     /**
@@ -345,16 +347,26 @@ public class GameUnit extends GameObject {
         return actions;
     }
 
+    /**
+     * Generates the List of Strings that the unit will display to the user
+     */
     public void generateDisplayData () {
         List<String> displayData = new ArrayList<>();
         displayData.add("Name: " + myName);
         displayData.add("Affiliation: " + myAffiliation);
         displayData.add("");
-        displayData.add("Stats: ");
-        for (String stat : myStats.getStatList().keySet()) {
-            displayData.add(stat + ": " + myStats.getStatList().get(stat));
-        }
         displayData.add("Equipped Item: " + myActiveWeapon.getName());
+        displayData.add("");
+        displayData.add("Stats: ");
+        displayData.add("Health: " + getTotalStat(GameObjectConstants.HEALTH) + " / " + myMaxHealth);
+        for (String stat : myStats.getStatList().keySet()) {
+            if (stat.equals(GameObjectConstants.HEALTH)) {
+                continue;
+            }
+            else {
+                displayData.add(stat + ": " + getTotalStat(stat));
+            }
+        }
         setDisplayData(displayData);
     }
 
