@@ -1,6 +1,7 @@
 package dialog;
 
 import java.awt.Component;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,9 +23,11 @@ import javax.swing.table.TableCellEditor;
  *         that allows for image editing
  */
 public class ImageEditor extends AbstractCellEditor
-        implements TableCellEditor, ActionListener {
+                         implements TableCellEditor, ActionListener{
+    
+    BufferedImage currentImage;
+    BufferedImage savedImage;
 
-    Image currentImage;
     JButton button;
     ImageCreator imageCreator; // to be replaced with image editor dialog
     JDialog dialog; // image editor dialog
@@ -53,14 +56,19 @@ public class ImageEditor extends AbstractCellEditor
 
     @Override
     public void actionPerformed (ActionEvent e) {
+        
+        // a cell is chosen for editing
         if (EDIT.equals(e.getActionCommand())) {
-            imageCreator.setImage(currentImage);
+            imageCreator.setImage(copyImage(currentImage));
             dialog.setVisible(true);
-
+            
             fireEditingStopped();
-        }
-        else {
-            currentImage = imageCreator.getImage();
+            
+        // OK has been clicked in the ImageCreator
+        } else {
+            currentImage = (BufferedImage) imageCreator.getImage();
+            dialog.setVisible(false);
+
         }
     }
 
@@ -70,8 +78,17 @@ public class ImageEditor extends AbstractCellEditor
                                                   boolean isSelected,
                                                   int row,
                                                   int col) {
-        currentImage = ((ImageIcon) value).getImage();
+        currentImage = (BufferedImage) ((ImageIcon)value).getImage();
         return button;
+    }
+    
+    public static BufferedImage copyImage(BufferedImage source){
+        BufferedImage copy = new BufferedImage(source.getWidth(), source.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics = (Graphics2D) copy.getGraphics();
+        graphics.drawImage(source, 0, 0, null);
+        graphics.dispose();
+        
+        return copy;
     }
 
 }

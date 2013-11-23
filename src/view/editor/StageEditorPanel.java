@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -30,7 +31,7 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
 import controllers.WorldManager;
-import dialog.UnitEditorPanel;
+import dialog.UnitEditorDialog;
 import dialog.UnitTableModel;
 
 
@@ -133,13 +134,14 @@ public class StageEditorPanel extends JTabbedPane {
         selectedPanel = selected;
     }
 
+    // TODO: Chris, change this to UnitEditorDialog
     private void createUnitEditor () {
         EditorTableFrame frame = new EditorTableFrame("Unit", this);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         // Create and set up the content pane.
-        JComponent newContentPane =
-                new UnitEditorPanel((UnitTableModel) myWorldManager.getViewModel("unit"));
-        newContentPane.setOpaque(true); // content panes must be opaque
+        JDialog newContentPane =
+                new UnitEditorDialog((UnitTableModel) myWorldManager.getViewModel("unit"));
+     //   newContentPane.setOpaque(true); // content panes must be opaque
         frame.setContentPane(newContentPane);
         // Display the window.
         frame.pack();

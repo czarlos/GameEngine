@@ -5,7 +5,11 @@ bin/
 .settings/
 .project
 <<<<<<< HEAD
+<<<<<<< HEAD
 JSONs/
 =======
 JSONS/
 >>>>>>> combat
+=======
+JSONS/
+>>>>>>> editor
