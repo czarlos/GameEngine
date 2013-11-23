@@ -15,7 +15,6 @@ public class GridEditorController implements GridMouseListener {
     @Override
     public void gridClicked (Coordinate c) {
         int id = myWM.getActiveID();
-        System.out.println(c.getX() +" "+ c.getY() + " " + myWM.getActiveID());
         if(myWM.getActiveType()!=null){
             switch(myWM.getActiveType().toLowerCase()){
                 case "tile":

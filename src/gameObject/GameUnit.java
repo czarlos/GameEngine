@@ -229,21 +229,17 @@ public class GameUnit extends GameObject {
     public List<Item> getItemList () {
         return myItemList;
     }
-
-    public List<Action> getValidActions (Grid grid, GameUnit defender) {
-        List<Action> validActions = new ArrayList<>();
-        for (Item i : myItemList) {
-            if (i instanceof Weapon) {
-                List<CombatAction> tempActions = ((Weapon) i).getActionList();
-                for (CombatAction ca : tempActions) {
-                    if (ca.isValidAction(this, defender)) {
-                        validActions.add(ca);
-                    }
-                }
+    
+    public List<Action> getActions () {
+        List<Action> actions = new ArrayList<>();
+        for (Item item: myItemList) {
+            if (item instanceof Weapon) {
+                actions.addAll(((Weapon) item).getActionList());
             }
         }
-        return validActions;
+        return actions;
     }
+
     // TODO: trade with affiliates
     @Override
     public Action getInteraction () {

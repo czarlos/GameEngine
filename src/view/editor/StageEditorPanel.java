@@ -73,62 +73,7 @@ public class StageEditorPanel extends JTabbedPane {
         this.add(replacement, index);
     }
 
-   /* private JScrollPane makeTab (String type) {
-        JPanel panel = new JPanel();
-        GroupLayout layout = new GroupLayout(panel);
-        layout.setAutoCreateGaps(true);
-        layout.setAutoCreateContainerGaps(true);
-        panel.setLayout(layout);
-        panel.setPreferredSize(new Dimension(200, 600));
-        JScrollPane scroll =
-                new JScrollPane(panel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scroll.setLayout(new ScrollPaneLayout());
-
-        SequentialGroup sg = layout.createSequentialGroup();
-        ParallelGroup pg = layout.createParallelGroup();
-
-        // add edit button
-        String editString = "Edit " + type + "s";
-        JButton editType = new JButton(editString);
-        final String curType = type;
-
-        editType.addActionListener(new ActionListener() {
-            // if clicked bring up a tableEditor
-            @Override
-            public void actionPerformed (ActionEvent event) {
-                switch (curType.toLowerCase()) {
-                    case "tile":
-                        break;// createTileEditor();
-                    case "gameunit":
-                        createUnitEditor();
-                    case "gameobject":
-                        // createObjectEditor();
-                }
-            }
-        });
-
-        sg.addComponent(editType);
-        pg.addComponent(editType);
-        // make subpanels for each variation of type
-        List<String> tileNames = myWorldManager.get(type);
-        for (int n = 0; n < tileNames.size(); n++) {
-            GameObjectPanel gop =
-                    new GameObjectPanel(new ImageIcon(myWorldManager.getImage(type, n)),
-                                        tileNames.get(n), this);
-            panel.add(gop);
-            sg.addComponent(gop, 70, 70, 70);
-            pg.addComponent(gop, 170, 170, 170);
-        }
-
-        layout.setVerticalGroup(sg);
-        layout.setHorizontalGroup(pg);
-        panel.revalidate();
-        panel.repaint();
-        return scroll;
-    }*/
-
-    // TODO: Chris, change this to UnitEditorDialog
+    // TODO: Chris, change this to support UnitEditorDialog
     private void createUnitEditor () {
         EditorTableFrame frame = new EditorTableFrame("Unit", this);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
