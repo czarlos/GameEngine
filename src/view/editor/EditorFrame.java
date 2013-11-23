@@ -5,10 +5,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,10 +18,12 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import controllers.WorldManager;
 
 
-public class EditorFrame extends JFrame {
+public class EditorFrame extends GameView {
 
     /**
      * 
@@ -33,18 +33,15 @@ public class EditorFrame extends JFrame {
     private ArrayList<StagePanel> myStagePanelList = new ArrayList<StagePanel>();
     private JMenuBar myMenuBar;
     private JTabbedPane stageTabbedPane;
-    private WorldManager myWorldManager;
-    private JPanel myBackground;
 
     public EditorFrame () {
         super("Omega_Nu Game Editor");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setJMenuBar(createMenuBar(this));
-        myBackground = addEditorBackground();
-        add(myBackground);
-        pack();
-        setSize(800, 600);
-        setVisible(true);
+    }
+
+    @Override
+    protected void initializeWindow () {
+        super.initializeWindow();
+
     }
 
     /**
@@ -53,7 +50,8 @@ public class EditorFrame extends JFrame {
      * @param frame
      * @return
      */
-    private JMenuBar createMenuBar (JFrame frame) {
+    @Override
+    protected JMenuBar createMenuBar (JFrame frame) {
         myMenuBar = new JMenuBar();
 
         // first menu
@@ -71,14 +69,14 @@ public class EditorFrame extends JFrame {
         JMenuItem addStage = new JMenuItem("Add Stage");
         gameMenu.add(addStage);
         // add action listeners
-        newGame.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent event) {
-                newGame();
-            }
-        });
         addStage.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
                 addStagePanel();
+            }
+        });
+        newGame.addActionListener(new ActionListener() {
+            public void actionPerformed (ActionEvent event) {
+                newGame();
             }
         });
         loadGame.addActionListener(new ActionListener() {
@@ -98,14 +96,6 @@ public class EditorFrame extends JFrame {
         editMenu.add(redo);
 
         return myMenuBar;
-    }
-
-    private JPanel addEditorBackground () {
-        ImageIcon image = new ImageIcon("resources/omega_nu_3.png");
-        JLabel label = new JLabel("", image, JLabel.CENTER);
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.add(label, BorderLayout.CENTER);
-        return panel;
     }
 
     private void newGame () {
@@ -129,29 +119,14 @@ public class EditorFrame extends JFrame {
             this.setTitle(gameName);
             myWorldManager = new WorldManager(gameName);
             addStagePanel();
-        }
-    }
+            JMenu stageMenu = new JMenu("Stage");
+            stageMenu.setMnemonic(KeyEvent.VK_S);
+            myMenuBar.add(stageMenu);
+            // add menu items
+            JMenuItem objective = new JMenuItem("Set Objective");
+            objective.setAccelerator(KeyStroke.getKeyStroke("control O"));
+            stageMenu.add(objective);
 
-    private void loadGame () {
-        myWorldManager = new WorldManager("");
-        JPanel loadPanel = new JPanel();
-        loadPanel.setLayout(new GridLayout(0, 2));
-        JLabel gameNames = new JLabel("Choose Game Name:");
-        JComboBox<String> gameNamesMenu = new JComboBox<String>();
-        File savesDir = new File("JSONs/saves");
-        for (File child : savesDir.listFiles()) {
-            gameNamesMenu.addItem(child.getName().split("\\.")[0]);
-        }
-        loadPanel.add(gameNames);
-        loadPanel.add(gameNamesMenu);
-
-        int value =
-                JOptionPane.showConfirmDialog(this, loadPanel, "Choose Game",
-                                              JOptionPane.OK_CANCEL_OPTION);
-        if (value == JOptionPane.OK_OPTION) {
-            String game = (String) gameNamesMenu.getSelectedItem();
-            WorldManager newWM = myWorldManager.loadGame(game);
-            myWorldManager = newWM;
         }
     }
 
@@ -191,15 +166,27 @@ public class EditorFrame extends JFrame {
             int gridWidth = Integer.parseInt(xTextField.getText());
             int gridHeight = Integer.parseInt(yTextField.getText());
             String image = (String) imageMenu.getSelectedItem();
-            myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image), stageName);// ****
-                                                                                                // fix
-            StagePanel sp = new StagePanel(stageName, myWorldManager.getGrid(), myWorldManager);
+            int stageID =
+                    myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image),
+                                            stageName);// ****
+            // fix
+            StagePanel sp = new StagePanel(stageName, myWorldManager);
             myStagePanelList.add(sp);
             stageTabbedPane.addTab(stageName, sp);
             stageTabbedPane.setSelectedIndex(myStagePanelList.size() - 1);
+            stageTabbedPane.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged (ChangeEvent e) {
+                    switchActiveStage();
+                }
+            });
             this.repaint();
         }
 
+    }
+
+    private void switchActiveStage () {
+        myWorldManager.setActiveStage(stageTabbedPane.getSelectedIndex());
     }
 
     public static void main (String[] args) {

@@ -1,24 +1,23 @@
 [ "java.util.ArrayList", [ [ "gameObject.GameUnit", {
   "myData" : [ "java.util.HashMap", { } ],
   "neededData" : [ "java.util.ArrayList", [ ] ],
-  "properties" : null,
-  "controllable" : true,
-  "experience" : 0.0,
-  "affiliation" : 0,
-  "itemList" : [ "java.util.ArrayList", [ ] ],
+  "myImagePath" : "resources/hero.png",
   "health" : 20.0,
-  "activeStatus" : false,
-  "activeWeapon" : null,
-  "gridPosition" : null,
-  "stats" : [ "gameObject.Stat", {
+  "experience" : 0.0,
+  "unitStats" : [ "gameObject.Stat", {
     "myStatList" : [ "java.util.HashMap", {
       "movement" : 3
     } ]
   } ],
+  "itemList" : [ "java.util.ArrayList", [ ] ],
+  "affiliation" : 0,
+  "controllable" : true,
+  "interaction" : null,
+  "gridPosition" : null,
+  "activeWeapon" : null,
+  "activeStatus" : false,
   "passableList" : [ "java.util.ArrayList", [ ] ],
+  "data" : null,
   "imagePath" : "resources/hero.png",
-  "image" : [ "java.awt.image.BufferedImage", {
-    "alphaPremultiplied" : false
-  } ],
   "name" : "hero"
 } ] ] ]

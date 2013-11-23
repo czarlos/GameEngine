@@ -1,26 +1,23 @@
 package controller.actions.grid;
 
+import java.util.ArrayList;
+import java.util.List;
+import controllers.WorldManager;
 import grid.Coordinate;
-import grid.Grid;
-import grid.Tile;
 
 
-public class SetTileActive extends AbstractGridCommand {
+public abstract class SetTileActive extends AbstractGridCommand {
 
-    public SetTileActive (Grid grid, Coordinate selectedCoordinate) {
-        super(grid, selectedCoordinate);
+    public SetTileActive (WorldManager wm, List<Coordinate> selectedCoordinates) {
+        super(wm, (ArrayList<Coordinate>) selectedCoordinates);
     }
 
     @Override
     public void undo () {
-        Tile tile = myGrid.getTile(mySelectedCoordinate.getX(), mySelectedCoordinate.getY());
-        tile.setActive(false);
     }
 
     @Override
     public void execute () {
-        Tile tile = myGrid.getTile(mySelectedCoordinate.getX(), mySelectedCoordinate.getY());
-        tile.setActive(!tile.isActive());
     }
 
 }

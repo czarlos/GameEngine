@@ -1,9 +1,7 @@
 package grid;
 
 import gameObject.GameObject;
-import gameObject.GameObjectConstants;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -15,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
  * 
  * @author Kevin
  * @author Ken
+ * @author carlosreyes
  * 
  */
 @JsonAutoDetect
@@ -22,10 +21,14 @@ public class Tile extends GameObject {
     private boolean isActive;
     private Map<String, Double> myStatMods;
     private int myMoveCost;
-    private BufferedImage myImage;
+    private List<Tile> myNeighbors;
+    private Tile myParent;
+    private int myLength;
+    private int myDistanceToGoal;
+    private Coordinate myCoordinate;
 
     public Tile () {
-        setImageAndPath(myImagePath);
+        setImagePath(myImagePath);
     }
 
     public boolean isActive () {
@@ -51,21 +54,6 @@ public class Tile extends GameObject {
         myStatMods = statMods;
     }
 
-    /**
-     * Sets the image path and image for the graphic that is drawn
-     * 
-     * @param imagePath - String of image path
-     */
-    public void setImageAndPath (String imagePath) {
-        myImagePath = imagePath;
-        try {
-            myImage = ImageManager.addImage(imagePath);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public Image getImage () {
         return myImage;
@@ -79,4 +67,48 @@ public class Tile extends GameObject {
         myMoveCost = moveCost;
     }
 
+    public Tile (List<Tile> neighbors, Coordinate coordinate) {
+        this.myNeighbors = neighbors;
+        this.myCoordinate = coordinate;
+    }
+
+    public List<Tile> getNeighbors () {
+        return myNeighbors;
+    }
+
+    public void setNeighbors (List<Tile> myNeighbors) {
+        this.myNeighbors = myNeighbors;
+    }
+
+    public Tile getParent () {
+        return myParent;
+    }
+
+    public void setParent (Tile myParent) {
+        this.myParent = myParent;
+    }
+
+    public int getLength () {
+        return myLength;
+    }
+
+    public void setLength (int myLength) {
+        this.myLength = myLength;
+    }
+
+    public int getDistanceToGoal () {
+        return myDistanceToGoal;
+    }
+
+    public void setDistanceToGoal (int myDistanceToGoal) {
+        this.myDistanceToGoal = myDistanceToGoal;
+    }
+
+    public Coordinate getCoordinate () {
+        return myCoordinate;
+    }
+
+    public void setCoordinate (Coordinate myCoordinate) {
+        this.myCoordinate = myCoordinate;
+    }
 }

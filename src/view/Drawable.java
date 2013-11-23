@@ -8,9 +8,7 @@ import javax.imageio.ImageIO;
 
 
 public abstract class Drawable extends Customizable {
-
     public void draw (Graphics g, int x, int y, int width, int height) {
-        // set ImageObserver null. Not needed.
         g.drawImage(getImage(), x, y, width, height, null);
     }
 
@@ -28,7 +26,7 @@ public abstract class Drawable extends Customizable {
         return myImagePath;
     }
 
-    public void setImageAndPath (String imagePath) {
+    public void setImagePath (String imagePath) {
         myImagePath = imagePath;
     }
 }
