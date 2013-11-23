@@ -75,6 +75,7 @@ public class MakeDefaults {
         hero.setPassableList(new java.util.ArrayList<String>());
         hero.setControllable(true);
         hero.setHealth(20);
+        hero.setAffiliation("");
         hero.setExperience(0);
         hero.setUnitStats(stats);
         hero.setItemList(new java.util.ArrayList<gameObject.item.Item>());

@@ -11,12 +11,12 @@ import controller.actions.Command;
 import controller.actions.CommandShell;
 
 
-
 public class NClickAction {
     protected List<Coordinate> myCoordinates;
     protected String myAction;
     protected int myNumClicks;
     protected Object[] myArgs;
+
     protected Map<Integer, CommandShell> precursorCommands;
 
     public NClickAction (int numClicks, String action, Object ... args) {
@@ -39,9 +39,15 @@ public class NClickAction {
 
     public void click (Coordinate coor) {
         myCoordinates.add(coor);
+        if (myCoordinates.size() == myNumClicks) {
+            checkActions();
+        }
+    }
+
+    protected void checkActions () {
         if (precursorCommands.containsKey(myCoordinates.size())) {
             CommandShell pCmd = precursorCommands.get(myCoordinates.size());
-            doAction(pCmd.getCommandName(), ArrayUtils.addAll(myArgs,pCmd.getArguments()));
+            doAction(pCmd.getCommandName(), ArrayUtils.addAll(myArgs, pCmd.getArguments()));
         }
 
         if (myCoordinates.size() == myNumClicks) {

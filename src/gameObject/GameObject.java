@@ -4,6 +4,7 @@ import gameObject.action.Action;
 import grid.ImageManager;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,8 +22,19 @@ import view.Drawable;
 public class GameObject extends Customizable implements Drawable {
     protected List<String> myPassableList;
     protected BufferedImage myImage;
+    protected List<String> myDisplayData;
 
     public GameObject () {
+        myDisplayData = new ArrayList<String>();
+        myPassableList = new ArrayList<String>();
+    }
+
+    public List<String> getInfo () {
+        return myDisplayData;
+    }
+
+    public void setInfo (List<String> info) {
+        myDisplayData = info;
     }
 
     /**
@@ -31,6 +43,7 @@ public class GameObject extends Customizable implements Drawable {
      * @param unit - GameUnit that is moving
      * @return - boolean of if unit can pass through
      */
+
     public boolean isPassable (GameUnit unit) {
         return myPassableList.contains(unit.getName()) ||
                myPassableList.contains(GameObjectConstants.DEFAULT_PASS_EVERYTHING);

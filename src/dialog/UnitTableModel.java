@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
+import view.Customizable;
 
 
 /**
@@ -18,19 +19,26 @@ import javax.swing.table.AbstractTableModel;
  * @author brooksmershon
  * 
  */
+
 public class UnitTableModel extends GameTableModel {
 
     private static final long serialVersionUID = 9110749927413795404L;
 
-    public UnitTableModel(){
-       String[] columns = { "Type",
-            "Name",
-            "Image",
-            "Stats",
-            "Actions",
-            "Affiliation" };
-       myColumnNames = columns;
+    private final boolean DEBUG = true;
+
+    public UnitTableModel () {
+        // super();
+
+        String[] names = { "Type",
+                          "Name",
+                          "Image",
+                          "Stats",
+                          "Actions",
+                          "Affiliation" };
+        setColumnNames(names);
+
     }
+
     /**
      * 
      * Add definition of a unit to table model
@@ -43,28 +51,40 @@ public class UnitTableModel extends GameTableModel {
      * @param affiliation
      * @return added definition array CLONE
      */
-    
-    public Object[] addNewUnit (String type, String name, ImageIcon img, StatsTestStub stats,
-                                ArrayList<ActionTestStub> actionList, String affiliation) {
+    public void addNewRow (Object[] row) {
 
-        Object[] rowToAdd = { type, name, img, stats, actionList, affiliation };
+        Object[] rowToAdd = { row[0], row[1], row[2], row[3], row[4], row[5] };
 
-        myData.add(rowToAdd);
-
-        return rowToAdd.clone();
+        myList.add(rowToAdd);
 
     }
 
+    /**
+     * 
+     * @param index
+     * @return row removed as an Object[]
+     */
+    public void removeRow (int index) {
+        myList.remove(index).clone();
+    }
 
+    /**
+     * returns whether a cell can be edited by a CellEditor
+     */
     public boolean isCellEditable (int row, int col) {
-        // everything editable
         return true;
     }
 
     @Override
     public void setValueAt (Object value, int row, int col) {
-        myData.get(row)[col] = value;
+        myList.get(row)[col] = value;
         fireTableCellUpdated(row, col);
+
+    }
+
+    @Override
+    void addPreviouslyDefined (List<Customizable> list) {
+        // TODO Auto-generated method stub
 
     }
 

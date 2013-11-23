@@ -43,15 +43,11 @@ public class GameUnitTest {
         stats.setStatValue("agility", 7);
         stats.setStatValue("health", 15);
 
-        // Setting up a list of items
-        List<Item> itemList = new ArrayList<Item>();
-
         Map<String, Integer> statMods = new HashMap<String, Integer>();
         statMods.put("attack", 4);
         List<CombatAction> action = new ArrayList<CombatAction>();
         CombatAction combAct =
-                new CombatAction("Test", new StatModifier(statMods), null, null, null, null,
-                                 false);
+                new CombatAction("Test", new StatModifier(statMods), null, null, null);
         action.add(combAct);
         Item sword = new Weapon("sword", action, new StatModifier(statMods));
 
@@ -155,8 +151,7 @@ public class GameUnitTest {
 
         List<CombatAction> action = new ArrayList<CombatAction>();
         CombatAction combAct =
-                new CombatAction("Test", new StatModifier(statMods), null, null, null, null,
-                                 false);
+                new CombatAction("Test", new StatModifier(statMods), null, null, null);
         action.add(combAct);
 
         Item bow = new Weapon("bow", action, new StatModifier(statMods));

@@ -2,6 +2,7 @@ package dialog;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -19,10 +20,18 @@ import javax.swing.JComponent;
  *         JComponent that presents a basic canvas to draw on and hold pictures for editing.
  */
 public class DrawingPad extends JComponent {
+
+    private static final int DEFAULT_WIDTH = 200;
+    private static final int DEFAULT_HEIGHT = 200;
+    private static final int DEFAULT_PENSIZE = 10;
+
     Image image;
     Graphics2D graphics2D;
     int currentX, currentY, oldX, oldY;
 
+    /**
+     * Crate new DrawingPad which allows for mouse movement to be tracked for drawing
+     */
     public DrawingPad () {
 
         setDoubleBuffered(false);
@@ -47,35 +56,58 @@ public class DrawingPad extends JComponent {
 
     }
 
+    /**
+     * 
+     * @return image - currentImage as image is being modified
+     */
     public Image getImage () {
         return image;
     }
 
+    @Override
     public void paintComponent (Graphics g) {
         if (image == null) {
-            image = createImage(getSize().width, getSize().height);
+            image = new BufferedImage(DEFAULT_WIDTH, DEFAULT_HEIGHT, BufferedImage.TYPE_INT_ARGB);
             graphics2D = (Graphics2D) image.getGraphics();
             graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                                         RenderingHints.VALUE_ANTIALIAS_ON);
             clear();
-
         }
         g.drawImage(image, 0, 0, null);
     }
 
+    /**
+     * 
+     * @param color - a Color object
+     */
     public void setPenColor (Color color) {
         graphics2D.setPaint(color);
     }
 
+    /**
+     * 
+     * @param size - integer
+     */
     public void setPenSize (int size) {
         graphics2D.setStroke(new BasicStroke(size));
     }
 
+    /**
+     * 
+     * @param image - BufferedImage usually for drawing and easy saving/loading
+     */
     public void setBackgroundImage (Image image) {
-        Image newImage = image;
+
+        this.image = image;
+        graphics2D = (Graphics2D) image.getGraphics();
     }
 
+    /**
+     * leaves current image a white canvas
+     */
     public void clear () {
+        image = new BufferedImage(DEFAULT_WIDTH, DEFAULT_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        graphics2D = (Graphics2D) image.getGraphics();
         graphics2D.setPaint(Color.white);
         graphics2D.fillRect(0, 0, getSize().width, getSize().height);
         graphics2D.setPaint(Color.black);

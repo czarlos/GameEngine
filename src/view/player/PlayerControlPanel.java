@@ -1,11 +1,9 @@
 package view.player;
 
-import grid.Coordinate;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import controller.actions.grid.MoveCharacter;
 import controller.editor.GridController;
 import controller.editor.NClickAction;
 
@@ -36,8 +34,8 @@ public class PlayerControlPanel extends JPanel {
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                NClickAction move=new NClickAction(2,"controller.actions.grid.MoveCharacter");
-                move.addPrecursorCommand(1,"controller.actions.grid.BeginMoveCharacter");
+                NClickAction move = new NClickAction(2, "controller.actions.grid.MoveCharacter");
+                move.addPrecursorCommand(1, "controller.actions.grid.BeginMoveCharacter");
                 myGridController.doCommand(move);
             }
 

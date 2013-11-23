@@ -10,7 +10,7 @@ import view.canvas.GridCanvas;
 
 public class StagePlayerPanel extends JPanel {
     private JPanel mySidePanel;
-    
+
     public StagePlayerPanel (String stageName, WorldManager wm) {
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
         GridCanvas gc = new GridCanvas(wm);

@@ -1,7 +1,6 @@
 package tests;
 
 import static org.junit.Assert.assertEquals;
-import org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +14,6 @@ import gameObject.action.Outcome;
 import gameObject.item.Equipment;
 import gameObject.item.Item;
 import gameObject.item.Weapon;
-import grid.GridConstants;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -43,9 +41,6 @@ public class CombatTest {
         enemyStats.setStatValue("health", 15);
         enemyStats.setStatValue("attack", 2);
         enemyStats.setStatValue("defense", 1);
-
-        // Setting up a list of items
-        List<Item> itemList = new ArrayList<>();
 
         Map<String, Integer> itemStatsMap = new HashMap<String, Integer>();
         itemStatsMap.put("attack", 1);
@@ -188,7 +183,7 @@ public class CombatTest {
         defenderOutcomes.add(d1);
 
         return new CombatAction("Strong", attackerStats, defenderStats,
-                                attackerOutcomes, defenderOutcomes, null, false);
+                                attackerOutcomes, defenderOutcomes);
     }
 
     /**
@@ -213,7 +208,7 @@ public class CombatTest {
         defenderOutcomes.add(d1);
 
         return new CombatAction("Weak", attackerStats, defenderStats,
-                                attackerOutcomes, defenderOutcomes, null, false);
+                                attackerOutcomes, defenderOutcomes);
     }
 
     /**
@@ -240,7 +235,7 @@ public class CombatTest {
         defenderOutcomes.add(d1);
 
         return new CombatAction("ItemDepleting", attackerStats, defenderStats,
-                                attackerOutcomes, defenderOutcomes, null, false);
+                                attackerOutcomes, defenderOutcomes);
     }
 
     /**
@@ -253,7 +248,7 @@ public class CombatTest {
     public Item makeEmptyItem (String name, int quantity) {
         Equipment e = new Equipment(name, new StatModifier());
         e.setAmount(quantity);
-        e.setModifier(new StatModifier(new HashMap<String,Integer>()));
+        e.setModifier(new StatModifier(new HashMap<String, Integer>()));
 
         return e;
     }

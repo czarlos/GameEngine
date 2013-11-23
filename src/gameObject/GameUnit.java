@@ -3,12 +3,10 @@ package gameObject;
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
 import gameObject.item.*;
-import grid.Coordinate;
-import grid.Grid;
 import java.util.ArrayList;
 import java.util.List;
-import utils.UnitUtilities;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -31,23 +29,23 @@ public class GameUnit extends GameObject {
     private double myHealth;
     private double myExperience;
     private boolean isActive;
-    protected Coordinate myGridPosition;
 
     // reads defaults from JSON. To add/test new defaults, edit MakeDefaults.java
     public GameUnit () {
         myItemList = new ArrayList<Item>();
         myUnitStats = new Stat();
+        myAffiliation = "";
     }
 
     // should ONLY be called by stage when adding units to a team
-    public void setAffiliation(String affiliation){
+    public void setAffiliation (String affiliation) {
         myAffiliation = affiliation;
     }
-    
-    public String getAffiliation(){
+
+    public String getAffiliation () {
         return myAffiliation;
     }
-    
+
     /**
      * Will update the stats of a player holding an
      * item if that item passively updates the players
@@ -125,6 +123,8 @@ public class GameUnit extends GameObject {
 
     @Override
     public boolean isPassable (GameUnit unit) {
+        unit.getAffiliation();
+        System.out.println(myAffiliation);
         return super.isPassable(unit) || unit.getAffiliation().equals(myAffiliation);
     }
 
@@ -158,56 +158,6 @@ public class GameUnit extends GameObject {
     }
 
     /**
-     * Moves this game unit to the coordinates of the other game unit given.
-     * Moves the character only a given number of spaces per turn.
-     * The string 'movement' must be fed in by the user to specify which
-     * stat is responsible for movement/range.
-     * Note: Change this to use the a* path finding when it is done.
-     * 
-     * @param other - The opponent
-     * @param movement - The range of movement of this unit
-     */
-    public void snapToOpponent (GameUnit other) {
-        this.getUnitStats().getStatValue(GameObjectConstants.MOVEMENT);
-
-        // These will be used at a later implementation
-        Coordinate otherPosition = other.getGridPosition();
-        otherPosition.getX();
-        otherPosition.getY();
-
-        this.setGridPosition(otherPosition);
-
-    }
-
-    /**
-     * This unit searches for the closest unit on the grid
-     * 
-     * @param opponents - List of opponents
-     * @return
-     */
-    public GameUnit findClosestOpponent (List<GameUnit> opponents) {
-        GameUnit closest = null;
-        double distance = 0;
-        for (GameUnit opponent : opponents) {
-            if (closest == null) {
-                closest = opponent;
-                distance =
-                        UnitUtilities.calculateLength(this.getGridPosition(),
-                                                      opponent.getGridPosition());
-            }
-            else if (UnitUtilities.calculateLength(this.getGridPosition(),
-                                                   opponent.getGridPosition()) < distance) {
-                closest = opponent;
-                distance =
-                        UnitUtilities.calculateLength(this.getGridPosition(),
-                                                      opponent.getGridPosition());
-            }
-        }
-
-        return closest;
-    }
-
-    /**
      * Trade allows one unit to swap an item with another unit, no matter
      * what team they are affiliated with. Note: as of this implementation
      * any character will trade with you for anything you want, a system must
@@ -223,14 +173,6 @@ public class GameUnit extends GameObject {
         this.removeItem(item);
         other.addItem(item);
         this.addItem(otherItem);
-    }
-
-    public Coordinate getGridPosition () {
-        return myGridPosition;
-    }
-
-    public void setGridPosition (Coordinate gridPosition) {
-        this.myGridPosition = gridPosition;
     }
 
     public void setUnitStats (Stat myUnitStats) {
@@ -285,25 +227,16 @@ public class GameUnit extends GameObject {
         return myItemList;
     }
 
-    public List<Action> getValidActions (Grid grid, GameUnit defender) {
-        List<Action> validActions = new ArrayList<>();
-        for (Item i : myItemList) {
-            if (i instanceof Weapon) {
-                List<CombatAction> tempActions = ((Weapon) i).getActionList();
-                for (CombatAction ca : tempActions) {
-                    if (ca.isValidAction(this, defender)) {
-                        validActions.add(ca);
-                    }
-                }
+    @JsonIgnore
+    public List<Action> getActions () {
+        List<Action> actions = new ArrayList<>();
+        for (Item item : myItemList) {
+            if (item instanceof Weapon) {
+                actions.addAll(((Weapon) item).getActionList());
             }
         }
-        // validActions.addAll(getInteractions(grid, this));
-        return validActions;
+        return actions;
     }
-
-    // public List<Action> getInteractions(Grid grid, GameUnit gameUnit) {
-    // return grid.getInteractions(this);
-    // }
 
     // TODO: trade with affiliates
     @Override
@@ -335,7 +268,6 @@ public class GameUnit extends GameObject {
                 i.setAmount(itemValue);
             }
         }
-
     }
 
     public void setItemList (List<Item> myItemList) {

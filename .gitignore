@@ -4,4 +4,4 @@ ref: refs/remotes/origin/master
 bin/
 .settings/
 .project
-JSONS/
+JSONs/

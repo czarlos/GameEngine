@@ -21,8 +21,6 @@ public class Tile extends GameObject {
     private boolean isActive;
     private Map<String, Double> myStatMods;
     private int myMoveCost;
-
-    // Moved from node class
     private List<Tile> myNeighbors;
     private Tile myParent;
     private int myLength;
@@ -30,6 +28,7 @@ public class Tile extends GameObject {
     private Coordinate myCoordinate;
 
     public Tile () {
+        setImagePath(myImagePath);
     }
 
     public boolean isActive () {
@@ -73,10 +72,6 @@ public class Tile extends GameObject {
     public void setMoveCost (int moveCost) {
         myMoveCost = moveCost;
     }
-
-    /*
-     * Moved from node class
-     */
 
     public Tile (List<Tile> neighbors, Coordinate coordinate) {
         this.myNeighbors = neighbors;

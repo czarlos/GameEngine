@@ -2,32 +2,22 @@ package gameObject.action;
 
 import gameObject.GameUnit;
 import gameObject.StatModifier;
-import grid.Coordinate;
 import java.util.List;
 
 
-public class CombatAction extends Action{
-    private String myName;
+public class CombatAction extends Action {
     private StatModifier myAttackerStatsAndWeights;
     private StatModifier myDefenderStatsAndWeights;
-    private List<Outcome> myAttackerOutcomes;
-    private List<Outcome> myDefenderOutcomes;
-    private List<Coordinate> myAOE;
-    private boolean isAround;
 
     public CombatAction (String name, StatModifier offensiveStats,
-                         StatModifier defensiveStats, List<Outcome> attackerOutcomes,
-                         List<Outcome> defenderOutcomes, List<Coordinate> AOE, boolean around) {
-        myName = name;
+                         StatModifier defensiveStats, List<Outcome> initiatorOutcomes,
+                         List<Outcome> receiverOutcomes) {
+        super(name, initiatorOutcomes, receiverOutcomes);
         myAttackerStatsAndWeights = offensiveStats;
         myDefenderStatsAndWeights = defensiveStats;
-        myAttackerOutcomes = attackerOutcomes;
-        myDefenderOutcomes = defenderOutcomes;
-        myAOE = AOE;
-        isAround = around;
     }
 
-    public Double getNetEffectiveness (GameUnit attacker, GameUnit defender) {
+    private Double getNetEffectiveness (GameUnit attacker, GameUnit defender) {
         double offensiveStatSum = 0, defensiveStatSum = 0;
         double netStat = 0;
 
@@ -63,12 +53,12 @@ public class CombatAction extends Action{
     public void execute (GameUnit attacker, GameUnit defender) {
         double effectiveness = getNetEffectiveness(attacker, defender);
 
-        for (Outcome o : myAttackerOutcomes) {
+        for (Outcome o : myInitiatorOutcomes) {
             o.applyOutcome(attacker, effectiveness);
 
         }
 
-        for (Outcome o : myDefenderOutcomes) {
+        for (Outcome o : myReceiverOutcomes) {
             o.applyOutcome(defender, effectiveness);
         }
 
@@ -77,19 +67,11 @@ public class CombatAction extends Action{
     public boolean isValidAction (GameUnit attacker, GameUnit defender) {
         double effectiveness = getNetEffectiveness(attacker, defender);
 
-        for (Outcome o : myAttackerOutcomes) {
+        for (Outcome o : myInitiatorOutcomes) {
             if (!o.checkValidOutcome(attacker, effectiveness)) { return false; }
         }
 
         return true;
-    }
-
-    public List<Coordinate> getAOE () {
-        return myAOE;
-    }
-
-    public boolean isAround () {
-        return isAround;
     }
 
 }

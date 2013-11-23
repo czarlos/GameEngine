@@ -1,42 +1,46 @@
 package team;
 
+import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.UnitFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Team holds state about each team including the affiliation
- * number, the amount of gold a team, and the game units that 
+ * number, the amount of gold a team, and the game units that
  * this team has.
- * @author carlosreyes 
+ * 
+ * @author carlosreyes
  * @author Leevi
- *
+ * 
  */
 public class Team {
     private List<GameUnit> myGameUnits;
     private int myGold;
     private boolean isHuman;
     private String myName;
-    
+
     public Team (String name) {
         myGold = 0;
-        myName =  name;
-    } 
+        myName = name;
+    }
 
-    public String getName(){
+    public String getName () {
         return myName;
     }
-    
+
     /**
      * Gets a list of the factories that the team has in its game units.
+     * 
      * @return
      */
     public List<UnitFactory> getFactories () {
         List<UnitFactory> factoryList = new ArrayList<UnitFactory>();
-        for(GameUnit unit : myGameUnits) {
-            if (unit instanceof UnitFactory) {
-                factoryList.add((UnitFactory) unit);
+        for (GameObject obj : myGameUnits) {
+            if (obj instanceof UnitFactory) {
+                factoryList.add((UnitFactory) obj);
             }
         }
         return factoryList;
@@ -53,11 +57,11 @@ public class Team {
     public boolean isHuman () {
         return isHuman;
     }
-    
-    public void setIsHuman(boolean humanity){
+
+    public void setIsHuman (boolean humanity) {
         isHuman = humanity;
     }
-    
+
     public List<GameUnit> getGameUnits () {
         return myGameUnits;
     }
@@ -65,9 +69,8 @@ public class Team {
     public void setGameUnits (List<GameUnit> myGameUnits) {
         this.myGameUnits = myGameUnits;
     }
-    
-    public void addGameUnit(GameUnit gu){
+
+    public void addGameUnit (GameUnit gu) {
         myGameUnits.add(gu);
     }
-
 }
