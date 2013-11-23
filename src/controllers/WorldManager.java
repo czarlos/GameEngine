@@ -228,9 +228,9 @@ public class WorldManager extends Manager {
      * @param ConditionID
      * @param Map of NeededData mapped to what the user types in
      */
-    public void setCondition (int ConditionID, Map<String, String> data) {
+    public void setCondition (int teamID, int ConditionID, Map<String, String> data) {
         Condition c = (Condition) myEditorData.get("Condition").get(ConditionID);
         c.setData(data);
-        myActiveStage.addCondition(c);
+        myActiveStage.getTeam(teamID).addCondition(c);
     }
 }

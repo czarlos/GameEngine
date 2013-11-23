@@ -85,6 +85,4 @@ public abstract class Manager {
     public Coordinate getCoordinate (double fracX, double fracY) {
         return myActiveStage.getGrid().getCoordinate(fracX, fracY);
     }
-    
-    
 }
