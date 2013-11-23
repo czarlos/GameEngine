@@ -60,9 +60,6 @@ public class GameUnit extends GameObject {
         myUnitStats = stats;
         myItemList = item;
         isControllable = controllable;
-        // myUnitStats.makeStat("movement", 3);
-        // setItemList(new java.util.ArrayList<gameObject.item.Item>());
-        // setActive(false);
     }
 
     /**

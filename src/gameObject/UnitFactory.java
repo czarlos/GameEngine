@@ -8,7 +8,9 @@ import java.util.Map;
 
 /**
  * Factories produce units which are placed on the grid for the
- * user to use when they are finished.
+ * user to use when they are finished. Factories place units to
+ * the side of the factory, only one unit can be in this place
+ * at a time. When a user is on this tile it will lock the factory.
  * 
  * @author carlosreyes
  * 
@@ -19,7 +21,7 @@ public class UnitFactory extends GameObject {
     private Map<String, Integer> myNumberOfTurns;
     private int myCounter = 0;
     private Map<GameUnit, Integer> myPendingUnits;
-    private Grid grid;
+    private Grid myGrid;
     private Coordinate myLocation;
 
     public UnitFactory (Map<String, GameUnit> possibleUnits, Grid grid, Coordinate location) {
@@ -38,19 +40,26 @@ public class UnitFactory extends GameObject {
     public void produce (String unitName, List<GameUnit> unitList) {
         GameUnit unit = myPossibleUnits.get(unitName);
         unit.setName(unitName + myCounter);
-        grid.placeObject(validLocation(), unit);
+        myGrid.placeObject(validLocation(unit), unit);
         unitList.add(unit);
         myCounter++;
     }
     
     /**
-     * Returns a coordinate that is one spot to the right of the 
-     * location of the factory.
+     * Checks through all units adjacent to the factory,
+     * if a coordinate is a valid place for a unit to be,
+     * the factory produces the unit on this coordinate.
      * @return
      */
-    private Coordinate validLocation() {
-        int newLocation = myLocation.getX() + 1;
-        return new Coordinate(newLocation, myLocation.getY());
+    private Coordinate validLocation(GameUnit unit) {
+        
+        List<Coordinate> coords = myGrid.adjacentCoordinates(myLocation);
+        for (Coordinate c : coords) {
+            if (myGrid.getTile(c).isPassable(unit)) {
+                return c;
+            }
+        }
+        return myLocation;
     }
     
     /**

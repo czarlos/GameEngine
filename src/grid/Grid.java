@@ -404,7 +404,24 @@ public class Grid extends Drawable {
     public GameUnit[][] getGameUnits () {
         return myUnits;
     }
+    
+    /**
+     * Finds all coordinates adjacent to the coordinate
+     * given.
+     * 
+     * @param - Coordinate from which to find adjacent coords
+     * @return
+     */
+    public List<Coordinate> adjacentCoordinates(Coordinate coord) {
+        List<Coordinate> returnArray = new ArrayList<Coordinate>();
+        returnArray.add(new Coordinate(coord.getX()+1, coord.getY()));
+        returnArray.add(new Coordinate(coord.getX(), coord.getY()+1));
+        returnArray.add(new Coordinate(coord.getX()-1, coord.getY()));
+        returnArray.add(new Coordinate(coord.getX(), coord.getY()-1));
+        return returnArray;
 
+    }
+    
     /**
      * Returns an tile at the given coordinates
      * 
