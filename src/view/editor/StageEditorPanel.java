@@ -103,6 +103,7 @@ public class StageEditorPanel extends JTabbedPane {
                      break;//createTileEditor();
                  case "gameunit":
                      createUnitEditor();
+                     break;
                  case "gameobject":
                      //createObjectEditor();
              }
@@ -114,7 +115,7 @@ public class StageEditorPanel extends JTabbedPane {
      //make subpanels for each variation of type
      List<String> tileNames = myWorldManager.get(type);
      for(int n = 0; n<tileNames.size(); n++){
-         GameObjectPanel gop = new GameObjectPanel(new ImageIcon(myWorldManager.getImage(type, n)), tileNames.get(n), this);
+         GameObjectPanel gop = new GameObjectPanel(type, new ImageIcon(myWorldManager.getImage(type, n)), tileNames.get(n), this);
          panel.add(gop);
      sg.addComponent(gop, 70, 70, 70);
      pg.addComponent(gop, 170, 170, 170);
@@ -132,6 +133,7 @@ public class StageEditorPanel extends JTabbedPane {
          if(selectedPanel!=null)
              selectedPanel.deSelect();
          selectedPanel = selected;
+         myWorldManager.setActiveObject(selected.getType(), myWorldManager.get(selected.getType()).indexOf(selected.getName()));
      }
 
      private void createUnitEditor(){

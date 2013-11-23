@@ -35,6 +35,9 @@ public class Grid extends Drawable {
     @JsonProperty
     private List<ArrayList<GameUnit>> myUnits;
     private FromJSONFactory myFactory;
+    
+    protected static final int TILE_WIDTH = 35;
+    protected static final int TILE_HEIGHT = 35;
 
     /**
      * Creates a grid with the width and height set
@@ -66,7 +69,7 @@ public class Grid extends Drawable {
      */
     private void initGrid (int tileID) {
         initTiles(tileID);
-        testInitObjects();
+        //testInitObjects();
     }
 
     /**
@@ -402,20 +405,12 @@ public class Grid extends Drawable {
 
     /**
      * Draws the tiles and objects on the grid
-<<<<<<< HEAD
-     * @param g Graphics for the image
-     * @param x int of x coordinate on the grid
-     * @param y int of y coordinate on the grid
-     * @param width int of width of object
-     * @param height int of height of object
-=======
      * 
      * @param g - Graphics for the image
      * @param x - int of x coordinate on the grid
      * @param y - int of y coordinate on the grid
      * @param width - int of width of object
      * @param height - int of height of object
->>>>>>> dev
      */
     public void draw (Graphics g, int x, int y, int width, int height) {
         int tileWidth = width / myWidth;

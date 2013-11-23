@@ -42,6 +42,10 @@ public class Stage {
     }
 
     /**
+     * Sends enemy units to attack your units, uses the pathfinding algorithm from
+     * the PathFinding class to find the shortest path and traverses as far as the unit can
+     * move on that path, when it encounters an enemy unit it attacks that unit with a randomly
+     * chosen attack from its active weapon.
      * 
      */
     public void run () {
@@ -148,6 +152,7 @@ public class Stage {
             }
         }
     }
+
 
     /**
      * doCombat executes combat between two units.
