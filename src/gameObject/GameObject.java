@@ -28,10 +28,10 @@ public class GameObject extends Customizable implements Drawable {
     /**
      * Checks if a unit can pass through the object
      * 
-     * @param unit - GameObject that is moving
+     * @param unit - GameUnit that is moving
      * @return - boolean of if unit can pass through
      */
-    public boolean isPassable (GameObject unit) {
+    public boolean isPassable (GameUnit unit) {
         return myPassableList.contains(unit.getName()) ||
                myPassableList.contains(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
     }
@@ -64,8 +64,8 @@ public class GameObject extends Customizable implements Drawable {
             e.printStackTrace();
         }
     }
-    
-    public Action getInteraction(){
+
+    public Action getInteraction () {
         return null;
     };
 

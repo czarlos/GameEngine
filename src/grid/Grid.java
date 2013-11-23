@@ -147,7 +147,7 @@ public class Grid implements Drawable {
      * @param gameObject GameObject that we are finding the range of
      * 
      */
-    private void findMovementRange (Coordinate coordinate, int range, GameObject gameObject) {
+    private void findMovementRange (Coordinate coordinate, int range, GameUnit gameObject) {
         int[] rdelta = { -1, 0, 0, 1 };
         int[] cdelta = { 0, -1, 1, 0 };
 
@@ -157,6 +157,7 @@ public class Grid implements Drawable {
             if (onGrid(newX, newY)) {
                 Tile currentTile = getTile(newX, newY);
                 int newRange = range - currentTile.getMoveCost();
+
                 if (currentTile.isPassable(gameObject) && newRange >= 0) {
                     GameObject currentObject = getObject(newX, newY);
                     if (currentObject != null) {

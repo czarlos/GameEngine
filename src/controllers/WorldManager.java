@@ -255,7 +255,6 @@ public class WorldManager {
 
         gu.setName(name);
         gu.setImagePath(imagePath);
-        gu.setAffiliation(affiliation);
         gu.setControllable(controllable);
         return myEditorData.setCustomizable("GameUnit", ID, gu);
     }
@@ -287,8 +286,8 @@ public class WorldManager {
      * @param data type (i.e. "Condition"
      * @return list of data that needs to be passed into "set" to create object.
      */
-    public List<String> getNeededData (int ID, String type) {
-        Customizable c = (Customizable) myEditorData.get(type).get(ID);
+    public List<String> getNeededConditionData (int ID) {
+        Condition c = (Condition) myEditorData.get("Condition").get(ID);
         return c.getNeededData();
     }
 

@@ -1,18 +1,29 @@
 package stage;
 
+import gameObject.GameUnit;
+import java.util.List;
 
+
+/**
+ * Is fulfilled when somebody from a specified team has a certain item.
+ * 
+ * @author Leevi
+ * 
+ */
 public class ItemCondition extends Condition {
 
     public ItemCondition () {
         super();
+        myNeededData.add("team");
         myNeededData.add("item");
-        // neededData.add("affiliation");
     }
 
     @Override
     boolean isFulfilled (Stage stage) {
-        // TODO: (after unit refactoring) check if a unit is holding something with itemname that
-        // matches item
+        List<GameUnit> theTeam = stage.getTeamUnits(Integer.parseInt(myData.get("team")));
+        for (GameUnit gu : theTeam) {
+            if (gu.getItemCount(myData.get("item")) > 0) { return true; }
+        }
         return false;
     }
 }

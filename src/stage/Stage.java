@@ -11,6 +11,7 @@ import unit_ai.PathFinding;
 import utils.UnitUtilities;
 import view.canvas.GridMouseListener;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.GameUnit;
 import gameObject.action.CombatAction;
@@ -26,13 +27,13 @@ import grid.Tile;
  * 
  * @author Andy Bradshaw
  * @author carlosreyes
+ * @author Leevi
  * 
  */
 @JsonAutoDetect
 public class Stage implements GridMouseListener {
 
     private Grid myGrid;
-    private List<Integer> myAffiliateList; // TODO: Update to use teams
     @JsonProperty
     private WinCondition myWinCondition;
     private String myName;
@@ -47,12 +48,30 @@ public class Stage implements GridMouseListener {
 
     public Stage (int x, int y, int tileID, String name) {
         myGrid = new Grid(x, y, tileID);
-        myAffiliateList = new ArrayList<Integer>();
         myWinCondition = new WinCondition();
         myName = name;
         myCurrUnitList = new ArrayList<GameUnit>();
     }
 
+    /*
+     * Returns true if unit was added to team, false if teamID was invalid
+     * Note this logic works best if editor has a "team editor" tab that 
+     * allows users to make teams and assign units to those teams.
+     */
+    
+    public boolean addUnitToTeam(int teamID, GameUnit gu){
+        if(teamID< myTeamList.size()){
+            myTeamList.get(teamID).addGameUnit(gu);
+            gu.setAffiliation(myTeamList.get(teamID).getName());
+            return true;
+        }
+        return false;
+    }
+    
+    public void addTeam(String teamName){
+        myTeamList.add(new Team(teamName));
+    }
+    
     /*
      * Carlos's Code starts here. Don't delete!
      */
@@ -66,9 +85,9 @@ public class Stage implements GridMouseListener {
      * @param event - Listens for spacebar
      */
     public void doInGame (KeyEvent event) {
-        while (!myWinCondition.hasWon(this)) {
+        while (!myWinCondition.isFulfilled(this)) {
 
-            for (int i : myAffiliateList) { // TODO: update with Teams object Carlos made
+            for (int i = 0; i < myTeamList.size(); i++) {
                 // TODO: Decrement the #turn counter on the units, or set them all to active
                 if (myTeamList.get(i).isHuman()) {
                     boolean flag = true;
@@ -243,14 +262,9 @@ public class Stage implements GridMouseListener {
     private void changeTurns (Integer currentTurnAffiliate) { // we are just going to be looping
                                                               // through affiliations and setting
                                                               // units to active
-        for (GameUnit[] unitList : myGrid.getGameUnits()) { // TODO: fix this to work with new Teams
-                                                            // object Carlos made
-            for (GameUnit unit : unitList) {
-                if (currentTurnAffiliate == unit.getAffiliation()) {
-                    unit.setActive(true);
-                    myCurrUnitList.add(unit);
-                }
-            }
+        for(GameUnit unit: myTeamList.get(currentTurnAffiliate).getGameUnits()) {
+            unit.setActive(true);
+            myCurrUnitList.add(unit);
         }
     }
 
@@ -285,12 +299,22 @@ public class Stage implements GridMouseListener {
         myWinCondition.addCondition(c);
     }
 
-    public List<Integer> getAffiliateList () {
-        return myAffiliateList;
+    @JsonIgnore
+    public List<String> getTeamNames () {
+        List<String> ret = new ArrayList<String>();
+        for (Team t : myTeamList) {
+            ret.add(t.getName());
+        }
+
+        return ret;
     }
 
-    public void setAffiliateList (List<Integer> affiliates) {
-        myAffiliateList = affiliates;
+    public List<GameUnit> getTeamUnits (int ID) {
+        if (ID < myTeamList.size()) {
+            return myTeamList.get(ID).getGameUnits();
+        }
+
+        return null;
     }
 
     public void setPreStory (String pre) {
@@ -313,5 +337,4 @@ public class Stage implements GridMouseListener {
     public void gridClicked (Coordinate c) {
         System.out.println(c);
     }
-
 }
