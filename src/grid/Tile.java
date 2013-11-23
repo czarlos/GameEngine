@@ -32,9 +32,9 @@ public class Tile extends GameObject {
         setImagePath(myImagePath);
         List<String> displayData = new ArrayList<>();
         displayData.add("Name: " + myName);
-        displayData.add("Movement cost: "+ myMoveCost);
+        displayData.add("Movement cost: " + myMoveCost);
         displayData.add("Stat Modifiers: ");
-        for (String stat: myStatMods.keySet()) {
+        for (String stat : myStatMods.keySet()) {
             displayData.add(stat + ": " + myStatMods.get(stat));
         }
         myDisplayData = displayData;
@@ -54,7 +54,8 @@ public class Tile extends GameObject {
         myImage = isActive ? ImageManager.getHightlightedTileImage(myImagePath)
                           : ImageManager.getTileImage(myImagePath);
     }
-        public Map<String, Double> getStatMods () {
+
+    public Map<String, Double> getStatMods () {
         return myStatMods;
     }
 

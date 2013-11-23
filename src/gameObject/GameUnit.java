@@ -26,10 +26,10 @@ public class GameUnit extends GameObject {
 
     private boolean isControllable;
     private List<Item> myItemList;
-    private Stat myUnitStats;
+    private Stat myStats;
     private int myAffiliation;
     private Weapon myActiveWeapon;
-    private double myHealth;
+    private double myMaxHealth;
     private double myExperience;
     private boolean isActive;
     protected Coordinate myGridPosition;
@@ -37,13 +37,13 @@ public class GameUnit extends GameObject {
     // reads defaults from JSON. To add/test new defaults, edit MakeDefaults.java
     public GameUnit () {
         super();
-        myUnitStats = new Stat();
-        myUnitStats.setStatValue("movement", 3);
+        myStats = new Stat();
+        myStats.setStatValue("movement", 3);
         setItemList(new java.util.ArrayList<gameObject.item.Item>());
         myName = GridConstants.DEFAULT_UNIT_NAME;
         setImagePath(GridConstants.DEFAULT_UNIT_PATH);
         myAffiliation = 0;
-        myUnitStats = new Stat() {
+        myStats = new Stat() {
             {
                 setStatValue("movement", 3);
             }
@@ -54,16 +54,13 @@ public class GameUnit extends GameObject {
                      String imagePath,
                      int affiliation,
                      Stat stats,
-                     List<Item> item,
+                     List<Item> items,
                      boolean controllable) {
         super();
         myAffiliation = affiliation;
-        myUnitStats = stats;
-        myItemList = item;
+        myStats = stats;
+        myItemList = items;
         isControllable = controllable;
-        // myUnitStats.makeStat("movement", 3);
-        // setItemList(new java.util.ArrayList<gameObject.item.Item>());
-        // setActive(false);
     }
 
     /**
@@ -154,7 +151,7 @@ public class GameUnit extends GameObject {
      * @return
      */
     public int getTotalStat (String stat) {
-        int value = myUnitStats.getStatValue(stat);
+        int value = myStats.getStatValue(stat);
         for (Item i : myItemList)
             if (i instanceof Equipment)
                 value += ((Equipment) i).getModifiers().getStatModifier(stat);
@@ -252,11 +249,11 @@ public class GameUnit extends GameObject {
     }
 
     public void setUnitStats (Stat myUnitStats) {
-        this.myUnitStats = myUnitStats;
+        this.myStats = myUnitStats;
     }
 
     public Stat getUnitStats () {
-        return myUnitStats;
+        return myStats;
     }
 
     public int getAffiliation () {
@@ -292,11 +289,11 @@ public class GameUnit extends GameObject {
     }
 
     public double getHealth () {
-        return myHealth;
+        return myMaxHealth;
     }
 
     public void setHealth (double myHealth) {
-        this.myHealth = myHealth;
+        this.myMaxHealth = myHealth;
     }
 
     public double getExperience () {
@@ -326,15 +323,28 @@ public class GameUnit extends GameObject {
         }
         return validActions;
     }
-    
+
     public List<Action> getActions () {
         List<Action> actions = new ArrayList<>();
-        for (Item item: myItemList) {
+        for (Item item : myItemList) {
             if (item instanceof Weapon) {
                 actions.addAll(((Weapon) item).getActionList());
             }
         }
         return actions;
+    }
+
+    public void generateDisplayData () {
+        List<String> displayData = new ArrayList<>();
+        displayData.add("Name: " + myName);
+        displayData.add("Affiliation: " + myAffiliation);
+        displayData.add("");
+        displayData.add("Stats: ");
+        for (String stat : myStats.getStatList().keySet()) {
+            displayData.add(stat + ": " + myStats.getStatList().get(stat));
+        }
+        displayData.add("Equipped Item: " + myActiveWeapon.getName());
+        setDisplayData(displayData);
     }
 
     // TODO: trade with affiliates
@@ -347,11 +357,11 @@ public class GameUnit extends GameObject {
     // Need to keep method names and signatures similar for reflection
     // since dealing with different data structures
     public int getStat (String statName) {
-        return myUnitStats.getStatValue(statName);
+        return myStats.getStatValue(statName);
     }
 
     public void setStat (String statName, int statValue) {
-        myUnitStats.setStatValue(statName, statValue);
+        myStats.setStatValue(statName, statValue);
     }
 
     public int getItem (String itemName) {
@@ -384,10 +394,10 @@ public class GameUnit extends GameObject {
         long temp;
         temp = Double.doubleToLongBits(myExperience);
         result = prime * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(myHealth);
+        temp = Double.doubleToLongBits(myMaxHealth);
         result = prime * result + (int) (temp ^ (temp >>> 32));
         result = prime * result + ((myItemList == null) ? 0 : myItemList.hashCode());
-        result = prime * result + ((myUnitStats == null) ? 0 : myUnitStats.hashCode());
+        result = prime * result + ((myStats == null) ? 0 : myStats.hashCode());
         return result;
     }
 
@@ -405,16 +415,16 @@ public class GameUnit extends GameObject {
         if (myAffiliation != other.myAffiliation) return false;
         if (Double.doubleToLongBits(myExperience) != Double.doubleToLongBits(other.myExperience))
             return false;
-        if (Double.doubleToLongBits(myHealth) != Double.doubleToLongBits(other.myHealth))
+        if (Double.doubleToLongBits(myMaxHealth) != Double.doubleToLongBits(other.myMaxHealth))
             return false;
         if (myItemList == null) {
             if (other.myItemList != null) return false;
         }
         else if (!myItemList.equals(other.myItemList)) return false;
-        if (myUnitStats == null) {
-            if (other.myUnitStats != null) return false;
+        if (myStats == null) {
+            if (other.myStats != null) return false;
         }
-        else if (!myUnitStats.equals(other.myUnitStats)) return false;
+        else if (!myStats.equals(other.myStats)) return false;
         return true;
     }
 

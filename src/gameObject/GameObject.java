@@ -3,6 +3,7 @@ package gameObject;
 import gameObject.action.Action;
 import grid.ImageManager;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -70,11 +71,14 @@ public class GameObject extends Drawable {
             e.printStackTrace();
         }
     }
-    
+
+    public void generateDisplayData () {
+    }
+
     public List<String> getDisplayData () {
         return myDisplayData;
     }
-    
+
     public void setDisplayData (List<String> displayData) {
         myDisplayData = displayData;
     }
