@@ -22,19 +22,19 @@ import view.Drawable;
 public class GameObject extends Customizable implements Drawable {
     protected List<String> myPassableList;
     protected BufferedImage myImage;
-    protected List<String> myInfo;
+    protected List<String> myDisplayData;
 
     public GameObject () {
-        myInfo = new ArrayList<String>();
+        myDisplayData = new ArrayList<String>();
         myPassableList = new ArrayList<String>();
     }
 
     public List<String> getInfo () {
-        return myInfo;
+        return myDisplayData;
     }
 
     public void setInfo (List<String> info) {
-        myInfo = info;
+        myDisplayData = info;
     }
 
     /**
