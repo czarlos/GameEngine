@@ -2,8 +2,9 @@ package stage;
 
 /**
  * Is fulfilled when a specified number of turns has passed
+ * 
  * @author Leevi
- *
+ * 
  */
 public class TurnCondition extends Condition {
 

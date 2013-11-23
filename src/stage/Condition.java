@@ -17,7 +17,7 @@ public abstract class Condition extends Customizable {
     @JsonProperty
     protected Map<String, String> myData;
     protected List<String> myNeededData;
-    
+
     public Condition () {
         myData = new HashMap<String, String>();
         myNeededData = new ArrayList<String>();

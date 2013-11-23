@@ -3,11 +3,8 @@ package gameObject;
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
 import gameObject.item.*;
-import grid.Coordinate;
-import grid.Grid;
 import java.util.ArrayList;
 import java.util.List;
-import utils.UnitUtilities;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -41,14 +38,14 @@ public class GameUnit extends GameObject {
     }
 
     // should ONLY be called by stage when adding units to a team
-    public void setAffiliation(String affiliation){
+    public void setAffiliation (String affiliation) {
         myAffiliation = affiliation;
     }
-    
-    public String getAffiliation(){
+
+    public String getAffiliation () {
         return myAffiliation;
     }
-    
+
     /**
      * Will update the stats of a player holding an
      * item if that item passively updates the players
@@ -229,10 +226,11 @@ public class GameUnit extends GameObject {
     public List<Item> getItemList () {
         return myItemList;
     }
-    
+
+    @JsonIgnore
     public List<Action> getActions () {
         List<Action> actions = new ArrayList<>();
-        for (Item item: myItemList) {
+        for (Item item : myItemList) {
             if (item instanceof Weapon) {
                 actions.addAll(((Weapon) item).getActionList());
             }
@@ -270,7 +268,6 @@ public class GameUnit extends GameObject {
                 i.setAmount(itemValue);
             }
         }
-
     }
 
     public void setItemList (List<Item> myItemList) {

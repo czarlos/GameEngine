@@ -32,8 +32,8 @@ public class GameObject extends Customizable implements Drawable {
     public List<String> getInfo () {
         return myInfo;
     }
-    
-    public void setInfo(List<String> info) {
+
+    public void setInfo (List<String> info) {
         myInfo = info;
     }
 
@@ -43,7 +43,7 @@ public class GameObject extends Customizable implements Drawable {
      * @param unit - GameUnit that is moving
      * @return - boolean of if unit can pass through
      */
-    
+
     public boolean isPassable (GameUnit unit) {
         return myPassableList.contains(unit.getName()) ||
                myPassableList.contains(GameObjectConstants.DEFAULT_PASS_EVERYTHING);

@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 /**
  * Can be used for both winning conditions and NOT winning conditions.
  * isFulfilled is true if the number of conditions satisfied is greater than or
  * equal to the number of conditions needed.
+ * 
  * @author Leevi
- *
+ * 
  */
 @JsonAutoDetect
 public class WinCondition {

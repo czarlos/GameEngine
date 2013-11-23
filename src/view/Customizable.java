@@ -16,7 +16,7 @@ public abstract class Customizable {
     protected String myImagePath;
 
     public Customizable () {
-      
+
     }
 
     public String getName () {

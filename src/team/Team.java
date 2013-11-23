@@ -18,7 +18,6 @@ import java.util.List;
  */
 public class Team {
     private List<GameUnit> myGameUnits;
-    private List<GameObject> myGameObjects;
     private int myGold;
     private boolean isHuman;
     private String myName;

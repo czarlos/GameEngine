@@ -53,23 +53,23 @@ public class Stage implements GridMouseListener {
 
     /*
      * Returns true if unit was added to team, false if teamID was invalid
-     * Note this logic works best if editor has a "team editor" tab that 
+     * Note this logic works best if editor has a "team editor" tab that
      * allows users to make teams and assign units to those teams.
      */
-    
-    public boolean addUnitToTeam(int teamID, GameUnit gu){
-        if(teamID< myTeamList.size()){
+
+    public boolean addUnitToTeam (int teamID, GameUnit gu) {
+        if (teamID < myTeamList.size()) {
             myTeamList.get(teamID).addGameUnit(gu);
             gu.setAffiliation(myTeamList.get(teamID).getName());
             return true;
         }
         return false;
     }
-    
-    public void addTeam(String teamName){
+
+    public void addTeam (String teamName) {
         myTeamList.add(new Team(teamName));
     }
-    
+
     /*
      * Carlos's Code starts here. Don't delete!
      */
@@ -139,15 +139,15 @@ public class Stage implements GridMouseListener {
     }
 
     /**
-<<<<<<< HEAD
+     * <<<<<<< HEAD
      * Finds all units for a player (or AI) other than your own and adds them to a list
      * of units which contains all of the opponents of that affiliation.
-=======
+     * =======
      * Sends enemy units to attack your units, uses the pathfinding algorithm from
      * the PathFinding class to find the shortest path and traverses as far as the unit can
      * move on that path, when it encounters an enemy unit it attacks that unit with a randomly
      * chosen attack from its active weapon.
->>>>>>> gui
+     * >>>>>>> gui
      * 
      * @param teamList
      * @param thisAffiliation
@@ -171,40 +171,41 @@ public class Stage implements GridMouseListener {
      * @param opponents - List of opponents
      * @return
      */
-      public GameUnit findClosestOpponent (GameUnit unit, List<GameUnit> opponents) {
-          GameUnit closest = null;
-          double distance = 0;
-          for (GameUnit opponent : opponents) {
-              if (closest == null) {
-                  closest = opponent;
-                  distance =
-                          UnitUtilities.calculateLength(myGrid.getUnitCoordinate(unit),
-                                                        myGrid.getUnitCoordinate(opponent));
-              }
-              else if (UnitUtilities.calculateLength(myGrid.getUnitCoordinate(unit),
-                                                     myGrid.getUnitCoordinate(opponent)) < distance) {
-                  closest = opponent;
-                  distance =
-                          UnitUtilities.calculateLength(myGrid.getUnitCoordinate(unit),
-                                                        myGrid.getUnitCoordinate(opponent));
-              }
-          }
-        
-          return closest;
+    public GameUnit findClosestOpponent (GameUnit unit, List<GameUnit> opponents) {
+        GameUnit closest = null;
+        double distance = 0;
+        for (GameUnit opponent : opponents) {
+            if (closest == null) {
+                closest = opponent;
+                distance =
+                        UnitUtilities.calculateLength(myGrid.getUnitCoordinate(unit),
+                                                      myGrid.getUnitCoordinate(opponent));
+            }
+            else if (UnitUtilities.calculateLength(myGrid.getUnitCoordinate(unit),
+                                                   myGrid.getUnitCoordinate(opponent)) < distance) {
+                closest = opponent;
+                distance =
+                        UnitUtilities.calculateLength(myGrid.getUnitCoordinate(unit),
+                                                      myGrid.getUnitCoordinate(opponent));
+            }
+        }
+
+        return closest;
     }
-    
-      /**
-       * One unit goes to another units side.
-       * @param unit - The unit to move
-       * @param opponenent - The unit to move to
-       */
+
+    /**
+     * One unit goes to another units side.
+     * 
+     * @param unit - The unit to move
+     * @param opponenent - The unit to move to
+     */
     public void goToOpponent (GameUnit unit, GameUnit opponenent) {
         Coordinate myUnitPosition = myGrid.getUnitCoordinate(unit);
         Coordinate myOpponentPosition = myGrid.getUnitCoordinate(opponenent);
         myGrid.placeObject(myOpponentPosition, unit);
-        
+
     }
-      
+
     private void doPlayerMove (int affliation) {
         // TODO wait until all units are done
         for (GameUnit unit : myTeamList.get(affliation).getGameUnits()) {
@@ -239,7 +240,8 @@ public class Stage implements GridMouseListener {
             }
             List<GameUnit> opponentList =
                     makeSortedUnitList(unit, myTeamList.get(otherTeamIndex).getGameUnits());
-            myGrid.doMove(myGrid.getUnitCoordinate(unit), myGrid.getUnitCoordinate(opponentList.get(0)));
+            myGrid.doMove(myGrid.getUnitCoordinate(unit),
+                          myGrid.getUnitCoordinate(opponentList.get(0)));
             counter++;
         }
     }
@@ -256,7 +258,8 @@ public class Stage implements GridMouseListener {
             }
             List<GameUnit> opponentList =
                     makeSortedUnitList(unit, myTeamList.get(otherTeamIndex).getGameUnits());
-            myGrid.doMove(myGrid.getUnitCoordinate(unit), myGrid.getUnitCoordinate(opponentList.get(0)));
+            myGrid.doMove(myGrid.getUnitCoordinate(unit),
+                          myGrid.getUnitCoordinate(opponentList.get(0)));
             counter++;
         }
     }
@@ -274,7 +277,8 @@ public class Stage implements GridMouseListener {
 
         for (GameUnit other : otherUnits) {
             double distance =
-                    UnitUtilities.calculateLength(myGrid.getUnitCoordinate(unit), myGrid.getUnitCoordinate(other));
+                    UnitUtilities.calculateLength(myGrid.getUnitCoordinate(unit),
+                                                  myGrid.getUnitCoordinate(other));
             unitDistance.put(distance, other);
         }
         for (Double distance : unitDistance.keySet()) {
@@ -286,6 +290,7 @@ public class Stage implements GridMouseListener {
     /**
      * Loops through all of the game units in the current team (whose turn it is)
      * and sets all of the units to active.
+     * 
      * @param currentTeam
      */
     private void changeTurns (Team currentTeam) {
@@ -293,7 +298,6 @@ public class Stage implements GridMouseListener {
             unit.setActive(true);
         }
     }
-
 
     /**
      * doCombat executes combat between two units.
@@ -337,9 +341,7 @@ public class Stage implements GridMouseListener {
     }
 
     public List<GameUnit> getTeamUnits (int ID) {
-        if (ID < myTeamList.size()) {
-            return myTeamList.get(ID).getGameUnits();
-        }
+        if (ID < myTeamList.size()) { return myTeamList.get(ID).getGameUnits(); }
 
         return null;
     }

@@ -22,10 +22,10 @@ public class Action {
         myReceiverOutcomes = receiverOutcomes;
         isAround = false;
         List<Coordinate> AOE = new ArrayList<>();
-        AOE.add(new Coordinate( 0, -1));
-        AOE.add(new Coordinate(-1,  0));
-        AOE.add(new Coordinate( 1,  0));
-        AOE.add(new Coordinate( 0,  1));
+        AOE.add(new Coordinate(0, -1));
+        AOE.add(new Coordinate(-1, 0));
+        AOE.add(new Coordinate(1, 0));
+        AOE.add(new Coordinate(0, 1));
         myAOE = AOE;
     }
 

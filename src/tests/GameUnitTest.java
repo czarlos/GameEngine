@@ -43,9 +43,6 @@ public class GameUnitTest {
         stats.setStatValue("agility", 7);
         stats.setStatValue("health", 15);
 
-        // Setting up a list of items
-        List<Item> itemList = new ArrayList<Item>();
-
         Map<String, Integer> statMods = new HashMap<String, Integer>();
         statMods.put("attack", 4);
         List<CombatAction> action = new ArrayList<CombatAction>();

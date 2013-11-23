@@ -1,7 +1,6 @@
 package tests;
 
 import static org.junit.Assert.assertEquals;
-import org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +14,6 @@ import gameObject.action.Outcome;
 import gameObject.item.Equipment;
 import gameObject.item.Item;
 import gameObject.item.Weapon;
-import grid.GridConstants;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -43,9 +41,6 @@ public class CombatTest {
         enemyStats.setStatValue("health", 15);
         enemyStats.setStatValue("attack", 2);
         enemyStats.setStatValue("defense", 1);
-
-        // Setting up a list of items
-        List<Item> itemList = new ArrayList<>();
 
         Map<String, Integer> itemStatsMap = new HashMap<String, Integer>();
         itemStatsMap.put("attack", 1);

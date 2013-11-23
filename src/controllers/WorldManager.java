@@ -56,27 +56,29 @@ public class WorldManager {
     public GameTableModel getViewModel (String type) {
         switch (type.toLowerCase()) {
             case "tile":
-                return null; //add
+                return null; // add
             case "gameunit":
                 return myUnitModel;
             case "gameobject":
 
-                return null; //add
+                return null; // add
         }
         return null;
     }
-    
-    public void setActiveObject(String type, int id){
+
+    public void setActiveObject (String type, int id) {
         activeEditType = type;
         activeEditID = id;
     }
-    
-    public String getActiveType(){
+
+    public String getActiveType () {
         return activeEditType;
     }
-    public int getActiveID(){
+
+    public int getActiveID () {
         return activeEditID;
     }
+
     /**
      * Add a new stage
      * 
@@ -163,6 +165,10 @@ public class WorldManager {
         myActiveStage.getGrid().doMove(a, b);
     }
 
+    public void doAction (Coordinate object, Coordinate action, String actionName) {
+        myActiveStage.getGrid().doAction(object, action, actionName);
+    }
+
     /**
      * Getting images
      * 
@@ -201,7 +207,6 @@ public class WorldManager {
                                           (Tile) myFactory.make("tile", tileID));
     }
 
-    // if you need to make any more of these, then just combine all these placeObjects into one
     public void placeUnit (int unitID, int x, int y) {
         myActiveStage.getGrid().placeObject(new Coordinate(x, y),
                                             (GameObject) myFactory.make("gameunit", unitID));
@@ -320,6 +325,4 @@ public class WorldManager {
         c.setData(data);
         myActiveStage.addCondition(c);
     }
-
-    // TODO: when people are done implementing things add methods for setting/getting actions, items
 }

@@ -28,24 +28,23 @@ public class UnitFactory extends GameObject {
         myPossibleUnits = possibleUnits;
         myLocation = location;
     }
-    
+
     /**
      * Checks through all units adjacent to the factory,
      * if a coordinate is a valid place for a unit to be,
      * the factory produces the unit on this coordinate.
+     * 
      * @return
      */
-    private Coordinate validLocation(GameUnit unit) {
-        
+    private Coordinate validLocation (GameUnit unit) {
+
         List<Coordinate> coords = myGrid.adjacentCoordinates(myLocation);
         for (Coordinate c : coords) {
-            if (myGrid.getTile(c).isPassable(unit)) {
-                return c;
-            }
+            if (myGrid.getTile(c).isPassable(unit)) { return c; }
         }
         return myLocation;
     }
-    
+
     /**
      * Loops through all of the units pending creation, if
      * the amount of turns that it takes for that unit to be
@@ -65,11 +64,11 @@ public class UnitFactory extends GameObject {
                 myGrid.placeObject(validLocation(unit), unit);
             }
             else {
-                myPendingUnits.put(unit, myPendingUnits.get(unit)-1);
+                myPendingUnits.put(unit, myPendingUnits.get(unit) - 1);
             }
         }
     }
-    
+
     /**
      * Adds the desired unit to be created to the map of the units
      * pending creation along with the number of turns it takes to

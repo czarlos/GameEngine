@@ -4,7 +4,6 @@ import gameObject.GameObject;
 import gameObject.GameObjectConstants;
 import gameObject.GameUnit;
 import gameObject.action.Action;
-import gameObject.action.CombatAction;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +35,7 @@ public class Grid implements Drawable {
     @JsonProperty
     private GameUnit[][] myUnits;
     private FromJSONFactory myFactory;
-    
+
     protected static final int TILE_WIDTH = 35;
     protected static final int TILE_HEIGHT = 35;
 
@@ -205,8 +204,6 @@ public class Grid implements Drawable {
         findActionRange(coordinate, action);
     }
 
-    // TODO: fix so that doAction can be called with two coordinates and action being used. make
-    // canAction if necessary to check
     /**
      * Returns the game objects affected by the action
      * 
@@ -216,9 +213,12 @@ public class Grid implements Drawable {
      * @return List of GameObjects that are affected
      */
 
-    public List<GameObject> doAction (Coordinate objectCoordinate, Coordinate actionCoordinate, CombatAction combatAction) {
-//        String direction = findDirection(objectCoordinate, combatAction, actionCoordinate);
-//        return findAffectedObjects(objectCoordinate, combatAction, direction); 
+    public List<GameObject> doAction (Coordinate objectCoordinate,
+                                      Coordinate actionCoordinate,
+                                      String combatActionName) {
+        // TODO: get action from the actionName;
+        // String direction = findDirection(objectCoordinate, combatAction, actionCoordinate);
+        // return findAffectedObjects(objectCoordinate, combatAction, direction);
         return null;
     }
 
@@ -282,7 +282,7 @@ public class Grid implements Drawable {
         List<Action> actions = new ArrayList<>();
         GameUnit gameUnit = myUnits[coordinate.getX()][coordinate.getY()];
         actions.addAll(gameUnit.getActions());
-//        actions.addAll(getInteractions(coordinate)); //TODO: currently no interactions.
+        // actions.addAll(getInteractions(coordinate)); //TODO: currently no interactions.
         return actions;
     }
 
@@ -408,7 +408,7 @@ public class Grid implements Drawable {
     public GameUnit[][] getGameUnits () {
         return myUnits;
     }
-    
+
     /**
      * Finds all coordinates adjacent to the coordinate
      * given.
@@ -416,16 +416,16 @@ public class Grid implements Drawable {
      * @param - Coordinate from which to find adjacent coords
      * @return
      */
-    public List<Coordinate> adjacentCoordinates(Coordinate coord) {
+    public List<Coordinate> adjacentCoordinates (Coordinate coord) {
         List<Coordinate> returnArray = new ArrayList<Coordinate>();
-        returnArray.add(new Coordinate(coord.getX()+1, coord.getY()));
-        returnArray.add(new Coordinate(coord.getX(), coord.getY()+1));
-        returnArray.add(new Coordinate(coord.getX()-1, coord.getY()));
-        returnArray.add(new Coordinate(coord.getX(), coord.getY()-1));
+        returnArray.add(new Coordinate(coord.getX() + 1, coord.getY()));
+        returnArray.add(new Coordinate(coord.getX(), coord.getY() + 1));
+        returnArray.add(new Coordinate(coord.getX() - 1, coord.getY()));
+        returnArray.add(new Coordinate(coord.getX(), coord.getY() - 1));
         return returnArray;
 
     }
-    
+
     /**
      * Returns an tile at the given coordinates
      * 
@@ -461,10 +461,11 @@ public class Grid implements Drawable {
 
     /**
      * Draws the tiles and objects on the grid
-<<<<<<< HEAD
+     * <<<<<<< HEAD
      * 
-=======
->>>>>>> grid
+     * =======
+     * >>>>>>> grid
+     * 
      * @param g - Graphics for the image
      * @param x - int of x coordinate on the grid
      * @param y - int of y coordinate on the grid
