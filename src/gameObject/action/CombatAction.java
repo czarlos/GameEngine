@@ -19,7 +19,7 @@ public class CombatAction extends Action {
     }
     
     @Override
-    void doAction (GameUnit unit1, GameUnit unit2) {
+    public void doAction (GameUnit unit1, GameUnit unit2) {
         
     }
 
