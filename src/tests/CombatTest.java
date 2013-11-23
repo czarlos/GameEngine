@@ -190,7 +190,7 @@ public class CombatTest {
         defenderOutcomes.add(d1);
 
         return new CombatAction("Strong", attackerStats, defenderStats,
-                                attackerOutcomes, defenderOutcomes, null, false);
+                                attackerOutcomes, defenderOutcomes);
     }
 
     /**
@@ -215,7 +215,7 @@ public class CombatTest {
         defenderOutcomes.add(d1);
 
         return new CombatAction("Weak", attackerStats, defenderStats,
-                                attackerOutcomes, defenderOutcomes, null, false);
+                                attackerOutcomes, defenderOutcomes);
     }
 
     /**
@@ -242,7 +242,7 @@ public class CombatTest {
         defenderOutcomes.add(d1);
 
         return new CombatAction("ItemDepleting", attackerStats, defenderStats,
-                                attackerOutcomes, defenderOutcomes, null, false);
+                                attackerOutcomes, defenderOutcomes);
     }
 
     /**
