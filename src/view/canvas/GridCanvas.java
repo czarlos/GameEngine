@@ -1,18 +1,14 @@
 package view.canvas;
 
 import grid.Coordinate;
-import grid.Grid;
 import grid.Tile;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import controller.editor.GridController;
 import controllers.WorldManager;
 
 
@@ -31,9 +27,6 @@ public class GridCanvas extends Canvas {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
-                // Coordinate c = mapPixelsToGrid(e.getX(), e.getY());
-                // t = myGrid.getTile(c.getX(), c.getY());
-                // System.out.println(c.getX());
                 notifySubscribersOfClick(e);
             }
         });
@@ -54,17 +47,6 @@ public class GridCanvas extends Canvas {
     public void addGridMouseListener (GridMouseListener l) {
         myClickSubscribers.add(l);
     }
-
-    // public Coordinate mapPixelsToGrid (int x, int y) {
-    // // cast x and y to double to enable non-integer values when evaluating division
-    // double doubleX = x;
-    // double doubleY = y;
-    //
-    // int gridX = (int) (doubleX / getSize().width * myGrid.getWidth());
-    // int gridY = (int) (doubleY / getSize().height * myGrid.getHeight());
-    //
-    // return new Coordinate((int) gridX, (int) gridY);
-    // }
 
     @Override
     public void paintComponent (Graphics g) {

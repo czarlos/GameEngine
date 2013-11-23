@@ -22,6 +22,26 @@ import view.Drawable;
 public class GameObject extends Customizable implements Drawable {
     protected List<String> myPassableList;
     protected BufferedImage myImage;
+    protected boolean isActive;
+    
+    /**
+     * Sets game object to active, and changes the game object image to reflect the active state
+     * 
+     * @param active - boolean that is used to set
+     */
+    public void setActive (boolean active) {
+        isActive = active;
+        myImage = isActive ? ImageManager.getHightlightedTileImage(myImagePath)
+                          : ImageManager.getTileImage(myImagePath);
+    }
+    
+    /**
+     * Check if game object is set to active.
+     * @return If game object is active.
+     */
+    public boolean isActive () {
+        return isActive;
+    }
 
     public GameObject () {
     }

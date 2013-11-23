@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
  */
 @JsonAutoDetect
 public class Tile extends GameObject {
-    private boolean isActive;
+
     private Map<String, Double> myStatMods;
     private int myMoveCost;
     private List<Tile> myNeighbors;
@@ -29,21 +29,6 @@ public class Tile extends GameObject {
 
     public Tile () {
         setImagePath(myImagePath);
-    }
-
-    public boolean isActive () {
-        return isActive;
-    }
-
-    /**
-     * Sets tile to active, and changes the tile image to reflect the active state
-     * 
-     * @param active - boolean that is used to set
-     */
-    public void setActive (boolean active) {
-        isActive = active;
-        myImage = isActive ? ImageManager.getHightlightedTileImage(myImagePath)
-                          : ImageManager.getTileImage(myImagePath);
     }
 
     public Map<String, Double> getStatMods () {

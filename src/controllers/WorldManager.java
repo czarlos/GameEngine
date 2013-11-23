@@ -308,5 +308,9 @@ public class WorldManager {
         myActiveStage.addCondition(c);
     }
 
+    public void setTileActive (Coordinate tile, boolean isActive) {
+        myActiveStage.getGrid().getTile(tile).setActive(isActive);
+    }
+
     // TODO: when people are done implementing things add methods for setting/getting actions, items
 }
