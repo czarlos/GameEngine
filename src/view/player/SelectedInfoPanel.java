@@ -3,10 +3,14 @@ package view.player;
 import java.util.List;
 import grid.Coordinate;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import controller.editor.GridController;
 
-
+/**
+ * Panel to display tabs that are shown on the side of 
+ * the player.
+ */
 public class SelectedInfoPanel extends JPanel {
     protected Coordinate myCoordinate;
     protected JTabbedPane myTabs;
@@ -17,13 +21,19 @@ public class SelectedInfoPanel extends JPanel {
         myController = controller;
     }
 
-    public void makeTabs (List<String> info, List<String> actions) {
-        if (info != null) {
-            myTabs.add("Tile Info", new InfoPanel(info));
+    @SuppressWarnings("unchecked")
+    public void makeTabs (List<String> buttonTab, List<String> ... tabs) {
+        for (List<String> list : tabs) {
+            if (list != null) {
+                JScrollPane pane = new JScrollPane(new InfoPanel(list));
+                myTabs.add(pane);
+            }
         }
 
-        if (actions != null) {
-            myTabs.add("Actions", new ActionInfoPanel(actions, myController, myCoordinate));
+        if (buttonTab != null) {
+            JScrollPane pane =
+                    new JScrollPane(new ActionInfoPanel(buttonTab, myController, myCoordinate));
+            myTabs.add(pane);
         }
     }
 }
