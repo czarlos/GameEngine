@@ -5,6 +5,10 @@ import gameObject.GameUnit;
 import gameObject.UnitFactory;
 import java.util.ArrayList;
 import java.util.List;
+import stage.Condition;
+import stage.Stage;
+import stage.WinCondition;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
@@ -22,11 +26,27 @@ public class Team {
     private boolean isHuman;
     private String myName;
 
+    @JsonProperty
+    private WinCondition myWinCondition;
+
     public Team (String name) {
         myGold = 0;
         myName = name;
+        myWinCondition = new WinCondition();
     }
 
+    public void setWinCondition (WinCondition wc) {
+        myWinCondition = wc;
+    }
+
+    public void addCondition (Condition c) {
+        myWinCondition.addCondition(c);
+    }
+    
+    public boolean hasWon(Stage stage){
+        return myWinCondition.isFulfilled(stage);
+    }
+    
     public String getName () {
         return myName;
     }

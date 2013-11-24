@@ -1,11 +1,9 @@
 package view.player;
 
-import grid.Coordinate;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import controller.actions.grid.MoveCharacter;
 import controller.editor.GridController;
 import controller.editor.NClickAction;
 
