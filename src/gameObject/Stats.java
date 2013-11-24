@@ -8,11 +8,18 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+/**
+ * 
+ * Stats class that keeps track of a group of stats and their values. Is used to store a game
+ * unit's stat values.
+ * 
+ * @author Andy Bradshaw
+ * @author Ken McAndrews
+ */
 @JsonAutoDetect
 public class Stats {
     @JsonProperty
     protected Map<String, Integer> myStatMap = new HashMap<>();
-
 
     public Stats () {
     }
@@ -27,7 +34,7 @@ public class Stats {
         }
     }
 
-    public List<String> getStatNames (){
+    public List<String> getStatNames () {
         List<String> statNames = new ArrayList<>();
         statNames.addAll(myStatMap.keySet());
         return statNames;
@@ -38,13 +45,26 @@ public class Stats {
     }
 
     @Override
+    public Stats clone () {
+        Stats cloneStats = new Stats();
+        Map<String, Integer> cloneMap = new HashMap<>();
+
+        for (String stat : myStatMap.keySet()) {
+            cloneMap.put(stat, myStatMap.get(stat));
+        }
+
+        cloneStats.setStatList(cloneMap);
+        return cloneStats;
+    }
+
+    @Override
     public int hashCode () {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((myStatMap == null) ? 0 : myStatMap.hashCode());
         return result;
     }
-    
+
     @Override
     public boolean equals (Object obj) {
         if (this == obj) return true;

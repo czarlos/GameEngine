@@ -2,6 +2,7 @@ package controllers;
 
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -29,7 +30,7 @@ public class WorldManager extends Manager {
     private UnitTableModel myUnitModel;
     private String activeEditType;
     private int activeEditID;
-    private MasterStats myMasterStatList;
+    private MasterStats myMasterStatMap;
 
     /**
      * Intermediary between views and EditorData and Grid, stores List of Stages
@@ -41,7 +42,7 @@ public class WorldManager extends Manager {
         myFactory = new FromJSONFactory();
         myParser = new JSONParser();
         myUnitModel = new UnitTableModel();
-        myMasterStatList = new MasterStats();
+        myMasterStatMap = new MasterStats();
     }
 
     public GameTableModel getViewModel (String type) {
@@ -85,7 +86,6 @@ public class WorldManager extends Manager {
         return myStages.size() - 1;
     }
 
-
     /**
      * Set the name of the game
      * 
@@ -95,12 +95,11 @@ public class WorldManager extends Manager {
         myGameName = gameName;
     }
 
-
     // WILL BE REMOVED, USE GAMEMANAGER
     public void doMove (Coordinate a, Coordinate b) {
         myActiveStage.getGrid().doMove(a, b);
     }
-    
+
     // do action is in gamemanager
 
     /**
@@ -235,9 +234,51 @@ public class WorldManager extends Manager {
         myActiveStage.getTeam(teamID).addCondition(c);
     }
 
+    /**
+     * Adds a new stat to the game by adding to the master stat list, adding to all unit definitions
+     * stored in the editor data, and adding to all placed units
+     * 
+     * @param name - Name of the stat to be added
+     * @param value - Default value of the stat to be added
+     */
+    // TODO: Should we have check if there is already that stat? Or just overwrite?
     public void addStat (String name, int value) {
-        myMasterStatList.setStatValue(name, value);
-        // TODO: Add to all unit definitions
-        // TODO: Add to all placed units
+        List<Customizable> unitList = myEditorData.get("GameUnit");
+        List<String> newStats = new ArrayList<>();
+        GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits(); // Is myActiveStage the
+                                                                           // stage that is
+                                                                           // currently being edited
+
+        myMasterStatMap.setStatValue(name, value);
+        // Do we want to do this? Or just add in new stat like in placed units? e.g. Do all units in
+        // data have unique stat lists?
+        for (Customizable unit : unitList) {
+            ((GameUnit) unit).setStats(myMasterStatMap.clone());
+        }
+
+        // Need this check? Or assumed that gameUnits array will already be created?
+        if (placedUnits.length > 0 && placedUnits[0].length > 0) {
+            List<String> currentStatList = ((GameUnit) unitList.get(0)).getStats().getStatNames();
+            for (String stat : myMasterStatMap.getStatNames()) {
+                if (!currentStatList.contains(stat)) {
+                    newStats.add(stat);
+                }
+            }
+
+            for (int i = 0; i < placedUnits.length; i++) {
+                for (int j = 0; j < placedUnits[i].length; j++) {
+                    if (placedUnits[i][j] != null) {
+                        Map<String, Integer> newStatMap = new HashMap<>();
+                        for (String stat : placedUnits[i][j].getStats().getStatNames()) {
+                            newStatMap.put(stat, placedUnits[i][j].getStat(stat));
+                        }
+                        for (String stat : newStats) {
+                            newStatMap.put(stat, myMasterStatMap.getStatValue(stat));
+                        }
+                        placedUnits[i][j].getStats().setStatList(newStatMap);
+                    }
+                }
+            }
+        }
     }
 }
