@@ -1,10 +1,10 @@
 package grid;
 
 import gameObject.GameObject;
+import gameObject.Stats;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 
@@ -20,7 +20,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 @JsonAutoDetect
 public class Tile extends GameObject {
 
-    private Map<String, Double> myStatMods;
+    private boolean isActive;
+    private Stats myStats;
     private int myMoveCost;
     private List<Tile> myNeighbors;
     private Tile myParent;
@@ -31,12 +32,19 @@ public class Tile extends GameObject {
     public Tile () {
     }
 
-    public Map<String, Double> getStatMods () {
-        return myStatMods;
+
+    public void setActive (boolean active) {
+        isActive = active;
+        myImage = isActive ? ImageManager.getHightlightedTileImage(myImagePath)
+                          : ImageManager.getTileImage(myImagePath);
     }
 
-    public void setStatMods (Map<String, Double> statMods) {
-        myStatMods = statMods;
+    public Stats getStats () {
+        return myStats;
+    }
+
+    public void setStats (Stats stat) {
+        myStats = stat;
     }
 
     /**
@@ -49,9 +57,6 @@ public class Tile extends GameObject {
         return isActive;
     }
     
-    public void setActive(boolean active){
-        isActive=active;
-    }
 
     public int getMoveCost () {
         return myMoveCost;
@@ -66,8 +71,8 @@ public class Tile extends GameObject {
         displayData.add("Name: " + myName);
         displayData.add("Movement cost: " + myMoveCost);
         displayData.add("Stat Modifiers: ");
-        for (String stat : myStatMods.keySet()) {
-            displayData.add(stat + ": " + myStatMods.get(stat));
+        for (String stat : myStats.getStatNames()) {
+            displayData.add(stat + ": " + myStats.getStatValue(stat));
         }
         myDisplayData = displayData;
     }

@@ -3,12 +3,12 @@ package gameObject;
 import gameObject.action.Action;
 import gameObject.action.MoveAction;
 import gameObject.item.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -28,7 +28,10 @@ public class GameUnit extends GameObject {
 
     private boolean isControllable;
     @JsonProperty
-    private Map<Item, Integer> myItems; // might have problems since keys are Item objects
+    private Map<String, Integer> myItemAmounts; // might have run into problems using Items as keys.
+                                                // Definitely would have run into problems with JSON
+                                                // storage
+    private Set<Item> myItems;
     private Stats myStats;
     private String myTeamName;
     private Weapon myActiveWeapon;
@@ -39,7 +42,8 @@ public class GameUnit extends GameObject {
 
     // reads defaults from JSON. To add/test new defaults, edit MakeDefaults.java
     public GameUnit () {
-        myItems = new HashMap<Item, Integer>();
+        myItems = new HashSet<Item>();
+        myItemAmounts = new HashMap<String, Integer>();
         myStats = new Stats();
         myTeamName = "";
     }
@@ -52,20 +56,19 @@ public class GameUnit extends GameObject {
     public String getAffiliation () {
         return myTeamName;
     }
-    
-    
+
     /**
      * Loops through all of a players items and ups their stats
      * according to the stat value of each item if the player has
      * a stat field in line with that item.
      */
     public void initializeStats () {
-        for (Item item : myItems.keySet()) {
+        for (Item item : myItems) {
             for (String statName : item.getStats().getStatNames()) {
                 if (myStats.getStatNames().contains(statName)) {
                     int fromItem = item.getStats().getStatValue(statName);
                     int current = myStats.getStatValue(statName);
-                    myStats.modExisting(statName, current+fromItem);
+                    myStats.modExisting(statName, current + fromItem);
                 }
             }
         }
@@ -78,7 +81,7 @@ public class GameUnit extends GameObject {
      * @param weaponName - The string which represents a weapon
      */
     public void selectWeapon (String weaponName) {
-        for (Item item : myItems.keySet()) {
+        for (Item item : myItems) {
             if (item.getName().equals(weaponName)) {
                 myActiveWeapon = (Weapon) item;
             }
@@ -91,12 +94,14 @@ public class GameUnit extends GameObject {
      * 
      * @param itemName - The name of the item, not a string
      */
-    public void addItem (Item itemName) {
-        if (!myItems.containsKey(itemName)) {
-            myItems.put(itemName, 1);
+    public void addItem (Item item) {
+
+        if (myItems.add(item)) {
+            myItemAmounts.put(item.getName(), 1);
+
         }
         else {
-            myItems.put(itemName, myItems.get(itemName)+1);
+            myItemAmounts.put(item.getName(), myItemAmounts.get(item.getName()) + 1);
         }
     }
 
@@ -107,7 +112,7 @@ public class GameUnit extends GameObject {
      * @param itemName - The name of the item, not a string
      */
     public void removeItem (Item itemName) {
-        myItems.remove(itemName);
+        myItemAmounts.remove(itemName);
     }
 
     @Override
@@ -127,8 +132,8 @@ public class GameUnit extends GameObject {
      */
     public int getTotalStat (String stat) {
         int value = myStats.getStatValue(stat);
-        for (Item i : myItems.keySet()){
-                value += i.getStat(stat);
+        for (Item i : myItems) {
+            value += i.getStat(stat);
         }
         return value;
     }
@@ -174,8 +179,8 @@ public class GameUnit extends GameObject {
         return isControllable;
     }
 
-    public void setControllable (boolean myControllable) {
-        this.isControllable = myControllable;
+    public void setControllable (boolean controllable) {
+        isControllable = controllable;
     }
 
     public Weapon getActiveWeapon () {
@@ -207,21 +212,17 @@ public class GameUnit extends GameObject {
         return myExperience;
     }
 
-    public void setExperience (double myExperience) {
-        this.myExperience = myExperience;
-    }
-
-    public Map<Item, Integer> getItemMap () {
-        return myItems;
+    public void setExperience (double experience) {
+        myExperience = experience;
     }
 
     @JsonIgnore
     public List<Action> getActions () {
-    	List<Action> actions = new ArrayList<>();
-    	if (!hasMoved) {
-    		actions.add(new MoveAction());
-    	}
-        for (Item item : myItems.keySet()) {
+        List<Action> actions = new ArrayList<>();
+        if (!hasMoved) {
+            actions.add(new MoveAction());
+        }
+        for (Item item : myItems) {
             actions.addAll(item.getActions());
         }
         return actions;
@@ -238,7 +239,8 @@ public class GameUnit extends GameObject {
         displayData.add("Equipped Item: " + myActiveWeapon.getName());
         displayData.add("");
         displayData.add("Stats: ");
-        displayData.add("Health: " + getTotalStat(GameObjectConstants.HEALTH) + " / " + myMaxHealth);
+        displayData
+                .add("Health: " + getTotalStat(GameObjectConstants.HEALTH) + " / " + myMaxHealth);
         for (String stat : myStats.getStatNames()) { // TODO: FIX
             if (stat.equals(GameObjectConstants.HEALTH)) {
                 continue;
@@ -255,20 +257,25 @@ public class GameUnit extends GameObject {
     public Action getInteraction () {
         return null;
     };
- 
+
     public void hasMoved () {
         hasMoved = true;
     }
-    
+
+    @JsonIgnore
     public int getItemAmount (String itemName) {
-        for (Item i : myItems.keySet()) {
-            if (i.getName().equals(itemName)) { return myItems.get(i); }
+        for (Item i : myItems) {
+            if (i.getName().equals(itemName)) { return myItemAmounts.get(i); }
         }
         return 0;
     }
 
-    public void setItemList (Map<Item, Integer> itemList) {
+    public void setItems (Set<Item> itemList) {
         myItems = itemList;
+    }
+
+    public Set<Item> getItems () {
+        return myItems;
     }
 
 }

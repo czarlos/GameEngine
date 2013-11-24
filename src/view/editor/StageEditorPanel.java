@@ -56,7 +56,7 @@ public class StageEditorPanel extends JTabbedPane {
         this.add(replacement, index);
     }
 
-    // TODO: Chris, change this to support UnitEditorDialog
+    // TODO: change this to support UnitEditorDialog
     private void createUnitEditor () {
         EditorTableFrame frame = new EditorTableFrame("Unit", this);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

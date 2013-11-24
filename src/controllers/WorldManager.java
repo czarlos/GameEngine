@@ -14,7 +14,6 @@ import view.Customizable;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.MasterStats;
-import gameObject.action.Action;
 import grid.Coordinate;
 import grid.FromJSONFactory;
 import grid.Tile;
@@ -85,6 +84,13 @@ public class WorldManager extends Manager {
         return myStages.size() - 1;
     }
 
+    public void setPreStory (String prestory) {
+        myActiveStage.setPreStory(prestory);
+    }
+
+    public void setPostStory (String poststory) {
+        myActiveStage.setPostStory(poststory);
+    }
 
     /**
      * Set the name of the game
@@ -94,7 +100,6 @@ public class WorldManager extends Manager {
     public void setGameName (String gameName) {
         myGameName = gameName;
     }
-
 
     // WILL BE REMOVED, USE GAMEMANAGER
     public void doMove (Coordinate a, Coordinate b) {
