@@ -60,7 +60,7 @@ public class GameUnit extends GameObject {
      */
     public void initializeStats () {
         for (Item item : myItems.keySet()) {
-            for (String statName : item.getStats().getStatMap().keySet()) {
+            for (String statName : item.getStats().getStatNames()) {
                 if (myStats.getStatNames().contains(statName)) {
                     int fromItem = item.getStats().getStatValue(statName);
                     int current = myStats.getStatValue(statName);
@@ -252,7 +252,7 @@ public class GameUnit extends GameObject {
         displayData.add("");
         displayData.add("Stats: ");
         displayData.add("Health: " + getTotalStat(GameObjectConstants.HEALTH) + " / " + myMaxHealth);
-        for (String stat : myStats) { // TODO: FIX
+        for (String stat : myStats.getStatNames()) { // TODO: FIX
             if (stat.equals(GameObjectConstants.HEALTH)) {
                 continue;
             }
