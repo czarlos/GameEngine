@@ -3,6 +3,7 @@ package dialog;
 import grid.Tile;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import view.Customizable;
 
 /**
@@ -15,7 +16,7 @@ import view.Customizable;
 public class TileTableModel extends GameTableModel{
 
     public TileTableModel(){
-        String[] names = {"Move Cost", "Image path", "Passable List"};
+        String[] names = {"Name", "Graphic", "Move Cost", "StatsModifiers"};
         setColumnNames(names);
     }
     
@@ -26,12 +27,10 @@ public class TileTableModel extends GameTableModel{
             
             Tile t = (Tile) tile;
             
-            array[0] = t.getImagePath();
-            array[1] = t.getMoveCost();
-            array[2] = t.getStatMods();
-            array[3] = t.getPassableList();
-            
-            
+            array[0] = t.getName();
+            array[1] = t.getImagePath();
+            array[2] = t.getMoveCost();
+            array[3] = t.getStatMods();
 
             myList.add(array);        
         }
@@ -41,13 +40,17 @@ public class TileTableModel extends GameTableModel{
         if(ID < myColumnNames.length){
             Object[] current = myList.get(ID);
             Tile t = new Tile();
-            t.setMoveCost((int) current[0]);
+            t.setName((String) current[0]);
             t.setImageAndPath((String) current[1]);
-           // t.setPassableList((List<String>) current[2]);
+            t.setMoveCost((int) current[2]);
+            t.setStatMods((Map<String, Double>) current[3]);
             
             return t;
         }
         
         return null;
     }
+    
+    
+    
 }
