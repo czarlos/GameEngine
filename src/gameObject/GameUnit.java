@@ -23,17 +23,18 @@ public class GameUnit extends GameObject {
 
     private boolean isControllable;
     private List<Item> myItemList;
-    private Stat myUnitStats;
+    private Stat myStats;
     private String myAffiliation;
     private Weapon myActiveWeapon;
-    private double myHealth;
+    private double myMaxHealth;
     private double myExperience;
     private boolean isActive;
 
+    //TODO: this is in make defaults. doesn't have to be here then?
     // reads defaults from JSON. To add/test new defaults, edit MakeDefaults.java
     public GameUnit () {
         myItemList = new ArrayList<Item>();
-        myUnitStats = new Stat();
+        myStats = new Stat();
         myAffiliation = "";
     }
 
@@ -96,9 +97,9 @@ public class GameUnit extends GameObject {
     public void addItem (Item itemName) {
         if (itemName instanceof Equipment) {
             for (String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
-                int statVal = this.getUnitStats().getStatValue(stat);
+                int statVal = this.getStats().getStatValue(stat);
                 statVal += ((Equipment) itemName).getModifiers().getStatModifier(stat);
-                this.getUnitStats().setStatValue(stat, statVal);
+                this.getStats().setStatValue(stat, statVal);
             }
         }
         myItemList.add(itemName);
@@ -113,9 +114,9 @@ public class GameUnit extends GameObject {
     public void removeItem (Item itemName) {
         if (itemName instanceof Equipment) {
             for (String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
-                int statVal = this.getUnitStats().getStatValue(stat);
+                int statVal = this.getStats().getStatValue(stat);
                 statVal -= ((Equipment) itemName).getModifiers().getStatModifier(stat);
-                this.getUnitStats().setStatValue(stat, statVal);
+                this.getStats().setStatValue(stat, statVal);
             }
         }
         myItemList.remove(itemName);
@@ -136,7 +137,7 @@ public class GameUnit extends GameObject {
      * @return
      */
     public int getTotalStat (String stat) {
-        int value = myUnitStats.getStatValue(stat);
+        int value = myStats.getStatValue(stat);
         for (Item i : myItemList)
             if (i instanceof Equipment)
                 value += ((Equipment) i).getModifiers().getStatModifier(stat);
@@ -175,12 +176,23 @@ public class GameUnit extends GameObject {
         this.addItem(otherItem);
     }
 
-    public void setUnitStats (Stat myUnitStats) {
-        this.myUnitStats = myUnitStats;
+    public void setStats (Stat stats) {
+        myStats = stats;
     }
 
-    public Stat getUnitStats () {
-        return myUnitStats;
+    public Stat getStats () {
+        return myStats;
+    }
+    
+    // Adding for Outcomes, can potentially change later
+    // Need to keep method names and signatures similar for reflection
+    // since dealing with different data structures
+    public int getStat (String statName) {
+        return myStats.getStatValue(statName);
+    }
+
+    public void setStat (String statName, int statValue) {
+        myStats.setStatValue(statName, statValue);
     }
 
     public boolean isControllable () {
@@ -208,11 +220,11 @@ public class GameUnit extends GameObject {
     }
 
     public double getHealth () {
-        return myHealth;
+        return myMaxHealth;
     }
 
     public void setHealth (double myHealth) {
-        this.myHealth = myHealth;
+        this.myMaxHealth = myHealth;
     }
 
     public double getExperience () {
@@ -227,6 +239,22 @@ public class GameUnit extends GameObject {
         return myItemList;
     }
 
+    // TODO: get rid of this? unit shouldn't know about defenders. that's grid.
+    public List<Action> getValidActions (GameUnit defender) {
+        List<Action> validActions = new ArrayList<>();
+        for (Item i : myItemList) {
+            if (i instanceof Weapon) {
+                List<CombatAction> tempActions = ((Weapon) i).getActionList();
+                for (CombatAction ca : tempActions) {
+                    if (ca.isValidAction(this, defender)) {
+                        validActions.add(ca);
+                    }
+                }
+            }
+        }
+        return validActions;
+    }
+
     @JsonIgnore
     public List<Action> getActions () {
         List<Action> actions = new ArrayList<>();
@@ -238,24 +266,36 @@ public class GameUnit extends GameObject {
         return actions;
     }
 
+    /**
+     * Generates the List of Strings that the unit will display to the user
+     */
+    public void generateDisplayData () {
+        List<String> displayData = new ArrayList<>();
+        displayData.add("Name: " + myName);
+        displayData.add("Affiliation: " + myAffiliation);
+        displayData.add("");
+        displayData.add("Equipped Item: " + myActiveWeapon.getName());
+        displayData.add("");
+        displayData.add("Stats: ");
+        displayData.add("Health: " + getTotalStat(GameObjectConstants.HEALTH) + " / " + myMaxHealth);
+        for (String stat : myStats.getStatList().keySet()) {
+            if (stat.equals(GameObjectConstants.HEALTH)) {
+                continue;
+            }
+            else {
+                displayData.add(stat + ": " + getTotalStat(stat));
+            }
+        }
+        setDisplayData(displayData);
+    }
+
     // TODO: trade with affiliates
     @Override
     public Action getInteraction () {
         return null;
     };
 
-    // Adding for Outcomes, can potentially change later
-    // Need to keep method names and signatures similar for reflection
-    // since dealing with different data structures
-    public int getStat (String statName) {
-        return myUnitStats.getStatValue(statName);
-    }
-
-    public void setStat (String statName, int statValue) {
-        myUnitStats.setStatValue(statName, statValue);
-    }
-
-    public int getItemCount (String itemName) {
+    public int getItem (String itemName) {
         for (Item i : myItemList) {
             if (i.getName().equals(itemName)) { return i.getAmount(); }
         }
@@ -283,10 +323,10 @@ public class GameUnit extends GameObject {
         long temp;
         temp = Double.doubleToLongBits(myExperience);
         result = prime * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(myHealth);
+        temp = Double.doubleToLongBits(myMaxHealth);
         result = prime * result + (int) (temp ^ (temp >>> 32));
         result = prime * result + ((myItemList == null) ? 0 : myItemList.hashCode());
-        result = prime * result + ((myUnitStats == null) ? 0 : myUnitStats.hashCode());
+        result = prime * result + ((myStats == null) ? 0 : myStats.hashCode());
         return result;
     }
 
@@ -304,16 +344,16 @@ public class GameUnit extends GameObject {
         if (myAffiliation != other.myAffiliation) return false;
         if (Double.doubleToLongBits(myExperience) != Double.doubleToLongBits(other.myExperience))
             return false;
-        if (Double.doubleToLongBits(myHealth) != Double.doubleToLongBits(other.myHealth))
+        if (Double.doubleToLongBits(myMaxHealth) != Double.doubleToLongBits(other.myMaxHealth))
             return false;
         if (myItemList == null) {
             if (other.myItemList != null) return false;
         }
         else if (!myItemList.equals(other.myItemList)) return false;
-        if (myUnitStats == null) {
-            if (other.myUnitStats != null) return false;
+        if (myStats == null) {
+            if (other.myStats != null) return false;
         }
-        else if (!myUnitStats.equals(other.myUnitStats)) return false;
+        else if (!myStats.equals(other.myStats)) return false;
         return true;
     }
 

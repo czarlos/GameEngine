@@ -1,5 +1,6 @@
 package gameObject.action;
 
+import gameObject.GameObject;
 import gameObject.GameUnit;
 import grid.Coordinate;
 import java.util.ArrayList;
@@ -22,9 +23,6 @@ public class Action {
         myReceiverOutcomes = receiverOutcomes;
         isAround = false;
         List<Coordinate> AOE = new ArrayList<>();
-        AOE.add(new Coordinate(0, -1));
-        AOE.add(new Coordinate(-1, 0));
-        AOE.add(new Coordinate(1, 0));
         AOE.add(new Coordinate(0, 1));
         myAOE = AOE;
     }
@@ -38,6 +36,11 @@ public class Action {
         for (Outcome o : myReceiverOutcomes) {
             o.applyOutcome(receiver, 0);
         }
+    }
+
+    public boolean isValidAction (GameUnit gameUnit, GameObject gameObject) {
+        // TODO: fill in based on action
+        return false;
     }
 
     public String getName () {
