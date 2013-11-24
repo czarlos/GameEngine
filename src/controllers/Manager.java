@@ -19,10 +19,14 @@ public abstract class Manager {
     @JsonProperty
     protected EditorData myEditorData;
     
-    public Manager () {
+    public Manager (String gameName) {
         myStages = new ArrayList<Stage>();
-        myGameName = "";
+        myGameName = gameName;
         myEditorData = new EditorData("defaults");
+    }
+    
+    public Manager(){
+        this("");
     }
     
 
