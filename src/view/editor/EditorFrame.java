@@ -114,7 +114,8 @@ public class EditorFrame extends GameView {
             this.repaint();
             String gameName = gameNameTextField.getText();
             this.setTitle(gameName);
-            myWorldManager = new WorldManager(gameName);
+            myWorldManager = new WorldManager();
+            myWorldManager.setGameName(gameName);
             addStagePanel();
             JMenu stageMenu = new JMenu("Stage");
             stageMenu.setMnemonic(KeyEvent.VK_S);

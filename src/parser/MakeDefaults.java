@@ -86,7 +86,8 @@ public class MakeDefaults {
     }
 
     public void saveAndLoadGame () {
-        controllers.WorldManager wm = new controllers.WorldManager("test");
+        controllers.WorldManager wm = new controllers.WorldManager();
+        wm.setGameName("test");
         wm.addStage(10, 10, 1, "stageOne");
         wm.saveGame();
 

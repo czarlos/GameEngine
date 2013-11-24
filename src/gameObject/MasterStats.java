@@ -6,6 +6,6 @@ public class MasterStats extends Stats {
     }
 
     public void setStatValue (String name, Integer value) {
-        myStatList.put(name, value);
+        myStatMap.put(name, value);
     }
 }

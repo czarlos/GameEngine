@@ -5,16 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import controllers.EditorData;
 import dialog.GameTableModel;
 import dialog.UnitTableModel;
 import parser.JSONParser;
 import stage.Condition;
 import stage.Stage;
 import view.Customizable;
-import view.Drawable;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.MasterStats;
@@ -25,17 +21,10 @@ import grid.Tile;
 
 
 @JsonAutoDetect
-public class WorldManager {
-    @JsonProperty
-    List<Stage> myStages;
-    @JsonProperty
-    Stage myActiveStage;
+public class WorldManager extends Manager {
+
     FromJSONFactory myFactory;
     JSONParser myParser;
-    @JsonProperty
-    EditorData myEditorData;
-    @JsonProperty
-    String myGameName;
 
     private UnitTableModel myUnitModel;
     private String activeEditType;
@@ -47,12 +36,10 @@ public class WorldManager {
      * 
      * @param gameName
      */
-    public WorldManager (@JsonProperty("myGameName") String gameName) {
-        myStages = new ArrayList<Stage>();
+    public WorldManager () {
+        super();
         myFactory = new FromJSONFactory();
         myParser = new JSONParser();
-        myEditorData = new EditorData("defaults");
-        myGameName = gameName;
         myUnitModel = new UnitTableModel();
         myMasterStatList = new MasterStats();
     }
@@ -98,40 +85,6 @@ public class WorldManager {
         return myStages.size() - 1;
     }
 
-    /**
-     * Returns list of stage names
-     * 
-     * @return
-     */
-    @JsonIgnore
-    public List<String> getStages () {
-        List<String> ret = new ArrayList<String>();
-        for (Stage s : myStages) {
-            ret.add(s.getName());
-        }
-
-        return ret;
-    }
-
-    /**
-     * Set list of stages, used by JSON deserializer
-     * 
-     * @param stages
-     */
-    public void setStages (List<Stage> stages) {
-        myStages = stages;
-    }
-
-    /**
-     * Set which stage to assign "active", this
-     * is the stage that all methods will return information about by default.
-     * 
-     * @param stageID
-     */
-    public void setActiveStage (int stageID) {
-        if (stageID < myStages.size())
-            myActiveStage = myStages.get(stageID);
-    }
 
     /**
      * Set the name of the game
@@ -142,61 +95,13 @@ public class WorldManager {
         myGameName = gameName;
     }
 
-    /**
-     * Gets the game name
-     * 
-     * @return
-     */
-    public String getGameName () {
-        return myGameName;
-    }
 
-    /**
-     * Method to getting a Drawable version of the grid
-     * 
-     * @return
-     */
-
-    public Drawable getGrid () {
-        return (Drawable) myActiveStage.getGrid();
-    }
-
-    public Coordinate getCoordinate (double fracX, double fracY) {
-        return myActiveStage.getGrid().getCoordinate(fracX, fracY);
-    }
-
+    // WILL BE REMOVED, USE GAMEMANAGER
     public void doMove (Coordinate a, Coordinate b) {
         myActiveStage.getGrid().doMove(a, b);
     }
-
-    public void doAction (Coordinate object, Coordinate action, String actionName) {
-        myActiveStage.getGrid().doAction(object, action, actionName);
-    }
-
-    /**
-     * Getting images
-     * 
-     * @param x
-     * @param y
-     * @return
-     */
-    public Image getTileImage (int x, int y) {
-        return myActiveStage.getGrid().getTile(new Coordinate(x, y)).getImage();
-    }
-
-    /**
-     * Gets the Image of the object and location x and y
-     * 
-     * @param x
-     * @param y
-     * @return
-     */
-    public Image getObjectImage (int x, int y) {
-        GameObject o = myActiveStage.getGrid().getObject(new Coordinate(x, y));
-        if (o != null)
-            return o.getImage();
-        return null;
-    }
+    
+    // do action is in gamemanager
 
     /**
      * Placing (previously created) things on the board. These will be replaced by table editing
@@ -223,7 +128,7 @@ public class WorldManager {
     }
 
     /**
-     * Gives access to certain customizable attributes (name and image). Valid parameters are
+     * Gives access to certain names of customizables. Valid parameters are
      * "GameUnit",
      * "GameObject",
      * "Tile", "Condition"
@@ -294,7 +199,7 @@ public class WorldManager {
     }
 
     /**
-     * Save game and load game
+     * Save game and load game. TODO: see if we can refactor this into manager?
      */
     public void saveGame () {
         myParser.createJSON("saves/" + myGameName, this);
@@ -324,10 +229,10 @@ public class WorldManager {
      * @param ConditionID
      * @param Map of NeededData mapped to what the user types in
      */
-    public void setCondition (int ConditionID, Map<String, String> data) {
+    public void setCondition (int teamID, int ConditionID, Map<String, String> data) {
         Condition c = (Condition) myEditorData.get("Condition").get(ConditionID);
         c.setData(data);
-        myActiveStage.addCondition(c);
+        myActiveStage.getTeam(teamID).addCondition(c);
     }
 
     public void addStat (String name, int value) {
