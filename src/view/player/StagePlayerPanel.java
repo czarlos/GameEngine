@@ -1,4 +1,4 @@
-package view.player;
+package src.view.player;
 
 import java.awt.Dimension;
 import javax.swing.BoxLayout;
