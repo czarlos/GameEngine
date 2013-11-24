@@ -148,7 +148,7 @@ public class CombatTest {
 
         playerUnit.attack(enemyUnit, weapon.getName(), action);
 
-        int itemCount = enemyUnit.getItemCount("potion");
+        int itemCount = enemyUnit.getItem("potion");
         int expectedItemCount = 3;
 
         assertEquals("Proper Items Removed", itemCount, expectedItemCount);
