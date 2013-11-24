@@ -1,5 +1,9 @@
 package dialog;
 
-public class TileEditorDialog {
+import javax.swing.JDialog;
+
+public class TileEditorDialog extends JDialog{
+    
+    
 
 }

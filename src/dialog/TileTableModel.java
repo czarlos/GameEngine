@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import view.Customizable;
 
+/**
+ * 
+ * @author brooksmershon
+ *
+ */
+
 public class TileTableModel extends GameTableModel{
 
     public TileTableModel(){
@@ -23,7 +29,7 @@ public class TileTableModel extends GameTableModel{
             // this is a file chooser
             array[1] = t.getImagePath();
             // this is a list.
-            array[2] = t.getPassableList();
+            //array[2] = t.getPassableList();
             myList.add(array);        
         }
     }
@@ -34,7 +40,7 @@ public class TileTableModel extends GameTableModel{
             Tile t = new Tile();
             t.setMoveCost((int) current[0]);
             t.setImageAndPath((String) current[1]);
-            t.setPassableList((List<String>) current[2]);
+           // t.setPassableList((List<String>) current[2]);
             
             return t;
         }
