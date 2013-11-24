@@ -1,8 +1,14 @@
 package parser;
 
 import gameObject.GameObjectConstants;
+import gameObject.Stats;
+import gameObject.action.Action;
+import gameObject.action.CombatAction;
+import gameObject.item.Item;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import stage.ItemCondition;
 import stage.PositionCondition;
 import stage.StatCondition;
@@ -13,9 +19,23 @@ import stage.UnitCountCondition;
 public class MakeDefaults {
 
     private JSONParser p;
-
+    private Item defaultItem;
+    private Action defaultAction;
+    private Stats defaultStats;
     public MakeDefaults () {
         p = new JSONParser();
+        
+        defaultStats = new Stats();
+        Map<String, Integer> stats = new HashMap<String, Integer>();
+        stats.put("movement", 3);
+        defaultStats.setStats(stats);
+        defaultAction = new CombatAction();
+        defaultAction.setName("Action");
+
+        defaultItem = new Item();
+        defaultItem.addAction(defaultAction);
+        defaultItem.setName("Item");
+        defaultItem.setStats(defaultStats);
     }
 
     public void makeTiles () throws Exception {
@@ -68,9 +88,11 @@ public class MakeDefaults {
 
         gameObject.GameUnit hero = new gameObject.GameUnit();
 
-        gameObject.Stats stats = new gameObject.Stats();
-        stats.setStatValue("movement", 3); // TODO: Add to master stat list
-
+        gameObject.Stats stat = new Stats();
+        HashMap<String, Integer> stats = new HashMap<String, Integer>();
+        stats.put("movement", 3);
+        stat.setStats(stats);
+        
         hero.setName("hero");
         hero.setImagePath("resources/hero.png");
         hero.setPassableList(new java.util.ArrayList<String>());
@@ -78,9 +100,9 @@ public class MakeDefaults {
         hero.setHealth(20);
         hero.setAffiliation("");
         hero.setExperience(0);
-        hero.setStats(stats);
-        hero.setItemList(new java.util.ArrayList<gameObject.item.Item>());
-
+        hero.setStats(stat);
+        hero.addItem(defaultItem);
+        
         list.add(hero);
 
         p.createJSON("defaults/GameUnit", list);

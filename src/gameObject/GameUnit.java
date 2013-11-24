@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
@@ -23,7 +24,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class GameUnit extends GameObject {
 
     private boolean isControllable;
-    private Map<Item, Integer> myItems;
+    @JsonProperty
+    private Map<Item, Integer> myItems; // might have problems since keys are Item objects
     private Stats myStats;
     private String myTeamName;
     private Weapon myActiveWeapon;
@@ -32,7 +34,6 @@ public class GameUnit extends GameObject {
     private boolean isActive;
     private boolean hasMoved;
 
-    // TODO: this is in make defaults. doesn't have to be here then?
     // reads defaults from JSON. To add/test new defaults, edit MakeDefaults.java
     public GameUnit () {
         myItems = new HashMap<Item, Integer>();
@@ -205,10 +206,6 @@ public class GameUnit extends GameObject {
 
     public void setExperience (double myExperience) {
         this.myExperience = myExperience;
-    }
-
-    public Map<Item, Integer> getItemMap () {
-        return myItems;
     }
 
     // TODO: get rid of this? unit shouldn't know about defenders. that's grid.
