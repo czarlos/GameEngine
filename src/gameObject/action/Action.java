@@ -1,41 +1,26 @@
 package gameObject.action;
 
+import java.util.ArrayList;
+import java.util.List;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import grid.Coordinate;
-import java.util.ArrayList;
-import java.util.List;
 
-
-public class Action {
-    protected String myName;
-    protected List<Outcome> myInitiatorOutcomes;
-    protected List<Outcome> myReceiverOutcomes;
-    protected List<Coordinate> myAOE;
-    protected boolean isAround;
-
+public abstract class Action {
+    private String myName;
+    private List<Coordinate> myAOE;
+    private boolean isAround;
+    
     public Action () {
-    }
-
-    public Action (String name, List<Outcome> initiatorOutcomes, List<Outcome> receiverOutcomes) {
-        myName = name;
-        myInitiatorOutcomes = initiatorOutcomes;
-        myReceiverOutcomes = receiverOutcomes;
-        isAround = false;
         List<Coordinate> AOE = new ArrayList<>();
         AOE.add(new Coordinate(0, 1));
-        myAOE = AOE;
+        setAround(false);
     }
-
-    public void execute (GameUnit initiator, GameUnit receiver) {
-        for (Outcome o : myInitiatorOutcomes) {
-            o.applyOutcome(initiator, 0);
-
-        }
-
-        for (Outcome o : myReceiverOutcomes) {
-            o.applyOutcome(receiver, 0);
-        }
+    
+    public abstract void doAction(GameUnit unit1, GameUnit unit2);
+    
+    public void setName (String name) {
+        myName = name;
     }
 
     public boolean isValidAction (GameUnit gameUnit, GameObject gameObject) {
@@ -47,11 +32,19 @@ public class Action {
         return myName;
     }
 
+    public boolean isAround () {
+        return isAround;
+    }
+
+    public void setAround (boolean isAround) {
+        this.isAround = isAround;
+    }
+
     public List<Coordinate> getAOE () {
         return myAOE;
     }
 
-    public boolean isAround () {
-        return isAround;
+    public void setAOE (List<Coordinate> AOE) {
+        myAOE = AOE;
     }
 }
