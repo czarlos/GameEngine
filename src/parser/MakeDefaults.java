@@ -73,11 +73,11 @@ public class MakeDefaults {
         hero.setName("hero");
         hero.setImagePath("resources/hero.png");
         hero.setPassableList(new java.util.ArrayList<String>());
-        hero.setAffiliation(0);
         hero.setControllable(true);
         hero.setHealth(20);
+        hero.setAffiliation("");
         hero.setExperience(0);
-        hero.setUnitStats(stats);
+        hero.setStats(stats);
         hero.setItemList(new java.util.ArrayList<gameObject.item.Item>());
 
         list.add(hero);

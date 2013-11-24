@@ -1,13 +1,18 @@
 package gameObject.action;
 
+import gameObject.GameObject;
 import gameObject.GameUnit;
+import grid.Coordinate;
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class Action {
-    private String myName;
-    private List<Outcome> myInitiatorOutcomes;
-    private List<Outcome> myReceiverOutcomes;
+    protected String myName;
+    protected List<Outcome> myInitiatorOutcomes;
+    protected List<Outcome> myReceiverOutcomes;
+    protected List<Coordinate> myAOE;
+    protected boolean isAround;
 
     public Action () {
     }
@@ -16,6 +21,10 @@ public class Action {
         myName = name;
         myInitiatorOutcomes = initiatorOutcomes;
         myReceiverOutcomes = receiverOutcomes;
+        isAround = false;
+        List<Coordinate> AOE = new ArrayList<>();
+        AOE.add(new Coordinate(0, 1));
+        myAOE = AOE;
     }
 
     public void execute (GameUnit initiator, GameUnit receiver) {
@@ -29,7 +38,20 @@ public class Action {
         }
     }
 
+    public boolean isValidAction (GameUnit gameUnit, GameObject gameObject) {
+        // TODO: fill in based on action
+        return false;
+    }
+
     public String getName () {
         return myName;
+    }
+
+    public List<Coordinate> getAOE () {
+        return myAOE;
+    }
+
+    public boolean isAround () {
+        return isAround;
     }
 }

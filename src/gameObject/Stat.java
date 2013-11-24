@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonAutoDetect
 public class Stat {
     @JsonProperty
-    private Map<String, Integer> myStatList = new HashMap<String, Integer>();
+    private Map<String, Integer> myStatList = new HashMap<>();
 
     public Stat () {
     }
@@ -26,6 +26,10 @@ public class Stat {
 
     public void setStatValue (String name, Integer value) {
         myStatList.put(name, value);
+    }
+
+    public Map<String, Integer> getStatList () {
+        return myStatList;
     }
 
     @Override

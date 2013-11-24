@@ -1,6 +1,6 @@
 package dialog;
 
-public class StatsTestStub {
+public class Stats {
 
     @Override
     public String toString () {

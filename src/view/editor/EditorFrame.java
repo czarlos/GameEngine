@@ -25,9 +25,6 @@ import controllers.WorldManager;
 
 public class EditorFrame extends GameView {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -8550671173122103688L;
 
     private ArrayList<StagePanel> myStagePanelList = new ArrayList<StagePanel>();

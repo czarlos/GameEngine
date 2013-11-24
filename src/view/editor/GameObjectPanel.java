@@ -1,7 +1,6 @@
 package view.editor;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -17,16 +16,16 @@ public class GameObjectPanel extends JPanel implements MouseListener {
      * 
      */
     private static final long serialVersionUID = -5509317241029064960L;
-
+    private String myType;
     private String myName;
     private ImageIcon myImage;
     private boolean isSelected;
     private StageEditorPanel myEditorPanel;
 
-    public GameObjectPanel (ImageIcon image, String name, StageEditorPanel editor) {
+    public GameObjectPanel (String type, ImageIcon image, String name, StageEditorPanel editor) {
+        myType = type;
         myEditorPanel = editor;
         setLayout(new GridLayout(1, 2));
-        // setMaximumSize(new Dimension(100,50));
         setBorder(BorderFactory.createLineBorder(Color.black));
         myName = name;
         myImage = image;
@@ -41,6 +40,14 @@ public class GameObjectPanel extends JPanel implements MouseListener {
         add(name);
         addMouseListener(this);
         repaint();
+    }
+
+    public String getType () {
+        return myType;
+    }
+
+    public String getName () {
+        return myName;
     }
 
     public void deSelect () {

@@ -26,9 +26,7 @@ public class StatModifier {
     }
 
     public void setStatModifier (String statName, Integer value) {
-        // if (myStatModifiers.containsKey(statName)) {
         myStatModifiers.put(statName, value);
-        // }
     }
 
     public void makeStatModifier (String name, Integer value) {

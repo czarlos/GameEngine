@@ -4,8 +4,8 @@ import gameObject.action.Action;
 import grid.ImageManager;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import view.Customizable;
@@ -22,17 +22,29 @@ import view.Drawable;
 public class GameObject extends Customizable implements Drawable {
     protected List<String> myPassableList;
     protected BufferedImage myImage;
+    protected List<String> myDisplayData;
 
     public GameObject () {
+        myDisplayData = new ArrayList<String>();
+        myPassableList = new ArrayList<String>();
+    }
+
+    public List<String> getInfo () {
+        return myDisplayData;
+    }
+
+    public void setInfo (List<String> info) {
+        myDisplayData = info;
     }
 
     /**
      * Checks if a unit can pass through the object
      * 
-     * @param unit - GameObject that is moving
+     * @param unit - GameUnit that is moving
      * @return - boolean of if unit can pass through
      */
-    public boolean isPassable (GameObject unit) {
+
+    public boolean isPassable (GameUnit unit) {
         return myPassableList.contains(unit.getName()) ||
                myPassableList.contains(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
     }
@@ -54,12 +66,6 @@ public class GameObject extends Customizable implements Drawable {
         return myPassableList;
     }
 
-    public Map<String, String> getData () {
-        // TODO: Needs to implement this for everything that extends GameObject (for GUI editing
-        // purposes)
-        return null;
-    }
-
     @JsonProperty("imagePath")
     public void setImageAndPath (String imagePath) {
 
@@ -70,6 +76,23 @@ public class GameObject extends Customizable implements Drawable {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Generates the List of Strings that the unit will display to the user
+     */
+    public void generateDisplayData () {
+        List<String> displayData = new ArrayList<>();
+        displayData.add("Name: " + myName);
+        setDisplayData(displayData);
+    }
+
+    public List<String> getDisplayData () {
+        return myDisplayData;
+    }
+
+    public void setDisplayData (List<String> displayData) {
+        myDisplayData = displayData;
     }
 
     public Action getInteraction () {
