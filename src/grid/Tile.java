@@ -50,7 +50,7 @@ public class Tile extends GameObject {
         return myStats;
     }
 
-    public void setStatMods (Stats stat) {
+    public void setStats (Stats stat) {
         myStats = stat;
     }
 

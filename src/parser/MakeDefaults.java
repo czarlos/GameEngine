@@ -36,7 +36,7 @@ public class MakeDefaults {
         defaultStats.setStats(moveStats);
         
         defaultAction = new CombatAction();
-        defaultAction.setName("Action");
+        defaultAction.setName("Attack");
 
         defaultItem = new Item();
         defaultItem.addAction(defaultAction);
@@ -52,7 +52,7 @@ public class MakeDefaults {
         Grass.setName("grass");
         Grass.setImagePath("resources/grass.png");
         Grass.setPassableList(passableList);
-        Grass.setStatMods(defaultNonStats);
+        Grass.setStats(defaultNonStats);
         Grass.setActive(false);
         Grass.setMoveCost(1);
 
@@ -60,7 +60,7 @@ public class MakeDefaults {
         Water.setName("water");
         Water.setImagePath("resources/water.png");
         Water.setPassableList(passableList);
-        Water.setStatMods(defaultNonStats);
+        Water.setStats(defaultNonStats);
         Water.setActive(false);
         Water.setMoveCost(2);
 
@@ -142,11 +142,24 @@ public class MakeDefaults {
     }
     
     public void makeStats(){
-        
+        List<Item> list = new ArrayList<Item>();
+        Item i = new Item();
+
+        i.setName("Generic item");
+        i.setStats(defaultStats);
+        i.addAction(defaultAction);
+        p.createJSON("defaults/Item", list);
     }
     
     public void makeItems() {
+        List<Item> list = new ArrayList<Item>();
+        Item i = new Item();
+
+        i.setName("Generic item");
+        i.setStats(defaultStats);
+        i.addAction(defaultAction);
         
+        p.createJSON("defaults/Item", list);
     }
     
     
@@ -161,6 +174,8 @@ public class MakeDefaults {
         maker.makeTiles();
         maker.makeObjects();
         maker.makeUnits();
+        maker.makeItems();
+        maker.makeStats();
         
         // handled differently in editor
         maker.makeConditions();
