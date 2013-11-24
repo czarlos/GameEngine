@@ -1,6 +1,9 @@
 package gameObject.item;
 
+import java.util.List;
 import gameObject.GameUnit;
+import gameObject.Stat;
+import gameObject.action.Action;
 
 
 /**
@@ -11,53 +14,42 @@ import gameObject.GameUnit;
  * @author carlosreyes
  * 
  */
-public abstract class Item {
-    private String name;
-    private int amount;
-
-    /**
-     * Sets the stats that this item effects.
-     * 
-     * @param gameUnit
-     */
-    public abstract void statEffect (GameUnit gameUnit);
-
-    @Override
-    public int hashCode () {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + amount;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
+public class Item {
+    private String myName;
+    private List<Action> myActions;
+    private Stat myStats;
+    
+    public Item (String name, List<Action> actions, Stat stats) {
+        myName = name;
+        myActions = actions;
+        myStats = stats;
     }
-
-    @Override
-    public boolean equals (Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        Item other = (Item) obj;
-        if (amount != other.amount) return false;
-        if (name == null) {
-            if (other.name != null) return false;
-        }
-        else if (!name.equals(other.name)) return false;
-        return true;
-    }
-
+    
     public String getName () {
-        return name;
+        return myName;
     }
 
     public void setName (String name) {
-        this.name = name;
+        this.myName = name;
     }
 
-    public int getAmount () {
-        return amount;
+    public List<Action> getActions () {
+        return myActions;
     }
 
-    public void setAmount (int amount) {
-        this.amount = amount;
+    public void setActions (List<Action> myActions) {
+        this.myActions = myActions;
+    }
+
+    public int getStat (String statName) {
+        return myStats.getStatValue(statName);
+    }
+    
+    public Stat getStats () {
+        return myStats;
+    }
+
+    public void setStats (Stat myStats) {
+        this.myStats = myStats;
     }
 }

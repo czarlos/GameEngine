@@ -17,7 +17,7 @@ public class GameManager extends Manager {
     private boolean isTurnCompleted;
 
     public GameManager (WorldManager wm) {
-        super(wm.getGameName());
+        super();
         myActiveStage = wm.myActiveStage;
         myStages = wm.myStages;
         myGameName = wm.myGameName;
