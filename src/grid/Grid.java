@@ -73,7 +73,7 @@ public class Grid implements Drawable {
      */
     private void initGrid (int tileID) {
         initTiles(tileID);
-        initObjects();
+    //    initObjects(); currently throws array indexoutofbounds exception due to the beginMove range.
     }
 
     /**

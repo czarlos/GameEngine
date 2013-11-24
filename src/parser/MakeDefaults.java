@@ -90,7 +90,7 @@ public class MakeDefaults {
 
         gameObject.Stats stat = new Stats();
         HashMap<String, Integer> stats = new HashMap<String, Integer>();
-        stats.put("movement", 3);
+        stats.put("movement", 1);
         stat.setStats(stats);
         
         hero.setName("hero");
@@ -128,6 +128,7 @@ public class MakeDefaults {
         p.createJSON("defaults/Condition", list);
     }
 
+    public void make
     /**
      * Just run this to refresh the default JSONs
      * 
