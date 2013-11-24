@@ -1,8 +1,7 @@
 package gameObject.item;
 
 import java.util.List;
-import gameObject.GameUnit;
-import gameObject.Stat;
+import gameObject.Stats;
 import gameObject.action.Action;
 
 
@@ -17,9 +16,9 @@ import gameObject.action.Action;
 public class Item {
     private String myName;
     private List<Action> myActions;
-    private Stat myStats;
+    private Stats myStats;
     
-    public Item (String name, List<Action> actions, Stat stats) {
+    public Item (String name, List<Action> actions, Stats stats) {
         myName = name;
         myActions = actions;
         myStats = stats;
@@ -45,11 +44,11 @@ public class Item {
         return myStats.getStatValue(statName);
     }
     
-    public Stat getStats () {
+    public Stats getStats () {
         return myStats;
     }
 
-    public void setStats (Stat myStats) {
+    public void setStats (Stats myStats) {
         this.myStats = myStats;
     }
 }

@@ -13,6 +13,7 @@ import stage.Stage;
 import view.Customizable;
 import gameObject.GameObject;
 import gameObject.GameUnit;
+import gameObject.MasterStats;
 import gameObject.action.Action;
 import grid.Coordinate;
 import grid.FromJSONFactory;
@@ -28,6 +29,7 @@ public class WorldManager extends Manager {
     private UnitTableModel myUnitModel;
     private String activeEditType;
     private int activeEditID;
+    private MasterStats myMasterStatList;
 
     /**
      * Intermediary between views and EditorData and Grid, stores List of Stages
@@ -39,6 +41,7 @@ public class WorldManager extends Manager {
         myFactory = new FromJSONFactory();
         myParser = new JSONParser();
         myUnitModel = new UnitTableModel();
+        myMasterStatList = new MasterStats();
     }
 
     public GameTableModel getViewModel (String type) {
@@ -230,5 +233,11 @@ public class WorldManager extends Manager {
         Condition c = (Condition) myEditorData.get("Condition").get(ConditionID);
         c.setData(data);
         myActiveStage.getTeam(teamID).addCondition(c);
+    }
+
+    public void addStat (String name, int value) {
+        myMasterStatList.setStatValue(name, value);
+        // TODO: Add to all unit definitions
+        // TODO: Add to all placed units
     }
 }

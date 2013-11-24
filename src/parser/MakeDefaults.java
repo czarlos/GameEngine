@@ -52,6 +52,7 @@ public class MakeDefaults {
         tree.setName("tree");
         tree.setImagePath("resources/tree.png");
         tree.setPassableList(new java.util.ArrayList<String>());
+        tree.setDisplayData(new ArrayList<String>());
 
         p.createJSON("tree", tree);
         p.createObject("tree", gameObject.GameObject.class);
@@ -67,8 +68,8 @@ public class MakeDefaults {
 
         gameObject.GameUnit hero = new gameObject.GameUnit();
 
-        gameObject.Stat stats = new gameObject.Stat();
-        stats.setStatValue("movement", 3);
+        gameObject.Stats stats = new gameObject.Stats();
+        stats.setStatValue("movement", 3); // TODO: Add to master stat list
 
         hero.setName("hero");
         hero.setImagePath("resources/hero.png");

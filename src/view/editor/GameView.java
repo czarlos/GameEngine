@@ -74,7 +74,7 @@ public abstract class GameView extends JFrame {
         JPanel loadPanel = new JPanel();
         loadPanel.setLayout(new GridLayout(0, 2));
         JLabel gameNames = new JLabel("Choose Game Name:");
-        JComboBox<String> gameNamesMenu = new JComboBox<String>();
+        JComboBox<String> gameNamesMenu = new JComboBox<>();
         File savesDir = new File("JSONs/saves");
         for (File child : savesDir.listFiles()) {
             gameNamesMenu.addItem(child.getName().split("\\.")[0]);

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import gameObject.GameUnit;
-import gameObject.Stat;
+import gameObject.Stats;
 import gameObject.StatModifier;
 import gameObject.action.CombatAction;
 import gameObject.item.Equipment;
@@ -37,7 +37,7 @@ public class GameUnitTest {
      */
     public void initializeCustom () {
         // Setting up the units base stats
-        Stat stats = new Stat();
+        Stats stats = new Stats();
         stats.setStatValue("attack", 10);
         stats.setStatValue("defense", 5);
         stats.setStatValue("agility", 7);
@@ -156,7 +156,7 @@ public class GameUnitTest {
 
         Item bow = new Weapon("bow", action, new StatModifier(statMods));
 
-        Stat stats = new Stat();
+        Stats stats = new Stats();
         stats.setStatValue("agility", 0);
         stats.setStatValue("attack", 0);
         stats.setStatValue("defense", 0);
