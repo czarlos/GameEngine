@@ -17,8 +17,14 @@ import view.editor.GameView;
 
 
 public class PlayerView extends GameView {
+    private GameManager myManager;
+    
     public PlayerView () {
 
+    }
+    
+    public PlayerView(GameManager manager){
+        myManager=manager;
     }
 
     @Override
@@ -43,7 +49,7 @@ public class PlayerView extends GameView {
     }
 
     @Override
-    protected void loadGame () {
+    protected void newGame () {
         JPanel newGamePanel = new JPanel();
         newGamePanel.setLayout(new GridLayout(1, 2));
         JLabel gameNameLabel = new JLabel("Game Name:");
@@ -54,10 +60,9 @@ public class PlayerView extends GameView {
         this.remove(myBackground);
         String gameName = gameNameTextField.getText();
         this.setTitle(gameName);
-        // TODO: needs to read in worldmanager from JSON
-        myWorldManager = new WorldManager();
+
         myWorldManager.setGameName(gameName);
-        myGameManager = new GameManager(myWorldManager);
+        myGameManager = new GameManager(myManager);
         setGame();
         revalidate();
         repaint();
@@ -65,7 +70,6 @@ public class PlayerView extends GameView {
 
     private void setGame () {
 
-        myWorldManager.addStage(10, 10, 0, "StageAwesome");// ****
                                                            // fix
         StagePlayerPanel sp = new StagePlayerPanel("MyStage", myWorldManager);
         add(sp);
