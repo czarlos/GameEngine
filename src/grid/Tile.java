@@ -54,9 +54,12 @@ public class Tile extends GameObject {
      * @param imagePath - String of image path
      */
 
-    @Override
-    public Image getImage () {
-        return myImage;
+    public boolean isActive(){
+        return isActive;
+    }
+    
+    public void setActive(boolean active){
+        isActive=active;
     }
 
     public int getMoveCost () {

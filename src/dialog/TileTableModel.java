@@ -34,7 +34,7 @@ public class TileTableModel extends GameTableModel {
             Object[] current = myList.get(ID);
             Tile t = new Tile();
             t.setMoveCost((int) current[0]);
-            t.setImageAndPath((String) current[1]);
+            t.setImageandPath((String) current[1]);
             t.setPassableList((List<String>) current[2]);
 
             return t;
