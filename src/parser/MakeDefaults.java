@@ -52,6 +52,7 @@ public class MakeDefaults {
         tree.setName("tree");
         tree.setImagePath("resources/tree.png");
         tree.setPassableList(new java.util.ArrayList<String>());
+        tree.setDisplayData(new ArrayList<String>());
 
         p.createJSON("tree", tree);
         p.createObject("tree", gameObject.GameObject.class);

@@ -29,15 +29,6 @@ public class Tile extends GameObject {
     private Coordinate myCoordinate;
 
     public Tile () {
-        setImagePath(myImagePath);
-        List<String> displayData = new ArrayList<>();
-        displayData.add("Name: " + myName);
-        displayData.add("Movement cost: " + myMoveCost);
-        displayData.add("Stat Modifiers: ");
-        for (String stat : myStatMods.keySet()) {
-            displayData.add(stat + ": " + myStatMods.get(stat));
-        }
-        myDisplayData = displayData;
     }
 
     public boolean isActive () {
@@ -80,6 +71,17 @@ public class Tile extends GameObject {
 
     public void setMoveCost (int moveCost) {
         myMoveCost = moveCost;
+    }
+    
+    public void generateDisplayData () {
+        List<String> displayData = new ArrayList<>();
+        displayData.add("Name: " + myName);
+        displayData.add("Movement cost: " + myMoveCost);
+        displayData.add("Stat Modifiers: ");
+        for (String stat : myStatMods.keySet()) {
+            displayData.add(stat + ": " + myStatMods.get(stat));
+        }
+        myDisplayData = displayData;
     }
 
     public Tile (List<Tile> neighbors, Coordinate coordinate) {

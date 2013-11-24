@@ -361,6 +361,7 @@ public class Grid implements Drawable {
      */
     public List<String> generateTileInfo (Coordinate coordinate) {
         Tile tile = getTile(coordinate);
+        tile.generateDisplayData();
         return tile.getDisplayData();
     }
 
