@@ -210,10 +210,6 @@ public class WorldManager extends Manager {
         myParser.createJSON("saves/" + myGameName, this);
     }
 
-    public WorldManager loadGame (String gameName) {
-        return myParser.createObject("saves/" + gameName, controllers.WorldManager.class);
-    }
-
     /**
      * Takes a data type and ID and returns a list of required data that needs to be passed in to
      * create/edit one of those objects

@@ -56,7 +56,10 @@ public abstract class GameView extends JFrame {
         pack();
         setSize(800, 600);
         setVisible(true);
-
+    }
+    
+    protected void clearWindow () {
+        setJMenuBar(createMenuBar(this));
     }
 
     protected abstract JMenuBar createMenuBar (JFrame frame);
@@ -67,29 +70,6 @@ public abstract class GameView extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(label, BorderLayout.CENTER);
         return panel;
-    }
-
-    protected void loadGame () {
-        myWorldManager = new WorldManager();
-        JPanel loadPanel = new JPanel();
-        loadPanel.setLayout(new GridLayout(0, 2));
-        JLabel gameNames = new JLabel("Choose Game Name:");
-        JComboBox<String> gameNamesMenu = new JComboBox<>();
-        File savesDir = new File("JSONs/saves");
-        for (File child : savesDir.listFiles()) {
-            gameNamesMenu.addItem(child.getName().split("\\.")[0]);
-        }
-        loadPanel.add(gameNames);
-        loadPanel.add(gameNamesMenu);
-
-        int value =
-                JOptionPane.showConfirmDialog(this, loadPanel, "Choose Game",
-                                              JOptionPane.OK_CANCEL_OPTION);
-        if (value == JOptionPane.OK_OPTION) {
-            String game = (String) gameNamesMenu.getSelectedItem();
-            WorldManager newWM = myWorldManager.loadGame(game);
-            myWorldManager = newWM;
-        }
     }
 
 }

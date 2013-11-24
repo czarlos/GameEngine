@@ -97,7 +97,7 @@ public class MakeDefaults {
 
         gameObject.Stats stat = new Stats();
         HashMap<String, Integer> stats = new HashMap<String, Integer>();
-        stats.put("movement", 1);
+        stats.put("movement", 3);
         stat.setStats(stats);
         
         hero.setName("hero");
@@ -120,8 +120,6 @@ public class MakeDefaults {
         wm.setGameName("test");
         wm.addStage(10, 10, 1, "stageOne");
         wm.saveGame();
-
-        wm.loadGame("test");
     }
 
     public void makeConditions () {
