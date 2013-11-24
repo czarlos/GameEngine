@@ -36,4 +36,5 @@ public class Stats {
     public void setStatList (Map<String, Integer> myStatMap) {
         this.myStatMap = myStatMap;
     }
+    
 }
