@@ -140,7 +140,7 @@ public class MakeDefaults {
         maker.makeObjects();
         maker.makeConditions();
         maker.makeUnits();
-        maker.saveAndLoadGame();
+ //       maker.saveAndLoadGame();
     }
 
 }

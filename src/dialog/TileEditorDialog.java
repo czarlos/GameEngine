@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -42,10 +43,10 @@ public class TileEditorDialog extends JDialog{
         
 
         JTable table = new JTable(model);
-        table.setDefaultRenderer(ImageIcon.class,
+        table.setDefaultRenderer(File.class,
                                  new ThumbnailRenderer());
-        table.setDefaultEditor(ImageIcon.class,
-                               new ImageEditor());
+        table.setDefaultEditor(File.class,
+                               new ImagePathEditor());
         table.setRowHeight(52);
         table.setPreferredScrollableViewportSize(new Dimension(500, 52));
         table.setFillsViewportHeight(true);        

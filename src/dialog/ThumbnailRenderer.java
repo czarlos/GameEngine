@@ -3,7 +3,9 @@ package dialog;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.io.File;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -33,7 +35,15 @@ public class ThumbnailRenderer extends DefaultTableCellRenderer {
          * Image newimg = img.getScaledInstance( NEW_WIDTH, NEW_HEIGHT, java.awt.Image.SCALE_SMOOTH
          * ) ;
          * icon = new ImageIcon( newimg );
+         * 
          */
+        
+        ImageIcon image;
+        
+        if(value instanceof File){
+            image = new ImageIcon((String) ((File) value).getAbsolutePath());
+            value = image;
+        }
 
         ((JLabel) cell).setIcon((Icon) value);
         ((JLabel) cell).setText("");

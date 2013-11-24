@@ -1,9 +1,11 @@
 package dialog;
 
 import grid.Tile;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.swing.ImageIcon;
 import view.Customizable;
 
 /**
@@ -28,8 +30,14 @@ public class TileTableModel extends GameTableModel{
 
             Tile t = (Tile) tile;
             
+           // ImageIcon image; 
+            
+            //render image at absolute file path if value is not an ImageIcon
+           
+           // image = new ImageIcon((String) t.getImagePath());
+
             array[0] = t.getName();
-            array[1] = t.getImagePath();
+            array[1] = new File(t.getImagePath());
             array[2] = t.getMoveCost();
             array[3] = t.getStatMods();
 
@@ -51,6 +59,12 @@ public class TileTableModel extends GameTableModel{
         }
 
         return null;
+    }
+    
+    @Override
+    public boolean isCellEditable(int row, int column) {
+        return true;
+        
     }
     
     
