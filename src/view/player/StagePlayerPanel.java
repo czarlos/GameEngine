@@ -1,4 +1,4 @@
-package src.view.player;
+package view.player;
 
 import grid.Coordinate;
 import java.awt.Dimension;
