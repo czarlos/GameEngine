@@ -11,6 +11,7 @@ import view.Customizable;
  *
  */
 
+
 public class TileTableModel extends GameTableModel{
 
     public TileTableModel(){
@@ -24,12 +25,14 @@ public class TileTableModel extends GameTableModel{
             Object[] array = new Object[myColumnNames.length];
             
             Tile t = (Tile) tile;
-            // int checker
-            array[0] = t.getMoveCost();
-            // this is a file chooser
-            array[1] = t.getImagePath();
-            // this is a list.
-            //array[2] = t.getPassableList();
+            
+            array[0] = t.getImagePath();
+            array[1] = t.getMoveCost();
+            array[2] = t.getStatMods();
+            array[3] = t.getPassableList();
+            
+            
+
             myList.add(array);        
         }
     }
