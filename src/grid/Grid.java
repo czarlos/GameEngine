@@ -631,4 +631,20 @@ public class Grid implements Drawable {
         return new Coordinate(gridX, gridY);
     }
 
+    public double getWidth () {
+        return myWidth;
+    }
+    
+    public void setWidth (int width) {
+        myWidth = width;
+    }
+    
+    public double getHeight () {
+        return myHeight;
+    }
+    
+    public void setHeight (int height) {
+        myHeight = height;
+    }
+
 }
