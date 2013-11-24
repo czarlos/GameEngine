@@ -3,7 +3,8 @@ package dialog;
 import java.util.List;
 import view.Customizable;
 
-public class MasterStatsTableModel extends GameTableModel{
+
+public class MasterStatsTableModel extends GameTableModel {
 
     @Override
     public void addNewRow (Object[] row) {
@@ -13,13 +14,7 @@ public class MasterStatsTableModel extends GameTableModel{
     @Override
     void addPreviouslyDefined (List<Customizable> list) {
         // TODO Auto-generated method stub
-        
+
     }
-    
-    
-    
-    
-    
-    
 
 }

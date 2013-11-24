@@ -19,7 +19,6 @@ public class MethodAction implements ActionListener
     private Method myMethod;
     private Object[] myArgs;
 
-
     /**
      * Create action for given no-argument method of the target object.
      */
@@ -28,9 +27,8 @@ public class MethodAction implements ActionListener
         this(target, methodName, new Object[0]);
     }
 
-
     /**
-     * Create action for given method of the target object that takes 
+     * Create action for given method of the target object that takes
      * arguments.
      */
     public MethodAction (Object target, String methodName, Object ... args)
@@ -47,7 +45,6 @@ public class MethodAction implements ActionListener
             throw new ReflectionException(e.getMessage());
         }
     }
-
 
     /**
      * Call the method when this action is performed.

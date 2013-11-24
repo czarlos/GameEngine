@@ -1,8 +1,14 @@
 package parser;
 
 import gameObject.GameObjectConstants;
+import gameObject.Stats;
+import gameObject.action.Action;
+import gameObject.action.CombatAction;
+import gameObject.item.Item;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import stage.ItemCondition;
 import stage.PositionCondition;
 import stage.StatCondition;
@@ -13,9 +19,23 @@ import stage.UnitCountCondition;
 public class MakeDefaults {
 
     private JSONParser p;
-
+    private Item defaultItem;
+    private Action defaultAction;
+    private Stats defaultStats;
     public MakeDefaults () {
         p = new JSONParser();
+        
+        defaultStats = new Stats();
+        Map<String, Integer> stats = new HashMap<String, Integer>();
+        stats.put("movement", 3);
+        defaultStats.setStats(stats);
+        defaultAction = new CombatAction();
+        defaultAction.setName("Action");
+
+        defaultItem = new Item();
+        defaultItem.addAction(defaultAction);
+        defaultItem.setName("Item");
+        defaultItem.setStats(defaultStats);
     }
 
     public void makeTiles () throws Exception {
@@ -24,7 +44,7 @@ public class MakeDefaults {
         passableList.add(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
         grid.Tile Grass = new grid.Tile();
         Grass.setName("grass");
-        Grass.setImageAndPath("resources/grass.png");
+        Grass.setImagePath("resources/grass.png");
         Grass.setPassableList(passableList);
         Grass.setStatMods(new java.util.HashMap<String, Double>());
         Grass.setActive(false);
@@ -32,7 +52,7 @@ public class MakeDefaults {
 
         grid.Tile Water = new grid.Tile();
         Water.setName("water");
-        Water.setImageAndPath("resources/water.png");
+        Water.setImagePath("resources/water.png");
         Water.setPassableList(passableList);
         Water.setStatMods(new java.util.HashMap<String, Double>());
         Water.setActive(false);
@@ -50,8 +70,9 @@ public class MakeDefaults {
 
         gameObject.GameObject tree = new gameObject.GameObject();
         tree.setName("tree");
-        tree.setImageAndPath("resources/tree.png");
+        tree.setImagePath("resources/tree.png");
         tree.setPassableList(new java.util.ArrayList<String>());
+        tree.setDisplayData(new ArrayList<String>());
 
         p.createJSON("tree", tree);
         p.createObject("tree", gameObject.GameObject.class);
@@ -67,26 +88,29 @@ public class MakeDefaults {
 
         gameObject.GameUnit hero = new gameObject.GameUnit();
 
-        gameObject.Stat stats = new gameObject.Stat();
-        stats.setStatValue("movement", 3);
-
+        gameObject.Stats stat = new Stats();
+        HashMap<String, Integer> stats = new HashMap<String, Integer>();
+        stats.put("movement", 3);
+        stat.setStats(stats);
+        
         hero.setName("hero");
-        hero.setImageAndPath("resources/hero.png");
+        hero.setImagePath("resources/hero.png");
         hero.setPassableList(new java.util.ArrayList<String>());
-        hero.setAffiliation(0);
         hero.setControllable(true);
         hero.setHealth(20);
+        hero.setAffiliation("");
         hero.setExperience(0);
-        hero.setUnitStats(stats);
-        hero.setItemList(new java.util.ArrayList<gameObject.item.Item>());
-
+        hero.setStats(stat);
+        hero.addItem(defaultItem);
+        
         list.add(hero);
 
         p.createJSON("defaults/GameUnit", list);
     }
 
     public void saveAndLoadGame () {
-        controllers.WorldManager wm = new controllers.WorldManager("test");
+        controllers.WorldManager wm = new controllers.WorldManager();
+        wm.setGameName("test");
         wm.addStage(10, 10, 1, "stageOne");
         wm.saveGame();
 

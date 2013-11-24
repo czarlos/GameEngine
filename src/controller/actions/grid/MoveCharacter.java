@@ -1,24 +1,24 @@
 package controller.actions.grid;
 
 import java.util.List;
+import controllers.WorldManager;
 import grid.Coordinate;
-import grid.Grid;
 
 
 public class MoveCharacter extends AbstractGridCommand {
 
-    public MoveCharacter (Grid grid,List<Coordinate> selectedCoordinates) {
-        super(grid, selectedCoordinates);
+    public MoveCharacter (WorldManager wm, List<Coordinate> selectedCoordinates) {
+        super(wm, selectedCoordinates);
     }
 
     @Override
     public void undo () {
-        myGrid.doMove(mySelectedCoordinates.get(1), mySelectedCoordinates.get(0));
+        myWM.doMove(mySelectedCoordinates.get(1), mySelectedCoordinates.get(0));
     }
 
     @Override
     public void execute () {
-        myGrid.doMove(mySelectedCoordinates.get(0), mySelectedCoordinates.get(1));
+        myWM.doMove(mySelectedCoordinates.get(0), mySelectedCoordinates.get(1));
     }
 
 }

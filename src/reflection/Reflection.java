@@ -4,7 +4,6 @@ import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 
 /**
@@ -45,7 +44,7 @@ public class Reflection
     public static Object createInstance (String name, Object ... args)
                                                                       throws ReflectionException
     {
-        //Lets arguments be passed around as an object array and flattened back
+        // Lets arguments be passed around as an object array and flattened back
         args = flatten(args);
         try
         {
@@ -205,8 +204,8 @@ public class Reflection
         return results;
     }
 
-    //Method to flatten nested object arrays. Used for arguments passed 
-    //to multiple methods before bubbling to here.
+    // Method to flatten nested object arrays. Used for arguments passed
+    // to multiple methods before bubbling to here.
     private static Object[] flatten (Object[] args) {
         List<Object> objects = new ArrayList<>();
         for (Object o : args) {

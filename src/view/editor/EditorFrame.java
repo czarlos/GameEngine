@@ -18,14 +18,13 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import controllers.WorldManager;
 
 
 public class EditorFrame extends GameView {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -8550671173122103688L;
 
     private ArrayList<StagePanel> myStagePanelList = new ArrayList<StagePanel>();
@@ -67,14 +66,14 @@ public class EditorFrame extends GameView {
         JMenuItem addStage = new JMenuItem("Add Stage");
         gameMenu.add(addStage);
         // add action listeners
-        newGame.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent event) {
-                newGame();
-            }
-        });
         addStage.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
                 addStagePanel();
+            }
+        });
+        newGame.addActionListener(new ActionListener() {
+            public void actionPerformed (ActionEvent event) {
+                newGame();
             }
         });
         loadGame.addActionListener(new ActionListener() {
@@ -115,8 +114,17 @@ public class EditorFrame extends GameView {
             this.repaint();
             String gameName = gameNameTextField.getText();
             this.setTitle(gameName);
-            myWorldManager = new WorldManager(gameName);
+            myWorldManager = new WorldManager();
+            myWorldManager.setGameName(gameName);
             addStagePanel();
+            JMenu stageMenu = new JMenu("Stage");
+            stageMenu.setMnemonic(KeyEvent.VK_S);
+            myMenuBar.add(stageMenu);
+            // add menu items
+            JMenuItem objective = new JMenuItem("Set Objective");
+            objective.setAccelerator(KeyStroke.getKeyStroke("control O"));
+            stageMenu.add(objective);
+
         }
     }
 
@@ -134,7 +142,7 @@ public class EditorFrame extends GameView {
         JTextField xTextField = new JTextField(6);
         JTextField yTextField = new JTextField(6);
         JLabel imageLabel = new JLabel("Default Tile");
-        JComboBox<String> imageMenu = new JComboBox<String>();
+        JComboBox<String> imageMenu = new JComboBox<>();
         List<String> tileNames = myWorldManager.get("Tile");
         for (String s : tileNames) {
             imageMenu.addItem(s);
@@ -156,15 +164,27 @@ public class EditorFrame extends GameView {
             int gridWidth = Integer.parseInt(xTextField.getText());
             int gridHeight = Integer.parseInt(yTextField.getText());
             String image = (String) imageMenu.getSelectedItem();
-            myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image), stageName);// ****
-                                                                                                // fix
-            StagePanel sp = new StagePanel(stageName, myWorldManager.getGrid(), myWorldManager);
+            int stageID =
+                    myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image),
+                                            stageName);// ****
+            // fix
+            StagePanel sp = new StagePanel(stageName, myWorldManager);
             myStagePanelList.add(sp);
             stageTabbedPane.addTab(stageName, sp);
             stageTabbedPane.setSelectedIndex(myStagePanelList.size() - 1);
+            stageTabbedPane.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged (ChangeEvent e) {
+                    switchActiveStage();
+                }
+            });
             this.repaint();
         }
 
+    }
+
+    private void switchActiveStage () {
+        myWorldManager.setActiveStage(stageTabbedPane.getSelectedIndex());
     }
 
     public static void main (String[] args) {

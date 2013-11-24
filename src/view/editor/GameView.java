@@ -12,11 +12,11 @@ import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import controllers.GameManager;
 import controllers.WorldManager;
 
 
 @SuppressWarnings("serial")
-
 /**
  * Class to represent main view for both the game editing environment and the 
  * game play environment. This class encapsulates the things both environments
@@ -25,7 +25,8 @@ import controllers.WorldManager;
 public abstract class GameView extends JFrame {
     protected WorldManager myWorldManager;
     protected JPanel myBackground;
-    
+    protected GameManager myGameManager;
+
     public GameView () throws HeadlessException {
         super();
         initializeWindow();
@@ -46,7 +47,7 @@ public abstract class GameView extends JFrame {
         initializeWindow();
     }
 
-    protected void initializeWindow(){
+    protected void initializeWindow () {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setJMenuBar(createMenuBar(this));
         myBackground = createBackground();
@@ -55,33 +56,36 @@ public abstract class GameView extends JFrame {
         pack();
         setSize(800, 600);
         setVisible(true);
-        
+
     }
+
     protected abstract JMenuBar createMenuBar (JFrame frame);
-    
+
     protected JPanel createBackground () {
-        ImageIcon image = new ImageIcon("resources/omega_nu_3.png");
+        ImageIcon image = new ImageIcon("resources/omega2.gif");
         JLabel label = new JLabel("", image, JLabel.CENTER);
         JPanel panel = new JPanel(new BorderLayout());
-        panel.add( label, BorderLayout.CENTER );
+        panel.add(label, BorderLayout.CENTER);
         return panel;
     }
-    
+
     protected void loadGame () {
-        myWorldManager = new WorldManager("");
+        myWorldManager = new WorldManager();
         JPanel loadPanel = new JPanel();
-        loadPanel.setLayout(new GridLayout(0,2));
+        loadPanel.setLayout(new GridLayout(0, 2));
         JLabel gameNames = new JLabel("Choose Game Name:");
-        JComboBox<String> gameNamesMenu = new JComboBox<String>();
+        JComboBox<String> gameNamesMenu = new JComboBox<>();
         File savesDir = new File("JSONs/saves");
-        for(File child: savesDir.listFiles()){
+        for (File child : savesDir.listFiles()) {
             gameNamesMenu.addItem(child.getName().split("\\.")[0]);
         }
         loadPanel.add(gameNames);
         loadPanel.add(gameNamesMenu);
-        
-        int value = JOptionPane.showConfirmDialog(this, loadPanel, "Choose Game", JOptionPane.OK_CANCEL_OPTION);
-        if(value == JOptionPane.OK_OPTION){
+
+        int value =
+                JOptionPane.showConfirmDialog(this, loadPanel, "Choose Game",
+                                              JOptionPane.OK_CANCEL_OPTION);
+        if (value == JOptionPane.OK_OPTION) {
             String game = (String) gameNamesMenu.getSelectedItem();
             WorldManager newWM = myWorldManager.loadGame(game);
             myWorldManager = newWM;

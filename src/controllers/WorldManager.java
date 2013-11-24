@@ -5,44 +5,69 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import controllers.EditorData;
+import dialog.GameTableModel;
+import dialog.UnitTableModel;
 import parser.JSONParser;
 import stage.Condition;
 import stage.Stage;
 import view.Customizable;
 import gameObject.GameObject;
 import gameObject.GameUnit;
+import gameObject.MasterStats;
+import gameObject.action.Action;
+import grid.Coordinate;
 import grid.FromJSONFactory;
-import grid.Grid;
 import grid.Tile;
 
 
 @JsonAutoDetect
-public class WorldManager {
-    @JsonProperty
-    List<Stage> myStages;
-    @JsonProperty
-    Stage myActiveStage;
+public class WorldManager extends Manager {
+
     FromJSONFactory myFactory;
     JSONParser myParser;
-    @JsonProperty
-    EditorData myEditorData;
-    @JsonProperty
-    String myGameName;
+
+    private UnitTableModel myUnitModel;
+    private String activeEditType;
+    private int activeEditID;
+    private MasterStats myMasterStatList;
 
     /**
      * Intermediary between views and EditorData and Grid, stores List of Stages
      * 
      * @param gameName
      */
-    public WorldManager (@JsonProperty("myGameName") String gameName) {
-        myStages = new ArrayList<Stage>();
+    public WorldManager () {
+        super();
         myFactory = new FromJSONFactory();
         myParser = new JSONParser();
-        myEditorData = new EditorData("defaults");
-        myGameName = gameName;
+        myUnitModel = new UnitTableModel();
+        myMasterStatList = new MasterStats();
+    }
+
+    public GameTableModel getViewModel (String type) {
+        switch (type.toLowerCase()) {
+            case "tile":
+                return null; // add
+            case "gameunit":
+                return myUnitModel;
+            case "gameobject":
+
+                return null; // add
+        }
+        return null;
+    }
+
+    public void setActiveObject (String type, int id) {
+        activeEditType = type;
+        activeEditID = id;
+    }
+
+    public String getActiveType () {
+        return activeEditType;
+    }
+
+    public int getActiveID () {
+        return activeEditID;
     }
 
     /**
@@ -60,40 +85,6 @@ public class WorldManager {
         return myStages.size() - 1;
     }
 
-    /**
-     * Returns list of stage names
-     * 
-     * @return
-     */
-    @JsonIgnore
-    public List<String> getStages () {
-        List<String> ret = new ArrayList<String>();
-        for (Stage s : myStages) {
-            ret.add(s.getName());
-        }
-
-        return ret;
-    }
-
-    /**
-     * Set list of stages, used by JSON deserializer
-     * 
-     * @param stages
-     */
-    public void setStages (List<Stage> stages) {
-        myStages = stages;
-    }
-
-    /**
-     * Set which stage to assign "active", this
-     * is the stage that all methods will return information about by default.
-     * 
-     * @param stageID
-     */
-    public void setActiveStage (int stageID) {
-        if (stageID < myStages.size())
-            myActiveStage = myStages.get(stageID);
-    }
 
     /**
      * Set the name of the game
@@ -104,55 +95,13 @@ public class WorldManager {
         myGameName = gameName;
     }
 
-    /**
-     * Gets the game name
-     * 
-     * @return
-     */
-    public String getGameName () {
-        return myGameName;
-    }
 
-    /**
-     * Method to getting a Drawable version of the grid
-     * 
-     * @return
-     */
-    // TODO: Change this to Drawable when Patrick is around.
-    public Grid getGrid () {
-        return myActiveStage.getGrid();
+    // WILL BE REMOVED, USE GAMEMANAGER
+    public void doMove (Coordinate a, Coordinate b) {
+        myActiveStage.getGrid().doMove(a, b);
     }
-
-    /*
-     * public Drawable getGrid () {
-     * return (Drawable) myActiveStage.getGrid();
-     * }
-     */
-
-    /**
-     * Getting images
-     * 
-     * @param x
-     * @param y
-     * @return
-     */
-    public Image getTileImage (int x, int y) {
-        return myActiveStage.getGrid().getTile(x, y).getImage();
-    }
-
-    /**
-     * Gets the Image of the object and location x and y
-     * 
-     * @param x
-     * @param y
-     * @return
-     */
-    public Image getObjectImage (int x, int y) {
-        GameObject o = myActiveStage.getGrid().getObject(x, y);
-        if (o != null)
-            return o.getImage();
-        return null;
-    }
+    
+    // do action is in gamemanager
 
     /**
      * Placing (previously created) things on the board. These will be replaced by table editing
@@ -163,21 +112,23 @@ public class WorldManager {
      * @param y Coordinate
      */
     public void setTile (int tileID, int x, int y) {
-        myActiveStage.getGrid().placeTile((Tile) myFactory.make("tile", tileID), x, y);
+        myActiveStage.getGrid().placeTile(new Coordinate(x, y),
+                                          (Tile) myFactory.make("tile", tileID));
     }
 
-    // if you need to make any more of these, then just combine all these placeObjects into one
     public void placeUnit (int unitID, int x, int y) {
-        myActiveStage.getGrid().placeObject((GameObject) myFactory.make("unit", unitID), x, y);
+        myActiveStage.getGrid().placeObject(new Coordinate(x, y),
+                                            (GameObject) myFactory.make("gameunit", unitID));
+
     }
 
     public void placeObject (int objectID, int x, int y) {
-        myActiveStage.getGrid().placeObject((GameObject) myFactory.make("gameobject", objectID),
-                                            x, y);
+        myActiveStage.getGrid().placeObject(new Coordinate(x, y),
+                                            (GameObject) myFactory.make("gameobject", objectID));
     }
 
     /**
-     * Gives access to certain customizable attributes (name and image). Valid parameters are
+     * Gives access to certain names of customizables. Valid parameters are
      * "GameUnit",
      * "GameObject",
      * "Tile", "Condition"
@@ -221,7 +172,7 @@ public class WorldManager {
     public int setCustomTile (int ID, String name, String imagePath, int moveCost) {
         Tile t = new grid.Tile();
         t.setName(name);
-        t.setImageAndPath(imagePath);
+        t.setImagePath(imagePath);
         t.setMoveCost(moveCost);
         return myEditorData.setCustomizable("Tile", ID, t);
     }
@@ -234,8 +185,7 @@ public class WorldManager {
         GameUnit gu = new GameUnit();
 
         gu.setName(name);
-        gu.setImageAndPath(imagePath);
-        gu.setAffiliation(affiliation);
+        gu.setImagePath(imagePath);
         gu.setControllable(controllable);
         return myEditorData.setCustomizable("GameUnit", ID, gu);
     }
@@ -243,13 +193,13 @@ public class WorldManager {
     public int setCustomObject (int ID, String name, String imagePath) {
         GameObject go = new GameObject();
         go.setName(name);
-        go.setImageAndPath(imagePath);
+        go.setImagePath(imagePath);
 
         return myEditorData.setCustomizable("GameObject", ID, go);
     }
 
     /**
-     * Save game and load game
+     * Save game and load game. TODO: see if we can refactor this into manager?
      */
     public void saveGame () {
         myParser.createJSON("saves/" + myGameName, this);
@@ -267,8 +217,8 @@ public class WorldManager {
      * @param data type (i.e. "Condition"
      * @return list of data that needs to be passed into "set" to create object.
      */
-    public List<String> getNeededData (int ID, String type) {
-        Customizable c = (Customizable) myEditorData.get(type).get(ID);
+    public List<String> getNeededConditionData (int ID) {
+        Condition c = (Condition) myEditorData.get("Condition").get(ID);
         return c.getNeededData();
     }
 
@@ -279,11 +229,15 @@ public class WorldManager {
      * @param ConditionID
      * @param Map of NeededData mapped to what the user types in
      */
-    public void setCondition (int ConditionID, Map<String, String> data) {
+    public void setCondition (int teamID, int ConditionID, Map<String, String> data) {
         Condition c = (Condition) myEditorData.get("Condition").get(ConditionID);
         c.setData(data);
-        myActiveStage.addCondition(c);
+        myActiveStage.getTeam(teamID).addCondition(c);
     }
 
-    // TODO: when people are done implementing things add methods for setting/getting actions, items
+    public void addStat (String name, int value) {
+        myMasterStatList.setStatValue(name, value);
+        // TODO: Add to all unit definitions
+        // TODO: Add to all placed units
+    }
 }

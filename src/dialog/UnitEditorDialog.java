@@ -14,29 +14,28 @@ import javax.swing.JTable;
 
 /**
  * @author brooksmershon
- *
- * Presents a view of current units with the ability to add, remove operations for a scrolling
- * table view of row definitions for units
+ * 
+ *         Presents a view of current units with the ability to add, remove operations for a
+ *         scrolling
+ *         table view of row definitions for units
  * 
  * 
  */
-public class UnitEditorDialog extends JDialog{
-    
+public class UnitEditorDialog extends JDialog {
 
     /**
      * 
      */
     private static final long serialVersionUID = 370838418473171385L;
-    
+
     /**
      * 
      * @param model - a TableModel class which provides getter and setter methods
-     * for cell rendering and editing
+     *        for cell rendering and editing
      */
-    public UnitEditorDialog(GameTableModel model) {
+    public UnitEditorDialog (GameTableModel model) {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        
 
         JTable table = new JTable(model);
         table.setDefaultRenderer(ImageIcon.class,
@@ -48,11 +47,10 @@ public class UnitEditorDialog extends JDialog{
         table.setFillsViewportHeight(true);
 
         JScrollPane scrollPane = new JScrollPane(table);
-        
-        
-       panel.add(scrollPane);
-       add(panel);
-       setSize(new Dimension(500, 500));
+
+        panel.add(scrollPane);
+        add(panel);
+        setSize(new Dimension(500, 500));
     }
 
 }

@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import gameObject.CombatAction;
 import gameObject.GameUnit;
-import gameObject.Stat;
+import gameObject.Stats;
 import gameObject.StatModifier;
+import gameObject.action.CombatAction;
 import gameObject.item.Equipment;
 import gameObject.item.Item;
 import gameObject.item.Weapon;
@@ -37,21 +37,17 @@ public class GameUnitTest {
      */
     public void initializeCustom () {
         // Setting up the units base stats
-        Stat stats = new Stat();
+        Stats stats = new Stats();
         stats.setStatValue("attack", 10);
         stats.setStatValue("defense", 5);
         stats.setStatValue("agility", 7);
         stats.setStatValue("health", 15);
 
-        // Setting up a list of items
-        List<Item> itemList = new ArrayList<Item>();
-
         Map<String, Integer> statMods = new HashMap<String, Integer>();
         statMods.put("attack", 4);
         List<CombatAction> action = new ArrayList<CombatAction>();
         CombatAction combAct =
-                new CombatAction(new StatModifier(statMods), null, 0.0, statMods, null, null, null,
-                                 false);
+                new CombatAction("Test", new StatModifier(statMods), null, null, null);
         action.add(combAct);
         Item sword = new Weapon("sword", action, new StatModifier(statMods));
 
@@ -59,8 +55,7 @@ public class GameUnitTest {
         statMods1.put("defense", 3);
         Item shield = new Equipment("shield", new StatModifier(statMods1));
 
-        customUnit =
-                new GameUnit("Marth", GridConstants.DEFAULT_UNIT_PATH, 0, stats, itemList, true);
+        customUnit = new GameUnit();
         customUnit.setActiveWeapon(sword);
         // Note this is how all items must be added.
         customUnit.addItem(sword);
@@ -156,18 +151,17 @@ public class GameUnitTest {
 
         List<CombatAction> action = new ArrayList<CombatAction>();
         CombatAction combAct =
-                new CombatAction(new StatModifier(statMods), null, 0.0, statMods, null, null, null,
-                                 false);
+                new CombatAction("Test", new StatModifier(statMods), null, null, null);
         action.add(combAct);
 
         Item bow = new Weapon("bow", action, new StatModifier(statMods));
 
-        Stat stats = new Stat();
+        Stats stats = new Stats();
         stats.setStatValue("agility", 0);
         stats.setStatValue("attack", 0);
         stats.setStatValue("defense", 0);
 
-        defaultUnit.setUnitStats(stats);
+        defaultUnit.setStats(stats);
 
         defaultUnit.addItem(bow);
         defaultUnit.setActiveWeapon(bow);

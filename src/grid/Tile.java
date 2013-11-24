@@ -2,7 +2,8 @@ package grid;
 
 import gameObject.GameObject;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
@@ -13,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
  * 
  * @author Kevin
  * @author Ken
+ * @author carlosreyes
  * 
  */
 @JsonAutoDetect
@@ -20,10 +22,13 @@ public class Tile extends GameObject {
     private boolean isActive;
     private Map<String, Double> myStatMods;
     private int myMoveCost;
-    private BufferedImage myImage;
+    private List<Tile> myNeighbors;
+    private Tile myParent;
+    private int myLength;
+    private int myDistanceToGoal;
+    private Coordinate myCoordinate;
 
     public Tile () {
-        setImageAndPath(myImagePath);
     }
 
     public boolean isActive () {
@@ -54,15 +59,6 @@ public class Tile extends GameObject {
      * 
      * @param imagePath - String of image path
      */
-    public void setImageAndPath (String imagePath) {
-        myImagePath = imagePath;
-        try {
-            myImage = ImageManager.addImage(imagePath);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public Image getImage () {
@@ -76,5 +72,60 @@ public class Tile extends GameObject {
     public void setMoveCost (int moveCost) {
         myMoveCost = moveCost;
     }
+    
+    public void generateDisplayData () {
+        List<String> displayData = new ArrayList<>();
+        displayData.add("Name: " + myName);
+        displayData.add("Movement cost: " + myMoveCost);
+        displayData.add("Stat Modifiers: ");
+        for (String stat : myStatMods.keySet()) {
+            displayData.add(stat + ": " + myStatMods.get(stat));
+        }
+        myDisplayData = displayData;
+    }
 
+    public Tile (List<Tile> neighbors, Coordinate coordinate) {
+        myNeighbors = neighbors;
+        myCoordinate = coordinate;
+    }
+
+    public List<Tile> getNeighbors () {
+        return myNeighbors;
+    }
+
+    public void setNeighbors (List<Tile> myNeighbors) {
+        myNeighbors = myNeighbors;
+    }
+
+    public Tile getParent () {
+        return myParent;
+    }
+
+    public void setParent (Tile myParent) {
+        myParent = myParent;
+    }
+
+    public int getLength () {
+        return myLength;
+    }
+
+    public void setLength (int myLength) {
+        myLength = myLength;
+    }
+
+    public int getDistanceToGoal () {
+        return myDistanceToGoal;
+    }
+
+    public void setDistanceToGoal (int myDistanceToGoal) {
+        myDistanceToGoal = myDistanceToGoal;
+    }
+
+    public Coordinate getCoordinate () {
+        return myCoordinate;
+    }
+
+    public void setCoordinate (Coordinate myCoordinate) {
+        myCoordinate = myCoordinate;
+    }
 }

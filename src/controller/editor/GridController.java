@@ -1,33 +1,43 @@
 package controller.editor;
 
+import controllers.WorldManager;
+import org.apache.commons.lang3.ArrayUtils;
 import grid.Coordinate;
-import grid.Grid;
 import view.canvas.GridMouseListener;
 
 
 public class GridController implements GridMouseListener {
     private NClickAction myCurrentAction;
-    private Grid myGrid;
+    private WorldManager myWM;
     private Coordinate mySelectedCoordinate;
 
-    public GridController (Grid grid) {
-        myGrid = grid;
+    public GridController (WorldManager wm) {
+        myWM = wm;
         mySelectedCoordinate = new Coordinate(0, 0);
     }
 
     public void doCommand (String commandName, int numClicks, Object ... args) {
-        myCurrentAction = new NClickAction(numClicks, commandName, myGrid, args);
+        myCurrentAction = new NClickAction(numClicks, commandName, myWM, args);
+        myCurrentAction.click(mySelectedCoordinate);
+    }
+
+    public void doCommand (NClickAction action, Object ... args) {
+        myCurrentAction = action;
+        args = ArrayUtils.add(args, 0, myWM);
+        action.setArgs(args);
         myCurrentAction.click(mySelectedCoordinate);
     }
 
     @Override
     public void gridClicked (Coordinate c) {
+
         mySelectedCoordinate = c;
-        if(myCurrentAction!=null)
+        if (myCurrentAction != null)
             myCurrentAction.click(c);
     }
-    
-    public void clearCurrentCommand(){
-        myCurrentAction=null;
+
+    public void clearCurrentCommand () {
+        myCurrentAction = null;
     }
+
 }
