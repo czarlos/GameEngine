@@ -37,7 +37,6 @@ public class GameManager extends Manager {
         }
     }
 
-
     private void clear () {
         myPhaseNumber = -1;
         myActiveActions = new ArrayList<Action>();
@@ -111,6 +110,28 @@ public class GameManager extends Manager {
 
         return null;
     }
+    
+    /**
+     * Generates a list of information that a coordinate contains, including tiles and objects
+     * 
+     * @param coordinate Coordinate that is being asked for
+     * @return List of Strings that contain information about the coordinate
+     */
+    public List<String> generateTileInfoList (Coordinate coordinate) {
+    	return myActiveStage.getGrid().generateTileInfo(coordinate);
+    }
+    
+    /**
+     * Generates a list of information that a coordinate contains about a Game Object
+     * 
+     * @param coordinate Coordinate that is being asked for
+     * @return List of Strings that contain information about the coordinate. Null if there is no
+     *         object at coordinate
+     */
+    public List<String> generateObjectInfo (Coordinate coordinate) {
+    	return generateObjectInfo(coordinate);
+    }
+    
 
     public void doAction (Coordinate attackerLocation, Coordinate defenderLocation, int actionID) {
         GameUnit attacker = myActiveStage.getGrid().getUnit(attackerLocation);

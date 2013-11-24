@@ -1,9 +1,7 @@
 package gameObject.item;
 
-import gameObject.Stat;
-import gameObject.StatModifier;
+import gameObject.Stats;
 import gameObject.action.Action;
-import gameObject.action.CombatAction;
 import java.util.List;
 
 
@@ -19,7 +17,7 @@ import java.util.List;
  */
 public class Weapon extends Item {
     
-    public Weapon (String name, List<Action> actionList, Stat stats) {
+    public Weapon (String name, List<Action> actionList, Stats stats) {
         super(name, actionList, stats);
     }
 
