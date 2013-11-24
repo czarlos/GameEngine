@@ -23,13 +23,13 @@ public class CombatAction extends Action {
 
         for (String statName : myAttackerStatsAndWeights.getStatModifierMap().keySet()) {
             offensiveStatSum +=
-                    attacker.getUnitStats().getStatValue(statName) *
+                    attacker.getStats().getStatValue(statName) *
                             myAttackerStatsAndWeights.getStatModifier(statName);
         }
 
         for (String statName : myDefenderStatsAndWeights.getStatModifierMap().keySet()) {
             defensiveStatSum +=
-                    defender.getUnitStats().getStatValue(statName) *
+                    defender.getStats().getStatValue(statName) *
                             myDefenderStatsAndWeights.getStatModifier(statName);
         }
 

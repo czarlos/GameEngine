@@ -22,7 +22,7 @@ public class ItemCondition extends Condition {
     boolean isFulfilled (Stage stage) {
         List<GameUnit> theTeam = stage.getTeamUnits(Integer.parseInt(myData.get("team")));
         for (GameUnit gu : theTeam) {
-            if (gu.getItemCount(myData.get("item")) > 0) { return true; }
+            if (gu.getItem(myData.get("item")) > 0) { return true; }
         }
         return false;
     }
