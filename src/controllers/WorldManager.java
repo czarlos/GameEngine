@@ -231,10 +231,10 @@ public class WorldManager extends Manager {
     }
 
     public List<String> getActionList (Coordinate c) {
-        return myActiveStage.getGrid().generateActionList(c);
+        return myActiveStage.getGrid().generateActionNameList(c);
     }
 
     public List<String> getInfo (Coordinate c) {
-        return myActiveStage.getGrid().generateInfoList(c);
+        return myActiveStage.getGrid().generateTileInfoList(c); //TODO: is this for tiles or objects?
     }
 }

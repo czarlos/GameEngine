@@ -2,14 +2,16 @@ package controller.actions.grid;
 
 import grid.Coordinate;
 import java.util.List;
-import controllers.WorldManager;
+import controllers.GameManager;
+
 
 public class DoAction extends AbstractGridCommand {
 
     protected String myActionName;
-    public DoAction (WorldManager wm, List<Coordinate> selectedCoordinates, String actionName) {
-        super(wm, selectedCoordinates);
-        myActionName=actionName;
+
+    public DoAction (GameManager manager, List<Coordinate> selectedCoordinates, String actionName) {
+        super(manager, selectedCoordinates);
+        myActionName = actionName;
     }
 
     @Override
@@ -18,7 +20,7 @@ public class DoAction extends AbstractGridCommand {
 
     @Override
     public void execute () {
-        myWM.doAction(mySelectedCoordinates.get(0),mySelectedCoordinates.get(1),myActionName);
+        // myWM.doAction(mySelectedCoordinates.get(0),mySelectedCoordinates.get(1),myActionName);
     }
 
 }

@@ -117,12 +117,12 @@ public class GameManager extends Manager {
         
         if (myActiveActions.get(actionID).getName().equals("MoveAction")) {
             myActiveStage.getGrid().doMove(attackerLocation, defenderLocation);
-            attacker.hasMoved();
+            //attacker.hasMoved();
         }
         else {
             GameUnit defender = myActiveStage.getGrid().getUnit(defenderLocation);
-            myActiveActions.get(actionID).doAction(attacker, defender);
-            attacker.setActive(false);
+           // myActiveActions.get(actionID).doAction(attacker, defender);
+           // attacker.setActive(false);
         }
     }
 
