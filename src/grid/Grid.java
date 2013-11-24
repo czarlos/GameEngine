@@ -4,11 +4,15 @@ import gameObject.GameObject;
 import gameObject.GameObjectConstants;
 import gameObject.GameUnit;
 import gameObject.action.Action;
+import gameObject.action.WaitAction;
+
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
+
 import grid.Coordinate;
 import view.Drawable;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -101,7 +105,6 @@ public class Grid implements Drawable {
      * 
      */
     public void beginMove (Coordinate coordinate) {
-        setTilesInactive();
         GameUnit gameUnit = (GameUnit) getObject(coordinate);
         findMovementRange(coordinate,
                           ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT),
@@ -131,7 +134,6 @@ public class Grid implements Drawable {
         if (isValidMove(newCoordinate)) {
             GameObject gameUnit = removeObject(oldCoordinate);
             placeObject(newCoordinate, gameUnit);
-            setTilesInactive();
         }
     }
 
@@ -213,8 +215,7 @@ public class Grid implements Drawable {
      */
     public List<GameObject> doAction (Coordinate unitCoordinate,
                                       Coordinate actionCoordinate,
-                                      String actionName) {
-        Action action = selectAction(unitCoordinate, actionName);
+                                      Action action) {
         if (isValid(actionCoordinate)) {
             String direction = findDirection(unitCoordinate, actionCoordinate, action);
             return findAffectedObjects(unitCoordinate, action, direction);
@@ -382,46 +383,19 @@ public class Grid implements Drawable {
     }
 
     /**
-     * Generates a list of names of actions that a unit at the given coordinate can perform
-     * 
-     * @param coordinate Coordinate of the unit's location
-     * @return List of Strings of the action names. Null if there is no unit at coordinate
-     */
-    public List<String> generateActionNameList (Coordinate coordinate) {
-        if (getUnit(coordinate) != null) {
-            List<String> actionList = new ArrayList<>();
-            for (Action action : generateActionList(coordinate)) {
-                actionList.add(action.getName());
-            }
-            return actionList;
-        }
-        return null;
-    }
-
-    /**
      * Generates a list of valid actions that a unit at the given coordinate can perform
      * 
      * @param coordinate Coordinate of the unit's location
      * @return List of Actions
      */
-    private List<Action> generateActionList (Coordinate coordinate) {
-        List<Action> actions = new ArrayList<>();
-        GameUnit gameUnit = myUnits[coordinate.getX()][coordinate.getY()];
-        actions.addAll(gameUnit.getActions());
-        actions.addAll(getInteractions(coordinate)); // TODO: currently no interactions.
-        return actions;
-    }
-
-    /**
-     * Returns the action that matches the action name provided
-     * 
-     * @param coordinate Coordinate of where the action originates
-     * @param actionName String of name of action being searched for
-     * @return Action of the action being searched for, and null if no action found
-     */
-    private Action selectAction (Coordinate coordinate, String actionName) {
-        for (Action action : generateActionList(coordinate)) {
-            if (action.getName().equals(actionName)) { return action; }
+    public List<Action> generateActionList (Coordinate coordinate) {
+        if (getUnit(coordinate) != null) {
+        	List<Action> actions = new ArrayList<>();
+            GameUnit gameUnit = getUnit(coordinate);
+            actions.addAll(gameUnit.getActions());
+            actions.addAll(getInteractions(coordinate)); // TODO: currently no interactions.
+            actions.add(new WaitAction());
+            return actions;        	
         }
         return null;
     }
@@ -577,7 +551,7 @@ public class Grid implements Drawable {
     /**
      * Sets all tiles on grid to be inactive
      */
-    private void setTilesInactive () {
+    public void setTilesInactive () {
         for (int i = 0; i < myTiles.length; i++) {
             for (int j = 0; j < myTiles[i].length; j++) {
                 myTiles[i][j].setActive(false);

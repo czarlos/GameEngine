@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class Weapon extends Item {
     
-    public Weapon (String name, List<Action> actionList, Stats stats) {
-        super(name, actionList, stats);
+    public Weapon () {
+        super();
     }
 
 }

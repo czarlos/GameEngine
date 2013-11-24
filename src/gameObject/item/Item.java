@@ -1,6 +1,10 @@
 package gameObject.item;
 
+import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.Stats;
 import gameObject.action.Action;
 
@@ -13,17 +17,20 @@ import gameObject.action.Action;
  * @author carlosreyes
  * 
  */
+@JsonAutoDetect
 public class Item {
+    @JsonProperty
     private String myName;
+    @JsonProperty
     private List<Action> myActions;
+    @JsonProperty
     private Stats myStats;
-    
-    public Item (String name, List<Action> actions, Stats stats) {
-        myName = name;
-        myActions = actions;
-        myStats = stats;
+
+    public Item () {
+        myActions = new ArrayList<Action>();
+        myStats = new Stats();
     }
-    
+
     public String getName () {
         return myName;
     }
@@ -35,15 +42,22 @@ public class Item {
     public List<Action> getActions () {
         return myActions;
     }
-
-    public void setActions (List<Action> myActions) {
-        this.myActions = myActions;
-    }
-
-    public int getStat (String statName) {
-        return myStats.getStatValue(statName);
-    }
     
+    public void addAction(Action action) {
+        myActions.add(action);
+    }
+
+    public void setActions (List<Action> actions) {
+        myActions = actions;
+    }
+
+    @JsonIgnore
+    public int getStat (String statName) {
+        if(myStats.getStats().containsKey(statName))
+            return myStats.getStatValue(statName);
+        return 0;
+    }
+
     public Stats getStats () {
         return myStats;
     }

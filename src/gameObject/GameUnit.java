@@ -1,13 +1,17 @@
 package gameObject;
 
 import gameObject.action.Action;
+import gameObject.action.MoveAction;
 import gameObject.item.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
@@ -23,7 +27,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class GameUnit extends GameObject {
 
     private boolean isControllable;
-    private Map<Item, Integer> myItems;
+    @JsonProperty
+    private Map<Item, Integer> myItems; // might have problems since keys are Item objects
     private Stats myStats;
     private String myTeamName;
     private Weapon myActiveWeapon;
@@ -32,7 +37,6 @@ public class GameUnit extends GameObject {
     private boolean isActive;
     private boolean hasMoved;
 
-    // TODO: this is in make defaults. doesn't have to be here then?
     // reads defaults from JSON. To add/test new defaults, edit MakeDefaults.java
     public GameUnit () {
         myItems = new HashMap<Item, Integer>();
@@ -211,26 +215,12 @@ public class GameUnit extends GameObject {
         return myItems;
     }
 
-    // TODO: get rid of this? unit shouldn't know about defenders. that's grid.
-    public List<Action> getValidActions (GameUnit defender) {
-        List<Action> validActions = new ArrayList<>();
-        for (Item i : myItems.keySet()) {
-            if (i instanceof Weapon) {
-                List<Action> tempActions = ((Weapon) i).getActions();
-                for (Action ca : tempActions) {
-                    if (ca.isValidAction(this, defender)) {
-                        validActions.add(ca);
-                    }
-                }
-            }
-        }
-        return validActions;
-    }
-
     @JsonIgnore
     public List<Action> getActions () {
-        // TODO: add in hasMoved logic/add move and wait actions
-        List<Action> actions = new ArrayList<>();
+    	List<Action> actions = new ArrayList<>();
+    	if (!hasMoved) {
+    		actions.add(new MoveAction());
+    	}
         for (Item item : myItems.keySet()) {
             actions.addAll(item.getActions());
         }
@@ -267,7 +257,7 @@ public class GameUnit extends GameObject {
     };
  
     public void hasMoved () {
-        this.hasMoved = true;
+        hasMoved = true;
     }
     
     public int getItemAmount (String itemName) {

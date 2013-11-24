@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -13,10 +14,11 @@ public class Stats {
     @JsonProperty
     protected Map<String, Integer> myStatMap = new HashMap<>();
 
-
     public Stats () {
+      
     }
 
+    @JsonIgnore
     public Integer getStatValue (String statName) {
         return myStatMap.get(statName);
     }
@@ -27,13 +29,18 @@ public class Stats {
         }
     }
 
+    @JsonIgnore
     public List<String> getStatNames (){
         List<String> statNames = new ArrayList<>();
         statNames.addAll(myStatMap.keySet());
         return statNames;
     }
 
-    public void setStatList (Map<String, Integer> myStatMap) {
+    public Map<String, Integer> getStats(){
+        return myStatMap;
+    }
+    
+    public void setStats (Map<String, Integer> myStatMap) {
         this.myStatMap = myStatMap;
     }
     
