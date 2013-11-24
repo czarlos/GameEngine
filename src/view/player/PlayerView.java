@@ -11,6 +11,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import controllers.GameManager;
 import controllers.WorldManager;
 import view.editor.GameView;
 
@@ -53,7 +54,10 @@ public class PlayerView extends GameView {
         this.remove(myBackground);
         String gameName = gameNameTextField.getText();
         this.setTitle(gameName);
-        myWorldManager = new WorldManager(gameName);
+        // TODO: needs to read in worldmanager from JSON
+        myWorldManager = new WorldManager();
+        myWorldManager.setGameName(gameName);
+        myGameManager = new GameManager(myWorldManager);
         setGame();
         revalidate();
         repaint();

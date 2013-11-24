@@ -1,35 +1,49 @@
 package gameObject.action;
 
-import gameObject.GameUnit;
+import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gameObject.GameObject;
+import gameObject.GameUnit;
+import grid.Coordinate;
 
-
-public class Action {
+@JsonAutoDetect
+public abstract class Action {
     private String myName;
-    private List<Outcome> myInitiatorOutcomes;
-    private List<Outcome> myReceiverOutcomes;
+    private List<Coordinate> myAOE;
+    private boolean isAround;
 
     public Action () {
+        List<Coordinate> AOE = new ArrayList<>();
+        AOE.add(new Coordinate(0, 1));
+        setAround(false);
     }
-
-    public Action (String name, List<Outcome> initiatorOutcomes, List<Outcome> receiverOutcomes) {
+    
+    public abstract void doAction(GameUnit initiator, GameObject receiver);
+    
+    public void setName (String name) {
         myName = name;
-        myInitiatorOutcomes = initiatorOutcomes;
-        myReceiverOutcomes = receiverOutcomes;
     }
 
-    public void execute (GameUnit initiator, GameUnit receiver) {
-        for (Outcome o : myInitiatorOutcomes) {
-            o.applyOutcome(initiator, 0);
-
-        }
-
-        for (Outcome o : myReceiverOutcomes) {
-            o.applyOutcome(receiver, 0);
-        }
-    }
+    public abstract boolean isValidAction (GameUnit gameUnit, GameObject gameObject);
 
     public String getName () {
         return myName;
+    }
+
+    public boolean isAround () {
+        return isAround;
+    }
+
+    public void setAround (boolean isAround) {
+        this.isAround = isAround;
+    }
+
+    public List<Coordinate> getAOE () {
+        return myAOE;
+    }
+
+    public void setAOE (List<Coordinate> AOE) {
+        myAOE = AOE;
     }
 }

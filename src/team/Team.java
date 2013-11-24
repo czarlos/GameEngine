@@ -5,6 +5,10 @@ import gameObject.GameUnit;
 import gameObject.UnitFactory;
 import java.util.ArrayList;
 import java.util.List;
+import stage.Condition;
+import stage.Stage;
+import stage.WinCondition;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
@@ -13,20 +17,38 @@ import java.util.List;
  * this team has.
  * 
  * @author carlosreyes
+ * @author Leevi
  * 
  */
 public class Team {
     private List<GameUnit> myGameUnits;
-    private List<GameObject> myGameObjects;
     private int myGold;
-    private int myAffiliation;
     private boolean isHuman;
+    private String myName;
 
-    public Team (List<GameUnit> gameUnits, int affliation, boolean human) {
+    @JsonProperty
+    private WinCondition myWinCondition;
+
+    public Team (String name) {
         myGold = 0;
-        myAffiliation = affliation;
-        isHuman = human;
+        myName = name;
+        myWinCondition = new WinCondition();
+    }
 
+    public void setWinCondition (WinCondition wc) {
+        myWinCondition = wc;
+    }
+
+    public void addCondition (Condition c) {
+        myWinCondition.addCondition(c);
+    }
+    
+    public boolean hasWon(Stage stage){
+        return myWinCondition.isFulfilled(stage);
+    }
+    
+    public String getName () {
+        return myName;
     }
 
     /**
@@ -52,20 +74,12 @@ public class Team {
         this.myGold = myGold;
     }
 
-    public int getAffiliation () {
-        return myAffiliation;
-    }
-
-    public void setAffiliation (int myAffiliation) {
-        this.myAffiliation = myAffiliation;
-    }
-
     public boolean isHuman () {
         return isHuman;
     }
 
-    public void setHuman (boolean isHuman) {
-        this.isHuman = isHuman;
+    public void setIsHuman (boolean humanity) {
+        isHuman = humanity;
     }
 
     public List<GameUnit> getGameUnits () {
@@ -76,12 +90,7 @@ public class Team {
         this.myGameUnits = myGameUnits;
     }
 
-    public List<GameObject> getGameObjects () {
-        return myGameObjects;
+    public void addGameUnit (GameUnit gu) {
+        myGameUnits.add(gu);
     }
-
-    public void setGameObjects (List<GameObject> myGameObjects) {
-        this.myGameObjects = myGameObjects;
-    }
-
 }

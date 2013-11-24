@@ -19,26 +19,18 @@ public class Chest extends GameObject {
     private List<Item> myItemList;
 
     public Chest (List<Item> itemList) {
-
-        setItemList(itemList);
+        myItemList = itemList;
     }
 
     public List<Item> getItemList () {
         return myItemList;
     }
 
-    public void setItemList (List<Item> myItemList) {
-        this.myItemList = myItemList;
+    public void setItemList (List<Item> itemList) {
+        myItemList = itemList;
     }
 
     // TODO: give objects to person
-
-    // @Override
-    // public Action getInteraction(){
-    // Outcome getContentsOutcome = new FixedOutcome();
-    // Action getContents = new Action
-    // return null;
-    // };
     @Override
     public Action getInteraction(){
         List<Outcome> initiatorOutcomes = new ArrayList<Outcome>();

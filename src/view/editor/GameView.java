@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import controllers.GameManager;
 import controllers.WorldManager;
 
 
@@ -24,6 +25,7 @@ import controllers.WorldManager;
 public abstract class GameView extends JFrame {
     protected WorldManager myWorldManager;
     protected JPanel myBackground;
+    protected GameManager myGameManager;
 
     public GameView () throws HeadlessException {
         super();
@@ -68,11 +70,11 @@ public abstract class GameView extends JFrame {
     }
 
     protected void loadGame () {
-        myWorldManager = new WorldManager("");
+        myWorldManager = new WorldManager();
         JPanel loadPanel = new JPanel();
         loadPanel.setLayout(new GridLayout(0, 2));
         JLabel gameNames = new JLabel("Choose Game Name:");
-        JComboBox<String> gameNamesMenu = new JComboBox<String>();
+        JComboBox<String> gameNamesMenu = new JComboBox<>();
         File savesDir = new File("JSONs/saves");
         for (File child : savesDir.listFiles()) {
             gameNamesMenu.addItem(child.getName().split("\\.")[0]);

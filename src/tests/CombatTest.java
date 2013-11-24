@@ -1,13 +1,13 @@
 package tests;
 
 import static org.junit.Assert.assertEquals;
-import org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import gameObject.GameUnit;
-import gameObject.Stat;
+import gameObject.MasterStats;
+import gameObject.Stats;
 import gameObject.StatModifier;
 import gameObject.action.CombatAction;
 import gameObject.action.FixedOutcome;
@@ -15,11 +15,9 @@ import gameObject.action.Outcome;
 import gameObject.item.Equipment;
 import gameObject.item.Item;
 import gameObject.item.Weapon;
-import grid.GridConstants;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 
 public class CombatTest {
     GameUnit playerUnit;
@@ -34,18 +32,16 @@ public class CombatTest {
     public void setUp () throws Exception {
 
         // Setting up the units base stats
-        Stat playerStats = new Stat();
-        playerStats.setStatValue("health", 15);
-        playerStats.setStatValue("attack", 2);
-        playerStats.setStatValue("defense", 1);
+        MasterStats masterStat = new MasterStats();
+        masterStat.setStatValue("health", 15);
+        masterStat.setStatValue("attack", 2);
+        masterStat.setStatValue("defense", 1);
+        
+        Stats playerStats = new Stats();
+      //TODO: Update stats from masterStat
 
-        Stat enemyStats = new Stat();
-        enemyStats.setStatValue("health", 15);
-        enemyStats.setStatValue("attack", 2);
-        enemyStats.setStatValue("defense", 1);
-
-        // Setting up a list of items
-        List<Item> itemList = new ArrayList<>();
+        Stats enemyStats = new Stats();
+        //TODO: Update stats from masterStat
 
         Map<String, Integer> itemStatsMap = new HashMap<String, Integer>();
         itemStatsMap.put("attack", 1);
@@ -59,14 +55,12 @@ public class CombatTest {
         Item sword = new Weapon("sword", action, itemStats);
 
         // Creates Player Character
-        playerUnit = new GameUnit("Marth", GridConstants.DEFAULT_UNIT_PATH, 0,
-                                  playerStats, itemList, true);
+        playerUnit = new GameUnit();
         playerUnit.setActiveWeapon(sword);
         // playerUnit.addItem(sword);
 
         // Creates Enemy
-        enemyUnit = new GameUnit("Roy", GridConstants.DEFAULT_UNIT_PATH, 0,
-                                 enemyStats, itemList, true);
+        enemyUnit = new GameUnit();
         enemyUnit.setActiveWeapon(sword);
     }
 
@@ -190,7 +184,7 @@ public class CombatTest {
         defenderOutcomes.add(d1);
 
         return new CombatAction("Strong", attackerStats, defenderStats,
-                                attackerOutcomes, defenderOutcomes, null, false);
+                                attackerOutcomes, defenderOutcomes);
     }
 
     /**
@@ -215,7 +209,7 @@ public class CombatTest {
         defenderOutcomes.add(d1);
 
         return new CombatAction("Weak", attackerStats, defenderStats,
-                                attackerOutcomes, defenderOutcomes, null, false);
+                                attackerOutcomes, defenderOutcomes);
     }
 
     /**
@@ -242,7 +236,7 @@ public class CombatTest {
         defenderOutcomes.add(d1);
 
         return new CombatAction("ItemDepleting", attackerStats, defenderStats,
-                                attackerOutcomes, defenderOutcomes, null, false);
+                                attackerOutcomes, defenderOutcomes);
     }
 
     /**

@@ -1,9 +1,9 @@
 package game;
 
-import stage.Stage;
+import view.player.PlayerView;
 
 public class Game {
-    public static void main(String[] args) {
-        
+    public static void main (String[] args) {
+        new PlayerView();
     }
 }

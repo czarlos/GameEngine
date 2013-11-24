@@ -25,9 +25,6 @@ import controllers.WorldManager;
 
 public class EditorFrame extends GameView {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -8550671173122103688L;
 
     private ArrayList<StagePanel> myStagePanelList = new ArrayList<StagePanel>();
@@ -117,7 +114,8 @@ public class EditorFrame extends GameView {
             this.repaint();
             String gameName = gameNameTextField.getText();
             this.setTitle(gameName);
-            myWorldManager = new WorldManager(gameName);
+            myWorldManager = new WorldManager();
+            myWorldManager.setGameName(gameName);
             addStagePanel();
             JMenu stageMenu = new JMenu("Stage");
             stageMenu.setMnemonic(KeyEvent.VK_S);
@@ -144,7 +142,7 @@ public class EditorFrame extends GameView {
         JTextField xTextField = new JTextField(6);
         JTextField yTextField = new JTextField(6);
         JLabel imageLabel = new JLabel("Default Tile");
-        JComboBox<String> imageMenu = new JComboBox<String>();
+        JComboBox<String> imageMenu = new JComboBox<>();
         List<String> tileNames = myWorldManager.get("Tile");
         for (String s : tileNames) {
             imageMenu.addItem(s);
