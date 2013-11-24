@@ -25,17 +25,12 @@ public class ImagePathEditor extends AbstractCellEditor
 
     public ImagePathEditor() {
         
-        System.out.println("a Color editor was made");
-        //Set up the editor (from the table's point of view),
-        //which is a button.
-        //This button brings up the color chooser dialog,
-        //which is the editor from the user's point of view.
+
         button = new JButton();
         button.setActionCommand(EDIT);
         button.addActionListener(this);
         button.setBorderPainted(false);
 
-        //Set up the dialog that the button brings up.
         fileChooser = new JFileChooser();
         
     }
@@ -45,24 +40,24 @@ public class ImagePathEditor extends AbstractCellEditor
      * the dialog's OK button.
      */
     public void actionPerformed(ActionEvent e) {
-        if (EDIT.equals(e.getActionCommand())) {
+        
+            int returnVal = fileChooser.showDialog(button, "Choose");
+            
+            //actual file was chosen
+            if(returnVal == 0) {            
+                currentFile = fileChooser.getSelectedFile();
 
-            int returnVal = fileChooser.showDialog(button, "Attach");
-
-            //Make the renderer reappear.
+            }
+            
             fireEditingStopped();
 
-        } else { //User pressed dialog's "OK" button.
-            currentFile = fileChooser.getSelectedFile();
-        }
     }
-
-    //Implement the one CellEditor method that AbstractCellEditor doesn't.
+    
+    
     public Object getCellEditorValue() {
         return currentFile;
     }
 
-    //Implement the one method defined by TableCellEditor.
     public Component getTableCellEditorComponent(JTable table,
                                                  Object value,
                                                  boolean isSelected,

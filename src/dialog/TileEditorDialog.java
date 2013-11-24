@@ -48,12 +48,12 @@ public class TileEditorDialog extends JDialog{
         table.setDefaultEditor(File.class,
                                new ImagePathEditor());
         table.setRowHeight(52);
-        table.setPreferredScrollableViewportSize(new Dimension(500, 52));
+        table.setPreferredScrollableViewportSize(new Dimension(500, 300));
         table.setFillsViewportHeight(true);        
         
        panel.add(table);
        add(panel);
-       setSize(new Dimension(500, 52));
+       setSize(new Dimension(500, 300));
     }
 
 }

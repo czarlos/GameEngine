@@ -3,6 +3,10 @@ package dialog;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -23,6 +27,8 @@ public class ThumbnailRenderer extends DefaultTableCellRenderer {
      * 
      */
     private static final long serialVersionUID = -4561316688532828835L;
+    private static final int DEFAULT_WIDTH = 52;;
+    private static final int DEFAULT_HEIGHT = DEFAULT_WIDTH;
 
     public Component getTableCellRendererComponent (JTable table, Object value, boolean isSelected,
                                                     boolean hasFocus, int row, int column) {
@@ -38,11 +44,15 @@ public class ThumbnailRenderer extends DefaultTableCellRenderer {
          * 
          */
         
+        System.out.println(value);
+        
         ImageIcon image;
         
         if(value instanceof File){
             image = new ImageIcon((String) ((File) value).getAbsolutePath());
-            value = image;
+            
+            
+            value = new ImageIcon(getScaledImage(image.getImage(), DEFAULT_WIDTH, DEFAULT_HEIGHT));
         }
 
         ((JLabel) cell).setIcon((Icon) value);
@@ -56,5 +66,15 @@ public class ThumbnailRenderer extends DefaultTableCellRenderer {
             cell.setBackground(null);
         }
         return cell;
+    }
+   
+    
+    private Image getScaledImage(Image srcImg, int w, int h){
+        BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+        Graphics2D graphics2D = resizedImg.createGraphics();
+        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        graphics2D.drawImage(srcImg, 0, 0, w, h, null);
+        graphics2D.dispose();
+        return resizedImg;
     }
 }

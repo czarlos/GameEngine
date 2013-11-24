@@ -29,12 +29,6 @@ public class TileTableModel extends GameTableModel{
             Object[] array = new Object[myColumnNames.length];
 
             Tile t = (Tile) tile;
-            
-           // ImageIcon image; 
-            
-            //render image at absolute file path if value is not an ImageIcon
-           
-           // image = new ImageIcon((String) t.getImagePath());
 
             array[0] = t.getName();
             array[1] = new File(t.getImagePath());
@@ -51,7 +45,7 @@ public class TileTableModel extends GameTableModel{
             Object[] current = myList.get(ID);
             Tile t = new Tile();
             t.setName((String) current[0]);
-            t.setImageAndPath((String) current[1]);
+            t.setImageAndPath((String) ((File) current[1]).getPath());
             t.setMoveCost((int) current[2]);
             t.setStatMods((Map<String, Double>) current[3]);
 

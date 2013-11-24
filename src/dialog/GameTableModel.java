@@ -56,6 +56,11 @@ public abstract class GameTableModel extends AbstractTableModel {
     public Class getColumnClass (int c) {
         return getValueAt(0, c).getClass();
     }
+    
+    @Override
+    public void setValueAt(Object aValue, int row, int col) {
+        myList.get(row)[col] = aValue;
+    }
 
     abstract void addPreviouslyDefined (List<Customizable> list);
 
