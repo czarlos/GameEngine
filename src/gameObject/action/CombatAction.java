@@ -11,8 +11,7 @@ public class CombatAction extends Action {
     private Stat myStats;
     
     public CombatAction () {
-    }
-    
+    }    
     
     public void setStats(Stat stats) {
         myStats = stats;

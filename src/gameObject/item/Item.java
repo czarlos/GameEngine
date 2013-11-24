@@ -41,6 +41,10 @@ public class Item {
         this.myActions = myActions;
     }
 
+    public int getStat (String statName) {
+        return myStats.getStatValue(statName);
+    }
+    
     public Stat getStats () {
         return myStats;
     }

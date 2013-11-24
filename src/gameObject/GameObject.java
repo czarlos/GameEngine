@@ -78,6 +78,23 @@ public class GameObject extends Customizable implements Drawable {
         }
     }
 
+    /**
+     * Generates the List of Strings that the unit will display to the user
+     */
+    public void generateDisplayData () {
+        List<String> displayData = new ArrayList<>();
+        displayData.add("Name: " + myName);
+        setDisplayData(displayData);
+    }
+
+    public List<String> getDisplayData () {
+        return myDisplayData;
+    }
+
+    public void setDisplayData (List<String> displayData) {
+        myDisplayData = displayData;
+    }
+
     public Action getInteraction () {
         return null;
     };

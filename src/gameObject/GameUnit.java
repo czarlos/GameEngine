@@ -26,20 +26,20 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class GameUnit extends GameObject {
 
     private boolean isControllable;
-    private Map<Item, Integer> myItemMap;
-    private List<Action> myActionList;
-    private Stat myUnitStats;
+    private Map<Item, Integer> myItems;
+    private Stat myStats;
     private String myTeamName;
     private Weapon myActiveWeapon;
-    private double myHealth;
+    private double myMaxHealth;
     private double myExperience;
     private boolean isActive;
     private boolean hasMoved;
 
+    //TODO: this is in make defaults. doesn't have to be here then?
     // reads defaults from JSON. To add/test new defaults, edit MakeDefaults.java
     public GameUnit () {
-        myItemMap = new HashMap<Item, Integer>();
-        myUnitStats = new Stat();
+        myItems = new HashMap<Item, Integer>();
+        myStats = new Stat();
         myTeamName = "";
     }
 
@@ -51,19 +51,6 @@ public class GameUnit extends GameObject {
     public String getAffiliation () {
         return myTeamName;
     }
-
-    public List<Action> getActionList() {
-        List<Action> actionListOther = new ArrayList<Action>();
-        if (!hasMoved) {
-            for(Action a : myActionList) {
-                actionListOther.add(a);
-            }
-            actionListOther.add(new MoveAction());
-            actionListOther.add(new WaitAction());
-            return actionListOther;
-        }
-        return myActionList;
-    }
     
     
     /**
@@ -72,12 +59,12 @@ public class GameUnit extends GameObject {
      * a stat field in line with that item.
      */
     public void initializeStats () {
-        for (Item item : myItemMap.keySet()) {
+        for (Item item : myItems.keySet()) {
             for (String statName : item.getStats().getStatMap().keySet()) {
-                if (this.myUnitStats.getStatMap().containsKey(statName)) {
+                if (myStats.getStatMap().containsKey(statName)) {
                     int fromItem = item.getStats().getStatValue(statName);
-                    int current = this.myUnitStats.getStatValue(statName);
-                    this.myUnitStats.getStatMap().put(statName, current+fromItem);
+                    int current = myStats.getStatValue(statName);
+                    myStats.getStatMap().put(statName, current+fromItem);
                 }
             }
         }
@@ -90,7 +77,7 @@ public class GameUnit extends GameObject {
      * @param weaponName - The string which represents a weapon
      */
     public void selectWeapon (String weaponName) {
-        for (Item item : myItemMap.keySet()) {
+        for (Item item : myItems.keySet()) {
             if (item.getName().equals(weaponName)) {
                 myActiveWeapon = (Weapon) item;
             }
@@ -104,19 +91,11 @@ public class GameUnit extends GameObject {
      * @param itemName - The name of the item, not a string
      */
     public void addItem (Item itemName) {
-        for (String stat : itemName.getStats().getStatMap().keySet()) {
-            if (this.myUnitStats.getStatMap().keySet().contains(stat)) {
-                int fromItem = itemName.getStats().getStatValue(stat);
-                int current = this.myUnitStats.getStatValue(stat);
-                this.myUnitStats.getStatMap().put(stat, current+fromItem);
-            }
-        }
-        
-        if (!myItemMap.containsKey(itemName)) {
-            myItemMap.put(itemName, 1);
+        if (!myItems.containsKey(itemName)) {
+            myItems.put(itemName, 1);
         }
         else {
-            myItemMap.put(itemName, myItemMap.get(itemName)+1);
+            myItems.put(itemName, myItems.get(itemName)+1);
         }
     }
 
@@ -127,14 +106,7 @@ public class GameUnit extends GameObject {
      * @param itemName - The name of the item, not a string
      */
     public void removeItem (Item itemName) {
-        for (String stat : itemName.getStats().getStatMap().keySet()) {
-            if (this.myUnitStats.getStatMap().keySet().contains(stat)) {
-                int fromItem = itemName.getStats().getStatValue(stat);
-                int current = this.myUnitStats.getStatValue(stat);
-                this.myUnitStats.getStatMap().put(stat, current-fromItem);
-            }
-        }
-        myItemMap.remove(itemName);
+        myItems.remove(itemName);
     }
 
     @Override
@@ -153,7 +125,11 @@ public class GameUnit extends GameObject {
      * @return
      */
     public int getTotalStat (String stat) {
-        return this.myUnitStats.getStatValue(stat);
+        int value = myStats.getStatValue(stat);
+        for (Item i : myItems.keySet()){
+                value += i.getStat(stat);
+        }
+        return value;
     }
 
     /**
@@ -174,12 +150,23 @@ public class GameUnit extends GameObject {
         this.addItem(otherItem);
     }
 
-    public void setUnitStats (Stat myUnitStats) {
-        this.myUnitStats = myUnitStats;
+    public void setStats (Stat stats) {
+        myStats = stats;
     }
 
-    public Stat getUnitStats () {
-        return myUnitStats;
+    public Stat getStats () {
+        return myStats;
+    }
+    
+    // Adding for Outcomes, can potentially change later
+    // Need to keep method names and signatures similar for reflection
+    // since dealing with different data structures
+    public int getStat (String statName) {
+        return myStats.getStatValue(statName);
+    }
+
+    public void setStat (String statName, int statValue) {
+        myStats.setStatValue(statName, statValue);
     }
 
     public boolean isControllable () {
@@ -199,20 +186,20 @@ public class GameUnit extends GameObject {
     }
 
     public void setActive (boolean active) {
-        this.hasMoved = active;
-        this.isActive = active;
+        hasMoved = active;
+        isActive = active;
     }
 
     public boolean getActiveStatus () {
-        return this.isActive;
+        return isActive;
     }
 
     public double getHealth () {
-        return myHealth;
+        return myMaxHealth;
     }
 
-    public void setHealth (double myHealth) {
-        this.myHealth = myHealth;
+    public void setHealth (double health) {
+        myMaxHealth = health;
     }
 
     public double getExperience () {
@@ -224,16 +211,56 @@ public class GameUnit extends GameObject {
     }
 
     public Map<Item, Integer> getItemMap () {
-        return myItemMap;
+        return myItems;
+    }
+
+    // TODO: get rid of this? unit shouldn't know about defenders. that's grid.
+    public List<Action> getValidActions (GameUnit defender) {
+        List<Action> validActions = new ArrayList<>();
+        for (Item i : myItems.keySet()) {
+            if (i instanceof Weapon) {
+                List<Action> tempActions = ((Weapon) i).getActions();
+                for (Action ca : tempActions) {
+                    if (ca.isValidAction(this, defender)) {
+                        validActions.add(ca);
+                    }
+                }
+            }
+        }
+        return validActions;
     }
 
     @JsonIgnore
     public List<Action> getActions () {
+        // TODO: add in hasMoved logic/add move and wait actions
         List<Action> actions = new ArrayList<>();
-        for (Item item : myItemMap.keySet()) {
+        for (Item item : myItems.keySet()) {
             actions.addAll(item.getActions());
         }
         return actions;
+    }
+
+    /**
+     * Generates the List of Strings that the unit will display to the user
+     */
+    public void generateDisplayData () {
+        List<String> displayData = new ArrayList<>();
+        displayData.add("Name: " + myName);
+        displayData.add("Affiliation: " + myTeamName);
+        displayData.add("");
+        displayData.add("Equipped Item: " + myActiveWeapon.getName());
+        displayData.add("");
+        displayData.add("Stats: ");
+        displayData.add("Health: " + getTotalStat(GameObjectConstants.HEALTH) + " / " + myMaxHealth);
+        for (String stat : myStats) { // TODO: FIX
+            if (stat.equals(GameObjectConstants.HEALTH)) {
+                continue;
+            }
+            else {
+                displayData.add(stat + ": " + getTotalStat(stat));
+            }
+        }
+        setDisplayData(displayData);
     }
 
     // TODO: trade with affiliates
@@ -241,63 +268,20 @@ public class GameUnit extends GameObject {
     public Action getInteraction () {
         return null;
     };
-
-    // Adding for Outcomes, can potentially change later
-    // Need to keep method names and signatures similar for reflection
-    // since dealing with different data structures
-    public int getStat (String statName) {
-        return myUnitStats.getStatValue(statName);
-    }
-
-    public void setStat (String statName, int statValue) {
-        myUnitStats.setStatValue(statName, statValue);
-    }
-    
+ 
     public void hasMoved () {
         this.hasMoved = true;
     }
-
-    @Override
-    public int hashCode () {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (isControllable ? 1231 : 1237);
-        result = prime * result + ((myActiveWeapon == null) ? 0 : myActiveWeapon.hashCode());
-        long temp;
-        temp = Double.doubleToLongBits(myExperience);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(myHealth);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        result = prime * result + ((myItemMap == null) ? 0 : myItemMap.hashCode());
-        result = prime * result + ((myUnitStats == null) ? 0 : myUnitStats.hashCode());
-        return result;
+    
+    public int getItemAmount (String itemName) {
+        for (Item i : myItems.keySet()) {
+            if (i.getName().equals(itemName)) { return myItems.get(i); }
+        }
+        return 0;
     }
 
-    @Override
-    public boolean equals (Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        GameUnit other = (GameUnit) obj;
-        if (isControllable != other.isControllable) return false;
-        if (myActiveWeapon == null) {
-            if (other.myActiveWeapon != null) return false;
-        }
-        else if (!myActiveWeapon.equals(other.myActiveWeapon)) return false;
-        if (myTeamName != other.myTeamName) return false;
-        if (Double.doubleToLongBits(myExperience) != Double.doubleToLongBits(other.myExperience))
-            return false;
-        if (Double.doubleToLongBits(myHealth) != Double.doubleToLongBits(other.myHealth))
-            return false;
-        if (myItemMap == null) {
-            if (other.myItemMap != null) return false;
-        }
-        else if (!myItemMap.equals(other.myItemMap)) return false;
-        if (myUnitStats == null) {
-            if (other.myUnitStats != null) return false;
-        }
-        else if (!myUnitStats.equals(other.myUnitStats)) return false;
-        return true;
+    public void setItemList (Map<Item, Integer> itemList) {
+        myItems = itemList;
     }
 
 }
