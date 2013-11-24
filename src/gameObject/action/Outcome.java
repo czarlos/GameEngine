@@ -2,6 +2,7 @@ package gameObject.action;
 
 import gameObject.GameUnit;
 
+
 public abstract class Outcome {
     protected String myType;
     protected String myName;

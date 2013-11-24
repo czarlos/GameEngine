@@ -1,6 +1,7 @@
 package tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -254,7 +255,7 @@ public class CombatTest {
     public Item makeEmptyItem (String name, int quantity) {
         Equipment e = new Equipment(name, new StatModifier());
         e.setAmount(quantity);
-        e.setModifier(new StatModifier(new HashMap<String,Integer>()));
+        e.setModifier(new StatModifier(new HashMap<String, Integer>()));
 
         return e;
     }

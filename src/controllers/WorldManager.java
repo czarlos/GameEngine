@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import controllers.EditorData;
+import dialog.GameTableModel;
+import dialog.UnitTableModel;
 import parser.JSONParser;
 import stage.Condition;
 import stage.Stage;
@@ -33,6 +35,8 @@ public class WorldManager {
     @JsonProperty
     String myGameName;
 
+    private UnitTableModel myUnitModel;
+
     /**
      * Intermediary between views and EditorData and Grid, stores List of Stages
      * 
@@ -44,6 +48,19 @@ public class WorldManager {
         myParser = new JSONParser();
         myEditorData = new EditorData("defaults");
         myGameName = gameName;
+        myUnitModel = new UnitTableModel();
+    }
+
+    public GameTableModel getViewModel (String type) {
+        switch (type.toLowerCase()) {
+            case "tile":
+                return null;
+            case "gameunit":
+                return myUnitModel;
+            case "gameobject":
+                return null; // fix
+        }
+        return null;
     }
 
     /**
@@ -140,7 +157,7 @@ public class WorldManager {
      * @return
      */
     public Image getTileImage (int x, int y) {
-        return myActiveStage.getGrid().getTile(x, y).getImage();
+        return myActiveStage.getGrid().getTile(new Coordinate(x, y)).getImage();
     }
 
     /**
@@ -151,7 +168,7 @@ public class WorldManager {
      * @return
      */
     public Image getObjectImage (int x, int y) {
-        GameObject o = myActiveStage.getGrid().getObject(x, y);
+        GameObject o = myActiveStage.getGrid().getObject(new Coordinate(x, y));
         if (o != null)
             return o.getImage();
         return null;
@@ -166,17 +183,19 @@ public class WorldManager {
      * @param y Coordinate
      */
     public void setTile (int tileID, int x, int y) {
-        myActiveStage.getGrid().placeTile((Tile) myFactory.make("tile", tileID), x, y);
+        myActiveStage.getGrid().placeTile(new Coordinate(x, y),
+                                          (Tile) myFactory.make("tile", tileID));
     }
 
     // if you need to make any more of these, then just combine all these placeObjects into one
     public void placeUnit (int unitID, int x, int y) {
-        myActiveStage.getGrid().placeObject((GameObject) myFactory.make("unit", unitID), x, y);
+        myActiveStage.getGrid().placeObject(new Coordinate(x, y),
+                                            (GameObject) myFactory.make("unit", unitID));
     }
 
     public void placeObject (int objectID, int x, int y) {
-        myActiveStage.getGrid().placeObject((GameObject) myFactory.make("gameobject", objectID),
-                                            x, y);
+        myActiveStage.getGrid().placeObject(new Coordinate(x, y),
+                                            (GameObject) myFactory.make("gameobject", objectID));
     }
 
     /**

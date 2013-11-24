@@ -2,6 +2,7 @@ package grid;
 
 import gameObject.GameObject;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -12,6 +13,9 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
  * Tile Class. Held by grid. Affects unit stats and movement.
  * 
  * @author Kevin, Ken
+ * @author Kevin
+ * @author Ken
+ * @author carlosreyes
  * 
  */
 @JsonAutoDetect
@@ -52,21 +56,6 @@ public class Tile extends GameObject {
         myStatMods = statMods;
     }
 
-    /**
-     * Sets the image path and image for the graphic that is drawn
-     * 
-     * @param imagePath - String of image path
-     */
-    public void setImagePath (String imagePath) {
-        myImagePath = imagePath;
-        try {
-            myImage = ImageManager.addImage(imagePath);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
     @Override
     public Image getImage () {
         return myImage;
@@ -79,6 +68,10 @@ public class Tile extends GameObject {
     public void setMoveCost (int moveCost) {
         myMoveCost = moveCost;
     }
+
+    /*
+     * Moved from node class
+     */
 
     public Tile (List<Tile> neighbors, Coordinate coordinate) {
         this.myNeighbors = neighbors;

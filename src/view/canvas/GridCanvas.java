@@ -31,9 +31,9 @@ public class GridCanvas extends Canvas {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
-//                Coordinate c = mapPixelsToGrid(e.getX(), e.getY());
-//                t = myGrid.getTile(c.getX(), c.getY());
-//                System.out.println(c.getX());
+                // Coordinate c = mapPixelsToGrid(e.getX(), e.getY());
+                // t = myGrid.getTile(c.getX(), c.getY());
+                // System.out.println(c.getX());
                 notifySubscribersOfClick(e);
             }
         });
@@ -50,21 +50,21 @@ public class GridCanvas extends Canvas {
         }
         repaint();
     }
-    
+
     public void addGridMouseListener (GridMouseListener l) {
         myClickSubscribers.add(l);
     }
 
-//    public Coordinate mapPixelsToGrid (int x, int y) {
-//        // cast x and y to double to enable non-integer values when evaluating division
-//        double doubleX = x;
-//        double doubleY = y;
-//
-//        int gridX = (int) (doubleX / getSize().width * myGrid.getWidth());
-//        int gridY = (int) (doubleY / getSize().height * myGrid.getHeight());
-//
-//        return new Coordinate((int) gridX, (int) gridY);
-//    }
+    // public Coordinate mapPixelsToGrid (int x, int y) {
+    // // cast x and y to double to enable non-integer values when evaluating division
+    // double doubleX = x;
+    // double doubleY = y;
+    //
+    // int gridX = (int) (doubleX / getSize().width * myGrid.getWidth());
+    // int gridY = (int) (doubleY / getSize().height * myGrid.getHeight());
+    //
+    // return new Coordinate((int) gridX, (int) gridY);
+    // }
 
     @Override
     public void paintComponent (Graphics g) {
@@ -73,12 +73,12 @@ public class GridCanvas extends Canvas {
         int width = getSize().width;
         myWM.getGrid().draw(g, STARTING_X, STARTING_Y, width, height);
     }
-    
-    public int getHeight() {
+
+    public int getHeight () {
         return getSize().height;
     }
-    
-    public int getWidth() {
+
+    public int getWidth () {
         return getSize().width;
     }
 

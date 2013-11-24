@@ -11,7 +11,7 @@ public abstract class Drawable extends Customizable {
     public void draw (Graphics g, int x, int y, int width, int height) {
         g.drawImage(getImage(), x, y, width, height, null);
     }
-    
+
     public Image getImage () {
         try {
             return ImageIO.read(new File(myImagePath));

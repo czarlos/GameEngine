@@ -32,7 +32,6 @@ public class GameUnit extends GameObject {
     private double myHealth;
     private double myExperience;
     private boolean isActive;
-    protected Coordinate myGridPosition;
 
     // reads defaults from JSON. To add/test new defaults, edit MakeDefaults.java
     public GameUnit () {
@@ -61,9 +60,6 @@ public class GameUnit extends GameObject {
         myUnitStats = stats;
         myItemList = item;
         isControllable = controllable;
-        // myUnitStats.makeStat("movement", 3);
-        // setItemList(new java.util.ArrayList<gameObject.item.Item>());
-        // setActive(false);
     }
 
     /**
@@ -149,6 +145,7 @@ public class GameUnit extends GameObject {
     /**
      * Gets the total stat value for a given stat of a character
      * after all of the item's stats have been applied.
+     * 
      * @param stat - The stat that we want to see
      * @return
      */
@@ -175,61 +172,12 @@ public class GameUnit extends GameObject {
     }
 
     /**
-     * Moves this game unit to the coordinates of the other game unit given.
-     * Moves the character only a given number of spaces per turn.
-     * The string 'movement' must be fed in by the user to specify which
-     * stat is responsible for movement/range.
-     * Note: Change this to use the a* path finding when it is done.
-     * 
-     * @param other - The opponent
-     * @param movement - The range of movement of this unit
-     */
-    public void snapToOpponent (GameUnit other) {
-        this.getUnitStats().getStatValue(GameObjectConstants.MOVEMENT);
-
-        // These will be used at a later implementation
-        Coordinate otherPosition = other.getGridPosition();
-        otherPosition.getX();
-        otherPosition.getY();
-
-        this.setGridPosition(otherPosition);
-
-    }
-
-    /**
-     * This unit searches for the closest unit on the grid
-     * 
-     * @param opponents - List of opponents
-     * @return
-     */
-    public GameUnit findClosestOpponent (List<GameUnit> opponents) {
-        GameUnit closest = null;
-        double distance = 0;
-        for (GameUnit opponent : opponents) {
-            if (closest == null) {
-                closest = opponent;
-                distance =
-                        UnitUtilities.calculateLength(this.getGridPosition(),
-                                                      opponent.getGridPosition());
-            }
-            else if (UnitUtilities.calculateLength(this.getGridPosition(),
-                                                   opponent.getGridPosition()) < distance) {
-                closest = opponent;
-                distance =
-                        UnitUtilities.calculateLength(this.getGridPosition(),
-                                                      opponent.getGridPosition());
-            }
-        }
-
-        return closest;
-    }
-    
-    /**
      * Trade allows one unit to swap an item with another unit, no matter
      * what team they are affiliated with. Note: as of this implementation
      * any character will trade with you for anything you want, a system must
      * be implemented which allows the other unit to determine what trades are
      * appropriate.
+     * 
      * @param other - The unit that this unit is trading with
      * @param otherItem - The item that this unit wants
      * @param item - The item that this unit is giving away
@@ -239,14 +187,6 @@ public class GameUnit extends GameObject {
         this.removeItem(item);
         other.addItem(item);
         this.addItem(otherItem);
-    }
-
-    public Coordinate getGridPosition () {
-        return myGridPosition;
-    }
-
-    public void setGridPosition (Coordinate gridPosition) {
-        this.myGridPosition = gridPosition;
     }
 
     public void setUnitStats (Stat myUnitStats) {
@@ -323,10 +263,10 @@ public class GameUnit extends GameObject {
         }
         return validActions;
     }
-    
+
     // TODO: trade with affiliates
     @Override
-    public Action getInteraction(){
+    public Action getInteraction () {
         return null;
     };
     
