@@ -28,6 +28,7 @@ public class MakeDefaults {
         p = new JSONParser();
         
         defaultStats = new Stats();
+        defaultNonStats = new Stats();
         Map<String, Integer> stats = new HashMap<String, Integer>();
         defaultNonStats.setStats(stats);
         
@@ -41,7 +42,7 @@ public class MakeDefaults {
         defaultItem = new Item();
         defaultItem.addAction(defaultAction);
         defaultItem.setName("Item");
-        defaultItem.setStats(defaultStats);
+        defaultItem.setStats(defaultNonStats);
     }
 
     public void makeTiles () throws Exception {
