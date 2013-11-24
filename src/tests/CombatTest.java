@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import gameObject.GameUnit;
-import gameObject.Stat;
+import gameObject.Stats;
 import gameObject.StatModifier;
 import gameObject.action.CombatAction;
 import gameObject.action.FixedOutcome;
@@ -31,12 +31,12 @@ public class CombatTest {
     public void setUp () throws Exception {
 
         // Setting up the units base stats
-        Stat playerStats = new Stat();
+        Stats playerStats = new Stats();
         playerStats.setStatValue("health", 15);
         playerStats.setStatValue("attack", 2);
         playerStats.setStatValue("defense", 1);
 
-        Stat enemyStats = new Stat();
+        Stats enemyStats = new Stats();
         enemyStats.setStatValue("health", 15);
         enemyStats.setStatValue("attack", 2);
         enemyStats.setStatValue("defense", 1);

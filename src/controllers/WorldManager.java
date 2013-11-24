@@ -17,6 +17,7 @@ import view.Customizable;
 import view.Drawable;
 import gameObject.GameObject;
 import gameObject.GameUnit;
+import gameObject.MasterStats;
 import gameObject.action.Action;
 import grid.Coordinate;
 import grid.FromJSONFactory;
@@ -39,6 +40,7 @@ public class WorldManager {
     private UnitTableModel myUnitModel;
     private String activeEditType;
     private int activeEditID;
+    private MasterStats myMasterStatList;
 
     /**
      * Intermediary between views and EditorData and Grid, stores List of Stages
@@ -52,6 +54,7 @@ public class WorldManager {
         myEditorData = new EditorData("defaults");
         myGameName = gameName;
         myUnitModel = new UnitTableModel();
+        myMasterStatList = new MasterStats();
     }
 
     public GameTableModel getViewModel (String type) {
@@ -325,5 +328,11 @@ public class WorldManager {
         Condition c = (Condition) myEditorData.get("Condition").get(ConditionID);
         c.setData(data);
         myActiveStage.addCondition(c);
+    }
+
+    public void addStat (String name, int value) {
+        myMasterStatList.setStatValue(name, value);
+        // TODO: Add to all unit definitions
+        // TODO: Add to all placed units
     }
 }

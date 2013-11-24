@@ -23,18 +23,18 @@ public class GameUnit extends GameObject {
 
     private boolean isControllable;
     private List<Item> myItemList;
-    private Stat myStats;
+    private Stats myStats;
     private String myAffiliation;
     private Weapon myActiveWeapon;
     private double myMaxHealth;
     private double myExperience;
     private boolean isActive;
 
-    //TODO: this is in make defaults. doesn't have to be here then?
+    // TODO: this is in make defaults. doesn't have to be here then?
     // reads defaults from JSON. To add/test new defaults, edit MakeDefaults.java
     public GameUnit () {
         myItemList = new ArrayList<Item>();
-        myStats = new Stat();
+        myStats = new Stats();
         myAffiliation = "";
     }
 
@@ -99,7 +99,7 @@ public class GameUnit extends GameObject {
             for (String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
                 int statVal = this.getStats().getStatValue(stat);
                 statVal += ((Equipment) itemName).getModifiers().getStatModifier(stat);
-                this.getStats().setStatValue(stat, statVal);
+                this.getStats().modExisting(stat, statVal);
             }
         }
         myItemList.add(itemName);
@@ -116,7 +116,7 @@ public class GameUnit extends GameObject {
             for (String stat : ((Equipment) itemName).getModifiers().getStatModifierMap().keySet()) {
                 int statVal = this.getStats().getStatValue(stat);
                 statVal -= ((Equipment) itemName).getModifiers().getStatModifier(stat);
-                this.getStats().setStatValue(stat, statVal);
+                this.getStats().modExisting(stat, statVal);
             }
         }
         myItemList.remove(itemName);
@@ -176,14 +176,14 @@ public class GameUnit extends GameObject {
         this.addItem(otherItem);
     }
 
-    public void setStats (Stat stats) {
+    public void setStats (Stats stats) {
         myStats = stats;
     }
 
-    public Stat getStats () {
+    public Stats getStats () {
         return myStats;
     }
-    
+
     // Adding for Outcomes, can potentially change later
     // Need to keep method names and signatures similar for reflection
     // since dealing with different data structures
@@ -192,7 +192,7 @@ public class GameUnit extends GameObject {
     }
 
     public void setStat (String statName, int statValue) {
-        myStats.setStatValue(statName, statValue);
+        myStats.modExisting(statName, statValue);
     }
 
     public boolean isControllable () {
@@ -277,8 +277,9 @@ public class GameUnit extends GameObject {
         displayData.add("Equipped Item: " + myActiveWeapon.getName());
         displayData.add("");
         displayData.add("Stats: ");
-        displayData.add("Health: " + getTotalStat(GameObjectConstants.HEALTH) + " / " + myMaxHealth);
-        for (String stat : myStats.getStatList().keySet()) {
+        displayData
+                .add("Health: " + getTotalStat(GameObjectConstants.HEALTH) + " / " + myMaxHealth);
+        for (String stat : myStats.getStatNames()) {
             if (stat.equals(GameObjectConstants.HEALTH)) {
                 continue;
             }

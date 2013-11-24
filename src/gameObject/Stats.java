@@ -1,17 +1,19 @@
 package gameObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 @JsonAutoDetect
-public class Stat {
+public class Stats {
     @JsonProperty
-    private Map<String, Integer> myStatList = new HashMap<>();
+    protected Map<String, Integer> myStatList = new HashMap<>();
 
-    public Stat () {
+    public Stats () {
     }
 
     public Integer getStatValue (String statName) {
@@ -24,12 +26,10 @@ public class Stat {
         }
     }
 
-    public void setStatValue (String name, Integer value) {
-        myStatList.put(name, value);
-    }
-
-    public Map<String, Integer> getStatList () {
-        return myStatList;
+    public List<String> getStatNames (){
+        List<String> statNames = new ArrayList<>();
+        statNames.addAll(myStatList.keySet());
+        return statNames;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class Stat {
         if (this == obj) return true;
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
-        Stat other = (Stat) obj;
+        Stats other = (Stats) obj;
         if (myStatList == null) {
             if (other.myStatList != null) return false;
         }

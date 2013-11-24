@@ -34,7 +34,7 @@ public class Equipment extends Item {
             int modifiedValue =
                     getModifiers().getStatModifier(statName) +
                             unit.getStats().getStatValue(statName);
-            unit.getStats().setStatValue(statName, modifiedValue);
+            unit.getStats().modExisting(statName, modifiedValue);
         }
     }
 
