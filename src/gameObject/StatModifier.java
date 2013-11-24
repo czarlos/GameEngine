@@ -33,25 +33,4 @@ public class StatModifier {
         myStatModifiers.put(name, value);
     }
 
-    @Override
-    public int hashCode () {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((myStatModifiers == null) ? 0 : myStatModifiers.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals (Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        StatModifier other = (StatModifier) obj;
-        if (myStatModifiers == null) {
-            if (other.myStatModifiers != null) return false;
-        }
-        else if (!myStatModifiers.equals(other.myStatModifiers)) return false;
-        return true;
-    }
-
 }
