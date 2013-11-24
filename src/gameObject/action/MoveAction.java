@@ -1,17 +1,25 @@
 package gameObject.action;
 
+import gameObject.GameObject;
 import gameObject.GameUnit;
 
 public class MoveAction extends Action {
-    private static final String NAME = "MoveAction";
+    public final static String NAME = "MoveAction";
     
     public MoveAction () {
         super.setName(NAME);
     }
-    
-    @Override
-    public void doAction (GameUnit unit1, GameUnit unit2) {
-        
-    }
+
+	@Override
+	public void doAction(GameUnit initiator, GameObject receiver) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isValidAction(GameUnit gameUnit, GameObject gameObject) {
+		// TODO Auto-generated method stub
+		return false;
+	}
     
 }
