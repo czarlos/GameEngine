@@ -1,9 +1,6 @@
 package gameObject;
 
 import gameObject.action.Action;
-import gameObject.action.CombatAction;
-import gameObject.action.MoveAction;
-import gameObject.action.WaitAction;
 import gameObject.item.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -182,7 +179,7 @@ public class GameUnit extends GameObject {
     }
 
     public void setActiveWeapon (Item activeItem) {
-        this.myActiveWeapon = (Weapon) activeItem;
+        myActiveWeapon = (Weapon) activeItem;
     }
 
     public void setActive (boolean active) {
@@ -246,7 +243,7 @@ public class GameUnit extends GameObject {
     public void generateDisplayData () {
         List<String> displayData = new ArrayList<>();
         displayData.add("Name: " + myName);
-        displayData.add("Affiliation: " + myTeamName);
+        displayData.add("Team: " + myTeamName);
         displayData.add("");
         displayData.add("Equipped Item: " + myActiveWeapon.getName());
         displayData.add("");

@@ -16,7 +16,7 @@ public class Chest extends GameObject {
     private List<Item> myItemList;
 
     public Chest (List<Item> itemList) {
-        setItemList(itemList);
+        myItemList = itemList;
     }
 
     public List<Item> getItemList () {

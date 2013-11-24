@@ -359,7 +359,7 @@ public class Grid implements Drawable {
      * @param coordinate Coordinate that is being asked for
      * @return List of Strings that contain information about the coordinate
      */
-    public List<String> generateTileInfoList (Coordinate coordinate) {
+    public List<String> generateTileInfo (Coordinate coordinate) {
         Tile tile = getTile(coordinate);
         return tile.getDisplayData();
     }
@@ -371,7 +371,7 @@ public class Grid implements Drawable {
      * @return List of Strings that contain information about the coordinate. Null if there is no
      *         object at coordinate
      */
-    public List<String> generateObjectInfoList (Coordinate coordinate) {
+    public List<String> generateObjectInfo (Coordinate coordinate) {
         GameObject gameObject = getObject(coordinate);
         if (gameObject != null) {
             gameObject.generateDisplayData();

@@ -36,25 +36,4 @@ public class Stats {
     public void setStatList (Map<String, Integer> myStatMap) {
         this.myStatMap = myStatMap;
     }
-
-    @Override
-    public int hashCode () {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((myStatMap == null) ? 0 : myStatMap.hashCode());
-        return result;
-    }
-    
-    @Override
-    public boolean equals (Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        Stats other = (Stats) obj;
-        if (myStatMap == null) {
-            if (other.myStatMap != null) return false;
-        }
-        else if (!myStatMap.equals(other.myStatMap)) return false;
-        return true;
-    }
 }
