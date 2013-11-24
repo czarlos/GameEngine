@@ -63,6 +63,12 @@ public class Tile extends GameObject {
         myStatMods = statMods;
     }
 
+    /**
+     * Sets the image path and image for the graphic that is drawn
+     * 
+     * @param imagePath - String of image path
+     */
+
     @Override
     public Image getImage () {
         return myImage;

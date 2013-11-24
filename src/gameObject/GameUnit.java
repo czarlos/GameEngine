@@ -3,13 +3,10 @@ package gameObject;
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
 import gameObject.item.*;
-import grid.Coordinate;
-import grid.Grid;
-import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.List;
-import utils.UnitUtilities;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -27,42 +24,27 @@ public class GameUnit extends GameObject {
     private boolean isControllable;
     private List<Item> myItemList;
     private Stat myStats;
-    private int myAffiliation;
+    private String myAffiliation;
     private Weapon myActiveWeapon;
     private double myMaxHealth;
     private double myExperience;
     private boolean isActive;
-    protected Coordinate myGridPosition;
 
     //TODO: this is in make defaults. doesn't have to be here then?
     // reads defaults from JSON. To add/test new defaults, edit MakeDefaults.java
     public GameUnit () {
-        super();
+        myItemList = new ArrayList<Item>();
         myStats = new Stat();
-        myStats.setStatValue("movement", 3);
-        setItemList(new java.util.ArrayList<gameObject.item.Item>());
-        myName = GridConstants.DEFAULT_UNIT_NAME;
-        setImagePath(GridConstants.DEFAULT_UNIT_PATH);
-        myAffiliation = 0;
-        myStats = new Stat() {
-            {
-                setStatValue("movement", 3);
-            }
-        };
+        myAffiliation = "";
     }
 
-    public GameUnit (String name,
-                     String imagePath,
-                     int affiliation,
-                     Stat stats,
-                     List<Item> items,
-                     boolean controllable) {
-        super();
+    // should ONLY be called by stage when adding units to a team
+    public void setAffiliation (String affiliation) {
         myAffiliation = affiliation;
-        myStats = stats;
-        myItemList = items;
-        isControllable = controllable;
-        myMaxHealth = getStat(GameObjectConstants.HEALTH);
+    }
+
+    public String getAffiliation () {
+        return myAffiliation;
     }
 
     /**
@@ -141,8 +123,10 @@ public class GameUnit extends GameObject {
     }
 
     @Override
-    public boolean isPassable (GameObject unit) {
-        return super.isPassable(unit) || ((GameUnit) unit).getAffiliation() == myAffiliation;
+    public boolean isPassable (GameUnit unit) {
+        unit.getAffiliation();
+        System.out.println(myAffiliation);
+        return super.isPassable(unit) || unit.getAffiliation().equals(myAffiliation);
     }
 
     /**
@@ -175,56 +159,6 @@ public class GameUnit extends GameObject {
     }
 
     /**
-     * Moves this game unit to the coordinates of the other game unit given.
-     * Moves the character only a given number of spaces per turn.
-     * The string 'movement' must be fed in by the user to specify which
-     * stat is responsible for movement/range.
-     * Note: Change this to use the a* path finding when it is done.
-     * 
-     * @param other - The opponent
-     * @param movement - The range of movement of this unit
-     */
-    public void snapToOpponent (GameUnit other) {
-        this.getStats().getStatValue(GameObjectConstants.MOVEMENT);
-
-        // These will be used at a later implementation
-        Coordinate otherPosition = other.getGridPosition();
-        otherPosition.getX();
-        otherPosition.getY();
-
-        this.setGridPosition(otherPosition);
-
-    }
-
-    /**
-     * This unit searches for the closest unit on the grid
-     * 
-     * @param opponents - List of opponents
-     * @return
-     */
-    public GameUnit findClosestOpponent (List<GameUnit> opponents) {
-        GameUnit closest = null;
-        double distance = 0;
-        for (GameUnit opponent : opponents) {
-            if (closest == null) {
-                closest = opponent;
-                distance =
-                        UnitUtilities.calculateLength(this.getGridPosition(),
-                                                      opponent.getGridPosition());
-            }
-            else if (UnitUtilities.calculateLength(this.getGridPosition(),
-                                                   opponent.getGridPosition()) < distance) {
-                closest = opponent;
-                distance =
-                        UnitUtilities.calculateLength(this.getGridPosition(),
-                                                      opponent.getGridPosition());
-            }
-        }
-
-        return closest;
-    }
-
-    /**
      * Trade allows one unit to swap an item with another unit, no matter
      * what team they are affiliated with. Note: as of this implementation
      * any character will trade with you for anything you want, a system must
@@ -240,14 +174,6 @@ public class GameUnit extends GameObject {
         this.removeItem(item);
         other.addItem(item);
         this.addItem(otherItem);
-    }
-
-    public Coordinate getGridPosition () {
-        return myGridPosition;
-    }
-
-    public void setGridPosition (Coordinate gridPosition) {
-        this.myGridPosition = gridPosition;
     }
 
     public void setStats (Stat stats) {
@@ -267,14 +193,6 @@ public class GameUnit extends GameObject {
 
     public void setStat (String statName, int statValue) {
         myStats.setStatValue(statName, statValue);
-    }
-
-    public int getAffiliation () {
-        return myAffiliation;
-    }
-
-    public void setAffiliation (int myAffiliation) {
-        this.myAffiliation = myAffiliation;
     }
 
     public boolean isControllable () {
@@ -337,6 +255,7 @@ public class GameUnit extends GameObject {
         return validActions;
     }
 
+    @JsonIgnore
     public List<Action> getActions () {
         List<Action> actions = new ArrayList<>();
         for (Item item : myItemList) {
@@ -389,7 +308,6 @@ public class GameUnit extends GameObject {
                 i.setAmount(itemValue);
             }
         }
-
     }
 
     public void setItemList (List<Item> myItemList) {
@@ -402,7 +320,6 @@ public class GameUnit extends GameObject {
         int result = 1;
         result = prime * result + (isControllable ? 1231 : 1237);
         result = prime * result + ((myActiveWeapon == null) ? 0 : myActiveWeapon.hashCode());
-        result = prime * result + myAffiliation;
         long temp;
         temp = Double.doubleToLongBits(myExperience);
         result = prime * result + (int) (temp ^ (temp >>> 32));

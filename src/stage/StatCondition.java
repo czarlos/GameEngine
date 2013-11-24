@@ -1,24 +1,31 @@
 package stage;
 
-import grid.Grid;
+import gameObject.GameUnit;
+import java.util.List;
 
 
+/**
+ * Returns true if a unit of a certain "affiliation" has achieved a stat of "statType" higher
+ * than "value"
+ * 
+ * @author Leevi
+ * 
+ */
 public class StatCondition extends Condition {
 
     public StatCondition () {
         super();
-        neededData.add("statType");
-        neededData.add("value");
-        neededData.add("affilation");
+        myNeededData.add("statType");
+        myNeededData.add("value");
+        myNeededData.add("affilation");
     }
 
-    /**
-     * Returns true if a unit of a certain "affiliation" has achieved a stat of "statType" higher
-     * than "value"
-     */
     @Override
-    boolean isFulfilled (Grid grid) {
-
+    boolean isFulfilled (Stage stage) {
+        List<GameUnit> theTeam = stage.getTeamUnits(Integer.parseInt(myData.get("affiliation")));
+        for (GameUnit gu : theTeam) {
+            if (gu.getStat(myData.get("statType")) > Integer.parseInt(myData.get("value"))) { return true; }
+        }
         return false;
     }
 

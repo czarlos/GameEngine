@@ -4,7 +4,6 @@ import gameObject.GameObject;
 import gameObject.GameObjectConstants;
 import gameObject.GameUnit;
 import gameObject.action.Action;
-import gameObject.action.CombatAction;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * 
  */
 @JsonAutoDetect
-public class Grid extends Drawable {
+public class Grid implements Drawable {
     @JsonProperty
     private int myWidth;
     @JsonProperty
@@ -36,6 +35,9 @@ public class Grid extends Drawable {
     @JsonProperty
     private GameUnit[][] myUnits;
     private FromJSONFactory myFactory;
+
+    protected static final int TILE_WIDTH = 35;
+    protected static final int TILE_HEIGHT = 35;
 
     /**
      * Creates a grid with the width and height set
@@ -96,7 +98,6 @@ public class Grid extends Drawable {
      * Initiates the moving process for a gameUnit
      * 
      * @param coordinate Coordinate where the gameUnit is located
-     * @param gameUnit GameUnit that is moving
      * 
      */
     public void beginMove (Coordinate coordinate) {
@@ -142,7 +143,7 @@ public class Grid extends Drawable {
      * @param gameObject GameObject that we are finding the range of
      * 
      */
-    private void findMovementRange (Coordinate coordinate, int range, GameObject gameObject) {
+    private void findMovementRange (Coordinate coordinate, int range, GameUnit gameObject) {
         int[] rdelta = { -1, 0, 0, 1 };
         int[] cdelta = { 0, -1, 1, 0 };
 
@@ -152,6 +153,7 @@ public class Grid extends Drawable {
             if (onGrid(coordinate)) {
                 Tile currentTile = getTile(new Coordinate(newX, newY));
                 int newRange = range - currentTile.getMoveCost();
+
                 if (currentTile.isPassable(gameObject) && newRange >= 0) {
                     GameObject currentObject = getObject(new Coordinate(newX, newY));
                     if (currentObject != null) {
@@ -211,7 +213,8 @@ public class Grid extends Drawable {
      */
     public List<GameObject> doAction (Coordinate unitCoordinate,
                                       Coordinate actionCoordinate,
-                                      Action action) {
+                                      String actionName) {
+        Action action = selectAction(unitCoordinate, actionName);
         if (isValid(actionCoordinate)) {
             String direction = findDirection(unitCoordinate, actionCoordinate, action);
             return findAffectedObjects(unitCoordinate, action, direction);
@@ -411,10 +414,11 @@ public class Grid extends Drawable {
     /**
      * Returns the action that matches the action name provided
      * 
+     * @param coordinate Coordinate of where the action originates
      * @param actionName String of name of action being searched for
      * @return Action of the action being searched for, and null if no action found
      */
-    private Action selectAction (String actionName, Coordinate coordinate) {
+    private Action selectAction (Coordinate coordinate, String actionName) {
         for (Action action : generateActionList(coordinate)) {
             if (action.getName().equals(actionName)) { return action; }
         }
@@ -489,7 +493,7 @@ public class Grid extends Drawable {
      * @param gameUnit GameUnit that is being located
      * @return Coordinate of unit's location
      */
-    private Coordinate getUnitCoordinate (GameUnit gameUnit) {
+    public Coordinate getUnitCoordinate (GameUnit gameUnit) {
         for (int i = 0; i < myUnits.length; i++) {
             for (int j = 0; j < myUnits[0].length; j++) {
                 if (myUnits[i][j].equals(gameUnit)) return new Coordinate(i, j);
@@ -528,6 +532,23 @@ public class Grid extends Drawable {
 
     public GameUnit[][] getGameUnits () {
         return myUnits;
+    }
+
+    /**
+     * Finds all coordinates adjacent to the coordinate
+     * given.
+     * 
+     * @param - Coordinate from which to find adjacent coords
+     * @return
+     */
+    public List<Coordinate> adjacentCoordinates (Coordinate coord) {
+        List<Coordinate> returnArray = new ArrayList<Coordinate>();
+        returnArray.add(new Coordinate(coord.getX() + 1, coord.getY()));
+        returnArray.add(new Coordinate(coord.getX(), coord.getY() + 1));
+        returnArray.add(new Coordinate(coord.getX() - 1, coord.getY()));
+        returnArray.add(new Coordinate(coord.getX(), coord.getY() - 1));
+        return returnArray;
+
     }
 
     /**

@@ -1,7 +1,6 @@
 package tests;
 
 import static org.junit.Assert.assertEquals;
-import org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,11 +14,9 @@ import gameObject.action.Outcome;
 import gameObject.item.Equipment;
 import gameObject.item.Item;
 import gameObject.item.Weapon;
-import grid.GridConstants;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 
 public class CombatTest {
     GameUnit playerUnit;
@@ -44,9 +41,6 @@ public class CombatTest {
         enemyStats.setStatValue("attack", 2);
         enemyStats.setStatValue("defense", 1);
 
-        // Setting up a list of items
-        List<Item> itemList = new ArrayList<>();
-
         Map<String, Integer> itemStatsMap = new HashMap<String, Integer>();
         itemStatsMap.put("attack", 1);
         StatModifier itemStats = new StatModifier();
@@ -59,14 +53,12 @@ public class CombatTest {
         Item sword = new Weapon("sword", action, itemStats);
 
         // Creates Player Character
-        playerUnit = new GameUnit("Marth", GridConstants.DEFAULT_UNIT_PATH, 0,
-                                  playerStats, itemList, true);
+        playerUnit = new GameUnit();
         playerUnit.setActiveWeapon(sword);
         // playerUnit.addItem(sword);
 
         // Creates Enemy
-        enemyUnit = new GameUnit("Roy", GridConstants.DEFAULT_UNIT_PATH, 0,
-                                 enemyStats, itemList, true);
+        enemyUnit = new GameUnit();
         enemyUnit.setActiveWeapon(sword);
     }
 
@@ -156,7 +148,7 @@ public class CombatTest {
 
         playerUnit.attack(enemyUnit, weapon.getName(), action);
 
-        int itemCount = enemyUnit.getItem("potion");
+        int itemCount = enemyUnit.getItemCount("potion");
         int expectedItemCount = 3;
 
         assertEquals("Proper Items Removed", itemCount, expectedItemCount);

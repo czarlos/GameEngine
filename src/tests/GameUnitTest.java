@@ -43,9 +43,6 @@ public class GameUnitTest {
         stats.setStatValue("agility", 7);
         stats.setStatValue("health", 15);
 
-        // Setting up a list of items
-        List<Item> itemList = new ArrayList<Item>();
-
         Map<String, Integer> statMods = new HashMap<String, Integer>();
         statMods.put("attack", 4);
         List<CombatAction> action = new ArrayList<CombatAction>();
@@ -58,8 +55,7 @@ public class GameUnitTest {
         statMods1.put("defense", 3);
         Item shield = new Equipment("shield", new StatModifier(statMods1));
 
-        customUnit =
-                new GameUnit("Marth", GridConstants.DEFAULT_UNIT_PATH, 0, stats, itemList, true);
+        customUnit = new GameUnit();
         customUnit.setActiveWeapon(sword);
         // Note this is how all items must be added.
         customUnit.addItem(sword);
