@@ -61,7 +61,7 @@ public class WorldManager {
                 return myUnitModel;
             case "gameobject":
 
-                return null; //add
+                return null; // add
         }
         return null;
     }
@@ -169,6 +169,10 @@ public class WorldManager {
         myActiveStage.getGrid().doAction(object, action, actionName);
     }
 
+    public void beginAction (Coordinate coordinate, String actionName) {
+        myActiveStage.getGrid().beginAction(coordinate, actionName);
+    }
+
     /**
      * Getting images
      * 
@@ -210,7 +214,6 @@ public class WorldManager {
     public void placeUnit (int unitID, int x, int y) {
         myActiveStage.getGrid().placeObject(new Coordinate(x, y),
                                             (GameObject) myFactory.make("gameunit", unitID));
-
 
     }
 
@@ -325,5 +328,13 @@ public class WorldManager {
         Condition c = (Condition) myEditorData.get("Condition").get(ConditionID);
         c.setData(data);
         myActiveStage.addCondition(c);
+    }
+
+    public List<String> getActionList (Coordinate c) {
+        return myActiveStage.getGrid().generateActionList(c);
+    }
+
+    public List<String> getInfo (Coordinate c) {
+        return myActiveStage.getGrid().generateInfoList(c);
     }
 }

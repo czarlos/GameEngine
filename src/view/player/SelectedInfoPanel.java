@@ -12,23 +12,18 @@ public class SelectedInfoPanel extends JPanel {
     protected JTabbedPane myTabs;
     protected GridController myController;
 
-    
     public SelectedInfoPanel (GridController controller) {
-        myTabs=new JTabbedPane();
-        myController=controller;
+        myTabs = new JTabbedPane();
+        myController = controller;
     }
-    
-    public void makeTabs(List<String> tileInfo,List<String> objectInfo, List<String> actions){
-        if(tileInfo!=null){
-            myTabs.add("Tile Info",new InfoPanel(tileInfo));
+
+    public void makeTabs (List<String> info, List<String> actions) {
+        if (info != null) {
+            myTabs.add("Tile Info", new InfoPanel(info));
         }
-        
-        if(objectInfo!=null){
-            myTabs.add("Object Info",new InfoPanel(objectInfo));
-        }
-        
-        if(actions!=null){
-            myTabs.add("Actions",new ActionInfoPanel(actions, myController, myCoordinate));
+
+        if (actions != null) {
+            myTabs.add("Actions", new ActionInfoPanel(actions, myController, myCoordinate));
         }
     }
 }

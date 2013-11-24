@@ -28,10 +28,10 @@ public class StagePlayerPanel extends JPanel {
     
     public void updatedSelectedInfoPanel(Coordinate c){
         SelectedInfoPanel infoPanel=new SelectedInfoPanel(myController);
-        infoPanel.makeTabs(myWM.get, objectInfo, actions);
+        infoPanel.makeTabs(myWM.getInfo(c), myWM.getActionList(c));
         remove(mySidePanel);
         mySidePanel=infoPanel;
-        add(mySidePanel;)
+        add(mySidePanel);
     }
 
 }

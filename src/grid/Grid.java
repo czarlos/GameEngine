@@ -200,8 +200,9 @@ public class Grid implements Drawable {
      * @param gameUnit GameUnit that is doing the action
      * @param combatAction CombatAction that is being used
      */
-    public void beginAction (Coordinate coordinate, Action action) {
-        findActionRange(coordinate, action);
+    public void beginAction (Coordinate coordinate, String actionName) {
+        //TODO: Fix method to take action names
+        //findActionRange(coordinate, actionName);
     }
 
     /**

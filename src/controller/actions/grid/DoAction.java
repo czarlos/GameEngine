@@ -18,7 +18,7 @@ public class DoAction extends AbstractGridCommand {
 
     @Override
     public void execute () {
-        myWM.doAction(myActionName,mySelectedCoordinates.get(0),mySelectedCoordinates.get(1));
+        myWM.doAction(mySelectedCoordinates.get(0),mySelectedCoordinates.get(1),myActionName);
     }
 
 }

@@ -16,7 +16,7 @@ public class BeginDoAction extends AbstractGridCommand {
     }
     @Override
     public void execute () {
-        myWM.beginAction(myActionName,mySelectedCoordinates.get(0));
+        myWM.beginAction(mySelectedCoordinates.get(0),myActionName);
     }
 
 }
