@@ -22,21 +22,50 @@ public class Stats {
     @JsonProperty
     protected Map<String, Integer> myStatMap = new HashMap<>();
 
+    /**
+     * Constructor for stats which currently does nothing
+     */
     public Stats () {
 
     }
 
+    /**
+     * Gets the stat value for the given stat name
+     * 
+     * @param statName - The stat name to get the value for
+     * @return The value of the stat name passed in
+     */
     @JsonIgnore
     public Integer getStatValue (String statName) {
         return myStatMap.get(statName);
     }
 
+    /**
+     * Modifies the value of an existing stat. If the stat does not exist, does nothing
+     * 
+     * @param statName - Name of the stat to modify
+     * @param value - Value to modify the stat to
+     */
     public void modExisting (String statName, Integer value) {
         if (myStatMap.containsKey(statName)) {
             myStatMap.put(statName, value);
         }
     }
 
+    /**
+     * Removes a stat
+     * 
+     * @param statName - The name of the stat to remove
+     */
+    public void remove (String statName) {
+        myStatMap.remove(statName);
+    }
+
+    /**
+     * Gets a list of all stat names
+     * 
+     * @return The list of all stat names
+     */
     @JsonIgnore
     public List<String> getStatNames () {
         List<String> statNames = new ArrayList<>();
@@ -44,29 +73,43 @@ public class Stats {
         return statNames;
     }
 
-    public void setStatList (Map<String, Integer> myStatMap) {
-        this.myStatMap = myStatMap;
-    }
-
+    /**
+     * Returns the stat map of the Stats instance
+     * 
+     * @return The stat map of the Stats instance
+     */
     public Map<String, Integer> getStats () {
         return myStatMap;
     }
 
+    /**
+     * Sets the map of stats
+     * 
+     * @param myStatMap - The map of stats to set to
+     */
     public void setStats (Map<String, Integer> myStatMap) {
         this.myStatMap = myStatMap;
     }
 
-    @Override
-    public Stats clone () {
-        Stats cloneStats = new Stats();
-        Map<String, Integer> cloneMap = new HashMap<>();
-
-        for (String stat : myStatMap.keySet()) {
-            cloneMap.put(stat, myStatMap.get(stat));
+    /**
+     * Updates the stats maps of the current Stats instance and the master stats map. If a stat
+     * exists in the master stats map, but not in the current Stats instance map, then it adds it to
+     * the current Stats map instance. If a stat exists in the current Stats instance map, but not
+     * in the master stats map, it removes it from the current Stats map instance
+     * 
+     * @param masterStatMap The master stat map from the world manager
+     */
+    public void updateFromMaster (MasterStats masterStatMap) {
+        for (String stat : masterStatMap.getStatNames()) {
+            if (!getStatNames().contains(stat)) {
+                myStatMap.put(stat, masterStatMap.getStatValue(stat));
+            }
         }
 
-        cloneStats.setStatList(cloneMap);
-        return cloneStats;
+        for (String stat : getStatNames()) {
+            if (!masterStatMap.getStatNames().contains(stat)) {
+                remove(stat);
+            }
+        }
     }
-
 }

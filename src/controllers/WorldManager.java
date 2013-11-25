@@ -20,6 +20,12 @@ import grid.FromJSONFactory;
 import grid.Tile;
 
 
+/**
+ * 
+ * @author Leevi Gray
+ * @author Ken McAndrews
+ * 
+ */
 @JsonAutoDetect
 public class WorldManager extends Manager {
 
@@ -242,48 +248,72 @@ public class WorldManager extends Manager {
     }
 
     /**
-     * Adds a new stat to the game by adding to the master stat list, adding to all unit definitions
-     * stored in the editor data, and adding to all placed units
+     * Gets the stat value in the master stat list for the given stat
      * 
-     * @param name - Name of the stat to be added
-     * @param value - Default value of the stat to be added
+     * @param statName - Name of the stat to get the value for
+     * @return The value of the stat for the stat name passed in
      */
-    // TODO: Should we have check if there is already that stat? Or just overwrite?
-    public void addStat (String name, int value) {
-        List<Customizable> unitList = myEditorData.get("GameUnit");
-        List<String> newStats = new ArrayList<>();
-        GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits(); // Is myActiveStage the
-                                                                           // stage that is
-                                                                           // currently being edited
+    public int getStatValue (String statName) {
+        return myMasterStatMap.getStatValue(statName);
+    }
 
-        myMasterStatMap.setStatValue(name, value);
-        // Do we want to do this? Or just add in new stat like in placed units? e.g. Do all units in
-        // data have unique stat lists?
-        for (Customizable unit : unitList) {
-            ((GameUnit) unit).setStats(myMasterStatMap.clone());
+    /**
+     * Adds a new stat to the game by adding to the master stat list. Calls the update method, which
+     * adds the stat to the stats list of all units placed and unit definitions
+     * 
+     * @param statName - Name of the stat to be added
+     * @param statValue - Default value of the stat to be added
+     */
+    public void addStat (String statName, int statValue) {
+        if (!myMasterStatMap.getStatNames().contains(statName)) {
+            myMasterStatMap.setStatValue(statName, statValue);
+            updateStats();
+        }
+    }
+
+    /**
+     * Removes a stat from the master stat list. Calls the update method, which removes the stat
+     * from the stats list of all units placed and unit definitions
+     * 
+     * @param statName - Name of the stat to be removed
+     */
+    public void removeStat (String statName) {
+        myMasterStatMap.remove(statName);
+        updateStats();
+    }
+
+    /**
+     * Modifies a stat in the master stat list. Does not update that value in the stats list of
+     * placed units and unit definitions
+     * 
+     * @param statName - Name of the stat to be modified
+     * @param statValue - Value to update the stat to
+     */
+    public void modifyStat (String statName, int statValue) {
+        if (myMasterStatMap.getStatNames().contains(statName)) {
+            myMasterStatMap.modExisting(statName, statValue);
+        }
+    }
+
+    /**
+     * Calls update method for all stats of all placed units and unit definitions. If there are new
+     * stats in the master stats list, adds that stat to the stats of all placed units and unit
+     * definitions. If there is a stat in the stats list of placed units and unit definitions, but
+     * not in the master stats list, then it removes that stat from all stats lists of placed units
+     * and unit definitions
+     */
+    public void updateStats () {
+        List<Customizable> editorUnitList = myEditorData.get("GameUnit");
+        GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
+
+        for (Customizable unit : editorUnitList) {
+            ((GameUnit) unit).getStats().updateFromMaster(myMasterStatMap);
         }
 
-        // Need this check? Or assumed that gameUnits array will already be created?
-        if (placedUnits.length > 0 && placedUnits[0].length > 0) {
-            List<String> currentStatList = ((GameUnit) unitList.get(0)).getStats().getStatNames();
-            for (String stat : myMasterStatMap.getStatNames()) {
-                if (!currentStatList.contains(stat)) {
-                    newStats.add(stat);
-                }
-            }
-
-            for (int i = 0; i < placedUnits.length; i++) {
-                for (int j = 0; j < placedUnits[i].length; j++) {
-                    if (placedUnits[i][j] != null) {
-                        Map<String, Integer> newStatMap = new HashMap<>();
-                        for (String stat : placedUnits[i][j].getStats().getStatNames()) {
-                            newStatMap.put(stat, placedUnits[i][j].getStat(stat));
-                        }
-                        for (String stat : newStats) {
-                            newStatMap.put(stat, myMasterStatMap.getStatValue(stat));
-                        }
-                        placedUnits[i][j].getStats().setStatList(newStatMap);
-                    }
+        for (int i = 0; i < placedUnits.length; i++) {
+            for (int j = 0; j < placedUnits[i].length; j++) {
+                if (placedUnits[i][j] != null) {
+                    placedUnits[i][j].getStats().updateFromMaster(myMasterStatMap);
                 }
             }
         }
