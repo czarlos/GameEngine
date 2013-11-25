@@ -1,5 +1,6 @@
 package dialog;
 
+import gameObject.Stats;
 import grid.Tile;
 import java.io.File;
 import java.util.ArrayList;
@@ -50,8 +51,10 @@ public class TileTableModel extends GameTableModel{
             t.setName((String) row[0]);
             t.setImageAndPath((String) ((File) row[1]).getPath());
             t.setMoveCost((int) row[2]);
-            t.setStatMods((Map<String, Double>) row[3]);
+            Stats s = new Stats();
+            s.setStats((Map<String, Integer>) row[3]);
 
+            t.setStats(s);
             list.add(t);
         }
 

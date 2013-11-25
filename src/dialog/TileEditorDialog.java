@@ -1,5 +1,6 @@
 package dialog;
 
+import gameObject.Stats;
 import grid.Tile;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -85,7 +87,11 @@ public class TileEditorDialog extends TableDialog{
             defTile.setName("New Tile");
             defTile.setImageAndPath("resources/grass.png");
             defTile.setMoveCost(1);
-            defTile.setStatMods(new HashMap<String, Double>());
+            
+            Stats s = new Stats();
+            s.setStats(new HashMap<String, Integer>());
+            
+            defTile.setStats(s);
                 
             newList.add(defTile);
             myModel.addPreviouslyDefined(newList);
