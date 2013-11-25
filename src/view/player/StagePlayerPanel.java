@@ -33,11 +33,11 @@ public class StagePlayerPanel extends JPanel {
     public void revalidate(){
         super.revalidate();
         if(myGridCanvas!=null){
-            myGridCanvas.invalidate();
+            myGridCanvas.repaint();
         }
         
         if(mySidePanel!=null){
-            mySidePanel.invalidate();
+            mySidePanel.repaint();
         }
         
     }
