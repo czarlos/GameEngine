@@ -92,10 +92,7 @@ public class Grid implements Drawable {
         placeObject(new Coordinate(3, 5), tree);
         GameObject hero = (GameUnit) myFactory.make("GameUnit", 0);
         placeObject(new Coordinate(4, 5), hero);
-<<<<<<< HEAD
 
-=======
->>>>>>> controllers
     }
 
     /**
@@ -242,36 +239,39 @@ public class Grid implements Drawable {
      *        the unit
      */
     private void findActionRange (Coordinate unitCoordinate, Action action) {
-        /*List<Coordinate> area = action.getAOE();
-        if (action.isAround()) {
-            for (Coordinate cell : area) {
-            	Coordinate newCoordinate = new Coordinate(unitCoordinate.getX() + cell.getX(), unitCoordinate.getY() +
-                        cell.getY());
-            	if (onGrid(newCoordinate)) {
-            		getTile(newCoordinate).setActive(true);
-            	}
-            }
-        }
-        else {
-            for (Coordinate cell : area) {
-                getTile(
-                        new Coordinate(unitCoordinate.getX() + cell.getX(), unitCoordinate.getY() +
-                                                                            cell.getY()))
-                        .setActive(true); // up
-                getTile(
-                        new Coordinate(unitCoordinate.getX() + cell.getY(), unitCoordinate.getY() -
-                                                                            cell.getX()))
-                        .setActive(true); // right
-                getTile(
-                        new Coordinate(unitCoordinate.getX() - cell.getX(), unitCoordinate.getY() -
-                                                                            cell.getY()))
-                        .setActive(true); // down
-                getTile(
-                        new Coordinate(unitCoordinate.getX() - cell.getY(), unitCoordinate.getY() +
-                                                                            cell.getX()))
-                        .setActive(true); // left
-            }
-        }*/
+        /*
+         * List<Coordinate> area = action.getAOE();
+         * if (action.isAround()) {
+         * for (Coordinate cell : area) {
+         * Coordinate newCoordinate = new Coordinate(unitCoordinate.getX() + cell.getX(),
+         * unitCoordinate.getY() +
+         * cell.getY());
+         * if (onGrid(newCoordinate)) {
+         * getTile(newCoordinate).setActive(true);
+         * }
+         * }
+         * }
+         * else {
+         * for (Coordinate cell : area) {
+         * getTile(
+         * new Coordinate(unitCoordinate.getX() + cell.getX(), unitCoordinate.getY() +
+         * cell.getY()))
+         * .setActive(true); // up
+         * getTile(
+         * new Coordinate(unitCoordinate.getX() + cell.getY(), unitCoordinate.getY() -
+         * cell.getX()))
+         * .setActive(true); // right
+         * getTile(
+         * new Coordinate(unitCoordinate.getX() - cell.getX(), unitCoordinate.getY() -
+         * cell.getY()))
+         * .setActive(true); // down
+         * getTile(
+         * new Coordinate(unitCoordinate.getX() - cell.getY(), unitCoordinate.getY() +
+         * cell.getX()))
+         * .setActive(true); // left
+         * }
+         * }
+         */
     }
 
     /**
