@@ -83,9 +83,15 @@ public class UnitTableModel extends GameTableModel {
     }
 
     @Override
-    void addPreviouslyDefined (List<Customizable> list) {
+    public void addPreviouslyDefined (List<Customizable> list) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public List<Customizable> getObjects () {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

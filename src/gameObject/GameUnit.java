@@ -58,23 +58,6 @@ public class GameUnit extends GameObject {
     }
 
     /**
-     * Loops through all of a players items and ups their stats
-     * according to the stat value of each item if the player has
-     * a stat field in line with that item.
-     */
-    public void initializeStats () {
-        for (Item item : myItems) {
-            for (String statName : item.getStats().getStatNames()) {
-                if (myStats.getStatNames().contains(statName)) {
-                    int fromItem = item.getStats().getStatValue(statName);
-                    int current = myStats.getStatValue(statName);
-                    myStats.modExisting(statName, current + fromItem);
-                }
-            }
-        }
-    }
-
-    /**
      * Sets the Game units active weapon to the weapon
      * with a given string name.
      * 

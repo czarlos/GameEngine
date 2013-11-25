@@ -1,34 +1,38 @@
 package controllers;
 
-import java.awt.Image;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import dialog.GameTableModel;
-import dialog.UnitTableModel;
-import parser.JSONParser;
-import stage.Condition;
-import stage.Stage;
-import view.Customizable;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.MasterStats;
 import grid.Coordinate;
 import grid.FromJSONFactory;
 import grid.Tile;
+import java.awt.Image;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import stage.Condition;
+import stage.Stage;
+import view.Customizable;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import dialog.GameTableModel;
+import gameObject.item.Item;
 
 
+/**
+ * 
+ * @author Leevi Gray
+ * @author Ken McAndrews
+ * 
+ */
 @JsonAutoDetect
 public class WorldManager extends Manager {
 
     FromJSONFactory myFactory;
-    JSONParser myParser;
 
-    private UnitTableModel myUnitModel;
-    private String activeEditType;
-    private int activeEditID;
-    private MasterStats myMasterStatList;
+    private List<String> activeEditTypeList;
+    private List<Integer> activeEditIDList;
+    private MasterStats myMasterStatMap;
 
     /**
      * Intermediary between views and EditorData and Grid, stores List of Stages
@@ -38,35 +42,30 @@ public class WorldManager extends Manager {
     public WorldManager () {
         super();
         myFactory = new FromJSONFactory();
-        myParser = new JSONParser();
-        myUnitModel = new UnitTableModel();
-        myMasterStatList = new MasterStats();
+        activeEditTypeList = new ArrayList<String>();
+        activeEditIDList = new ArrayList<Integer>();
+        myMasterStatMap = new MasterStats();
     }
 
     public GameTableModel getViewModel (String type) {
-        switch (type.toLowerCase()) {
-            case "tile":
-                return null; // add
-            case "gameunit":
-                return myUnitModel;
-            case "gameobject":
-
-                return null; // add
-        }
-        return null;
+        return myEditorData.getTable(type);
+    }
+    
+    public void setData (GameTableModel gtm) {
+        myEditorData.setData(gtm);
     }
 
-    public void setActiveObject (String type, int id) {
-        activeEditType = type;
-        activeEditID = id;
+    public void setActiveObject (int index, String type, int id) {
+        activeEditTypeList.set(index, type);
+        activeEditIDList.set(index, id);
     }
 
-    public String getActiveType () {
-        return activeEditType;
+    public String getActiveType (int index) {
+        return activeEditTypeList.get(index);
     }
 
-    public int getActiveID () {
-        return activeEditID;
+    public int getActiveID (int index) {
+        return activeEditIDList.get(index);
     }
 
     /**
@@ -81,6 +80,8 @@ public class WorldManager extends Manager {
     public int addStage (int x, int y, int tileID, String name) {
         myStages.add(new Stage(x, y, tileID, name));
         setActiveStage(myStages.size() - 1);
+        activeEditTypeList.add(null);
+        activeEditIDList.add(null);
         return myStages.size() - 1;
     }
 
@@ -107,6 +108,14 @@ public class WorldManager extends Manager {
         myActiveStage.getGrid().doMove(a, b);
     }
 
+    public void displayRange(Coordinate coordinate){
+        myActiveStage.getGrid().beginMove(coordinate);
+    }
+
+    public void removeRange (){
+        myActiveStage.getGrid().setTilesInactive();
+    }
+    
     /**
      * Placing (previously created) things on the board. These will be replaced by table editing
      * stuff
@@ -131,6 +140,12 @@ public class WorldManager extends Manager {
                                             (GameObject) myFactory.make("gameobject", objectID));
     }
 
+    public void placeItem (int objectID, int x, int y) {
+        GameUnit gu = myActiveStage.getGrid().getUnit(new Coordinate(x, y));
+        if(gu != null){
+            gu.addItem((Item) myFactory.make("Item", objectID));
+        }
+    }
     /**
      * Gives access to certain names of customizables. Valid parameters are
      * "GameUnit",
@@ -203,17 +218,6 @@ public class WorldManager extends Manager {
     }
 
     /**
-     * Save game and load game. TODO: see if we can refactor this into manager?
-     */
-    public void saveGame () {
-        myParser.createJSON("saves/" + myGameName, this);
-    }
-
-    public WorldManager loadGame (String gameName) {
-        return myParser.createObject("saves/" + gameName, controllers.WorldManager.class);
-    }
-
-    /**
      * Takes a data type and ID and returns a list of required data that needs to be passed in to
      * create/edit one of those objects
      * 
@@ -239,9 +243,75 @@ public class WorldManager extends Manager {
         myActiveStage.getTeam(teamID).addCondition(c);
     }
 
-    public void addStat (String name, int value) {
-        myMasterStatList.setStatValue(name, value);
-        // TODO: Add to all unit definitions
-        // TODO: Add to all placed units
+    /**
+     * Gets the stat value in the master stat list for the given stat
+     * 
+     * @param statName - Name of the stat to get the value for
+     * @return The value of the stat for the stat name passed in
+     */
+    public int getStatValue (String statName) {
+        return myMasterStatMap.getStatValue(statName);
+    }
+
+    /**
+     * Adds a new stat to the game by adding to the master stat list. Calls the update method, which
+     * adds the stat to the stats list of all units placed and unit definitions
+     * 
+     * @param statName - Name of the stat to be added
+     * @param statValue - Default value of the stat to be added
+     */
+    public void addStat (String statName, int statValue) {
+        if (!myMasterStatMap.getStatNames().contains(statName)) {
+            myMasterStatMap.setStatValue(statName, statValue);
+            updateStats();
+        }
+    }
+
+    /**
+     * Removes a stat from the master stat list. Calls the update method, which removes the stat
+     * from the stats list of all units placed and unit definitions
+     * 
+     * @param statName - Name of the stat to be removed
+     */
+    public void removeStat (String statName) {
+        myMasterStatMap.remove(statName);
+        updateStats();
+    }
+
+    /**
+     * Modifies a stat in the master stat list. Does not update that value in the stats list of
+     * placed units and unit definitions
+     * 
+     * @param statName - Name of the stat to be modified
+     * @param statValue - Value to update the stat to
+     */
+    public void modifyStat (String statName, int statValue) {
+        if (myMasterStatMap.getStatNames().contains(statName)) {
+            myMasterStatMap.modExisting(statName, statValue);
+        }
+    }
+
+    /**
+     * Calls update method for all stats of all placed units and unit definitions. If there are new
+     * stats in the master stats list, adds that stat to the stats of all placed units and unit
+     * definitions. If there is a stat in the stats list of placed units and unit definitions, but
+     * not in the master stats list, then it removes that stat from all stats lists of placed units
+     * and unit definitions
+     */
+    public void updateStats () {
+        List<Customizable> editorUnitList = myEditorData.get("GameUnit");
+        GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
+
+        for (Customizable unit : editorUnitList) {
+            ((GameUnit) unit).getStats().updateFromMaster(myMasterStatMap);
+        }
+
+        for (int i = 0; i < placedUnits.length; i++) {
+            for (int j = 0; j < placedUnits[i].length; j++) {
+                if (placedUnits[i][j] != null) {
+                    placedUnits[i][j].getStats().updateFromMaster(myMasterStatMap);
+                }
+            }
+        }
     }
 }

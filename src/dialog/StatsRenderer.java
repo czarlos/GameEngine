@@ -1,5 +1,6 @@
 package dialog;
 
+import gameObject.Stats;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -21,7 +22,7 @@ import javax.swing.table.TableCellRenderer;
  * 
  *         Allows for an image thumbnail to be rendered as a cell in a JTable
  */
-public class ThumbnailRenderer extends DefaultTableCellRenderer {
+public class StatsRenderer extends DefaultTableCellRenderer {
 
     /**
      * 
@@ -36,34 +37,16 @@ public class ThumbnailRenderer extends DefaultTableCellRenderer {
                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row,
                                                     column);
 
-        ImageIcon image;
-
-        if (value instanceof File) {
-            image = new ImageIcon((String) ((File) value).getAbsolutePath());
-
-            value = new ImageIcon(getScaledImage(image.getImage(), DEFAULT_WIDTH, DEFAULT_HEIGHT));
-        }
-
-        ((JLabel) cell).setIcon((Icon) value);
-        ((JLabel) cell).setText("");
+        ((JLabel) cell).setText("Stats");
         ((JLabel) cell).setHorizontalAlignment(JLabel.CENTER);
 
         if (isSelected) {
-            cell.setBackground(Color.green);
+            cell.setBackground(Color.blue);
         }
         else {
-            cell.setBackground(null);
+            cell.setBackground(Color.green);
         }
         return cell;
     }
 
-    private Image getScaledImage (Image srcImg, int w, int h) {
-        BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
-        Graphics2D graphics2D = resizedImg.createGraphics();
-        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                                    RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        graphics2D.drawImage(srcImg, 0, 0, w, h, null);
-        graphics2D.dispose();
-        return resizedImg;
-    }
 }

@@ -18,17 +18,16 @@ public class StagePanel extends JPanel {
      * 
      */
     private static final long serialVersionUID = 1534023398376725167L;
-    private final String[] defaultTypes = { "Tile", "GameUnit", "GameObject" };
+    private final String[] defaultTypes = { "Tile", "GameUnit", "GameObject", "Item" };
     private GridCanvas myCanvas;
     private WorldManager myWorldManager;
 
     public StagePanel (String stageName, WorldManager wm) {
-        GridEditorController gridcontrol = new GridEditorController(wm);
-        myCanvas = new GridCanvas(wm);
-        myCanvas.addGridMouseListener(gridcontrol);
-        myWorldManager = wm;
 
+        myWorldManager = wm;
+        myCanvas = new GridCanvas(myWorldManager);
         initStagePanel();
+
     }
 
     private void initStagePanel () {
@@ -44,5 +43,7 @@ public class StagePanel extends JPanel {
         add(panel);
 
         repaint();
+        GridEditorController gridcontrol = new GridEditorController(myWorldManager, panel);
+        myCanvas.addGridMouseListener(gridcontrol);
     }
 }
