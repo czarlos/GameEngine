@@ -13,9 +13,11 @@ import javax.swing.JTable;
 
 
 public class TableDialog extends JDialog {
-
+    GameTableModel myModel;
+    
     public TableDialog (GameTableModel model, ActionListener okListener) {
         addTable(model);
+        myModel = model;
     }
 
     private void addTable (GameTableModel model) {
@@ -62,4 +64,8 @@ public class TableDialog extends JDialog {
         }
     }
 
+
+    public GameTableModel getModel(){
+        return myModel;
+    }
 }

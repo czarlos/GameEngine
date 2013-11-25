@@ -42,8 +42,6 @@ public class TileEditorDialog extends TableDialog {
     private final int DEFAULT_WIDTH = 52;
     private final int DEFAULT_HEIGHT = 500;
 
-    private GameTableModel myModel;
-
     /**
      * 
      * @param model - a TableModel class which provides getter and setter methods
@@ -52,7 +50,6 @@ public class TileEditorDialog extends TableDialog {
     public TileEditorDialog (GameTableModel model, ActionListener okListener) {
 
         super(model, okListener);
-        myModel = model;
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
@@ -99,10 +96,6 @@ public class TileEditorDialog extends TableDialog {
             newList.add(defTile);
             myModel.addPreviouslyDefined(newList);
         }
-    }
-
-    public GameTableModel getModel () {
-        return myModel;
     }
 
 }
