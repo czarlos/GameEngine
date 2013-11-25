@@ -119,7 +119,7 @@ public class Grid implements Drawable {
      */
     public boolean isValidMove (Coordinate coordinate) {
         return isValid(coordinate) &&
-               myObjects[coordinate.getX()][coordinate.getY()] == null;
+               getObject(coordinate) == null;
     }
 
     // TODO: move validMove() check to controller
