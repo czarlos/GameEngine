@@ -54,7 +54,7 @@ public class PlayerView extends GameView {
         this.remove(myBackground);
         String gameName = gameNameTextField.getText();
         this.setTitle(gameName);
-        // TODO: @Patrick, this needs to read in worldmanager from JSON, can't make new worldmanager in real conditions!
+        // TODO: needs to read in worldmanager from JSON
         myWorldManager = new WorldManager();
         myWorldManager.setGameName(gameName);
         myGameManager = new GameManager(myWorldManager);
