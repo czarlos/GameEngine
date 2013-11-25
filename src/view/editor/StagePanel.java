@@ -18,7 +18,7 @@ public class StagePanel extends JPanel {
      * 
      */
     private static final long serialVersionUID = 1534023398376725167L;
-    private final String[] defaultTypes = { "Tile", "GameUnit", "GameObject" };
+    private final String[] defaultTypes = { "Tile", "GameUnit", "GameObject", "Item" };
     private GridCanvas myCanvas;
     private WorldManager myWorldManager;
 

@@ -20,6 +20,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
 import controllers.WorldManager;
+import dialog.GameTableModel;
+import dialog.TileEditorDialog;
 import dialog.UnitEditorDialog;
 import dialog.UnitTableModel;
 
@@ -59,7 +61,7 @@ public class StageEditorPanel extends JTabbedPane {
         JScrollPane replacement = makeTab(type);
         int index = this.indexOfTab(type);
         this.remove(myTabs.get(type));
-        this.add(replacement, index);
+        this.addTab(type, replacement);
     }
 
 
@@ -80,23 +82,8 @@ public class StageEditorPanel extends JTabbedPane {
      //add edit button
      String editString = "Edit " + type + "s";
      JButton editType = new JButton(editString);
-     final String curType = type;
      
-     editType.addActionListener(new ActionListener() {
-         //if clicked bring up a tableEditor
-         @Override
-         public void actionPerformed(ActionEvent event) {
-             switch (curType.toLowerCase()){
-                 case "tile":
-                     break;//createTileEditor();
-                 case "gameunit":
-                     createUnitEditor();
-                     break;
-                 case "gameobject":
-                     //createObjectEditor();
-             }
-         }
-     });
+     editType.addActionListener(new EditListener(myWorldManager, type, this));
      
      sg.addComponent(editType);
      pg.addComponent(editType);
@@ -137,4 +124,55 @@ public class StageEditorPanel extends JTabbedPane {
          frame.setVisible(true);
      }
      
+     class EditListener implements ActionListener {
+         
+         private WorldManager myWM;
+         private String myType;
+         private StageEditorPanel myPanel;
+         
+         public EditListener (WorldManager wm, String type, StageEditorPanel panel) {
+             myWM = wm;
+             myType = type;
+             myPanel = panel;
+         }
+
+        @Override
+        public void actionPerformed (ActionEvent e) {
+            GameTableModel gtm = myWM.getViewModel(myType);
+            switch (myType.toLowerCase()){
+                case "tile":
+                    TileEditorDialog ted = new TileEditorDialog(gtm, new DialogListener(myWM, gtm, myPanel, myType)); 
+                    ted.setVisible(true);
+                    break;
+                case "gameunit":
+                    //new UnitEditorDialog(gtm, new DialogListener(myWM));
+                    break;
+                case "gameobject":
+                    //add stuff here
+                    break;
+            }
+        }
+     }
+     
+     class DialogListener implements ActionListener {
+        private WorldManager myWM;
+        private GameTableModel myGTM;
+        private StageEditorPanel myPanel;
+        private String myType;
+         
+        public DialogListener (WorldManager wm, GameTableModel gtm, StageEditorPanel panel, String type) {
+            myWM = wm;
+            myGTM = gtm;
+            myPanel = panel;
+            myType = type;
+        }
+        
+        @Override
+        public void actionPerformed (ActionEvent e) {
+            myWM.setData(myGTM);
+            myPanel.refreshTab(myType);
+        }
+         
+     }
+
 }
