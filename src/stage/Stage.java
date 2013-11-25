@@ -30,6 +30,7 @@ public class Stage implements GridMouseListener {
     private String myName;
     private String preText;
     private String postText;
+    @JsonProperty
     private List<Team> myTeamList;
     private Team myWinningTeam;
     
@@ -59,8 +60,8 @@ public class Stage implements GridMouseListener {
         return false;
     }
 
-    public void addTeam (String teamName) {
-        myTeamList.add(new Team(teamName,true));
+    public void addTeam (String teamName, boolean humanity) {
+        myTeamList.add(new Team(teamName, humanity));
     }
 
     public Team getTeam (int teamID) {
