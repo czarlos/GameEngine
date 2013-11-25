@@ -83,7 +83,7 @@ public class GameUnitTest {
 //        assertEquals(customUnit.getStats().getStatValue("defense"), 28, 0);
 //    }
 
-    @Test
+/*    @Test
     public void testProperties () {
 //        initializeCustom();
         System.out.println(customUnit);
@@ -93,7 +93,7 @@ public class GameUnitTest {
         assertEquals(exp, 0, 0);
 
     }
-
+*/
     @Test
     public void testItems () {
 //        initializeCustom();

@@ -32,7 +32,7 @@ public class CombatTest {
     public void setUp () throws Exception {
 
         // Setting up the units base stats
-        MasterStats masterStat = new MasterStats();
+        MasterStats masterStat = MasterStats.getInstance();
         masterStat.setStatValue("health", 15);
         masterStat.setStatValue("attack", 2);
         masterStat.setStatValue("defense", 1);

@@ -5,14 +5,11 @@ import gameObject.GameObjectConstants;
 import gameObject.GameUnit;
 import gameObject.action.Action;
 import gameObject.action.WaitAction;
-
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
-
 import grid.Coordinate;
 import view.Drawable;
-
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -95,7 +92,7 @@ public class Grid implements Drawable {
         placeObject(new Coordinate(3, 5), tree);
         GameObject hero = (GameUnit) myFactory.make("GameUnit", 0);
         placeObject(new Coordinate(4, 5), hero);
-    //    beginMove(new Coordinate(4, 5)); //don't need/want this unless playing game
+        // beginMove(new Coordinate(4, 5)); //don't need/want this unless playing game
     }
 
     /**
@@ -152,7 +149,7 @@ public class Grid implements Drawable {
         for (int i = 0; i < rdelta.length; i++) {
             int newX = coordinate.getX() + cdelta[i];
             int newY = coordinate.getY() + rdelta[i];
-            if (onGrid(new Coordinate (newX, newY))) {
+            if (onGrid(new Coordinate(newX, newY))) {
                 Tile currentTile = getTile(new Coordinate(newX, newY));
                 int newRange = range - currentTile.getMoveCost();
 
@@ -225,6 +222,7 @@ public class Grid implements Drawable {
 
     /**
      * Returns a boolean if a coordinate is on the grid and the tile for the coordinate is active
+     * 
      * @param coordinate Coordinate being checked
      * @return boolean of if the coordinate is valid
      */
@@ -317,7 +315,7 @@ public class Grid implements Drawable {
                                                   String direction) {
         List<Coordinate> area = action.getAOE();
         List<GameObject> affectedObjects = new ArrayList<GameObject>();
-        GameUnit gameUnit = getUnit (unitCoordinate);
+        GameUnit gameUnit = getUnit(unitCoordinate);
         GameObject currentObject;
         for (Coordinate cell : area) {
             if (direction.equals("around")) {
@@ -390,12 +388,12 @@ public class Grid implements Drawable {
      */
     public List<Action> generateActionList (Coordinate coordinate) {
         if (getUnit(coordinate) != null) {
-        	List<Action> actions = new ArrayList<>();
+            List<Action> actions = new ArrayList<>();
             GameUnit gameUnit = getUnit(coordinate);
             actions.addAll(gameUnit.getActions());
             actions.addAll(getInteractions(coordinate)); // TODO: currently no interactions.
             actions.add(new WaitAction());
-            return actions;        	
+            return actions;
         }
         return null;
     }
@@ -610,15 +608,15 @@ public class Grid implements Drawable {
     public double getWidth () {
         return myWidth;
     }
-    
+
     public void setWidth (int width) {
         myWidth = width;
     }
-    
+
     public double getHeight () {
         return myHeight;
     }
-    
+
     public void setHeight (int height) {
         myHeight = height;
     }

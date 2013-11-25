@@ -42,13 +42,13 @@ public class WorldManager extends Manager {
     public WorldManager () {
         super();
         myFactory = new FromJSONFactory();
-        myMasterStatMap = new MasterStats();
+        myMasterStatMap = MasterStats.getInstance();
     }
 
     public GameTableModel getViewModel (String type) {
         return myEditorData.getTable(type);
     }
-    
+
     public void setData (GameTableModel gtm) {
         myEditorData.setData(gtm);
     }
@@ -103,14 +103,14 @@ public class WorldManager extends Manager {
         myActiveStage.getGrid().doMove(a, b);
     }
 
-    public void displayRange(Coordinate coordinate){
+    public void displayRange (Coordinate coordinate) {
         myActiveStage.getGrid().beginMove(coordinate);
     }
 
-    public void removeRange (){
+    public void removeRange () {
         myActiveStage.getGrid().setTilesInactive();
     }
-    
+
     /**
      * Placing (previously created) things on the board. These will be replaced by table editing
      * stuff
@@ -298,13 +298,13 @@ public class WorldManager extends Manager {
         GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
 
         for (Customizable unit : editorUnitList) {
-            ((GameUnit) unit).getStats().updateFromMaster(myMasterStatMap);
+            ((GameUnit) unit).getStats().updateFromMaster();
         }
 
         for (int i = 0; i < placedUnits.length; i++) {
             for (int j = 0; j < placedUnits[i].length; j++) {
                 if (placedUnits[i][j] != null) {
-                    placedUnits[i][j].getStats().updateFromMaster(myMasterStatMap);
+                    placedUnits[i][j].getStats().updateFromMaster();
                 }
             }
         }
