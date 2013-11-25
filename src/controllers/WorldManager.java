@@ -8,6 +8,7 @@ import grid.FromJSONFactory;
 import grid.Tile;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import stage.Condition;
@@ -29,8 +30,8 @@ public class WorldManager extends Manager {
 
     FromJSONFactory myFactory;
 
-    private String[] activeEditTypeList;
-    private int[] activeEditIDList;
+    private List<String> activeEditTypeList;
+    private List<Integer> activeEditIDList;
     private MasterStats myMasterStatMap;
 
     /**
@@ -41,10 +42,8 @@ public class WorldManager extends Manager {
     public WorldManager () {
         super();
         myFactory = new FromJSONFactory();
-        activeEditTypeList = new String[4];
-        activeEditIDList = new int[4];
-        //activeEditTypeList = new ArrayList<String>();
-        //activeEditIDList = new ArrayList<Integer>();
+        activeEditTypeList = new ArrayList<String>();
+        activeEditIDList = new ArrayList<Integer>();
         myMasterStatMap = MasterStats.getInstance();
     }
 
@@ -52,25 +51,25 @@ public class WorldManager extends Manager {
         return myEditorData.getTable(type);
     }
 
+    public void addTeam (String teamName) {
+        myActiveStage.addTeam(teamName);
+    }
+    
     public void setData (GameTableModel gtm) {
         myEditorData.setData(gtm);
     }
 
-    public void addTeam (String teamName) {
-        myActiveStage.addTeam(teamName);
-    }
-
     public void setActiveObject (int index, String type, int id) {
-        activeEditTypeList[index] = type;
-        activeEditIDList[index] = id;
+        activeEditTypeList.set(index, type);
+        activeEditIDList.set(index, id);
     }
 
     public String getActiveType (int index) {
-        return activeEditTypeList[index];
+        return activeEditTypeList.get(index);
     }
 
     public int getActiveID (int index) {
-        return activeEditIDList[index];
+        return activeEditIDList.get(index);
     }
 
     /**
@@ -84,9 +83,12 @@ public class WorldManager extends Manager {
 
     public int addStage (int x, int y, int tileID, String name) {
         myStages.add(new Stage(x, y, tileID, name));
+        activeEditTypeList.add(null);
+        activeEditIDList.add(null);
         setActiveStage(myStages.size() - 1);
         return myStages.size() - 1;
     }
+    
 
     public void setPreStory (String prestory) {
         myActiveStage.setPreStory(prestory);
@@ -118,6 +120,7 @@ public class WorldManager extends Manager {
     public void removeRange () {
         myActiveStage.getGrid().setTilesInactive();
     }
+
 
     /**
      * Placing (previously created) things on the board. These will be replaced by table editing

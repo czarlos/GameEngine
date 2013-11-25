@@ -22,6 +22,7 @@ import javax.swing.KeyStroke;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import parser.JSONParser;
+import controller.editor.GridEditorController;
 import controllers.WorldManager;
 
 
@@ -32,7 +33,8 @@ public class EditorFrame extends GameView {
     private ArrayList<StagePanel> myStagePanelList = new ArrayList<StagePanel>();
     private JMenuBar myMenuBar;
     private JTabbedPane stageTabbedPane;
-
+    private GridEditorController myGridController;
+    
     public EditorFrame () {
         super("Omega_Nu Game Editor");
     }
@@ -120,14 +122,15 @@ public class EditorFrame extends GameView {
             wm.setGameName(gameName);
             
             setFrame(wm);
+            myGridController = new GridEditorController(myWorldManager, stageTabbedPane);
             addStagePanel();
-/*            stageTabbedPane.addChangeListener(new TabChangeListener(myWorldManager, stageTabbedPane));
+            stageTabbedPane.addChangeListener(new TabChangeListener(myWorldManager, stageTabbedPane));
             JMenu stageMenu = new JMenu("Stage");
             stageMenu.setMnemonic(KeyEvent.VK_S);
             myMenuBar.add(stageMenu);
             JMenuItem objective = new JMenuItem("Set Objective");
             objective.setAccelerator(KeyStroke.getKeyStroke("control O"));
-            stageMenu.add(objective);*/
+            stageMenu.add(objective);
 
         }
     }
@@ -220,7 +223,7 @@ public class EditorFrame extends GameView {
     
     protected void setStage(String stageName){
 
-        StagePanel sp = new StagePanel(stageName, myWorldManager);
+        StagePanel sp = new StagePanel(stageName, myWorldManager, myStagePanelList.size()+1, myGridController);
         myStagePanelList.add(sp);
         stageTabbedPane.addTab(stageName, sp);
         stageTabbedPane.setSelectedIndex(myStagePanelList.size() - 1);
@@ -231,13 +234,6 @@ public class EditorFrame extends GameView {
             }
         });
         
-        JMenu stageMenu = new JMenu("Stage");
-        stageMenu.setMnemonic(KeyEvent.VK_S);
-        myMenuBar.add(stageMenu, 2);
-        // add menu items
-        JMenuItem objective = new JMenuItem("Set Objective");
-        objective.setAccelerator(KeyStroke.getKeyStroke("control O"));
-        stageMenu.add(objective);
         
         this.repaint();
     }
