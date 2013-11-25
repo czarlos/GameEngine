@@ -1,7 +1,7 @@
 package gameObject.item;
 
-import gameObject.StatModifier;
-import gameObject.action.CombatAction;
+import gameObject.Stats;
+import gameObject.action.Action;
 import java.util.List;
 
 
@@ -15,55 +15,10 @@ import java.util.List;
  * @author carlosreyes
  * 
  */
-public class Weapon extends Equipment {
-    private List<CombatAction> myActionList;
-
-    public Weapon (String name, List<CombatAction> actionList, StatModifier modifiers) {
-        super(name, modifiers);
-        myActionList = actionList;
-    }
-
-    /**
-     * Select action takes in a given action and returns it from the action list.
-     * 
-     * @param action
-     * @return
-     */
-    public CombatAction selectAction (CombatAction action) {
-
-        for (CombatAction a : myActionList) {
-            if (a.equals(action)) { return a; }
-        }
-        return action;
-    }
-
-    public List<CombatAction> getActionList () {
-        return myActionList;
-    }
-
-    public void setActionList (List<CombatAction> myActionList) {
-        this.myActionList = myActionList;
-    }
-
-    @Override
-    public int hashCode () {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((myActionList == null) ? 0 : myActionList.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals (Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        Weapon other = (Weapon) obj;
-        if (myActionList == null) {
-            if (other.myActionList != null) return false;
-        }
-        else if (!myActionList.equals(other.myActionList)) return false;
-        return true;
+public class Weapon extends Item {
+    
+    public Weapon () {
+        super();
     }
 
 }

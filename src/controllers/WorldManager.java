@@ -13,7 +13,7 @@ import stage.Stage;
 import view.Customizable;
 import gameObject.GameObject;
 import gameObject.GameUnit;
-import gameObject.action.Action;
+import gameObject.MasterStats;
 import grid.Coordinate;
 import grid.FromJSONFactory;
 import grid.Tile;
@@ -28,6 +28,7 @@ public class WorldManager extends Manager {
     private UnitTableModel myUnitModel;
     private String activeEditType;
     private int activeEditID;
+    private MasterStats myMasterStatList;
 
     /**
      * Intermediary between views and EditorData and Grid, stores List of Stages
@@ -39,6 +40,7 @@ public class WorldManager extends Manager {
         myFactory = new FromJSONFactory();
         myParser = new JSONParser();
         myUnitModel = new UnitTableModel();
+        myMasterStatList = new MasterStats();
     }
 
     public GameTableModel getViewModel (String type) {
@@ -82,6 +84,13 @@ public class WorldManager extends Manager {
         return myStages.size() - 1;
     }
 
+    public void setPreStory (String prestory) {
+        myActiveStage.setPreStory(prestory);
+    }
+
+    public void setPostStory (String poststory) {
+        myActiveStage.setPostStory(poststory);
+    }
 
     /**
      * Set the name of the game
@@ -91,7 +100,6 @@ public class WorldManager extends Manager {
     public void setGameName (String gameName) {
         myGameName = gameName;
     }
-
 
     // WILL BE REMOVED, USE GAMEMANAGER
     public void doMove (Coordinate a, Coordinate b) {
@@ -230,11 +238,9 @@ public class WorldManager extends Manager {
         myActiveStage.getTeam(teamID).addCondition(c);
     }
 
-    public List<String> getActionList (Coordinate c) {
-        return myActiveStage.getGrid().generateActionNameList(c);
-    }
-
-    public List<String> getInfo (Coordinate c) {
-        return myActiveStage.getGrid().generateTileInfoList(c); //TODO: is this for tiles or objects?
+    public void addStat (String name, int value) {
+        myMasterStatList.setStatValue(name, value);
+        // TODO: Add to all unit definitions
+        // TODO: Add to all placed units
     }
 }

@@ -64,6 +64,7 @@ public class Stage implements GridMouseListener {
         return null;
     }
 
+    @JsonIgnore
     public int getNumberOfTeams(){
         return myTeamList.size();
     }
