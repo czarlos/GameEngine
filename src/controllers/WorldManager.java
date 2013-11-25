@@ -51,12 +51,12 @@ public class WorldManager extends Manager {
         return myEditorData.getTable(type);
     }
 
-    public void setData (GameTableModel gtm) {
-        myEditorData.setData(gtm);
-    }
-
     public void addTeam (String teamName) {
         myActiveStage.addTeam(teamName);
+    }
+    
+    public void setData (GameTableModel gtm) {
+        myEditorData.setData(gtm);
     }
 
     public void setActiveObject (int index, String type, int id) {
@@ -83,11 +83,12 @@ public class WorldManager extends Manager {
 
     public int addStage (int x, int y, int tileID, String name) {
         myStages.add(new Stage(x, y, tileID, name));
-        setActiveStage(myStages.size() - 1);
         activeEditTypeList.add(null);
         activeEditIDList.add(null);
+        setActiveStage(myStages.size() - 1);
         return myStages.size() - 1;
     }
+    
 
     public void setPreStory (String prestory) {
         myActiveStage.setPreStory(prestory);
@@ -119,6 +120,7 @@ public class WorldManager extends Manager {
     public void removeRange () {
         myActiveStage.getGrid().setTilesInactive();
     }
+
 
     /**
      * Placing (previously created) things on the board. These will be replaced by table editing
@@ -198,7 +200,7 @@ public class WorldManager extends Manager {
     public int setCustomTile (int ID, String name, String imagePath, int moveCost) {
         Tile t = new grid.Tile();
         t.setName(name);
-        t.setImagePath(imagePath);
+        t.setImageAndPath(imagePath);
         t.setMoveCost(moveCost);
         return myEditorData.setCustomizable("Tile", ID, t);
     }
@@ -211,7 +213,7 @@ public class WorldManager extends Manager {
         GameUnit gu = new GameUnit();
 
         gu.setName(name);
-        gu.setImagePath(imagePath);
+        gu.setImageAndPath(imagePath);
         gu.setControllable(controllable);
         return myEditorData.setCustomizable("GameUnit", ID, gu);
     }
@@ -219,7 +221,7 @@ public class WorldManager extends Manager {
     public int setCustomObject (int ID, String name, String imagePath) {
         GameObject go = new GameObject();
         go.setName(name);
-        go.setImagePath(imagePath);
+        go.setImageAndPath(imagePath);
 
         return myEditorData.setCustomizable("GameObject", ID, go);
     }

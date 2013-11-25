@@ -211,7 +211,7 @@ public class GameUnit extends GameObject {
                 .add("Health: " + getTotalStat(GameObjectConstants.HEALTH) + " / " +
                      myStats.getStatValue("maxhealth"));
 
-        for (String stat : myStats.getStatNames()) {
+        for (String stat : myStats.getStatNames()) { // TODO: FIX
             if (stat.equals(GameObjectConstants.HEALTH)) {
                 continue;
             }

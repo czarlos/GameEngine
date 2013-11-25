@@ -33,6 +33,7 @@ public class MakeDefaults {
         defaultItem.addAction(defaultAction);
         defaultItem.setName("Item");
         defaultItem.setStats(defaultStats);
+        defaultItem.setImagePath("resources/potion.png");
     }
 
     public void makeTiles () throws Exception {
@@ -255,7 +256,7 @@ public class MakeDefaults {
         Item potion = new Item();
         potion.setName("Potion");
         potion.setImagePath("resources/potion.png");
-        milk.setStats(defaultStats);
+        potion.setStats(defaultStats);
 
         Item armor = new Item();
         armor.setName("Armor");
