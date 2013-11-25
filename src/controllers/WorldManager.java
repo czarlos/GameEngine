@@ -4,11 +4,10 @@ import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.MasterStats;
 import grid.Coordinate;
-import grid.FromJSONFactory;
+import grid.GridConstants;
 import grid.Tile;
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import stage.Condition;
@@ -21,17 +20,16 @@ import gameObject.item.Item;
 
 /**
  * 
- * @author Leevi Gray
+ * @author Leevi
  * @author Ken McAndrews
  * 
  */
 @JsonAutoDetect
 public class WorldManager extends Manager {
 
-    FromJSONFactory myFactory;
 
-    private List<String> activeEditTypeList;
-    private List<Integer> activeEditIDList;
+    private String[] activeEditTypeList;
+    private int[] activeEditIDList;
     private MasterStats myMasterStatMap;
 
     /**
@@ -41,9 +39,9 @@ public class WorldManager extends Manager {
      */
     public WorldManager () {
         super();
-        myFactory = new FromJSONFactory();
-        activeEditTypeList = new ArrayList<String>();
-        activeEditIDList = new ArrayList<Integer>();
+
+        activeEditTypeList = new String[4];
+        activeEditIDList = new int[4];
         myMasterStatMap = MasterStats.getInstance();
     }
 
@@ -60,16 +58,16 @@ public class WorldManager extends Manager {
     }
 
     public void setActiveObject (int index, String type, int id) {
-        activeEditTypeList.set(index, type);
-        activeEditIDList.set(index, id);
+        activeEditTypeList[index]= type;
+        activeEditIDList[index]= id;
     }
 
     public String getActiveType (int index) {
-        return activeEditTypeList.get(index);
+        return activeEditTypeList[index];
     }
 
     public int getActiveID (int index) {
-        return activeEditIDList.get(index);
+        return activeEditIDList[index];
     }
 
     /**
@@ -83,12 +81,9 @@ public class WorldManager extends Manager {
 
     public int addStage (int x, int y, int tileID, String name) {
         myStages.add(new Stage(x, y, tileID, name));
-        activeEditTypeList.add(null);
-        activeEditIDList.add(null);
         setActiveStage(myStages.size() - 1);
         return myStages.size() - 1;
     }
-    
 
     public void setPreStory (String prestory) {
         myActiveStage.setPreStory(prestory);
@@ -132,12 +127,12 @@ public class WorldManager extends Manager {
      */
     public void setTile (int tileID, int x, int y) {
         myActiveStage.getGrid().placeTile(new Coordinate(x, y),
-                                          (Tile) myFactory.make("tile", tileID));
+                                          (Tile) myEditorData.getObject(GridConstants.DEFAULTTYPES[0], tileID));
     }
 
     public void placeUnit (int unitID, int x, int y) {
         myActiveStage.getGrid().placeObject(new Coordinate(x, y),
-                                            (GameObject) myFactory.make("gameunit", unitID));
+                                            (GameObject) myEditorData.getObject(GridConstants.DEFAULTTYPES[1], unitID));
         myActiveStage.addUnitToTeam(0, myActiveStage.getGrid().getUnit(new Coordinate(x, y)));
         // TODO: actually implement teams
 
@@ -145,13 +140,13 @@ public class WorldManager extends Manager {
 
     public void placeObject (int objectID, int x, int y) {
         myActiveStage.getGrid().placeObject(new Coordinate(x, y),
-                                            (GameObject) myFactory.make("gameobject", objectID));
+                                            (GameObject) myEditorData.getObject(GridConstants.DEFAULTTYPES[2], objectID));
     }
 
     public void placeItem (int objectID, int x, int y) {
         GameUnit gu = myActiveStage.getGrid().getUnit(new Coordinate(x, y));
         if (gu != null) {
-            gu.addItem((Item) myFactory.make("Item", objectID));
+            gu.addItem((Item) myEditorData.getObject(GridConstants.DEFAULTTYPES[3], objectID));
         }
     }
 
@@ -186,44 +181,6 @@ public class WorldManager extends Manager {
         ArrayList<Customizable> myList = (ArrayList<Customizable>) myEditorData.get(className);
 
         return myList.get(ID).getImage();
-    }
-
-    /**
-     * Customizable object creation!
-     * 
-     * @param ID
-     * @param name
-     * @param imagePath
-     * @param moveCost
-     * @return
-     */
-    public int setCustomTile (int ID, String name, String imagePath, int moveCost) {
-        Tile t = new grid.Tile();
-        t.setName(name);
-        t.setImageAndPath(imagePath);
-        t.setMoveCost(moveCost);
-        return myEditorData.setCustomizable("Tile", ID, t);
-    }
-
-    public int setCustomUnit (int ID,
-                              String name,
-                              String imagePath,
-                              int affiliation,
-                              boolean controllable) {
-        GameUnit gu = new GameUnit();
-
-        gu.setName(name);
-        gu.setImageAndPath(imagePath);
-        gu.setControllable(controllable);
-        return myEditorData.setCustomizable("GameUnit", ID, gu);
-    }
-
-    public int setCustomObject (int ID, String name, String imagePath) {
-        GameObject go = new GameObject();
-        go.setName(name);
-        go.setImageAndPath(imagePath);
-
-        return myEditorData.setCustomizable("GameObject", ID, go);
     }
 
     /**

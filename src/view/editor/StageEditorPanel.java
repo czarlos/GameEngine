@@ -1,18 +1,14 @@
 package view.editor;
 
-import gameObject.GameObject;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -23,8 +19,6 @@ import javax.swing.WindowConstants;
 import controllers.WorldManager;
 import dialog.GameTableModel;
 import dialog.TileEditorDialog;
-import dialog.UnitEditorDialog;
-import dialog.UnitTableModel;
 
 
 public class StageEditorPanel extends JTabbedPane {
@@ -114,7 +108,10 @@ public class StageEditorPanel extends JTabbedPane {
          selectedPanel = selected;
          myWorldManager.setActiveObject(myID-1, selected.getType(), myWorldManager.get(selected.getType()).indexOf(selected.getName()));
      }
+<<<<<<< HEAD
 
+=======
+>>>>>>> controllers
      
      class EditListener implements ActionListener {
          
