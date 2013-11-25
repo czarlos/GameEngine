@@ -308,10 +308,15 @@ public class MakeDefaults {
         weapon.setName("Weapon");
         weapon.setImagePath("resources/weapon.png");
         
+        Item helmet = new Item();
+        helmet.setName("Helmet");
+        helmet.setImagePath("resources/helmet.png");
+        
         list.add(milk);
         list.add(potion);
         list.add(armor);
         list.add(weapon);
+        list.add(helmet);
         
         p.createJSON("defaults/Item", list);
     }
