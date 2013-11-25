@@ -1,15 +1,12 @@
 package parser;
 
 import gameObject.GameObjectConstants;
-import gameObject.MasterStats;
 import gameObject.Stats;
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
 import gameObject.item.Item;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import stage.ItemCondition;
 import stage.PositionCondition;
 import stage.StatCondition;
@@ -143,14 +140,22 @@ public class MakeDefaults {
         chest.setName("Chest");
         chest.setImagePath("resources/chest.png");
 
+        gameObject.GameObject stone = new gameObject.GameObject();
+        stone.setName("Stone");
+        stone.setImagePath("resources/stone1.png");
+
         tree.setPassableList(new java.util.ArrayList<String>());
         tree.setDisplayData(new ArrayList<String>());
 
         chest.setPassableList(new java.util.ArrayList<String>());
         chest.setDisplayData(new ArrayList<String>());
+        
+        stone.setPassableList(new java.util.ArrayList<String>());
+        stone.setDisplayData(new ArrayList<String>());
 
         list.add(tree);
         list.add(chest);
+        list.add(stone);
 
         p.createJSON("defaults/GameObject", list);
     }
@@ -260,10 +265,16 @@ public class MakeDefaults {
         weapon.setName("Weapon");
         weapon.setImagePath("resources/weapon.png");
 
+        Item helmet = new Item();
+        helmet.setName("Helmet");
+        helmet.setImagePath("resources/helmet.png");
+        
         list.add(milk);
         list.add(potion);
         list.add(armor);
         list.add(weapon);
+        list.add(helmet);
+        
         p.createJSON("defaults/Item", list);
     }
 
