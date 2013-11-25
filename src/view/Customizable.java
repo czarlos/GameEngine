@@ -1,6 +1,5 @@
 package view;
 
-import grid.ImageManager;
 import java.awt.image.BufferedImage;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,11 +24,6 @@ public abstract class Customizable {
     public void setName (String name) {
         myName = name;
     }
-
-/*    public void setImageandPath (String imagePath) {
-        myImagePath=imagePath;
-        myImage = ImageManager.getTileImage(imagePath);
-    }*/
 
     @JsonProperty("imagePath")
     public String getImagePath () {

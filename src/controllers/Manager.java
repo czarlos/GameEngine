@@ -55,7 +55,7 @@ public abstract class Manager {
      * @param stageID
      */
     public void setActiveStage (int stageID) {
-        if (stageID < myStages.size())
+        if (stageID < myStages.size() & stageID > -1)
             myActiveStage = myStages.get(stageID);
     }
 

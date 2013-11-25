@@ -8,7 +8,6 @@ import grid.FromJSONFactory;
 import grid.Tile;
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import stage.Condition;
@@ -30,8 +29,6 @@ public class WorldManager extends Manager {
 
     FromJSONFactory myFactory;
 
-//    private List<String> activeEditTypeList;
-//    private List<Integer> activeEditIDList;
     private String[] activeEditTypeList;
     private int[] activeEditIDList;
     private MasterStats myMasterStatMap;
@@ -88,8 +85,6 @@ public class WorldManager extends Manager {
     public int addStage (int x, int y, int tileID, String name) {
         myStages.add(new Stage(x, y, tileID, name));
         setActiveStage(myStages.size() - 1);
-  //      activeEditTypeList.add(null);
-  //      activeEditIDList.add(null);
         return myStages.size() - 1;
     }
 
