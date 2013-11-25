@@ -4,6 +4,7 @@ import grid.Coordinate;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.concurrent.Semaphore;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import controller.editor.GridController;
@@ -16,15 +17,16 @@ public class StagePlayerPanel extends JPanel {
     private GridController myController;
     private GameManager myManager;
     private GridCanvas myGridCanvas;
+    private TurnActions myTurnActions;
 
-    public StagePlayerPanel (GameManager manager) {
+    public StagePlayerPanel (GameManager manager,Semaphore sem) {
         myManager = manager;
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 0;
         c.fill = GridBagConstraints.BOTH;
-        c.gridheight = 1;
+        c.gridheight = 4;
         c.gridwidth = 4;
         c.weightx = 1;
         c.weighty = 1;
@@ -32,7 +34,20 @@ public class StagePlayerPanel extends JPanel {
         add(myGridCanvas, c);
         myController = new GridController(myManager, this);
         myGridCanvas.addGridMouseListener(myController);
+        
+        myTurnActions=new TurnActions(sem);
+        c.gridx = 0;
+        c.gridy = 4;
+        c.fill = GridBagConstraints.NONE;
+        c.gridheight = 1;
+        c.gridwidth = 5;
+        c.weightx = 0;
+        c.weighty = 0;
+        add(myTurnActions,c);
         repaint();
+        revalidate();
+        
+        
     }
 
     @Override
@@ -63,7 +78,7 @@ public class StagePlayerPanel extends JPanel {
         cons.gridx = 5;
         cons.gridy = 0;
         cons.fill = GridBagConstraints.BOTH;
-        cons.gridheight = 1;
+        cons.gridheight = 4;
         cons.gridwidth = 1;
         cons.weightx = 0;
         cons.weighty = 0;

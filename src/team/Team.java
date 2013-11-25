@@ -35,6 +35,12 @@ public class Team {
         myWinCondition = new WinCondition();
     }
 
+    public Team (String teamName, boolean humanity) {
+        this(teamName);
+        setIsHuman(humanity);
+        
+    }
+
     public void setWinCondition (WinCondition wc) {
         myWinCondition = wc;
     }
