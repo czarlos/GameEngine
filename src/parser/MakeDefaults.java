@@ -58,26 +58,90 @@ public class MakeDefaults {
         java.util.ArrayList<grid.Tile> list = new java.util.ArrayList<grid.Tile>();
         List<String> passableList = new ArrayList<>();
         passableList.add(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
+
         grid.Tile Grass = new grid.Tile();
-        Grass.setName("grass");
-        Grass.setImagePath("resources/grass.png");
+        Grass.setName("Long Grass");
+        Grass.setImagePath("resources/grass1.png");
         Grass.setPassableList(passableList);
         Grass.setStats(defaultStats);
         Grass.setActive(false);
         Grass.setMoveCost(1);
-
+        
+        grid.Tile Grass1 = new grid.Tile();
+        Grass1.setName("Short Grass");
+        Grass1.setImagePath("resources/grass.png");
+        Grass1.setPassableList(passableList);
+        Grass1.setStats(defaultNonStats);
+        Grass1.setActive(false);
+        Grass1.setMoveCost(1);
+        
         grid.Tile Water = new grid.Tile();
-        Water.setName("water");
+        Water.setName("Water");
         Water.setImagePath("resources/water.png");
         Water.setPassableList(passableList);
         
         Water.setStats(defaultManyStats);
         Water.setActive(false);
         Water.setMoveCost(2);
-
+        
+        grid.Tile Lava = new grid.Tile();
+        Lava.setName("Lava");
+        Lava.setImagePath("resources/lava.png");
+        Lava.setPassableList(passableList);
+        Lava.setStats(defaultNonStats);
+        Lava.setActive(false);
+        Lava.setMoveCost(1);
+        
+        grid.Tile Brick = new grid.Tile();
+        Brick.setName("Brick");
+        Brick.setImagePath("resources/brick.png");
+        Brick.setPassableList(passableList);
+        Brick.setStats(defaultNonStats);
+        Brick.setActive(false);
+        Brick.setMoveCost(1);
+        
+        grid.Tile Rock = new grid.Tile();
+        Rock.setName("Rock");
+        Rock.setImagePath("resources/rocks.png");
+        Rock.setPassableList(passableList);
+        Rock.setStats(defaultNonStats);
+        Rock.setActive(false);
+        Rock.setMoveCost(1);
+        
+        grid.Tile Stone = new grid.Tile();
+        Stone.setName("Stone");
+        Stone.setImagePath("resources/stone.png");
+        Stone.setPassableList(passableList);
+        Stone.setStats(defaultNonStats);
+        Stone.setActive(false);
+        Stone.setMoveCost(1);
+        
+        grid.Tile Sand = new grid.Tile();
+        Sand.setName("Sand");
+        Sand.setImagePath("resources/sand.png");
+        Sand.setPassableList(passableList);
+        Sand.setStats(defaultNonStats);
+        Sand.setActive(false);
+        Sand.setMoveCost(1);
+           
+        grid.Tile Brush = new grid.Tile();
+        Brush.setName("Brush");
+        Brush.setImagePath("resources/brush.png");
+        Brush.setPassableList(passableList);
+        Brush.setStats(defaultNonStats);
+        Brush.setActive(false);
+        Brush.setMoveCost(1);
+        
         list.add(Grass);
+        list.add(Grass1);
+        list.add(Brush);
         list.add(Water);
-
+        list.add(Lava);
+        list.add(Brick);
+        list.add(Rock);
+        list.add(Stone);
+        list.add(Sand);
+        
         p.createJSON("defaults/Tile", list);
     }
 
@@ -86,15 +150,72 @@ public class MakeDefaults {
                 new java.util.ArrayList<gameObject.GameObject>();
 
         gameObject.GameObject tree = new gameObject.GameObject();
-        tree.setName("tree");
+        tree.setName("Tree");
         tree.setImagePath("resources/tree.png");
+        
+        gameObject.GameObject milk = new gameObject.GameObject();
+        milk.setName("Milk");
+        milk.setImagePath("resources/milk.png");
+        
+        gameObject.GameObject armor = new gameObject.GameObject();
+        armor.setName("Armor");
+        armor.setImagePath("resources/armor.png");
+        
+        gameObject.GameObject weapon = new gameObject.GameObject();
+        weapon.setName("Weapon");
+        weapon.setImagePath("resources/weapon.png");
+        
+        gameObject.GameObject chest = new gameObject.GameObject();
+        chest.setName("Chest");
+        chest.setImagePath("resources/chest.png");
+        
+        gameObject.GameObject potion = new gameObject.GameObject();
+        potion.setName("Potion");
+        potion.setImagePath("resources/potion.png");
+        
+        
         tree.setPassableList(new java.util.ArrayList<String>());
         tree.setDisplayData(new ArrayList<String>());
+        
+        milk.setPassableList(new java.util.ArrayList<String>());
+        milk.setDisplayData(new ArrayList<String>());
+        
+        armor.setPassableList(new java.util.ArrayList<String>());
+        armor.setDisplayData(new ArrayList<String>());
+        
+        weapon.setPassableList(new java.util.ArrayList<String>());
+        weapon.setDisplayData(new ArrayList<String>());
+        
+        chest.setPassableList(new java.util.ArrayList<String>());
+        chest.setDisplayData(new ArrayList<String>());
+        
+        potion.setPassableList(new java.util.ArrayList<String>());
+        potion.setDisplayData(new ArrayList<String>());
 
         p.createJSON("tree", tree);
         p.createObject("tree", gameObject.GameObject.class);
+        
+        p.createJSON("milk", milk);
+        p.createObject("milk", gameObject.GameObject.class);
+        
+        p.createJSON("armor", armor);
+        p.createObject("armor", gameObject.GameObject.class);
+        
+        p.createJSON("weapon", weapon);
+        p.createObject("weapon", gameObject.GameObject.class);
+        
+        p.createJSON("chest", chest);
+        p.createObject("chest", gameObject.GameObject.class);
+        
+        p.createJSON("potion", potion);
+        p.createObject("potion", gameObject.GameObject.class);
 
         list.add(tree);
+        list.add(milk);
+        list.add(armor);
+        list.add(weapon);
+        list.add(chest);
+        list.add(potion);
 
         p.createJSON("defaults/GameObject", list);
     }
@@ -104,13 +225,17 @@ public class MakeDefaults {
                 new java.util.ArrayList<gameObject.GameUnit>();
 
         gameObject.GameUnit hero = new gameObject.GameUnit();
+        gameObject.GameUnit goldensun = new gameObject.GameUnit();
+        gameObject.GameUnit enemy = new gameObject.GameUnit();  
+        gameObject.GameUnit charizard = new gameObject.GameUnit();  
+        gameObject.GameUnit roy = new gameObject.GameUnit();  
 
         gameObject.Stats stat = new Stats();
         HashMap<String, Integer> stats = new HashMap<String, Integer>();
         stats.put("movement", 3);
         stat.setStats(stats);
         
-        hero.setName("hero");
+        hero.setName("Hero");
         hero.setImagePath("resources/hero.png");
         hero.setPassableList(new java.util.ArrayList<String>());
         hero.setControllable(true);
@@ -120,7 +245,52 @@ public class MakeDefaults {
         hero.setStats(stat);
         hero.addItem(defaultItem);
         
+        goldensun.setName("Golden Sun");
+        goldensun.setImagePath("resources/goldensun.png");
+        goldensun.setPassableList(new java.util.ArrayList<String>());
+        goldensun.setControllable(true);
+        goldensun.setHealth(20);
+        goldensun.setAffiliation("");
+        goldensun.setExperience(0);
+        goldensun.setStats(stat);
+        goldensun.addItem(defaultItem);
+        
+        enemy.setName("Enemy");
+        enemy.setImagePath("resources/enemy.png");
+        enemy.setPassableList(new java.util.ArrayList<String>());
+        enemy.setControllable(true);
+        enemy.setHealth(20);
+        enemy.setAffiliation("");
+        enemy.setExperience(0);
+        enemy.setStats(stat);
+        enemy.addItem(defaultItem);
+        
+        charizard.setName("Dragon");
+        charizard.setImagePath("resources/charizard.png");
+        charizard.setPassableList(new java.util.ArrayList<String>());
+        charizard.setControllable(true);
+        charizard.setHealth(20);
+        charizard.setAffiliation("");
+        charizard.setExperience(0);
+        charizard.setStats(stat);
+        charizard.addItem(defaultItem);
+        
+        roy.setName("Roy");
+        roy.setImagePath("resources/roy.png");
+        roy.setPassableList(new java.util.ArrayList<String>());
+        roy.setControllable(true);
+        roy.setHealth(20);
+        roy.setAffiliation("");
+        roy.setExperience(0);
+        roy.setStats(stat);
+        roy.addItem(defaultItem);
+        
         list.add(hero);
+        list.add(goldensun);
+        list.add(enemy);
+        list.add(charizard);
+        list.add(roy);
+        
 
         p.createJSON("defaults/GameUnit", list);
     }
