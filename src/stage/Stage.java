@@ -6,6 +6,7 @@ import team.Team;
 import view.canvas.GridMouseListener;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.GameUnit;
 import grid.Coordinate;
 import grid.Grid;
@@ -24,6 +25,7 @@ import grid.Grid;
 @JsonAutoDetect
 public class Stage implements GridMouseListener {
 
+    @JsonProperty
     private Grid myGrid;
     private String myName;
     private String preText;
