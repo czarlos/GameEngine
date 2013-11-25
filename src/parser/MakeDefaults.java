@@ -49,25 +49,88 @@ public class MakeDefaults {
         java.util.ArrayList<grid.Tile> list = new java.util.ArrayList<grid.Tile>();
         List<String> passableList = new ArrayList<>();
         passableList.add(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
+        grid.Tile Brush = new grid.Tile();
+        Brush.setName("Brush");
+        Brush.setImagePath("resources/brush.png");
+        Brush.setPassableList(passableList);
+        Brush.setStats(defaultNonStats);
+        Brush.setActive(false);
+        Brush.setMoveCost(1);
+        
         grid.Tile Grass = new grid.Tile();
-        Grass.setName("grass");
+        Grass.setName("Grass");
         Grass.setImagePath("resources/grass.png");
         Grass.setPassableList(passableList);
         Grass.setStats(defaultNonStats);
         Grass.setActive(false);
         Grass.setMoveCost(1);
 
+        grid.Tile Grass1 = new grid.Tile();
+        Grass1.setName("Long Grass");
+        Grass1.setImagePath("resources/grass1.png");
+        Grass1.setPassableList(passableList);
+        Grass1.setStats(defaultNonStats);
+        Grass1.setActive(false);
+        Grass1.setMoveCost(1);
+        
         grid.Tile Water = new grid.Tile();
-        Water.setName("water");
+        Water.setName("Water");
         Water.setImagePath("resources/water.png");
         Water.setPassableList(passableList);
         Water.setStats(defaultNonStats);
         Water.setActive(false);
         Water.setMoveCost(2);
-
+        
+        grid.Tile Lava = new grid.Tile();
+        Lava.setName("Lava");
+        Lava.setImagePath("resources/lava.png");
+        Lava.setPassableList(passableList);
+        Lava.setStats(defaultNonStats);
+        Lava.setActive(false);
+        Lava.setMoveCost(1);
+        
+        grid.Tile Brick = new grid.Tile();
+        Brick.setName("Brick");
+        Brick.setImagePath("resources/brick.png");
+        Brick.setPassableList(passableList);
+        Brick.setStats(defaultNonStats);
+        Brick.setActive(false);
+        Brick.setMoveCost(1);
+        
+        grid.Tile Rock = new grid.Tile();
+        Rock.setName("Rock");
+        Rock.setImagePath("resources/rocks.png");
+        Rock.setPassableList(passableList);
+        Rock.setStats(defaultNonStats);
+        Rock.setActive(false);
+        Rock.setMoveCost(1);
+        
+        grid.Tile Stone = new grid.Tile();
+        Stone.setName("Stone");
+        Stone.setImagePath("resources/stone.png");
+        Stone.setPassableList(passableList);
+        Stone.setStats(defaultNonStats);
+        Stone.setActive(false);
+        Stone.setMoveCost(1);
+        
+        grid.Tile Sand = new grid.Tile();
+        Sand.setName("Sand");
+        Sand.setImagePath("resources/sand.png");
+        Sand.setPassableList(passableList);
+        Sand.setStats(defaultNonStats);
+        Sand.setActive(false);
+        Sand.setMoveCost(1);
+        
+        list.add(Brush);
         list.add(Grass);
+        list.add(Grass1);
         list.add(Water);
-
+        list.add(Lava);
+        list.add(Brick);
+        list.add(Rock);
+        list.add(Stone);
+        list.add(Sand);
+        
         p.createJSON("defaults/Tile", list);
     }
 
