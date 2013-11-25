@@ -19,9 +19,10 @@ public class TileTableModel extends GameTableModel{
 
     public TileTableModel(){
         String[] names = {"Name", "Graphic", "Move Cost", "StatsModifiers"};
-
+        myName = "Tile";
         setColumnNames(names);
     }
+    
 
     public void addPreviouslyDefined (List<Customizable> tiles) {
 
@@ -33,26 +34,28 @@ public class TileTableModel extends GameTableModel{
             array[0] = t.getName();
             array[1] = new File(t.getImagePath());
             array[2] = t.getMoveCost();
-            array[3] = t.getStatMods();
+            array[3] = t.getStats();
 
-            myList.add(array);        
+            addNewRow(array);        
 
         }
     }
 
-    public Object getObject (int ID) {
-        if (ID < myColumnNames.length) {
-            Object[] current = myList.get(ID);
+    
+    public List<Customizable> getObjects() {
+        
+        List<Customizable> list = new ArrayList<Customizable>();
+        for(Object[] row : myList) {
             Tile t = new Tile();
-            t.setName((String) current[0]);
-            t.setImageAndPath((String) ((File) current[1]).getPath());
-            t.setMoveCost((int) current[2]);
-            t.setStatMods((Map<String, Double>) current[3]);
+            t.setName((String) row[0]);
+            t.setImageAndPath((String) ((File) row[1]).getPath());
+            t.setMoveCost((int) row[2]);
+            t.setStatMods((Map<String, Double>) row[3]);
 
-            return t;
+            list.add(t);
         }
 
-        return null;
+        return list;
     }
     
     @Override

@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -38,26 +39,25 @@ public class StatsEditorDialog extends JDialog {
      *        for cell rendering and editing
      */
     public StatsEditorDialog (GameTableModel model) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout());
-
-        JButton ok = new JButton("OK");
-        buttonPanel.add(ok);
-
+        
+        
         JTable table = new JTable(model);
-
-        table.setPreferredScrollableViewportSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
-        table.setFillsViewportHeight(true);
-
+        table.setDefaultRenderer(File.class,
+                                 new ThumbnailRenderer());
+        table.setDefaultEditor(File.class,
+                               new ImagePathEditor());
+        
+        
         JScrollPane scrollPane = new JScrollPane(table);
 
-        panel.add(scrollPane);
-        add(panel);
-        add(buttonPanel);
-        setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
+        table.setRowHeight(52);
+        table.setPreferredScrollableViewportSize(new Dimension(500, 300));
+        table.setFillsViewportHeight(true);
+        
+        
+        add(scrollPane);
+        
+        pack();
     }
 
 }

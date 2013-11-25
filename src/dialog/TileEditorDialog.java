@@ -1,16 +1,25 @@
 package dialog;
 
+import grid.Tile;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import view.Customizable;
+import com.sun.media.sound.ModelAbstractChannelMixer;
 
 
 /**
@@ -21,7 +30,7 @@ import javax.swing.JTable;
  * 
  * 
  */
-public class TileEditorDialog extends JDialog{
+public class TileEditorDialog extends TableDialog{
     
 
     /**
@@ -32,28 +41,72 @@ public class TileEditorDialog extends JDialog{
     private final int DEFAULT_WIDTH = 52;
     private final int DEFAULT_HEIGHT = 500;
     
+    
     /**
      * 
      * @param model - a TableModel class which provides getter and setter methods
      * for cell rendering and editing
      */
     public TileEditorDialog(GameTableModel model) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
+        
+        super(model);
+        
+        
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
+        
+        JButton addNewButton = new JButton("add new");
+        
+        addNewButton.addActionListener(new AddNewListener(model));
+        
+        buttonPanel.add(addNewButton);
+        
+        add(buttonPanel, BorderLayout.SOUTH);
+        
+        pack();
         
 
-        JTable table = new JTable(model);
-        table.setDefaultRenderer(File.class,
-                                 new ThumbnailRenderer());
-        table.setDefaultEditor(File.class,
-                               new ImagePathEditor());
-        table.setRowHeight(52);
-        table.setPreferredScrollableViewportSize(new Dimension(500, 300));
-        table.setFillsViewportHeight(true);        
-        
-       panel.add(table);
-       add(panel);
-       setSize(new Dimension(500, 300));
+    }
+    
+    private class AddNewListener implements ActionListener {
+
+        private JDialog dialog;
+        private ImageCreator imageCreator;
+        private GameTableModel myModel;
+
+        public AddNewListener (GameTableModel model) {
+            super();
+            myModel = model;
+        }
+
+        public void actionPerformed (ActionEvent e) {
+            ArrayList<Customizable> newList = new ArrayList<Customizable>(); 
+            Tile defTile = new Tile();
+            defTile.setName("New Tile");
+            defTile.setImageAndPath("resources/grass.png");
+            defTile.setMoveCost(1);
+            defTile.setStatMods(new HashMap<String, Double>());
+                
+            newList.add(defTile);
+            myModel.addPreviouslyDefined(newList);
+        }
+    }
+    
+    private class okListener implements ActionListener {
+
+        private JDialog dialog;
+        private ImageCreator imageCreator;
+        private GameTableModel myModel;
+
+        public okListener (GameTableModel model) {
+            super();
+            myModel = model;
+        }
+
+        public void actionPerformed (ActionEvent e) {
+            //TODO:
+                //hand ok click
+        }
     }
 
 }
