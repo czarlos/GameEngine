@@ -9,10 +9,10 @@ import javax.swing.Scrollable;
 import javax.swing.SwingConstants;
 
 
-public abstract class ScrollableListPane extends JPanel implements Scrollable {
+public abstract class ScrollableListPane extends JPanel {
 
     protected final int DATA_HEIGHT = 60;
-    protected final int WIDTH = 200;
+    protected final int WIDTH = 300;
 
     public ScrollableListPane () {
         super();
@@ -36,29 +36,6 @@ public abstract class ScrollableListPane extends JPanel implements Scrollable {
         super(layout, isDoubleBuffered);
     }
 
-    @Override
-    public Dimension getPreferredScrollableViewportSize () {
-        return getPreferredSize();
-    }
 
-    @Override
-    public int getScrollableUnitIncrement (Rectangle visibleRect, int orientation, int direction) {
-        return 10;
-    }
-
-    @Override
-    public int getScrollableBlockIncrement (Rectangle visibleRect, int orientation, int direction) {
-        return ((orientation == SwingConstants.VERTICAL) ? visibleRect.height : visibleRect.width);
-    }
-
-    @Override
-    public boolean getScrollableTracksViewportWidth () {
-        return true;
-    }
-
-    @Override
-    public boolean getScrollableTracksViewportHeight () {
-        return false;
-    }
 
 }

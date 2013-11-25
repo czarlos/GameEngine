@@ -21,10 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Stats {
     @JsonProperty
     protected Map<String, Integer> myStatMap;
-<<<<<<< HEAD
-=======
     MasterStats masterStatsMap;
->>>>>>> dev
 
     /**
      * Constructor for stats which currently does nothing

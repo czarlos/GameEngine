@@ -203,17 +203,10 @@ public class GameUnit extends GameObject {
        // displayData.add("Equipped Item: " + myActiveWeapon.getName());
         displayData.add("");
         displayData.add("Stats: ");
-<<<<<<< HEAD
-      //  displayData
-      //          .add("Health: " + getTotalStat(GameObjectConstants.HEALTH) + " / " + myMaxHealth);
-        for (String stat : myStats.getStatNames()) {
-            
-=======
         displayData
                 .add("Health: " + getTotalStat(GameObjectConstants.HEALTH) + " / " +
                      myStats.getStatValue("maxhealth"));
         for (String stat : myStats.getStatNames()) { // TODO: FIX
->>>>>>> dev
             if (stat.equals(GameObjectConstants.HEALTH)) {
                 continue;
             }
