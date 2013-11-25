@@ -46,9 +46,7 @@ public class GameManager extends Manager {
     }
 
     public void doHumanTurn(){
-        while(!turnCompleted()){
-            // make java go to sleep?
-        }
+        // TODO: needs to wait until !turnCompleted();
     }
     
     /**

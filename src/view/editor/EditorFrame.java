@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
@@ -20,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import parser.JSONParser;
 import controllers.WorldManager;
 
 
@@ -81,6 +83,11 @@ public class EditorFrame extends GameView {
                 loadGame();
             }
         });
+        saveGame.addActionListener(new ActionListener() {
+            public void actionPerformed (ActionEvent event) {
+                saveGame();
+            }
+        });
 
         // second menu
         JMenu editMenu = new JMenu("Edit");
@@ -106,21 +113,17 @@ public class EditorFrame extends GameView {
                 JOptionPane.showConfirmDialog(this, newGamePanel, "New Game!!",
                                               JOptionPane.OK_CANCEL_OPTION);
         if (value == JOptionPane.OK_OPTION) {
-            stageTabbedPane = new JTabbedPane();
-            stageTabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-            this.remove(myBackground);
-            this.add(stageTabbedPane, BorderLayout.CENTER);
-            this.revalidate();
-            this.repaint();
+
             String gameName = gameNameTextField.getText();
-            this.setTitle(gameName);
-            myWorldManager = new WorldManager();
-            myWorldManager.setGameName(gameName);
+            WorldManager wm = new WorldManager();
+            wm.setGameName(gameName);
+            
+            setFrame(wm);
             addStagePanel();
+            stageTabbedPane.addChangeListener(new TabChangeListener(myWorldManager, stageTabbedPane));
             JMenu stageMenu = new JMenu("Stage");
             stageMenu.setMnemonic(KeyEvent.VK_S);
             myMenuBar.add(stageMenu);
-            // add menu items
             JMenuItem objective = new JMenuItem("Set Objective");
             objective.setAccelerator(KeyStroke.getKeyStroke("control O"));
             stageMenu.add(objective);
@@ -167,27 +170,98 @@ public class EditorFrame extends GameView {
             int stageID =
                     myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image),
                                             stageName);// ****
-            // fix
-            StagePanel sp = new StagePanel(stageName, myWorldManager);
-            myStagePanelList.add(sp);
-            stageTabbedPane.addTab(stageName, sp);
-            stageTabbedPane.setSelectedIndex(myStagePanelList.size() - 1);
-            stageTabbedPane.addChangeListener(new ChangeListener() {
-                @Override
-                public void stateChanged (ChangeEvent e) {
-                    switchActiveStage();
-                }
-            });
-            this.repaint();
+            setStage(stageName);
         }
 
     }
 
+    protected void loadGame () {
+        JPanel loadPanel = new JPanel();
+        loadPanel.setLayout(new GridLayout(0, 2));
+        JLabel gameNames = new JLabel("Choose Game Name:");
+        JComboBox<String> gameNamesMenu = new JComboBox<>();
+        File savesDir = new File("JSONs/saves");
+        for (File child : savesDir.listFiles()) {
+            gameNamesMenu.addItem(child.getName().split("\\.")[0]);
+        }
+        loadPanel.add(gameNames);
+        loadPanel.add(gameNamesMenu);
+
+        int value =
+                JOptionPane.showConfirmDialog(this, loadPanel, "Choose Game",
+                                              JOptionPane.OK_CANCEL_OPTION);
+        if (value == JOptionPane.OK_OPTION) {
+            String gameName = (String) gameNamesMenu.getSelectedItem();
+            JSONParser p = new JSONParser();
+            WorldManager newWM = p.createObject("saves/" + gameName, controllers.WorldManager.class);
+            setFrame(newWM);
+            setStage(newWM.getStages().get(0));
+        }
+    } 
+    
+    protected void setFrame(WorldManager wm) {
+        super.clearWindow();
+        myWorldManager = wm;
+        myStagePanelList.clear();
+        
+        stageTabbedPane = new JTabbedPane();
+        stageTabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+        this.remove(myBackground);
+
+        this.add(stageTabbedPane, BorderLayout.CENTER);
+        this.revalidate();
+        this.repaint();
+        this.setTitle(wm.getGameName());
+        
+        JMenu stageMenu = new JMenu("Stage");
+        stageMenu.setMnemonic(KeyEvent.VK_S);
+        myMenuBar.add(stageMenu);
+        // add menu items
+        JMenuItem objective = new JMenuItem("Set Objective");
+        objective.setAccelerator(KeyStroke.getKeyStroke("control O"));
+        stageMenu.add(objective);
+    }
+    
+    protected void saveGame(){
+        myWorldManager.saveGame();
+    }
+    
+    protected void setStage(String stageName){
+
+        StagePanel sp = new StagePanel(stageName, myWorldManager);
+        myStagePanelList.add(sp);
+        stageTabbedPane.addTab(stageName, sp);
+        stageTabbedPane.setSelectedIndex(myStagePanelList.size() - 1);
+        stageTabbedPane.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged (ChangeEvent e) {
+                switchActiveStage();
+            }
+        });
+        this.repaint();
+    }
+    
     private void switchActiveStage () {
         myWorldManager.setActiveStage(stageTabbedPane.getSelectedIndex());
     }
 
     public static void main (String[] args) {
         new EditorFrame();
+    }
+    
+    class TabChangeListener implements ChangeListener{
+        
+        private WorldManager myWM;
+        private JTabbedPane myPanel;
+        
+        public TabChangeListener(WorldManager wm, JTabbedPane panel){
+            myWM = wm;
+            myPanel = panel;
+        }
+        @Override
+        public void stateChanged (ChangeEvent e) {
+            myWM.setActiveStage(myPanel.getSelectedIndex());
+        }
+        
     }
 }

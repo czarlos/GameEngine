@@ -3,11 +3,14 @@ package controllers;
 import grid.Coordinate;
 import java.util.ArrayList;
 import java.util.List;
+import parser.JSONParser;
 import stage.Stage;
 import view.Drawable;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonAutoDetect
 public abstract class Manager {
 
     @JsonProperty
@@ -86,5 +89,10 @@ public abstract class Manager {
 
     public Coordinate getCoordinate (double fracX, double fracY) {
         return myActiveStage.getGrid().getCoordinate(fracX, fracY);
+    }
+    
+    public void saveGame () {
+        JSONParser p = new JSONParser();
+        p.createJSON("saves/" + myGameName, this);
     }
 }

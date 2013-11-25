@@ -95,7 +95,7 @@ public class Grid implements Drawable {
         placeObject(new Coordinate(3, 5), tree);
         GameObject hero = (GameUnit) myFactory.make("GameUnit", 0);
         placeObject(new Coordinate(4, 5), hero);
-        beginMove(new Coordinate(4, 5));
+    //    beginMove(new Coordinate(4, 5)); //don't need/want this unless playing game
     }
 
     /**
@@ -106,7 +106,6 @@ public class Grid implements Drawable {
      */
     public void beginMove (Coordinate coordinate) {
         GameUnit gameUnit = (GameUnit) getObject(coordinate);
-        System.out.println(((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT));
         findMovementRange(coordinate,
                           ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT),
                           gameUnit);
@@ -153,7 +152,7 @@ public class Grid implements Drawable {
         for (int i = 0; i < rdelta.length; i++) {
             int newX = coordinate.getX() + cdelta[i];
             int newY = coordinate.getY() + rdelta[i];
-            if (onGrid(coordinate)) {
+            if (onGrid(new Coordinate (newX, newY))) {
                 Tile currentTile = getTile(new Coordinate(newX, newY));
                 int newRange = range - currentTile.getMoveCost();
 
@@ -547,6 +546,7 @@ public class Grid implements Drawable {
     public void placeTile (Coordinate coordinate, Tile tile) {
         // TODO: Generic method?
         myTiles[coordinate.getX()][coordinate.getY()] = tile;
+        removeObject(coordinate);
     }
 
     /**

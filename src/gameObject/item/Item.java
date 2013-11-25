@@ -2,6 +2,7 @@ package gameObject.item;
 
 import java.util.ArrayList;
 import java.util.List;
+import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -18,9 +19,7 @@ import gameObject.action.Action;
  * 
  */
 @JsonAutoDetect
-public class Item {
-    @JsonProperty
-    private String myName;
+public class Item extends Customizable {
     @JsonProperty
     private List<Action> myActions;
     @JsonProperty
@@ -30,15 +29,6 @@ public class Item {
         myActions = new ArrayList<Action>();
         myStats = new Stats();
     }
-
-    public String getName () {
-        return myName;
-    }
-
-    public void setName (String name) {
-        this.myName = name;
-    }
-
     public List<Action> getActions () {
         return myActions;
     }
