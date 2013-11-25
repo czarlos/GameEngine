@@ -16,6 +16,7 @@ import stage.Stage;
 import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import dialog.GameTableModel;
+import gameObject.item.Item;
 
 
 /**
@@ -134,6 +135,12 @@ public class WorldManager extends Manager {
                                             (GameObject) myFactory.make("gameobject", objectID));
     }
 
+    public void placeItem (int objectID, int x, int y) {
+        GameUnit gu = myActiveStage.getGrid().getUnit(new Coordinate(x, y));
+        if(gu != null){
+            gu.addItem((Item) myFactory.make("Item", objectID));
+        }
+    }
     /**
      * Gives access to certain names of customizables. Valid parameters are
      * "GameUnit",

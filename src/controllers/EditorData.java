@@ -2,6 +2,7 @@ package controllers;
 
 import gameObject.GameObject;
 import gameObject.GameUnit;
+import gameObject.item.Item;
 import grid.Tile;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,6 +68,13 @@ public class EditorData {
                 myParser.createObject(folderName + "/Condition",
                                       new ArrayList<Condition>().getClass());
         myDataMap.put("Condition", conditions);
+        
+
+        List<Customizable> items;
+        items =
+                myParser.createObject(folderName + "/Item",
+                                      new ArrayList<Item>().getClass());
+        myDataMap.put("Item", items);
 
     }
 
