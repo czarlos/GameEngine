@@ -81,6 +81,7 @@ public class WorldManager extends Manager {
     public int addStage (int x, int y, int tileID, String name) {
         myStages.add(new Stage(x, y, tileID, name));
         setActiveStage(myStages.size() - 1);
+        myActiveStage.addTeam("default");
         return myStages.size() - 1;
     }
 
