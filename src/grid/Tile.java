@@ -1,10 +1,10 @@
 package grid;
 
 import gameObject.GameObject;
+import gameObject.Stats;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 
@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 @JsonAutoDetect
 public class Tile extends GameObject {
     private boolean isActive;
-    private Map<String, Double> myStatMods;
+    private Stats myStats;
     private int myMoveCost;
     private List<Tile> myNeighbors;
     private Tile myParent;
@@ -29,15 +29,6 @@ public class Tile extends GameObject {
     private Coordinate myCoordinate;
 
     public Tile () {
-        setImagePath(myImagePath);
-        List<String> displayData = new ArrayList<>();
-        displayData.add("Name: " + myName);
-        displayData.add("Movement cost: " + myMoveCost);
-        displayData.add("Stat Modifiers: ");
-        for (String stat : myStatMods.keySet()) {
-            displayData.add(stat + ": " + myStatMods.get(stat));
-        }
-        myDisplayData = displayData;
     }
 
     public boolean isActive () {
@@ -55,12 +46,12 @@ public class Tile extends GameObject {
                           : ImageManager.getTileImage(myImagePath);
     }
 
-    public Map<String, Double> getStatMods () {
-        return myStatMods;
+    public Stats getStats () {
+        return myStats;
     }
 
-    public void setStatMods (Map<String, Double> statMods) {
-        myStatMods = statMods;
+    public void setStats (Stats stat) {
+        myStats = stat;
     }
 
     /**
@@ -80,6 +71,17 @@ public class Tile extends GameObject {
 
     public void setMoveCost (int moveCost) {
         myMoveCost = moveCost;
+    }
+    
+    public void generateDisplayData () {
+        List<String> displayData = new ArrayList<>();
+        displayData.add("Name: " + myName);
+        displayData.add("Movement cost: " + myMoveCost);
+        displayData.add("Stat Modifiers: ");
+        for (String stat : myStats.getStatNames()) {
+            displayData.add(stat + ": " + myStats.getStatValue(stat));
+        }
+        myDisplayData = displayData;
     }
 
     public Tile (List<Tile> neighbors, Coordinate coordinate) {

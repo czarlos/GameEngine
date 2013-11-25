@@ -15,7 +15,6 @@ import view.Customizable;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.MasterStats;
-import gameObject.action.Action;
 import grid.Coordinate;
 import grid.FromJSONFactory;
 import grid.Tile;
@@ -84,6 +83,14 @@ public class WorldManager extends Manager {
         myStages.add(new Stage(x, y, tileID, name));
         setActiveStage(myStages.size() - 1);
         return myStages.size() - 1;
+    }
+
+    public void setPreStory (String prestory) {
+        myActiveStage.setPreStory(prestory);
+    }
+
+    public void setPostStory (String poststory) {
+        myActiveStage.setPostStory(poststory);
     }
 
     /**

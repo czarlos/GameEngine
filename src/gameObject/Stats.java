@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -22,8 +23,10 @@ public class Stats {
     protected Map<String, Integer> myStatMap = new HashMap<>();
 
     public Stats () {
+
     }
 
+    @JsonIgnore
     public Integer getStatValue (String statName) {
         return myStatMap.get(statName);
     }
@@ -34,6 +37,7 @@ public class Stats {
         }
     }
 
+    @JsonIgnore
     public List<String> getStatNames () {
         List<String> statNames = new ArrayList<>();
         statNames.addAll(myStatMap.keySet());
@@ -41,6 +45,14 @@ public class Stats {
     }
 
     public void setStatList (Map<String, Integer> myStatMap) {
+        this.myStatMap = myStatMap;
+    }
+
+    public Map<String, Integer> getStats () {
+        return myStatMap;
+    }
+
+    public void setStats (Map<String, Integer> myStatMap) {
         this.myStatMap = myStatMap;
     }
 
@@ -57,24 +69,4 @@ public class Stats {
         return cloneStats;
     }
 
-    @Override
-    public int hashCode () {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((myStatMap == null) ? 0 : myStatMap.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals (Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        Stats other = (Stats) obj;
-        if (myStatMap == null) {
-            if (other.myStatMap != null) return false;
-        }
-        else if (!myStatMap.equals(other.myStatMap)) return false;
-        return true;
-    }
 }

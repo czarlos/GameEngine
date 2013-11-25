@@ -142,7 +142,7 @@ public class EditorFrame extends GameView {
         JTextField xTextField = new JTextField(6);
         JTextField yTextField = new JTextField(6);
         JLabel imageLabel = new JLabel("Default Tile");
-        JComboBox<String> imageMenu = new JComboBox<String>();
+        JComboBox<String> imageMenu = new JComboBox<>();
         List<String> tileNames = myWorldManager.get("Tile");
         for (String s : tileNames) {
             imageMenu.addItem(s);

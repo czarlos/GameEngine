@@ -2,12 +2,14 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import game.AI;
+import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.action.Action;
+import gameObject.action.MoveAction;
+import gameObject.action.WaitAction;
 import grid.Coordinate;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 
 public class GameManager extends Manager {
 
@@ -37,7 +39,6 @@ public class GameManager extends Manager {
         }
     }
 
-
     private void clear () {
         myPhaseNumber = -1;
         myActiveActions = new ArrayList<Action>();
@@ -49,6 +50,7 @@ public class GameManager extends Manager {
             // make java go to sleep?
         }
     }
+    
     /**
      * Loops through all of the game units in the current team (whose turn it is)
      * and sets all of the units to active.
@@ -97,33 +99,69 @@ public class GameManager extends Manager {
     /**
      * Frontend communication
      */
-
+    
+    /**
+     * Generates a list of information that a coordinate contains, including tiles and objects
+     * 
+     * @param coordinate Coordinate that is being asked for
+     * @return List of Strings that contain information about the coordinate
+     */
+    public List<String> generateTileInfoList (Coordinate coordinate) {
+    	return myActiveStage.getGrid().generateTileInfo(coordinate);
+    }
+    
+    /**
+     * Generates a list of information that a coordinate contains about a Game Object
+     * 
+     * @param coordinate Coordinate that is being asked for
+     * @return List of Strings that contain information about the coordinate. Null if there is no
+     *         object at coordinate
+     */
+    public List<String> generateObjectInfo (Coordinate coordinate) {
+    	return generateObjectInfo(coordinate);
+    }
+    
     public List<String> getActions (Coordinate coordinate) {
-        GameUnit gu = myActiveStage.getGrid().getUnit(coordinate);
-        if (gu != null) {
-            List<String> ret = new ArrayList<String>();
-            for (Action a : gu.getActions()) {
-                ret.add(a.getName());
-            }
-            myActiveActions = gu.getActions();
-            return ret;
+    	myActiveActions = myActiveStage.getGrid().generateActionList(coordinate);
+        if (myActiveActions != null) {
+        	List<String> actionNames = new ArrayList<>();
+        	for (Action action: myActiveActions) {
+        		actionNames.add(action.getName());
+        	}
+        	return actionNames;
         }
-
         return null;
     }
-
-    public void doAction (Coordinate attackerLocation, Coordinate defenderLocation, int actionID) {
-        GameUnit attacker = myActiveStage.getGrid().getUnit(attackerLocation);
-        
-        if (myActiveActions.get(actionID).getName().equals("MoveAction")) {
-            myActiveStage.getGrid().doMove(attackerLocation, defenderLocation);
-            attacker.hasMoved();
+    
+    public void beginAction (Coordinate unitCoordinate, int actionID) {
+    	myActiveStage.getGrid().setTilesInactive();
+        if (myActiveActions.get(actionID).getName().equals(MoveAction.NAME)) {
+            myActiveStage.getGrid().beginMove(unitCoordinate);
         }
         else {
-            GameUnit defender = myActiveStage.getGrid().getUnit(defenderLocation);
-            myActiveActions.get(actionID).doAction(attacker, defender);
-            attacker.setActive(false);
+        	myActiveStage.getGrid().beginAction(unitCoordinate, myActiveActions.get(actionID));
         }
+    }
+    
+    public void doAction (Coordinate unitCoordinate, Coordinate actionCoordinate, int actionID) {
+        GameUnit initiator = myActiveStage.getGrid().getUnit(unitCoordinate);
+        
+        if (myActiveActions.get(actionID).getName().equals(MoveAction.NAME)) {
+            myActiveStage.getGrid().doMove(unitCoordinate, actionCoordinate);
+            initiator.hasMoved();
+        }
+        else if (myActiveActions.get(actionID).getName().equals(WaitAction.NAME)) {
+        	initiator.setActive(false);
+        }
+        else {
+        	List<GameObject> receivers = myActiveStage.getGrid().doAction(unitCoordinate, actionCoordinate, myActiveActions.get(actionID));
+            for (GameObject receiver: receivers) {
+            	myActiveActions.get(actionID).doAction(initiator, receiver);
+            }
+            initiator.setActive(false);
+        }
+        
+        myActiveStage.getGrid().setTilesInactive();
     }
 
     public void endTurn () {
