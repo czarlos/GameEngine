@@ -35,12 +35,6 @@ public class Team {
         myWinCondition = new WinCondition();
     }
 
-    public Team (String teamName, boolean humanity) {
-        this(teamName);
-        setIsHuman(humanity);
-        
-    }
-
     public void setWinCondition (WinCondition wc) {
         myWinCondition = wc;
     }
@@ -48,11 +42,11 @@ public class Team {
     public void addCondition (Condition c) {
         myWinCondition.addCondition(c);
     }
-    
-    public boolean hasWon(Stage stage){
+
+    public boolean hasWon (Stage stage) {
         return myWinCondition.isFulfilled(stage);
     }
-    
+
     public String getName () {
         return myName;
     }

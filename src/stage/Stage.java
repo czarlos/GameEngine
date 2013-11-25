@@ -32,7 +32,7 @@ public class Stage implements GridMouseListener {
     private String postText;
     private List<Team> myTeamList;
     private Team myWinningTeam;
-    
+
     // only for use by deserializer
     public Stage () {
         myTeamList = new ArrayList<Team>();
@@ -60,7 +60,7 @@ public class Stage implements GridMouseListener {
     }
 
     public void addTeam (String teamName) {
-        myTeamList.add(new Team(teamName,true));
+        myTeamList.add(new Team(teamName));
     }
 
     public Team getTeam (int teamID) {
@@ -69,10 +69,10 @@ public class Stage implements GridMouseListener {
     }
 
     @JsonIgnore
-    public int getNumberOfTeams(){
+    public int getNumberOfTeams () {
         return myTeamList.size();
     }
-    
+
     public Grid getGrid () {
         return myGrid;
     }
@@ -127,16 +127,17 @@ public class Stage implements GridMouseListener {
 
         for (Team t : myTeamList) {
             conditionsMet = conditionsMet || t.hasWon(this);
-            if(t.hasWon(this)){
+            if (t.hasWon(this)) {
                 myWinningTeam = t;
-                // teams with lower IDs have a slight disadvantage here but that's offset by the fact that their turn comes up later.
+                // teams with lower IDs have a slight disadvantage here but that's offset by the
+                // fact that their turn comes up later.
             }
         }
 
         return false;
     }
-    
-    public Team getWinningTeam(){
+
+    public Team getWinningTeam () {
         return myWinningTeam;
     }
 }
