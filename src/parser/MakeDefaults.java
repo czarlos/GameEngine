@@ -196,9 +196,7 @@ public class MakeDefaults {
         hero.setImagePath("resources/hero.png");
         hero.setPassableList(new java.util.ArrayList<String>());
         hero.setControllable(true);
-        hero.setHealth(20);
         hero.setAffiliation("");
-        hero.setExperience(0);
         hero.setStats(stat);
         hero.addItem(defaultItem);
         
@@ -206,9 +204,7 @@ public class MakeDefaults {
         goldensun.setImagePath("resources/goldensun.png");
         goldensun.setPassableList(new java.util.ArrayList<String>());
         goldensun.setControllable(true);
-        goldensun.setHealth(20);
         goldensun.setAffiliation("");
-        goldensun.setExperience(0);
         goldensun.setStats(stat);
         goldensun.addItem(defaultItem);
         
@@ -216,9 +212,7 @@ public class MakeDefaults {
         enemy.setImagePath("resources/enemy.png");
         enemy.setPassableList(new java.util.ArrayList<String>());
         enemy.setControllable(true);
-        enemy.setHealth(20);
         enemy.setAffiliation("");
-        enemy.setExperience(0);
         enemy.setStats(stat);
         enemy.addItem(defaultItem);
         
@@ -226,9 +220,7 @@ public class MakeDefaults {
         charizard.setImagePath("resources/charizard.png");
         charizard.setPassableList(new java.util.ArrayList<String>());
         charizard.setControllable(true);
-        charizard.setHealth(20);
         charizard.setAffiliation("");
-        charizard.setExperience(0);
         charizard.setStats(stat);
         charizard.addItem(defaultItem);
         
@@ -236,9 +228,7 @@ public class MakeDefaults {
         roy.setImagePath("resources/roy.png");
         roy.setPassableList(new java.util.ArrayList<String>());
         roy.setControllable(true);
-        roy.setHealth(20);
         roy.setAffiliation("");
-        roy.setExperience(0);
         roy.setStats(stat);
         roy.addItem(defaultItem);
         
