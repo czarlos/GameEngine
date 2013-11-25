@@ -2,6 +2,7 @@ package gameObject;
 
 import gameObject.action.Action;
 import gameObject.action.MoveAction;
+import gameObject.action.WaitAction;
 import gameObject.item.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -183,11 +184,14 @@ public class GameUnit extends GameObject {
     @JsonIgnore
     public List<Action> getActions () {
         List<Action> actions = new ArrayList<>();
-        if (!hasMoved) {
-            actions.add(new MoveAction());
-        }
-        for (Item item : myItems) {
-            actions.addAll(item.getActions());
+        if(isActive){
+            if (!hasMoved) {
+                actions.add(new MoveAction());
+            }
+                actions.add(new WaitAction());
+            for (Item item : myItems) {
+                actions.addAll(item.getActions());
+            }
         }
         return actions;
     }

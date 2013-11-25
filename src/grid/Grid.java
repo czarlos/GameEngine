@@ -238,7 +238,7 @@ public class Grid implements Drawable {
      *        the unit
      */
     private void findActionRange (Coordinate unitCoordinate, Action action) {
-        List<Coordinate> area = action.getAOE();
+        /*List<Coordinate> area = action.getAOE();
         if (action.isAround()) {
             for (Coordinate cell : area) {
             	Coordinate newCoordinate = new Coordinate(unitCoordinate.getX() + cell.getX(), unitCoordinate.getY() +
@@ -267,7 +267,7 @@ public class Grid implements Drawable {
                                                                             cell.getX()))
                         .setActive(true); // left
             }
-        }
+        }*/
     }
 
     /**
@@ -392,7 +392,6 @@ public class Grid implements Drawable {
             GameUnit gameUnit = getUnit(coordinate);
             actions.addAll(gameUnit.getActions());
             actions.addAll(getInteractions(coordinate)); // TODO: currently no interactions.
-            actions.add(new WaitAction());
             return actions;
         }
         return null;
