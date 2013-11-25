@@ -83,6 +83,11 @@ public class EditorFrame extends GameView {
                 loadGame();
             }
         });
+        saveGame.addActionListener(new ActionListener() {
+            public void actionPerformed (ActionEvent event) {
+                saveGame();
+            }
+        });
 
         // second menu
         JMenu editMenu = new JMenu("Edit");
@@ -184,14 +189,17 @@ public class EditorFrame extends GameView {
             setFrame(newWM);
             setStage(newWM.getStages().get(0));
         }
-    }
+    } 
     
     protected void setFrame(WorldManager wm) {
         super.clearWindow();
         myWorldManager = wm;
+        myStagePanelList.clear();
+        
         stageTabbedPane = new JTabbedPane();
         stageTabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         this.remove(myBackground);
+
         this.add(stageTabbedPane, BorderLayout.CENTER);
         this.revalidate();
         this.repaint();
@@ -204,12 +212,14 @@ public class EditorFrame extends GameView {
         JMenuItem objective = new JMenuItem("Set Objective");
         objective.setAccelerator(KeyStroke.getKeyStroke("control O"));
         stageMenu.add(objective);
-
+    }
+    
+    protected void saveGame(){
+        myWorldManager.saveGame();
     }
     
     protected void setStage(String stageName){
 
-        // fix
         StagePanel sp = new StagePanel(stageName, myWorldManager);
         myStagePanelList.add(sp);
         stageTabbedPane.addTab(stageName, sp);
@@ -222,6 +232,7 @@ public class EditorFrame extends GameView {
         });
         this.repaint();
     }
+    
     private void switchActiveStage () {
         myWorldManager.setActiveStage(stageTabbedPane.getSelectedIndex());
     }

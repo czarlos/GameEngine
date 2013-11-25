@@ -52,7 +52,6 @@ public abstract class GameView extends JFrame {
         setJMenuBar(createMenuBar(this));
         myBackground = createBackground();
         add(myBackground);
-        add(myBackground);
         pack();
         setSize(800, 600);
         setVisible(true);

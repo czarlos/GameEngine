@@ -1,31 +1,27 @@
 package controllers;
 
-import java.awt.Image;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import dialog.GameTableModel;
-import dialog.UnitTableModel;
-import parser.JSONParser;
-import stage.Condition;
-import stage.Stage;
-import view.Customizable;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.MasterStats;
 import grid.Coordinate;
 import grid.FromJSONFactory;
 import grid.Tile;
+import java.awt.Image;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import stage.Condition;
+import stage.Stage;
+import view.Customizable;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import dialog.GameTableModel;
 
 
 @JsonAutoDetect
 public class WorldManager extends Manager {
 
     FromJSONFactory myFactory;
-    JSONParser myParser;
 
-    private UnitTableModel myUnitModel;
     private String activeEditType;
     private int activeEditID;
     private MasterStats myMasterStatList;
@@ -38,8 +34,6 @@ public class WorldManager extends Manager {
     public WorldManager () {
         super();
         myFactory = new FromJSONFactory();
-        myParser = new JSONParser();
-        myUnitModel = new UnitTableModel();
         myMasterStatList = new MasterStats();
     }
 
@@ -202,13 +196,6 @@ public class WorldManager extends Manager {
         go.setImagePath(imagePath);
 
         return myEditorData.setCustomizable("GameObject", ID, go);
-    }
-
-    /**
-     * Save game and load game. TODO: see if we can refactor this into manager?
-     */
-    public void saveGame () {
-        myParser.createJSON("saves/" + myGameName, this);
     }
 
     /**
