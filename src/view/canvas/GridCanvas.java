@@ -3,16 +3,20 @@ package view.canvas;
 import grid.Coordinate;
 import grid.Tile;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.BorderFactory;
+import javax.swing.Scrollable;
+import javax.swing.SwingConstants;
 import controllers.WorldManager;
 
 
-public class GridCanvas extends Canvas {
+public class GridCanvas extends Canvas implements Scrollable{
 
     WorldManager myWM;
     Collection<GridMouseListener> myClickSubscribers;
@@ -62,6 +66,33 @@ public class GridCanvas extends Canvas {
 
     public int getWidth () {
         return getSize().width;
+    }
+    
+    public Dimension getPreferredSize() {
+        return new Dimension(700, 700);
+    }
+
+    public Dimension getPreferredScrollableViewportSize() {
+        return getPreferredSize();
+    }
+
+    public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
+        return 1;
+    }
+
+    public int getScrollableBlockIncrement(Rectangle visibleRect,int orientation, int direction) {
+        if (orientation == SwingConstants.HORIZONTAL) 
+            return visibleRect.width - 1;
+        else 
+            return visibleRect.height - 1;
+    }
+
+    public boolean getScrollableTracksViewportWidth() {
+        return false;
+    }
+
+    public boolean getScrollableTracksViewportHeight() {
+        return false;
     }
 
 }
