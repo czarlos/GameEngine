@@ -20,6 +20,7 @@ public class SelectedInfoPanel extends JPanel {
     public void makeTabs (List<String> info, List<String> actions) {
         if (info != null) {
             myTabs.add("Tile Info", new InfoPanel(info));
+            // TODO: add jscrollpane
         }
 
         if (actions != null) {
