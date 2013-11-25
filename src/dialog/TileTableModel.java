@@ -9,21 +9,20 @@ import java.util.Map;
 import javax.swing.ImageIcon;
 import view.Customizable;
 
+
 /**
  * 
  * @author brooksmershon
- *
+ * 
  */
 
+public class TileTableModel extends GameTableModel {
 
-public class TileTableModel extends GameTableModel{
-
-    public TileTableModel(){
-        String[] names = {"Name", "Graphic", "Move Cost", "StatsModifiers"};
+    public TileTableModel () {
+        String[] names = { "Name", "Graphic", "Move Cost", "StatsModifiers" };
         myName = "Tile";
         setColumnNames(names);
     }
-    
 
     public void addPreviouslyDefined (List<Customizable> tiles) {
 
@@ -37,16 +36,15 @@ public class TileTableModel extends GameTableModel{
             array[2] = t.getMoveCost();
             array[3] = t.getStats();
 
-            addNewRow(array);        
+            addNewRow(array);
 
         }
     }
 
-    
-    public List<Customizable> getObjects() {
-        
+    public List<Customizable> getObjects () {
+
         List<Customizable> list = new ArrayList<Customizable>();
-        for(Object[] row : myList) {
+        for (Object[] row : myList) {
             Tile t = new Tile();
             t.setName((String) row[0]);
             t.setImageAndPath((String) ((File) row[1]).getPath());
@@ -60,13 +58,11 @@ public class TileTableModel extends GameTableModel{
 
         return list;
     }
-    
+
     @Override
-    public boolean isCellEditable(int row, int column) {
+    public boolean isCellEditable (int row, int column) {
         return true;
-        
+
     }
-    
-    
-    
+
 }

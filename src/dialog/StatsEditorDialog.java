@@ -24,7 +24,7 @@ import javax.swing.JTable;
  * 
  * 
  */
-public class StatsEditorDialog extends JDialog {
+public class StatsEditorDialog extends TableDialog {
 
     /**
      * 
@@ -37,26 +37,39 @@ public class StatsEditorDialog extends JDialog {
      * 
      * @param model - a TableModel class which provides getter and setter methods
      *        for cell rendering and editing
+     * @param statsEditor
      */
-    public StatsEditorDialog (GameTableModel model) {
-        
-        
+    public StatsEditorDialog (GameTableModel model, StatsEditor statsEditor) {
+
+        super(model, statsEditor);
+
         JTable table = new JTable(model);
         table.setDefaultRenderer(File.class,
                                  new ThumbnailRenderer());
         table.setDefaultEditor(File.class,
                                new ImagePathEditor());
-        
-        
+
         JScrollPane scrollPane = new JScrollPane(table);
 
         table.setRowHeight(52);
         table.setPreferredScrollableViewportSize(new Dimension(500, 300));
         table.setFillsViewportHeight(true);
-        
-        
-        add(scrollPane);
-        
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
+
+        JButton ok = new JButton("Save");
+        ok.addActionListener(statsEditor);
+
+        JButton cancel = new JButton("Cancel");
+        cancel.addActionListener(new DefaultCancelListener(this));
+
+        buttonPanel.add(ok);
+        buttonPanel.add(cancel);
+
+        add(scrollPane, BorderLayout.CENTER);
+        add(buttonPanel, BorderLayout.SOUTH);
+
         pack();
     }
 

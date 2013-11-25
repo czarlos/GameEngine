@@ -1,6 +1,5 @@
 package dialog;
 
-
 import gameObject.Stats;
 import javax.swing.AbstractCellEditor;
 import javax.swing.table.TableCellEditor;
@@ -15,50 +14,57 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+
 public class StatsEditor extends AbstractCellEditor
-                         implements TableCellEditor,
-                                    ActionListener {
+        implements TableCellEditor,
+        ActionListener {
+
+    StatsTableModel model;
     Stats currentStats;
     JButton button;
     StatsEditorDialog statsEditor;
     protected static final String EDIT = "edit";
 
-    public StatsEditor() {
-        
+    public StatsEditor () {
 
         button = new JButton();
         button.setActionCommand(EDIT);
         button.addActionListener(this);
         button.setBorderPainted(false);
-        
-        
+
+        model = new StatsTableModel();
+
     }
 
+    public void actionPerformed (ActionEvent e) {
 
-    public void actionPerformed(ActionEvent e) {
+        if (EDIT.equals(e.getActionCommand())) {
 
-            StatsTableModel model = new StatsTableModel();
-            
-            model.loadStats(currentStats);
-            
-            statsEditor = new StatsEditorDialog(model);
+            statsEditor = new StatsEditorDialog(model, this);
+
+            statsEditor.setVisible(true);
+
+        }
+        else {// ok clicked
+            statsEditor.setVisible(false);
+            currentStats = model.getStats();
 
             fireEditingStopped();
 
+        }
     }
-    
-    
-    public Object getCellEditorValue() {
+
+    public Object getCellEditorValue () {
         return currentStats;
     }
 
-    public Component getTableCellEditorComponent(JTable table,
-                                                 Object value,
-                                                 boolean isSelected,
-                                                 int row,
-                                                 int column) {
+    public Component getTableCellEditorComponent (JTable table,
+                                                  Object value,
+                                                  boolean isSelected,
+                                                  int row,
+                                                  int column) {
         currentStats = (Stats) value;
+        model.loadStats(currentStats);
         return button;
     }
 }
-

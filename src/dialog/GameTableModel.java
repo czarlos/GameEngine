@@ -8,13 +8,11 @@ import view.Customizable;
 
 @SuppressWarnings("serial")
 public abstract class GameTableModel extends AbstractTableModel {
-    
-    
+
     protected String myName;
-    
+
     protected final List<Object[]> myList = new ArrayList<Object[]>();
     protected String[] myColumnNames;
-    
 
     public void setColumnNames (String[] names) {
         this.myColumnNames = names;
@@ -61,17 +59,17 @@ public abstract class GameTableModel extends AbstractTableModel {
     public Class getColumnClass (int c) {
         return getValueAt(0, c).getClass();
     }
-    
+
     @Override
-    public void setValueAt(Object aValue, int row, int col) {
+    public void setValueAt (Object aValue, int row, int col) {
         myList.get(row)[col] = aValue;
     }
 
     public abstract void addPreviouslyDefined (List<Customizable> list);
-    
-    public abstract List<Customizable> getObjects();
-    
-    public String getName(){
+
+    public abstract List<Customizable> getObjects ();
+
+    public String getName () {
         return myName;
     }
 

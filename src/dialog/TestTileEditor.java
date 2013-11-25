@@ -45,17 +45,17 @@ public class TestTileEditor {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         GameTableModel model = new TileTableModel();
-        
+
         List<Customizable> tilesReadIn = makeTestLists();
-        
+
         model.addPreviouslyDefined(tilesReadIn);
-        
+
         Container content = frame.getContentPane();
         // Creates a new container
         content.setLayout(new BorderLayout());
 
-        final JDialog tileEditor = new TileEditorDialog(model);
-        
+        final JDialog tileEditor = new TileEditorDialog(model, null);
+
         JButton launchButton = new JButton("TileEditor");
         launchButton.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent e) {
@@ -65,7 +65,7 @@ public class TestTileEditor {
 
         JPanel panel = new JPanel();
         panel.add(launchButton);
-        
+
         panel.setPreferredSize(new Dimension(60, 68));
         panel.setMinimumSize(new Dimension(60, 68));
         panel.setMaximumSize(new Dimension(60, 68));

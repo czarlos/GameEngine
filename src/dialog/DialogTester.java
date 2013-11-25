@@ -65,14 +65,14 @@ public class DialogTester {
         actionList.add(new ActionTestStub());
 
         Object[] row_1 =
-                { "Bobby D.oge", "Doge", icon, new Stats(), new ArrayList<ActionTestStub>(),
-                 "offense" };
+        { "Bobby D.oge", "Doge", icon, new Stats(), new ArrayList<ActionTestStub>(),
+         "offense" };
         Object[] row_2 =
-                { "Bobby D.oge", "Another Doge", icon, new Stats(),
-                 new ArrayList<ActionTestStub>(), "defense" };
+        { "Bobby D.oge", "Another Doge", icon, new Stats(),
+         new ArrayList<ActionTestStub>(), "defense" };
         Object[] row_3 =
-                { "Engineer", "Jean", icon_2, new Stats(), new ArrayList<ActionTestStub>(),
-                 "offense" };
+        { "Engineer", "Jean", icon_2, new Stats(), new ArrayList<ActionTestStub>(),
+         "offense" };
 
         model.addNewRow(row_1);
         model.addNewRow(row_2);
