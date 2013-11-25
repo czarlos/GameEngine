@@ -153,7 +153,7 @@ public class Grid implements Drawable {
         for (int i = 0; i < rdelta.length; i++) {
             int newX = coordinate.getX() + cdelta[i];
             int newY = coordinate.getY() + rdelta[i];
-            if (onGrid(coordinate)) {
+            if (onGrid(new Coordinate(newX, newY))) {
                 Tile currentTile = getTile(new Coordinate(newX, newY));
                 int newRange = range - currentTile.getMoveCost();
 
@@ -245,10 +245,11 @@ public class Grid implements Drawable {
         List<Coordinate> area = action.getAOE();
         if (action.isAround()) {
             for (Coordinate cell : area) {
-                getTile(
-                        new Coordinate(unitCoordinate.getX() + cell.getX(), unitCoordinate.getY() +
-                                                                            cell.getY()))
-                        .setActive(true);
+            	Coordinate newCoordinate = new Coordinate(unitCoordinate.getX() + cell.getX(), unitCoordinate.getY() +
+                        cell.getY());
+            	if (onGrid(newCoordinate)) {
+            		getTile(newCoordinate).setActive(true);
+            	}
             }
         }
         else {
