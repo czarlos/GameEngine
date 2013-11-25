@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonAutoDetect
 public class Stats {
     @JsonProperty
-    protected Map<String, Integer> myStatMap = new HashMap<>();
+    protected Map<String, Integer> myStatMap;
 
     /**
      * Constructor for stats which currently does nothing

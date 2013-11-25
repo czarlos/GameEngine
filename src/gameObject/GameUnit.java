@@ -101,7 +101,6 @@ public class GameUnit extends GameObject {
     @Override
     public boolean isPassable (GameUnit unit) {
         unit.getAffiliation();
-        System.out.println(myTeamName);
         return super.isPassable(unit) || unit.getAffiliation().equals(myTeamName);
     }
 
@@ -219,12 +218,13 @@ public class GameUnit extends GameObject {
         displayData.add("Name: " + myName);
         displayData.add("Team: " + myTeamName);
         displayData.add("");
-        displayData.add("Equipped Item: " + myActiveWeapon.getName());
+       // displayData.add("Equipped Item: " + myActiveWeapon.getName());
         displayData.add("");
         displayData.add("Stats: ");
-        displayData
-                .add("Health: " + getTotalStat(GameObjectConstants.HEALTH) + " / " + myMaxHealth);
-        for (String stat : myStats.getStatNames()) { // TODO: FIX
+      //  displayData
+      //          .add("Health: " + getTotalStat(GameObjectConstants.HEALTH) + " / " + myMaxHealth);
+        for (String stat : myStats.getStatNames()) {
+            
             if (stat.equals(GameObjectConstants.HEALTH)) {
                 continue;
             }

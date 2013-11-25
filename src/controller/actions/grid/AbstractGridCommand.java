@@ -10,7 +10,7 @@ public abstract class AbstractGridCommand extends AbstractUndoableCommand {
     protected GameManager myManager;
     protected List<Coordinate> mySelectedCoordinates;
 
-    public AbstractGridCommand (GameManager manager, List<Coordinate> selectedCoordinates) {
+    public AbstractGridCommand (List<Coordinate> selectedCoordinates, GameManager manager) {
         myManager = manager;
         mySelectedCoordinates = selectedCoordinates;
     }
