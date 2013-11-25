@@ -23,18 +23,27 @@ public class MakeDefaults {
     private Action defaultAction;
     private Stats defaultStats;
     private Stats defaultNonStats;
+    private Stats defaultManyStats;
     
     public MakeDefaults () {
         p = new JSONParser();
         
         defaultStats = new Stats();
         defaultNonStats = new Stats();
+        defaultManyStats = new Stats();
         Map<String, Integer> stats = new HashMap<String, Integer>();
         defaultNonStats.setStats(stats);
         
         Map<String, Integer> moveStats = new HashMap<String, Integer>();
         moveStats.put("movement", 3);
         defaultStats.setStats(moveStats);
+        
+        Map<String, Integer> manyStats = new HashMap<String, Integer>();
+        manyStats.put("movement", 3);
+        manyStats.put("strength", 0);
+        manyStats.put("agility", 2);
+        manyStats.put("magic", 5);
+        defaultManyStats.setStats(manyStats);
         
         defaultAction = new CombatAction();
         defaultAction.setName("Attack");
@@ -53,7 +62,7 @@ public class MakeDefaults {
         Grass.setName("grass");
         Grass.setImagePath("resources/grass.png");
         Grass.setPassableList(passableList);
-        Grass.setStats(defaultNonStats);
+        Grass.setStats(defaultStats);
         Grass.setActive(false);
         Grass.setMoveCost(1);
 
@@ -61,7 +70,8 @@ public class MakeDefaults {
         Water.setName("water");
         Water.setImagePath("resources/water.png");
         Water.setPassableList(passableList);
-        Water.setStats(defaultNonStats);
+        
+        Water.setStats(defaultManyStats);
         Water.setActive(false);
         Water.setMoveCost(2);
 

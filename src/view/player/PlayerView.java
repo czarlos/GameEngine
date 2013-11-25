@@ -42,7 +42,6 @@ public class PlayerView extends GameView {
         return menuBar;
     }
 
-    @Override
     protected void loadGame () {
         JPanel newGamePanel = new JPanel();
         newGamePanel.setLayout(new GridLayout(1, 2));

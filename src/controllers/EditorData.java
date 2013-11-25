@@ -88,7 +88,7 @@ public class EditorData {
     }
 
     public void setData(GameTableModel gtm){
-        myDataMap.put(gtm.getType(), gtm.getObjects());
+        myDataMap.put(gtm.getName(), gtm.getObjects());
     }
     
     /**
