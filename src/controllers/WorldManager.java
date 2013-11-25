@@ -4,7 +4,6 @@ import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.MasterStats;
 import grid.Coordinate;
-import grid.FromJSONFactory;
 import grid.GridConstants;
 import grid.Tile;
 import java.awt.Image;
@@ -28,6 +27,7 @@ import gameObject.item.Item;
 @JsonAutoDetect
 public class WorldManager extends Manager {
 
+
     private String[] activeEditTypeList;
     private int[] activeEditIDList;
     private MasterStats myMasterStatMap;
@@ -39,6 +39,7 @@ public class WorldManager extends Manager {
      */
     public WorldManager () {
         super();
+
         activeEditTypeList = new String[4];
         activeEditIDList = new int[4];
         myMasterStatMap = MasterStats.getInstance();
@@ -48,17 +49,17 @@ public class WorldManager extends Manager {
         return myEditorData.getTable(type);
     }
 
+    public void addTeam (String teamName) {
+        myActiveStage.addTeam(teamName);
+    }
+    
     public void setData (GameTableModel gtm) {
         myEditorData.setData(gtm);
     }
 
-    public void addTeam (String teamName) {
-        myActiveStage.addTeam(teamName);
-    }
-
     public void setActiveObject (int index, String type, int id) {
-        activeEditTypeList[index] = type;
-        activeEditIDList[index] = id;
+        activeEditTypeList[index]= type;
+        activeEditIDList[index]= id;
     }
 
     public String getActiveType (int index) {
@@ -115,6 +116,7 @@ public class WorldManager extends Manager {
     public void removeRange () {
         myActiveStage.getGrid().setTilesInactive();
     }
+
 
     /**
      * Placing (previously created) things on the board. These will be replaced by table editing

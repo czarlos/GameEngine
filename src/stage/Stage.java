@@ -60,7 +60,7 @@ public class Stage implements GridMouseListener {
     }
 
     public void addTeam (String teamName) {
-        myTeamList.add(new Team(teamName));
+        myTeamList.add(new Team(teamName,true));
     }
 
     public Team getTeam (int teamID) {
@@ -133,7 +133,7 @@ public class Stage implements GridMouseListener {
             }
         }
 
-        return conditionsMet;
+        return false;
     }
     
     public Team getWinningTeam(){

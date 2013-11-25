@@ -16,7 +16,7 @@ import javax.swing.SwingConstants;
 import controllers.Manager;
 
 
-public class GridCanvas extends Canvas implements Scrollable{
+public class GridCanvas extends Canvas implements Scrollable {
 
     Manager myManager;
     Collection<GridMouseListener> myClickSubscribers;
@@ -40,7 +40,7 @@ public class GridCanvas extends Canvas implements Scrollable{
 
         Coordinate clickGridCoordinate =
                 myManager.getCoordinate((double) e.getX() / getSize().width, (double) e.getY() /
-                                                                        getSize().height);
+                                                                             getSize().height);
 
         for (GridMouseListener subscriber : myClickSubscribers) {
             subscriber.gridClicked(clickGridCoordinate);
@@ -67,31 +67,30 @@ public class GridCanvas extends Canvas implements Scrollable{
     public int getWidth () {
         return getSize().width;
     }
-    
-    public Dimension getPreferredSize() {
+
+    public Dimension getPreferredSize () {
         return new Dimension(700, 700);
     }
 
-    public Dimension getPreferredScrollableViewportSize() {
+    public Dimension getPreferredScrollableViewportSize () {
         return getPreferredSize();
     }
 
-    public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
+    public int getScrollableUnitIncrement (Rectangle visibleRect, int orientation, int direction) {
         return 1;
     }
 
-    public int getScrollableBlockIncrement(Rectangle visibleRect,int orientation, int direction) {
-        if (orientation == SwingConstants.HORIZONTAL) 
+    public int getScrollableBlockIncrement (Rectangle visibleRect, int orientation, int direction) {
+        if (orientation == SwingConstants.HORIZONTAL)
             return visibleRect.width - 1;
-        else 
-            return visibleRect.height - 1;
+        else return visibleRect.height - 1;
     }
 
-    public boolean getScrollableTracksViewportWidth() {
+    public boolean getScrollableTracksViewportWidth () {
         return false;
     }
 
-    public boolean getScrollableTracksViewportHeight() {
+    public boolean getScrollableTracksViewportHeight () {
         return false;
     }
 

@@ -22,10 +22,13 @@ public class StagePanel extends JPanel {
     private final String[] defaultTypes = GridConstants.DEFAULTTYPES;
     private GridCanvas myCanvas;
     private WorldManager myWorldManager;
+    private int myID;
+    private GridEditorController myController;
 
-    public StagePanel (String stageName, WorldManager wm) {
-
+    public StagePanel (String stageName, WorldManager wm, int stageID, GridEditorController gridcontrol) {
+        myID = stageID;
         myWorldManager = wm;
+        myController = gridcontrol;
         myCanvas = new GridCanvas(myWorldManager);
         initStagePanel();
 
@@ -39,12 +42,11 @@ public class StagePanel extends JPanel {
                                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollGrid.setLayout(new ScrollPaneLayout());
         add(scrollGrid);
-        StageEditorPanel panel = new StageEditorPanel(myWorldManager, defaultTypes);
+        StageEditorPanel panel = new StageEditorPanel(myWorldManager, defaultTypes, myID);
         panel.setMaximumSize(new Dimension(200, 500));
         add(panel);
 
         repaint();
-        GridEditorController gridcontrol = new GridEditorController(myWorldManager, panel);
-        myCanvas.addGridMouseListener(gridcontrol);
+        myCanvas.addGridMouseListener(myController);
     }
 }

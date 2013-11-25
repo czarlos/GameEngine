@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import view.player.PlayerView;
 import game.AI;
 import gameObject.GameObject;
 import gameObject.GameUnit;
@@ -17,8 +17,9 @@ public class GameManager extends Manager {
     private int myActiveTeam;
     private List<Action> myActiveActions;
     private boolean isTurnCompleted;
+    private PlayerView myView;
 
-    public GameManager (WorldManager wm) {
+    public GameManager (WorldManager wm, PlayerView view) {
         super();
         myActiveStage = wm.myActiveStage;
         myStages = wm.myStages;
@@ -26,7 +27,7 @@ public class GameManager extends Manager {
         myEditorData = wm.myEditorData;
     }
 
-    private void doTurn () {
+    public void doTurn () {
         clear();
         while(!conditionsMet()){
             nextTurn();
@@ -37,6 +38,8 @@ public class GameManager extends Manager {
                 doAITurn();
             }
         }
+        
+        
     }
 
     private void clear () {
@@ -46,7 +49,7 @@ public class GameManager extends Manager {
     }
 
     public void doHumanTurn(){
-        // TODO: needs to wait until !turnCompleted();
+        myView.doTurn();
     }
     
     /**

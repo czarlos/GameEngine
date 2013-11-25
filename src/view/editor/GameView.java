@@ -59,7 +59,6 @@ public abstract class GameView extends JFrame {
     
     protected void clearWindow () {
         setJMenuBar(createMenuBar(this));
-     
         revalidate();
         repaint();
     }
