@@ -36,22 +36,11 @@ public class ThumbnailRenderer extends DefaultTableCellRenderer {
                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row,
                                                     column);
 
-        /*
-         * Image img = value.getImage() ;
-         * Image newimg = img.getScaledInstance( NEW_WIDTH, NEW_HEIGHT, java.awt.Image.SCALE_SMOOTH
-         * ) ;
-         * icon = new ImageIcon( newimg );
-         * 
-         */
-        
-        System.out.println(value);
-        
         ImageIcon image;
-        
-        if(value instanceof File){
+
+        if (value instanceof File) {
             image = new ImageIcon((String) ((File) value).getAbsolutePath());
-            
-            
+
             value = new ImageIcon(getScaledImage(image.getImage(), DEFAULT_WIDTH, DEFAULT_HEIGHT));
         }
 
@@ -67,12 +56,12 @@ public class ThumbnailRenderer extends DefaultTableCellRenderer {
         }
         return cell;
     }
-   
-    
-    private Image getScaledImage(Image srcImg, int w, int h){
+
+    private Image getScaledImage (Image srcImg, int w, int h) {
         BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics2D = resizedImg.createGraphics();
-        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                                    RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         graphics2D.drawImage(srcImg, 0, 0, w, h, null);
         graphics2D.dispose();
         return resizedImg;
