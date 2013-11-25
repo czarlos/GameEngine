@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import dialog.GameTableModel;
 import parser.JSONParser;
 import stage.Condition;
 import view.Customizable;
@@ -19,10 +20,12 @@ public class EditorData {
     @JsonProperty
     Map<String, List<Customizable>> myDataMap;
     JSONParser myParser;
+    TableFactory myTableFactory;
 
     // Only for use by deserializer
     public EditorData () {
         myParser = new JSONParser();
+        myTableFactory = new TableFactory();
     }
 
     /**
@@ -77,7 +80,17 @@ public class EditorData {
     public List<Customizable> get (String type) {
         return myDataMap.get(type);
     }
+    
+    public GameTableModel getTable(String type){
+        GameTableModel gtm = myTableFactory.makeTableModel(type);
+        gtm.addPreviouslyDefined(myDataMap.get(type));
+        return gtm;
+    }
 
+    public void setData(GameTableModel gtm){
+        myDataMap.put(gtm.getType(), gtm.getObjects());
+    }
+    
     /**
      * Replaces the Customizable of type "key" at index "ID" with Customizable d.
      * If ID is out of range, append Customizable to list.

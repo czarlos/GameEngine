@@ -44,16 +44,11 @@ public class WorldManager extends Manager {
     }
 
     public GameTableModel getViewModel (String type) {
-        switch (type.toLowerCase()) {
-            case "tile":
-                return null; // add
-            case "gameunit":
-                return myUnitModel;
-            case "gameobject":
-
-                return null; // add
-        }
-        return null;
+        return myEditorData.getTable(type);
+    }
+    
+    public void setData (GameTableModel gtm) {
+        myEditorData.setData(gtm);
     }
 
     public void setActiveObject (String type, int id) {
@@ -106,8 +101,14 @@ public class WorldManager extends Manager {
         myActiveStage.getGrid().doMove(a, b);
     }
 
-    // do action is in gamemanager
+    public void displayRange(Coordinate coordinate){
+        myActiveStage.getGrid().beginMove(coordinate);
+    }
 
+    public void removeRange (){
+        myActiveStage.getGrid().setTilesInactive();
+    }
+    
     /**
      * Placing (previously created) things on the board. These will be replaced by table editing
      * stuff

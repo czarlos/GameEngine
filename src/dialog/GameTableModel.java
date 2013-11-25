@@ -57,6 +57,6 @@ public abstract class GameTableModel extends AbstractTableModel {
         return getValueAt(0, c).getClass();
     }
 
-    abstract void addPreviouslyDefined (List<Customizable> list);
+    public abstract void addPreviouslyDefined (List<Customizable> list);
 
 }

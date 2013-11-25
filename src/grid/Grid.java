@@ -95,7 +95,7 @@ public class Grid implements Drawable {
         placeObject(new Coordinate(3, 5), tree);
         GameObject hero = (GameUnit) myFactory.make("GameUnit", 0);
         placeObject(new Coordinate(4, 5), hero);
-        beginMove(new Coordinate(4, 5));
+       // beginMove(new Coordinate(4, 5)); don't need/want this unless playing game
     }
 
     /**
@@ -546,6 +546,7 @@ public class Grid implements Drawable {
     public void placeTile (Coordinate coordinate, Tile tile) {
         // TODO: Generic method?
         myTiles[coordinate.getX()][coordinate.getY()] = tile;
+        removeObject(coordinate);
     }
 
     /**
