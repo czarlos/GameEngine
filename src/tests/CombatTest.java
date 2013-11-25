@@ -1,3 +1,4 @@
+
 package tests;
 
 import static org.junit.Assert.assertEquals;
@@ -149,6 +150,7 @@ public class CombatTest {
 //        int expectedItemCount = 3;
 //
 //        assertEquals("Proper Items Removed", itemCount, expectedItemCount);
+
     }
 
     /**
@@ -245,5 +247,6 @@ public class CombatTest {
 //
 //        return e;
 //    }
+
 
 }

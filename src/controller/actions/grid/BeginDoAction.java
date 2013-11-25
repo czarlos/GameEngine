@@ -3,13 +3,13 @@ package controller.actions.grid;
 import grid.Coordinate;
 import java.util.List;
 import controllers.GameManager;
-import controllers.WorldManager;
 
 public class BeginDoAction extends AbstractGridCommand {
 
-    protected String myActionName;
-    public BeginDoAction (GameManager manager, List<Coordinate> selectedCoordinates, String actionName) {
-        super(manager, selectedCoordinates);
+    protected int myActionId;
+    public BeginDoAction (GameManager manager, int actionId, List<Coordinate> selectedCoordinates) {
+        super(selectedCoordinates,manager);
+        myActionId=actionId;
         
     }
     @Override
@@ -17,7 +17,7 @@ public class BeginDoAction extends AbstractGridCommand {
     }
     @Override
     public void execute () {
-        //myManager.beginAction(mySelectedCoordinates.get(0),myActionName);
+        myManager.beginAction(mySelectedCoordinates.get(0),myActionId);
     }
 
 }

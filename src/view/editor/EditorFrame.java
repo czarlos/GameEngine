@@ -170,6 +170,7 @@ public class EditorFrame extends GameView {
             int stageID =
                     myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image),
                                             stageName);// ****
+
             setStage(stageName);
         }
 

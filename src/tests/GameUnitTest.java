@@ -61,6 +61,7 @@ public class GameUnitTest {
 //        customUnit.addItem(shield);
 //    }
 
+
     @Test
     public void testName () {
         assert (customUnit.getName().equals("Marth"));
@@ -79,6 +80,7 @@ public class GameUnitTest {
 //        initializeCustom();
 //        Map<String, Integer> statMods = new HashMap<String, Integer>();
 //        statMods.put("defense", 20);
+
 //        customUnit.addItem(helmet);
 //        assertEquals(customUnit.getStats().getStatValue("defense"), 28, 0);
 //    }
@@ -132,6 +134,7 @@ public class GameUnitTest {
 //
 //    }
 
+
     @Test
     public void testDefaultStat () {
         initializeDefault();
@@ -166,6 +169,7 @@ public class GameUnitTest {
 //        assertEquals(defaultUnit.getStats().getStatValue("attack"), 28, 0);
 //        assertEquals(defaultUnit.getActiveWeapon(), bow);
 //    }
+
 
     @Test
     public void testDefaultName () {

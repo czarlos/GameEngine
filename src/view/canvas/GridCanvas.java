@@ -14,19 +14,20 @@ import javax.swing.BorderFactory;
 import javax.swing.Scrollable;
 import javax.swing.SwingConstants;
 import controllers.WorldManager;
+import controllers.Manager;
 
 
 public class GridCanvas extends Canvas implements Scrollable{
 
-    WorldManager myWM;
+    Manager myManager;
     Collection<GridMouseListener> myClickSubscribers;
     Tile t;
 
     private static final long serialVersionUID = -3908147776463294489L;
 
-    public GridCanvas (WorldManager wm) {
+    public GridCanvas (Manager wm) {
         setBorder(BorderFactory.createLineBorder(Color.black));
-        myWM = wm;
+        myManager = wm;
         myClickSubscribers = new ArrayList<>();
         addMouseListener(new MouseAdapter() {
             @Override
@@ -39,7 +40,7 @@ public class GridCanvas extends Canvas implements Scrollable{
     public void notifySubscribersOfClick (MouseEvent e) {
 
         Coordinate clickGridCoordinate =
-                myWM.getCoordinate((double) e.getX() / getSize().width, (double) e.getY() /
+                myManager.getCoordinate((double) e.getX() / getSize().width, (double) e.getY() /
                                                                         getSize().height);
 
         for (GridMouseListener subscriber : myClickSubscribers) {
@@ -57,7 +58,7 @@ public class GridCanvas extends Canvas implements Scrollable{
         super.paintComponent(g);
         int height = getSize().height;
         int width = getSize().width;
-        myWM.getGrid().draw(g, STARTING_X, STARTING_Y, width, height);
+        myManager.getGrid().draw(g, STARTING_X, STARTING_Y, width, height);
     }
 
     public int getHeight () {
