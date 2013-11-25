@@ -162,14 +162,6 @@ public class MakeDefaults {
         
         chest.setPassableList(new java.util.ArrayList<String>());
         chest.setDisplayData(new ArrayList<String>());
-        
-
-        p.createJSON("tree", tree);
-        p.createObject("tree", gameObject.GameObject.class);
-        
-        p.createJSON("chest", chest);
-        p.createObject("chest", gameObject.GameObject.class);
-        
 
         list.add(tree);
         list.add(chest);
