@@ -49,10 +49,7 @@ public class TileTableModel extends GameTableModel {
             t.setName((String) row[0]);
             t.setImageAndPath((String) ((File) row[1]).getPath());
             t.setMoveCost((int) row[2]);
-            Stats s = new Stats();
-            s.setStats((Map<String, Integer>) row[3]);
-
-            t.setStats(s);
+            t.setStats((Stats) row[3]);
             list.add(t);
         }
 
