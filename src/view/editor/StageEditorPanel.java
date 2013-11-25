@@ -108,10 +108,6 @@ public class StageEditorPanel extends JTabbedPane {
          selectedPanel = selected;
          myWorldManager.setActiveObject(myID-1, selected.getType(), myWorldManager.get(selected.getType()).indexOf(selected.getName()));
      }
-<<<<<<< HEAD
-
-=======
->>>>>>> controllers
      
      class EditListener implements ActionListener {
          

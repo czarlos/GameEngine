@@ -73,7 +73,6 @@ public class PlayerView extends GameView {
             String game = (String) gameNamesMenu.getSelectedItem();
             JSONParser p = new JSONParser();
             WorldManager newWM = p.createObject("saves/" + game, controllers.WorldManager.class);
-            newWM.addTeam("Winning team");
             myManager = new GameManager(newWM, this);
         }
         revalidate();
