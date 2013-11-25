@@ -153,9 +153,9 @@ public class GameManager extends Manager {
         }
         else {
         	List<GameObject> receivers = myActiveStage.getGrid().doAction(unitCoordinate, actionCoordinate, myActiveActions.get(actionID));
-            for (GameObject receiver: receivers) {
+/*            for (GameObject receiver: receivers) {
             	myActiveActions.get(actionID).doAction(initiator, receiver);
-            }
+            }*/
             initiator.setActive(false);
         }
         

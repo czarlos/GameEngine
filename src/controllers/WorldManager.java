@@ -55,6 +55,10 @@ public class WorldManager extends Manager {
         myEditorData.setData(gtm);
     }
 
+    public void addTeam (String teamName) {
+        myActiveStage.addTeam(teamName);
+    }
+
     public void setActiveObject (int index, String type, int id) {
         activeEditTypeList.set(index, type);
         activeEditIDList.set(index, id);
@@ -132,6 +136,8 @@ public class WorldManager extends Manager {
     public void placeUnit (int unitID, int x, int y) {
         myActiveStage.getGrid().placeObject(new Coordinate(x, y),
                                             (GameObject) myFactory.make("gameunit", unitID));
+        myActiveStage.addUnitToTeam(0, myActiveStage.getGrid().getUnit(new Coordinate(x, y)));
+        // TODO: actually implement teams
 
     }
 

@@ -71,12 +71,8 @@ public class PlayerView extends GameView {
         if (value == JOptionPane.OK_OPTION) {
             String game = (String) gameNamesMenu.getSelectedItem();
             JSONParser p = new JSONParser();
-            WorldManager wm = new WorldManager();
-            wm.setGameName("My game");
-            List<String> tileNames = wm.get("Tile");
-            wm.addStage(10,10, tileNames.indexOf("grass"),
-                                    "My Stage");
-            myManager = new GameManager(wm);
+            WorldManager newWM = p.createObject("saves/" + game, controllers.WorldManager.class);
+            myManager = new GameManager(newWM);
         }
         
         setGame();
