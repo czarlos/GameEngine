@@ -42,8 +42,8 @@ public class Item {
     public List<Action> getActions () {
         return myActions;
     }
-    
-    public void addAction(Action action) {
+
+    public void addAction (Action action) {
         myActions.add(action);
     }
 
@@ -53,7 +53,7 @@ public class Item {
 
     @JsonIgnore
     public int getStat (String statName) {
-        if(myStats.getStats().containsKey(statName))
+        if (myStats.getStats().containsKey(statName))
             return myStats.getStatValue(statName);
         return 0;
     }
@@ -63,6 +63,6 @@ public class Item {
     }
 
     public void setStats (Stats myStats) {
-        this.myStats = myStats;
+        this.myStats = new Stats(myStats);
     }
 }
