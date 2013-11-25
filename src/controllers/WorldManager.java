@@ -47,7 +47,7 @@ public class WorldManager extends Manager {
         myFactory = new FromJSONFactory();
         myParser = new JSONParser();
         myUnitModel = new UnitTableModel();
-        myMasterStatMap = new MasterStats();
+        myMasterStatMap = MasterStats.getInstance();
     }
 
     public GameTableModel getViewModel (String type) {
@@ -307,13 +307,13 @@ public class WorldManager extends Manager {
         GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
 
         for (Customizable unit : editorUnitList) {
-            ((GameUnit) unit).getStats().updateFromMaster(myMasterStatMap);
+            ((GameUnit) unit).getStats().updateFromMaster();
         }
 
         for (int i = 0; i < placedUnits.length; i++) {
             for (int j = 0; j < placedUnits[i].length; j++) {
                 if (placedUnits[i][j] != null) {
-                    placedUnits[i][j].getStats().updateFromMaster(myMasterStatMap);
+                    placedUnits[i][j].getStats().updateFromMaster();
                 }
             }
         }

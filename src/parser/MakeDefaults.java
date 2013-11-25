@@ -1,6 +1,7 @@
 package parser;
 
 import gameObject.GameObjectConstants;
+import gameObject.MasterStats;
 import gameObject.Stats;
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
@@ -22,38 +23,34 @@ public class MakeDefaults {
     private Item defaultItem;
     private Action defaultAction;
     private Stats defaultStats;
-    private Stats defaultNonStats;
-    
+
     public MakeDefaults () {
         p = new JSONParser();
-        
+
         defaultStats = new Stats();
-        defaultNonStats = new Stats();
-        Map<String, Integer> stats = new HashMap<String, Integer>();
-        defaultNonStats.setStats(stats);
-        
-        Map<String, Integer> moveStats = new HashMap<String, Integer>();
-        moveStats.put("movement", 3);
-        defaultStats.setStats(moveStats);
-        
+        defaultStats.updateFromMaster();
+
         defaultAction = new CombatAction();
         defaultAction.setName("Attack");
 
         defaultItem = new Item();
         defaultItem.addAction(defaultAction);
         defaultItem.setName("Item");
-        defaultItem.setStats(defaultNonStats);
+        defaultItem.setStats(defaultStats);
     }
 
     public void makeTiles () throws Exception {
         java.util.ArrayList<grid.Tile> list = new java.util.ArrayList<grid.Tile>();
         List<String> passableList = new ArrayList<>();
+        defaultStats = new Stats();
+        defaultStats.updateFromMaster();
+
         passableList.add(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
         grid.Tile Grass = new grid.Tile();
         Grass.setName("grass");
         Grass.setImagePath("resources/grass.png");
         Grass.setPassableList(passableList);
-        Grass.setStats(defaultNonStats);
+        Grass.setStats(defaultStats);
         Grass.setActive(false);
         Grass.setMoveCost(1);
 
@@ -61,7 +58,7 @@ public class MakeDefaults {
         Water.setName("water");
         Water.setImagePath("resources/water.png");
         Water.setPassableList(passableList);
-        Water.setStats(defaultNonStats);
+        Water.setStats(defaultStats);
         Water.setActive(false);
         Water.setMoveCost(2);
 
@@ -95,21 +92,14 @@ public class MakeDefaults {
 
         gameObject.GameUnit hero = new gameObject.GameUnit();
 
-        gameObject.Stats stat = new Stats();
-        HashMap<String, Integer> stats = new HashMap<String, Integer>();
-        stats.put("movement", 1);
-        stat.setStats(stats);
-        
         hero.setName("hero");
         hero.setImagePath("resources/hero.png");
         hero.setPassableList(new java.util.ArrayList<String>());
         hero.setControllable(true);
-        hero.setHealth(20);
+        hero.setStats(defaultStats);
         hero.setAffiliation("");
-        hero.setExperience(0);
-        hero.setStats(stat);
         hero.addItem(defaultItem);
-        
+
         list.add(hero);
 
         p.createJSON("defaults/GameUnit", list);
@@ -136,13 +126,13 @@ public class MakeDefaults {
     }
 
     public void makeActions () {
-       List<Action> list = new ArrayList<Action>();
-       list.add(new CombatAction());
-       
-       p.createJSON("defaults/Action", list);
+        List<Action> list = new ArrayList<Action>();
+        list.add(new CombatAction());
+
+        p.createJSON("defaults/Action", list);
     }
-    
-    public void makeStats(){
+
+    public void makeStats () {
         List<Item> list = new ArrayList<Item>();
         Item i = new Item();
 
@@ -151,19 +141,18 @@ public class MakeDefaults {
         i.addAction(defaultAction);
         p.createJSON("defaults/Item", list);
     }
-    
-    public void makeItems() {
+
+    public void makeItems () {
         List<Item> list = new ArrayList<Item>();
         Item i = new Item();
 
         i.setName("Generic item");
         i.setStats(defaultStats);
         i.addAction(defaultAction);
-        
+
         p.createJSON("defaults/Item", list);
     }
-    
-    
+
     /**
      * Just run this to refresh the default JSONs
      * 
@@ -177,11 +166,11 @@ public class MakeDefaults {
         maker.makeUnits();
         maker.makeItems();
         maker.makeStats();
-        
+
         // handled differently in editor
         maker.makeConditions();
         maker.makeActions();
-        
+
         maker.saveAndLoadGame();
     }
 
