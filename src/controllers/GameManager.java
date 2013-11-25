@@ -116,7 +116,7 @@ public class GameManager extends Manager {
      *         object at coordinate
      */
     public List<String> generateObjectInfo (Coordinate coordinate) {
-    	return generateObjectInfo(coordinate);
+    	return myActiveStage.getGrid().generateObjectInfo(coordinate);
     }
     
     public List<String> getActions (Coordinate coordinate) {

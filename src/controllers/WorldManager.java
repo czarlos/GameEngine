@@ -44,13 +44,13 @@ public class WorldManager extends Manager {
         myFactory = new FromJSONFactory();
         activeEditTypeList = new ArrayList<String>();
         activeEditIDList = new ArrayList<Integer>();
-        myMasterStatMap = new MasterStats();
+        myMasterStatMap = MasterStats.getInstance();
     }
 
     public GameTableModel getViewModel (String type) {
         return myEditorData.getTable(type);
     }
-    
+
     public void setData (GameTableModel gtm) {
         myEditorData.setData(gtm);
     }
@@ -103,18 +103,19 @@ public class WorldManager extends Manager {
     }
 
     // WILL BE REMOVED, USE GAMEMANAGER
+    @Deprecated
     public void doMove (Coordinate a, Coordinate b) {
         myActiveStage.getGrid().doMove(a, b);
     }
 
-    public void displayRange(Coordinate coordinate){
+    public void displayRange (Coordinate coordinate) {
         myActiveStage.getGrid().beginMove(coordinate);
     }
 
-    public void removeRange (){
+    public void removeRange () {
         myActiveStage.getGrid().setTilesInactive();
     }
-    
+
     /**
      * Placing (previously created) things on the board. These will be replaced by table editing
      * stuff
@@ -141,10 +142,11 @@ public class WorldManager extends Manager {
 
     public void placeItem (int objectID, int x, int y) {
         GameUnit gu = myActiveStage.getGrid().getUnit(new Coordinate(x, y));
-        if(gu != null){
+        if (gu != null) {
             gu.addItem((Item) myFactory.make("Item", objectID));
         }
     }
+
     /**
      * Gives access to certain names of customizables. Valid parameters are
      * "GameUnit",
@@ -302,13 +304,13 @@ public class WorldManager extends Manager {
         GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
 
         for (Customizable unit : editorUnitList) {
-            ((GameUnit) unit).getStats().updateFromMaster(myMasterStatMap);
+            ((GameUnit) unit).getStats().updateFromMaster();
         }
 
         for (int i = 0; i < placedUnits.length; i++) {
             for (int j = 0; j < placedUnits[i].length; j++) {
                 if (placedUnits[i][j] != null) {
-                    placedUnits[i][j].getStats().updateFromMaster(myMasterStatMap);
+                    placedUnits[i][j].getStats().updateFromMaster();
                 }
             }
         }

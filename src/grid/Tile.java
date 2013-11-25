@@ -44,7 +44,7 @@ public class Tile extends GameObject {
     }
 
     public void setStats (Stats stat) {
-        myStats = stat;
+        myStats = new Stats(stat);
     }
 
     /**
@@ -65,7 +65,7 @@ public class Tile extends GameObject {
     public void setMoveCost (int moveCost) {
         myMoveCost = moveCost;
     }
-    
+
     public void generateDisplayData () {
         List<String> displayData = new ArrayList<>();
         displayData.add("Name: " + myName);
