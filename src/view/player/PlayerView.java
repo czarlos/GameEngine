@@ -24,12 +24,12 @@ import view.editor.GameView;
 
 public class PlayerView extends GameView {
     private GameManager myManager;
-    
+
     public PlayerView () {
     }
-    
-    public PlayerView(GameManager manager){
-        myManager=manager;
+
+    public PlayerView (GameManager manager) {
+        myManager = manager;
     }
 
     @Override
@@ -74,30 +74,30 @@ public class PlayerView extends GameView {
             WorldManager newWM = p.createObject("saves/" + game, controllers.WorldManager.class);
             myManager = new GameManager(newWM);
         }
-        
+
         setGame();
         revalidate();
         repaint();
     }
-    
-    //@Override
-//    protected void loadGame () {
-//        JPanel newGamePanel = new JPanel();
-//        newGamePanel.setLayout(new GridLayout(1, 2));
-//        JLabel gameNameLabel = new JLabel("Game Name:");
-//        JTextField gameNameTextField = new JTextField(25);
-//        newGamePanel.add(gameNameLabel);
-//        newGamePanel.add(gameNameTextField);
-//
-//        this.remove(myBackground);
-//        String gameName = gameNameTextField.getText();
-//        this.setTitle(gameName);
-//
-//        myWorldManager.setGameName(gameName);
-//        setGame();
-//        revalidate();
-//        repaint();
-//    }
+
+    // @Override
+    // protected void loadGame () {
+    // JPanel newGamePanel = new JPanel();
+    // newGamePanel.setLayout(new GridLayout(1, 2));
+    // JLabel gameNameLabel = new JLabel("Game Name:");
+    // JTextField gameNameTextField = new JTextField(25);
+    // newGamePanel.add(gameNameLabel);
+    // newGamePanel.add(gameNameTextField);
+    //
+    // this.remove(myBackground);
+    // String gameName = gameNameTextField.getText();
+    // this.setTitle(gameName);
+    //
+    // myWorldManager.setGameName(gameName);
+    // setGame();
+    // revalidate();
+    // repaint();
+    // }
 
     private void setGame () {
         remove(myBackground);

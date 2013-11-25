@@ -10,7 +10,7 @@ public class DoAction extends AbstractGridCommand {
     protected int myActionId;
 
     public DoAction (GameManager manager, int actionId, List<Coordinate> selectedCoordinates) {
-        super(selectedCoordinates,manager);
+        super(selectedCoordinates, manager);
         myActionId = actionId;
     }
 
@@ -20,7 +20,7 @@ public class DoAction extends AbstractGridCommand {
 
     @Override
     public void execute () {
-        myManager.doAction(mySelectedCoordinates.get(0),mySelectedCoordinates.get(1),myActionId);
+        myManager.doAction(mySelectedCoordinates.get(0), mySelectedCoordinates.get(1), myActionId);
     }
 
 }

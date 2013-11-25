@@ -69,7 +69,6 @@ public class EditorData {
                 myParser.createObject(folderName + "/Condition",
                                       new ArrayList<Condition>().getClass());
         myDataMap.put("Condition", conditions);
-        
 
         List<Customizable> items;
         items =
@@ -89,17 +88,17 @@ public class EditorData {
     public List<Customizable> get (String type) {
         return myDataMap.get(type);
     }
-    
-    public GameTableModel getTable(String type){
+
+    public GameTableModel getTable (String type) {
         GameTableModel gtm = myTableFactory.makeTableModel(type);
         gtm.addPreviouslyDefined(myDataMap.get(type));
         return gtm;
     }
 
-    public void setData(GameTableModel gtm){
+    public void setData (GameTableModel gtm) {
         myDataMap.put(gtm.getName(), gtm.getObjects());
     }
-    
+
     /**
      * Replaces the Customizable of type "key" at index "ID" with Customizable d.
      * If ID is out of range, append Customizable to list.

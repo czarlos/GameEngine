@@ -29,6 +29,7 @@ public class Item extends Customizable {
         myActions = new ArrayList<Action>();
         myStats = new Stats();
     }
+
     public List<Action> getActions () {
         return myActions;
     }

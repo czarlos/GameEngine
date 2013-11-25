@@ -27,7 +27,7 @@ public abstract class Customizable {
     }
 
     public void setImageandPath (String imagePath) {
-        myImagePath=imagePath;
+        myImagePath = imagePath;
         myImage = ImageManager.getTileImage(imagePath);
     }
 

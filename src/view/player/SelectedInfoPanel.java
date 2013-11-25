@@ -31,15 +31,15 @@ public class SelectedInfoPanel extends JPanel {
             myTabs.add("Tile", pane);
         }
 
-        if(objectInfo!=null){
-            JScrollPane pane=new JScrollPane(new InfoPanel(objectInfo));
-            myTabs.add("Objects",pane);
+        if (objectInfo != null) {
+            JScrollPane pane = new JScrollPane(new InfoPanel(objectInfo));
+            myTabs.add("Objects", pane);
         }
-        
+
         if (buttonTab != null) {
             JScrollPane pane =
                     new JScrollPane(new ActionInfoPanel(buttonTab, myController));
-            myTabs.add("Actions",pane);
+            myTabs.add("Actions", pane);
         }
 
         add(myTabs);

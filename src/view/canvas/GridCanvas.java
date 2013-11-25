@@ -36,7 +36,7 @@ public class GridCanvas extends Canvas {
 
         Coordinate clickGridCoordinate =
                 myManager.getCoordinate((double) e.getX() / getSize().width, (double) e.getY() /
-                                                                        getSize().height);
+                                                                             getSize().height);
 
         for (GridMouseListener subscriber : myClickSubscribers) {
             subscriber.gridClicked(clickGridCoordinate);

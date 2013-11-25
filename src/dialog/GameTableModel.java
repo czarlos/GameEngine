@@ -13,7 +13,7 @@ public abstract class GameTableModel extends AbstractTableModel {
 
     protected final List<Object[]> myList = new ArrayList<Object[]>();
     protected String[] myColumnNames;
-    
+
     public void setColumnNames (String[] names) {
         this.myColumnNames = names;
     }
@@ -68,7 +68,7 @@ public abstract class GameTableModel extends AbstractTableModel {
     public abstract void addPreviouslyDefined (List<Customizable> list);
 
     public abstract List<Customizable> getObjects ();
-    
+
     public String getName () {
         return myName;
     }

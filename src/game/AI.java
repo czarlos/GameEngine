@@ -34,7 +34,7 @@ public class AI {
         for (GameUnit unit : myTeam.getGameUnits()) {
             // delay?
             doAIMove(unit, opponentList);
-            //Sleep?
+            // Sleep?
         }
     }
 
@@ -61,7 +61,7 @@ public class AI {
             Action randomAction = unit.getActiveWeapon().getActions().get(rand);
             String activeWeapon = unit.getActiveWeapon().toString();
             randomAction.doAction(unit, myGrid.getUnit(other));
-//            unit.attack(myGrid.getUnit(other), activeWeapon, randomAction);
+            // unit.attack(myGrid.getUnit(other), activeWeapon, randomAction);
         }
         else {
             PathFinding.autoMove(start, end, unit, myGrid);

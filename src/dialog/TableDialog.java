@@ -20,11 +20,11 @@ import view.Customizable;
 
 public class TableDialog extends JDialog {
     GameTableModel myModel;
-    
+
     public TableDialog (GameTableModel model, ActionListener okListener) {
         addTable(model);
         myModel = model;
-        
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
 
@@ -99,7 +99,7 @@ public class TableDialog extends JDialog {
             myModel.addPreviouslyDefined(newList);
         }
     }
-    
+
     protected class DefaultCancelListener implements ActionListener {
 
         private JDialog dialog;
@@ -115,8 +115,7 @@ public class TableDialog extends JDialog {
         }
     }
 
-
-    public GameTableModel getModel(){
+    public GameTableModel getModel () {
         return myModel;
     }
 }

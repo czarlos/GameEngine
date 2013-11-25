@@ -241,11 +241,12 @@ public class Grid implements Drawable {
         List<Coordinate> area = action.getAOE();
         if (action.isAround()) {
             for (Coordinate cell : area) {
-            	Coordinate newCoordinate = new Coordinate(unitCoordinate.getX() + cell.getX(), unitCoordinate.getY() +
-                        cell.getY());
-            	if (onGrid(newCoordinate)) {
-            		getTile(newCoordinate).setActive(true);
-            	}
+                Coordinate newCoordinate =
+                        new Coordinate(unitCoordinate.getX() + cell.getX(), unitCoordinate.getY() +
+                                                                            cell.getY());
+                if (onGrid(newCoordinate)) {
+                    getTile(newCoordinate).setActive(true);
+                }
             }
         }
         else {

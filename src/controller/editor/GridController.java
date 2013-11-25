@@ -16,10 +16,11 @@ public class GridController implements GridMouseListener {
     private GameManager myManager;
     private Coordinate mySelectedCoordinate;
     private StagePlayerPanel myView;
+
     public GridController (GameManager manager, StagePlayerPanel view) {
         myManager = manager;
         mySelectedCoordinate = new Coordinate(0, 0);
-        myView=view;
+        myView = view;
     }
 
     public void doCommand (String commandName, int numClicks, Object ... args) {
@@ -42,10 +43,10 @@ public class GridController implements GridMouseListener {
     public void gridClicked (Coordinate c) {
 
         mySelectedCoordinate = c;
-        
+
         if (myCurrentAction != null)
             myCurrentAction.click(c);
-        
+
         myView.updatedSelectedInfoPanel(c);
         myView.revalidate();
     }

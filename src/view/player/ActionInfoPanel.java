@@ -46,7 +46,7 @@ public class ActionInfoPanel extends ScrollableListPane {
                     myActionId = id;
                     return this;
                 }
-                
+
             }.init(i));
 
             add(button);

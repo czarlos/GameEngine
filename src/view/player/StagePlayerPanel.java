@@ -17,7 +17,7 @@ public class StagePlayerPanel extends JPanel {
     private GridCanvas myGridCanvas;
 
     public StagePlayerPanel (String stageName, GameManager manager) {
-        myManager=manager;
+        myManager = manager;
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
         myGridCanvas = new GridCanvas(myManager);
         myController = new GridController(myManager, this);
@@ -30,18 +30,18 @@ public class StagePlayerPanel extends JPanel {
     }
 
     @Override
-    public void revalidate(){
+    public void revalidate () {
         super.revalidate();
-        if(myGridCanvas!=null){
+        if (myGridCanvas != null) {
             myGridCanvas.repaint();
         }
-        
-        if(mySidePanel!=null){
+
+        if (mySidePanel != null) {
             mySidePanel.repaint();
         }
-        
+
     }
-    
+
     @SuppressWarnings("unchecked")
     public void updatedSelectedInfoPanel (Coordinate c) {
         SelectedInfoPanel infoPanel = new SelectedInfoPanel(myController);

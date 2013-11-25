@@ -34,11 +34,11 @@ public class GameObjectPanel extends JPanel implements MouseListener {
         isSelected = false;
         initPanel();
     }
-    
-    private void initPanel(){
-        //JLabel label = new JLabel(myImage);
-        ImagePanel imagePanel =  new ImagePanel(myImage);
-        imagePanel.setPreferredSize(new Dimension(35,35));
+
+    private void initPanel () {
+        // JLabel label = new JLabel(myImage);
+        ImagePanel imagePanel = new ImagePanel(myImage);
+        imagePanel.setPreferredSize(new Dimension(35, 35));
         JLabel name = new JLabel(myName);
         add(imagePanel);
         add(name);

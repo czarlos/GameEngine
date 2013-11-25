@@ -42,11 +42,11 @@ public class Team {
     public void addCondition (Condition c) {
         myWinCondition.addCondition(c);
     }
-    
-    public boolean hasWon(Stage stage){
+
+    public boolean hasWon (Stage stage) {
         return myWinCondition.isFulfilled(stage);
     }
-    
+
     public String getName () {
         return myName;
     }

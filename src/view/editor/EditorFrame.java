@@ -117,10 +117,11 @@ public class EditorFrame extends GameView {
             String gameName = gameNameTextField.getText();
             WorldManager wm = new WorldManager();
             wm.setGameName(gameName);
-            
+
             setFrame(wm);
             addStagePanel();
-            stageTabbedPane.addChangeListener(new TabChangeListener(myWorldManager, stageTabbedPane));
+            stageTabbedPane
+                    .addChangeListener(new TabChangeListener(myWorldManager, stageTabbedPane));
             JMenu stageMenu = new JMenu("Stage");
             stageMenu.setMnemonic(KeyEvent.VK_S);
             myMenuBar.add(stageMenu);
@@ -194,17 +195,18 @@ public class EditorFrame extends GameView {
         if (value == JOptionPane.OK_OPTION) {
             String gameName = (String) gameNamesMenu.getSelectedItem();
             JSONParser p = new JSONParser();
-            WorldManager newWM = p.createObject("saves/" + gameName, controllers.WorldManager.class);
+            WorldManager newWM =
+                    p.createObject("saves/" + gameName, controllers.WorldManager.class);
             setFrame(newWM);
             setStage(newWM.getStages().get(0));
         }
-    } 
-    
-    protected void setFrame(WorldManager wm) {
+    }
+
+    protected void setFrame (WorldManager wm) {
         super.clearWindow();
         myWorldManager = wm;
         myStagePanelList.clear();
-        
+
         stageTabbedPane = new JTabbedPane();
         stageTabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         this.remove(myBackground);
@@ -213,7 +215,7 @@ public class EditorFrame extends GameView {
         this.revalidate();
         this.repaint();
         this.setTitle(wm.getGameName());
-        
+
         JMenu stageMenu = new JMenu("Stage");
         stageMenu.setMnemonic(KeyEvent.VK_S);
         myMenuBar.add(stageMenu);
@@ -222,12 +224,12 @@ public class EditorFrame extends GameView {
         objective.setAccelerator(KeyStroke.getKeyStroke("control O"));
         stageMenu.add(objective);
     }
-    
-    protected void saveGame(){
+
+    protected void saveGame () {
         myWorldManager.saveGame();
     }
-    
-    protected void setStage(String stageName){
+
+    protected void setStage (String stageName) {
 
         StagePanel sp = new StagePanel(stageName, myWorldManager);
         myStagePanelList.add(sp);
@@ -241,7 +243,7 @@ public class EditorFrame extends GameView {
         });
         this.repaint();
     }
-    
+
     private void switchActiveStage () {
         myWorldManager.setActiveStage(stageTabbedPane.getSelectedIndex());
     }
@@ -249,20 +251,21 @@ public class EditorFrame extends GameView {
     public static void main (String[] args) {
         new EditorFrame();
     }
-    
-    class TabChangeListener implements ChangeListener{
-        
+
+    class TabChangeListener implements ChangeListener {
+
         private WorldManager myWM;
         private JTabbedPane myPanel;
-        
-        public TabChangeListener(WorldManager wm, JTabbedPane panel){
+
+        public TabChangeListener (WorldManager wm, JTabbedPane panel) {
             myWM = wm;
             myPanel = panel;
         }
+
         @Override
         public void stateChanged (ChangeEvent e) {
             myWM.setActiveStage(myPanel.getSelectedIndex());
         }
-        
+
     }
 }

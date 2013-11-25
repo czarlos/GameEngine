@@ -200,7 +200,7 @@ public class GameUnit extends GameObject {
         displayData.add("Name: " + myName);
         displayData.add("Team: " + myTeamName);
         displayData.add("");
-       // displayData.add("Equipped Item: " + myActiveWeapon.getName());
+        // displayData.add("Equipped Item: " + myActiveWeapon.getName());
         displayData.add("");
         displayData.add("Stats: ");
         displayData

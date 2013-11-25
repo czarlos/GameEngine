@@ -42,10 +42,6 @@ public class TileEditorDialog extends TableDialog {
 
         super(model, okListener);
 
-        
-
     }
-
-    
 
 }
