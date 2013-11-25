@@ -21,12 +21,28 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Stats {
     @JsonProperty
     protected Map<String, Integer> myStatMap;
+<<<<<<< HEAD
+=======
+    MasterStats masterStatsMap;
+>>>>>>> dev
 
     /**
      * Constructor for stats which currently does nothing
      */
     public Stats () {
+        myStatMap = new HashMap<>();
+        masterStatsMap = MasterStats.getInstance();
+        for (String stat : masterStatsMap.getStatNames()) {
+            myStatMap.put(stat, masterStatsMap.getStatValue(stat));
+        }
+    }
 
+    public Stats (Stats stat) {
+        myStatMap = new HashMap<>();
+        for (String statName : stat.getStatNames()) {
+            myStatMap.put(statName, stat.getStatValue(statName));
+        }
+        updateFromMaster();
     }
 
     /**
@@ -88,7 +104,11 @@ public class Stats {
      * @param myStatMap - The map of stats to set to
      */
     public void setStats (Map<String, Integer> myStatMap) {
-        this.myStatMap = myStatMap;
+        Map<String, Integer> newStats = new HashMap<>();
+        for (String statName : myStatMap.keySet()) {
+            newStats.put(statName, myStatMap.get(statName));
+        }
+        myStatMap = newStats;
     }
 
     /**
@@ -99,15 +119,15 @@ public class Stats {
      * 
      * @param masterStatMap The master stat map from the world manager
      */
-    public void updateFromMaster (MasterStats masterStatMap) {
-        for (String stat : masterStatMap.getStatNames()) {
+    public void updateFromMaster () {
+        for (String stat : MasterStats.getInstance().getStatNames()) {
             if (!getStatNames().contains(stat)) {
-                myStatMap.put(stat, masterStatMap.getStatValue(stat));
+                myStatMap.put(stat, MasterStats.getInstance().getStatValue(stat));
             }
         }
 
         for (String stat : getStatNames()) {
-            if (!masterStatMap.getStatNames().contains(stat)) {
+            if (!MasterStats.getInstance().getStatNames().contains(stat)) {
                 remove(stat);
             }
         }

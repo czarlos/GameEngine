@@ -35,8 +35,6 @@ public class GameUnit extends GameObject {
     private Stats myStats;
     private String myTeamName;
     private Weapon myActiveWeapon;
-    private double myMaxHealth;
-    private double myExperience;
     private boolean isActive;
     private boolean hasMoved;
 
@@ -139,7 +137,7 @@ public class GameUnit extends GameObject {
     }
 
     public void setStats (Stats stats) {
-        myStats = stats;
+        myStats = new Stats(stats);
     }
 
     public Stats getStats () {
@@ -182,22 +180,6 @@ public class GameUnit extends GameObject {
         return isActive;
     }
 
-    public double getHealth () {
-        return myMaxHealth;
-    }
-
-    public void setHealth (double health) {
-        myMaxHealth = health;
-    }
-
-    public double getExperience () {
-        return myExperience;
-    }
-
-    public void setExperience (double experience) {
-        myExperience = experience;
-    }
-
     @JsonIgnore
     public List<Action> getActions () {
         List<Action> actions = new ArrayList<>();
@@ -221,10 +203,17 @@ public class GameUnit extends GameObject {
        // displayData.add("Equipped Item: " + myActiveWeapon.getName());
         displayData.add("");
         displayData.add("Stats: ");
+<<<<<<< HEAD
       //  displayData
       //          .add("Health: " + getTotalStat(GameObjectConstants.HEALTH) + " / " + myMaxHealth);
         for (String stat : myStats.getStatNames()) {
             
+=======
+        displayData
+                .add("Health: " + getTotalStat(GameObjectConstants.HEALTH) + " / " +
+                     myStats.getStatValue("maxhealth"));
+        for (String stat : myStats.getStatNames()) { // TODO: FIX
+>>>>>>> dev
             if (stat.equals(GameObjectConstants.HEALTH)) {
                 continue;
             }
