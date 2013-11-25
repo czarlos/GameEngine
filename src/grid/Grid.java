@@ -92,7 +92,6 @@ public class Grid implements Drawable {
         placeObject(new Coordinate(3, 5), tree);
         GameObject hero = (GameUnit) myFactory.make("GameUnit", 0);
         placeObject(new Coordinate(4, 5), hero);
-    //    beginMove(new Coordinate(4, 5)); //don't need/want this unless playing game
     }
 
     /**

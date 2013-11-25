@@ -80,28 +80,10 @@ public class PlayerView extends GameView {
         repaint();
     }
     
-    //@Override
-//    protected void loadGame () {
-//        JPanel newGamePanel = new JPanel();
-//        newGamePanel.setLayout(new GridLayout(1, 2));
-//        JLabel gameNameLabel = new JLabel("Game Name:");
-//        JTextField gameNameTextField = new JTextField(25);
-//        newGamePanel.add(gameNameLabel);
-//        newGamePanel.add(gameNameTextField);
-//
-//        this.remove(myBackground);
-//        String gameName = gameNameTextField.getText();
-//        this.setTitle(gameName);
-//
-//        myWorldManager.setGameName(gameName);
-//        setGame();
-//        revalidate();
-//        repaint();
-//    }
 
     private void setGame () {
         remove(myBackground);
-        StagePlayerPanel sp = new StagePlayerPanel("MyStage", myManager);
+        StagePlayerPanel sp = new StagePlayerPanel(myManager);
         add(sp);
     }
 
