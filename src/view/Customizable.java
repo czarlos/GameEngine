@@ -1,9 +1,7 @@
 package view;
 
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+import grid.ImageManager;
+import java.awt.image.BufferedImage;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,6 +12,7 @@ public abstract class Customizable {
     protected String myName;
     @JsonProperty
     protected String myImagePath;
+    protected BufferedImage myImage;
 
     public Customizable () {
 
@@ -27,15 +26,9 @@ public abstract class Customizable {
         myName = name;
     }
 
-    @JsonIgnore
-    public Image getImage () {
-        try {
-            return ImageIO.read(new File(myImagePath));
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public void setImageandPath (String imagePath) {
+        myImagePath=imagePath;
+        myImage = ImageManager.getTileImage(imagePath);
     }
 
     public String getImagePath () {
@@ -45,5 +38,10 @@ public abstract class Customizable {
     @JsonProperty("imagePath")
     public void setImagePath (String imagePath) {
         myImagePath = imagePath;
+    }
+
+    @JsonIgnore
+    public BufferedImage getImage () {
+        return myImage;
     }
 }

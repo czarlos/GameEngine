@@ -1,15 +1,14 @@
 package controller.actions.grid;
 
-import java.util.ArrayList;
 import java.util.List;
-import controllers.WorldManager;
+import controllers.GameManager;
 import grid.Coordinate;
 
 
 public abstract class SetTileActive extends AbstractGridCommand {
 
-    public SetTileActive (WorldManager wm, List<Coordinate> selectedCoordinates) {
-        super(wm, (ArrayList<Coordinate>) selectedCoordinates);
+    public SetTileActive (GameManager manager, List<Coordinate> selectedCoordinates) {
+        super(manager, selectedCoordinates);
     }
 
     @Override

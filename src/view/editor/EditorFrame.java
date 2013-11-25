@@ -120,7 +120,15 @@ public class EditorFrame extends GameView {
             
             setFrame(wm);
             addStagePanel();
-        }   
+            stageTabbedPane.addChangeListener(new TabChangeListener(myWorldManager, stageTabbedPane));
+            JMenu stageMenu = new JMenu("Stage");
+            stageMenu.setMnemonic(KeyEvent.VK_S);
+            myMenuBar.add(stageMenu);
+            JMenuItem objective = new JMenuItem("Set Objective");
+            objective.setAccelerator(KeyStroke.getKeyStroke("control O"));
+            stageMenu.add(objective);
+
+        }
     }
 
     /**
@@ -239,5 +247,21 @@ public class EditorFrame extends GameView {
 
     public static void main (String[] args) {
         new EditorFrame();
+    }
+    
+    class TabChangeListener implements ChangeListener{
+        
+        private WorldManager myWM;
+        private JTabbedPane myPanel;
+        
+        public TabChangeListener(WorldManager wm, JTabbedPane panel){
+            myWM = wm;
+            myPanel = panel;
+        }
+        @Override
+        public void stateChanged (ChangeEvent e) {
+            myWM.setActiveStage(myPanel.getSelectedIndex());
+        }
+        
     }
 }

@@ -36,6 +36,7 @@ public class EditorData {
      */
     public EditorData (String folderName) {
         myParser = new JSONParser();
+        myTableFactory = new TableFactory();
         myDataMap = new HashMap<String, List<Customizable>>();
         loadObjects(folderName);
     }

@@ -23,12 +23,11 @@ public class StagePanel extends JPanel {
     private WorldManager myWorldManager;
 
     public StagePanel (String stageName, WorldManager wm) {
-        GridEditorController gridcontrol = new GridEditorController(wm);
-        myCanvas = new GridCanvas(wm);
-        myCanvas.addGridMouseListener(gridcontrol);
-        myWorldManager = wm;
 
+        myWorldManager = wm;
+        myCanvas = new GridCanvas(myWorldManager);
         initStagePanel();
+
     }
 
     private void initStagePanel () {
@@ -42,7 +41,9 @@ public class StagePanel extends JPanel {
         StageEditorPanel panel = new StageEditorPanel(myWorldManager, defaultTypes);
         panel.setMaximumSize(new Dimension(200, 500));
         add(panel);
-        repaint();
 
+        repaint();
+        GridEditorController gridcontrol = new GridEditorController(myWorldManager, panel);
+        myCanvas.addGridMouseListener(gridcontrol);
     }
 }

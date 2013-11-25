@@ -580,7 +580,7 @@ public class Grid implements Drawable {
             }
         }
 
-        // TODO: dupe for tile and object. generic
+        // TODO: duplicate for tile and object. generic
         for (int i = 0; i < myObjects.length; i++) {
             for (int j = 0; j < myObjects[i].length; j++) {
                 GameObject gameObject = myObjects[i][j];

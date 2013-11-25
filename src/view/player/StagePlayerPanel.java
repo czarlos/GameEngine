@@ -1,5 +1,6 @@
 package view.player;
 
+import grid.Coordinate;
 import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -10,17 +11,27 @@ import view.canvas.GridCanvas;
 
 public class StagePlayerPanel extends JPanel {
     private JPanel mySidePanel;
+    private GridController myController;
+    private WorldManager myWM;
 
     public StagePlayerPanel (String stageName, WorldManager wm) {
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
         GridCanvas gc = new GridCanvas(wm);
-        GridController gcontrol = new GridController(wm);
-        gc.addGridMouseListener(gcontrol);
+        myController = new GridController(wm);
+        gc.addGridMouseListener(myController);
         add(gc);
-        mySidePanel = new PlayerControlPanel(gcontrol);
+        mySidePanel = new SelectedInfoPanel(myController);
         mySidePanel.setMaximumSize(new Dimension(200, 500));
         add(mySidePanel);
         repaint();
+    }
+    
+    public void updatedSelectedInfoPanel(Coordinate c){
+        SelectedInfoPanel infoPanel=new SelectedInfoPanel(myController);
+        infoPanel.makeTabs(myWM.getInfo(c), myWM.getActionList(c));
+        remove(mySidePanel);
+        mySidePanel=infoPanel;
+        add(mySidePanel);
     }
 
 }
