@@ -1,5 +1,6 @@
 package view.editor;
 
+import grid.GridConstants;
 import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -18,7 +19,7 @@ public class StagePanel extends JPanel {
      * 
      */
     private static final long serialVersionUID = 1534023398376725167L;
-    private final String[] defaultTypes = { "Tile", "GameUnit", "GameObject", "Item" };
+    private final String[] defaultTypes = GridConstants.DEFAULTTYPES;
     private GridCanvas myCanvas;
     private WorldManager myWorldManager;
 

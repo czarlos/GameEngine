@@ -1,18 +1,14 @@
 package view.editor;
 
-import gameObject.GameObject;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -22,8 +18,6 @@ import javax.swing.ScrollPaneLayout;
 import controllers.WorldManager;
 import dialog.GameTableModel;
 import dialog.TileEditorDialog;
-import dialog.UnitEditorDialog;
-import dialog.UnitTableModel;
 
 
 public class StageEditorPanel extends JTabbedPane {
@@ -109,19 +103,6 @@ public class StageEditorPanel extends JTabbedPane {
              selectedPanel.deSelect();
          selectedPanel = selected;
          myWorldManager.setActiveObject(this.getSelectedIndex(), selected.getType(), myWorldManager.get(selected.getType()).indexOf(selected.getName()));
-     }
-
-     // TODO: Chris, change this to support UnitEditorDialog
-     private void createUnitEditor(){
-         EditorTableFrame frame = new EditorTableFrame("Unit", this);
-         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        
-//         JComponent newContentPane = new UnitEditorPanel((UnitTableModel) myWorldManager.getViewModel("unit"));
-//         newContentPane.setOpaque(true); 
-//         frame.setContentPane(newContentPane);
-       
-         frame.pack();
-         frame.setVisible(true);
      }
      
      class EditListener implements ActionListener {

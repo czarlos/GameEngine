@@ -169,11 +169,4 @@ public class GameUnitTest {
 //        assertEquals(defaultUnit.getStats().getStatValue("attack"), 28, 0);
 //        assertEquals(defaultUnit.getActiveWeapon(), bow);
 //    }
-
-
-    @Test
-    public void testDefaultName () {
-        initializeDefault();
-        assertEquals(defaultUnit.getName(), GridConstants.DEFAULT_UNIT_NAME);
-    }
 }

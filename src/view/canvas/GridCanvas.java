@@ -13,7 +13,6 @@ import java.util.Collection;
 import javax.swing.BorderFactory;
 import javax.swing.Scrollable;
 import javax.swing.SwingConstants;
-import controllers.WorldManager;
 import controllers.Manager;
 
 
