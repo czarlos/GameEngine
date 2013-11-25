@@ -30,6 +30,7 @@ public class Stage implements GridMouseListener {
     private String myName;
     private String preText;
     private String postText;
+    @JsonProperty
     private List<Team> myTeamList;
     private Team myWinningTeam;
 

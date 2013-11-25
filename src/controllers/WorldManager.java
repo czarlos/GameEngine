@@ -27,7 +27,6 @@ import gameObject.item.Item;
 @JsonAutoDetect
 public class WorldManager extends Manager {
 
-
     private String[] activeEditTypeList;
     private int[] activeEditIDList;
     private MasterStats myMasterStatMap;
@@ -49,17 +48,17 @@ public class WorldManager extends Manager {
         return myEditorData.getTable(type);
     }
 
-    public void addTeam (String teamName) {
-        myActiveStage.addTeam(teamName);
+    public void addTeam (String teamName, boolean humanity) {
+        myActiveStage.addTeam(teamName, humanity);
     }
-    
+
     public void setData (GameTableModel gtm) {
         myEditorData.setData(gtm);
     }
 
     public void setActiveObject (int index, String type, int id) {
-        activeEditTypeList[index]= type;
-        activeEditIDList[index]= id;
+        activeEditTypeList[index] = type;
+        activeEditIDList[index] = id;
     }
 
     public String getActiveType (int index) {
@@ -82,6 +81,8 @@ public class WorldManager extends Manager {
     public int addStage (int x, int y, int tileID, String name) {
         myStages.add(new Stage(x, y, tileID, name));
         setActiveStage(myStages.size() - 1);
+        addTeam("default", true);
+        System.out.println("Added team");
         return myStages.size() - 1;
     }
 
@@ -116,7 +117,6 @@ public class WorldManager extends Manager {
         myActiveStage.getGrid().setTilesInactive();
     }
 
-
     /**
      * Placing (previously created) things on the board. These will be replaced by table editing
      * stuff
@@ -126,13 +126,16 @@ public class WorldManager extends Manager {
      * @param y Coordinate
      */
     public void setTile (int tileID, int x, int y) {
-        myActiveStage.getGrid().placeTile(new Coordinate(x, y),
-                                          (Tile) myEditorData.getObject(GridConstants.DEFAULTTYPES[0], tileID));
+        myActiveStage.getGrid()
+                .placeTile(new Coordinate(x, y),
+                           (Tile) myEditorData.getObject(GridConstants.DEFAULTTYPES[0], tileID));
     }
 
     public void placeUnit (int unitID, int x, int y) {
         myActiveStage.getGrid().placeObject(new Coordinate(x, y),
-                                            (GameObject) myEditorData.getObject(GridConstants.DEFAULTTYPES[1], unitID));
+                                            (GameObject) myEditorData
+                                                    .getObject(GridConstants.DEFAULTTYPES[1],
+                                                               unitID));
         myActiveStage.addUnitToTeam(0, myActiveStage.getGrid().getUnit(new Coordinate(x, y)));
         // TODO: actually implement teams
 
@@ -140,7 +143,9 @@ public class WorldManager extends Manager {
 
     public void placeObject (int objectID, int x, int y) {
         myActiveStage.getGrid().placeObject(new Coordinate(x, y),
-                                            (GameObject) myEditorData.getObject(GridConstants.DEFAULTTYPES[2], objectID));
+                                            (GameObject) myEditorData
+                                                    .getObject(GridConstants.DEFAULTTYPES[2],
+                                                               objectID));
     }
 
     public void placeItem (int objectID, int x, int y) {
