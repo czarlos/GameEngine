@@ -1,26 +1,19 @@
 package view.player;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.util.List;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import javax.swing.KeyStroke;
+import controllers.GameManager;
 import controllers.WorldManager;
-import view.editor.EditorFrame;
 import view.editor.GameView;
-import view.editor.StagePanel;
 
 
 public class PlayerView extends GameView {
@@ -61,17 +54,20 @@ public class PlayerView extends GameView {
         this.remove(myBackground);
         String gameName = gameNameTextField.getText();
         this.setTitle(gameName);
-        myWorldManager = new WorldManager(gameName);
+        // TODO: needs to read in worldmanager from JSON
+        myWorldManager = new WorldManager();
+        myWorldManager.setGameName(gameName);
+        myGameManager = new GameManager(myWorldManager);
         setGame();
         revalidate();
         repaint();
-      }
+    }
 
     private void setGame () {
 
         myWorldManager.addStage(10, 10, 0, "StageAwesome");// ****
                                                            // fix
-        StagePlayerPanel sp = new StagePlayerPanel("MyStage", myWorldManager.getGrid());
+        StagePlayerPanel sp = new StagePlayerPanel("MyStage", myWorldManager);
         add(sp);
     }
 

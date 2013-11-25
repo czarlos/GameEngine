@@ -1,0 +1,53 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', 'sl' ]
+2 info using npm@1.3.5
+3 info using node@v0.10.15
+4 verbose cache add [ 'sl', null ]
+5 verbose cache add name=undefined spec="sl" args=["sl",null]
+6 verbose parsed url { protocol: null,
+6 verbose parsed url   slashes: null,
+6 verbose parsed url   auth: null,
+6 verbose parsed url   host: null,
+6 verbose parsed url   port: null,
+6 verbose parsed url   hostname: null,
+6 verbose parsed url   hash: null,
+6 verbose parsed url   search: null,
+6 verbose parsed url   query: null,
+6 verbose parsed url   pathname: 'sl',
+6 verbose parsed url   path: 'sl',
+6 verbose parsed url   href: 'sl' }
+7 silly lockFile 2b002dcf-sl sl
+8 verbose lock sl /Users/brooksmershon/.npm/2b002dcf-sl.lock
+9 silly lockFile 2b002dcf-sl sl
+10 silly lockFile 2b002dcf-sl sl
+11 verbose addNamed [ 'sl', '' ]
+12 verbose addNamed [ null, '*' ]
+13 silly lockFile f2fe5201-sl sl@
+14 verbose lock sl@ /Users/brooksmershon/.npm/f2fe5201-sl.lock
+15 silly addNameRange { name: 'sl', range: '*', hasData: false }
+16 verbose url raw sl
+17 verbose url resolving [ 'https://registry.npmjs.org/', './sl' ]
+18 verbose url resolved https://registry.npmjs.org/sl
+19 info trying registry request attempt 1 at 22:48:21
+20 http GET https://registry.npmjs.org/sl
+21 http 404 https://registry.npmjs.org/sl
+22 silly registry.get cb [ 404,
+22 silly registry.get   { server: 'CouchDB/1.5.0 (Erlang OTP/R15B03)',
+22 silly registry.get     date: 'Sun, 24 Nov 2013 03:48:23 GMT',
+22 silly registry.get     'content-type': 'application/json',
+22 silly registry.get     'content-length': '52',
+22 silly registry.get     'cache-control': 'must-revalidate' } ]
+23 silly lockFile f2fe5201-sl sl@
+24 silly lockFile f2fe5201-sl sl@
+25 error 404 'sl' is not in the npm registry.
+25 error 404 You should bug the author to publish it
+25 error 404
+25 error 404 Note that you can also install from a
+25 error 404 tarball, folder, or http url, or git url.
+26 error System Darwin 13.0.0
+27 error command "node" "/usr/local/bin/npm" "install" "sl"
+28 error cwd /Users/brooksmershon/local/oogasalad_OMEGA_NU
+29 error node -v v0.10.15
+30 error npm -v 1.3.5
+31 error code E404
+32 verbose exit [ 1, true ]

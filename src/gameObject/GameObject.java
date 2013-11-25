@@ -1,30 +1,50 @@
 package gameObject;
 
+import gameObject.action.Action;
+import grid.ImageManager;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import view.Customizable;
 import view.Drawable;
 
 
 /**
- * GameObject class. Stuff like trees and shit.
+ * GameObject class. Stuff like trees.
  * 
  * @author Kevin, Ken
  * 
  */
 @JsonAutoDetect
-public class GameObject extends Drawable {
+public class GameObject extends Customizable implements Drawable {
     protected List<String> myPassableList;
+    protected BufferedImage myImage;
+    protected List<String> myDisplayData;
 
     public GameObject () {
+        myDisplayData = new ArrayList<String>();
+        myPassableList = new ArrayList<String>();
+    }
+
+    public List<String> getInfo () {
+        return myDisplayData;
+    }
+
+    public void setInfo (List<String> info) {
+        myDisplayData = info;
     }
 
     /**
      * Checks if a unit can pass through the object
      * 
-     * @param unit - GameObject that is moving
+     * @param unit - GameUnit that is moving
      * @return - boolean of if unit can pass through
      */
-    public boolean isPassable (GameObject unit) {
+
+    public boolean isPassable (GameUnit unit) {
         return myPassableList.contains(unit.getName()) ||
                myPassableList.contains(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
     }
@@ -46,43 +66,41 @@ public class GameObject extends Drawable {
         return myPassableList;
     }
 
-    public String getImagePath () {
-        return myImagePath;
-    }
-
+    @JsonProperty("imagePath")
     public void setImageAndPath (String imagePath) {
+
         myImagePath = imagePath;
+        try {
+            myImage = ImageManager.addImage(imagePath);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+    /**
+     * Generates the List of Strings that the unit will display to the user
+     */
+    public void generateDisplayData () {
+        List<String> displayData = new ArrayList<>();
+        displayData.add("Name: " + myName);
+        setDisplayData(displayData);
+    }
+
+    public List<String> getDisplayData () {
+        return myDisplayData;
+    }
+
+    public void setDisplayData (List<String> displayData) {
+        myDisplayData = displayData;
+    }
+
+    public Action getInteraction () {
+        return null;
+    };
 
     @Override
-    public int hashCode () {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((myImagePath == null) ? 0 : myImagePath.hashCode());
-        result = prime * result + ((myName == null) ? 0 : myName.hashCode());
-        result = prime * result + ((myPassableList == null) ? 0 : myPassableList.hashCode());
-        return result;
+    public void draw (Graphics g, int x, int y, int width, int height) {
+        g.drawImage(getImage(), x, y, width, height, null);
     }
-
-    @Override
-    public boolean equals (Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        GameObject other = (GameObject) obj;
-        if (myImagePath == null) {
-            if (other.myImagePath != null) return false;
-        }
-        else if (!myImagePath.equals(other.myImagePath)) return false;
-        if (myName == null) {
-            if (other.myName != null) return false;
-        }
-        else if (!myName.equals(other.myName)) return false;
-        if (myPassableList == null) {
-            if (other.myPassableList != null) return false;
-        }
-        else if (!myPassableList.equals(other.myPassableList)) return false;
-        return true;
-    }
-
 }

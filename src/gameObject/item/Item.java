@@ -1,6 +1,12 @@
 package gameObject.item;
 
-import gameObject.GameUnit;
+import java.util.ArrayList;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import gameObject.Stats;
+import gameObject.action.Action;
 
 
 /**
@@ -11,53 +17,52 @@ import gameObject.GameUnit;
  * @author carlosreyes
  * 
  */
-public abstract class Item {
-    private String name;
-    private int amount;
+@JsonAutoDetect
+public class Item {
+    @JsonProperty
+    private String myName;
+    @JsonProperty
+    private List<Action> myActions;
+    @JsonProperty
+    private Stats myStats;
 
-    /**
-     * Sets the stats that this item effects.
-     * 
-     * @param gameUnit
-     */
-    public abstract void statEffect (GameUnit gameUnit);
-
-    @Override
-    public int hashCode () {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + amount;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals (Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        Item other = (Item) obj;
-        if (amount != other.amount) return false;
-        if (name == null) {
-            if (other.name != null) return false;
-        }
-        else if (!name.equals(other.name)) return false;
-        return true;
+    public Item () {
+        myActions = new ArrayList<Action>();
+        myStats = new Stats();
     }
 
     public String getName () {
-        return name;
+        return myName;
     }
 
     public void setName (String name) {
-        this.name = name;
+        this.myName = name;
     }
 
-    public int getAmount () {
-        return amount;
+    public List<Action> getActions () {
+        return myActions;
+    }
+    
+    public void addAction(Action action) {
+        myActions.add(action);
     }
 
-    public void setAmount (int amount) {
-        this.amount = amount;
+    public void setActions (List<Action> actions) {
+        myActions = actions;
+    }
+
+    @JsonIgnore
+    public int getStat (String statName) {
+        if(myStats.getStats().containsKey(statName))
+            return myStats.getStatValue(statName);
+        return 0;
+    }
+
+    public Stats getStats () {
+        return myStats;
+    }
+
+    public void setStats (Stats myStats) {
+        this.myStats = myStats;
     }
 }
