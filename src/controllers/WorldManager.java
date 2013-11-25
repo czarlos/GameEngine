@@ -102,6 +102,7 @@ public class WorldManager extends Manager {
     }
 
     // WILL BE REMOVED, USE GAMEMANAGER
+    @Deprecated
     public void doMove (Coordinate a, Coordinate b) {
         myActiveStage.getGrid().doMove(a, b);
     }

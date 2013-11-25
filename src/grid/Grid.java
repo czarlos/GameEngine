@@ -95,7 +95,6 @@ public class Grid implements Drawable {
         placeObject(new Coordinate(3, 5), tree);
         GameObject hero = (GameUnit) myFactory.make("GameUnit", 0);
         placeObject(new Coordinate(4, 5), hero);
-        beginMove(new Coordinate(4, 5));
     }
 
     /**
@@ -106,14 +105,13 @@ public class Grid implements Drawable {
      */
     public void beginMove (Coordinate coordinate) {
         GameUnit gameUnit = (GameUnit) getObject(coordinate);
-        System.out.println(((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT));
         findMovementRange(coordinate,
                           ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT),
                           gameUnit);
     }
 
     /**
-     * Return boolean of if a gameUnit can move to a given coordinate
+     * Return boolean of if a gameUnit can move to a given coordinatee
      * 
      * @param coordinate Coordinate being moved to
      * @return boolean of if move is possible

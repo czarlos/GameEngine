@@ -173,7 +173,7 @@ public class EditorFrame extends GameView {
             stageTabbedPane.addTab(stageName, sp);
             stageTabbedPane.setSelectedIndex(myStagePanelList.size() - 1);
             stageTabbedPane.addChangeListener(new ChangeListener() {
-                @Override
+                @Override  
                 public void stateChanged (ChangeEvent e) {
                     switchActiveStage();
                 }
