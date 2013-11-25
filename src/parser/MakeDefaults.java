@@ -277,16 +277,6 @@ public class MakeDefaults {
        p.createJSON("defaults/Action", list);
     }
     
-    public void makeStats(){
-        List<Item> list = new ArrayList<Item>();
-        Item i = new Item();
-
-        i.setName("Generic item");
-        i.setStats(defaultStats);
-        i.addAction(defaultAction);
-        p.createJSON("defaults/Item", list);
-    }
-    
     public void makeItems() {
         List<Item> list = new ArrayList<Item>();
         
@@ -329,7 +319,6 @@ public class MakeDefaults {
         maker.makeObjects();
         maker.makeUnits();
         maker.makeItems();
-        maker.makeStats();
         
         // handled differently in editor
         maker.makeConditions();
