@@ -157,12 +157,18 @@ public class MakeDefaults {
         chest.setName("Chest");
         chest.setImagePath("resources/chest.png");
         
+        gameObject.GameObject stone = new gameObject.GameObject();
+        stone.setName("Stone");
+        stone.setImagePath("resources/stone1.png");
+        
         tree.setPassableList(new java.util.ArrayList<String>());
         tree.setDisplayData(new ArrayList<String>());
         
         chest.setPassableList(new java.util.ArrayList<String>());
         chest.setDisplayData(new ArrayList<String>());
         
+        stone.setPassableList(new java.util.ArrayList<String>());
+        stone.setDisplayData(new ArrayList<String>());
 
         p.createJSON("tree", tree);
         p.createObject("tree", gameObject.GameObject.class);
@@ -170,9 +176,13 @@ public class MakeDefaults {
         p.createJSON("chest", chest);
         p.createObject("chest", gameObject.GameObject.class);
         
+        p.createJSON("stone", stone);
+        p.createObject("stone", gameObject.GameObject.class);
+        
 
         list.add(tree);
         list.add(chest);
+        list.add(stone);
 
         p.createJSON("defaults/GameObject", list);
     }
