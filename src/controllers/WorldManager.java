@@ -30,8 +30,10 @@ public class WorldManager extends Manager {
 
     FromJSONFactory myFactory;
 
-    private List<String> activeEditTypeList;
-    private List<Integer> activeEditIDList;
+//    private List<String> activeEditTypeList;
+//    private List<Integer> activeEditIDList;
+    private String[] activeEditTypeList;
+    private int[] activeEditIDList;
     private MasterStats myMasterStatMap;
 
     /**
@@ -42,8 +44,10 @@ public class WorldManager extends Manager {
     public WorldManager () {
         super();
         myFactory = new FromJSONFactory();
-        activeEditTypeList = new ArrayList<String>();
-        activeEditIDList = new ArrayList<Integer>();
+        activeEditTypeList = new String[4];
+        activeEditIDList = new int[4];
+        //activeEditTypeList = new ArrayList<String>();
+        //activeEditIDList = new ArrayList<Integer>();
         myMasterStatMap = MasterStats.getInstance();
     }
 
@@ -60,16 +64,16 @@ public class WorldManager extends Manager {
     }
 
     public void setActiveObject (int index, String type, int id) {
-        activeEditTypeList.set(index, type);
-        activeEditIDList.set(index, id);
+        activeEditTypeList[index] = type;
+        activeEditIDList[index] = id;
     }
 
     public String getActiveType (int index) {
-        return activeEditTypeList.get(index);
+        return activeEditTypeList[index];
     }
 
     public int getActiveID (int index) {
-        return activeEditIDList.get(index);
+        return activeEditIDList[index];
     }
 
     /**
@@ -84,8 +88,8 @@ public class WorldManager extends Manager {
     public int addStage (int x, int y, int tileID, String name) {
         myStages.add(new Stage(x, y, tileID, name));
         setActiveStage(myStages.size() - 1);
-        activeEditTypeList.add(null);
-        activeEditIDList.add(null);
+  //      activeEditTypeList.add(null);
+  //      activeEditIDList.add(null);
         return myStages.size() - 1;
     }
 
@@ -198,7 +202,7 @@ public class WorldManager extends Manager {
     public int setCustomTile (int ID, String name, String imagePath, int moveCost) {
         Tile t = new grid.Tile();
         t.setName(name);
-        t.setImagePath(imagePath);
+        t.setImageAndPath(imagePath);
         t.setMoveCost(moveCost);
         return myEditorData.setCustomizable("Tile", ID, t);
     }
@@ -211,7 +215,7 @@ public class WorldManager extends Manager {
         GameUnit gu = new GameUnit();
 
         gu.setName(name);
-        gu.setImagePath(imagePath);
+        gu.setImageAndPath(imagePath);
         gu.setControllable(controllable);
         return myEditorData.setCustomizable("GameUnit", ID, gu);
     }
@@ -219,7 +223,7 @@ public class WorldManager extends Manager {
     public int setCustomObject (int ID, String name, String imagePath) {
         GameObject go = new GameObject();
         go.setName(name);
-        go.setImagePath(imagePath);
+        go.setImageAndPath(imagePath);
 
         return myEditorData.setCustomizable("GameObject", ID, go);
     }

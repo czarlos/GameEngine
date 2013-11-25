@@ -26,16 +26,16 @@ public abstract class Customizable {
         myName = name;
     }
 
-    public void setImageandPath (String imagePath) {
+/*    public void setImageandPath (String imagePath) {
         myImagePath=imagePath;
         myImage = ImageManager.getTileImage(imagePath);
-    }
+    }*/
 
+    @JsonProperty("imagePath")
     public String getImagePath () {
         return myImagePath;
     }
 
-    @JsonProperty("imagePath")
     public void setImagePath (String imagePath) {
         myImagePath = imagePath;
     }
