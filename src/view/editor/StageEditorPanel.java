@@ -39,7 +39,10 @@ public class StageEditorPanel extends JTabbedPane {
         drawTabs(defaultTypes);
         setSize(100, 450);
         repaint();
+
     }
+    
+
 
     private void drawTabs (String[] types) {
         this.removeAll();
@@ -118,7 +121,7 @@ public class StageEditorPanel extends JTabbedPane {
          if(selectedPanel!=null)
              selectedPanel.deSelect();
          selectedPanel = selected;
-         myWorldManager.setActiveObject(selected.getType(), myWorldManager.get(selected.getType()).indexOf(selected.getName()));
+         myWorldManager.setActiveObject(this.getSelectedIndex(), selected.getType(), myWorldManager.get(selected.getType()).indexOf(selected.getName()));
      }
 
      // TODO: Chris, change this to support UnitEditorDialog

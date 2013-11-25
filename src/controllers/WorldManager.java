@@ -26,8 +26,8 @@ public class WorldManager extends Manager {
     JSONParser myParser;
 
     private UnitTableModel myUnitModel;
-    private String activeEditType;
-    private int activeEditID;
+    private List<String> activeEditTypeList;
+    private List<Integer> activeEditIDList;
     private MasterStats myMasterStatList;
 
     /**
@@ -41,6 +41,8 @@ public class WorldManager extends Manager {
         myParser = new JSONParser();
         myUnitModel = new UnitTableModel();
         myMasterStatList = new MasterStats();
+        activeEditTypeList = new ArrayList<String>();
+        activeEditIDList = new ArrayList<Integer>();
     }
 
     public GameTableModel getViewModel (String type) {
@@ -56,17 +58,17 @@ public class WorldManager extends Manager {
         return null;
     }
 
-    public void setActiveObject (String type, int id) {
-        activeEditType = type;
-        activeEditID = id;
+    public void setActiveObject (int index, String type, int id) {
+        activeEditTypeList.set(index, type);
+        activeEditIDList.set(index, id);
     }
 
-    public String getActiveType () {
-        return activeEditType;
+    public String getActiveType (int index) {
+        return activeEditTypeList.get(index);
     }
 
-    public int getActiveID () {
-        return activeEditID;
+    public int getActiveID (int index) {
+        return activeEditIDList.get(index);
     }
 
     /**
@@ -81,6 +83,8 @@ public class WorldManager extends Manager {
     public int addStage (int x, int y, int tileID, String name) {
         myStages.add(new Stage(x, y, tileID, name));
         setActiveStage(myStages.size() - 1);
+        activeEditTypeList.add(null);
+        activeEditIDList.add(null);
         return myStages.size() - 1;
     }
 
