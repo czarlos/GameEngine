@@ -8,6 +8,7 @@ import grid.FromJSONFactory;
 import grid.Tile;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import stage.Condition;
@@ -17,6 +18,12 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import dialog.GameTableModel;
 
 
+/**
+ * 
+ * @author Leevi Gray
+ * @author Ken McAndrews
+ * 
+ */
 @JsonAutoDetect
 public class WorldManager extends Manager {
 
@@ -24,7 +31,7 @@ public class WorldManager extends Manager {
 
     private String activeEditType;
     private int activeEditID;
-    private MasterStats myMasterStatList;
+    private MasterStats myMasterStatMap;
 
     /**
      * Intermediary between views and EditorData and Grid, stores List of Stages
@@ -34,7 +41,7 @@ public class WorldManager extends Manager {
     public WorldManager () {
         super();
         myFactory = new FromJSONFactory();
-        myMasterStatList = new MasterStats();
+        myMasterStatMap = new MasterStats();
     }
 
     public GameTableModel getViewModel (String type) {
@@ -224,9 +231,75 @@ public class WorldManager extends Manager {
         myActiveStage.getTeam(teamID).addCondition(c);
     }
 
-    public void addStat (String name, int value) {
-        myMasterStatList.setStatValue(name, value);
-        // TODO: Add to all unit definitions
-        // TODO: Add to all placed units
+    /**
+     * Gets the stat value in the master stat list for the given stat
+     * 
+     * @param statName - Name of the stat to get the value for
+     * @return The value of the stat for the stat name passed in
+     */
+    public int getStatValue (String statName) {
+        return myMasterStatMap.getStatValue(statName);
+    }
+
+    /**
+     * Adds a new stat to the game by adding to the master stat list. Calls the update method, which
+     * adds the stat to the stats list of all units placed and unit definitions
+     * 
+     * @param statName - Name of the stat to be added
+     * @param statValue - Default value of the stat to be added
+     */
+    public void addStat (String statName, int statValue) {
+        if (!myMasterStatMap.getStatNames().contains(statName)) {
+            myMasterStatMap.setStatValue(statName, statValue);
+            updateStats();
+        }
+    }
+
+    /**
+     * Removes a stat from the master stat list. Calls the update method, which removes the stat
+     * from the stats list of all units placed and unit definitions
+     * 
+     * @param statName - Name of the stat to be removed
+     */
+    public void removeStat (String statName) {
+        myMasterStatMap.remove(statName);
+        updateStats();
+    }
+
+    /**
+     * Modifies a stat in the master stat list. Does not update that value in the stats list of
+     * placed units and unit definitions
+     * 
+     * @param statName - Name of the stat to be modified
+     * @param statValue - Value to update the stat to
+     */
+    public void modifyStat (String statName, int statValue) {
+        if (myMasterStatMap.getStatNames().contains(statName)) {
+            myMasterStatMap.modExisting(statName, statValue);
+        }
+    }
+
+    /**
+     * Calls update method for all stats of all placed units and unit definitions. If there are new
+     * stats in the master stats list, adds that stat to the stats of all placed units and unit
+     * definitions. If there is a stat in the stats list of placed units and unit definitions, but
+     * not in the master stats list, then it removes that stat from all stats lists of placed units
+     * and unit definitions
+     */
+    public void updateStats () {
+        List<Customizable> editorUnitList = myEditorData.get("GameUnit");
+        GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
+
+        for (Customizable unit : editorUnitList) {
+            ((GameUnit) unit).getStats().updateFromMaster(myMasterStatMap);
+        }
+
+        for (int i = 0; i < placedUnits.length; i++) {
+            for (int j = 0; j < placedUnits[i].length; j++) {
+                if (placedUnits[i][j] != null) {
+                    placedUnits[i][j].getStats().updateFromMaster(myMasterStatMap);
+                }
+            }
+        }
     }
 }
