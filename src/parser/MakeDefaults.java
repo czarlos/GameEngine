@@ -153,69 +153,26 @@ public class MakeDefaults {
         tree.setName("Tree");
         tree.setImagePath("resources/tree.png");
         
-        gameObject.GameObject milk = new gameObject.GameObject();
-        milk.setName("Milk");
-        milk.setImagePath("resources/milk.png");
-        
-        gameObject.GameObject armor = new gameObject.GameObject();
-        armor.setName("Armor");
-        armor.setImagePath("resources/armor.png");
-        
-        gameObject.GameObject weapon = new gameObject.GameObject();
-        weapon.setName("Weapon");
-        weapon.setImagePath("resources/weapon.png");
-        
         gameObject.GameObject chest = new gameObject.GameObject();
         chest.setName("Chest");
         chest.setImagePath("resources/chest.png");
         
-        gameObject.GameObject potion = new gameObject.GameObject();
-        potion.setName("Potion");
-        potion.setImagePath("resources/potion.png");
-        
-        
         tree.setPassableList(new java.util.ArrayList<String>());
         tree.setDisplayData(new ArrayList<String>());
-        
-        milk.setPassableList(new java.util.ArrayList<String>());
-        milk.setDisplayData(new ArrayList<String>());
-        
-        armor.setPassableList(new java.util.ArrayList<String>());
-        armor.setDisplayData(new ArrayList<String>());
-        
-        weapon.setPassableList(new java.util.ArrayList<String>());
-        weapon.setDisplayData(new ArrayList<String>());
         
         chest.setPassableList(new java.util.ArrayList<String>());
         chest.setDisplayData(new ArrayList<String>());
         
-        potion.setPassableList(new java.util.ArrayList<String>());
-        potion.setDisplayData(new ArrayList<String>());
 
         p.createJSON("tree", tree);
         p.createObject("tree", gameObject.GameObject.class);
         
-        p.createJSON("milk", milk);
-        p.createObject("milk", gameObject.GameObject.class);
-        
-        p.createJSON("armor", armor);
-        p.createObject("armor", gameObject.GameObject.class);
-        
-        p.createJSON("weapon", weapon);
-        p.createObject("weapon", gameObject.GameObject.class);
-        
         p.createJSON("chest", chest);
         p.createObject("chest", gameObject.GameObject.class);
         
-        p.createJSON("potion", potion);
-        p.createObject("potion", gameObject.GameObject.class);
 
         list.add(tree);
-        list.add(milk);
-        list.add(armor);
-        list.add(weapon);
         list.add(chest);
-        list.add(potion);
 
         p.createJSON("defaults/GameObject", list);
     }
@@ -332,11 +289,29 @@ public class MakeDefaults {
     
     public void makeItems() {
         List<Item> list = new ArrayList<Item>();
-        Item i = new Item();
-
-        i.setName("Generic item");
-        i.setStats(defaultStats);
-        i.addAction(defaultAction);
+        
+        Item milk = new Item();       
+        milk.setName("Milk");
+        milk.setImagePath("resources/milk.png");
+        milk.setStats(defaultStats);
+        
+        Item potion = new Item();
+        potion.setName("Potion");
+        potion.setImagePath("resources/potion.png");
+        milk.setStats(defaultStats);
+        
+        Item armor = new Item();
+        armor.setName("Armor");
+        armor.setImagePath("resources/armor.png");
+        
+        Item weapon = new Item();
+        weapon.setName("Weapon");
+        weapon.setImagePath("resources/weapon.png");
+        
+        list.add(milk);
+        list.add(potion);
+        list.add(armor);
+        list.add(weapon);
         
         p.createJSON("defaults/Item", list);
     }
