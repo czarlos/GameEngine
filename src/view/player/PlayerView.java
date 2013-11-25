@@ -77,7 +77,8 @@ public class PlayerView extends GameView {
         }
         revalidate();
         repaint();
-        myManager.doTurn();
+        myManager.nextTurn();
+        doTurn();
     }
     
 
@@ -87,13 +88,14 @@ public class PlayerView extends GameView {
         add(sp);
         revalidate();
         repaint();
-        try {
-            mySem.acquire();
-        }
-        catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+
+//        try {
+//            //mySem.acquire();
+//        }
+//        catch (InterruptedException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
     }
 
     public static void main (String[] args) {

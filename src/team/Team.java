@@ -44,6 +44,11 @@ public class Team {
         myGameUnits = new ArrayList<GameUnit>();
     }
 
+    public Team (String teamName, boolean humanity) {
+        this(teamName);
+        setIsHuman(humanity);
+    }
+
     public void setWinCondition (WinCondition wc) {
         myWinCondition = wc;
     }

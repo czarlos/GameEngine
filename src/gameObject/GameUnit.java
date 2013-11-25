@@ -184,7 +184,7 @@ public class GameUnit extends GameObject {
     @JsonIgnore
     public List<Action> getActions () {
         List<Action> actions = new ArrayList<>();
-        if(isActive){
+       // if(isActive){
             if (!hasMoved) {
                 actions.add(new MoveAction());
             }
@@ -192,7 +192,7 @@ public class GameUnit extends GameObject {
             for (Item item : myItems) {
                 actions.addAll(item.getActions());
             }
-        }
+     //   }
         return actions;
     }
 

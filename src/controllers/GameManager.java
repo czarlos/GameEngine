@@ -25,18 +25,19 @@ public class GameManager extends Manager {
         myStages = wm.myStages;
         myGameName = wm.myGameName;
         myEditorData = wm.myEditorData;
+        myView=view;
     }
 
     public void doTurn () {
         clear();
         while(!conditionsMet()){
             nextTurn();
-            if(teamIsHuman()){
+            //if(teamIsHuman()){
                 doHumanTurn();
-            }
-            else{
-                doAITurn();
-            }
+            //}
+//            else{
+//                doAITurn();
+//            }
         }
         
         
@@ -59,11 +60,11 @@ public class GameManager extends Manager {
      * @param currentTeam
      */
     public void nextTurn () {
-        isTurnCompleted = false;
-        myPhaseNumber++;
-        myActiveTeam = myPhaseNumber % myActiveStage.getNumberOfTeams();
+   //     isTurnCompleted = false;
+  //      myPhaseNumber++;
+  //      myActiveTeam = myPhaseNumber % myActiveStage.getNumberOfTeams();
 
-        List<GameUnit> list = myActiveStage.getTeamUnits(myActiveTeam);
+        List<GameUnit> list = myActiveStage.getTeamUnits(0);
 
         for (GameUnit unit : list) {
             unit.setActive(true);
