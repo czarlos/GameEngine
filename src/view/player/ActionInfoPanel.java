@@ -1,6 +1,8 @@
 package view.player;
 
 import grid.Coordinate;
+
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -24,10 +26,11 @@ public class ActionInfoPanel extends ScrollableListPane {
 
     @Override
     public void populate (List<String> data) {
-
+    	setLayout(new GridLayout(data.size(),0));
         for (int i = 0; i < data.size(); i++) {
             String s = data.get(i);
             JButton button = new JButton(s);
+            button.setAlignmentX(CENTER_ALIGNMENT);
             button.addActionListener(new ActionListener() {
 
                 int myActionId;
