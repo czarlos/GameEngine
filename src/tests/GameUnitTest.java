@@ -64,28 +64,6 @@ public class GameUnitTest {
 
     }
 
-    // @Test
-    // public void testEquipment () {
-    // initializeCustom();
-    // Map<String, Integer> statMods = new HashMap<String, Integer>();
-    // statMods.put("defense", 20);
-
-    // customUnit.addItem(helmet);
-    // assertEquals(customUnit.getStats().getStatValue("defense"), 28, 0);
-    // }
-
-    /*
-     * @Test
-     * public void testProperties () {
-     * // initializeCustom();
-     * System.out.println(customUnit);
-     * double health = customUnit.getHealth();
-     * double exp = customUnit.getExperience();
-     * assertEquals(health, 15, 0);
-     * assertEquals(exp, 0, 0);
-     * 
-     * }
-     */
     @Test
     public void testItems () {
         // initializeCustom();
@@ -93,40 +71,9 @@ public class GameUnitTest {
     }
 
     @Test
-    public void testCurrentWeapon () {
-        // initializeCustom();
-        assert (customUnit.getActiveWeapon().equals("sword"));
-    }
-
-    // @Test
-    // public void testRemoveItem () {
-    // initializeCustom();
-    // Map<String, Integer> statMods = new HashMap<String, Integer>();
-    // statMods.put("defense", 20);
-    // Item helmet = new Equipment("helmet", new StatModifier(statMods));
-    // customUnit.addItem(helmet);
-    // assertEquals(customUnit.getStats().getStatValue("defense"), 28, 0);
-    //
-    // customUnit.removeItem(helmet);
-    // assertEquals(customUnit.getStats().getStatValue("defense"), 8, 0);
-    // }
-
-    // @Test
-    // public void addItem () {
-    // initializeCustom();
-    // Map<String, Integer> statMods = new HashMap<String, Integer>();
-    // statMods.put("agility", 15);
-    // statMods.put("attack", 10);
-    // Item staff = new Equipment("staff", new StatModifier(statMods));
-    // customUnit.addItem(staff);
-    // assertEquals(customUnit.getStats().getStatValue("agility"), 22, 0);
-    // assertEquals(customUnit.getStats().getStatValue("attack"), 24, 0);
-    //
-    // }
-
-    @Test
     public void testDefaultStat () {
         initializeDefault();
         assertEquals(defaultUnit.getStats().getStatValue("movement"), 3, 0);
     }
 }
+
