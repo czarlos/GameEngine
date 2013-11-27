@@ -40,6 +40,7 @@ public class Stats {
             myStatMap.put(statName, stat.getStatValue(statName));
         }
         updateFromMaster();
+
     }
 
     /**
