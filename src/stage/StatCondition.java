@@ -22,7 +22,7 @@ public class StatCondition extends Condition {
 
     @Override
     boolean isFulfilled (Stage stage) {
-        List<GameUnit> theTeam = stage.getTeamUnits(Integer.parseInt(myData.get("affiliation")));
+        List<GameUnit> theTeam = stage.getTeamUnits(myData.get("affiliation"));
         for (GameUnit gu : theTeam) {
             if (gu.getStat(myData.get("statType")) > Integer.parseInt(myData.get("value"))) { return true; }
         }

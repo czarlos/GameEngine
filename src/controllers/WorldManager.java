@@ -81,8 +81,6 @@ public class WorldManager extends Manager {
     public int addStage (int x, int y, int tileID, String name) {
         myStages.add(new Stage(x, y, tileID, name));
         setActiveStage(myStages.size() - 1);
-        addTeam("default", true);
-        System.out.println("Added team");
         return myStages.size() - 1;
     }
 
@@ -101,12 +99,6 @@ public class WorldManager extends Manager {
      */
     public void setGameName (String gameName) {
         myGameName = gameName;
-    }
-
-    // WILL BE REMOVED, USE GAMEMANAGER
-    @Deprecated
-    public void doMove (Coordinate a, Coordinate b) {
-        myActiveStage.getGrid().doMove(a, b);
     }
 
     public void displayRange (Coordinate coordinate) {

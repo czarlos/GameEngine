@@ -43,6 +43,7 @@ public class Stage implements GridMouseListener {
         myGrid = new Grid(x, y, tileID);
         myName = name;
         myTeamList = new ArrayList<Team>();
+        addTeam("default", true);
     }
 
     /*
@@ -53,7 +54,6 @@ public class Stage implements GridMouseListener {
 
     public boolean addUnitToTeam (int teamID, GameUnit gu) {
         if (teamID < myTeamList.size()) {
-            myTeamList.get(teamID).addGameUnit(gu);
             gu.setAffiliation(myTeamList.get(teamID).getName());
             return true;
         }
@@ -67,6 +67,15 @@ public class Stage implements GridMouseListener {
     public Team getTeam (int teamID) {
         if (teamID < myTeamList.size()) { return myTeamList.get(teamID); }
         return null;
+    }
+    
+    public void setTeamName(int teamID, String newName){
+        if(teamID < myTeamList.size()){
+            for(GameUnit gu: getTeamUnits(myTeamList.get(teamID).getName())){
+                gu.setAffiliation(newName);
+            }
+            myTeamList.get(teamID).setName(newName);
+        }
     }
 
     @JsonIgnore
@@ -96,10 +105,18 @@ public class Stage implements GridMouseListener {
         return ret;
     }
 
-    public List<GameUnit> getTeamUnits (int ID) {
-        if (ID < myTeamList.size()) { return myTeamList.get(ID).getGameUnits(); }
+    public List<GameUnit> getTeamUnits (String teamName) {
+        GameUnit[][] units = myGrid.getGameUnits();
+        List<GameUnit> ret = new ArrayList<GameUnit>();
 
-        return null;
+        for (int i = 0; i < units.length; i++) {
+            for (GameUnit gu : units[i]) {
+                if (gu != null && teamName.equals(gu.getAffiliation())) {
+                    ret.add(gu);
+                }
+            }
+        }
+        return ret;
     }
 
     public void setPreStory (String pre) {

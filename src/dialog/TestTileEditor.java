@@ -6,13 +6,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -54,7 +49,7 @@ public class TestTileEditor {
         // Creates a new container
         content.setLayout(new BorderLayout());
 
-        final JDialog tileEditor = new TileEditorDialog(model, null);
+        final JDialog tileEditor = new TableDialog(model, null);
 
         JButton launchButton = new JButton("TileEditor");
         launchButton.addActionListener(new ActionListener() {

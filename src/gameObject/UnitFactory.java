@@ -60,7 +60,7 @@ public class UnitFactory extends GameObject {
         for (GameUnit unit : myPendingUnits.keySet()) {
             if (myPendingUnits.get(unit) == 0) {
                 myPendingUnits.remove(unit);
-                team.getGameUnits().add(unit);
+                unit.setAffiliation(team.getName());
                 myGrid.placeObject(validLocation(unit), unit);
             }
             else {

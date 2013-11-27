@@ -18,13 +18,14 @@ import javax.swing.JTable;
 import view.Customizable;
 
 
+@SuppressWarnings("serial")
 public class TableDialog extends JDialog {
     GameTableModel myModel;
-    
+
     public TableDialog (GameTableModel model, ActionListener okListener) {
         addTable(model);
         myModel = model;
-        
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
 
@@ -74,8 +75,6 @@ public class TableDialog extends JDialog {
 
     private class AddNewListener implements ActionListener {
 
-        private JDialog dialog;
-        private ImageCreator imageCreator;
         private GameTableModel myModel;
 
         public AddNewListener (GameTableModel model) {
@@ -99,7 +98,7 @@ public class TableDialog extends JDialog {
             myModel.addPreviouslyDefined(newList);
         }
     }
-    
+
     protected class DefaultCancelListener implements ActionListener {
 
         private JDialog dialog;
@@ -115,8 +114,7 @@ public class TableDialog extends JDialog {
         }
     }
 
-
-    public GameTableModel getModel(){
+    public GameTableModel getModel () {
         return myModel;
     }
 }

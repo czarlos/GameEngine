@@ -4,7 +4,6 @@ import gameObject.GameObject;
 import gameObject.GameObjectConstants;
 import gameObject.GameUnit;
 import gameObject.action.Action;
-import gameObject.action.WaitAction;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -504,6 +503,11 @@ public class Grid implements Drawable {
     private GameObject removeObject (Coordinate coordinate) {
         GameObject objToRemove = getObject(coordinate);
         myObjects[coordinate.getX()][coordinate.getY()] = null;
+
+        if (objToRemove instanceof GameUnit) {
+            objToRemove = getUnit(coordinate);
+            myObjects[coordinate.getX()][coordinate.getY()] = null;
+        }
         return objToRemove;
     }
 

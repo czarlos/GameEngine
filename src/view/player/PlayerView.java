@@ -1,5 +1,6 @@
 package view.player;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +15,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import parser.JSONParser;
 import controllers.GameManager;
 import controllers.WorldManager;
@@ -74,6 +76,11 @@ public class PlayerView extends GameView {
             JSONParser p = new JSONParser();
             WorldManager newWM = p.createObject("saves/" + game, controllers.WorldManager.class);
             myManager = new GameManager(newWM, this);
+            
+            super.clearWindow();
+            this.remove(myBackground);
+       
+            this.setTitle(myManager.getGameName());
         }
         revalidate();
         repaint();
@@ -89,6 +96,7 @@ public class PlayerView extends GameView {
         revalidate();
         repaint();
 
+        
 //        try {
 //            //mySem.acquire();
 //        }

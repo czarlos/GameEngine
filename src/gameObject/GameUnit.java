@@ -29,9 +29,7 @@ public class GameUnit extends GameObject {
 
     private boolean isControllable;
     @JsonProperty
-    private Map<String, Integer> myItemAmounts; // might have run into problems using Items as keys.
-                                                // Definitely would have run into problems with JSON
-                                                // storage
+    private Map<String, Integer> myItemAmounts;
     private Set<Item> myItems;
     private Stats myStats;
     private String myTeamName;
@@ -44,7 +42,7 @@ public class GameUnit extends GameObject {
         myItems = new HashSet<Item>();
         myItemAmounts = new HashMap<String, Integer>();
         myStats = new Stats();
-        myTeamName = "";
+        // myTeamName = "";
     }
 
     // should ONLY be called by stage when adding units to a team
@@ -173,7 +171,7 @@ public class GameUnit extends GameObject {
     }
 
     public void setActive (boolean active) {
-        hasMoved = active;
+        hasMoved = !active;
         isActive = active;
     }
 
@@ -184,15 +182,15 @@ public class GameUnit extends GameObject {
     @JsonIgnore
     public List<Action> getActions () {
         List<Action> actions = new ArrayList<>();
-       // if(isActive){
+        if (isActive) {
             if (!hasMoved) {
                 actions.add(new MoveAction());
             }
-                actions.add(new WaitAction());
+            actions.add(new WaitAction());
             for (Item item : myItems) {
                 actions.addAll(item.getActions());
             }
-     //   }
+        }
         return actions;
     }
 
@@ -204,7 +202,7 @@ public class GameUnit extends GameObject {
         displayData.add("Name: " + myName);
         displayData.add("Team: " + myTeamName);
         displayData.add("");
-       // displayData.add("Equipped Item: " + myActiveWeapon.getName());
+        // displayData.add("Equipped Item: " + myActiveWeapon.getName());
         displayData.add("");
         displayData.add("Stats: ");
         displayData
