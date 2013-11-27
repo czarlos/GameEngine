@@ -2,15 +2,11 @@ package view.editor;
 
 import java.awt.BorderLayout;
 import java.awt.GraphicsConfiguration;
-import java.awt.GridLayout;
 import java.awt.HeadlessException;
-import java.io.File;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import controllers.GameManager;
 import controllers.WorldManager;

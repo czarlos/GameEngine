@@ -16,6 +16,7 @@ public class CombatAction extends Action {
     public CombatAction () {
     }
 
+    //TODO: Add these when doing customized actions (currently breaks because these aren't defined)
     public void setStats (Stats atkStats, Stats defStats) {
         myInitiatorStats = atkStats;
         myReceiverStats = defStats;
@@ -63,11 +64,10 @@ public class CombatAction extends Action {
     @Override
     public boolean isValidAction (GameUnit initiator, GameObject receiver) {
         double effectiveness = getNetEffectiveness(initiator, (GameUnit) receiver);
-
+        
         for (Outcome o : myInitiatorOutcomes) {
             if (!o.checkValidOutcome(initiator, effectiveness)) { return false; }
         }
-
         return true;
     }
 

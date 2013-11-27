@@ -1,11 +1,7 @@
 package gameObject.item;
 
-import java.util.ArrayList;
 import java.util.List;
 import gameObject.GameObject;
-import gameObject.action.Action;
-import gameObject.action.FixedOutcome;
-import gameObject.action.Outcome;
 
 
 /**

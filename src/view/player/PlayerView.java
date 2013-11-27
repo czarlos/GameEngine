@@ -20,6 +20,7 @@ import controllers.WorldManager;
 import view.editor.GameView;
 
 
+@SuppressWarnings("serial")
 public class PlayerView extends GameView {
     private GameManager myManager;
     private Semaphore mySem;

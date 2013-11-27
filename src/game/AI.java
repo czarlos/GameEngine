@@ -2,7 +2,6 @@ package game;
 
 import gameObject.GameUnit;
 import gameObject.action.Action;
-import gameObject.action.CombatAction;
 import grid.Coordinate;
 import grid.Grid;
 import grid.Tile;

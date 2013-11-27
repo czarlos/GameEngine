@@ -1,13 +1,8 @@
 package controller.editor;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 import controllers.GameManager;
 import grid.Coordinate;
 import view.canvas.GridMouseListener;
-import view.player.PlayerView;
-import view.player.SelectedInfoPanel;
 import view.player.StagePlayerPanel;
 
 

@@ -1,9 +1,5 @@
 package gameObject.item;
 
-import gameObject.Stats;
-import gameObject.action.Action;
-import java.util.List;
-
 
 /**
  * Weapon is any item that modifies stat modifiers

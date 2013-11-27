@@ -4,14 +4,13 @@ import javax.swing.JTabbedPane;
 import controllers.WorldManager;
 import grid.Coordinate;
 import view.canvas.GridMouseListener;
-import view.editor.StageEditorPanel;
 
 
 public class GridEditorController implements GridMouseListener {
 
     private WorldManager myWM;
     private JTabbedPane myStagePanels;
-    
+
     public GridEditorController (WorldManager wm, JTabbedPane panel) {
         myWM = wm;
         myStagePanels = panel;
