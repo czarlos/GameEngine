@@ -56,7 +56,7 @@ public abstract class GameView extends JFrame {
         setSize(800, 600);
         setVisible(true);
     }
-    
+
     protected void clearWindow () {
         setJMenuBar(createMenuBar(this));
         revalidate();

@@ -11,21 +11,25 @@ import com.fasterxml.jackson.databind.ser.std.StdKeySerializer;
 
 public final class ItemSerializer extends StdKeySerializer {
 
-    public ItemSerializer(){
+    public ItemSerializer () {
         super();
     }
-    
+
     @Override
-    public void serialize(Object value, JsonGenerator jgen, SerializerProvider provider)
-        throws IOException, JsonGenerationException
+    public void serialize (Object value, JsonGenerator jgen, SerializerProvider provider)
+                                                                                         throws IOException,
+                                                                                         JsonGenerationException
     {
         if (value instanceof Item) {
-            String s = ((Item) value).getName() + " " + ((Item) value).getStats() + " " + ((Item) value).getActions();
+            String s =
+                    ((Item) value).getName() + " " + ((Item) value).getStats() + " " +
+                            ((Item) value).getActions();
             jgen.writeFieldName(s);
-      //      jgen.writeObject(value);
-   //         jgen.writeString(((Item) value).getName());
-      //      provider.defaultSerializeValue(value, jgen);
-        } else {
+            // jgen.writeObject(value);
+            // jgen.writeString(((Item) value).getName());
+            // provider.defaultSerializeValue(value, jgen);
+        }
+        else {
             jgen.writeFieldName(value.toString());
         }
     }

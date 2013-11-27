@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import view.player.PlayerView;
 import game.AI;
-import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.action.Action;
 import gameObject.action.MoveAction;
@@ -33,10 +32,10 @@ public class GameManager extends Manager {
         clear();
         while (!conditionsMet()) {
             nextTurn();
-            if(teamIsHuman()){
+            if (teamIsHuman()) {
                 doHumanTurn();
             }
-            else{
+            else {
                 doAITurn();
             }
         }
@@ -157,7 +156,6 @@ public class GameManager extends Manager {
             GameUnit activeUnit = myActiveStage.getGrid().getUnit(unitCoordinate);
             GameUnit receiver = myActiveStage.getGrid().getUnit(actionCoordinate);
             myActiveActions.get(actionID).doAction(activeUnit, receiver);
-
             initiator.setActive(false);
         }
 

@@ -16,7 +16,7 @@ import java.util.List;
  * 
  */
 public class Weapon extends Item {
-    
+
     public Weapon () {
         super();
     }

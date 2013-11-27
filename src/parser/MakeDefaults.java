@@ -150,7 +150,7 @@ public class MakeDefaults {
 
         chest.setPassableList(new java.util.ArrayList<String>());
         chest.setDisplayData(new ArrayList<String>());
-        
+
         stone.setPassableList(new java.util.ArrayList<String>());
         stone.setDisplayData(new ArrayList<String>());
 
@@ -269,13 +269,13 @@ public class MakeDefaults {
         Item helmet = new Item();
         helmet.setName("Helmet");
         helmet.setImagePath("resources/helmet.png");
-        
+
         list.add(milk);
         list.add(potion);
         list.add(armor);
         list.add(weapon);
         list.add(helmet);
-        
+
         p.createJSON("defaults/Item", list);
     }
 

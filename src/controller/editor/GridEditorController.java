@@ -21,20 +21,20 @@ public class GridEditorController implements GridMouseListener {
     public void gridClicked (Coordinate c) {
         int currentIndex = myStagePanels.getSelectedIndex();
         int id = myWM.getActiveID(currentIndex);
-            if (myWM.getActiveType(currentIndex) != null) {
-                switch (myWM.getActiveType(currentIndex).toLowerCase()) {
-                    case "tile":
-                        myWM.setTile(id, c.getX(), c.getY());
-                        break;
-                    case "gameunit":
-                        myWM.placeUnit(id, c.getX(), c.getY());
-                        break;
-                    case "gameobject":
-                        myWM.placeObject(id, c.getX(), c.getY());
-                        break;
-                }
+        if (myWM.getActiveType(currentIndex) != null) {
+            switch (myWM.getActiveType(currentIndex).toLowerCase()) {
+                case "tile":
+                    myWM.setTile(id, c.getX(), c.getY());
+                    break;
+                case "gameunit":
+                    myWM.placeUnit(id, c.getX(), c.getY());
+                    break;
+                case "gameobject":
+                    myWM.placeObject(id, c.getX(), c.getY());
+                    break;
             }
-        
+        }
+
     }
 
 }

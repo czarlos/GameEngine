@@ -32,7 +32,6 @@ public class Tile extends GameObject {
     public Tile () {
     }
 
-
     public void setActive (boolean active) {
         isActive = active;
         myImage = isActive ? ImageManager.getHightlightedTileImage(myImagePath)
@@ -53,10 +52,9 @@ public class Tile extends GameObject {
      * @param imagePath - String of image path
      */
 
-    public boolean isActive(){
+    public boolean isActive () {
         return isActive;
     }
-    
 
     public int getMoveCost () {
         return myMoveCost;

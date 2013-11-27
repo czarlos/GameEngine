@@ -32,6 +32,7 @@ public class Item extends Customizable implements Drawable {
         myActions = new ArrayList<Action>();
         myStats = new Stats();
     }
+
     public List<Action> getActions () {
         return myActions;
     }

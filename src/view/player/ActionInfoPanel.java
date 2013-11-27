@@ -52,7 +52,7 @@ public class ActionInfoPanel extends ScrollableListPane {
                     myActionId = id;
                     return this;
                 }
-                
+
             }.init(i));
 
             buttons.add(button);

@@ -25,7 +25,15 @@ public abstract class Customizable {
         myName = name;
     }
 
+/*<<<<<<< HEAD
     @JsonProperty("imagePath")
+=======
+    public void setImageandPath (String imagePath) {
+        myImagePath = imagePath;
+        myImage = ImageManager.getTileImage(imagePath);
+    }
+
+>>>>>>> master*/
     public String getImagePath () {
         return myImagePath;
     }
