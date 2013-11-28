@@ -43,7 +43,6 @@ public class EditorFrame extends GameView {
     protected void initializeWindow () {
         super.initializeWindow();
         stageTabbedPane = new JTabbedPane();
-
     }
 
     /**
@@ -131,7 +130,6 @@ public class EditorFrame extends GameView {
             JMenuItem objective = new JMenuItem("Set Objective");
             objective.setAccelerator(KeyStroke.getKeyStroke("control O"));
             stageMenu.add(objective);
-
         }
     }
 
@@ -212,11 +210,8 @@ public class EditorFrame extends GameView {
         myWorldManager = wm;
         myStagePanelList.clear();
         stageTabbedPane.removeAll();
-        stageTabbedPane = new JTabbedPane();
-        stageTabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         this.remove(myBackground);
         this.add(stageTabbedPane, BorderLayout.CENTER);
-        this.revalidate();
         this.repaint();
         this.setTitle(wm.getGameName());
     }

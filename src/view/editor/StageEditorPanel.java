@@ -16,8 +16,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
 import javax.swing.WindowConstants;
 import controllers.WorldManager;
-import dialog.GameTableModel;
-import dialog.TableDialog;
+import dialog.dialogs.TableDialog;
+import dialog.dialogs.tableModels.GameTableModel;
 
 
 public class StageEditorPanel extends JTabbedPane {

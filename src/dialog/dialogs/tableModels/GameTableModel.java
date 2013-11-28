@@ -1,4 +1,4 @@
-package dialog;
+package dialog.dialogs.tableModels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +31,9 @@ public abstract class GameTableModel extends AbstractTableModel {
      * 
      * @return a new ArrayList of the definitions
      */
-    public List<Object[]> getData () {
+/*    public List<Object[]> getData () {
         return new ArrayList<Object[]>(myList);
-    }
+    }*/
 
     @Override
     public int getColumnCount () {
@@ -56,7 +56,7 @@ public abstract class GameTableModel extends AbstractTableModel {
     }
 
     @Override
-    public Class getColumnClass (int c) {
+    public Class<?> getColumnClass (int c) {
         return getValueAt(0, c).getClass();
     }
 
@@ -72,5 +72,8 @@ public abstract class GameTableModel extends AbstractTableModel {
     public String getName () {
         return myName;
     }
+
+    // defines the default "new object"
+    public abstract Object[] getNew ();
 
 }

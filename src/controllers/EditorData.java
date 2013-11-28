@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import dialog.GameTableModel;
+import dialog.dialogs.tableModels.GameTableModel;
 import parser.JSONParser;
 import stage.Condition;
 import view.Customizable;
