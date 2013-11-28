@@ -14,17 +14,15 @@ public class ItemCondition extends Condition {
 
     public ItemCondition () {
         super();
-        myNeededData.add("team");
+        myNeededData.add("affiliation");
         myNeededData.add("item");
     }
 
     @Override
     boolean isFulfilled (Stage stage) {
-        List<GameUnit> theTeam = stage.getTeamUnits(Integer.parseInt(myData.get("team")));
+        List<GameUnit> theTeam = stage.getTeamUnits(myData.get("affiliation"));
         for (GameUnit gu : theTeam) {
-            if (gu.getItemAmount(myData.get("item")) > 0) {
-                return true;
-            }
+            if (gu.getItemAmount(myData.get("item")) > 0) { return true; }
         }
         return false;
     }

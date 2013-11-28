@@ -2,15 +2,11 @@ package view.editor;
 
 import java.awt.BorderLayout;
 import java.awt.GraphicsConfiguration;
-import java.awt.GridLayout;
 import java.awt.HeadlessException;
-import java.io.File;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import controllers.GameManager;
 import controllers.WorldManager;
@@ -52,11 +48,15 @@ public abstract class GameView extends JFrame {
         setJMenuBar(createMenuBar(this));
         myBackground = createBackground();
         add(myBackground);
-        add(myBackground);
         pack();
         setSize(800, 600);
         setVisible(true);
+    }
 
+    protected void clearWindow () {
+        setJMenuBar(createMenuBar(this));
+        revalidate();
+        repaint();
     }
 
     protected abstract JMenuBar createMenuBar (JFrame frame);
@@ -67,29 +67,6 @@ public abstract class GameView extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(label, BorderLayout.CENTER);
         return panel;
-    }
-
-    protected void loadGame () {
-        myWorldManager = new WorldManager();
-        JPanel loadPanel = new JPanel();
-        loadPanel.setLayout(new GridLayout(0, 2));
-        JLabel gameNames = new JLabel("Choose Game Name:");
-        JComboBox<String> gameNamesMenu = new JComboBox<>();
-        File savesDir = new File("JSONs/saves");
-        for (File child : savesDir.listFiles()) {
-            gameNamesMenu.addItem(child.getName().split("\\.")[0]);
-        }
-        loadPanel.add(gameNames);
-        loadPanel.add(gameNamesMenu);
-
-        int value =
-                JOptionPane.showConfirmDialog(this, loadPanel, "Choose Game",
-                                              JOptionPane.OK_CANCEL_OPTION);
-        if (value == JOptionPane.OK_OPTION) {
-            String game = (String) gameNamesMenu.getSelectedItem();
-            WorldManager newWM = myWorldManager.loadGame(game);
-            myWorldManager = newWM;
-        }
     }
 
 }

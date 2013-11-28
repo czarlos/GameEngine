@@ -16,6 +16,7 @@ public class CombatAction extends Action {
     public CombatAction () {
     }
 
+    //TODO: Add these when doing customized actions (currently breaks because these aren't defined)
     public void setStats (Stats atkStats, Stats defStats) {
         myInitiatorStats = atkStats;
         myReceiverStats = defStats;
@@ -67,7 +68,6 @@ public class CombatAction extends Action {
         for (Outcome o : myInitiatorOutcomes) {
             if (!o.checkValidOutcome(initiator, effectiveness)) { return false; }
         }
-        
         return true;
     }
 

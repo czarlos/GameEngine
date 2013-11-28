@@ -2,6 +2,7 @@ package gameObject;
 
 import gameObject.action.Action;
 import gameObject.action.MoveAction;
+import gameObject.action.WaitAction;
 import gameObject.item.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,15 +29,11 @@ public class GameUnit extends GameObject {
 
     private boolean isControllable;
     @JsonProperty
-    private Map<String, Integer> myItemAmounts; // might have run into problems using Items as keys.
-                                                // Definitely would have run into problems with JSON
-                                                // storage
+    private Map<String, Integer> myItemAmounts;
     private Set<Item> myItems;
     private Stats myStats;
     private String myTeamName;
     private Weapon myActiveWeapon;
-    private double myMaxHealth;
-    private double myExperience;
     private boolean isActive;
     private boolean hasMoved;
 
@@ -45,7 +42,7 @@ public class GameUnit extends GameObject {
         myItems = new HashSet<Item>();
         myItemAmounts = new HashMap<String, Integer>();
         myStats = new Stats();
-        myTeamName = "";
+        // myTeamName = "";
     }
 
     // should ONLY be called by stage when adding units to a team
@@ -55,23 +52,6 @@ public class GameUnit extends GameObject {
 
     public String getAffiliation () {
         return myTeamName;
-    }
-
-    /**
-     * Loops through all of a players items and ups their stats
-     * according to the stat value of each item if the player has
-     * a stat field in line with that item.
-     */
-    public void initializeStats () {
-        for (Item item : myItems) {
-            for (String statName : item.getStats().getStatNames()) {
-                if (myStats.getStatNames().contains(statName)) {
-                    int fromItem = item.getStats().getStatValue(statName);
-                    int current = myStats.getStatValue(statName);
-                    myStats.modExisting(statName, current + fromItem);
-                }
-            }
-        }
     }
 
     /**
@@ -118,7 +98,6 @@ public class GameUnit extends GameObject {
     @Override
     public boolean isPassable (GameUnit unit) {
         unit.getAffiliation();
-        System.out.println(myTeamName);
         return super.isPassable(unit) || unit.getAffiliation().equals(myTeamName);
     }
 
@@ -157,7 +136,7 @@ public class GameUnit extends GameObject {
     }
 
     public void setStats (Stats stats) {
-        myStats = stats;
+        myStats = new Stats(stats);
     }
 
     public Stats getStats () {
@@ -192,7 +171,7 @@ public class GameUnit extends GameObject {
     }
 
     public void setActive (boolean active) {
-        hasMoved = active;
+        hasMoved = !active;
         isActive = active;
     }
 
@@ -200,30 +179,17 @@ public class GameUnit extends GameObject {
         return isActive;
     }
 
-    public double getHealth () {
-        return myMaxHealth;
-    }
-
-    public void setHealth (double health) {
-        myMaxHealth = health;
-    }
-
-    public double getExperience () {
-        return myExperience;
-    }
-
-    public void setExperience (double experience) {
-        myExperience = experience;
-    }
-
     @JsonIgnore
     public List<Action> getActions () {
         List<Action> actions = new ArrayList<>();
-        if (!hasMoved) {
-            actions.add(new MoveAction());
-        }
-        for (Item item : myItems) {
-            actions.addAll(item.getActions());
+        if (isActive) {
+            if (!hasMoved) {
+                actions.add(new MoveAction());
+            }
+            actions.add(new WaitAction());
+            for (Item item : myItems) {
+                actions.addAll(item.getActions());
+            }
         }
         return actions;
     }
@@ -236,11 +202,13 @@ public class GameUnit extends GameObject {
         displayData.add("Name: " + myName);
         displayData.add("Team: " + myTeamName);
         displayData.add("");
-        displayData.add("Equipped Item: " + myActiveWeapon.getName());
+        // displayData.add("Equipped Item: " + myActiveWeapon.getName());
         displayData.add("");
         displayData.add("Stats: ");
         displayData
-                .add("Health: " + getTotalStat(GameObjectConstants.HEALTH) + " / " + myMaxHealth);
+                .add("Health: " + getTotalStat(GameObjectConstants.HEALTH) + " / " +
+                     myStats.getStatValue("maxhealth"));
+
         for (String stat : myStats.getStatNames()) { // TODO: FIX
             if (stat.equals(GameObjectConstants.HEALTH)) {
                 continue;

@@ -6,6 +6,7 @@ import team.Team;
 import view.canvas.GridMouseListener;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.GameUnit;
 import grid.Coordinate;
 import grid.Grid;
@@ -24,20 +25,25 @@ import grid.Grid;
 @JsonAutoDetect
 public class Stage implements GridMouseListener {
 
+    @JsonProperty
     private Grid myGrid;
     private String myName;
     private String preText;
     private String postText;
+    @JsonProperty
     private List<Team> myTeamList;
     private Team myWinningTeam;
-    
+
     // only for use by deserializer
     public Stage () {
+        myTeamList = new ArrayList<Team>();
     }
 
     public Stage (int x, int y, int tileID, String name) {
         myGrid = new Grid(x, y, tileID);
         myName = name;
+        myTeamList = new ArrayList<Team>();
+        addTeam("default", true);
     }
 
     /*
@@ -48,27 +54,35 @@ public class Stage implements GridMouseListener {
 
     public boolean addUnitToTeam (int teamID, GameUnit gu) {
         if (teamID < myTeamList.size()) {
-            myTeamList.get(teamID).addGameUnit(gu);
             gu.setAffiliation(myTeamList.get(teamID).getName());
             return true;
         }
         return false;
     }
 
-    public void addTeam (String teamName) {
-        myTeamList.add(new Team(teamName));
+    public void addTeam (String teamName, boolean humanity) {
+        myTeamList.add(new Team(teamName, humanity));
     }
 
     public Team getTeam (int teamID) {
         if (teamID < myTeamList.size()) { return myTeamList.get(teamID); }
         return null;
     }
+    
+    public void setTeamName(int teamID, String newName){
+        if(teamID < myTeamList.size()){
+            for(GameUnit gu: getTeamUnits(myTeamList.get(teamID).getName())){
+                gu.setAffiliation(newName);
+            }
+            myTeamList.get(teamID).setName(newName);
+        }
+    }
 
     @JsonIgnore
-    public int getNumberOfTeams(){
+    public int getNumberOfTeams () {
         return myTeamList.size();
     }
-    
+
     public Grid getGrid () {
         return myGrid;
     }
@@ -91,10 +105,18 @@ public class Stage implements GridMouseListener {
         return ret;
     }
 
-    public List<GameUnit> getTeamUnits (int ID) {
-        if (ID < myTeamList.size()) { return myTeamList.get(ID).getGameUnits(); }
+    public List<GameUnit> getTeamUnits (String teamName) {
+        GameUnit[][] units = myGrid.getGameUnits();
+        List<GameUnit> ret = new ArrayList<GameUnit>();
 
-        return null;
+        for (int i = 0; i < units.length; i++) {
+            for (GameUnit gu : units[i]) {
+                if (gu != null && teamName.equals(gu.getAffiliation())) {
+                    ret.add(gu);
+                }
+            }
+        }
+        return ret;
     }
 
     public void setPreStory (String pre) {
@@ -123,16 +145,17 @@ public class Stage implements GridMouseListener {
 
         for (Team t : myTeamList) {
             conditionsMet = conditionsMet || t.hasWon(this);
-            if(t.hasWon(this)){
+            if (t.hasWon(this)) {
                 myWinningTeam = t;
-                // teams with lower IDs have a slight disadvantage here but that's offset by the fact that their turn comes up later.
+                // teams with lower IDs have a slight disadvantage here but that's offset by the
+                // fact that their turn comes up later.
             }
         }
 
-        return conditionsMet;
+        return false;
     }
-    
-    public Team getWinningTeam(){
+
+    public Team getWinningTeam () {
         return myWinningTeam;
     }
 }

@@ -79,6 +79,7 @@ public class ImageEditor extends AbstractCellEditor
                                                   boolean isSelected,
                                                   int row,
                                                   int col) {
+
         currentImage = (BufferedImage) ((ImageIcon) value).getImage();
         return button;
     }

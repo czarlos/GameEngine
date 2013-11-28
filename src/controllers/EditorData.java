@@ -2,6 +2,7 @@ package controllers;
 
 import gameObject.GameObject;
 import gameObject.GameUnit;
+import gameObject.item.Item;
 import grid.Tile;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import dialog.GameTableModel;
 import parser.JSONParser;
 import stage.Condition;
 import view.Customizable;
@@ -19,10 +21,12 @@ public class EditorData {
     @JsonProperty
     Map<String, List<Customizable>> myDataMap;
     JSONParser myParser;
+    TableFactory myTableFactory;
 
     // Only for use by deserializer
     public EditorData () {
         myParser = new JSONParser();
+        myTableFactory = new TableFactory();
     }
 
     /**
@@ -32,6 +36,7 @@ public class EditorData {
      */
     public EditorData (String folderName) {
         myParser = new JSONParser();
+        myTableFactory = new TableFactory();
         myDataMap = new HashMap<String, List<Customizable>>();
         loadObjects(folderName);
     }
@@ -65,6 +70,12 @@ public class EditorData {
                                       new ArrayList<Condition>().getClass());
         myDataMap.put("Condition", conditions);
 
+        List<Customizable> items;
+        items =
+                myParser.createObject(folderName + "/Item",
+                                      new ArrayList<Item>().getClass());
+        myDataMap.put("Item", items);
+
     }
 
     /**
@@ -77,22 +88,18 @@ public class EditorData {
     public List<Customizable> get (String type) {
         return myDataMap.get(type);
     }
+    
+    public Customizable getObject (String type, int ID) {
+        return myDataMap.get(type).get(ID);
+    }
+    
+    public GameTableModel getTable(String type){
+        GameTableModel gtm = myTableFactory.makeTableModel(type);
+        gtm.addPreviouslyDefined(myDataMap.get(type));
+        return gtm;
+    }
 
-    /**
-     * Replaces the Customizable of type "key" at index "ID" with Customizable d.
-     * If ID is out of range, append Customizable to list.
-     * 
-     * @return ID of the set Customizable
-     **/
-    public int setCustomizable (String key, int ID, Customizable d) {
-        List<Customizable> list = myDataMap.get(key);
-        if (ID < list.size() & ID > -1) {
-            list.set(ID, d);
-            return ID;
-        }
-        else {
-            list.add(d);
-            return list.size() - 1;
-        }
+    public void setData (GameTableModel gtm) {
+        myDataMap.put(gtm.getName(), gtm.getObjects());
     }
 }

@@ -3,7 +3,6 @@ package gameObject;
 import gameObject.action.Action;
 import grid.ImageManager;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -21,12 +20,19 @@ import view.Drawable;
 @JsonAutoDetect
 public class GameObject extends Customizable implements Drawable {
     protected List<String> myPassableList;
-    protected BufferedImage myImage;
     protected List<String> myDisplayData;
+    protected boolean isActive;
 
     public GameObject () {
         myDisplayData = new ArrayList<String>();
         myPassableList = new ArrayList<String>();
+    }
+
+    public void setActive (boolean active) {
+        isActive = active;
+        myImage =
+                active ? ImageManager.getHightlightedTileImage(myImagePath) : ImageManager
+                        .getTileImage(myImagePath);
     }
 
     public List<String> getInfo () {

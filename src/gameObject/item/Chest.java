@@ -1,11 +1,7 @@
 package gameObject.item;
 
-import java.util.ArrayList;
 import java.util.List;
 import gameObject.GameObject;
-import gameObject.action.Action;
-import gameObject.action.FixedOutcome;
-import gameObject.action.Outcome;
 
 
 /**
@@ -30,7 +26,7 @@ public class Chest extends GameObject {
         myItemList = itemList;
     }
 
-    // TODO: give objects to person
+/*    // TODO: give objects to person
     @Override
     public Action getInteraction(){
         List<Outcome> initiatorOutcomes = new ArrayList<Outcome>();
@@ -43,5 +39,5 @@ public class Chest extends GameObject {
         
         Action getContents = new Action("Retrieve Items", initiatorOutcomes, receiverOutcomes);
         return getContents;
-    };
+    };*/
 }

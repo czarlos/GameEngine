@@ -3,15 +3,15 @@ package controller.actions.grid;
 import java.util.List;
 import grid.Coordinate;
 import controller.actions.AbstractUndoableCommand;
-import controllers.WorldManager;
+import controllers.GameManager;
 
 
 public abstract class AbstractGridCommand extends AbstractUndoableCommand {
-    protected WorldManager myWM;
+    protected GameManager myManager;
     protected List<Coordinate> mySelectedCoordinates;
 
-    public AbstractGridCommand (WorldManager wm, List<Coordinate> selectedCoordinates) {
-        myWM = wm;
+    public AbstractGridCommand (List<Coordinate> selectedCoordinates, GameManager manager) {
+        myManager = manager;
         mySelectedCoordinates = selectedCoordinates;
     }
 }

@@ -1,12 +1,16 @@
 package gameObject.item;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
+import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.Stats;
 import gameObject.action.Action;
+import grid.ImageManager;
+import view.Drawable;
 
 
 /**
@@ -18,9 +22,7 @@ import gameObject.action.Action;
  * 
  */
 @JsonAutoDetect
-public class Item {
-    @JsonProperty
-    private String myName;
+public class Item extends Customizable implements Drawable {
     @JsonProperty
     private List<Action> myActions;
     @JsonProperty
@@ -31,19 +33,11 @@ public class Item {
         myStats = new Stats();
     }
 
-    public String getName () {
-        return myName;
-    }
-
-    public void setName (String name) {
-        this.myName = name;
-    }
-
     public List<Action> getActions () {
         return myActions;
     }
-    
-    public void addAction(Action action) {
+
+    public void addAction (Action action) {
         myActions.add(action);
     }
 
@@ -53,7 +47,7 @@ public class Item {
 
     @JsonIgnore
     public int getStat (String statName) {
-        if(myStats.getStats().containsKey(statName))
+        if (myStats.getStats().containsKey(statName))
             return myStats.getStatValue(statName);
         return 0;
     }
@@ -63,6 +57,23 @@ public class Item {
     }
 
     public void setStats (Stats myStats) {
-        this.myStats = myStats;
+        this.myStats = new Stats(myStats);
+    }
+    
+    @JsonProperty("imagePath")
+    public void setImageAndPath (String imagePath) {
+
+        myImagePath = imagePath;
+        try {
+            myImage = ImageManager.addImage(imagePath);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @Override
+    public void draw (Graphics g, int x, int y, int width, int height) {
+        g.drawImage(getImage(), x, y, width, height, null);
     }
 }
