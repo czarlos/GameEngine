@@ -260,6 +260,5 @@ public class EditorFrame extends GameView {
         public void stateChanged (ChangeEvent e) {
             myWM.setActiveStage(myPanel.getSelectedIndex());
         }
-
     }
 }

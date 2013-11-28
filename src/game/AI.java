@@ -2,7 +2,6 @@ package game;
 
 import gameObject.GameUnit;
 import gameObject.action.Action;
-import gameObject.action.CombatAction;
 import grid.Coordinate;
 import grid.Grid;
 import grid.Tile;
@@ -34,7 +33,7 @@ public class AI {
         for (GameUnit unit : myStage.getTeamUnits(myTeam.getName())) {
             // delay?
             doAIMove(unit, opponentList);
-            //Sleep?
+            // Sleep?
         }
     }
 
@@ -61,7 +60,7 @@ public class AI {
             Action randomAction = unit.getActiveWeapon().getActions().get(rand);
             String activeWeapon = unit.getActiveWeapon().toString();
             randomAction.doAction(unit, myGrid.getUnit(other));
-//            unit.attack(myGrid.getUnit(other), activeWeapon, randomAction);
+            // unit.attack(myGrid.getUnit(other), activeWeapon, randomAction);
         }
         else {
             PathFinding.autoMove(start, end, unit, myGrid);

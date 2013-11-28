@@ -3,9 +3,7 @@ package view.player;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.util.List;
-import grid.Coordinate;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.Scrollable;
 import javax.swing.SwingConstants;
@@ -16,6 +14,7 @@ import controller.editor.GridController;
  * Panel to display tabs that are shown on the side of
  * the player.
  */
+@SuppressWarnings("serial")
 public class SelectedInfoPanel extends JPanel implements Scrollable {
     protected JTabbedPane myTabs;
     protected GridController myController;
@@ -23,11 +22,10 @@ public class SelectedInfoPanel extends JPanel implements Scrollable {
     public SelectedInfoPanel (GridController controller) {
         myTabs = new JTabbedPane();
         myController = controller;
-        setPreferredSize(new Dimension(300,500));
+        setPreferredSize(new Dimension(300, 500));
 
     }
 
-    @SuppressWarnings("unchecked")
     public void makeTabs (List<String> buttonTab,
                           List<String> tileInfo,
                           List<String> objectInfo) {

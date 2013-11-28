@@ -111,7 +111,6 @@ public class StageEditorPanel extends JTabbedPane {
     }
 
     class EditListener implements ActionListener {
-
         private WorldManager myWM;
         private String myType;
         private StageEditorPanel myPanel;
