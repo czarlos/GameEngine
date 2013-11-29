@@ -319,7 +319,7 @@ public class WorldManager extends Manager {
      * and unit definitions
      */
     public void syncStats () {
-        List<Customizable> editorUnitList = myEditorData.get("GameUnit");
+        List<Customizable> editorUnitList = (List<Customizable>) myEditorData.get("GameUnit");
         GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
 
         for (Customizable unit : editorUnitList) {
@@ -365,21 +365,17 @@ public class WorldManager extends Manager {
 
     // TODO
     private void syncActions () {
-        List<Customizable> editorUnitList = myEditorData.get("GameUnit");
+        List<Customizable> editorUnitList = (List<Customizable>) myEditorData.get("GameUnit");
         GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
 
         for (Customizable unit : editorUnitList) {
-            for (Item item : ((GameUnit) unit).getItems()) {
-                item.syncActionsWithMaster(myMasterActionList);
-            }
+            ((GameUnit) unit).syncActionsWithMaster(myMasterActionList);
         }
 
         for (int i = 0; i < placedUnits.length; i++) {
             for (int j = 0; j < placedUnits[i].length; j++) {
                 if (placedUnits[i][j] != null) {
-                    for (Item item : placedUnits[i][j].getItems()) {
-                        item.syncActionsWithMaster(myMasterActionList);
-                    }
+                    placedUnits[i][j].syncActionsWithMaster(myMasterActionList);
                 }
             }
         }
