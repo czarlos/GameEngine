@@ -20,17 +20,18 @@ import controllers.WorldManager;
 import view.editor.GameView;
 
 
+@SuppressWarnings("serial")
 public class PlayerView extends GameView {
     private GameManager myManager;
     private Semaphore mySem;
-    
+
     public PlayerView () {
-        mySem=new Semaphore(1);
+        mySem = new Semaphore(1);
     }
-    
-    public PlayerView(GameManager manager){
-        myManager=manager;
-        mySem=new Semaphore(1);
+
+    public PlayerView (GameManager manager) {
+        myManager = manager;
+        mySem = new Semaphore(1);
     }
 
     @Override
@@ -74,28 +75,32 @@ public class PlayerView extends GameView {
             JSONParser p = new JSONParser();
             WorldManager newWM = p.createObject("saves/" + game, controllers.WorldManager.class);
             myManager = new GameManager(newWM, this);
+
+            super.clearWindow();
+            this.remove(myBackground);
+
+            this.setTitle(myManager.getGameName());
         }
         revalidate();
         repaint();
         myManager.nextTurn();
         doTurn();
     }
-    
 
     public void doTurn () {
         remove(myBackground);
-        StagePlayerPanel sp = new StagePlayerPanel(myManager,mySem);
+        StagePlayerPanel sp = new StagePlayerPanel(myManager, mySem);
         add(sp);
         revalidate();
         repaint();
 
-//        try {
-//            //mySem.acquire();
-//        }
-//        catch (InterruptedException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
+        // try {
+        // //mySem.acquire();
+        // }
+        // catch (InterruptedException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
     }
 
     public static void main (String[] args) {

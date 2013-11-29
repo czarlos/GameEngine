@@ -17,8 +17,8 @@ public abstract class ScrollableListPane extends JPanel {
     public ScrollableListPane () {
         super();
     }
-    
-    public ScrollableListPane(List<String> data){
+
+    public ScrollableListPane (List<String> data) {
         populate(data);
     }
 

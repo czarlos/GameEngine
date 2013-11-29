@@ -1,12 +1,12 @@
 package gameObject;
 
 import gameObject.action.Action;
+import grid.GridConstants;
 import grid.ImageManager;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import view.Customizable;
 import view.Drawable;
 
@@ -52,7 +52,7 @@ public class GameObject extends Customizable implements Drawable {
 
     public boolean isPassable (GameUnit unit) {
         return myPassableList.contains(unit.getName()) ||
-               myPassableList.contains(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
+               myPassableList.contains(GridConstants.DEFAULT_PASS_EVERYTHING);
     }
 
     /**
@@ -70,18 +70,6 @@ public class GameObject extends Customizable implements Drawable {
 
     public List<String> getPassableList () {
         return myPassableList;
-    }
-
-    @JsonProperty("imagePath")
-    public void setImageAndPath (String imagePath) {
-
-        myImagePath = imagePath;
-        try {
-            myImage = ImageManager.addImage(imagePath);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /**

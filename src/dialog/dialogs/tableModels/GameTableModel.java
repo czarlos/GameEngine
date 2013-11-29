@@ -1,11 +1,16 @@
-package dialog;
+package dialog.dialogs.tableModels;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import view.Customizable;
 
 
+/**
+ * Abstraction of the models that deal with type specific data editing
+ * 
+ * @author Leevi
+ * 
+ */
 @SuppressWarnings("serial")
 public abstract class GameTableModel extends AbstractTableModel {
 
@@ -13,7 +18,7 @@ public abstract class GameTableModel extends AbstractTableModel {
 
     protected final List<Object[]> myList = new ArrayList<Object[]>();
     protected String[] myColumnNames;
-    
+
     public void setColumnNames (String[] names) {
         this.myColumnNames = names;
     }
@@ -25,14 +30,6 @@ public abstract class GameTableModel extends AbstractTableModel {
 
     public void removeRow (int index) {
         myList.remove(index);
-    }
-
-    /**
-     * 
-     * @return a new ArrayList of the definitions
-     */
-    public List<Object[]> getData () {
-        return new ArrayList<Object[]>(myList);
     }
 
     @Override
@@ -56,7 +53,7 @@ public abstract class GameTableModel extends AbstractTableModel {
     }
 
     @Override
-    public Class getColumnClass (int c) {
+    public Class<?> getColumnClass (int c) {
         return getValueAt(0, c).getClass();
     }
 
@@ -65,12 +62,19 @@ public abstract class GameTableModel extends AbstractTableModel {
         myList.get(row)[col] = aValue;
     }
 
-    public abstract void addPreviouslyDefined (List<Customizable> list);
-
-    public abstract List<Customizable> getObjects ();
-    
     public String getName () {
         return myName;
     }
 
+    @Override
+    public boolean isCellEditable (int row, int column) {
+        return true;
+    }
+    
+    // defines the default "new object"
+    public abstract Object[] getNew ();
+    
+    public abstract void loadObject (Object object);
+
+    public abstract Object getObject ();
 }

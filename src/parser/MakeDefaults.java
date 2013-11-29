@@ -5,6 +5,7 @@ import gameObject.Stats;
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
 import gameObject.item.Item;
+import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.List;
 import stage.ItemCondition;
@@ -25,7 +26,7 @@ public class MakeDefaults {
         p = new JSONParser();
 
         defaultStats = new Stats();
-        defaultStats.updateFromMaster();
+        defaultStats.syncWithMaster();
         defaultAction = new CombatAction();
         defaultAction.setName("Attack");
 
@@ -40,9 +41,9 @@ public class MakeDefaults {
         java.util.ArrayList<grid.Tile> list = new java.util.ArrayList<grid.Tile>();
         List<String> passableList = new ArrayList<>();
         defaultStats = new Stats();
-        defaultStats.updateFromMaster();
+        defaultStats.syncWithMaster();
 
-        passableList.add(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
+        passableList.add(GridConstants.DEFAULT_PASS_EVERYTHING);
 
         grid.Tile Grass = new grid.Tile();
         Grass.setName("Long Grass");
@@ -150,7 +151,7 @@ public class MakeDefaults {
 
         chest.setPassableList(new java.util.ArrayList<String>());
         chest.setDisplayData(new ArrayList<String>());
-        
+
         stone.setPassableList(new java.util.ArrayList<String>());
         stone.setDisplayData(new ArrayList<String>());
 
@@ -269,13 +270,13 @@ public class MakeDefaults {
         Item helmet = new Item();
         helmet.setName("Helmet");
         helmet.setImagePath("resources/helmet.png");
-        
+
         list.add(milk);
         list.add(potion);
         list.add(armor);
         list.add(weapon);
         list.add(helmet);
-        
+
         p.createJSON("defaults/Item", list);
     }
 

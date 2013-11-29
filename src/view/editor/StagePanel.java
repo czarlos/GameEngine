@@ -25,13 +25,15 @@ public class StagePanel extends JPanel {
     private int myID;
     private GridEditorController myController;
 
-    public StagePanel (String stageName, WorldManager wm, int stageID, GridEditorController gridcontrol) {
+    public StagePanel (String stageName,
+                       WorldManager wm,
+                       int stageID,
+                       GridEditorController gridcontrol) {
         myID = stageID;
         myWorldManager = wm;
         myController = gridcontrol;
         myCanvas = new GridCanvas(myWorldManager);
         initStagePanel();
-
     }
 
     private void initStagePanel () {

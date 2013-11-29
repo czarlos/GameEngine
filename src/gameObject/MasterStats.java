@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -14,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author Ken McAndrews
  * 
  */
+@JsonAutoDetect
 public class MasterStats {
     private static MasterStats masterStats = new MasterStats();
     protected Map<String, Integer> myStatMap;
@@ -50,6 +52,7 @@ public class MasterStats {
      * @param name - The name of the stat to be changed/added
      * @param value - The default value of the stat to be changed to/added
      */
+    @JsonIgnore
     public void setStatValue (String name, Integer value) {
         myStatMap.put(name, value);
     }
@@ -112,10 +115,10 @@ public class MasterStats {
      * 
      * @param myStatMap - The map of stats to set to
      */
-    public void setStats (Map<String, Integer> myStatMap) {
+    public void setStats (Map<String, Integer> statMap) {
         Map<String, Integer> newStats = new HashMap<>();
-        for (String statName : myStatMap.keySet()) {
-            newStats.put(statName, myStatMap.get(statName));
+        for (String statName : statMap.keySet()) {
+            newStats.put(statName, statMap.get(statName));
         }
         myStatMap = newStats;
     }

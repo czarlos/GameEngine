@@ -15,19 +15,24 @@ public class UnitCountCondition extends Condition {
 
     public UnitCountCondition () {
         super();
-        myNeededData.add("count");
-        myNeededData.add("affiliation");
-        myNeededData.add("greater?");
+        myData.put("count", "0");
+        myData.put("affiliation", "default");
+        myData.put("greater?", "true");
     }
 
     @Override
     boolean isFulfilled (Stage stage) {
-        List<GameUnit> theTeam = stage.getTeamUnits(Integer.parseInt(myData.get("affiliation")));
+        List<GameUnit> theTeam = stage.getTeamUnits(myData.get("affiliation"));
         if (Boolean.parseBoolean(myData.get("boolean"))) {
             return Integer.parseInt("count") < theTeam.size();
         }
         else {
             return Integer.parseInt("count") > theTeam.size();
         }
+    }
+
+    @Override
+    public String toString () {
+        return "Unit Count Condition"; 
     }
 }

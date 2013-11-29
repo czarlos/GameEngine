@@ -2,7 +2,6 @@ package game;
 
 import gameObject.GameUnit;
 import gameObject.action.Action;
-import gameObject.action.CombatAction;
 import grid.Coordinate;
 import grid.Grid;
 import grid.Tile;
@@ -31,10 +30,10 @@ public class AI {
 
     public void doTurn () {
         List<GameUnit> opponentList = findAllEnemies();
-        for (GameUnit unit : myTeam.getGameUnits()) {
+        for (GameUnit unit : myStage.getTeamUnits(myTeam.getName())) {
             // delay?
             doAIMove(unit, opponentList);
-            //Sleep?
+            // Sleep?
         }
     }
 
@@ -61,7 +60,7 @@ public class AI {
             Action randomAction = unit.getActiveWeapon().getActions().get(rand);
             String activeWeapon = unit.getActiveWeapon().toString();
             randomAction.doAction(unit, myGrid.getUnit(other));
-//            unit.attack(myGrid.getUnit(other), activeWeapon, randomAction);
+            // unit.attack(myGrid.getUnit(other), activeWeapon, randomAction);
         }
         else {
             PathFinding.autoMove(start, end, unit, myGrid);
@@ -83,7 +82,7 @@ public class AI {
             Team team = myStage.getTeam(i);
 
             if (!team.getName().equals(myTeam.getName()))
-                opponentList.addAll(team.getGameUnits());
+                opponentList.addAll(myStage.getTeamUnits(myTeam.getName()));
         }
 
         return opponentList;
