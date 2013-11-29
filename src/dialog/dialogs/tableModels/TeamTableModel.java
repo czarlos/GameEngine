@@ -17,6 +17,7 @@ public class TeamTableModel extends GameTableModel {
         setColumnNames(names);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void loadObject (Object object) {
         myList.clear();
@@ -72,7 +73,7 @@ public class TeamTableModel extends GameTableModel {
     public Object[] getNew () {
         Object[] array = new Object[myColumnNames.length];
         array[0] = "New Team";
-        array[1] = "resources/Grass.png";
+        array[1] = new File("resources/Grass.png");
         array[2] = 0;
         array[3] = new WinCondition();
         array[4] = false;

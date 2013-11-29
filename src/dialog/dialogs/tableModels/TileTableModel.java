@@ -24,6 +24,7 @@ public class TileTableModel extends GameTableModel {
         setColumnNames(names);
     }
 
+    @SuppressWarnings("unchecked")
     public void loadObject (Object object) {
         List<Tile> list = (List<Tile>) object;
         for (Object tile : list) {
@@ -41,7 +42,6 @@ public class TileTableModel extends GameTableModel {
     }
 
     public List<?> getObject () {
-
         List<Tile> list = new ArrayList<Tile>();
         for (Object[] row : myList) {
             Tile t = new Tile();
@@ -53,11 +53,6 @@ public class TileTableModel extends GameTableModel {
         }
 
         return list;
-    }
-
-    @Override
-    public boolean isCellEditable (int row, int column) {
-        return true;
     }
 
     @Override

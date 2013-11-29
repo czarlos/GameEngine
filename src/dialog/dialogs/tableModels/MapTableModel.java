@@ -1,8 +1,8 @@
 package dialog.dialogs.tableModels;
 
-import grid.GridConstants;
 import java.util.HashMap;
 import java.util.Map;
+
 
 @SuppressWarnings("serial")
 public class MapTableModel extends GameTableModel {
@@ -17,7 +17,7 @@ public class MapTableModel extends GameTableModel {
     public boolean isCellEditable (int row, int col) {
         return col > 0;
     }
-    
+
     @SuppressWarnings("rawtypes")
     public void loadObject (Object object) {
         Map map = (Map) object;
@@ -30,10 +30,11 @@ public class MapTableModel extends GameTableModel {
         }
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public Object getObject () {
         Map myMap = new HashMap<String, Integer>();
         for (Object[] row : myList) {
-            myMap.put( row[0], row[1]);
+            myMap.put(row[0], row[1]);
         }
 
         return myMap;

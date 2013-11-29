@@ -60,6 +60,7 @@ public class WorldManager extends Manager {
         return gtm;
     }
 
+    @SuppressWarnings("unchecked")
     public void setTeams (GameTableModel gtm) {
         List<Team> list = (List<Team>) gtm.getObject();
         List<String> names = myActiveStage.getTeamNames();
@@ -189,9 +190,10 @@ public class WorldManager extends Manager {
      * @param className
      * @return List of names of customizable objects of that classname
      */
+    @SuppressWarnings("unchecked")
     public List<String> get (String className) {
-        ArrayList<String> ret = new ArrayList<String>();
-        ArrayList<Customizable> myList = (ArrayList<Customizable>) myEditorData.get(className);
+        List<String> ret = new ArrayList<String>();
+        List<Customizable> myList = (List<Customizable>) myEditorData.get(className);
 
         for (Customizable d : myList) {
             ret.add(d.getName());
@@ -207,8 +209,9 @@ public class WorldManager extends Manager {
      * @param ID
      * @return
      */
+    @SuppressWarnings("unchecked")
     public Image getImage (String className, int ID) {
-        ArrayList<Customizable> myList = (ArrayList<Customizable>) myEditorData.get(className);
+        List<Customizable> myList = (List<Customizable>) myEditorData.get(className);
 
         return myList.get(ID).getImage();
     }
@@ -248,6 +251,7 @@ public class WorldManager extends Manager {
                 .getTableModel(GridConstants.MASTERSTATS, myMasterStats.getStats());
     }
 
+    @SuppressWarnings("unchecked")
     @JsonIgnore
     public void setMasterStats (GameTableModel gtm) {
         myMasterStats.setStats((HashMap<String, Integer>) gtm.getObject());
@@ -380,5 +384,31 @@ public class WorldManager extends Manager {
                 }
             }
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<String> getDialogList (String myType) {
+        List<String> ret = new ArrayList<String>();
+        switch (myType) {
+            case GridConstants.GAMEUNIT:
+                ret = myActiveStage.getTeamNames();
+                break;
+            case GridConstants.GAMEOBJECT:
+                List<GameUnit> list = (List<GameUnit>) myEditorData.get(GridConstants.GAMEUNIT);
+                ret.add(GridConstants.DEFAULT_PASS_EVERYTHING);
+                for (GameUnit gu : list) {
+                    ret.add(gu.getName());
+                }
+                break;
+            case GridConstants.ITEM:
+                for (Action a : myMasterActionList) {
+                    ret.add(a.getName());
+                }
+                break;
+            default:
+                break;
+        }
+
+        return ret;
     }
 }

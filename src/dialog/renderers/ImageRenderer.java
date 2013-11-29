@@ -34,7 +34,6 @@ public class ImageRenderer extends DefaultTableCellRenderer {
 
         if (value instanceof File) {
             image = new ImageIcon((String) ((File) value).getAbsolutePath());
-
             value = new ImageIcon(getScaledImage(image.getImage(), DEFAULT_WIDTH, DEFAULT_HEIGHT));
         }
 

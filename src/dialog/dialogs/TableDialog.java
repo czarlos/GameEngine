@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,8 +23,9 @@ import stage.StatCondition;
 import stage.TurnCondition;
 import stage.UnitCountCondition;
 import stage.WinCondition;
-import dialog.dialogs.tableModels.ConditionDataTableModel;
+import dialog.dialogs.tableModels.ComboString;
 import dialog.dialogs.tableModels.ConditionsTableModel;
+import dialog.dialogs.tableModels.EnumTableModel;
 import dialog.dialogs.tableModels.GameTableModel;
 import dialog.dialogs.tableModels.MapTableModel;
 import dialog.dialogs.tableModels.StatsTableModel;
@@ -37,9 +38,15 @@ import dialog.renderers.ImageRenderer;
 @SuppressWarnings("serial")
 public class TableDialog extends JDialog {
     GameTableModel myModel;
+    List<String> myEnumList;
 
-    public TableDialog (GameTableModel model, ActionListener okListener) {
-        myModel = model;
+    public TableDialog (GameTableModel gtm, ActionListener okListener) {
+        this(gtm, okListener, new ArrayList<String>());
+    }
+
+    public TableDialog (GameTableModel gtm, ActionListener okListener, List<String> dialogList) {
+        setList(dialogList);
+        myModel = gtm;
         addTable();
         addButtonPanel(okListener);
         this.setTitle(myModel.getName() + " Editor");
@@ -91,10 +98,23 @@ public class TableDialog extends JDialog {
         table.setDefaultEditor(Stats.class,
                                new ModelEditor(new StatsTableModel()));
         table.setDefaultEditor(WinCondition.class, new ModelEditor(new WinConditionTableModel()));
-        table.setDefaultEditor(new ArrayList<Condition>().getClass(), new ModelEditor(new ConditionsTableModel()));
-  //      table.setDefaultEditor(Condition.class, new ModelEditor(new ConditionTableModel()));
+        table.setDefaultEditor(new ArrayList<Condition>().getClass(),
+                               new ModelEditor(new ConditionsTableModel()));
         table.setDefaultEditor(Condition.class, new DefaultCellEditor(getConditionComboBox()));
         table.setDefaultEditor(HashMap.class, new ModelEditor(new MapTableModel()));
+        table.setDefaultEditor(new ArrayList<String>().getClass(),
+                               new ModelEditor(new EnumTableModel()));
+        table.setDefaultEditor(ComboString.class, new DefaultCellEditor(getComboBox()));
+    }
+
+    // for Strings that you want to always be interpreted as comboboxes
+    private JComboBox<ComboString> getComboBox () {
+
+        JComboBox<ComboString> comboBox = new JComboBox<ComboString>();
+        for (String s : myEnumList) {
+            comboBox.addItem(new ComboString(s));
+        }
+        return comboBox;
     }
 
     public JComboBox<Condition> getConditionComboBox () {
@@ -136,5 +156,9 @@ public class TableDialog extends JDialog {
 
     public GameTableModel getModel () {
         return myModel;
+    }
+
+    private void setList (List<String> list) {
+        myEnumList = list;
     }
 }

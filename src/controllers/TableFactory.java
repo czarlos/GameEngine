@@ -3,8 +3,11 @@ package controllers;
 import grid.GridConstants;
 import java.util.HashMap;
 import java.util.Map;
+import dialog.dialogs.tableModels.UnitTableModel;
 import dialog.dialogs.tableModels.GameTableModel;
+import dialog.dialogs.tableModels.ItemTableModel;
 import dialog.dialogs.tableModels.MasterStatsTableModel;
+import dialog.dialogs.tableModels.ObjectTableModel;
 import dialog.dialogs.tableModels.StatsTableModel;
 import dialog.dialogs.tableModels.TileTableModel;
 
@@ -22,6 +25,9 @@ public class TableFactory {
         masterTableMap.put(GridConstants.TILE, new TileTableModel());
         masterTableMap.put(GridConstants.STATS, new StatsTableModel());
         masterTableMap.put(GridConstants.MASTERSTATS, new MasterStatsTableModel());
+        masterTableMap.put(GridConstants.GAMEOBJECT, new ObjectTableModel());
+        masterTableMap.put(GridConstants.GAMEUNIT, new UnitTableModel());
+        masterTableMap.put(GridConstants.ITEM, new ItemTableModel());
     }
 
     public GameTableModel makeTableModel (String type) {

@@ -5,6 +5,7 @@ import gameObject.Stats;
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
 import gameObject.item.Item;
+import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.List;
 import stage.ItemCondition;
@@ -42,7 +43,7 @@ public class MakeDefaults {
         defaultStats = new Stats();
         defaultStats.syncWithMaster();
 
-        passableList.add(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
+        passableList.add(GridConstants.DEFAULT_PASS_EVERYTHING);
 
         grid.Tile Grass = new grid.Tile();
         Grass.setName("Long Grass");

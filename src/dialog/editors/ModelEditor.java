@@ -10,11 +10,11 @@ import java.awt.event.ActionEvent;
 @SuppressWarnings("serial")
 public class ModelEditor extends GameCellEditor {
 
-    GameTableModel myModel;
-    TableDialog statsEditor;
+    private GameTableModel myModel;
+    private TableDialog statsEditor;
 
-    public ModelEditor (GameTableModel stm) {
-        myModel = stm;
+    public ModelEditor (GameTableModel gtm) {
+        myModel = gtm;
     }
 
     // opens and closes editor

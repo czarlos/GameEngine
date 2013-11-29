@@ -66,6 +66,11 @@ public abstract class GameTableModel extends AbstractTableModel {
         return myName;
     }
 
+    @Override
+    public boolean isCellEditable (int row, int column) {
+        return true;
+    }
+    
     // defines the default "new object"
     public abstract Object[] getNew ();
     

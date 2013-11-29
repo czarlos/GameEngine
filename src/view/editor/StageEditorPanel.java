@@ -124,8 +124,7 @@ public class StageEditorPanel extends JTabbedPane {
         @Override
         public void actionPerformed (ActionEvent e) {
             GameTableModel gtm = myWM.getTableModel(myType);
-            myTableDialog = new TableDialog(gtm, new DialogListener(myWM, gtm, myPanel, myType));
-
+            myTableDialog = new TableDialog(gtm, new DialogListener(myWM, gtm, myPanel, myType), myWM.getDialogList(myType));
             myTableDialog.setVisible(true);
             myTableDialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         }
