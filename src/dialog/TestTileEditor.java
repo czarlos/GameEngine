@@ -1,6 +1,5 @@
 package dialog;
 
-import grid.Tile;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -13,9 +12,10 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import dialog.dialogs.TableDialog;
-import dialog.dialogs.tableModels.GameTableModel;
-import dialog.dialogs.tableModels.TileTableModel;
-import parser.JSONParser;
+import dialog.dialogs.tableModels.MultipleTableModel;
+import dialog.dialogs.tableModels.TeamTableModel;
+import stage.WinCondition;
+import team.Team;
 import view.Customizable;
 
 
@@ -42,11 +42,11 @@ public class TestTileEditor {
         JFrame frame = new JFrame("Unit Editor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        GameTableModel model = new TileTableModel();
+        MultipleTableModel model = new TeamTableModel();
 
         List<Customizable> tilesReadIn = makeTestLists();
 
-        model.addPreviouslyDefined(tilesReadIn);
+        model.addObjects(tilesReadIn);
 
         Container content = frame.getContentPane();
         // Creates a new container
@@ -76,8 +76,14 @@ public class TestTileEditor {
     }
 
     private static List<Customizable> makeTestLists () {
-        JSONParser p = new JSONParser();
-        List<Customizable> list = p.createObject("defaults/Tile", new ArrayList<Tile>().getClass());
+        List<Customizable> list = new ArrayList<Customizable>();
+        Team t = new Team();
+        t.setName("default");
+        t.setGold(0);
+        t.setWinCondition(new WinCondition());
+        t.setImagePath("resources/grass.png");
+        t.setIsHuman(true);
+        list.add(t);
         return list;
     }
 

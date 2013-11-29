@@ -1,6 +1,5 @@
 package gameObject.item;
 
-import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,12 +10,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.Stats;
 import gameObject.action.Action;
-import grid.ImageManager;
-import view.Drawable;
 
 
 /**
- * Items have a name and an quantity (amount), items can have a wide range of effects including
+ * Items have a name, items can have a wide range of effects including
  * effecting stats, which is evident in the statEffect abstract method. Alternatively they can have
  * an effect on the properties of a gameunit, such as reviving a units health.
  * 
@@ -24,7 +21,7 @@ import view.Drawable;
  * 
  */
 @JsonAutoDetect
-public class Item extends Customizable implements Drawable {
+public class Item extends Customizable {
     @JsonProperty
     private List<Action> myActions;
     @JsonProperty
@@ -80,18 +77,6 @@ public class Item extends Customizable implements Drawable {
         this.myStats = new Stats(myStats);
     }
 
-    @JsonProperty("imagePath")
-    public void setImageAndPath (String imagePath) {
-
-        myImagePath = imagePath;
-        try {
-            myImage = ImageManager.addImage(imagePath);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void syncActionsWithMaster (List<Action> masterActionList) {
         int masterIndex = -1;
         for (int i = 0; i < myActions.size(); i++) {
@@ -110,10 +95,5 @@ public class Item extends Customizable implements Drawable {
                 myActions.set(i, masterActionList.get(masterIndex));
             }
         }
-    }
-
-    @Override
-    public void draw (Graphics g, int x, int y, int width, int height) {
-        g.drawImage(getImage(), x, y, width, height, null);
     }
 }

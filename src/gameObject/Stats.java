@@ -19,8 +19,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonAutoDetect
 public class Stats {
-    @JsonProperty
     protected Map<String, Integer> myStatMap;
+    @JsonIgnore
     MasterStats masterStatsMap;
 
     /**

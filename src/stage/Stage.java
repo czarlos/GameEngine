@@ -30,20 +30,18 @@ public class Stage implements GridMouseListener {
     private String myName;
     private String preText;
     private String postText;
-    @JsonProperty
-    private List<Team> myTeamList;
+    private List<Team> myTeams;
     private Team myWinningTeam;
 
     // only for use by deserializer
     public Stage () {
-        myTeamList = new ArrayList<Team>();
     }
 
     public Stage (int x, int y, int tileID, String name) {
         myGrid = new Grid(x, y, tileID);
         myName = name;
-        myTeamList = new ArrayList<Team>();
-        addTeam("default", true);
+        myTeams = new ArrayList<Team>();
+        myTeams.add(new Team("default", true));
     }
 
     /*
@@ -53,34 +51,40 @@ public class Stage implements GridMouseListener {
      */
 
     public boolean addUnitToTeam (int teamID, GameUnit gu) {
-        if (teamID < myTeamList.size()) {
-            gu.setAffiliation(myTeamList.get(teamID).getName());
+        if (teamID < myTeams.size()) {
+            gu.setAffiliation(myTeams.get(teamID).getName());
             return true;
         }
         return false;
     }
 
-    public void addTeam (String teamName, boolean humanity) {
-        myTeamList.add(new Team(teamName, humanity));
-    }
-
     public Team getTeam (int teamID) {
-        if (teamID < myTeamList.size()) { return myTeamList.get(teamID); }
+        if (teamID < myTeams.size()) { return myTeams.get(teamID); }
         return null;
     }
-    
-    public void setTeamName(int teamID, String newName){
-        if(teamID < myTeamList.size()){
-            for(GameUnit gu: getTeamUnits(myTeamList.get(teamID).getName())){
+
+    // for use by editor
+    public List<Team> getTeams () {
+        return myTeams;
+    }
+
+    public void setTeams (List<Team> teams) {
+        myTeams = teams;
+    }
+
+    @JsonIgnore
+    public void setTeamName (int teamID, String newName) {
+        if (teamID < myTeams.size()) {
+            for (GameUnit gu : getTeamUnits(myTeams.get(teamID).getName())) {
                 gu.setAffiliation(newName);
             }
-            myTeamList.get(teamID).setName(newName);
+            myTeams.get(teamID).setName(newName);
         }
     }
 
     @JsonIgnore
     public int getNumberOfTeams () {
-        return myTeamList.size();
+        return myTeams.size();
     }
 
     public Grid getGrid () {
@@ -98,7 +102,7 @@ public class Stage implements GridMouseListener {
     @JsonIgnore
     public List<String> getTeamNames () {
         List<String> ret = new ArrayList<String>();
-        for (Team t : myTeamList) {
+        for (Team t : myTeams) {
             ret.add(t.getName());
         }
 
@@ -143,7 +147,7 @@ public class Stage implements GridMouseListener {
     public boolean conditionsMet () {
         boolean conditionsMet = false;
 
-        for (Team t : myTeamList) {
+        for (Team t : myTeams) {
             conditionsMet = conditionsMet || t.hasWon(this);
             if (t.hasWon(this)) {
                 myWinningTeam = t;

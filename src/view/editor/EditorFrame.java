@@ -124,12 +124,6 @@ public class EditorFrame extends GameView {
             addStagePanel();
             stageTabbedPane
                     .addChangeListener(new TabChangeListener(myWorldManager, stageTabbedPane));
-            JMenu stageMenu = new JMenu("Stage");
-            stageMenu.setMnemonic(KeyEvent.VK_S);
-            myMenuBar.add(stageMenu);
-            JMenuItem objective = new JMenuItem("Set Objective");
-            objective.setAccelerator(KeyStroke.getKeyStroke("control O"));
-            stageMenu.add(objective);
         }
     }
 
@@ -210,10 +204,34 @@ public class EditorFrame extends GameView {
         myWorldManager = wm;
         myStagePanelList.clear();
         stageTabbedPane.removeAll();
+        addGameEditorMenus();
         this.remove(myBackground);
         this.add(stageTabbedPane, BorderLayout.CENTER);
         this.repaint();
         this.setTitle(wm.getGameName());
+    }
+
+    private void addGameEditorMenus () {
+        JMenu stageMenu = new JMenu("Stage");
+        stageMenu.setMnemonic(KeyEvent.VK_S);
+        JMenuItem objective = new JMenuItem("Set Objective");
+        objective.setAccelerator(KeyStroke.getKeyStroke("control O"));
+        stageMenu.add(objective);
+
+        JMenu gamePrefs = new JMenu("Global Game Prefs");
+        stageMenu.setMnemonic(KeyEvent.VK_S);
+        JMenuItem setMaster = new JMenuItem("Set Master Stets");
+        gamePrefs.add(setMaster);
+
+        // TODO: get this to call myWM.getMasterStatsTable() and myWM.setMasterStats(GameTableModel)
+        // alternatively you can make some fancy button for this, haha.
+
+        JMenuItem setTeams = new JMenuItem("Configure Teams");
+        gamePrefs.add(setTeams);
+        
+        // TODO: call myWM.getTeamTableModel() and myWM.setTeams(MultipleTableModel mtm);
+        myMenuBar.add(stageMenu, 2);
+        myMenuBar.add(gamePrefs, 2);
     }
 
     protected void saveGame () {

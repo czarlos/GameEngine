@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 @JsonAutoDetect
-public abstract class Condition extends Customizable {
+public abstract class Condition {
     abstract boolean isFulfilled (Stage stage);
 
     @JsonProperty

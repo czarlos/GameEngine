@@ -2,7 +2,6 @@ package grid;
 
 import gameObject.GameObject;
 import gameObject.Stats;
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -84,39 +83,39 @@ public class Tile extends GameObject {
         return myNeighbors;
     }
 
-    public void setNeighbors (List<Tile> myNeighbors) {
-        myNeighbors = myNeighbors;
+    public void setNeighbors (List<Tile> neighbors) {
+        myNeighbors = neighbors;
     }
 
     public Tile getParent () {
         return myParent;
     }
 
-    public void setParent (Tile myParent) {
-        myParent = myParent;
+    public void setParent (Tile parent) {
+        myParent = parent;
     }
 
     public int getLength () {
         return myLength;
     }
 
-    public void setLength (int myLength) {
-        myLength = myLength;
+    public void setLength (int length) {
+        myLength = length;
     }
 
     public int getDistanceToGoal () {
         return myDistanceToGoal;
     }
 
-    public void setDistanceToGoal (int myDistanceToGoal) {
-        myDistanceToGoal = myDistanceToGoal;
+    public void setDistanceToGoal (int distanceToGoal) {
+        myDistanceToGoal = distanceToGoal;
     }
 
     public Coordinate getCoordinate () {
         return myCoordinate;
     }
 
-    public void setCoordinate (Coordinate myCoordinate) {
-        myCoordinate = myCoordinate;
+    public void setCoordinate (Coordinate coordinate) {
+        myCoordinate = coordinate;
     }
 }

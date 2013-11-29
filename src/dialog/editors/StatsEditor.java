@@ -6,6 +6,7 @@ import dialog.dialogs.TableDialog;
 import dialog.dialogs.tableModels.StatsTableModel;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.util.HashMap;
 
 
 @SuppressWarnings("serial")
@@ -19,6 +20,7 @@ public class StatsEditor extends GameCellEditor {
     }
 
     // opens and closes editor
+    @SuppressWarnings("unchecked")
     public void actionPerformed (ActionEvent e) {
 
         if (EDIT.equals(e.getActionCommand())) {
@@ -26,7 +28,7 @@ public class StatsEditor extends GameCellEditor {
             statsEditor.setVisible(true);
         }
         else {
-            current = model.getStats();
+            current = model.getObject();
             statsEditor.setVisible(false);
             fireEditingStopped();
         }
@@ -37,8 +39,8 @@ public class StatsEditor extends GameCellEditor {
                                                   boolean isSelected,
                                                   int row,
                                                   int column) {
-        current = (Stats) value;
-        model.loadStats(value);
+        current = value;
+        model.loadObject((Stats) value);
         return button;
     }
 }
