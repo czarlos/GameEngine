@@ -80,7 +80,6 @@ public class StageEditorPanel extends JTabbedPane {
      //add edit button
      String editString = "Edit " + type + "s";
      JButton editType = new JButton(editString);
-     
      editType.addActionListener(new EditListener(myWorldManager, type, this));
      
      sg.addComponent(editType);
@@ -103,6 +102,11 @@ public class StageEditorPanel extends JTabbedPane {
 
      
      public void changeSelected(GameObjectPanel selected){
+         if(selected == selectedPanel){
+             selectedPanel.deSelect();
+             myWorldManager.setActiveObject(myID-1, "", -1);
+             return;
+         }
          if(selectedPanel!=null)
              selectedPanel.deSelect();
          selectedPanel = selected;
