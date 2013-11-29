@@ -22,6 +22,7 @@ import javax.swing.KeyStroke;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import parser.JSONParser;
+import controller.editor.GridEditorController;
 import controllers.WorldManager;
 
 
@@ -32,6 +33,7 @@ public class EditorFrame extends GameView {
     private ArrayList<StagePanel> myStagePanelList = new ArrayList<StagePanel>();
     private JMenuBar myMenuBar;
     private JTabbedPane stageTabbedPane;
+    private GridEditorController myGridController;
 
     public EditorFrame () {
         super("Omega_Nu Game Editor");
@@ -40,7 +42,7 @@ public class EditorFrame extends GameView {
     @Override
     protected void initializeWindow () {
         super.initializeWindow();
-
+        stageTabbedPane = new JTabbedPane();
     }
 
     /**
@@ -117,10 +119,12 @@ public class EditorFrame extends GameView {
             String gameName = gameNameTextField.getText();
             WorldManager wm = new WorldManager();
             wm.setGameName(gameName);
-            
+
             setFrame(wm);
             addStagePanel();
-        }   
+            stageTabbedPane
+                    .addChangeListener(new TabChangeListener(myWorldManager, stageTabbedPane));
+        }
     }
 
     /**
@@ -162,6 +166,7 @@ public class EditorFrame extends GameView {
             int stageID =
                     myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image),
                                             stageName);// ****
+
             setStage(stageName);
         }
 
@@ -185,42 +190,59 @@ public class EditorFrame extends GameView {
         if (value == JOptionPane.OK_OPTION) {
             String gameName = (String) gameNamesMenu.getSelectedItem();
             JSONParser p = new JSONParser();
-            WorldManager newWM = p.createObject("saves/" + gameName, controllers.WorldManager.class);
+            WorldManager newWM =
+                    p.createObject("saves/" + gameName, controllers.WorldManager.class);
             setFrame(newWM);
-            setStage(newWM.getStages().get(0));
+            for (String s : newWM.getStages()) {
+                setStage(s);
+            }
         }
-    } 
-    
-    protected void setFrame(WorldManager wm) {
+    }
+
+    protected void setFrame (WorldManager wm) {
         super.clearWindow();
         myWorldManager = wm;
         myStagePanelList.clear();
-        
-        stageTabbedPane = new JTabbedPane();
-        stageTabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+        stageTabbedPane.removeAll();
+        addGameEditorMenus();
         this.remove(myBackground);
-
         this.add(stageTabbedPane, BorderLayout.CENTER);
-        this.revalidate();
         this.repaint();
         this.setTitle(wm.getGameName());
-        
+    }
+
+    private void addGameEditorMenus () {
         JMenu stageMenu = new JMenu("Stage");
         stageMenu.setMnemonic(KeyEvent.VK_S);
-        myMenuBar.add(stageMenu);
-        // add menu items
         JMenuItem objective = new JMenuItem("Set Objective");
         objective.setAccelerator(KeyStroke.getKeyStroke("control O"));
         stageMenu.add(objective);
+
+        JMenu gamePrefs = new JMenu("Global Game Prefs");
+        stageMenu.setMnemonic(KeyEvent.VK_S);
+        JMenuItem setMaster = new JMenuItem("Set Master Stets");
+        gamePrefs.add(setMaster);
+
+        // TODO: get this to call myWM.getMasterStatsTable() and myWM.setMasterStats(GameTableModel)
+        // alternatively you can make some fancy button for this, haha.
+
+        JMenuItem setTeams = new JMenuItem("Configure Teams");
+        gamePrefs.add(setTeams);
+        
+        // TODO: call myWM.getTeamTableModel() and myWM.setTeams(MultipleTableModel mtm);
+        myMenuBar.add(stageMenu, 2);
+        myMenuBar.add(gamePrefs, 2);
     }
-    
-    protected void saveGame(){
+
+    protected void saveGame () {
         myWorldManager.saveGame();
     }
-    
-    protected void setStage(String stageName){
 
-        StagePanel sp = new StagePanel(stageName, myWorldManager);
+    protected void setStage (String stageName) {
+        myGridController = new GridEditorController(myWorldManager, stageTabbedPane);
+        StagePanel sp =
+                new StagePanel(stageName, myWorldManager, myStagePanelList.size() + 1,
+                               myGridController);
         myStagePanelList.add(sp);
         stageTabbedPane.addTab(stageName, sp);
         stageTabbedPane.setSelectedIndex(myStagePanelList.size() - 1);
@@ -230,14 +252,31 @@ public class EditorFrame extends GameView {
                 switchActiveStage();
             }
         });
+
         this.repaint();
     }
-    
+
     private void switchActiveStage () {
         myWorldManager.setActiveStage(stageTabbedPane.getSelectedIndex());
     }
 
     public static void main (String[] args) {
         new EditorFrame();
+    }
+
+    class TabChangeListener implements ChangeListener {
+
+        private WorldManager myWM;
+        private JTabbedPane myPanel;
+
+        public TabChangeListener (WorldManager wm, JTabbedPane panel) {
+            myWM = wm;
+            myPanel = panel;
+        }
+
+        @Override
+        public void stateChanged (ChangeEvent e) {
+            myWM.setActiveStage(myPanel.getSelectedIndex());
+        }
     }
 }

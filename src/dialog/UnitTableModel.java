@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
+import dialog.dialogs.tableModels.GameTableModel;
 import view.Customizable;
 
 
@@ -83,15 +84,21 @@ public class UnitTableModel extends GameTableModel {
     }
 
     @Override
-    public void addPreviouslyDefined (List<Customizable> list) {
+    public List<Customizable> getObject () {
         // TODO Auto-generated method stub
-
+        return null;
     }
 
     @Override
-    public List<Customizable> getObjects () {
+    public Object[] getNew () {
         // TODO Auto-generated method stub
         return null;
+    }
+    
+    @Override
+    public void loadObject (Object object) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

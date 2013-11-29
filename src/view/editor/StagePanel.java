@@ -1,5 +1,6 @@
 package view.editor;
 
+import grid.GridConstants;
 import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -18,16 +19,20 @@ public class StagePanel extends JPanel {
      * 
      */
     private static final long serialVersionUID = 1534023398376725167L;
-    private final String[] defaultTypes = { "Tile", "GameUnit", "GameObject" };
+    private final String[] defaultTypes = GridConstants.DEFAULTTYPES;
     private GridCanvas myCanvas;
     private WorldManager myWorldManager;
+    private int myID;
+    private GridEditorController myController;
 
-    public StagePanel (String stageName, WorldManager wm) {
-        GridEditorController gridcontrol = new GridEditorController(wm);
-        myCanvas = new GridCanvas(wm);
-        myCanvas.addGridMouseListener(gridcontrol);
+    public StagePanel (String stageName,
+                       WorldManager wm,
+                       int stageID,
+                       GridEditorController gridcontrol) {
+        myID = stageID;
         myWorldManager = wm;
-
+        myController = gridcontrol;
+        myCanvas = new GridCanvas(myWorldManager);
         initStagePanel();
     }
 
@@ -39,10 +44,11 @@ public class StagePanel extends JPanel {
                                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollGrid.setLayout(new ScrollPaneLayout());
         add(scrollGrid);
-        StageEditorPanel panel = new StageEditorPanel(myWorldManager, defaultTypes);
+        StageEditorPanel panel = new StageEditorPanel(myWorldManager, defaultTypes, myID);
         panel.setMaximumSize(new Dimension(200, 500));
         add(panel);
-        repaint();
 
+        repaint();
+        myCanvas.addGridMouseListener(myController);
     }
 }

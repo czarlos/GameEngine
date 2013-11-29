@@ -1,13 +1,14 @@
 package team;
 
-import gameObject.GameObject;
-import gameObject.GameUnit;
 import gameObject.UnitFactory;
 import java.util.ArrayList;
 import java.util.List;
 import stage.Condition;
 import stage.Stage;
 import stage.WinCondition;
+import view.Customizable;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -20,35 +21,54 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Leevi
  * 
  */
-public class Team {
-    private List<GameUnit> myGameUnits;
+
+@JsonAutoDetect
+public class Team extends Customizable {
     private int myGold;
     private boolean isHuman;
-    private String myName;
+    private int lastEditingID;
 
     @JsonProperty
     private WinCondition myWinCondition;
+
+    public Team () {
+    }
 
     public Team (String name) {
         myGold = 0;
         myName = name;
         myWinCondition = new WinCondition();
+        lastEditingID = 0;
+    }
+
+    public Team (String teamName, boolean humanity) {
+        this(teamName);
+        setIsHuman(humanity);
     }
 
     public void setWinCondition (WinCondition wc) {
         myWinCondition = wc;
     }
 
+    public WinCondition getWinCondition () {
+        return myWinCondition;
+    }
+
     public void addCondition (Condition c) {
         myWinCondition.addCondition(c);
     }
-    
-    public boolean hasWon(Stage stage){
+
+    public boolean hasWon (Stage stage) {
         return myWinCondition.isFulfilled(stage);
     }
-    
+
     public String getName () {
         return myName;
+    }
+
+    // should ONLY be called by JSON deserializer and Stage
+    public void setName (String name) {
+        myName = name;
     }
 
     /**
@@ -56,13 +76,16 @@ public class Team {
      * 
      * @return
      */
+    @JsonIgnore
     public List<UnitFactory> getFactories () {
         List<UnitFactory> factoryList = new ArrayList<UnitFactory>();
-        for (GameObject obj : myGameUnits) {
-            if (obj instanceof UnitFactory) {
-                factoryList.add((UnitFactory) obj);
-            }
-        }
+        /*
+         * for (GameObject obj : myGameUnits) {
+         * if (obj instanceof UnitFactory) {
+         * factoryList.add((UnitFactory) obj);
+         * }
+         * }
+         */
         return factoryList;
     }
 
@@ -82,15 +105,12 @@ public class Team {
         isHuman = humanity;
     }
 
-    public List<GameUnit> getGameUnits () {
-        return myGameUnits;
+    public void setEditingID (int ID) {
+        lastEditingID = ID;
     }
 
-    public void setGameUnits (List<GameUnit> myGameUnits) {
-        this.myGameUnits = myGameUnits;
+    public int getLastEditingID () {
+        return lastEditingID;
     }
 
-    public void addGameUnit (GameUnit gu) {
-        myGameUnits.add(gu);
-    }
 }

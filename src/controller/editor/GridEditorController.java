@@ -1,5 +1,6 @@
 package controller.editor;
 
+import javax.swing.JTabbedPane;
 import controllers.WorldManager;
 import grid.Coordinate;
 import view.canvas.GridMouseListener;
@@ -8,16 +9,19 @@ import view.canvas.GridMouseListener;
 public class GridEditorController implements GridMouseListener {
 
     private WorldManager myWM;
+    private JTabbedPane myStagePanels;
 
-    public GridEditorController (WorldManager wm) {
+    public GridEditorController (WorldManager wm, JTabbedPane panel) {
         myWM = wm;
+        myStagePanels = panel;
     }
 
     @Override
     public void gridClicked (Coordinate c) {
-        int id = myWM.getActiveID();
-        if (myWM.getActiveType() != null) {
-            switch (myWM.getActiveType().toLowerCase()) {
+        int currentIndex = myStagePanels.getSelectedIndex();
+        int id = myWM.getActiveID(currentIndex);
+        if (myWM.getActiveType(currentIndex) != null) {
+            switch (myWM.getActiveType(currentIndex).toLowerCase()) {
                 case "tile":
                     myWM.setTile(id, c.getX(), c.getY());
                     break;
@@ -29,6 +33,7 @@ public class GridEditorController implements GridMouseListener {
                     break;
             }
         }
+
     }
 
 }

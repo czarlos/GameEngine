@@ -1,13 +1,12 @@
 package gameObject;
 
 import gameObject.action.Action;
+import grid.GridConstants;
 import grid.ImageManager;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import view.Customizable;
 import view.Drawable;
 
@@ -21,12 +20,19 @@ import view.Drawable;
 @JsonAutoDetect
 public class GameObject extends Customizable implements Drawable {
     protected List<String> myPassableList;
-    protected BufferedImage myImage;
     protected List<String> myDisplayData;
+    protected boolean isActive;
 
     public GameObject () {
         myDisplayData = new ArrayList<String>();
         myPassableList = new ArrayList<String>();
+    }
+
+    public void setActive (boolean active) {
+        isActive = active;
+        myImage =
+                active ? ImageManager.getHightlightedTileImage(myImagePath) : ImageManager
+                        .getTileImage(myImagePath);
     }
 
     public List<String> getInfo () {
@@ -46,7 +52,7 @@ public class GameObject extends Customizable implements Drawable {
 
     public boolean isPassable (GameUnit unit) {
         return myPassableList.contains(unit.getName()) ||
-               myPassableList.contains(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
+               myPassableList.contains(GridConstants.DEFAULT_PASS_EVERYTHING);
     }
 
     /**
@@ -64,18 +70,6 @@ public class GameObject extends Customizable implements Drawable {
 
     public List<String> getPassableList () {
         return myPassableList;
-    }
-
-    @JsonProperty("imagePath")
-    public void setImageAndPath (String imagePath) {
-
-        myImagePath = imagePath;
-        try {
-            myImage = ImageManager.addImage(imagePath);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /**

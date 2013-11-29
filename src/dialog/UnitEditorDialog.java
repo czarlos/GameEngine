@@ -10,6 +10,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import dialog.dialogs.tableModels.GameTableModel;
+import dialog.renderers.ImageRenderer;
 
 
 /**
@@ -39,7 +41,7 @@ public class UnitEditorDialog extends JDialog {
 
         JTable table = new JTable(model);
         table.setDefaultRenderer(ImageIcon.class,
-                                 new ThumbnailRenderer());
+                                 new ImageRenderer());
         table.setDefaultEditor(ImageIcon.class,
                                new ImageEditor());
         table.setRowHeight(52);

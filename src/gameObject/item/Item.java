@@ -2,6 +2,7 @@ package gameObject.item;
 
 import java.util.ArrayList;
 import java.util.List;
+import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +11,7 @@ import gameObject.action.Action;
 
 
 /**
- * Items have a name and an quantity (amount), items can have a wide range of effects including
+ * Items have a name, items can have a wide range of effects including
  * effecting stats, which is evident in the statEffect abstract method. Alternatively they can have
  * an effect on the properties of a gameunit, such as reviving a units health.
  * 
@@ -18,42 +19,54 @@ import gameObject.action.Action;
  * 
  */
 @JsonAutoDetect
-public class Item {
-    @JsonProperty
-    private String myName;
+public class Item extends Customizable {
     @JsonProperty
     private List<Action> myActions;
     @JsonProperty
     private Stats myStats;
 
     public Item () {
-        myActions = new ArrayList<Action>();
+        myActions = new ArrayList<>();
         myStats = new Stats();
-    }
-
-    public String getName () {
-        return myName;
-    }
-
-    public void setName (String name) {
-        this.myName = name;
     }
 
     public List<Action> getActions () {
         return myActions;
     }
-    
-    public void addAction(Action action) {
+
+    public List<String> getActionNames () {
+        List<String> actionNames = new ArrayList<>();
+
+        for (Action action : myActions) {
+            actionNames.add(action.getName());
+        }
+
+        return actionNames;
+    }
+
+    public void addAction (Action action) {
         myActions.add(action);
+    }
+
+    public void addAction (int index, Action action) {
+        myActions.set(index, action);
+    }
+
+    public void removeAction (int index) {
+        myActions.remove(index);
     }
 
     public void setActions (List<Action> actions) {
         myActions = actions;
     }
 
+    public void setActionNames (List<String> actionNames) {
+        // map these names to masteractions, guaranteed to be on the list.
+    }
+    
     @JsonIgnore
     public int getStat (String statName) {
-        if(myStats.getStats().containsKey(statName))
+        if (myStats.getStats().containsKey(statName))
             return myStats.getStatValue(statName);
         return 0;
     }
@@ -63,6 +76,26 @@ public class Item {
     }
 
     public void setStats (Stats myStats) {
-        this.myStats = myStats;
+        this.myStats = new Stats(myStats);
+    }
+
+    public void syncActionsWithMaster (List<Action> masterActionList) {
+        int masterIndex = -1;
+        for (int i = 0; i < myActions.size(); i++) {
+            for (int j = 0; j < masterActionList.size(); j++) {
+                if (masterActionList.get(j).getName().equals(myActions.get(i).getName())) {
+                    masterIndex = j;
+                    break;
+                }
+            }
+
+            if (masterIndex == -1) {
+                myActions.remove(i);
+                i--;
+            }
+            else {
+                myActions.set(i, masterActionList.get(masterIndex));
+            }
+        }
     }
 }

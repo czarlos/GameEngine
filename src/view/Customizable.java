@@ -1,6 +1,6 @@
 package view;
 
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -14,6 +14,7 @@ public abstract class Customizable {
     protected String myName;
     @JsonProperty
     protected String myImagePath;
+    protected BufferedImage myImage;
 
     public Customizable () {
 
@@ -27,23 +28,22 @@ public abstract class Customizable {
         myName = name;
     }
 
-    @JsonIgnore
-    public Image getImage () {
-        try {
-            return ImageIO.read(new File(myImagePath));
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public String getImagePath () {
         return myImagePath;
     }
 
-    @JsonProperty("imagePath")
     public void setImagePath (String imagePath) {
         myImagePath = imagePath;
+        try {
+            myImage = ImageIO.read(new File(imagePath));
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @JsonIgnore
+    public BufferedImage getImage () {
+        return myImage;
     }
 }

@@ -14,18 +14,21 @@ public class ItemCondition extends Condition {
 
     public ItemCondition () {
         super();
-        myNeededData.add("team");
-        myNeededData.add("item");
+        myData.put("affiliation", "default");
+        myData.put("item", "milk");
     }
 
     @Override
     boolean isFulfilled (Stage stage) {
-        List<GameUnit> theTeam = stage.getTeamUnits(Integer.parseInt(myData.get("team")));
+        List<GameUnit> theTeam = stage.getTeamUnits(myData.get("affiliation"));
         for (GameUnit gu : theTeam) {
-            if (gu.getItemAmount(myData.get("item")) > 0) {
-                return true;
-            }
+            if (gu.getItemAmount(myData.get("item")) > 0) { return true; }
         }
         return false;
+    }
+
+    @Override
+    public String toString () {
+        return "Item Condition";
     }
 }

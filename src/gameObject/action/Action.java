@@ -7,6 +7,7 @@ import gameObject.GameObject;
 import gameObject.GameUnit;
 import grid.Coordinate;
 
+
 @JsonAutoDetect
 public abstract class Action {
     private String myName;
@@ -18,9 +19,9 @@ public abstract class Action {
         AOE.add(new Coordinate(0, 1));
         setAround(false);
     }
-    
-    public abstract void doAction(GameUnit initiator, GameObject receiver);
-    
+
+    public abstract void doAction (GameUnit initiator, GameObject receiver);
+
     public void setName (String name) {
         myName = name;
     }

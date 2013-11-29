@@ -6,11 +6,11 @@ import org.junit.Test;
 import controllers.WorldManager;
 import grid.Grid;
 
-
+// just in case tables don't work out.
 public class StatsTest {
     private static final double DELTA = 0.001;
 
-    @Test
+ /*   @Test
     public void addStatTest () {
         WorldManager myWorldManager = new WorldManager();
         myWorldManager.addStage(15, 15, 0, "Game");
@@ -72,5 +72,5 @@ public class StatsTest {
         for (int i = 1; i < 4; i++) {
             assertEquals(i * 10, defaultUnit1.getStats().getStatValue("Test Stat " + i), DELTA);
         }
-    }
+    }*/
 }
