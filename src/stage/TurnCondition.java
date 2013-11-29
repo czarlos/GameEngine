@@ -10,7 +10,7 @@ public class TurnCondition extends Condition {
 
     public TurnCondition () {
         super();
-        myNeededData.add("count");
+        myData.put("count", "5");
     }
 
     @Override

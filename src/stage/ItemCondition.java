@@ -14,8 +14,8 @@ public class ItemCondition extends Condition {
 
     public ItemCondition () {
         super();
-        myNeededData.add("affiliation");
-        myNeededData.add("item");
+        myData.put("affiliation", "default");
+        myData.put("item", "milk");
     }
 
     @Override

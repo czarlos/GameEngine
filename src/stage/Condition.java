@@ -14,25 +14,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public abstract class Condition {
     abstract boolean isFulfilled (Stage stage);
 
-    @JsonProperty
     protected Map<String, String> myData;
-    protected List<String> myNeededData;
 
     public Condition () {
         myData = new HashMap<String, String>();
-        myNeededData = new ArrayList<String>();
     }
 
+    public Map<String, String> getData(){
+        return myData;
+    }
+    
     public void setData (Map<String, String> data) {
         myData = data;
     }
     
     public void addData(String key, String data){
         myData.put(key, data);
-    }
-
-    @JsonIgnore
-    public List<String> getNeededData () {
-        return myNeededData;
     }
 }

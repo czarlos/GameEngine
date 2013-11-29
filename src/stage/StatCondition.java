@@ -15,9 +15,9 @@ public class StatCondition extends Condition {
 
     public StatCondition () {
         super();
-        myNeededData.add("statType");
-        myNeededData.add("value");
-        myNeededData.add("affilation");
+        myData.put("statType", "experience");
+        myData.put("value", "100");
+        myData.put("affilation", "default");
     }
 
     @Override

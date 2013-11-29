@@ -36,7 +36,7 @@ public class WinConditionTableModel extends GameTableModel {
     public Object getObject () {
         WinCondition wc = new WinCondition();
         wc.setConditionsNeeded((int) myList.get(0)[0]);
-        wc.setConditions((List<Condition>) myList.get(0)[0]);
+        wc.setConditions((List<Condition>) myList.get(0)[1]);
         return wc;
     }
 

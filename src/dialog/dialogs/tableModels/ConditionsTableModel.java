@@ -3,6 +3,8 @@ package dialog.dialogs.tableModels;
 import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import javax.swing.JComboBox;
 import stage.Condition;
 import stage.PositionCondition;
 
@@ -11,7 +13,7 @@ import stage.PositionCondition;
 public class ConditionsTableModel extends GameTableModel {
 
     public ConditionsTableModel () {
-        String[] names = { "Current Conditions" };
+        String[] names = { "Current Conditions", "Data"};
         setColumnNames(names);
         myName = GridConstants.CONDITION;
     }
@@ -25,9 +27,11 @@ public class ConditionsTableModel extends GameTableModel {
     public void loadObject (Object object) {
         myList.clear();
         List<Condition> list = (List<Condition>) object;
-        Object[] array = new Object[myColumnNames.length];
         for (Object o : list) {
-            array[0] = (Condition) o;
+            Object[] array = new Object[myColumnNames.length];
+            Condition c = (Condition) o;
+            array[0] = c;
+            array[1] = c.getData();
             addNewRow(array);
         }
     }
@@ -36,18 +40,32 @@ public class ConditionsTableModel extends GameTableModel {
     public List<?> getObject () {
         List<Condition> ret = new ArrayList<Condition>();
         for (Object[] row : myList) {
-            ret.add((Condition) row[0]);
+            Condition c = (Condition) row[0];
+            c.setData((Map<String, String>) row[1]);
+            ret.add(c);
         }
 
         return ret;
     }
 
+
+    @Override
+    public void setValueAt (Object aValue, int row, int col) {
+        myList.get(row)[col] = aValue;
+        if(col == 0){
+            Condition c = (Condition) aValue;
+            myList.get(row)[1] = c.getData();
+        }
+
+        fireTableDataChanged();
+    }
+    
     @Override
     public Object[] getNew () {
         Object[] ret = new Object[myColumnNames.length];
-        ret[0] = new PositionCondition();
-
+        Condition c = new PositionCondition();
+        ret[0] = c;
+        ret[1] = c.getData();
         return ret;
     }
-
 }

@@ -4,9 +4,9 @@ import stage.Condition;
 import stage.PositionCondition;
 import grid.GridConstants;
 
-public class ConditionTableModel extends GameTableModel {
+public class ConditionDataTableModel extends GameTableModel {
 
-    public ConditionTableModel () {
+    public ConditionDataTableModel () {
         String[] names = { "Needed Data", "Data" };
         setColumnNames(names);
         myName = GridConstants.CONDITION;
@@ -26,10 +26,10 @@ public class ConditionTableModel extends GameTableModel {
     public void loadObject (Object object) {
         myList.clear();
         Condition c = (Condition) object;
-        for(String s: c.getNeededData()){
+        for(String s: c.getData().keySet()){
             Object[] array = new Object[myColumnNames.length];
             array[0] = s;
-            array[1] = "";
+            array[1] = c.getData().get(s);
             myList.add(array);
         }
     }
@@ -42,5 +42,4 @@ public class ConditionTableModel extends GameTableModel {
         }
         return c;
     }
-
 }
