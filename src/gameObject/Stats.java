@@ -36,11 +36,12 @@ public class Stats {
 
     public Stats (Stats stat) {
         myStatMap = new HashMap<>();
+
         for (String statName : stat.getStatNames()) {
             myStatMap.put(statName, stat.getStatValue(statName));
         }
-        updateFromMaster();
 
+        syncWithMaster();
     }
 
     /**
@@ -114,18 +115,18 @@ public class Stats {
      * exists in the master stats map, but not in the current Stats instance map, then it adds it to
      * the current Stats map instance. If a stat exists in the current Stats instance map, but not
      * in the master stats map, it removes it from the current Stats map instance
-     * 
-     * @param masterStatMap The master stat map from the world manager
      */
-    public void updateFromMaster () {
-        for (String stat : MasterStats.getInstance().getStatNames()) {
+    public void syncWithMaster () {
+        MasterStats masterStatMap = MasterStats.getInstance();
+
+        for (String stat : masterStatMap.getStatNames()) {
             if (!getStatNames().contains(stat)) {
-                myStatMap.put(stat, MasterStats.getInstance().getStatValue(stat));
+                myStatMap.put(stat, masterStatMap.getStatValue(stat));
             }
         }
 
         for (String stat : getStatNames()) {
-            if (!MasterStats.getInstance().getStatNames().contains(stat)) {
+            if (!masterStatMap.getStatNames().contains(stat)) {
                 remove(stat);
             }
         }

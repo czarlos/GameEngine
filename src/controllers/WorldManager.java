@@ -20,6 +20,7 @@ import dialog.dialogs.tableModels.GameTableModel;
 import dialog.dialogs.tableModels.MultipleTableModel;
 import dialog.dialogs.tableModels.SingleTableModel;
 import dialog.dialogs.tableModels.TeamTableModel;
+import gameObject.action.Action;
 import gameObject.item.Item;
 
 
@@ -36,6 +37,7 @@ public class WorldManager extends Manager {
     private int[] activeEditIDList;
     @JsonProperty
     private MasterStats myMasterStats;
+    private List<Action> myMasterActionList;
 
     /**
      * Intermediary between views and EditorData and Grid, stores List of Stages
@@ -44,10 +46,10 @@ public class WorldManager extends Manager {
      */
     public WorldManager () {
         super();
-
         activeEditTypeList = new String[4];
         activeEditIDList = new int[4];
         myMasterStats = MasterStats.getInstance();
+        myMasterActionList = new ArrayList<>();
     }
 
     public MultipleTableModel getMultipleTableModel (String type) {
@@ -251,7 +253,7 @@ public class WorldManager extends Manager {
     @JsonIgnore
     public void setMasterStats (SingleTableModel stm) {
         myMasterStats.setStats((HashMap<String, Integer>) stm.getObject());
-        updateStats();
+        syncStats();
     }
 
     /*    *//**
@@ -315,18 +317,68 @@ public class WorldManager extends Manager {
      * not in the master stats list, then it removes that stat from all stats lists of placed units
      * and unit definitions
      */
-    public void updateStats () {
+    public void syncStats () {
         List<?> editorUnitList = myEditorData.get(GridConstants.GAMEUNIT);
         GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
 
         for (Object unit : editorUnitList) {
-            ((GameUnit) unit).getStats().updateFromMaster();
+            ((GameUnit) unit).getStats().syncWithMaster();
         }
 
         for (int i = 0; i < placedUnits.length; i++) {
             for (int j = 0; j < placedUnits[i].length; j++) {
                 if (placedUnits[i][j] != null) {
-                    placedUnits[i][j].getStats().updateFromMaster();
+                    placedUnits[i][j].getStats().syncWithMaster();
+                }
+            }
+        }
+    }
+
+    public void addAction (Action newAction) {
+        myMasterActionList.add(newAction);
+    }
+
+    // TODO: Should pass in String, action, or ID as parameter? Should we remove this action from
+    // all units and/or weapons/items? If so, what do we do with weapons/items with no actions?
+    public void removeAction (String actionName) {
+        for (int i = 0; i < myMasterActionList.size(); i++) {
+            if (myMasterActionList.get(i).getName().equals(actionName)) {
+                myMasterActionList.remove(i);
+            }
+        }
+
+        syncActions();
+    }
+
+    // TODO: Make this a generic method to get the type of action to modify. How do we want to
+    // modify an action (e.g. what variables would we want to edit)?
+    public void modifyAction (Action modAction) {
+        for (int i = 0; i < myMasterActionList.size(); i++) {
+            if (myMasterActionList.get(i).getName().equals(modAction.getName())) {
+                myMasterActionList.set(i, modAction);
+            }
+        }
+
+        syncActions();
+    }
+
+    // TODO
+    private void syncActions () {
+        List<?> editorUnitList = myEditorData.get(GridConstants.GAMEUNIT);
+        GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
+
+        for (Object unit : editorUnitList) {
+            for (Item item : ((GameUnit) unit).getItems()) {
+                item.syncActionsWithMaster(myMasterActionList);
+            }
+        }
+
+        for (int i = 0; i < placedUnits.length; i++) {
+            for (int j = 0; j < placedUnits[i].length; j++) {
+                if (placedUnits[i][j] != null) {
+                    for (Item item : placedUnits[i][j].getItems()) {
+                        item.syncActionsWithMaster(myMasterActionList);
+                    }
                 }
             }
         }

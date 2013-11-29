@@ -135,7 +135,7 @@ public class GameManager extends Manager {
 
     public void beginAction (Coordinate unitCoordinate, int actionID) {
         myActiveStage.getGrid().setTilesInactive();
-        if (myActiveActions.get(actionID).getName().equals(MoveAction.NAME)) {
+        if (myActiveActions.get(actionID).getName().equals(MoveAction.MOVE_NAME)) {
             myActiveStage.getGrid().beginMove(unitCoordinate);
         }
         else {
@@ -145,11 +145,11 @@ public class GameManager extends Manager {
 
     public void doAction (Coordinate unitCoordinate, Coordinate actionCoordinate, int actionID) {
         GameUnit initiator = myActiveStage.getGrid().getUnit(unitCoordinate);
-        if (myActiveActions.get(actionID).getName().equals(MoveAction.NAME)) {
+        if (myActiveActions.get(actionID).getName().equals(MoveAction.MOVE_NAME)) {
             myActiveStage.getGrid().doMove(unitCoordinate, actionCoordinate);
             initiator.hasMoved();
         }
-        else if (myActiveActions.get(actionID).getName().equals(WaitAction.NAME)) {
+        else if (myActiveActions.get(actionID).getName().equals(WaitAction.WAIT_NAME)) {
             initiator.setActive(false);
         }
         else {
