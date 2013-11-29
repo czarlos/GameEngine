@@ -90,6 +90,10 @@ public class EditorData {
         return myDataMap.get(type);
     }
     
+    public Customizable getObject (String type, int ID) {
+        return myDataMap.get(type).get(ID);
+    }
+    
     public GameTableModel getTable(String type){
         GameTableModel gtm = myTableFactory.makeTableModel(type);
         gtm.addPreviouslyDefined(myDataMap.get(type));
@@ -98,23 +102,5 @@ public class EditorData {
 
     public void setData(GameTableModel gtm){
         myDataMap.put(gtm.getName(), gtm.getObjects());
-    }
-    
-    /**
-     * Replaces the Customizable of type "key" at index "ID" with Customizable d.
-     * If ID is out of range, append Customizable to list.
-     * 
-     * @return ID of the set Customizable
-     **/
-    public int setCustomizable (String key, int ID, Customizable d) {
-        List<Customizable> list = myDataMap.get(key);
-        if (ID < list.size() & ID > -1) {
-            list.set(ID, d);
-            return ID;
-        }
-        else {
-            list.add(d);
-            return list.size() - 1;
-        }
     }
 }
