@@ -102,8 +102,7 @@ public class TableDialog extends JDialog {
                                new ModelEditor(new ConditionsTableModel()));
         table.setDefaultEditor(Condition.class, new DefaultCellEditor(getConditionComboBox()));
         table.setDefaultEditor(HashMap.class, new ModelEditor(new MapTableModel()));
-        table.setDefaultEditor(new ArrayList<String>().getClass(),
-                               new ModelEditor(new EnumTableModel()));
+        table.setDefaultEditor(ArrayList.class, new ModelEditor(new EnumTableModel()));
         table.setDefaultEditor(ComboString.class, new DefaultCellEditor(getComboBox()));
     }
 

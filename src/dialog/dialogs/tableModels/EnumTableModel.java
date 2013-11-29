@@ -1,9 +1,7 @@
 package dialog.dialogs.tableModels;
 
-import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JComboBox;
 
 
 /**
@@ -24,7 +22,7 @@ public class EnumTableModel extends GameTableModel {
     @Override
     public Object[] getNew () {
         Object[] ret = new Object[myColumnNames.length];
-        ret[0] = new ComboString(GridConstants.DEFAULT_PASS_EVERYTHING);
+        ret[0] = new ComboString("");
         return ret;
     }
 

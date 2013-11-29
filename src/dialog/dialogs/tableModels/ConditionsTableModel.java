@@ -16,12 +16,7 @@ public class ConditionsTableModel extends GameTableModel {
         setColumnNames(names);
         myName = GridConstants.CONDITION;
     }
-
-    @Override
-    public boolean isCellEditable (int row, int col) {
-        return true;
-    }
-
+    
     @SuppressWarnings("unchecked")
     @Override
     public void loadObject (Object object) {

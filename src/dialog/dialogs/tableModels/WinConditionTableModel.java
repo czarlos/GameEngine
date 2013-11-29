@@ -1,7 +1,8 @@
 package dialog.dialogs.tableModels;
 
-import java.util.List;
+import java.util.Map;
 import stage.Condition;
+import stage.PositionCondition;
 import stage.WinCondition;
 import grid.GridConstants;
 
@@ -9,40 +10,52 @@ import grid.GridConstants;
 public class WinConditionTableModel extends GameTableModel {
 
     public WinConditionTableModel () {
-        String[] names = { "How many are needed to win?", "Conditions" };
+        String[] names = { "Conditions" , "Data"};
         setColumnNames(names);
         myName = GridConstants.CONDITION;
-    }
-
-    @Override
-    public boolean isCellEditable (int row, int col) {
-        return true;
     }
     
     @Override
     public void loadObject (Object object) {
         myList.clear();
         WinCondition wc = (WinCondition) object;
-        Object[] row = new Object[myColumnNames.length];
-        
-        row[0] = wc.getConditionsNeeded();
-        row[1] = wc.getConditions();
-                
-        addNewRow(row);
+        for(Condition c: wc.getConditions()){
+            Object[] row = new Object[myColumnNames.length];
+            row[0] = c;
+            row[1] = c.getData();
+            addNewRow(row);
+        }
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public Object getObject () {
         WinCondition wc = new WinCondition();
-        wc.setConditionsNeeded((int) myList.get(0)[0]);
-        wc.setConditions((List<Condition>) myList.get(0)[1]);
+        for(Object[] row: myList){
+            Condition c = (Condition) row[0];
+            c.setData((Map<String, String>) row[1]);
+            wc.addCondition(c);
+        }
         return wc;
     }
 
-    // only need one win condition per team
+    @Override
+    public void setValueAt (Object aValue, int row, int col) {
+        myList.get(row)[col] = aValue;
+        if (col == 0) {
+            Condition c = (Condition) aValue;
+            myList.get(row)[1] = c.getData();
+        }
+
+        fireTableDataChanged();
+    }
+
     @Override
     public Object[] getNew () {
-        return null;
+        Object[] ret = new Object[myColumnNames.length];
+        Condition c = new PositionCondition();
+        ret[0] = c;
+        ret[1] = c.getData();
+        return ret;
     }
 }
