@@ -3,9 +3,14 @@ package dialog.dialogs.tableModels;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import view.Customizable;
 
 
+/**
+ * Abstraction of the models that deal with type specific data editing
+ * 
+ * @author Leevi
+ * 
+ */
 @SuppressWarnings("serial")
 public abstract class GameTableModel extends AbstractTableModel {
 
@@ -26,14 +31,6 @@ public abstract class GameTableModel extends AbstractTableModel {
     public void removeRow (int index) {
         myList.remove(index);
     }
-
-    /**
-     * 
-     * @return a new ArrayList of the definitions
-     */
-/*    public List<Object[]> getData () {
-        return new ArrayList<Object[]>(myList);
-    }*/
 
     @Override
     public int getColumnCount () {
@@ -64,10 +61,6 @@ public abstract class GameTableModel extends AbstractTableModel {
     public void setValueAt (Object aValue, int row, int col) {
         myList.get(row)[col] = aValue;
     }
-
-    public abstract void addPreviouslyDefined (List<Customizable> list);
-
-    public abstract List<Customizable> getObjects ();
 
     public String getName () {
         return myName;

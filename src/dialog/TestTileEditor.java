@@ -46,7 +46,7 @@ public class TestTileEditor {
 
         List<Customizable> tilesReadIn = makeTestLists();
 
-        model.addPreviouslyDefined(tilesReadIn);
+  //      model.addPreviouslyDefined(tilesReadIn);
 
         Container content = frame.getContentPane();
         // Creates a new container

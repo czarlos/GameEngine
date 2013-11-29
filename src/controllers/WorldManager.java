@@ -8,13 +8,18 @@ import grid.GridConstants;
 import grid.Tile;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import stage.Condition;
 import stage.Stage;
 import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import dialog.dialogs.tableModels.GameTableModel;
+import dialog.dialogs.tableModels.MultipleTableModel;
+import dialog.dialogs.tableModels.SingleTableModel;
 import gameObject.item.Item;
 
 
@@ -29,7 +34,8 @@ public class WorldManager extends Manager {
 
     private String[] activeEditTypeList;
     private int[] activeEditIDList;
-    private MasterStats myMasterStatMap;
+    @JsonProperty
+    private MasterStats myMasterStats;
 
     /**
      * Intermediary between views and EditorData and Grid, stores List of Stages
@@ -41,18 +47,18 @@ public class WorldManager extends Manager {
 
         activeEditTypeList = new String[4];
         activeEditIDList = new int[4];
-        myMasterStatMap = MasterStats.getInstance();
+        myMasterStats = MasterStats.getInstance();
     }
 
-    public GameTableModel getViewModel (String type) {
-        return myEditorData.getTable(type);
+    public MultipleTableModel getMultipleTableModel (String type) {
+        return myEditorData.getMultipleTable(type);
     }
 
     public void addTeam (String teamName, boolean humanity) {
         myActiveStage.addTeam(teamName, humanity);
     }
 
-    public void setData (GameTableModel gtm) {
+    public void setData (MultipleTableModel gtm) {
         myEditorData.setData(gtm);
     }
 
@@ -120,13 +126,13 @@ public class WorldManager extends Manager {
     public void setTile (int tileID, int x, int y) {
         myActiveStage.getGrid()
                 .placeTile(new Coordinate(x, y),
-                           (Tile) myEditorData.getObject(GridConstants.DEFAULTTYPES[0], tileID));
+                           (Tile) myEditorData.getObject(GridConstants.TILE, tileID));
     }
 
     public void placeUnit (int unitID, int x, int y) {
         myActiveStage.getGrid().placeObject(new Coordinate(x, y),
                                             (GameObject) myEditorData
-                                                    .getObject(GridConstants.DEFAULTTYPES[1],
+                                                    .getObject(GridConstants.GAMEUNIT,
                                                                unitID));
         myActiveStage.addUnitToTeam(0, myActiveStage.getGrid().getUnit(new Coordinate(x, y)));
         // TODO: actually implement teams
@@ -136,14 +142,14 @@ public class WorldManager extends Manager {
     public void placeObject (int objectID, int x, int y) {
         myActiveStage.getGrid().placeObject(new Coordinate(x, y),
                                             (GameObject) myEditorData
-                                                    .getObject(GridConstants.DEFAULTTYPES[2],
+                                                    .getObject(GridConstants.GAMEOBJECT,
                                                                objectID));
     }
 
     public void placeItem (int objectID, int x, int y) {
         GameUnit gu = myActiveStage.getGrid().getUnit(new Coordinate(x, y));
         if (gu != null) {
-            gu.addItem((Item) myEditorData.getObject(GridConstants.DEFAULTTYPES[3], objectID));
+            gu.addItem((Item) myEditorData.getObject(GridConstants.ITEM, objectID));
         }
     }
 
@@ -205,55 +211,71 @@ public class WorldManager extends Manager {
         c.setData(data);
         myActiveStage.getTeam(teamID).addCondition(c);
     }
+    
+    @JsonIgnore
+    public GameTableModel getMasterStatsTable() {
+        return myEditorData.getSingleTableModel(GridConstants.MASTERSTATS, myMasterStats.getStats());
+    }
+    
+    @JsonIgnore
+    public void setMasterStats(SingleTableModel stm){
+        myMasterStats.setStats((HashMap) stm.getObject());
+        updateStats();
+    }
 
-    /**
+
+/*    *//**
      * Gets the stat value in the master stat list for the given stat
      * 
      * @param statName - Name of the stat to get the value for
      * @return The value of the stat for the stat name passed in
-     */
+     *//*
     public int getStatValue (String statName) {
-        return myMasterStatMap.getStatValue(statName);
+        return myMasterStats.getStatValue(statName);
+    }
+    
+    public List<String> getMasterStatNames(){
+        return myMasterStats.getStatNames();
     }
 
-    /**
+    *//**
      * Adds a new stat to the game by adding to the master stat list. Calls the update method, which
      * adds the stat to the stats list of all units placed and unit definitions
      * 
      * @param statName - Name of the stat to be added
      * @param statValue - Default value of the stat to be added
-     */
+     *//*
     public void addStat (String statName, int statValue) {
-        if (!myMasterStatMap.getStatNames().contains(statName)) {
-            myMasterStatMap.setStatValue(statName, statValue);
+        if (!myMasterStats.getStatNames().contains(statName)) {
+            myMasterStats.setStatValue(statName, statValue);
             updateStats();
         }
     }
 
-    /**
+    *//**
      * Removes a stat from the master stat list. Calls the update method, which removes the stat
      * from the stats list of all units placed and unit definitions
      * 
      * @param statName - Name of the stat to be removed
-     */
+     *//*
     public void removeStat (String statName) {
-        myMasterStatMap.remove(statName);
+        myMasterStats.remove(statName);
         updateStats();
     }
 
-    /**
+    *//**
      * Modifies a stat in the master stat list. Does not update that value in the stats list of
      * placed units and unit definitions
      * 
      * @param statName - Name of the stat to be modified
      * @param statValue - Value to update the stat to
-     */
+     *//*
     public void modifyStat (String statName, int statValue) {
-        if (myMasterStatMap.getStatNames().contains(statName)) {
-            myMasterStatMap.modExisting(statName, statValue);
+        if (myMasterStats.getStatNames().contains(statName)) {
+            myMasterStats.modExisting(statName, statValue);
         }
     }
-
+*/
     /**
      * Calls update method for all stats of all placed units and unit definitions. If there are new
      * stats in the master stats list, adds that stat to the stats of all placed units and unit

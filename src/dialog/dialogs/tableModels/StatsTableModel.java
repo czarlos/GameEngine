@@ -3,14 +3,11 @@ package dialog.dialogs.tableModels;
 import gameObject.Stats;
 import grid.GridConstants;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import view.Customizable;
 
 
-public class StatsTableModel extends GameTableModel {
-
-    private static final long serialVersionUID = -3269629394841470934L;
+@SuppressWarnings("serial")
+public class StatsTableModel extends SingleTableModel {
 
     public StatsTableModel () {
         super();
@@ -24,18 +21,7 @@ public class StatsTableModel extends GameTableModel {
         return col > 0;
     }
 
-    // will never have list of stats
-    @Override
-    public void addPreviouslyDefined (List<Customizable> stats) {
-
-    }
-
-    // will never have list of stats
-    public List<Customizable> getObjects () {
-        return null;
-    }
-
-    public void loadStats (Object stats) {
+    public void loadObject (Object stats) {
         Stats s = (Stats) stats;
         Map<String, Integer> map = s.getStats();
         myList.clear();
@@ -47,7 +33,7 @@ public class StatsTableModel extends GameTableModel {
         }
     }
 
-    public Stats getStats () {
+    public Object getObject () {
         Stats ret = new Stats();
         Map<String, Integer> myMap = new HashMap<String, Integer>();
         for (Object[] row : myList) {
@@ -60,6 +46,12 @@ public class StatsTableModel extends GameTableModel {
 
     @Override
     public Object[] getNew () {
+        // TODO: pop up a message telling users to use the master stats editor to add/remove global stats
         return null;
+    }
+    
+    @Override
+    public void removeRow (int index) {
+        // TODO: same as above;
     }
 }

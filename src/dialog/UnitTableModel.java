@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 import dialog.dialogs.tableModels.GameTableModel;
+import dialog.dialogs.tableModels.MultipleTableModel;
 import view.Customizable;
 
 
@@ -21,7 +22,7 @@ import view.Customizable;
  * 
  */
 
-public class UnitTableModel extends GameTableModel {
+public class UnitTableModel extends MultipleTableModel {
 
     private static final long serialVersionUID = 9110749927413795404L;
 

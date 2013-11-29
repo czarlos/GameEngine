@@ -36,7 +36,6 @@ public class Stage implements GridMouseListener {
 
     // only for use by deserializer
     public Stage () {
-        myTeamList = new ArrayList<Team>();
     }
 
     public Stage (int x, int y, int tileID, String name) {

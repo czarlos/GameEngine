@@ -16,7 +16,7 @@ import view.Customizable;
  */
 
 @SuppressWarnings("serial")
-public class TileTableModel extends GameTableModel {
+public class TileTableModel extends MultipleTableModel {
 
     public TileTableModel () {
         String[] names = { "Name", "Graphic", "Move Cost", "StatsModifiers" };
