@@ -68,5 +68,8 @@ public abstract class GameTableModel extends AbstractTableModel {
 
     // defines the default "new object"
     public abstract Object[] getNew ();
+    
+    public abstract void loadObject (Object object);
 
+    public abstract Object getObject ();
 }

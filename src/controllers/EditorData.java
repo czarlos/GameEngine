@@ -7,8 +7,7 @@ import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import dialog.dialogs.tableModels.MultipleTableModel;
-import dialog.dialogs.tableModels.SingleTableModel;
+import dialog.dialogs.tableModels.GameTableModel;
 import parser.JSONParser;
 import view.Customizable;
 
@@ -77,19 +76,19 @@ public class EditorData {
         return (Customizable) myDataMap.get(type).get(ID);
     }
 
-    public MultipleTableModel getMultipleTable (String type) {
-        MultipleTableModel mtm = (MultipleTableModel) myTableFactory.makeTableModel(type);
-        mtm.addObjects(myDataMap.get(type));
-        return mtm;
+    public GameTableModel getTableModel (String type) {
+        GameTableModel gtm = myTableFactory.makeTableModel(type);
+        gtm.loadObject(myDataMap.get(type));
+        return gtm;
     }
 
-    public SingleTableModel getSingleTableModel (String type, Object toEdit) {
-        SingleTableModel stm = (SingleTableModel) myTableFactory.makeTableModel(type);
-        stm.loadObject(toEdit);
-        return stm;
+    public GameTableModel getTableModel (String type, Object toEdit) {
+        GameTableModel gtm = myTableFactory.makeTableModel(type);
+        gtm.loadObject(toEdit);
+        return gtm;
     }
 
-    public void setData (MultipleTableModel gtm) {
-        myDataMap.put(gtm.getName(), gtm.getObjects());
+    public void setData (GameTableModel gtm) {
+        myDataMap.put(gtm.getName(), (List<?>) gtm.getObject());
     }
 }

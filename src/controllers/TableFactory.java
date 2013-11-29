@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import dialog.dialogs.tableModels.GameTableModel;
 import dialog.dialogs.tableModels.MasterStatsTableModel;
-import dialog.dialogs.tableModels.MultipleTableModel;
 import dialog.dialogs.tableModels.StatsTableModel;
 import dialog.dialogs.tableModels.TileTableModel;
 

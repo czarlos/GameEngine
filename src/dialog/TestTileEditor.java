@@ -12,7 +12,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import dialog.dialogs.TableDialog;
-import dialog.dialogs.tableModels.MultipleTableModel;
+import dialog.dialogs.tableModels.GameTableModel;
 import dialog.dialogs.tableModels.TeamTableModel;
 import stage.WinCondition;
 import team.Team;
@@ -42,11 +42,11 @@ public class TestTileEditor {
         JFrame frame = new JFrame("Unit Editor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        MultipleTableModel model = new TeamTableModel();
+        GameTableModel model = new TeamTableModel();
 
         List<Customizable> tilesReadIn = makeTestLists();
 
-        model.addObjects(tilesReadIn);
+        model.loadObject(tilesReadIn);
 
         Container content = frame.getContentPane();
         // Creates a new container

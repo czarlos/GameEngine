@@ -26,6 +26,10 @@ public abstract class Condition {
     public void setData (Map<String, String> data) {
         myData = data;
     }
+    
+    public void addData(String key, String data){
+        myData.put(key, data);
+    }
 
     @JsonIgnore
     public List<String> getNeededData () {

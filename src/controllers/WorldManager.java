@@ -17,8 +17,6 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import dialog.dialogs.tableModels.GameTableModel;
-import dialog.dialogs.tableModels.MultipleTableModel;
-import dialog.dialogs.tableModels.SingleTableModel;
 import dialog.dialogs.tableModels.TeamTableModel;
 import gameObject.action.Action;
 import gameObject.item.Item;
@@ -52,18 +50,18 @@ public class WorldManager extends Manager {
         myMasterActionList = new ArrayList<>();
     }
 
-    public MultipleTableModel getMultipleTableModel (String type) {
-        return myEditorData.getMultipleTable(type);
+    public GameTableModel getTableModel (String type) {
+        return myEditorData.getTableModel(type);
     }
 
     public GameTableModel getTeamTableModel () {
         TeamTableModel gtm = new TeamTableModel();
-        gtm.addObjects(myActiveStage.getTeams());
+        gtm.loadObject(myActiveStage.getTeams());
         return gtm;
     }
 
-    public void setTeams (MultipleTableModel mtm) {
-        List<Team> list = (List<Team>) mtm.getObjects();
+    public void setTeams (GameTableModel gtm) {
+        List<Team> list = (List<Team>) gtm.getObject();
         List<String> names = myActiveStage.getTeamNames();
 
         // adjusting unit affiliation strings for renamed teams
@@ -87,7 +85,7 @@ public class WorldManager extends Manager {
 
     }
 
-    public void setData (MultipleTableModel gtm) {
+    public void setData (GameTableModel gtm) {
         myEditorData.setData(gtm);
     }
 
@@ -247,12 +245,12 @@ public class WorldManager extends Manager {
     @JsonIgnore
     public GameTableModel getMasterStatsTable () {
         return myEditorData
-                .getSingleTableModel(GridConstants.MASTERSTATS, myMasterStats.getStats());
+                .getTableModel(GridConstants.MASTERSTATS, myMasterStats.getStats());
     }
 
     @JsonIgnore
-    public void setMasterStats (SingleTableModel stm) {
-        myMasterStats.setStats((HashMap<String, Integer>) stm.getObject());
+    public void setMasterStats (GameTableModel gtm) {
+        myMasterStats.setStats((HashMap<String, Integer>) gtm.getObject());
         syncStats();
     }
 

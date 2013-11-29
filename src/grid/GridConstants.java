@@ -10,7 +10,7 @@ public class GridConstants {
     public static final String[] DEFAULTTYPES = { TILE, GAMEUNIT, GAMEOBJECT, ITEM };
 
     public static final String STATS = "Stats";
-
     public static final String MASTERSTATS = "Master Stats";
     public static final String TEAM = "Team";
+    public static final String CONDITION = "Condition";
 }

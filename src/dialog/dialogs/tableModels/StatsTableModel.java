@@ -7,7 +7,7 @@ import java.util.Map;
 
 
 @SuppressWarnings("serial")
-public class StatsTableModel extends SingleTableModel {
+public class StatsTableModel extends GameTableModel {
 
     public StatsTableModel () {
         super();

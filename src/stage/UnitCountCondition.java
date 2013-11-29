@@ -30,4 +30,9 @@ public class UnitCountCondition extends Condition {
             return Integer.parseInt("count") > theTeam.size();
         }
     }
+
+    @Override
+    public String toString () {
+        return "Unit Count Condition"; 
+    }
 }

@@ -1,34 +1,31 @@
 package dialog.editors;
 
-import gameObject.Stats;
 import javax.swing.JTable;
 import dialog.dialogs.TableDialog;
-import dialog.dialogs.tableModels.StatsTableModel;
+import dialog.dialogs.tableModels.GameTableModel;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.util.HashMap;
 
 
 @SuppressWarnings("serial")
-public class StatsEditor extends GameCellEditor {
+public class ModelEditor extends GameCellEditor {
 
-    StatsTableModel model;
+    GameTableModel myModel;
     TableDialog statsEditor;
 
-    public StatsEditor () {
-        model = new StatsTableModel();
+    public ModelEditor (GameTableModel stm) {
+        myModel = stm;
     }
 
     // opens and closes editor
-    @SuppressWarnings("unchecked")
     public void actionPerformed (ActionEvent e) {
 
         if (EDIT.equals(e.getActionCommand())) {
-            statsEditor = new TableDialog(model, this);
+            statsEditor = new TableDialog(myModel, this);
             statsEditor.setVisible(true);
         }
         else {
-            current = model.getObject();
+            current = myModel.getObject();
             statsEditor.setVisible(false);
             fireEditingStopped();
         }
@@ -40,7 +37,7 @@ public class StatsEditor extends GameCellEditor {
                                                   int row,
                                                   int column) {
         current = value;
-        model.loadObject((Stats) value);
+        myModel.loadObject(value);
         return button;
     }
 }

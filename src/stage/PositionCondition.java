@@ -35,4 +35,9 @@ public class PositionCondition extends Condition {
 
         return false;
     }
+
+    @Override
+    public String toString () {
+        return "Position Condition";
+    }
 }

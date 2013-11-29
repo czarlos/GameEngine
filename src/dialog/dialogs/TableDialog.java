@@ -7,15 +7,21 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import stage.Condition;
+import stage.WinCondition;
+import dialog.dialogs.tableModels.ConditionTableModel;
+import dialog.dialogs.tableModels.ConditionsTableModel;
 import dialog.dialogs.tableModels.GameTableModel;
+import dialog.dialogs.tableModels.StatsTableModel;
+import dialog.dialogs.tableModels.WinConditionTableModel;
 import dialog.editors.ImagePathEditor;
-import dialog.editors.StatsEditor;
-import dialog.renderers.StatsRenderer;
+import dialog.editors.ModelEditor;
 import dialog.renderers.ImageRenderer;
 
 
@@ -74,10 +80,10 @@ public class TableDialog extends JDialog {
         table.setDefaultEditor(File.class,
                                new ImagePathEditor());
         table.setDefaultEditor(Stats.class,
-                               new StatsEditor());
-        table.setDefaultRenderer(Stats.class,
-                                 new StatsRenderer());
-
+                               new ModelEditor(new StatsTableModel()));
+        table.setDefaultEditor(WinCondition.class, new ModelEditor(new WinConditionTableModel()));
+        table.setDefaultEditor(new ArrayList<Condition>().getClass(), new ModelEditor(new ConditionsTableModel()));
+        table.setDefaultEditor(Condition.class, new ModelEditor(new ConditionTableModel()));
     }
 
     private class AddNewListener implements ActionListener {

@@ -29,4 +29,9 @@ public class StatCondition extends Condition {
         return false;
     }
 
+    @Override
+    public String toString () {
+        return "Stat Condition";
+    }
+
 }

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings("serial")
-public abstract class HashTableModel extends SingleTableModel {
+public abstract class HashTableModel extends GameTableModel {
 
     @SuppressWarnings("rawtypes")
     public void loadObject (Object hashMap) {

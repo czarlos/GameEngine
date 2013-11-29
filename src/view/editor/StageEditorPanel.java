@@ -17,7 +17,7 @@ import javax.swing.ScrollPaneLayout;
 import javax.swing.WindowConstants;
 import controllers.WorldManager;
 import dialog.dialogs.TableDialog;
-import dialog.dialogs.tableModels.MultipleTableModel;
+import dialog.dialogs.tableModels.GameTableModel;
 
 
 public class StageEditorPanel extends JTabbedPane {
@@ -123,8 +123,8 @@ public class StageEditorPanel extends JTabbedPane {
 
         @Override
         public void actionPerformed (ActionEvent e) {
-            MultipleTableModel mtm = myWM.getMultipleTableModel(myType);
-            myTableDialog = new TableDialog(mtm, new DialogListener(myWM, mtm, myPanel, myType));
+            GameTableModel gtm = myWM.getTableModel(myType);
+            myTableDialog = new TableDialog(gtm, new DialogListener(myWM, gtm, myPanel, myType));
 
             myTableDialog.setVisible(true);
             myTableDialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
@@ -133,23 +133,23 @@ public class StageEditorPanel extends JTabbedPane {
 
     class DialogListener implements ActionListener {
         private WorldManager myWM;
-        private MultipleTableModel myMTM;
+        private GameTableModel myGTM;
         private StageEditorPanel myPanel;
         private String myType;
 
         public DialogListener (WorldManager wm,
-                               MultipleTableModel mtm,
+                               GameTableModel gtm,
                                StageEditorPanel panel,
                                String type) {
             myWM = wm;
-            myMTM = mtm;
+            myGTM = gtm;
             myPanel = panel;
             myType = type;
         }
 
         @Override
         public void actionPerformed (ActionEvent e) {
-            myWM.setData(myMTM);
+            myWM.setData(myGTM);
             myPanel.refreshTab(myType);
             myTableDialog.setVisible(false);
         }

@@ -20,4 +20,9 @@ public class TurnCondition extends Condition {
         return false;
     }
 
+    @Override
+    public String toString () {
+        return "Turn Condition";
+    }
+
 }

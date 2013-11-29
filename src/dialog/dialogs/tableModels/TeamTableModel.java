@@ -9,7 +9,7 @@ import team.Team;
 
 
 @SuppressWarnings("serial")
-public class TeamTableModel extends MultipleTableModel {
+public class TeamTableModel extends GameTableModel {
 
     public TeamTableModel () {
         String[] names = { "Name", "Graphic", "Gold", "Win Conditions", "Human?" };
@@ -18,7 +18,9 @@ public class TeamTableModel extends MultipleTableModel {
     }
 
     @Override
-    public void addObjects (List<?> list) {
+    public void loadObject (Object object) {
+        myList.clear();
+        List<Team> list = (List<Team>) object;
         for (int i = 0; i < list.size(); i++) {
 
             Object[] array = new Object[myColumnNames.length + 1];
@@ -39,7 +41,7 @@ public class TeamTableModel extends MultipleTableModel {
     }
 
     @Override
-    public List<?> getObjects () {
+    public List<?> getObject () {
         List<Team> ret = new ArrayList<Team>();
         for (Object[] row : myList) {
             Team t = new Team();
