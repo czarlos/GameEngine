@@ -38,7 +38,6 @@ public class EnumTableModel extends GameTableModel {
         }
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Object getObject () {
         List<String> ret = new ArrayList<String>();

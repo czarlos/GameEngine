@@ -1,9 +1,7 @@
 package gameObject.item;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -62,6 +60,10 @@ public class Item extends Customizable {
         myActions = actions;
     }
 
+    public void setActionNames (List<String> actionNames) {
+        // map these names to masteractions, guaranteed to be on the list.
+    }
+    
     @JsonIgnore
     public int getStat (String statName) {
         if (myStats.getStats().containsKey(statName))

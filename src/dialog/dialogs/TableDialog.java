@@ -24,7 +24,6 @@ import stage.TurnCondition;
 import stage.UnitCountCondition;
 import stage.WinCondition;
 import dialog.dialogs.tableModels.ComboString;
-import dialog.dialogs.tableModels.ConditionsTableModel;
 import dialog.dialogs.tableModels.EnumTableModel;
 import dialog.dialogs.tableModels.GameTableModel;
 import dialog.dialogs.tableModels.MapTableModel;
@@ -98,11 +97,9 @@ public class TableDialog extends JDialog {
         table.setDefaultEditor(Stats.class,
                                new ModelEditor(new StatsTableModel()));
         table.setDefaultEditor(WinCondition.class, new ModelEditor(new WinConditionTableModel()));
-        table.setDefaultEditor(new ArrayList<Condition>().getClass(),
-                               new ModelEditor(new ConditionsTableModel()));
         table.setDefaultEditor(Condition.class, new DefaultCellEditor(getConditionComboBox()));
         table.setDefaultEditor(HashMap.class, new ModelEditor(new MapTableModel()));
-        table.setDefaultEditor(ArrayList.class, new ModelEditor(new EnumTableModel()));
+        table.setDefaultEditor(ArrayList.class, new ModelEditor(new EnumTableModel(), myEnumList));
         table.setDefaultEditor(ComboString.class, new DefaultCellEditor(getComboBox()));
     }
 
