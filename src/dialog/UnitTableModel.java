@@ -85,12 +85,6 @@ public class UnitTableModel extends MultipleTableModel {
     }
 
     @Override
-    public void addPreviouslyDefined (List<Customizable> list) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public List<Customizable> getObjects () {
         // TODO Auto-generated method stub
         return null;
@@ -100,6 +94,12 @@ public class UnitTableModel extends MultipleTableModel {
     public Object[] getNew () {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public void addObjects (List<?> list) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

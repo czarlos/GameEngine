@@ -6,12 +6,12 @@ import grid.Tile;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import view.Customizable;
 
 
 /**
  * 
  * @author brooksmershon
+ * @author Leevi
  * 
  */
 
@@ -24,7 +24,7 @@ public class TileTableModel extends MultipleTableModel {
         setColumnNames(names);
     }
 
-    public void addPreviouslyDefined (List<Customizable> tiles) {
+    public void addObjects (List<?> tiles) {
 
         for (Object tile : tiles) {
             Object[] array = new Object[myColumnNames.length];
@@ -40,13 +40,13 @@ public class TileTableModel extends MultipleTableModel {
         }
     }
 
-    public List<Customizable> getObjects () {
+    public List<?> getObjects () {
 
-        List<Customizable> list = new ArrayList<Customizable>();
+        List<Tile> list = new ArrayList<Tile>();
         for (Object[] row : myList) {
             Tile t = new Tile();
             t.setName((String) row[0]);
-            t.setImageAndPath((String) ((File) row[1]).getPath());
+            t.setImagePath((String) ((File) row[1]).getPath());
             t.setMoveCost((int) row[2]);
             t.setStats((Stats) row[3]);
             list.add(t);

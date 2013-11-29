@@ -224,8 +224,12 @@ public class EditorFrame extends GameView {
         gamePrefs.add(setMaster);
 
         // TODO: get this to call myWM.getMasterStatsTable() and myWM.setMasterStats(GameTableModel)
-        // same as other dialogs (there might be some more like this later?)
+        // alternatively you can make some fancy button for this, haha.
 
+        JMenuItem setTeams = new JMenuItem("Configure Teams");
+        gamePrefs.add(setTeams);
+        
+        // TODO: call myWM.getTeamTableModel() and myWM.setTeams(MultipleTableModel mtm);
         myMenuBar.add(stageMenu, 2);
         myMenuBar.add(gamePrefs, 2);
     }

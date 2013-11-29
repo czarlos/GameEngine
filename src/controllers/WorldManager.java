@@ -10,9 +10,8 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import stage.Condition;
 import stage.Stage;
+import team.Team;
 import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import dialog.dialogs.tableModels.GameTableModel;
 import dialog.dialogs.tableModels.MultipleTableModel;
 import dialog.dialogs.tableModels.SingleTableModel;
+import dialog.dialogs.tableModels.TeamTableModel;
 import gameObject.item.Item;
 
 
@@ -54,8 +54,35 @@ public class WorldManager extends Manager {
         return myEditorData.getMultipleTable(type);
     }
 
-    public void addTeam (String teamName, boolean humanity) {
-        myActiveStage.addTeam(teamName, humanity);
+    public GameTableModel getTeamTableModel () {
+        TeamTableModel gtm = new TeamTableModel();
+        gtm.addObjects(myActiveStage.getTeams());
+        return gtm;
+    }
+
+    public void setTeams (MultipleTableModel mtm) {
+        List<Team> list = (List<Team>) mtm.getObjects();
+        List<String> names = myActiveStage.getTeamNames();
+
+        // adjusting unit affiliation strings for renamed teams
+        for (Team t : list) {
+            String prevName = names.get(t.getLastEditingID());
+            if (!t.getName().equals(prevName)) {
+                myActiveStage.setTeamName(t.getLastEditingID(), t.getName());
+            }
+            names.remove(prevName);
+        }
+
+        // units on deleted teams get their affiliation set to the first team.
+        List<String> fullList = myActiveStage.getTeamNames();
+
+        for (String s : names) {
+            myActiveStage.setTeamName(fullList.indexOf(s), list.get(0).getName());
+        }
+
+        // replace all the teams with list
+        myActiveStage.setTeams(list);
+
     }
 
     public void setData (MultipleTableModel gtm) {
@@ -186,96 +213,101 @@ public class WorldManager extends Manager {
         return myList.get(ID).getImage();
     }
 
-    /**
-     * Takes a data type and ID and returns a list of required data that needs to be passed in to
+    /*    *//**
+     * Takes a data type and ID and returns a list of required data that needs to be passed in
+     * to
      * create/edit one of those objects
      * 
      * @param ID of object
      * @param data type (i.e. "Condition"
      * @return list of data that needs to be passed into "set" to create object.
      */
-    public List<String> getNeededConditionData (int ID) {
-        Condition c = (Condition) myEditorData.get("Condition").get(ID);
-        return c.getNeededData();
-    }
-
-    /**
+    /*
+     * public List<String> getNeededConditionData (int ID) {
+     * Condition c = (Condition) myEditorData.get("Condition").get(ID);
+     * return c.getNeededData();
+     * }
+     *//**
      * When you make a Condition (and maybe all generic things in the future?) pass in the ID and
      * the data needed in map format.
      * 
      * @param ConditionID
      * @param Map of NeededData mapped to what the user types in
      */
-    public void setCondition (int teamID, int ConditionID, Map<String, String> data) {
-        Condition c = (Condition) myEditorData.get("Condition").get(ConditionID);
-        c.setData(data);
-        myActiveStage.getTeam(teamID).addCondition(c);
-    }
-    
+    /*
+     * public void setCondition (int teamID, int ConditionID, Map<String, String> data) {
+     * Condition c = (Condition) myEditorData.get("Condition").get(ConditionID);
+     * c.setData(data);
+     * myActiveStage.getTeam(teamID).addCondition(c);
+     * }
+     */
+
     @JsonIgnore
-    public GameTableModel getMasterStatsTable() {
-        return myEditorData.getSingleTableModel(GridConstants.MASTERSTATS, myMasterStats.getStats());
+    public GameTableModel getMasterStatsTable () {
+        return myEditorData
+                .getSingleTableModel(GridConstants.MASTERSTATS, myMasterStats.getStats());
     }
-    
+
     @JsonIgnore
-    public void setMasterStats(SingleTableModel stm){
-        myMasterStats.setStats((HashMap) stm.getObject());
+    public void setMasterStats (SingleTableModel stm) {
+        myMasterStats.setStats((HashMap<String, Integer>) stm.getObject());
         updateStats();
     }
 
-
-/*    *//**
+    /*    *//**
      * Gets the stat value in the master stat list for the given stat
      * 
      * @param statName - Name of the stat to get the value for
      * @return The value of the stat for the stat name passed in
-     *//*
-    public int getStatValue (String statName) {
-        return myMasterStats.getStatValue(statName);
-    }
-    
-    public List<String> getMasterStatNames(){
-        return myMasterStats.getStatNames();
-    }
-
-    *//**
-     * Adds a new stat to the game by adding to the master stat list. Calls the update method, which
+     */
+    /*
+     * public int getStatValue (String statName) {
+     * return myMasterStats.getStatValue(statName);
+     * }
+     * 
+     * public List<String> getMasterStatNames(){
+     * return myMasterStats.getStatNames();
+     * }
+     *//**
+     * Adds a new stat to the game by adding to the master stat list. Calls the update method,
+     * which
      * adds the stat to the stats list of all units placed and unit definitions
      * 
      * @param statName - Name of the stat to be added
      * @param statValue - Default value of the stat to be added
-     *//*
-    public void addStat (String statName, int statValue) {
-        if (!myMasterStats.getStatNames().contains(statName)) {
-            myMasterStats.setStatValue(statName, statValue);
-            updateStats();
-        }
-    }
-
-    *//**
+     */
+    /*
+     * public void addStat (String statName, int statValue) {
+     * if (!myMasterStats.getStatNames().contains(statName)) {
+     * myMasterStats.setStatValue(statName, statValue);
+     * updateStats();
+     * }
+     * }
+     *//**
      * Removes a stat from the master stat list. Calls the update method, which removes the stat
      * from the stats list of all units placed and unit definitions
      * 
      * @param statName - Name of the stat to be removed
-     *//*
-    public void removeStat (String statName) {
-        myMasterStats.remove(statName);
-        updateStats();
-    }
-
-    *//**
+     */
+    /*
+     * public void removeStat (String statName) {
+     * myMasterStats.remove(statName);
+     * updateStats();
+     * }
+     *//**
      * Modifies a stat in the master stat list. Does not update that value in the stats list of
      * placed units and unit definitions
      * 
      * @param statName - Name of the stat to be modified
      * @param statValue - Value to update the stat to
-     *//*
-    public void modifyStat (String statName, int statValue) {
-        if (myMasterStats.getStatNames().contains(statName)) {
-            myMasterStats.modExisting(statName, statValue);
-        }
-    }
-*/
+     */
+    /*
+     * public void modifyStat (String statName, int statValue) {
+     * if (myMasterStats.getStatNames().contains(statName)) {
+     * myMasterStats.modExisting(statName, statValue);
+     * }
+     * }
+     */
     /**
      * Calls update method for all stats of all placed units and unit definitions. If there are new
      * stats in the master stats list, adds that stat to the stats of all placed units and unit
@@ -284,10 +316,10 @@ public class WorldManager extends Manager {
      * and unit definitions
      */
     public void updateStats () {
-        List<Customizable> editorUnitList = myEditorData.get("GameUnit");
+        List<?> editorUnitList = myEditorData.get(GridConstants.GAMEUNIT);
         GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
 
-        for (Customizable unit : editorUnitList) {
+        for (Object unit : editorUnitList) {
             ((GameUnit) unit).getStats().updateFromMaster();
         }
 
