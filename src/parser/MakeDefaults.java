@@ -25,7 +25,7 @@ public class MakeDefaults {
         p = new JSONParser();
 
         defaultStats = new Stats();
-        defaultStats.updateFromMaster();
+        defaultStats.syncWithMaster();
         defaultAction = new CombatAction();
         defaultAction.setName("Attack");
 
@@ -40,7 +40,7 @@ public class MakeDefaults {
         java.util.ArrayList<grid.Tile> list = new java.util.ArrayList<grid.Tile>();
         List<String> passableList = new ArrayList<>();
         defaultStats = new Stats();
-        defaultStats.updateFromMaster();
+        defaultStats.syncWithMaster();
 
         passableList.add(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
 

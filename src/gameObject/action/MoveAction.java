@@ -5,10 +5,10 @@ import gameObject.GameUnit;
 
 
 public class MoveAction extends Action {
-    public final static String NAME = "MoveAction";
+    public final static String MOVE_NAME = "MoveAction";
 
     public MoveAction () {
-        super.setName(NAME);
+        super.setName(MOVE_NAME);
     }
 
     @Override

@@ -246,4 +246,25 @@ public class GameUnit extends GameObject {
         return myItems;
     }
 
+    public void syncActionsWithMaster (List<Action> masterActionList) {
+        for (Item item : myItems) {
+            List<String> masterActionNames = new ArrayList<>();
+
+            for (Action action : masterActionList) {
+                masterActionNames.add(action.getName());
+            }
+
+            for (int i = 0; i < item.getActionNames().size(); i++) {
+                int masterIndex = masterActionNames.indexOf(item.getActionNames().get(i));
+
+                if (masterIndex == -1) {
+                    item.removeAction(i);
+                    i--;
+                }
+                else {
+                    item.addAction(i, masterActionList.get(masterIndex));
+                }
+            }
+        }
+    }
 }

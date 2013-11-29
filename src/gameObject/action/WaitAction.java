@@ -5,10 +5,10 @@ import gameObject.GameUnit;
 
 
 public class WaitAction extends Action {
-    public final static String NAME = "WaitAction";
+    public final static String WAIT_NAME = "WaitAction";
 
     public WaitAction () {
-        super.setName(NAME);
+        super.setName(WAIT_NAME);
     }
 
     @Override

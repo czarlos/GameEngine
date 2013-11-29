@@ -8,6 +8,7 @@ import grid.GridConstants;
 import grid.Tile;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import stage.Condition;
@@ -15,6 +16,7 @@ import stage.Stage;
 import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import dialog.GameTableModel;
+import gameObject.action.Action;
 import gameObject.item.Item;
 
 
@@ -30,6 +32,7 @@ public class WorldManager extends Manager {
     private String[] activeEditTypeList;
     private int[] activeEditIDList;
     private MasterStats myMasterStatMap;
+    private List<Action> myMasterActionList;
 
     /**
      * Intermediary between views and EditorData and Grid, stores List of Stages
@@ -38,10 +41,10 @@ public class WorldManager extends Manager {
      */
     public WorldManager () {
         super();
-
         activeEditTypeList = new String[4];
         activeEditIDList = new int[4];
         myMasterStatMap = MasterStats.getInstance();
+        myMasterActionList = new ArrayList<>();
     }
 
     public GameTableModel getViewModel (String type) {
@@ -226,7 +229,7 @@ public class WorldManager extends Manager {
     public void addStat (String statName, int statValue) {
         if (!myMasterStatMap.getStatNames().contains(statName)) {
             myMasterStatMap.setStatValue(statName, statValue);
-            updateStats();
+            syncStats();
         }
     }
 
@@ -238,7 +241,7 @@ public class WorldManager extends Manager {
      */
     public void removeStat (String statName) {
         myMasterStatMap.remove(statName);
-        updateStats();
+        syncStats();
     }
 
     /**
@@ -261,18 +264,68 @@ public class WorldManager extends Manager {
      * not in the master stats list, then it removes that stat from all stats lists of placed units
      * and unit definitions
      */
-    public void updateStats () {
+    public void syncStats () {
         List<Customizable> editorUnitList = myEditorData.get("GameUnit");
         GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
 
         for (Customizable unit : editorUnitList) {
-            ((GameUnit) unit).getStats().updateFromMaster();
+            ((GameUnit) unit).getStats().syncWithMaster();
         }
 
         for (int i = 0; i < placedUnits.length; i++) {
             for (int j = 0; j < placedUnits[i].length; j++) {
                 if (placedUnits[i][j] != null) {
-                    placedUnits[i][j].getStats().updateFromMaster();
+                    placedUnits[i][j].getStats().syncWithMaster();
+                }
+            }
+        }
+    }
+
+    public void addAction (Action newAction) {
+        myMasterActionList.add(newAction);
+    }
+
+    // TODO: Should pass in String, action, or ID as parameter? Should we remove this action from
+    // all units and/or weapons/items? If so, what do we do with weapons/items with no actions?
+    public void removeAction (String actionName) {
+        for (int i = 0; i < myMasterActionList.size(); i++) {
+            if (myMasterActionList.get(i).getName().equals(actionName)) {
+                myMasterActionList.remove(i);
+            }
+        }
+
+        syncActions();
+    }
+
+    // TODO: Make this a generic method to get the type of action to modify. How do we want to
+    // modify an action (e.g. what variables would we want to edit)?
+    public void modifyAction (Action modAction) {
+        for (int i = 0; i < myMasterActionList.size(); i++) {
+            if (myMasterActionList.get(i).getName().equals(modAction.getName())) {
+                myMasterActionList.set(i, modAction);
+            }
+        }
+
+        syncActions();
+    }
+
+    // TODO
+    private void syncActions () {
+        List<Customizable> editorUnitList = myEditorData.get("GameUnit");
+        GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
+
+        for (Customizable unit : editorUnitList) {
+            for (Item item : ((GameUnit) unit).getItems()) {
+                item.syncActionsWithMaster(myMasterActionList);
+            }
+        }
+
+        for (int i = 0; i < placedUnits.length; i++) {
+            for (int j = 0; j < placedUnits[i].length; j++) {
+                if (placedUnits[i][j] != null) {
+                    for (Item item : placedUnits[i][j].getItems()) {
+                        item.syncActionsWithMaster(myMasterActionList);
+                    }
                 }
             }
         }
