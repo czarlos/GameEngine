@@ -12,6 +12,9 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import dialog.dialogs.TableDialog;
+import dialog.dialogs.tableModels.GameTableModel;
+import dialog.dialogs.tableModels.TileTableModel;
 import parser.JSONParser;
 import view.Customizable;
 

@@ -1,8 +1,7 @@
-package dialog;
+package dialog.renderers;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
@@ -13,7 +12,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
 
 
 /**
@@ -21,13 +19,10 @@ import javax.swing.table.TableCellRenderer;
  * 
  *         Allows for an image thumbnail to be rendered as a cell in a JTable
  */
-public class ThumbnailRenderer extends DefaultTableCellRenderer {
+@SuppressWarnings("serial")
+public class ImageRenderer extends DefaultTableCellRenderer {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -4561316688532828835L;
-    private static final int DEFAULT_WIDTH = 52;;
+    private static final int DEFAULT_WIDTH = 52;
     private static final int DEFAULT_HEIGHT = DEFAULT_WIDTH;
 
     public Component getTableCellRendererComponent (JTable table, Object value, boolean isSelected,
@@ -35,7 +30,6 @@ public class ThumbnailRenderer extends DefaultTableCellRenderer {
         Component cell =
                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row,
                                                     column);
-
         ImageIcon image;
 
         if (value instanceof File) {

@@ -1,9 +1,10 @@
 package controllers;
 
+import grid.GridConstants;
 import java.util.HashMap;
 import java.util.Map;
-import dialog.GameTableModel;
-import dialog.TileTableModel;
+import dialog.dialogs.tableModels.GameTableModel;
+import dialog.dialogs.tableModels.TileTableModel;
 
 
 public class TableFactory {
@@ -16,7 +17,7 @@ public class TableFactory {
 
     public void refreshTables () {
         masterTableMap = new HashMap<String, GameTableModel>();
-        masterTableMap.put("Tile", new TileTableModel());
+        masterTableMap.put(GridConstants.TILE, new TileTableModel());
     }
 
     public GameTableModel makeTableModel (String s) {

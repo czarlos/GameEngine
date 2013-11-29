@@ -15,7 +15,7 @@ import stage.Condition;
 import stage.Stage;
 import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import dialog.GameTableModel;
+import dialog.dialogs.tableModels.GameTableModel;
 import gameObject.action.Action;
 import gameObject.item.Item;
 

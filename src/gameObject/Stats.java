@@ -102,10 +102,10 @@ public class Stats {
      * 
      * @param myStatMap - The map of stats to set to
      */
-    public void setStats (Map<String, Integer> myStatMap) {
+    public void setStats (Map<String, Integer> statMap) {
         Map<String, Integer> newStats = new HashMap<>();
-        for (String statName : myStatMap.keySet()) {
-            newStats.put(statName, myStatMap.get(statName));
+        for (String statName : statMap.keySet()) {
+            newStats.put(statName, statMap.get(statName));
         }
         myStatMap = newStats;
     }

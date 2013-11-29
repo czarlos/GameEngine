@@ -1,12 +1,11 @@
-package dialog;
+package dialog.dialogs.tableModels;
 
 import gameObject.Stats;
+import grid.GridConstants;
 import grid.Tile;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import javax.swing.ImageIcon;
 import view.Customizable;
 
 
@@ -16,11 +15,12 @@ import view.Customizable;
  * 
  */
 
+@SuppressWarnings("serial")
 public class TileTableModel extends GameTableModel {
 
     public TileTableModel () {
         String[] names = { "Name", "Graphic", "Move Cost", "StatsModifiers" };
-        myName = "Tile";
+        myName = GridConstants.TILE;
         setColumnNames(names);
     }
 
@@ -37,7 +37,6 @@ public class TileTableModel extends GameTableModel {
             array[3] = t.getStats();
 
             addNewRow(array);
-
         }
     }
 
@@ -59,7 +58,17 @@ public class TileTableModel extends GameTableModel {
     @Override
     public boolean isCellEditable (int row, int column) {
         return true;
-
     }
 
+    @Override
+    public Object[] getNew () {
+        Object[] array = new Object[myColumnNames.length];
+
+        array[0] = "New Tile";
+        array[1] = new File("resources/grass.png");
+        array[2] = 1;
+        array[3] = new Stats();
+
+        return array;
+    }
 }
