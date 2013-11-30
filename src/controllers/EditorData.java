@@ -1,5 +1,6 @@
 package controllers;
 
+import gameObject.action.Action;
 import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import dialog.dialogs.tableModels.GameTableModel;
 import parser.JSONParser;
+import team.Team;
 import view.Customizable;
 
 
@@ -52,13 +54,17 @@ public class EditorData {
             myDataMap.put(s, list);
         }
 
-        /*
-         * List<Customizable> conditions;
-         * conditions =
-         * myParser.createObject(folderName + "/Condition",
-         * new ArrayList<Condition>().getClass());
-         * myDataMap.put("Condition", conditions);
-         */
+        List<Team> list = new ArrayList<Team>();
+        list =
+                myParser.createObject(folderName + "/" + GridConstants.TEAM,
+                                      new ArrayList<Team>().getClass());
+        myDataMap.put(GridConstants.TEAM, list);
+        
+        List<Action> list2 = new ArrayList<Action>();
+        list2 =
+                myParser.createObject(folderName + "/" + GridConstants.ACTION,
+                                      new ArrayList<Action>().getClass());
+        myDataMap.put(GridConstants.ACTION, list2);
     }
 
     /**

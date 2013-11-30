@@ -19,7 +19,7 @@ import view.Drawable;
  */
 @JsonAutoDetect
 public class GameObject extends Customizable implements Drawable {
-    protected List<String> myPassableList;
+    private List<String> myPassableList;
     protected List<String> myDisplayData;
     protected boolean isActive;
 

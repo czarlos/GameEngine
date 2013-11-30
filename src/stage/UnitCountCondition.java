@@ -16,8 +16,8 @@ public class UnitCountCondition extends Condition {
     public UnitCountCondition () {
         super();
         myData.put("count", "0");
-        myData.put("affiliation", "default");
-        myData.put("greater?", "true");
+        myData.put("affiliation", "enemy");
+        myData.put("greater?", "false");
     }
 
     @Override

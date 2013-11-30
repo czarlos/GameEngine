@@ -17,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import dialog.dialogs.tableModels.GameTableModel;
-import dialog.dialogs.tableModels.TeamTableModel;
 import gameObject.action.Action;
 import gameObject.item.Item;
 
@@ -47,17 +46,16 @@ public class WorldManager extends Manager {
         activeEditTypeList = new String[4];
         activeEditIDList = new int[4];
         myMasterStats = MasterStats.getInstance();
-        myMasterActionList = new ArrayList<>();
     }
 
+    @JsonIgnore
     public GameTableModel getTableModel (String type) {
         return myEditorData.getTableModel(type);
     }
 
-    public GameTableModel getTeamTableModel () {
-        TeamTableModel gtm = new TeamTableModel();
-        gtm.loadObject(myActiveStage.getTeams());
-        return gtm;
+    @JsonIgnore
+    public GameTableModel getTableModel (String type, Object toEdit){
+        return myEditorData.getTableModel(GridConstants.TEAM, myActiveStage.getTeams());
     }
 
     @SuppressWarnings("unchecked")
@@ -90,6 +88,10 @@ public class WorldManager extends Manager {
         myEditorData.setData(gtm);
     }
 
+    public void setActions (GameTableModel gtm){
+        // put all action checking here.
+        myEditorData.setData(gtm);
+    }
     public void setActiveObject (int index, String type, int id) {
         activeEditTypeList[index] = type;
         activeEditIDList[index] = id;
@@ -112,9 +114,11 @@ public class WorldManager extends Manager {
      * @return StageID
      */
 
+    @SuppressWarnings("unchecked")
     public int addStage (int x, int y, int tileID, String name) {
         myStages.add(new Stage(x, y, tileID, name));
         setActiveStage(myStages.size() - 1);
+        myActiveStage.setTeams((List<Team>) myEditorData.get(GridConstants.TEAM));
         return myStages.size() - 1;
     }
 
@@ -158,13 +162,9 @@ public class WorldManager extends Manager {
     }
 
     public void placeUnit (int unitID, int x, int y) {
-        myActiveStage.getGrid().placeObject(new Coordinate(x, y),
-                                            (GameObject) myEditorData
-                                                    .getObject(GridConstants.GAMEUNIT,
-                                                               unitID));
-        myActiveStage.addUnitToTeam(0, myActiveStage.getGrid().getUnit(new Coordinate(x, y)));
-        // TODO: actually implement teams
-
+        GameUnit go = (GameUnit) myEditorData.getObject(GridConstants.GAMEUNIT, unitID);
+        go.setAffiliation(myActiveStage.getTeamNames().get(0));
+        myActiveStage.getGrid().placeObject(new Coordinate(x, y), go);
     }
 
     public void placeObject (int objectID, int x, int y) {
@@ -401,7 +401,7 @@ public class WorldManager extends Manager {
                 }
                 break;
             case GridConstants.ITEM:
-                for (Action a : myMasterActionList) {
+                for (Action a : (List<Action>) myEditorData.get(GridConstants.ACTION)) {
                     ret.add(a.getName());
                 }
                 break;

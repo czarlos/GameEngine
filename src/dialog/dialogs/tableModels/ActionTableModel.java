@@ -1,20 +1,16 @@
 package dialog.dialogs.tableModels;
 
+import gameObject.action.Action;
+import gameObject.action.CombatAction;
 import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * Takes an list of strings and an enum and displays those strings as editable enums.
- * 
- * @author Leevi
- * 
- */
 @SuppressWarnings("serial")
-public class EnumTableModel extends GameTableModel {
+public class ActionTableModel extends GameTableModel {
 
-    public EnumTableModel () {
-        String[] names = { "" };
+    public ActionTableModel () {
+        String[] names = { "Name" };
         myName = "List";
         setColumnNames(names);
     }
@@ -22,29 +18,30 @@ public class EnumTableModel extends GameTableModel {
     @Override
     public Object[] getNew () {
         Object[] ret = new Object[myColumnNames.length];
-        ret[0] = new ComboString("");
+        ret[0] = "New Action";
         return ret;
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public void loadObject (Object object) {
-        myList.clear();
-        List<String> list = (List<String>) object;
-        for (String s : list) {
+        List<Action> list = (List<Action>) object;
+        for (Action a : list) {
             Object[] array = new Object[myColumnNames.length];
-            array[0] = new ComboString(s);
+            array[0] = a.getName();
             addNewRow(array);
         }
     }
 
     @Override
     public Object getObject () {
-        List<String> ret = new ArrayList<String>();
+        List<Action> list = new ArrayList<Action>();
         for (Object[] row : myList) {
-            String comboString = ((ComboString) row[0]).toString();
-            ret.add(comboString);
+            Action a = new CombatAction();
+            a.setName((String) row[0]);
+            list.add(a);
         }
-        return ret;
+        return list;
     }
+
 }

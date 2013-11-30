@@ -1,5 +1,6 @@
 package dialog;
 
+import gameObject.action.Action;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -11,12 +12,10 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import parser.JSONParser;
 import dialog.dialogs.TableDialog;
+import dialog.dialogs.tableModels.ActionTableModel;
 import dialog.dialogs.tableModels.GameTableModel;
-import dialog.dialogs.tableModels.TeamTableModel;
-import stage.WinCondition;
-import team.Team;
-import view.Customizable;
 
 
 /**
@@ -32,7 +31,6 @@ public class TestTileEditor {
                 createGUITester();
             }
         });
-
     }
 
     /**
@@ -42,9 +40,9 @@ public class TestTileEditor {
         JFrame frame = new JFrame("Unit Editor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        GameTableModel model = new TeamTableModel();
+        GameTableModel model = new ActionTableModel();
 
-        List<Customizable> tilesReadIn = makeTestLists();
+        List<?> tilesReadIn = makeTestLists();
 
         model.loadObject(tilesReadIn);
 
@@ -75,16 +73,8 @@ public class TestTileEditor {
         frame.setVisible(true);
     }
 
-    private static List<Customizable> makeTestLists () {
-        List<Customizable> list = new ArrayList<Customizable>();
-        Team t = new Team();
-        t.setName("default");
-        t.setGold(0);
-        t.setWinCondition(new WinCondition());
-        t.setImagePath("resources/grass.png");
-        t.setIsHuman(true);
-        list.add(t);
-        return list;
+    private static List<?> makeTestLists () {
+        JSONParser p = new JSONParser();
+        return p.createObject("defaults/Action", new ArrayList<Action>().getClass());
     }
-
 }

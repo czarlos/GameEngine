@@ -3,6 +3,7 @@ package controllers;
 import grid.GridConstants;
 import java.util.HashMap;
 import java.util.Map;
+import dialog.dialogs.tableModels.ActionTableModel;
 import dialog.dialogs.tableModels.UnitTableModel;
 import dialog.dialogs.tableModels.GameTableModel;
 import dialog.dialogs.tableModels.ItemTableModel;
@@ -28,6 +29,7 @@ public class TableFactory {
         masterTableMap.put(GridConstants.GAMEOBJECT, new ObjectTableModel());
         masterTableMap.put(GridConstants.GAMEUNIT, new UnitTableModel());
         masterTableMap.put(GridConstants.ITEM, new ItemTableModel());
+        masterTableMap.put(GridConstants.ACTION, new ActionTableModel());
     }
 
     public GameTableModel makeTableModel (String type) {

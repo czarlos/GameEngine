@@ -23,7 +23,7 @@ public class ItemTableModel extends GameTableModel {
         ret[0] = "New Item";
         ret[1] = new File("resources/grass.png");
         ret[2] = new Stats();
-        ret[2] = new ArrayList<Action>();
+        ret[3] = new ArrayList<Action>();
 
         return ret;
     }

@@ -24,7 +24,7 @@ public class WinCondition {
 
     public WinCondition () {
         myConditions = new ArrayList<Condition>();
-        conditionsNeeded = 0;
+        conditionsNeeded = 1;
     }
 
     public void setConditionsNeeded (int i) {

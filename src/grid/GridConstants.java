@@ -13,6 +13,7 @@ public class GridConstants {
     public static final String MASTERSTATS = "Master Stats";
     public static final String TEAM = "Team";
     public static final String CONDITION = "Condition";
+    public static final String ACTION = "Action";
 
     public final static String DEFAULT_PASS_EVERYTHING = "everything";
 }

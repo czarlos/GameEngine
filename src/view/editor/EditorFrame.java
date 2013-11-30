@@ -223,13 +223,16 @@ public class EditorFrame extends GameView {
         JMenuItem setMaster = new JMenuItem("Set Master Stets");
         gamePrefs.add(setMaster);
 
-        // TODO: get this to call myWM.getMasterStatsTable() and myWM.setMasterStats(GameTableModel)
+        // TODO: get this to call myWM.getMasterStatsTable() and myWM.setMasterStats(GameTableModel gtm)
         // alternatively you can make some fancy button for this, haha.
 
         JMenuItem setTeams = new JMenuItem("Configure Teams");
         gamePrefs.add(setTeams);
         
-        // TODO: call myWM.getTeamTableModel() and myWM.setTeams(MultipleTableModel mtm);
+        // TODO: call myWM.getTableModel(GridConstants.TEAM) and myWM.setTeams(GameTableModel gtm);
+        
+        // TODO: add an "Edit Actions" button somewhere. Call myWM.getTableModel(GridConstants.ACTION) and myWM.setActions(GameTableModel gtm);
+        
         myMenuBar.add(stageMenu, 2);
         myMenuBar.add(gamePrefs, 2);
     }
