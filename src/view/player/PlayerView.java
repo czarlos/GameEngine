@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.util.concurrent.Semaphore;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,6 +14,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import parser.JSONParser;
+import controllers.GUIBlocker;
 import controllers.GameManager;
 import controllers.WorldManager;
 import view.editor.GameView;
@@ -23,15 +23,13 @@ import view.editor.GameView;
 @SuppressWarnings("serial")
 public class PlayerView extends GameView {
     private GameManager myManager;
-    private Semaphore mySem;
 
+    
     public PlayerView () {
-        mySem = new Semaphore(1);
     }
-
-    public PlayerView (GameManager manager) {
-        myManager = manager;
-        mySem = new Semaphore(1);
+    
+    public PlayerView(GameManager manager){
+        myManager=manager;
     }
 
     @Override
@@ -83,16 +81,18 @@ public class PlayerView extends GameView {
         }
         revalidate();
         repaint();
-        myManager.nextTurn();
-        doTurn();
+        myManager.doTurn();
     }
 
     public void doTurn () {
+        try {
+            GUIBlocker.getSem().acquire();
+        }
+        catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         remove(myBackground);
-        StagePlayerPanel sp = new StagePlayerPanel(myManager, mySem);
-        add(sp);
-        revalidate();
-        repaint();
 
         // try {
         // //mySem.acquire();
@@ -101,6 +101,10 @@ public class PlayerView extends GameView {
         // // TODO Auto-generated catch block
         // e.printStackTrace();
         // }
+        StagePlayerPanel sp = new StagePlayerPanel(myManager);
+        add(sp);
+        revalidate();
+        repaint();
     }
 
     public static void main (String[] args) {

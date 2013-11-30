@@ -38,6 +38,7 @@ public class GameManager extends Manager {
             else {
                 doAITurn();
             }
+           System.out.println("End turn");
         }
 
     }
