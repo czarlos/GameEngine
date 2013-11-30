@@ -217,6 +217,8 @@ public class EditorFrame extends GameView {
         JMenuItem objective = new JMenuItem("Set Objective");
         objective.setAccelerator(KeyStroke.getKeyStroke("control O"));
         stageMenu.add(objective);
+        
+        // TODO: add setPreStory/setPostStory
 
         JMenu gamePrefs = new JMenu("Global Game Prefs");
         stageMenu.setMnemonic(KeyEvent.VK_S);
@@ -231,7 +233,7 @@ public class EditorFrame extends GameView {
         
         // TODO: call myWM.getTableModel(GridConstants.TEAM) and myWM.setTeams(GameTableModel gtm);
         
-        // TODO: add an "Edit Actions" button somewhere. Call myWM.getTableModel(GridConstants.ACTION) and myWM.setActions(GameTableModel gtm);
+        // TODO: add an "Edit Actions" button... somewhere. Call myWM.getTableModel(GridConstants.ACTION) and myWM.setActions(GameTableModel gtm);
         
         myMenuBar.add(stageMenu, 2);
         myMenuBar.add(gamePrefs, 2);

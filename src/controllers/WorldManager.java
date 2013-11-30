@@ -34,8 +34,10 @@ public class WorldManager extends Manager {
     private int[] activeEditIDList;
     @JsonProperty
     private MasterStats myMasterStats;
+    @Deprecated
     private List<Action> myMasterActionList;
-
+    // Use (List<Action>) myEditorData.get(GridConstants.ACTION) for programmatic consistency
+    
     /**
      * Intermediary between views and EditorData and Grid, stores List of Stages
      * 
@@ -57,7 +59,21 @@ public class WorldManager extends Manager {
     public GameTableModel getTableModel (String type, Object toEdit){
         return myEditorData.getTableModel(GridConstants.TEAM, myActiveStage.getTeams());
     }
+    
+    // makes more sense as an arraylist... especially since default values should be 0 anyways.
+    @JsonIgnore
+    public GameTableModel getMasterStatsTable () {
+        return myEditorData
+                .getTableModel(GridConstants.MASTERSTATS, myMasterStats.getStats());
+    }
 
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public void setMasterStats (GameTableModel gtm) {
+        myMasterStats.setStats((HashMap<String, Integer>) gtm.getObject());
+        syncStats();
+    }
+    
     @SuppressWarnings("unchecked")
     public void setTeams (GameTableModel gtm) {
         List<Team> list = (List<Team>) gtm.getObject();
@@ -81,7 +97,6 @@ public class WorldManager extends Manager {
 
         // replace all the teams with list
         myActiveStage.setTeams(list);
-
     }
 
     public void setData (GameTableModel gtm) {
@@ -89,7 +104,7 @@ public class WorldManager extends Manager {
     }
 
     public void setActions (GameTableModel gtm){
-        // put all action checking here.
+        // TODO: put all action checking here.
         myEditorData.setData(gtm);
     }
     public void setActiveObject (int index, String type, int id) {
@@ -216,102 +231,6 @@ public class WorldManager extends Manager {
         return myList.get(ID).getImage();
     }
 
-    /*    *//**
-     * Takes a data type and ID and returns a list of required data that needs to be passed in
-     * to
-     * create/edit one of those objects
-     * 
-     * @param ID of object
-     * @param data type (i.e. "Condition"
-     * @return list of data that needs to be passed into "set" to create object.
-     */
-    /*
-     * public List<String> getNeededConditionData (int ID) {
-     * Condition c = (Condition) myEditorData.get("Condition").get(ID);
-     * return c.getNeededData();
-     * }
-     *//**
-     * When you make a Condition (and maybe all generic things in the future?) pass in the ID and
-     * the data needed in map format.
-     * 
-     * @param ConditionID
-     * @param Map of NeededData mapped to what the user types in
-     */
-    /*
-     * public void setCondition (int teamID, int ConditionID, Map<String, String> data) {
-     * Condition c = (Condition) myEditorData.get("Condition").get(ConditionID);
-     * c.setData(data);
-     * myActiveStage.getTeam(teamID).addCondition(c);
-     * }
-     */
-
-    @JsonIgnore
-    public GameTableModel getMasterStatsTable () {
-        return myEditorData
-                .getTableModel(GridConstants.MASTERSTATS, myMasterStats.getStats());
-    }
-
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public void setMasterStats (GameTableModel gtm) {
-        myMasterStats.setStats((HashMap<String, Integer>) gtm.getObject());
-        syncStats();
-    }
-
-    /*    *//**
-     * Gets the stat value in the master stat list for the given stat
-     * 
-     * @param statName - Name of the stat to get the value for
-     * @return The value of the stat for the stat name passed in
-     */
-    /*
-     * public int getStatValue (String statName) {
-     * return myMasterStats.getStatValue(statName);
-     * }
-     * 
-     * public List<String> getMasterStatNames(){
-     * return myMasterStats.getStatNames();
-     * }
-     *//**
-     * Adds a new stat to the game by adding to the master stat list. Calls the update method,
-     * which
-     * adds the stat to the stats list of all units placed and unit definitions
-     * 
-     * @param statName - Name of the stat to be added
-     * @param statValue - Default value of the stat to be added
-     */
-    /*
-     * public void addStat (String statName, int statValue) {
-     * if (!myMasterStats.getStatNames().contains(statName)) {
-     * myMasterStats.setStatValue(statName, statValue);
-     * updateStats();
-     * }
-     * }
-     *//**
-     * Removes a stat from the master stat list. Calls the update method, which removes the stat
-     * from the stats list of all units placed and unit definitions
-     * 
-     * @param statName - Name of the stat to be removed
-     */
-    /*
-     * public void removeStat (String statName) {
-     * myMasterStats.remove(statName);
-     * updateStats();
-     * }
-     *//**
-     * Modifies a stat in the master stat list. Does not update that value in the stats list of
-     * placed units and unit definitions
-     * 
-     * @param statName - Name of the stat to be modified
-     * @param statValue - Value to update the stat to
-     */
-    /*
-     * public void modifyStat (String statName, int statValue) {
-     * if (myMasterStats.getStatNames().contains(statName)) {
-     * myMasterStats.modExisting(statName, statValue);
-     * }
-     * }
-     */
     /**
      * Calls update method for all stats of all placed units and unit definitions. If there are new
      * stats in the master stats list, adds that stat to the stats of all placed units and unit
@@ -336,12 +255,14 @@ public class WorldManager extends Manager {
         }
     }
 
+    @Deprecated
     public void addAction (Action newAction) {
         myMasterActionList.add(newAction);
     }
 
     // TODO: Should pass in String, action, or ID as parameter? Should we remove this action from
     // all units and/or weapons/items? If so, what do we do with weapons/items with no actions?
+    @Deprecated
     public void removeAction (String actionName) {
         for (int i = 0; i < myMasterActionList.size(); i++) {
             if (myMasterActionList.get(i).getName().equals(actionName)) {
@@ -354,6 +275,7 @@ public class WorldManager extends Manager {
 
     // TODO: Make this a generic method to get the type of action to modify. How do we want to
     // modify an action (e.g. what variables would we want to edit)?
+    @Deprecated
     public void modifyAction (Action modAction) {
         for (int i = 0; i < myMasterActionList.size(); i++) {
             if (myMasterActionList.get(i).getName().equals(modAction.getName())) {
@@ -364,23 +286,19 @@ public class WorldManager extends Manager {
         syncActions();
     }
 
-    // TODO
+ // TODO
     private void syncActions () {
-        List<?> editorUnitList = myEditorData.get(GridConstants.GAMEUNIT);
+        List<Customizable> editorUnitList = (List<Customizable>) myEditorData.get("GameUnit");
         GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
 
-        for (Object unit : editorUnitList) {
-            for (Item item : ((GameUnit) unit).getItems()) {
-                item.syncActionsWithMaster(myMasterActionList);
-            }
+        for (Customizable unit : editorUnitList) {
+            ((GameUnit) unit).syncActionsWithMaster(myMasterActionList);
         }
 
         for (int i = 0; i < placedUnits.length; i++) {
             for (int j = 0; j < placedUnits[i].length; j++) {
                 if (placedUnits[i][j] != null) {
-                    for (Item item : placedUnits[i][j].getItems()) {
-                        item.syncActionsWithMaster(myMasterActionList);
-                    }
+                    placedUnits[i][j].syncActionsWithMaster(myMasterActionList);
                 }
             }
         }
