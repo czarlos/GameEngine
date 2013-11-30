@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.JPanel;
 
-
 public class ImagePanel extends JPanel {
 
     /**
@@ -22,5 +21,4 @@ public class ImagePanel extends JPanel {
     public void paintComponent (Graphics g) {
         g.drawImage(myImage, 15, 5, 35, 35, null);
     }
-
 }

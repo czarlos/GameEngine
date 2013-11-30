@@ -273,6 +273,7 @@ public class WorldManager extends Manager {
         syncActions();
     }
 
+    
     // TODO: Make this a generic method to get the type of action to modify. How do we want to
     // modify an action (e.g. what variables would we want to edit)?
     @Deprecated
@@ -291,7 +292,7 @@ public class WorldManager extends Manager {
         List<Customizable> editorUnitList = (List<Customizable>) myEditorData.get("GameUnit");
         GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
 
-        for (Customizable unit : editorUnitList) {
+        for (Object unit : editorUnitList) {
             ((GameUnit) unit).syncActionsWithMaster(myMasterActionList);
         }
 

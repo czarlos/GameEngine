@@ -86,8 +86,7 @@ public class StageEditorPanel extends JTabbedPane {
         List<String> tileNames = myWorldManager.get(type);
         for (int n = 0; n < tileNames.size(); n++) {
             GameObjectPanel gop =
-                    new GameObjectPanel(type, myWorldManager.getImage(type, n), tileNames.get(n),
-                                        this);
+                    new GameObjectPanel(type, myWorldManager.getImage(type, n), tileNames.get(n), this);
             panel.add(gop);
             sg.addComponent(gop, 50, 50, 50);
             pg.addComponent(gop, 170, 170, 170);
@@ -100,26 +99,31 @@ public class StageEditorPanel extends JTabbedPane {
         return scroll;
     }
 
-    public void changeSelected (GameObjectPanel selected) {
-        if (selectedPanel != null)
-            selectedPanel.deSelect();
-        selectedPanel = selected;
-        myWorldManager.setActiveObject(myID - 1,
-                                       selected.getType(),
-                                       myWorldManager.get(selected.getType())
-                                               .indexOf(selected.getName()));
-    }
-
-    class EditListener implements ActionListener {
-        private WorldManager myWM;
-        private String myType;
-        private StageEditorPanel myPanel;
-
-        public EditListener (WorldManager wm, String type, StageEditorPanel panel) {
-            myWM = wm;
-            myType = type;
-            myPanel = panel;
-        }
+     
+     public void changeSelected(GameObjectPanel selected){
+         if(selected == selectedPanel){
+             selectedPanel.deSelect();
+             myWorldManager.setActiveObject(myID-1, "", -1);
+             return;
+         }
+         if(selectedPanel!=null)
+             selectedPanel.deSelect();
+         selectedPanel = selected;
+         myWorldManager.setActiveObject(myID-1, selected.getType(), 
+                                        myWorldManager.get(selected.getType()).indexOf(selected.getName()));
+     }
+     
+     class EditListener implements ActionListener {
+         
+         private WorldManager myWM;
+         private String myType;
+         private StageEditorPanel myPanel;
+         
+         public EditListener (WorldManager wm, String type, StageEditorPanel panel) {
+             myWM = wm;
+             myType = type;
+             myPanel = panel;
+         }
 
         @Override
         public void actionPerformed (ActionEvent e) {
@@ -152,6 +156,6 @@ public class StageEditorPanel extends JTabbedPane {
             myPanel.refreshTab(myType);
             myTableDialog.setVisible(false);
         }
-    }
-
+         
+     }
 }
