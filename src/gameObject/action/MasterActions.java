@@ -21,16 +21,6 @@ public class MasterActions {
         return masterActions;
     }
 
-    public void addAction (Action newAction) {
-        newAction.setMasterIndex(myActionList.size());
-        myActionList.add(newAction);
-    }
-
-    public void setAction (int actionIndex, Action newAction) {
-        newAction.setMasterIndex(actionIndex);
-        myActionList.set(actionIndex, newAction);
-    }
-
     public void setActionList (List<Action> newActionList) {
         for (int i = 0; i < newActionList.size(); i++) {
             newActionList.get(i).setMasterIndex(i);
@@ -38,16 +28,13 @@ public class MasterActions {
 
         myActionList = newActionList;
     }
-
-    public void removeAction (int removeIndex) {
-        myActionList.remove(removeIndex);
-        // TODO: Update master indices
-    }
-
+    
+    // functionality currently in editordata
     public Action getAction (int actionIndex) {
         return myActionList.get(actionIndex);
     }
-
+    
+    // functionality currently in gamemanager
     public Action getAction (String actionName) {
         for (int i = 0; i < myActionList.size(); i++) {
             if (myActionList.get(i).getName().equals(actionName)) { return myActionList
@@ -57,6 +44,14 @@ public class MasterActions {
         return null;
     }
 
+    public int getActionID (String actionName) {
+        for (int i = 0; i < myActionList.size(); i++) {
+            if (myActionList.get(i).getName().equals(actionName)) { return i; }
+        }
+        return 0;
+    }
+    
+    // functionality currently in editordata
     public List<String> getActionNames () {
         List<String> actionNames = new ArrayList<>();
 

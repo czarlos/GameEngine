@@ -31,7 +31,9 @@ public class MakeDefaults {
         defaultAction.setName("Slash");
 
         defaultItem = new Item();
-        defaultItem.addAction(defaultAction);
+        List<String> actionList = new ArrayList<String>();
+        actionList.add("Slash");
+        defaultItem.setActionNames(actionList);
         defaultItem.setName("Item");
         defaultItem.setStats(defaultStats);
         defaultItem.setImagePath("resources/potion.png");

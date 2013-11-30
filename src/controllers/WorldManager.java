@@ -35,10 +35,6 @@ public class WorldManager extends Manager {
     private int[] activeEditIDList;
     @JsonProperty
     private MasterStats myMasterStats;
-    @Deprecated
-    private List<Action> myMasterActionList;
-
-    // Use (List<Action>) myEditorData.get(GridConstants.ACTION) for programmatic consistency
 
     /**
      * Intermediary between views and EditorData and Grid, stores List of Stages
@@ -57,12 +53,15 @@ public class WorldManager extends Manager {
         return myEditorData.getTableModel(type);
     }
 
-    @JsonIgnore
-    public GameTableModel getTableModel (String type, Object toEdit) {
-        return myEditorData.getTableModel(GridConstants.TEAM, myActiveStage.getTeams());
+    @SuppressWarnings("unchecked")
+    public void setActions (GameTableModel gtm) {
+        MasterActions ma = MasterActions.getInstance();
+        ma.setActionList((List<Action>) gtm.getObject());
+        syncActions();
+        myEditorData.setData(gtm);
     }
 
-    // makes more sense as an arraylist... especially since default values should be 0 anyways.
+    // can generalize
     @JsonIgnore
     public GameTableModel getMasterStatsTable () {
         return myEditorData
@@ -76,6 +75,13 @@ public class WorldManager extends Manager {
         syncStats();
     }
 
+    // harder to generalize because teams are in stage
+    @JsonIgnore
+    public GameTableModel getTeamTableModel (String type, Object toEdit) {
+        return myEditorData.getTableModel(GridConstants.TEAM, myActiveStage.getTeams());
+    }
+
+    // different because team data is in stage
     @SuppressWarnings("unchecked")
     public void setTeams (GameTableModel gtm) {
         List<Team> list = (List<Team>) gtm.getObject();
@@ -102,11 +108,6 @@ public class WorldManager extends Manager {
     }
 
     public void setData (GameTableModel gtm) {
-        myEditorData.setData(gtm);
-    }
-
-    public void setActions (GameTableModel gtm) {
-        // TODO: put all action checking here.
         myEditorData.setData(gtm);
     }
 
@@ -258,40 +259,8 @@ public class WorldManager extends Manager {
         }
     }
 
-    @Deprecated
-    public void addAction (Action newAction) {
-        myMasterActionList.add(newAction);
-    }
-
-    // TODO: Should pass in String, action, or ID as parameter? Should we remove this action from
-    // all units and/or weapons/items? If so, what do we do with weapons/items with no actions?
-    @Deprecated
-    public void removeAction (String actionName) {
-        for (int i = 0; i < myMasterActionList.size(); i++) {
-            if (myMasterActionList.get(i).getName().equals(actionName)) {
-                myMasterActionList.remove(i);
-            }
-        }
-
-        syncActions();
-    }
-
-    // TODO: Make this a generic method to get the type of action to modify. How do we want to
-    // modify an action (e.g. what variables would we want to edit)?
-    @Deprecated
-    public void modifyAction (Action modAction) {
-        for (int i = 0; i < myMasterActionList.size(); i++) {
-            if (myMasterActionList.get(i).getName().equals(modAction.getName())) {
-                myMasterActionList.set(i, modAction);
-            }
-        }
-
-        syncActions();
-    }
-
-    // TODO
     private void syncActions () {
-        List<Customizable> editorUnitList = (List<Customizable>) myEditorData.get("GameUnit");
+        List<?> editorUnitList = (List<?>) myEditorData.get("GameUnit");
         GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
 
         for (Object unit : editorUnitList) {

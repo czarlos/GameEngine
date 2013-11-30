@@ -37,7 +37,7 @@ public class ItemTableModel extends GameTableModel {
             array[0] = i.getName();
             array[1] = new File(i.getImagePath());
             array[2] = i.getStats();
-            array[3] = i.getActions();
+            array[3] = i.getActionNames();
             addNewRow(array);
         }
     }

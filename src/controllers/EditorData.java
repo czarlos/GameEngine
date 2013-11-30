@@ -1,6 +1,7 @@
 package controllers;
 
 import gameObject.action.Action;
+import gameObject.action.MasterActions;
 import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,6 +66,10 @@ public class EditorData {
                 myParser.createObject(folderName + "/" + GridConstants.ACTION,
                                       new ArrayList<Action>().getClass());
         myDataMap.put(GridConstants.ACTION, list2);
+        
+        // need to generalize this for all data types. tile, gameobject, gameunit, item, team, action
+        MasterActions ma = MasterActions.getInstance();
+        ma.setActionList(list2);
     }
 
     /**

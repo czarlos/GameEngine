@@ -23,14 +23,14 @@ import gameObject.action.MasterActions;
 public class Item extends Customizable {
     @JsonProperty
     private List<Integer> myActions;
-    @JsonProperty
     private Stats myStats;
-
+   
     public Item () {
         myActions = new ArrayList<>();
         myStats = new Stats();
     }
 
+    @JsonIgnore
     public List<Action> getActions () {
         List<Action> actionList = new ArrayList<>();
 
@@ -49,6 +49,7 @@ public class Item extends Customizable {
         myActions = newIndices;
     }
 
+    @JsonIgnore
     public List<String> getActionNames () {
         List<String> actionNames = new ArrayList<>();
 
@@ -59,6 +60,7 @@ public class Item extends Customizable {
         return actionNames;
     }
 
+    @JsonIgnore
     public void addAction (int actionIndex) {
         myActions.add(actionIndex);
     }
@@ -70,13 +72,18 @@ public class Item extends Customizable {
             }
         }
     }
-
+/*
     public void setActions (List<Integer> actions) {
         myActions = actions;
-    }
+    }*/
 
+    @JsonIgnore
     public void setActionNames (List<String> actionNames) {
-        // map these names to masteractions, guaranteed to be on the list.
+        List<Integer> actionIDs = new ArrayList<Integer>();
+        for(String name: actionNames){
+           actionIDs.add(MasterActions.getInstance().getActionID(name));
+        }
+        myActions = actionIDs;
     }
     
     @JsonIgnore

@@ -26,7 +26,7 @@ public class ActionTests {
         defaultUnit = ((Grid) myWorldManager.getGrid()).getGameUnits()[2][2];
 
         action.setName("attack");
-        item.addAction(action);
+        item.addAction(0);
         defaultUnit.addItem(item);
     }
 }
