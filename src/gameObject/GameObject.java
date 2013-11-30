@@ -1,6 +1,7 @@
 package gameObject;
 
 import gameObject.action.Action;
+import grid.GridConstants;
 import grid.ImageManager;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import view.Drawable;
  */
 @JsonAutoDetect
 public class GameObject extends Customizable implements Drawable {
-    protected List<String> myPassableList;
+    private List<String> myPassableList;
     protected List<String> myDisplayData;
     protected boolean isActive;
 
@@ -51,7 +52,7 @@ public class GameObject extends Customizable implements Drawable {
 
     public boolean isPassable (GameUnit unit) {
         return myPassableList.contains(unit.getName()) ||
-               myPassableList.contains(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
+               myPassableList.contains(GridConstants.DEFAULT_PASS_EVERYTHING);
     }
 
     /**

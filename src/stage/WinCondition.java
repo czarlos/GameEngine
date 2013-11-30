@@ -1,6 +1,7 @@
 package stage;
 
 import java.util.ArrayList;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -19,27 +20,44 @@ public class WinCondition {
     private int conditionsNeeded;
 
     @JsonProperty
-    private ArrayList<Condition> conditions;
+    private List<Condition> myConditions;
 
     public WinCondition () {
-        conditions = new ArrayList<Condition>();
+        myConditions = new ArrayList<Condition>();
+        conditionsNeeded = 1;
     }
 
     public void setConditionsNeeded (int i) {
         conditionsNeeded = i;
     }
+    
+    public int getConditionsNeeded(){
+        return conditionsNeeded;
+    }
 
     public void addCondition (Condition c) {
-        conditions.add(c);
+        myConditions.add(c);
+    }
+    
+    public List<Condition> getConditions() {
+        return myConditions;
+    }
+    
+    public void setConditions(List<Condition> conditions){
+        myConditions = conditions;
     }
 
     // TODO: currently no conditions = auto-win, but maybe we should make it never-win
     public boolean isFulfilled (Stage stage) {
         int count = 0;
-        for (Condition c : conditions) {
+        for (Condition c : myConditions) {
             if (c.isFulfilled(stage))
                 count++;
         }
         return count >= conditionsNeeded;
+    }
+    
+    public String toString(){
+        return "Win Condition";
     }
 }

@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @SuppressWarnings("serial")
-public class TileTableModel extends MultipleTableModel {
+public class TileTableModel extends GameTableModel {
 
     public TileTableModel () {
         String[] names = { "Name", "Graphic", "Move Cost", "StatsModifiers" };
@@ -24,9 +24,10 @@ public class TileTableModel extends MultipleTableModel {
         setColumnNames(names);
     }
 
-    public void addObjects (List<?> tiles) {
-
-        for (Object tile : tiles) {
+    @SuppressWarnings("unchecked")
+    public void loadObject (Object object) {
+        List<Tile> list = (List<Tile>) object;
+        for (Object tile : list) {
             Object[] array = new Object[myColumnNames.length];
 
             Tile t = (Tile) tile;
@@ -40,8 +41,7 @@ public class TileTableModel extends MultipleTableModel {
         }
     }
 
-    public List<?> getObjects () {
-
+    public List<?> getObject () {
         List<Tile> list = new ArrayList<Tile>();
         for (Object[] row : myList) {
             Tile t = new Tile();
@@ -53,11 +53,6 @@ public class TileTableModel extends MultipleTableModel {
         }
 
         return list;
-    }
-
-    @Override
-    public boolean isCellEditable (int row, int column) {
-        return true;
     }
 
     @Override

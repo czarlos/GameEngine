@@ -3,12 +3,24 @@ package dialog.dialogs.tableModels;
 import java.util.HashMap;
 import java.util.Map;
 
+
 @SuppressWarnings("serial")
-public abstract class HashTableModel extends SingleTableModel {
+public class MapTableModel extends GameTableModel {
+
+    public MapTableModel () {
+        String[] names = { "Key", "Value" };
+        setColumnNames(names);
+        myName = "Map";
+    }
+
+    @Override
+    public boolean isCellEditable (int row, int col) {
+        return col > 0;
+    }
 
     @SuppressWarnings("rawtypes")
-    public void loadObject (Object hashMap) {
-        HashMap map = (HashMap) hashMap;
+    public void loadObject (Object object) {
+        Map map = (Map) object;
         myList.clear();
         for (Object key : map.keySet()) {
             Object[] row = new Object[myColumnNames.length];
@@ -18,10 +30,11 @@ public abstract class HashTableModel extends SingleTableModel {
         }
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public Object getObject () {
-        Map<String, Integer> myMap = new HashMap<String, Integer>();
+        Map myMap = new HashMap<String, Integer>();
         for (Object[] row : myList) {
-            myMap.put((String) row[0], (Integer) row[1]);
+            myMap.put(row[0], row[1]);
         }
 
         return myMap;

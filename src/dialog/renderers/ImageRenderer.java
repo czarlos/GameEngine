@@ -34,7 +34,6 @@ public class ImageRenderer extends DefaultTableCellRenderer {
 
         if (value instanceof File) {
             image = new ImageIcon((String) ((File) value).getAbsolutePath());
-
             value = new ImageIcon(getScaledImage(image.getImage(), DEFAULT_WIDTH, DEFAULT_HEIGHT));
         }
 
@@ -52,12 +51,13 @@ public class ImageRenderer extends DefaultTableCellRenderer {
     }
 
     private Image getScaledImage (Image srcImg, int w, int h) {
-        BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+        BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics2D = resizedImg.createGraphics();
         graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                                     RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         graphics2D.drawImage(srcImg, 0, 0, w, h, null);
         graphics2D.dispose();
+        
         return resizedImg;
     }
 }

@@ -1,5 +1,6 @@
 package controllers;
 
+import gameObject.action.Action;
 import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,9 +8,9 @@ import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import dialog.dialogs.tableModels.MultipleTableModel;
-import dialog.dialogs.tableModels.SingleTableModel;
+import dialog.dialogs.tableModels.GameTableModel;
 import parser.JSONParser;
+import team.Team;
 import view.Customizable;
 
 
@@ -53,13 +54,17 @@ public class EditorData {
             myDataMap.put(s, list);
         }
 
-        /*
-         * List<Customizable> conditions;
-         * conditions =
-         * myParser.createObject(folderName + "/Condition",
-         * new ArrayList<Condition>().getClass());
-         * myDataMap.put("Condition", conditions);
-         */
+        List<Team> list = new ArrayList<Team>();
+        list =
+                myParser.createObject(folderName + "/" + GridConstants.TEAM,
+                                      new ArrayList<Team>().getClass());
+        myDataMap.put(GridConstants.TEAM, list);
+        
+        List<Action> list2 = new ArrayList<Action>();
+        list2 =
+                myParser.createObject(folderName + "/" + GridConstants.ACTION,
+                                      new ArrayList<Action>().getClass());
+        myDataMap.put(GridConstants.ACTION, list2);
     }
 
     /**
@@ -77,19 +82,19 @@ public class EditorData {
         return (Customizable) myDataMap.get(type).get(ID);
     }
 
-    public MultipleTableModel getMultipleTable (String type) {
-        MultipleTableModel mtm = (MultipleTableModel) myTableFactory.makeTableModel(type);
-        mtm.addObjects(myDataMap.get(type));
-        return mtm;
+    public GameTableModel getTableModel (String type) {
+        GameTableModel gtm = myTableFactory.makeTableModel(type);
+        gtm.loadObject(myDataMap.get(type));
+        return gtm;
     }
 
-    public SingleTableModel getSingleTableModel (String type, Object toEdit) {
-        SingleTableModel stm = (SingleTableModel) myTableFactory.makeTableModel(type);
-        stm.loadObject(toEdit);
-        return stm;
+    public GameTableModel getTableModel (String type, Object toEdit) {
+        GameTableModel gtm = myTableFactory.makeTableModel(type);
+        gtm.loadObject(toEdit);
+        return gtm;
     }
 
-    public void setData (MultipleTableModel gtm) {
-        myDataMap.put(gtm.getName(), gtm.getObjects());
+    public void setData (GameTableModel gtm) {
+        myDataMap.put(gtm.getName(), (List<?>) gtm.getObject());
     }
 }

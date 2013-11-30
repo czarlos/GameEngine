@@ -15,9 +15,9 @@ public class UnitCountCondition extends Condition {
 
     public UnitCountCondition () {
         super();
-        myNeededData.add("count");
-        myNeededData.add("affiliation");
-        myNeededData.add("greater?");
+        myData.put("count", "0");
+        myData.put("affiliation", "enemy");
+        myData.put("greater?", "false");
     }
 
     @Override
@@ -29,5 +29,10 @@ public class UnitCountCondition extends Condition {
         else {
             return Integer.parseInt("count") > theTeam.size();
         }
+    }
+
+    @Override
+    public String toString () {
+        return "Unit Count Condition"; 
     }
 }

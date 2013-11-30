@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
@@ -130,5 +129,9 @@ public class Stats {
                 remove(stat);
             }
         }
+    }
+
+    public String toString () {
+        return "Stats";
     }
 }

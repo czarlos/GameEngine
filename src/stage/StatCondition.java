@@ -15,9 +15,9 @@ public class StatCondition extends Condition {
 
     public StatCondition () {
         super();
-        myNeededData.add("statType");
-        myNeededData.add("value");
-        myNeededData.add("affilation");
+        myData.put("statType", "experience");
+        myData.put("value", "100");
+        myData.put("affilation", "default");
     }
 
     @Override
@@ -27,6 +27,11 @@ public class StatCondition extends Condition {
             if (gu.getStat(myData.get("statType")) > Integer.parseInt(myData.get("value"))) { return true; }
         }
         return false;
+    }
+
+    @Override
+    public String toString () {
+        return "Stat Condition";
     }
 
 }

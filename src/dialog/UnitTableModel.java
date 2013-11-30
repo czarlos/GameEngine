@@ -6,7 +6,6 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 import dialog.dialogs.tableModels.GameTableModel;
-import dialog.dialogs.tableModels.MultipleTableModel;
 import view.Customizable;
 
 
@@ -22,7 +21,7 @@ import view.Customizable;
  * 
  */
 
-public class UnitTableModel extends MultipleTableModel {
+public class UnitTableModel extends GameTableModel {
 
     private static final long serialVersionUID = 9110749927413795404L;
 
@@ -85,7 +84,7 @@ public class UnitTableModel extends MultipleTableModel {
     }
 
     @Override
-    public List<Customizable> getObjects () {
+    public List<Customizable> getObject () {
         // TODO Auto-generated method stub
         return null;
     }
@@ -95,9 +94,9 @@ public class UnitTableModel extends MultipleTableModel {
         // TODO Auto-generated method stub
         return null;
     }
-
+    
     @Override
-    public void addObjects (List<?> list) {
+    public void loadObject (Object object) {
         // TODO Auto-generated method stub
         
     }

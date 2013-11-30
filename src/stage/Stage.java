@@ -41,7 +41,6 @@ public class Stage implements GridMouseListener {
         myGrid = new Grid(x, y, tileID);
         myName = name;
         myTeams = new ArrayList<Team>();
-        myTeams.add(new Team("default", true));
     }
 
     /*

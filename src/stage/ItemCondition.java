@@ -14,8 +14,8 @@ public class ItemCondition extends Condition {
 
     public ItemCondition () {
         super();
-        myNeededData.add("affiliation");
-        myNeededData.add("item");
+        myData.put("affiliation", "default");
+        myData.put("item", "milk");
     }
 
     @Override
@@ -25,5 +25,10 @@ public class ItemCondition extends Condition {
             if (gu.getItemAmount(myData.get("item")) > 0) { return true; }
         }
         return false;
+    }
+
+    @Override
+    public String toString () {
+        return "Item Condition";
     }
 }

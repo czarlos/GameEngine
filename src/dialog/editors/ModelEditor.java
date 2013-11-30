@@ -1,34 +1,39 @@
 package dialog.editors;
 
-import gameObject.Stats;
 import javax.swing.JTable;
 import dialog.dialogs.TableDialog;
-import dialog.dialogs.tableModels.StatsTableModel;
+import dialog.dialogs.tableModels.GameTableModel;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @SuppressWarnings("serial")
-public class StatsEditor extends GameCellEditor {
+public class ModelEditor extends GameCellEditor {
 
-    StatsTableModel model;
-    TableDialog statsEditor;
+    private GameTableModel myModel;
+    private TableDialog statsEditor;
+    private List<String> myEnumList;
 
-    public StatsEditor () {
-        model = new StatsTableModel();
+    public ModelEditor (GameTableModel gtm) {
+        this(gtm, new ArrayList<String>());
+    }
+
+    public ModelEditor (GameTableModel gtm, List<String> enumList) {
+        myModel = gtm;
+        myEnumList = enumList;
     }
 
     // opens and closes editor
-    @SuppressWarnings("unchecked")
     public void actionPerformed (ActionEvent e) {
 
         if (EDIT.equals(e.getActionCommand())) {
-            statsEditor = new TableDialog(model, this);
+            statsEditor = new TableDialog(myModel, this, myEnumList);
             statsEditor.setVisible(true);
         }
         else {
-            current = model.getObject();
+            current = myModel.getObject();
             statsEditor.setVisible(false);
             fireEditingStopped();
         }
@@ -40,7 +45,7 @@ public class StatsEditor extends GameCellEditor {
                                                   int row,
                                                   int column) {
         current = value;
-        model.loadObject((Stats) value);
+        myModel.loadObject(value);
         return button;
     }
 }

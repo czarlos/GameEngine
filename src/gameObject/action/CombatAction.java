@@ -16,13 +16,10 @@ public class CombatAction extends Action {
     public CombatAction () {
     }
 
-    //TODO: Add these when doing customized actions (currently breaks because these aren't defined)
-    public void setStats (Stats atkStats, Stats defStats) {
-        myInitiatorStats = atkStats;
-        myReceiverStats = defStats;
-    }
-
     private double getNetEffectiveness (GameUnit initiator, GameUnit receiver) {
+        myInitiatorStats = initiator.getStats();
+        myReceiverStats = receiver.getStats();
+        
         double offensiveStatSum = 0, defensiveStatSum = 0;
         double netStat = 0;
 
@@ -70,5 +67,4 @@ public class CombatAction extends Action {
         }
         return true;
     }
-
 }

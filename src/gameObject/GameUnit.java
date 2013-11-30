@@ -28,7 +28,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonAutoDetect
 public class GameUnit extends GameObject {
 
-    private boolean isControllable;
     @JsonProperty
     private Map<String, Integer> myItemAmounts;
     private Set<Item> myItems;
@@ -38,12 +37,10 @@ public class GameUnit extends GameObject {
     private boolean isActive;
     private boolean hasMoved;
 
-    // reads defaults from JSON. To add/test new defaults, edit MakeDefaults.java
     public GameUnit () {
         myItems = new HashSet<Item>();
         myItemAmounts = new HashMap<String, Integer>();
         myStats = new Stats();
-        // myTeamName = "";
     }
 
     // should ONLY be called by stage when adding units to a team
@@ -98,8 +95,7 @@ public class GameUnit extends GameObject {
 
     @Override
     public boolean isPassable (GameUnit unit) {
-        unit.getAffiliation();
-        return super.isPassable(unit) || unit.getAffiliation().equals(myTeamName);
+        return unit.getAffiliation().equals(myTeamName);
     }
 
     /**
@@ -153,14 +149,6 @@ public class GameUnit extends GameObject {
 
     public void setStat (String statName, int statValue) {
         myStats.modExisting(statName, statValue);
-    }
-
-    public boolean isControllable () {
-        return isControllable;
-    }
-
-    public void setControllable (boolean controllable) {
-        isControllable = controllable;
     }
 
     public Weapon getActiveWeapon () {

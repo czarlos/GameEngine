@@ -17,9 +17,9 @@ public class PositionCondition extends Condition {
 
     public PositionCondition () {
         super();
-        myNeededData.add("x");
-        myNeededData.add("y");
-        myNeededData.add("team name");
+        myData.put("x", "5");
+        myData.put("y", "1");
+        myData.put("team name", "default");
     }
 
     @Override
@@ -34,5 +34,10 @@ public class PositionCondition extends Condition {
         }
 
         return false;
+    }
+
+    @Override
+    public String toString () {
+        return "Position Condition";
     }
 }
