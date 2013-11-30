@@ -122,26 +122,4 @@ public class MasterStats {
         }
         myStatMap = newStats;
     }
-
-    /**
-     * Updates the stats maps of the current Stats instance and the master stats map. If a stat
-     * exists in the master stats map, but not in the current Stats instance map, then it adds it to
-     * the current Stats map instance. If a stat exists in the current Stats instance map, but not
-     * in the master stats map, it removes it from the current Stats map instance
-     * 
-     * @param masterStatMap The master stat map from the world manager
-     */
-    public void updateFromMaster (MasterStats masterStatMap) {
-        for (String stat : masterStatMap.getStatNames()) {
-            if (!getStatNames().contains(stat)) {
-                myStatMap.put(stat, masterStatMap.getStatValue(stat));
-            }
-        }
-
-        for (String stat : getStatNames()) {
-            if (!masterStatMap.getStatNames().contains(stat)) {
-                remove(stat);
-            }
-        }
-    }
 }

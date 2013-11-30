@@ -1,6 +1,7 @@
 package gameObject;
 
 import gameObject.action.Action;
+import gameObject.action.MasterActions;
 import gameObject.action.MoveAction;
 import gameObject.action.WaitAction;
 import gameObject.item.*;
@@ -246,25 +247,25 @@ public class GameUnit extends GameObject {
         return myItems;
     }
 
-    public void syncActionsWithMaster (List<Action> masterActionList) {
+    public void syncActionsWithMaster () {
+        List<Integer> removedIndices = MasterActions.getInstance().getRemoveIndices();
+        Map<Integer, Integer> indexTranslations = MasterActions.getInstance().updateIndices();
+
         for (Item item : myItems) {
-            List<String> masterActionNames = new ArrayList<>();
-
-            for (Action action : masterActionList) {
-                masterActionNames.add(action.getName());
-            }
-
-            for (int i = 0; i < item.getActionNames().size(); i++) {
-                int masterIndex = masterActionNames.indexOf(item.getActionNames().get(i));
-
-                if (masterIndex == -1) {
+            for (int i = 0; i < item.getActionIndices().size(); i++) {
+                if (removedIndices.contains(item.getActionIndices().get(i))) {
                     item.removeAction(i);
                     i--;
                 }
-                else {
-                    item.addAction(i, masterActionList.get(masterIndex));
-                }
             }
+
+            List<Integer> newIndices = new ArrayList<>();
+
+            for (int i = 0; i < item.getActionIndices().size(); i++) {
+                newIndices.add(indexTranslations.get(item.getActionIndices().get(i)));
+            }
+
+            item.setActionIndices(newIndices);
         }
     }
 }

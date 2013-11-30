@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.Stats;
 import gameObject.action.Action;
+import gameObject.action.MasterActions;
 
 
 /**
@@ -23,7 +24,7 @@ import gameObject.action.Action;
 @JsonAutoDetect
 public class Item extends Customizable {
     @JsonProperty
-    private List<Action> myActions;
+    private List<Integer> myActions;
     @JsonProperty
     private Stats myStats;
 
@@ -33,32 +34,46 @@ public class Item extends Customizable {
     }
 
     public List<Action> getActions () {
+        List<Action> actionList = new ArrayList<>();
+
+        for (int actionIndex : myActions) {
+            actionList.add(MasterActions.getInstance().getAction(actionIndex));
+        }
+
+        return actionList;
+    }
+
+    public List<Integer> getActionIndices () {
         return myActions;
+    }
+
+    public void setActionIndices (List<Integer> newIndices) {
+        myActions = newIndices;
     }
 
     public List<String> getActionNames () {
         List<String> actionNames = new ArrayList<>();
 
-        for (Action action : myActions) {
-            actionNames.add(action.getName());
+        for (int actionIndex : myActions) {
+            actionNames.add(MasterActions.getInstance().getAction(actionIndex).getName());
         }
 
         return actionNames;
     }
 
-    public void addAction (Action action) {
-        myActions.add(action);
+    public void addAction (int actionIndex) {
+        myActions.add(actionIndex);
     }
 
-    public void addAction (int index, Action action) {
-        myActions.set(index, action);
+    public void removeAction (int actionIndex) {
+        for (int i = 0; i < myActions.size(); i++) {
+            if (myActions.get(i) == actionIndex) {
+                myActions.remove(i);
+            }
+        }
     }
 
-    public void removeAction (int index) {
-        myActions.remove(index);
-    }
-
-    public void setActions (List<Action> actions) {
+    public void setActions (List<Integer> actions) {
         myActions = actions;
     }
 

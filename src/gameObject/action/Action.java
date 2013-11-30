@@ -13,11 +13,13 @@ public abstract class Action {
     private String myName;
     private List<Coordinate> myAOE;
     private boolean isAround;
+    private int masterIndex;
 
     public Action () {
         List<Coordinate> AOE = new ArrayList<>();
         AOE.add(new Coordinate(0, 1));
         setAround(false);
+        masterIndex = -1;
     }
 
     public abstract void doAction (GameUnit initiator, GameObject receiver);
@@ -46,5 +48,13 @@ public abstract class Action {
 
     public void setAOE (List<Coordinate> AOE) {
         myAOE = AOE;
+    }
+
+    public int getMasterIndex () {
+        return masterIndex;
+    }
+
+    public void setMasterIndex (int newIndex) {
+        masterIndex = newIndex;
     }
 }

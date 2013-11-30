@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import dialog.dialogs.tableModels.GameTableModel;
 import gameObject.action.Action;
+import gameObject.action.MasterActions;
 import dialog.dialogs.tableModels.MultipleTableModel;
 import dialog.dialogs.tableModels.SingleTableModel;
 import dialog.dialogs.tableModels.TeamTableModel;
@@ -369,13 +370,13 @@ public class WorldManager extends Manager {
         GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
 
         for (Customizable unit : editorUnitList) {
-            ((GameUnit) unit).syncActionsWithMaster(myMasterActionList);
+            ((GameUnit) unit).syncActionsWithMaster();
         }
 
         for (int i = 0; i < placedUnits.length; i++) {
             for (int j = 0; j < placedUnits[i].length; j++) {
                 if (placedUnits[i][j] != null) {
-                    placedUnits[i][j].syncActionsWithMaster(myMasterActionList);
+                    placedUnits[i][j].syncActionsWithMaster();
                 }
             }
         }
