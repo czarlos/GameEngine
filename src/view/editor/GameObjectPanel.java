@@ -34,6 +34,7 @@ public class GameObjectPanel extends JPanel implements MouseListener {
         initPanel();
     }
 
+
     private void initPanel () {
         // JLabel label = new JLabel(myImage);
         ImagePanel imagePanel = new ImagePanel(myImage);
