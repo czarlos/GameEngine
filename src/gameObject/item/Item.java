@@ -78,24 +78,4 @@ public class Item extends Customizable {
     public void setStats (Stats myStats) {
         this.myStats = new Stats(myStats);
     }
-
-    public void syncActionsWithMaster (List<Action> masterActionList) {
-        int masterIndex = -1;
-        for (int i = 0; i < myActions.size(); i++) {
-            for (int j = 0; j < masterActionList.size(); j++) {
-                if (masterActionList.get(j).getName().equals(myActions.get(i).getName())) {
-                    masterIndex = j;
-                    break;
-                }
-            }
-
-            if (masterIndex == -1) {
-                myActions.remove(i);
-                i--;
-            }
-            else {
-                myActions.set(i, masterActionList.get(masterIndex));
-            }
-        }
-    }
 }

@@ -34,7 +34,9 @@ public class WorldManager extends Manager {
     private int[] activeEditIDList;
     @JsonProperty
     private MasterStats myMasterStats;
+    @Deprecated
     private List<Action> myMasterActionList;
+    // just replace with (List<Action>) myEditorData.get(GridConstants.ACTION) for programmatic consistency. Exact same thing.
 
     /**
      * Intermediary between views and EditorData and Grid, stores List of Stages
@@ -342,6 +344,7 @@ public class WorldManager extends Manager {
 
     // TODO: Should pass in String, action, or ID as parameter? Should we remove this action from
     // all units and/or weapons/items? If so, what do we do with weapons/items with no actions?
+    @Deprecated
     public void removeAction (String actionName) {
         for (int i = 0; i < myMasterActionList.size(); i++) {
             if (myMasterActionList.get(i).getName().equals(actionName)) {
@@ -352,8 +355,10 @@ public class WorldManager extends Manager {
         syncActions();
     }
 
+    
     // TODO: Make this a generic method to get the type of action to modify. How do we want to
     // modify an action (e.g. what variables would we want to edit)?
+    @Deprecated
     public void modifyAction (Action modAction) {
         for (int i = 0; i < myMasterActionList.size(); i++) {
             if (myMasterActionList.get(i).getName().equals(modAction.getName())) {
@@ -370,17 +375,13 @@ public class WorldManager extends Manager {
         GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
 
         for (Object unit : editorUnitList) {
-            for (Item item : ((GameUnit) unit).getItems()) {
-                item.syncActionsWithMaster(myMasterActionList);
-            }
+            ((GameUnit) unit).syncActionsWithMaster(myMasterActionList);
         }
 
         for (int i = 0; i < placedUnits.length; i++) {
             for (int j = 0; j < placedUnits[i].length; j++) {
                 if (placedUnits[i][j] != null) {
-                    for (Item item : placedUnits[i][j].getItems()) {
-                        item.syncActionsWithMaster(myMasterActionList);
-                    }
+                    placedUnits[i][j].syncActionsWithMaster(myMasterActionList);
                 }
             }
         }
