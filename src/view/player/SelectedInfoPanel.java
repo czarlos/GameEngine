@@ -31,7 +31,7 @@ public class SelectedInfoPanel extends JPanel implements Scrollable {
 		}
 
 		if (objectInfo != null) {
-			myTabs.add("Objects", new InfoPanel(objectInfo));
+			myTabs.add("Object", new InfoPanel(objectInfo));
 		}
 
 		if (buttonTab != null) {

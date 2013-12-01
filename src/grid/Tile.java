@@ -69,7 +69,9 @@ public class Tile extends GameObject {
 		displayData.add("Movement cost: " + myMoveCost);
 		displayData.add("Stat Modifiers: ");
 		for (String stat : myStats.getStatNames()) {
-			displayData.add(stat + ": " + myStats.getStatValue(stat));
+			if (!stat.equals("health") && !stat.equals("maxhealth") && !stat.equals("experience")) {
+				displayData.add(stat + ": " + myStats.getStatValue(stat));
+			}
 		}
 		myDisplayData = displayData;
 	}

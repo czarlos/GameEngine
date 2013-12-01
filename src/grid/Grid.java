@@ -372,6 +372,7 @@ public class Grid implements Drawable {
 		return affectedObjects;
 	}
 
+	//TODO: Don't display experience
 	/**
 	 * Generates a list of information that a coordinate contains, including
 	 * tiles and objects
