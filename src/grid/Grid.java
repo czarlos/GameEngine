@@ -149,31 +149,23 @@ public class Grid implements Drawable {
 	 */
 	private void findMovementRange(Coordinate coordinate, int range,
 			GameUnit gameObject) {
-		int[] rdelta = { -1, 0, 0, 1 };
-		int[] cdelta = { 0, -1, 1, 0 };
-
-		for (int i = 0; i < rdelta.length; i++) {
-			int newX = coordinate.getX() + cdelta[i];
-			int newY = coordinate.getY() + rdelta[i];
-
-			if (onGrid(new Coordinate(newX, newY))) {
-
-				Tile currentTile = getTile(new Coordinate(newX, newY));
+		List<Coordinate> adjacentCoordinates = getAdjacentCoordinates(coordinate);
+		
+		for (Coordinate adjacentCoordinate: adjacentCoordinates) {
+			if (onGrid(adjacentCoordinate)) {
+				Tile currentTile = getTile(adjacentCoordinate);
 				int newRange = range - currentTile.getMoveCost();
-
+				
 				if (currentTile.isPassable(gameObject) && newRange >= 0) {
-					GameObject currentObject = getObject(new Coordinate(newX,
-							newY));
+					GameObject currentObject = getObject(adjacentCoordinate);
 					if (currentObject != null) {
 						if (currentObject.isPassable(gameObject)) {
-							findMovementRange(new Coordinate(newX, newY),
-									newRange, gameObject);
+							findMovementRange(adjacentCoordinate, newRange, gameObject);
 						}
 						continue;
 					} else {
 						currentTile.setActive(true);
-						findMovementRange(new Coordinate(newX, newY), newRange,
-								gameObject);
+						findMovementRange(adjacentCoordinate, newRange, gameObject);
 					}
 				}
 			}
@@ -263,7 +255,6 @@ public class Grid implements Drawable {
 	 *            is all around the unit
 	 */
 	private void findActionRange(Coordinate unitCoordinate, Action action) {
-
 		List<Coordinate> area = action.getAOE();
 		if (action.isAround()) {
 			for (Coordinate cell : area) {
@@ -435,7 +426,6 @@ public class Grid implements Drawable {
 
 	// TODO: when getting interactions, trade should only be valid between
 	// matching affiliations
-	// TODO: currently no interactions supported.
 	/**
 	 * Gets a list of valid actions that the unit can perform on the objects
 	 * around him
@@ -459,7 +449,6 @@ public class Grid implements Drawable {
 		return interactions;
 	}
 
-	// TODO: currently no interactions supported
 	/**
 	 * Gets an interaction if one exists at the given coordinate
 	 * 
@@ -562,17 +551,16 @@ public class Grid implements Drawable {
 	/**
 	 * Finds all coordinates adjacent to the coordinate given.
 	 * 
-	 * @param - Coordinate from which to find adjacent coords
-	 * @return
+	 * @param - Coordinate from which to find adjacent coordinates
+	 * @return List of adjacent Coordinates
 	 */
-	public List<Coordinate> adjacentCoordinates(Coordinate coord) {
+	public List<Coordinate> getAdjacentCoordinates(Coordinate coord) {
 		List<Coordinate> returnArray = new ArrayList<Coordinate>();
 		returnArray.add(new Coordinate(coord.getX() + 1, coord.getY()));
 		returnArray.add(new Coordinate(coord.getX(), coord.getY() + 1));
 		returnArray.add(new Coordinate(coord.getX() - 1, coord.getY()));
 		returnArray.add(new Coordinate(coord.getX(), coord.getY() - 1));
 		return returnArray;
-
 	}
 
 	/**

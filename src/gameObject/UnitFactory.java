@@ -37,7 +37,7 @@ public class UnitFactory extends GameObject {
 	 */
 	private Coordinate validLocation(GameUnit unit) {
 
-		List<Coordinate> coords = myGrid.adjacentCoordinates(myLocation);
+		List<Coordinate> coords = myGrid.getAdjacentCoordinates(myLocation);
 		for (Coordinate c : coords) {
 			if (myGrid.getTile(c).isPassable(unit)) {
 				return c;
