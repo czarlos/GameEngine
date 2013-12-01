@@ -250,7 +250,7 @@ public class Grid implements Drawable {
 		return onGrid(coordinate) && isActive(coordinate);
 	}
 
-	//TODO: maybe instead of onGrid check, check isValidAction?
+	// TODO: maybe instead of onGrid check, check isValidAction?
 	/**
 	 * Sets the tiles active that an action can affect
 	 * 
@@ -275,28 +275,23 @@ public class Grid implements Drawable {
 			}
 		} else {
 			for (Coordinate cell : area) {
-				Coordinate up = new Coordinate(unitCoordinate.getX() + cell.getX(),
-						unitCoordinate.getY() + cell.getY());
+				Coordinate up = new Coordinate(unitCoordinate.getX()
+						+ cell.getX(), unitCoordinate.getY() + cell.getY());
 				if (onGrid(up)) {
-					getTile(up)
-							.setActive(true);
+					getTile(up).setActive(true);
 				}
-				Coordinate right = new Coordinate(unitCoordinate.getX() + cell.getY(),
-						unitCoordinate.getY() - cell.getX());
-				if (onGrid (right)) {
-				getTile(right
-						)
-						.setActive(true);
+				Coordinate right = new Coordinate(unitCoordinate.getX()
+						+ cell.getY(), unitCoordinate.getY() - cell.getX());
+				if (onGrid(right)) {
+					getTile(right).setActive(true);
 				}
-				Coordinate down = new Coordinate(unitCoordinate.getX() - cell.getX(),
-						unitCoordinate.getY() - cell.getY()); 
-				if (onGrid (down)) {
-				getTile(down
-						)
-						.setActive(true);
+				Coordinate down = new Coordinate(unitCoordinate.getX()
+						- cell.getX(), unitCoordinate.getY() - cell.getY());
+				if (onGrid(down)) {
+					getTile(down).setActive(true);
 				}
-				Coordinate left = new Coordinate(unitCoordinate.getX() - cell.getY(),
-						unitCoordinate.getY() + cell.getX());
+				Coordinate left = new Coordinate(unitCoordinate.getX()
+						- cell.getY(), unitCoordinate.getY() + cell.getX());
 				if (onGrid(left)) {
 					getTile(left).setActive(true);
 				}

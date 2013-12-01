@@ -10,11 +10,10 @@ import gameObject.action.MoveAction;
 import gameObject.action.WaitAction;
 import grid.Coordinate;
 
-
 /**
  * 
  * @author kevinjian, leevi, whoever else
- *
+ * 
  */
 public class GameManager extends Manager {
 
@@ -130,8 +129,11 @@ public class GameManager extends Manager {
 	}
 
 	/**
-	 * Gets a list of actions that a unit at a coordinate can perform. Null if there is no unit.
-	 * @param coordinate Coordinate that is being asked for
+	 * Gets a list of actions that a unit at a coordinate can perform. Null if
+	 * there is no unit.
+	 * 
+	 * @param coordinate
+	 *            Coordinate that is being asked for
 	 * @return List of Strings that contain the action names
 	 */
 	public List<String> getActions(Coordinate coordinate) {
@@ -149,8 +151,11 @@ public class GameManager extends Manager {
 
 	/**
 	 * Sets the tiles that an action affects to active
-	 * @param unitCoordinate Coordinate where the action originates
-	 * @param actionID int that represents the index of the action in myActiveActions
+	 * 
+	 * @param unitCoordinate
+	 *            Coordinate where the action originates
+	 * @param actionID
+	 *            int that represents the index of the action in myActiveActions
 	 */
 	public void beginAction(Coordinate unitCoordinate, int actionID) {
 		myActiveStage.getGrid().setTilesInactive();
@@ -165,9 +170,13 @@ public class GameManager extends Manager {
 
 	/**
 	 * Performs the selected action
-	 * @param unitCoordinate Coordinate where the action originates
-	 * @param actionCoordinate Coordinate where the action is targeting
-	 * @param actionID int that represents the index of the action in myActiveActions
+	 * 
+	 * @param unitCoordinate
+	 *            Coordinate where the action originates
+	 * @param actionCoordinate
+	 *            Coordinate where the action is targeting
+	 * @param actionID
+	 *            int that represents the index of the action in myActiveActions
 	 */
 	public void doAction(Coordinate unitCoordinate,
 			Coordinate actionCoordinate, int actionID) {
