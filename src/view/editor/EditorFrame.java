@@ -217,7 +217,7 @@ public class EditorFrame extends GameView {
 
 		JMenu gamePrefs = new JMenu("Global Game Prefs");
 		stageMenu.setMnemonic(KeyEvent.VK_S);
-		JMenuItem setMaster = new JMenuItem("Set Master Stets");
+		JMenuItem setMaster = new JMenuItem("Set Master Stats");
 		gamePrefs.add(setMaster);
 
 		// TODO: get this to call myWM.getMasterStatsTable() and
