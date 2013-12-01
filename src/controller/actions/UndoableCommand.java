@@ -6,13 +6,13 @@ package controller.actions;
  */
 public interface UndoableCommand extends Command {
 
-    /**
-     * Undo a previously done action.
-     */
-    public abstract void undo ();
+	/**
+	 * Undo a previously done action.
+	 */
+	public abstract void undo();
 
-    /**
-     * Redo a previously undone action.
-     */
-    public abstract void redo ();
+	/**
+	 * Redo a previously undone action.
+	 */
+	public abstract void redo();
 }

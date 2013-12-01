@@ -21,7 +21,6 @@ import gameObject.action.Action;
 import gameObject.action.MasterActions;
 import gameObject.item.Item;
 
-
 /**
  * 
  * @author Leevi
@@ -31,274 +30,287 @@ import gameObject.item.Item;
 @JsonAutoDetect
 public class WorldManager extends Manager {
 
-    private String[] activeEditTypeList;
-    private int[] activeEditIDList;
-    @JsonProperty
-    private MasterStats myMasterStats;
+	private String[] activeEditTypeList;
+	private int[] activeEditIDList;
+	@JsonProperty
+	private MasterStats myMasterStats;
 
-    /**
-     * Intermediary between views and EditorData and Grid, stores List of Stages
-     * 
-     * @param gameName
-     */
-    public WorldManager () {
-        super();
-        activeEditTypeList = new String[4];
-        activeEditIDList = new int[4];
-        myMasterStats = MasterStats.getInstance();
-    }
+	/**
+	 * Intermediary between views and EditorData and Grid, stores List of Stages
+	 * 
+	 * @param gameName
+	 */
+	public WorldManager() {
+		super();
+		activeEditTypeList = new String[4];
+		activeEditIDList = new int[4];
+		myMasterStats = MasterStats.getInstance();
+	}
 
-    @JsonIgnore
-    public GameTableModel getTableModel (String type) {
-        return myEditorData.getTableModel(type);
-    }
+	@JsonIgnore
+	public GameTableModel getTableModel(String type) {
+		return myEditorData.getTableModel(type);
+	}
 
-    @SuppressWarnings("unchecked")
-    public void setActions (GameTableModel gtm) {
-        MasterActions ma = MasterActions.getInstance();
-        ma.setActionList((List<Action>) gtm.getObject());
-        syncActions();
-        myEditorData.setData(gtm);
-    }
+	@SuppressWarnings("unchecked")
+	public void setActions(GameTableModel gtm) {
+		MasterActions ma = MasterActions.getInstance();
+		ma.setActionList((List<Action>) gtm.getObject());
+		syncActions();
+		myEditorData.setData(gtm);
+	}
 
-    // can generalize
-    @JsonIgnore
-    public GameTableModel getMasterStatsTable () {
-        return myEditorData
-                .getTableModel(GridConstants.MASTERSTATS, myMasterStats.getStats());
-    }
+	// can generalize
+	@JsonIgnore
+	public GameTableModel getMasterStatsTable() {
+		return myEditorData.getTableModel(GridConstants.MASTERSTATS,
+				myMasterStats.getStats());
+	}
 
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public void setMasterStats (GameTableModel gtm) {
-        myMasterStats.setStats((HashMap<String, Integer>) gtm.getObject());
-        syncStats();
-    }
+	@SuppressWarnings("unchecked")
+	@JsonIgnore
+	public void setMasterStats(GameTableModel gtm) {
+		myMasterStats.setStats((HashMap<String, Integer>) gtm.getObject());
+		syncStats();
+	}
 
-    // harder to generalize because teams are in stage
-    @JsonIgnore
-    public GameTableModel getTeamTableModel (String type, Object toEdit) {
-        return myEditorData.getTableModel(GridConstants.TEAM, myActiveStage.getTeams());
-    }
+	// harder to generalize because teams are in stage
+	@JsonIgnore
+	public GameTableModel getTeamTableModel(String type, Object toEdit) {
+		return myEditorData.getTableModel(GridConstants.TEAM,
+				myActiveStage.getTeams());
+	}
 
-    // different because team data is in stage
-    @SuppressWarnings("unchecked")
-    public void setTeams (GameTableModel gtm) {
-        List<Team> list = (List<Team>) gtm.getObject();
-        List<String> names = myActiveStage.getTeamNames();
+	// different because team data is in stage
+	@SuppressWarnings("unchecked")
+	public void setTeams(GameTableModel gtm) {
+		List<Team> list = (List<Team>) gtm.getObject();
+		List<String> names = myActiveStage.getTeamNames();
 
-        // adjusting unit affiliation strings for renamed teams
-        for (Team t : list) {
-            String prevName = names.get(t.getLastEditingID());
-            if (!t.getName().equals(prevName)) {
-                myActiveStage.setTeamName(t.getLastEditingID(), t.getName());
-            }
-            names.remove(prevName);
-        }
+		// adjusting unit affiliation strings for renamed teams
+		for (Team t : list) {
+			String prevName = names.get(t.getLastEditingID());
+			if (!t.getName().equals(prevName)) {
+				myActiveStage.setTeamName(t.getLastEditingID(), t.getName());
+			}
+			names.remove(prevName);
+		}
 
-        // units on deleted teams get their affiliation set to the first team.
-        List<String> fullList = myActiveStage.getTeamNames();
+		// units on deleted teams get their affiliation set to the first team.
+		List<String> fullList = myActiveStage.getTeamNames();
 
-        for (String s : names) {
-            myActiveStage.setTeamName(fullList.indexOf(s), list.get(0).getName());
-        }
+		for (String s : names) {
+			myActiveStage.setTeamName(fullList.indexOf(s), list.get(0)
+					.getName());
+		}
 
-        // replace all the teams with list
-        myActiveStage.setTeams(list);
-    }
+		// replace all the teams with list
+		myActiveStage.setTeams(list);
+	}
 
-    public void setData (GameTableModel gtm) {
-        myEditorData.setData(gtm);
-    }
+	public void setData(GameTableModel gtm) {
+		myEditorData.setData(gtm);
+	}
 
-    public void setActiveObject (int index, String type, int id) {
-        activeEditTypeList[index] = type;
-        activeEditIDList[index] = id;
-    }
+	public void setActiveObject(int index, String type, int id) {
+		activeEditTypeList[index] = type;
+		activeEditIDList[index] = id;
+	}
 
-    public String getActiveType (int index) {
-        return activeEditTypeList[index];
-    }
+	public String getActiveType(int index) {
+		return activeEditTypeList[index];
+	}
 
-    public int getActiveID (int index) {
-        return activeEditIDList[index];
-    }
+	public int getActiveID(int index) {
+		return activeEditIDList[index];
+	}
 
-    /**
-     * Add a new stage
-     * 
-     * @param x width of the grid in tiles
-     * @param y height of the grid in tiles
-     * @param tileID, the type of tile to initially fill the background with
-     * @return StageID
-     */
+	/**
+	 * Add a new stage
+	 * 
+	 * @param x
+	 *            width of the grid in tiles
+	 * @param y
+	 *            height of the grid in tiles
+	 * @param tileID
+	 *            , the type of tile to initially fill the background with
+	 * @return StageID
+	 */
 
-    @SuppressWarnings("unchecked")
-    public int addStage (int x, int y, int tileID, String name) {
-        myStages.add(new Stage(x, y, tileID, name));
-        setActiveStage(myStages.size() - 1);
-        myActiveStage.setTeams((List<Team>) myEditorData.get(GridConstants.TEAM));
-        return myStages.size() - 1;
-    }
+	@SuppressWarnings("unchecked")
+	public int addStage(int x, int y, int tileID, String name) {
+		myStages.add(new Stage(x, y, tileID, name));
+		setActiveStage(myStages.size() - 1);
+		myActiveStage.setTeams((List<Team>) myEditorData
+				.get(GridConstants.TEAM));
+		return myStages.size() - 1;
+	}
 
-    public void setPreStory (String prestory) {
-        myActiveStage.setPreStory(prestory);
-    }
+	public void setPreStory(String prestory) {
+		myActiveStage.setPreStory(prestory);
+	}
 
-    public void setPostStory (String poststory) {
-        myActiveStage.setPostStory(poststory);
-    }
+	public void setPostStory(String poststory) {
+		myActiveStage.setPostStory(poststory);
+	}
 
-    /**
-     * Set the name of the game
-     * 
-     * @param gameName
-     */
-    public void setGameName (String gameName) {
-        myGameName = gameName;
-    }
+	/**
+	 * Set the name of the game
+	 * 
+	 * @param gameName
+	 */
+	public void setGameName(String gameName) {
+		myGameName = gameName;
+	}
 
-    public void displayRange (Coordinate coordinate) {
-        myActiveStage.getGrid().beginMove(coordinate);
-    }
+	public void displayRange(Coordinate coordinate) {
+		myActiveStage.getGrid().beginMove(coordinate);
+	}
 
-    public void removeRange () {
-        myActiveStage.getGrid().setTilesInactive();
-    }
+	public void removeRange() {
+		myActiveStage.getGrid().setTilesInactive();
+	}
 
-    /**
-     * Placing (previously created) things on the board. These will be replaced by table editing
-     * stuff
-     * 
-     * @param ID of thing to place
-     * @param x Coordinate
-     * @param y Coordinate
-     */
-    public void setTile (int tileID, int x, int y) {
-        myActiveStage.getGrid()
-                .placeTile(new Coordinate(x, y),
-                           (Tile) myEditorData.getObject(GridConstants.TILE, tileID));
-    }
+	/**
+	 * Placing (previously created) things on the board. These will be replaced
+	 * by table editing stuff
+	 * 
+	 * @param ID
+	 *            of thing to place
+	 * @param x
+	 *            Coordinate
+	 * @param y
+	 *            Coordinate
+	 */
+	public void setTile(int tileID, int x, int y) {
+		myActiveStage.getGrid().placeTile(new Coordinate(x, y),
+				(Tile) myEditorData.getObject(GridConstants.TILE, tileID));
+	}
 
-    public void placeUnit (int unitID, int x, int y) {
-        GameUnit go = (GameUnit) myEditorData.getObject(GridConstants.GAMEUNIT, unitID);
-        go.setAffiliation(myActiveStage.getTeamNames().get(0));
-        myActiveStage.getGrid().placeObject(new Coordinate(x, y), go);
-    }
+	public void placeUnit(int unitID, int x, int y) {
+		GameUnit go = (GameUnit) myEditorData.getObject(GridConstants.GAMEUNIT,
+				unitID);
+		go.setAffiliation(myActiveStage.getTeamNames().get(0));
+		myActiveStage.getGrid().placeObject(new Coordinate(x, y), go);
+	}
 
-    public void placeObject (int objectID, int x, int y) {
-        myActiveStage.getGrid().placeObject(new Coordinate(x, y),
-                                            (GameObject) myEditorData
-                                                    .getObject(GridConstants.GAMEOBJECT,
-                                                               objectID));
-    }
+	public void placeObject(int objectID, int x, int y) {
+		myActiveStage.getGrid().placeObject(
+				new Coordinate(x, y),
+				(GameObject) myEditorData.getObject(GridConstants.GAMEOBJECT,
+						objectID));
+	}
 
-    public void placeItem (int objectID, int x, int y) {
-        GameUnit gu = myActiveStage.getGrid().getUnit(new Coordinate(x, y));
-        if (gu != null) {
-            gu.addItem((Item) myEditorData.getObject(GridConstants.ITEM, objectID));
-        }
-    }
+	public void placeItem(int objectID, int x, int y) {
+		GameUnit gu = myActiveStage.getGrid().getUnit(new Coordinate(x, y));
+		if (gu != null) {
+			gu.addItem((Item) myEditorData.getObject(GridConstants.ITEM,
+					objectID));
+		}
+	}
 
-    /**
-     * Gives access to certain names of customizables. Valid parameters are
-     * "GameUnit",
-     * "GameObject",
-     * "Tile", "Condition"
-     * 
-     * @param className
-     * @return List of names of customizable objects of that classname
-     */
-    @SuppressWarnings("unchecked")
-    public List<String> get (String className) {
-        List<String> ret = new ArrayList<String>();
-        List<Customizable> myList = (List<Customizable>) myEditorData.get(className);
+	/**
+	 * Gives access to certain names of customizables. Valid parameters are
+	 * "GameUnit", "GameObject", "Tile", "Condition"
+	 * 
+	 * @param className
+	 * @return List of names of customizable objects of that classname
+	 */
+	@SuppressWarnings("unchecked")
+	public List<String> get(String className) {
+		List<String> ret = new ArrayList<String>();
+		List<Customizable> myList = (List<Customizable>) myEditorData
+				.get(className);
 
-        for (Customizable d : myList) {
-            ret.add(d.getName());
-        }
+		for (Customizable d : myList) {
+			ret.add(d.getName());
+		}
 
-        return ret;
-    }
+		return ret;
+	}
 
-    /**
-     * Get the image for the specific type of object located at ID
-     * 
-     * @param className
-     * @param ID
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-    public Image getImage (String className, int ID) {
-        List<Customizable> myList = (List<Customizable>) myEditorData.get(className);
+	/**
+	 * Get the image for the specific type of object located at ID
+	 * 
+	 * @param className
+	 * @param ID
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public Image getImage(String className, int ID) {
+		List<Customizable> myList = (List<Customizable>) myEditorData
+				.get(className);
 
-        return myList.get(ID).getImage();
-    }
+		return myList.get(ID).getImage();
+	}
 
-    /**
-     * Calls update method for all stats of all placed units and unit definitions. If there are new
-     * stats in the master stats list, adds that stat to the stats of all placed units and unit
-     * definitions. If there is a stat in the stats list of placed units and unit definitions, but
-     * not in the master stats list, then it removes that stat from all stats lists of placed units
-     * and unit definitions
-     */
-    public void syncStats () {
-        List<?> editorUnitList = myEditorData.get(GridConstants.GAMEUNIT);
-        GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
+	/**
+	 * Calls update method for all stats of all placed units and unit
+	 * definitions. If there are new stats in the master stats list, adds that
+	 * stat to the stats of all placed units and unit definitions. If there is a
+	 * stat in the stats list of placed units and unit definitions, but not in
+	 * the master stats list, then it removes that stat from all stats lists of
+	 * placed units and unit definitions
+	 */
+	public void syncStats() {
+		List<?> editorUnitList = myEditorData.get(GridConstants.GAMEUNIT);
+		GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
 
-        for (Object unit : editorUnitList) {
-            ((GameUnit) unit).getStats().syncWithMaster();
-        }
+		for (Object unit : editorUnitList) {
+			((GameUnit) unit).getStats().syncWithMaster();
+		}
 
-        for (int i = 0; i < placedUnits.length; i++) {
-            for (int j = 0; j < placedUnits[i].length; j++) {
-                if (placedUnits[i][j] != null) {
-                    placedUnits[i][j].getStats().syncWithMaster();
-                }
-            }
-        }
-    }
+		for (int i = 0; i < placedUnits.length; i++) {
+			for (int j = 0; j < placedUnits[i].length; j++) {
+				if (placedUnits[i][j] != null) {
+					placedUnits[i][j].getStats().syncWithMaster();
+				}
+			}
+		}
+	}
 
-    private void syncActions () {
-        List<?> editorUnitList = (List<?>) myEditorData.get("GameUnit");
-        GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
+	private void syncActions() {
+		List<?> editorUnitList = (List<?>) myEditorData.get("GameUnit");
+		GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
 
-        for (Object unit : editorUnitList) {
-            ((GameUnit) unit).syncActionsWithMaster();
-        }
+		for (Object unit : editorUnitList) {
+			((GameUnit) unit).syncActionsWithMaster();
+		}
 
-        for (int i = 0; i < placedUnits.length; i++) {
-            for (int j = 0; j < placedUnits[i].length; j++) {
-                if (placedUnits[i][j] != null) {
-                    placedUnits[i][j].syncActionsWithMaster();
-                }
-            }
-        }
-    }
+		for (int i = 0; i < placedUnits.length; i++) {
+			for (int j = 0; j < placedUnits[i].length; j++) {
+				if (placedUnits[i][j] != null) {
+					placedUnits[i][j].syncActionsWithMaster();
+				}
+			}
+		}
+	}
 
-    @SuppressWarnings("unchecked")
-    public List<String> getDialogList (String myType) {
-        List<String> ret = new ArrayList<String>();
-        switch (myType) {
-            case GridConstants.GAMEUNIT:
-                ret = myActiveStage.getTeamNames();
-                break;
-            case GridConstants.GAMEOBJECT:
-                List<GameUnit> list = (List<GameUnit>) myEditorData.get(GridConstants.GAMEUNIT);
-                ret.add(GridConstants.DEFAULT_PASS_EVERYTHING);
-                for (GameUnit gu : list) {
-                    ret.add(gu.getName());
-                }
-                break;
-            case GridConstants.ITEM:
-                for (Action a : (List<Action>) myEditorData.get(GridConstants.ACTION)) {
-                    ret.add(a.getName());
-                }
-                break;
-            default:
-                break;
-        }
+	@SuppressWarnings("unchecked")
+	public List<String> getDialogList(String myType) {
+		List<String> ret = new ArrayList<String>();
+		switch (myType) {
+		case GridConstants.GAMEUNIT:
+			ret = myActiveStage.getTeamNames();
+			break;
+		case GridConstants.GAMEOBJECT:
+			List<GameUnit> list = (List<GameUnit>) myEditorData
+					.get(GridConstants.GAMEUNIT);
+			ret.add(GridConstants.DEFAULT_PASS_EVERYTHING);
+			for (GameUnit gu : list) {
+				ret.add(gu.getName());
+			}
+			break;
+		case GridConstants.ITEM:
+			for (Action a : (List<Action>) myEditorData
+					.get(GridConstants.ACTION)) {
+				ret.add(a.getName());
+			}
+			break;
+		default:
+			break;
+		}
 
-        return ret;
-    }
+		return ret;
+	}
 }

@@ -1,19 +1,20 @@
 package grid;
 
 public class GridConstants {
-    public final static int TRANSPARENCY = 50;
+	public final static int TRANSPARENCY = 50;
 
-    public static final String TILE = "Tile";
-    public static final String GAMEUNIT = "GameUnit";
-    public static final String GAMEOBJECT = "GameObject";
-    public static final String ITEM = "Item";
-    public static final String[] DEFAULTTYPES = { TILE, GAMEUNIT, GAMEOBJECT, ITEM };
+	public static final String TILE = "Tile";
+	public static final String GAMEUNIT = "GameUnit";
+	public static final String GAMEOBJECT = "GameObject";
+	public static final String ITEM = "Item";
+	public static final String[] DEFAULTTYPES = { TILE, GAMEUNIT, GAMEOBJECT,
+			ITEM };
 
-    public static final String STATS = "Stats";
-    public static final String MASTERSTATS = "Master Stats";
-    public static final String TEAM = "Team";
-    public static final String CONDITION = "Condition";
-    public static final String ACTION = "Action";
+	public static final String STATS = "Stats";
+	public static final String MASTERSTATS = "Master Stats";
+	public static final String TEAM = "Team";
+	public static final String CONDITION = "Condition";
+	public static final String ACTION = "Action";
 
-    public final static String DEFAULT_PASS_EVERYTHING = "everything";
+	public final static String DEFAULT_PASS_EVERYTHING = "everything";
 }

@@ -12,43 +12,41 @@ import controllers.WorldManager;
 import view.canvas.GridCanvas;
 import view.editor.StageEditorPanel;
 
-
 public class StagePanel extends JPanel {
 
-    /**
+	/**
      * 
      */
-    private static final long serialVersionUID = 1534023398376725167L;
-    private final String[] defaultTypes = GridConstants.DEFAULTTYPES;
-    private GridCanvas myCanvas;
-    private WorldManager myWorldManager;
-    private int myID;
-    private GridEditorController myController;
+	private static final long serialVersionUID = 1534023398376725167L;
+	private final String[] defaultTypes = GridConstants.DEFAULTTYPES;
+	private GridCanvas myCanvas;
+	private WorldManager myWorldManager;
+	private int myID;
+	private GridEditorController myController;
 
-    public StagePanel (String stageName,
-                       WorldManager wm,
-                       int stageID,
-                       GridEditorController gridcontrol) {
-        myID = stageID;
-        myWorldManager = wm;
-        myController = gridcontrol;
-        myCanvas = new GridCanvas(myWorldManager);
-        initStagePanel();
-    }
+	public StagePanel(String stageName, WorldManager wm, int stageID,
+			GridEditorController gridcontrol) {
+		myID = stageID;
+		myWorldManager = wm;
+		myController = gridcontrol;
+		myCanvas = new GridCanvas(myWorldManager);
+		initStagePanel();
+	}
 
-    private void initStagePanel () {
-        setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+	private void initStagePanel() {
+		setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
 
-        JScrollPane scrollGrid =
-                new JScrollPane(myCanvas, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollGrid.setLayout(new ScrollPaneLayout());
-        add(scrollGrid);
-        StageEditorPanel panel = new StageEditorPanel(myWorldManager, defaultTypes, myID);
-        panel.setMaximumSize(new Dimension(200, 500));
-        add(panel);
+		JScrollPane scrollGrid = new JScrollPane(myCanvas,
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollGrid.setLayout(new ScrollPaneLayout());
+		add(scrollGrid);
+		StageEditorPanel panel = new StageEditorPanel(myWorldManager,
+				defaultTypes, myID);
+		panel.setMaximumSize(new Dimension(200, 500));
+		add(panel);
 
-        repaint();
-        myCanvas.addGridMouseListener(myController);
-    }
+		repaint();
+		myCanvas.addGridMouseListener(myController);
+	}
 }
