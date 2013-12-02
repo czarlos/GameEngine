@@ -5,66 +5,66 @@ import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.Stats;
 
-
 public class CombatAction extends Action {
 
-    private Stats myInitiatorStats;
-    private Stats myReceiverStats;
-    private List<Outcome> myInitiatorOutcomes;
-    private List<Outcome> myReceiverOutcomes;
+	private Stats myInitiatorStats;
+	private Stats myReceiverStats;
+	private List<Outcome> myInitiatorOutcomes;
+	private List<Outcome> myReceiverOutcomes;
 
-    public CombatAction () {
-    }
+	public CombatAction() {
+	}
 
-    private double getNetEffectiveness (GameUnit initiator, GameUnit receiver) {
-        myInitiatorStats = initiator.getStats();
-        myReceiverStats = receiver.getStats();
-        
-        double offensiveStatSum = 0, defensiveStatSum = 0;
-        double netStat = 0;
+	private double getNetEffectiveness(GameUnit initiator, GameUnit receiver) {
+		myInitiatorStats = initiator.getStats();
+		myReceiverStats = receiver.getStats();
 
-        for (String statName : myInitiatorStats.getStatNames()) {
-            offensiveStatSum +=
-                    initiator.getTotalStat(statName) *
-                            myInitiatorStats.getStatValue(statName);
-        }
+		double offensiveStatSum = 0, defensiveStatSum = 0;
+		double netStat = 0;
 
-        for (String statName : myReceiverStats.getStatNames()) {
-            defensiveStatSum +=
-                    receiver.getTotalStat(statName) *
-                            myReceiverStats.getStatValue(statName);
-        }
+		for (String statName : myInitiatorStats.getStatNames()) {
+			offensiveStatSum += initiator.getTotalStat(statName)
+					* myInitiatorStats.getStatValue(statName);
+		}
 
-        // Creates a normalized output based on max possible difference in favor
-        // of attacker
-        netStat =
-                ((offensiveStatSum - defensiveStatSum) >= 0 ? (offensiveStatSum - defensiveStatSum)
-                                                           : 0)
-                        / (offensiveStatSum);
+		for (String statName : myReceiverStats.getStatNames()) {
+			defensiveStatSum += receiver.getTotalStat(statName)
+					* myReceiverStats.getStatValue(statName);
+		}
 
-        return netStat;
-    }
+		// Creates a normalized output based on max possible difference in favor
+		// of attacker
+		netStat = ((offensiveStatSum - defensiveStatSum) >= 0 ? (offensiveStatSum - defensiveStatSum)
+				: 0)
+				/ (offensiveStatSum);
 
-    @Override
-    public void doAction (GameUnit initiator, GameObject receiver) {
-        double effectiveness = getNetEffectiveness(initiator, (GameUnit) receiver);
+		return netStat;
+	}
 
-        for (Outcome o : myInitiatorOutcomes) {
-            o.applyOutcome(initiator, effectiveness);
-        }
+	@Override
+	public void doAction(GameUnit initiator, GameObject receiver) {
+		double effectiveness = getNetEffectiveness(initiator,
+				(GameUnit) receiver);
 
-        for (Outcome o : myReceiverOutcomes) {
-            o.applyOutcome((GameUnit) receiver, effectiveness);
-        }
-    }
+		for (Outcome o : myInitiatorOutcomes) {
+			o.applyOutcome(initiator, effectiveness);
+		}
 
-    @Override
-    public boolean isValidAction (GameUnit initiator, GameObject receiver) {
-        double effectiveness = getNetEffectiveness(initiator, (GameUnit) receiver);
-        
-        for (Outcome o : myInitiatorOutcomes) {
-            if (!o.checkValidOutcome(initiator, effectiveness)) { return false; }
-        }
-        return true;
-    }
+		for (Outcome o : myReceiverOutcomes) {
+			o.applyOutcome((GameUnit) receiver, effectiveness);
+		}
+	}
+
+	@Override
+	public boolean isValidAction(GameUnit initiator, GameObject receiver) {
+		double effectiveness = getNetEffectiveness(initiator,
+				(GameUnit) receiver);
+
+		for (Outcome o : myInitiatorOutcomes) {
+			if (!o.checkValidOutcome(initiator, effectiveness)) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

@@ -8,42 +8,40 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 @JsonAutoDetect
 public abstract class Customizable {
-    protected String myName;
-    @JsonProperty
-    protected String myImagePath;
-    protected BufferedImage myImage;
+	protected String myName;
+	@JsonProperty
+	protected String myImagePath;
+	protected BufferedImage myImage;
 
-    public Customizable () {
+	public Customizable() {
 
-    }
+	}
 
-    public String getName () {
-        return myName;
-    }
+	public String getName() {
+		return myName;
+	}
 
-    public void setName (String name) {
-        myName = name;
-    }
+	public void setName(String name) {
+		myName = name;
+	}
 
-    public String getImagePath () {
-        return myImagePath;
-    }
+	public String getImagePath() {
+		return myImagePath;
+	}
 
-    public void setImagePath (String imagePath) {
-        myImagePath = imagePath;
-        try {
-            myImage = ImageIO.read(new File(imagePath));
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+	public void setImagePath(String imagePath) {
+		myImagePath = imagePath;
+		try {
+			myImage = ImageIO.read(new File(imagePath));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-    @JsonIgnore
-    public BufferedImage getImage () {
-        return myImage;
-    }
+	@JsonIgnore
+	public BufferedImage getImage() {
+		return myImage;
+	}
 }

@@ -17,64 +17,63 @@ import dialog.dialogs.TableDialog;
 import dialog.dialogs.tableModels.ActionTableModel;
 import dialog.dialogs.tableModels.GameTableModel;
 
-
 /**
  * 
- * @author brooksmershon
- *         Testing setup for panel and table viewing
+ * @author brooksmershon Testing setup for panel and table viewing
  */
 
 public class TestTileEditor {
-    public static void main (String[] args) {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run () {
-                createGUITester();
-            }
-        });
-    }
+	public static void main(String[] args) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				createGUITester();
+			}
+		});
+	}
 
-    /**
-     * sets up a GUI for testing
-     */
-    private static void createGUITester () {
-        JFrame frame = new JFrame("Unit Editor");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	/**
+	 * sets up a GUI for testing
+	 */
+	private static void createGUITester() {
+		JFrame frame = new JFrame("Unit Editor");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        GameTableModel model = new ActionTableModel();
+		GameTableModel model = new ActionTableModel();
 
-        List<?> tilesReadIn = makeTestLists();
+		List<?> tilesReadIn = makeTestLists();
 
-        model.loadObject(tilesReadIn);
+		model.loadObject(tilesReadIn);
 
-        Container content = frame.getContentPane();
-        // Creates a new container
-        content.setLayout(new BorderLayout());
+		Container content = frame.getContentPane();
+		// Creates a new container
+		content.setLayout(new BorderLayout());
 
-        final JDialog tileEditor = new TableDialog(model, null);
+		final JDialog tileEditor = new TableDialog(model, null);
 
-        JButton launchButton = new JButton("TileEditor");
-        launchButton.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent e) {
-                tileEditor.setVisible(true);
-            }
-        });
+		JButton launchButton = new JButton("TileEditor");
+		launchButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tileEditor.setVisible(true);
+			}
+		});
 
-        JPanel panel = new JPanel();
-        panel.add(launchButton);
+		JPanel panel = new JPanel();
+		panel.add(launchButton);
 
-        panel.setPreferredSize(new Dimension(60, 68));
-        panel.setMinimumSize(new Dimension(60, 68));
-        panel.setMaximumSize(new Dimension(60, 68));
+		panel.setPreferredSize(new Dimension(60, 68));
+		panel.setMinimumSize(new Dimension(60, 68));
+		panel.setMaximumSize(new Dimension(60, 68));
 
-        content.add(panel, BorderLayout.WEST);
+		content.add(panel, BorderLayout.WEST);
 
-        frame.setSize(300, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-    }
+		frame.setSize(300, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+	}
 
-    private static List<?> makeTestLists () {
-        JSONParser p = new JSONParser();
-        return p.createObject("defaults/Action", new ArrayList<Action>().getClass());
-    }
+	private static List<?> makeTestLists() {
+		JSONParser p = new JSONParser();
+		return p.createObject("defaults/Action",
+				new ArrayList<Action>().getClass());
+	}
 }
