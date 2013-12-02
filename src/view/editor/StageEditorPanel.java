@@ -57,6 +57,7 @@ public class StageEditorPanel extends JTabbedPane {
         int index = this.indexOfTab(type);
         this.remove(myTabs.get(type));
         this.add(replacement, index);
+        this.setSelectedIndex(index);
     }
 
     private JScrollPane makeTab (String type) {
