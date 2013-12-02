@@ -33,18 +33,9 @@ public class GameManager extends Manager {
         myView = view;
     }
 
-    public void doTurn () {
+    public void beginTurn () {
         clear();
-        while (!conditionsMet()) {
-            nextTurn();
-            if (teamIsHuman()) {
-                doHumanTurn();
-            }
-            else {
-                doAITurn();
-            }
-        }
-
+        nextTurn();
     }
 
     private void clear () {
@@ -52,8 +43,15 @@ public class GameManager extends Manager {
         isTurnCompleted = false;
     }
 
-    public void doHumanTurn () {
-        myView.doTurn();
+    public void doUntilHumanTurn () {
+        int count=0;
+        while (!teamIsHuman()) {
+            // doAITurn();
+            beginTurn();
+            count++;
+            if(count>10)
+                throw new RuntimeException("HOLY SHIT!!!");
+        }
     }
 
     /**
