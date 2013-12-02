@@ -14,7 +14,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import parser.JSONParser;
-import controllers.GUIBlocker;
 import controllers.GameManager;
 import controllers.WorldManager;
 import view.editor.GameView;
@@ -79,18 +78,22 @@ public class PlayerView extends GameView {
 		}
 		revalidate();
 		repaint();
-		myManager.nextTurn();
 		doTurn();
 	}
 
 	public void doTurn() {
+	        myManager.beginTurn();
+	        myManager.doUntilHumanTurn();
 		remove(myBackground);
 		StagePlayerPanel sp = new StagePlayerPanel(myManager);
 		add(sp);
 		revalidate();
 		repaint();
 	}
-
+	
+	public void endTurn(){
+	    removeAll();
+	}
 	public static void main(String[] args) {
 		new PlayerView();
 	}

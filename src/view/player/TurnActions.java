@@ -13,10 +13,8 @@ public class TurnActions extends JPanel {
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                // TODO Auto-generated method stub
-
+                
             }
-
         });
 
         add(endTurn);
