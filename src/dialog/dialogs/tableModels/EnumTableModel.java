@@ -5,7 +5,8 @@ import java.util.List;
 
 
 /**
- * Takes an list of strings and an enum and displays those strings as editable enums.
+ * Takes an list of strings and an enum and displays those strings as editable
+ * enums.
  * 
  * @author Leevi
  * 

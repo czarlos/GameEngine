@@ -12,7 +12,8 @@ import team.Team;
 public class TeamTableModel extends GameTableModel {
 
     public TeamTableModel () {
-        String[] names = { "Name", "Graphic", "Gold", "Win Conditions", "Conditions needed to win", "Human?" };
+        String[] names = { "Name", "Graphic", "Gold", "Win Conditions",
+                          "Conditions needed to win", "Human?" };
         myName = GridConstants.TEAM;
         setColumnNames(names);
     }

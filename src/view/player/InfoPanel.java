@@ -25,20 +25,20 @@ public class InfoPanel extends ScrollableListPane {
             add(entry);
         }
     }
-    
-    public static void main(String cheese[]){
-        List<String> list=new ArrayList<>();
+
+    public static void main (String cheese[]) {
+        List<String> list = new ArrayList<>();
         list.add("Hello");
         list.add("This is code");
         list.add("How about that");
         list.add("Here is some more code");
         list.add("ksjfoiajefoijwoijf");
-        
-        JFrame frame=new JFrame("My Frame");
-        JScrollPane pane=new JScrollPane(new InfoPanel(list));
+
+        JFrame frame = new JFrame("My Frame");
+        JScrollPane pane = new JScrollPane(new InfoPanel(list));
         frame.add(pane);
-       
+
         frame.setVisible(true);
-        
+
     }
 }

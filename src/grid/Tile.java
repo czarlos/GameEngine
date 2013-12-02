@@ -48,7 +48,8 @@ public class Tile extends GameObject {
     /**
      * Sets the image path and image for the graphic that is drawn
      * 
-     * @param imagePath - String of image path
+     * @param imagePath
+     *        - String of image path
      */
 
     public boolean isActive () {
@@ -69,7 +70,9 @@ public class Tile extends GameObject {
         displayData.add("Movement cost: " + myMoveCost);
         displayData.add("Stat Modifiers: ");
         for (String stat : myStats.getStatNames()) {
-            displayData.add(stat + ": " + myStats.getStatValue(stat));
+            if (!stat.equals("health") && !stat.equals("maxhealth") && !stat.equals("experience")) {
+                displayData.add(stat + ": " + myStats.getStatValue(stat));
+            }
         }
         myDisplayData = displayData;
     }

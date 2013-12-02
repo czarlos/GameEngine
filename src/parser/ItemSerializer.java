@@ -16,14 +16,13 @@ public final class ItemSerializer extends StdKeySerializer {
     }
 
     @Override
-    public void serialize (Object value, JsonGenerator jgen, SerializerProvider provider)
-                                                                                         throws IOException,
-                                                                                         JsonGenerationException
-    {
+    public void serialize (Object value, JsonGenerator jgen,
+                           SerializerProvider provider) throws IOException,
+                                                       JsonGenerationException {
         if (value instanceof Item) {
-            String s =
-                    ((Item) value).getName() + " " + ((Item) value).getStats() + " " +
-                            ((Item) value).getActions();
+            String s = ((Item) value).getName() + " "
+                       + ((Item) value).getStats() + " "
+                       + ((Item) value).getActions();
             jgen.writeFieldName(s);
             // jgen.writeObject(value);
             // jgen.writeString(((Item) value).getName());

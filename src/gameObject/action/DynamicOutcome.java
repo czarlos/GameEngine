@@ -13,7 +13,8 @@ public class DynamicOutcome extends Outcome {
 
     /**
      * Changes the amount of a supplies type, name, and amount in a dynamic way,
-     * such that stat interaction affects it. If it would make a value negative, makes it zero
+     * such that stat interaction affects it. If it would make a value negative,
+     * makes it zero
      * 
      * @param unit
      * @param effectiveness
@@ -44,8 +45,8 @@ public class DynamicOutcome extends Outcome {
     }
 
     /**
-     * Checks whether a unit should be able to perform an action with this outcome against another
-     * unit
+     * Checks whether a unit should be able to perform an action with this
+     * outcome against another unit
      * 
      * @return whether or not outcome is legal
      */

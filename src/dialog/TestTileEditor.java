@@ -22,8 +22,7 @@ import dialog.dialogs.tableModels.TeamTableModel;
 
 /**
  * 
- * @author brooksmershon
- *         Testing setup for panel and table viewing
+ * @author brooksmershon Testing setup for panel and table viewing
  */
 
 public class TestTileEditor {

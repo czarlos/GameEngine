@@ -43,7 +43,8 @@ public class TableDialog extends JDialog {
         this(gtm, okListener, new ArrayList<String>());
     }
 
-    public TableDialog (GameTableModel gtm, ActionListener okListener, List<String> dialogList) {
+    public TableDialog (GameTableModel gtm, ActionListener okListener,
+                        List<String> dialogList) {
         setList(dialogList);
         myModel = gtm;
         addTable();
@@ -90,17 +91,20 @@ public class TableDialog extends JDialog {
     }
 
     public void setDefaultEditorsRenderers (JTable table) {
-        table.setDefaultRenderer(File.class,
-                                 new ImageRenderer());
-        table.setDefaultEditor(File.class,
-                               new ImagePathEditor());
-        table.setDefaultEditor(Stats.class,
-                               new ModelEditor(new StatsTableModel()));
-        table.setDefaultEditor(WinCondition.class, new ModelEditor(new WinConditionTableModel()));
-        table.setDefaultEditor(Condition.class, new DefaultCellEditor(getConditionComboBox()));
-        table.setDefaultEditor(HashMap.class, new ModelEditor(new MapTableModel()));
-        table.setDefaultEditor(ArrayList.class, new ModelEditor(new EnumTableModel(), myEnumList));
-        table.setDefaultEditor(ComboString.class, new DefaultCellEditor(getComboBox()));
+        table.setDefaultRenderer(File.class, new ImageRenderer());
+        table.setDefaultEditor(File.class, new ImagePathEditor());
+        table.setDefaultEditor(Stats.class, new ModelEditor(
+                                                            new StatsTableModel()));
+        table.setDefaultEditor(WinCondition.class, new ModelEditor(
+                                                                   new WinConditionTableModel()));
+        table.setDefaultEditor(Condition.class, new DefaultCellEditor(
+                                                                      getConditionComboBox()));
+        table.setDefaultEditor(HashMap.class, new ModelEditor(
+                                                              new MapTableModel()));
+        table.setDefaultEditor(ArrayList.class, new ModelEditor(
+                                                                new EnumTableModel(), myEnumList));
+        table.setDefaultEditor(ComboString.class, new DefaultCellEditor(
+                                                                        getComboBox()));
     }
 
     // for Strings that you want to always be interpreted as comboboxes

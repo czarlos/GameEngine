@@ -11,8 +11,7 @@ import controller.editor.GridController;
 
 
 /**
- * Panel to display tabs that are shown on the side of
- * the player.
+ * Panel to display tabs that are shown on the side of the player.
  */
 @SuppressWarnings("serial")
 public class SelectedInfoPanel extends JPanel implements Scrollable {
@@ -26,15 +25,14 @@ public class SelectedInfoPanel extends JPanel implements Scrollable {
 
     }
 
-    public void makeTabs (List<String> buttonTab,
-                          List<String> tileInfo,
+    public void makeTabs (List<String> buttonTab, List<String> tileInfo,
                           List<String> objectInfo) {
         if (tileInfo != null) {
             myTabs.add("Tile", new InfoPanel(tileInfo));
         }
 
         if (objectInfo != null) {
-            myTabs.add("Objects", new InfoPanel(objectInfo));
+            myTabs.add("Object", new InfoPanel(objectInfo));
         }
 
         if (buttonTab != null) {
@@ -53,13 +51,16 @@ public class SelectedInfoPanel extends JPanel implements Scrollable {
     }
 
     @Override
-    public int getScrollableUnitIncrement (Rectangle visibleRect, int orientation, int direction) {
+    public int getScrollableUnitIncrement (Rectangle visibleRect,
+                                           int orientation, int direction) {
         return 10;
     }
 
     @Override
-    public int getScrollableBlockIncrement (Rectangle visibleRect, int orientation, int direction) {
-        return ((orientation == SwingConstants.VERTICAL) ? visibleRect.height : visibleRect.width);
+    public int getScrollableBlockIncrement (Rectangle visibleRect,
+                                            int orientation, int direction) {
+        return ((orientation == SwingConstants.VERTICAL) ? visibleRect.height
+                                                        : visibleRect.width);
     }
 
     @Override

@@ -10,8 +10,8 @@ import javax.swing.table.TableCellEditor;
 
 
 @SuppressWarnings("serial")
-public abstract class GameCellEditor extends AbstractCellEditor implements TableCellEditor,
-        ActionListener {
+public abstract class GameCellEditor extends AbstractCellEditor implements
+        TableCellEditor, ActionListener {
 
     protected static final String EDIT = "edit";
     JButton button;
@@ -32,11 +32,8 @@ public abstract class GameCellEditor extends AbstractCellEditor implements Table
     @Override
     public abstract void actionPerformed (ActionEvent e);
 
-    public Component getTableCellEditorComponent (JTable table,
-                                                  Object value,
-                                                  boolean isSelected,
-                                                  int row,
-                                                  int column) {
+    public Component getTableCellEditorComponent (JTable table, Object value,
+                                                  boolean isSelected, int row, int column) {
         current = value;
         return button;
     }

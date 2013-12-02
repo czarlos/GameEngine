@@ -11,7 +11,8 @@ public class ImageUtilities {
 
     public static BufferedImage brightenImage (BufferedImage img) {
         // RenderingHints not needed
-        RescaleOp brighten = new RescaleOp(RESIZE_FACTOR, BRIGHTNESS_OFFSET, null);
+        RescaleOp brighten = new RescaleOp(RESIZE_FACTOR, BRIGHTNESS_OFFSET,
+                                           null);
         BufferedImage brightenedImg = brighten.filter(img, null);
         return brightenedImg;
     }

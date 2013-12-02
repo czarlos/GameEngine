@@ -13,7 +13,8 @@ public class FixedOutcome extends Outcome {
 
     /**
      * Changes the amount of a supplies type, name, and amount in a fixed way,
-     * such that no stat interaction affects it. If it would make a value negative, makes it zero.
+     * such that no stat interaction affects it. If it would make a value
+     * negative, makes it zero.
      * 
      * @param unit
      * @param effectiveness
@@ -42,8 +43,8 @@ public class FixedOutcome extends Outcome {
     }
 
     /**
-     * Checks whether a unit should be able to perform an action with this outcome against another
-     * unit
+     * Checks whether a unit should be able to perform an action with this
+     * outcome against another unit
      * 
      * @return whether or not outcome is legal
      */

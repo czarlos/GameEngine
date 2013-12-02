@@ -23,7 +23,8 @@ public class GameObjectPanel extends JPanel implements MouseListener {
     private boolean isSelected;
     private StageEditorPanel myEditorPanel;
 
-    public GameObjectPanel (String type, Image image, String name, StageEditorPanel editor) {
+    public GameObjectPanel (String type, Image image, String name,
+                            StageEditorPanel editor) {
         myType = type;
         myEditorPanel = editor;
         setLayout(new GridLayout(1, 2));
@@ -33,7 +34,6 @@ public class GameObjectPanel extends JPanel implements MouseListener {
         isSelected = false;
         initPanel();
     }
-
 
     private void initPanel () {
         // JLabel label = new JLabel(myImage);

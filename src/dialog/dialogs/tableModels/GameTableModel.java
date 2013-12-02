@@ -70,10 +70,10 @@ public abstract class GameTableModel extends AbstractTableModel {
     public boolean isCellEditable (int row, int column) {
         return true;
     }
-    
+
     // defines the default "new object"
     public abstract Object[] getNew ();
-    
+
     public abstract void loadObject (Object object);
 
     public abstract Object getObject ();

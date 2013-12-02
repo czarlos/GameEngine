@@ -79,7 +79,8 @@ public class CombatTest {
         double enemyHealth = enemyUnit.getStat("health");
         double expectedEnemyHealth = 5;
 
-        assertEquals("Proper Enemy Damage Dealt", enemyHealth, expectedEnemyHealth, .001);
+        assertEquals("Proper Enemy Damage Dealt", enemyHealth,
+                     expectedEnemyHealth, .001);
     }
 
     @Test
@@ -96,7 +97,8 @@ public class CombatTest {
         double playerHealth = playerUnit.getStat("health");
         double expectedPlayerHealth = 10;
 
-        assertEquals("Proper Self Damage Dealt", playerHealth, expectedPlayerHealth, .001);
+        assertEquals("Proper Self Damage Dealt", playerHealth,
+                     expectedPlayerHealth, .001);
     }
 
     @Test
@@ -113,7 +115,8 @@ public class CombatTest {
         double enemyHealth = enemyUnit.getStat("health");
         double expectedEnemyHealth = 11;
 
-        assertEquals("Proper Damage Dealt", enemyHealth, expectedEnemyHealth, .001);
+        assertEquals("Proper Damage Dealt", enemyHealth, expectedEnemyHealth,
+                     .001);
     }
 
     @Test
@@ -154,8 +157,8 @@ public class CombatTest {
     }
 
     /**
-     * Creates an action that deals 10 damage to opponent health at the cost of 5 of the attackers
-     * health
+     * Creates an action that deals 10 damage to opponent health at the cost of
+     * 5 of the attackers health
      * 
      * @return CombatAction
      */
@@ -236,8 +239,10 @@ public class CombatTest {
     /**
      * Function to create empty items to test item deletion
      * 
-     * @param name - name of item
-     * @param quantity - number of them
+     * @param name
+     *        - name of item
+     * @param quantity
+     *        - number of them
      * @return Item - created items
      */
     // public Item makeEmptyItem (String name, int quantity) {

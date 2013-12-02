@@ -8,6 +8,7 @@ import gameObject.action.Action;
 import gameObject.item.Item;
 import grid.GridConstants;
 
+
 @SuppressWarnings("serial")
 public class ItemTableModel extends GameTableModel {
 

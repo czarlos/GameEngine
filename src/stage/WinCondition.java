@@ -30,24 +30,25 @@ public class WinCondition {
     public void setConditionsNeeded (int i) {
         conditionsNeeded = i;
     }
-    
-    public int getConditionsNeeded(){
+
+    public int getConditionsNeeded () {
         return conditionsNeeded;
     }
 
     public void addCondition (Condition c) {
         myConditions.add(c);
     }
-    
-    public List<Condition> getConditions() {
+
+    public List<Condition> getConditions () {
         return myConditions;
     }
-    
-    public void setConditions(List<Condition> conditions){
+
+    public void setConditions (List<Condition> conditions) {
         myConditions = conditions;
     }
 
-    // TODO: currently no conditions = auto-win, but maybe we should make it never-win
+    // TODO: currently no conditions = auto-win, but maybe we should make it
+    // never-win
     public boolean isFulfilled (Stage stage) {
         int count = 0;
         for (Condition c : myConditions) {
@@ -56,8 +57,8 @@ public class WinCondition {
         }
         return count >= conditionsNeeded;
     }
-    
-    public String toString(){
+
+    public String toString () {
         return "Win Condition";
     }
 }

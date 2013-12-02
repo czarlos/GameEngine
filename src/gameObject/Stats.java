@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 
- * Stats class that keeps track of a group of stats and their values. Is used to store a game
- * unit's stat values.
+ * Stats class that keeps track of a group of stats and their values. Is used to
+ * store a game unit's stat values.
  * 
  * @author Andy Bradshaw
  * @author Ken McAndrews
@@ -46,7 +46,8 @@ public class Stats {
     /**
      * Gets the stat value for the given stat name
      * 
-     * @param statName - The stat name to get the value for
+     * @param statName
+     *        - The stat name to get the value for
      * @return The value of the stat name passed in
      */
     @JsonIgnore
@@ -55,10 +56,13 @@ public class Stats {
     }
 
     /**
-     * Modifies the value of an existing stat. If the stat does not exist, does nothing
+     * Modifies the value of an existing stat. If the stat does not exist, does
+     * nothing
      * 
-     * @param statName - Name of the stat to modify
-     * @param value - Value to modify the stat to
+     * @param statName
+     *        - Name of the stat to modify
+     * @param value
+     *        - Value to modify the stat to
      */
     public void modExisting (String statName, Integer value) {
         if (myStatMap.containsKey(statName)) {
@@ -69,7 +73,8 @@ public class Stats {
     /**
      * Removes a stat
      * 
-     * @param statName - The name of the stat to remove
+     * @param statName
+     *        - The name of the stat to remove
      */
     public void remove (String statName) {
         myStatMap.remove(statName);
@@ -99,7 +104,8 @@ public class Stats {
     /**
      * Sets the map of stats
      * 
-     * @param myStatMap - The map of stats to set to
+     * @param myStatMap
+     *        - The map of stats to set to
      */
     public void setStats (Map<String, Integer> statMap) {
         Map<String, Integer> newStats = new HashMap<>();
@@ -110,10 +116,11 @@ public class Stats {
     }
 
     /**
-     * Updates the stats maps of the current Stats instance and the master stats map. If a stat
-     * exists in the master stats map, but not in the current Stats instance map, then it adds it to
-     * the current Stats map instance. If a stat exists in the current Stats instance map, but not
-     * in the master stats map, it removes it from the current Stats map instance
+     * Updates the stats maps of the current Stats instance and the master stats
+     * map. If a stat exists in the master stats map, but not in the current
+     * Stats instance map, then it adds it to the current Stats map instance. If
+     * a stat exists in the current Stats instance map, but not in the master
+     * stats map, it removes it from the current Stats map instance
      */
     public void syncWithMaster () {
         MasterStats masterStatMap = MasterStats.getInstance();

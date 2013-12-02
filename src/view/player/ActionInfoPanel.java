@@ -17,19 +17,17 @@ public class ActionInfoPanel extends ScrollableListPane {
 
     protected GridController myController;
 
-    public ActionInfoPanel (List<String> actions,
-                            GridController controller) {
+    public ActionInfoPanel (List<String> actions, GridController controller) {
         super(actions);
         myController = controller;
-        
 
     }
 
     @Override
     public void populate (List<String> data) {
-        JPanel buttons=new JPanel();
-        buttons.setMaximumSize(new Dimension(200,data.size()*30));
-        buttons.setLayout(new GridLayout(0,1));
+        JPanel buttons = new JPanel();
+        buttons.setMaximumSize(new Dimension(200, data.size() * 30));
+        buttons.setLayout(new GridLayout(0, 1));
         for (int i = 0; i < data.size(); i++) {
             String s = data.get(i);
             JButton button = new JButton(s);
@@ -40,10 +38,10 @@ public class ActionInfoPanel extends ScrollableListPane {
 
                 @Override
                 public void actionPerformed (ActionEvent e) {
-                    NClickAction action =
-                            new NClickAction(2, DoAction.class.toString().substring(6), myActionId);
-                    action.addPrecursorCommand(1, BeginDoAction.class.toString().substring(6),
-                                               myActionId);
+                    NClickAction action = new NClickAction(2, DoAction.class
+                            .toString().substring(6), myActionId);
+                    action.addPrecursorCommand(1, BeginDoAction.class
+                            .toString().substring(6), myActionId);
                     myController.doCommand(action);
                     revalidate();
                 }

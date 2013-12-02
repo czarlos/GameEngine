@@ -49,8 +49,8 @@ public abstract class Manager {
     }
 
     /**
-     * Set which stage to assign "active", this
-     * is the stage that all methods will return information about by default.
+     * Set which stage to assign "active", this is the stage that all methods
+     * will return information about by default.
      * 
      * @param stageID
      */

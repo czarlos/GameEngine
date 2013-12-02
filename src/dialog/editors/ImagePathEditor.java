@@ -14,8 +14,7 @@ public class ImagePathEditor extends GameCellEditor {
     }
 
     /**
-     * Handles events from the editor button and from
-     * the dialog's OK button.
+     * Handles events from the editor button and from the dialog's OK button.
      */
     public void actionPerformed (ActionEvent e) {
         int returnVal = fileChooser.showDialog(button, "Choose");

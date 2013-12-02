@@ -17,9 +17,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * Game Unit is any unit in the game that can be interacted with,
- * game units can be stationary or can move, these units can have stats
- * and they can hold items.
+ * Game Unit is any unit in the game that can be interacted with, game units can
+ * be stationary or can move, these units can have stats and they can hold
+ * items.
  * 
  * @author carlosreyes
  * 
@@ -53,10 +53,10 @@ public class GameUnit extends GameObject {
     }
 
     /**
-     * Sets the Game units active weapon to the weapon
-     * with a given string name.
+     * Sets the Game units active weapon to the weapon with a given string name.
      * 
-     * @param weaponName - The string which represents a weapon
+     * @param weaponName
+     *        - The string which represents a weapon
      */
     public void selectWeapon (String weaponName) {
         for (Item item : myItems) {
@@ -67,10 +67,11 @@ public class GameUnit extends GameObject {
     }
 
     /**
-     * Takes an item and adds it to the list of items, adding
-     * to the stats of the unit as it adds in an item.
+     * Takes an item and adds it to the list of items, adding to the stats of
+     * the unit as it adds in an item.
      * 
-     * @param itemName - The name of the item, not a string
+     * @param itemName
+     *        - The name of the item, not a string
      */
     public void addItem (Item item) {
 
@@ -79,15 +80,17 @@ public class GameUnit extends GameObject {
 
         }
         else {
-            myItemAmounts.put(item.getName(), myItemAmounts.get(item.getName()) + 1);
+            myItemAmounts.put(item.getName(),
+                              myItemAmounts.get(item.getName()) + 1);
         }
     }
 
     /**
-     * Removes a particular item from the units itemList, ensures that upon removal
-     * the unit's stats get decremented accordingly.
+     * Removes a particular item from the units itemList, ensures that upon
+     * removal the unit's stats get decremented accordingly.
      * 
-     * @param itemName - The name of the item, not a string
+     * @param itemName
+     *        - The name of the item, not a string
      */
     public void removeItem (Item itemName) {
         myItemAmounts.remove(itemName);
@@ -99,11 +102,12 @@ public class GameUnit extends GameObject {
     }
 
     /**
-     * Gets the total stat value for a given stat of a character
-     * after all of the item's stats have been applied. Assuming
-     * initializeStats has been called.
+     * Gets the total stat value for a given stat of a character after all of
+     * the item's stats have been applied. Assuming initializeStats has been
+     * called.
      * 
-     * @param stat - The stat that we want to see
+     * @param stat
+     *        - The stat that we want to see
      * @return
      */
     public int getTotalStat (String stat) {
@@ -115,15 +119,18 @@ public class GameUnit extends GameObject {
     }
 
     /**
-     * Trade allows one unit to swap an item with another unit, no matter
-     * what team they are affiliated with. Note: as of this implementation
-     * any character will trade with you for anything you want, a system must
-     * be implemented which allows the other unit to determine what trades are
+     * Trade allows one unit to swap an item with another unit, no matter what
+     * team they are affiliated with. Note: as of this implementation any
+     * character will trade with you for anything you want, a system must be
+     * implemented which allows the other unit to determine what trades are
      * appropriate.
      * 
-     * @param other - The unit that this unit is trading with
-     * @param otherItem - The item that this unit wants
-     * @param item - The item that this unit is giving away
+     * @param other
+     *        - The unit that this unit is trading with
+     * @param otherItem
+     *        - The item that this unit wants
+     * @param item
+     *        - The item that this unit is giving away
      */
     public void trade (GameUnit other, Item otherItem, Item item) {
         other.removeItem(otherItem);
@@ -190,19 +197,11 @@ public class GameUnit extends GameObject {
         List<String> displayData = new ArrayList<>();
         displayData.add("Name: " + myName);
         displayData.add("Team: " + myTeamName);
-        displayData.add("");
-        // displayData.add("Equipped Item: " + myActiveWeapon.getName());
-        displayData.add("");
         displayData.add("Stats: ");
-        displayData
-                .add("Health: " + getTotalStat(GameObjectConstants.HEALTH) + " / " +
-                     myStats.getStatValue("maxhealth"));
-
-        for (String stat : myStats.getStatNames()) { // TODO: FIX
-            if (stat.equals(GameObjectConstants.HEALTH)) {
-                continue;
-            }
-            else {
+        displayData.add("Health: " + getTotalStat("health") + " / " +
+                        myStats.getStatValue("maxhealth"));
+        for (String stat : myStats.getStatNames()) {
+            if (!stat.equals("health") && !stat.equals("maxhealth")) {
                 displayData.add(stat + ": " + getTotalStat(stat));
             }
         }
@@ -236,8 +235,10 @@ public class GameUnit extends GameObject {
     }
 
     public void syncActionsWithMaster () {
-        List<Integer> removedIndices = MasterActions.getInstance().getRemoveIndices();
-        Map<Integer, Integer> indexTranslations = MasterActions.getInstance().updateIndices();
+        List<Integer> removedIndices = MasterActions.getInstance()
+                .getRemoveIndices();
+        Map<Integer, Integer> indexTranslations = MasterActions.getInstance()
+                .updateIndices();
 
         for (Item item : myItems) {
             for (int i = 0; i < item.getActionIndices().size(); i++) {
@@ -250,7 +251,8 @@ public class GameUnit extends GameObject {
             List<Integer> newIndices = new ArrayList<>();
 
             for (int i = 0; i < item.getActionIndices().size(); i++) {
-                newIndices.add(indexTranslations.get(item.getActionIndices().get(i)));
+                newIndices.add(indexTranslations.get(item.getActionIndices()
+                        .get(i)));
             }
 
             item.setActionIndices(newIndices);

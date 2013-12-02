@@ -31,7 +31,7 @@ public class MakeDefaults {
         defaultAction.setName("Slash");
 
         defaultItem = new Item();
-        List<String> actionList = new ArrayList<String>();
+        List<String> actionList = new ArrayList<>();
         actionList.add("Slash");
         defaultItem.setActionNames(actionList);
         defaultItem.setName("Item");
@@ -40,7 +40,7 @@ public class MakeDefaults {
     }
 
     public void makeTiles () throws Exception {
-        java.util.ArrayList<grid.Tile> list = new java.util.ArrayList<grid.Tile>();
+        java.util.ArrayList<grid.Tile> list = new java.util.ArrayList<>();
         List<String> passableList = new ArrayList<>();
         defaultStats = new Stats();
         defaultStats.syncWithMaster();

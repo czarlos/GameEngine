@@ -12,9 +12,10 @@ import gameObject.action.MasterActions;
 
 
 /**
- * Items have a name, items can have a wide range of effects including
- * effecting stats, which is evident in the statEffect abstract method. Alternatively they can have
- * an effect on the properties of a gameunit, such as reviving a units health.
+ * Items have a name, items can have a wide range of effects including effecting
+ * stats, which is evident in the statEffect abstract method. Alternatively they
+ * can have an effect on the properties of a gameunit, such as reviving a units
+ * health.
  * 
  * @author carlosreyes
  * 
@@ -24,7 +25,7 @@ public class Item extends Customizable {
     @JsonProperty
     private List<Integer> myActions;
     private Stats myStats;
-   
+
     public Item () {
         myActions = new ArrayList<>();
         myStats = new Stats();
@@ -54,7 +55,8 @@ public class Item extends Customizable {
         List<String> actionNames = new ArrayList<>();
 
         for (int actionIndex : myActions) {
-            actionNames.add(MasterActions.getInstance().getAction(actionIndex).getName());
+            actionNames.add(MasterActions.getInstance().getAction(actionIndex)
+                    .getName());
         }
 
         return actionNames;
@@ -72,20 +74,20 @@ public class Item extends Customizable {
             }
         }
     }
-/*
-    public void setActions (List<Integer> actions) {
-        myActions = actions;
-    }*/
+
+    /*
+     * public void setActions (List<Integer> actions) { myActions = actions; }
+     */
 
     @JsonIgnore
     public void setActionNames (List<String> actionNames) {
         List<Integer> actionIDs = new ArrayList<Integer>();
-        for(String name: actionNames){
-           actionIDs.add(MasterActions.getInstance().getActionID(name));
+        for (String name : actionNames) {
+            actionIDs.add(MasterActions.getInstance().getActionID(name));
         }
         myActions = actionIDs;
     }
-    
+
     @JsonIgnore
     public int getStat (String statName) {
         if (myStats.getStats().containsKey(statName))

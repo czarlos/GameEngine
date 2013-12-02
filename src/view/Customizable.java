@@ -16,7 +16,7 @@ public abstract class Customizable {
     protected String myImagePath;
     protected BufferedImage myImage;
     protected int myLastIndex;
-    
+
     public Customizable () {
 
     }
@@ -24,10 +24,11 @@ public abstract class Customizable {
     public int getLastIndex () {
         return myLastIndex;
     }
-    
-    public void setLastIndex(int newLastIndex){
+
+    public void setLastIndex (int newLastIndex) {
         myLastIndex = newLastIndex;
     }
+
     public String getName () {
         return myName;
     }

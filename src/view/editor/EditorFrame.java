@@ -111,9 +111,8 @@ public class EditorFrame extends GameView {
         JTextField gameNameTextField = new JTextField(25);
         newGamePanel.add(gameNameLabel);
         newGamePanel.add(gameNameTextField);
-        int value =
-                JOptionPane.showConfirmDialog(this, newGamePanel, "New Game!!",
-                                              JOptionPane.OK_CANCEL_OPTION);
+        int value = JOptionPane.showConfirmDialog(this, newGamePanel,
+                                                  "New Game!!", JOptionPane.OK_CANCEL_OPTION);
         if (value == JOptionPane.OK_OPTION) {
 
             String gameName = gameNameTextField.getText();
@@ -123,13 +122,14 @@ public class EditorFrame extends GameView {
             setFrame(wm);
             addStagePanel();
             stageTabbedPane
-                    .addChangeListener(new TabChangeListener(myWorldManager, stageTabbedPane));
+                    .addChangeListener(new TabChangeListener(
+                                                             myWorldManager, stageTabbedPane));
         }
     }
 
     /**
-     * adds new stage panel to main editor frame after asking
-     * for information through dialog box.
+     * adds new stage panel to main editor frame after asking for information
+     * through dialog box.
      */
     private void addStagePanel () {
         JPanel stageInfoPanel = new JPanel();
@@ -156,16 +156,16 @@ public class EditorFrame extends GameView {
         stageInfoPanel.add(imageMenu);
 
         int value =
-                JOptionPane.showConfirmDialog(this, stageInfoPanel, "Enter Stage Information",
+                JOptionPane.showConfirmDialog(this, stageInfoPanel,
+                                              "Enter Stage Information",
                                               JOptionPane.OK_CANCEL_OPTION);
         if (value == JOptionPane.OK_OPTION) {
             String stageName = stageNameTextField.getText();
             int gridWidth = Integer.parseInt(xTextField.getText());
             int gridHeight = Integer.parseInt(yTextField.getText());
             String image = (String) imageMenu.getSelectedItem();
-            int stageID =
-                    myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image),
-                                            stageName);// ****
+            int stageID = myWorldManager.addStage(gridWidth, gridHeight,
+                                                  tileNames.indexOf(image), stageName);// ****
 
             setStage(stageName);
         }
@@ -184,14 +184,13 @@ public class EditorFrame extends GameView {
         loadPanel.add(gameNames);
         loadPanel.add(gameNamesMenu);
 
-        int value =
-                JOptionPane.showConfirmDialog(this, loadPanel, "Choose Game",
-                                              JOptionPane.OK_CANCEL_OPTION);
+        int value = JOptionPane.showConfirmDialog(this, loadPanel,
+                                                  "Choose Game", JOptionPane.OK_CANCEL_OPTION);
         if (value == JOptionPane.OK_OPTION) {
             String gameName = (String) gameNamesMenu.getSelectedItem();
             JSONParser p = new JSONParser();
-            WorldManager newWM =
-                    p.createObject("saves/" + gameName, controllers.WorldManager.class);
+            WorldManager newWM = p.createObject("saves/" + gameName,
+                                                controllers.WorldManager.class);
             setFrame(newWM);
             for (String s : newWM.getStages()) {
                 setStage(s);
@@ -217,24 +216,28 @@ public class EditorFrame extends GameView {
         JMenuItem objective = new JMenuItem("Set Objective");
         objective.setAccelerator(KeyStroke.getKeyStroke("control O"));
         stageMenu.add(objective);
-        
+
         // TODO: add setPreStory/setPostStory
 
         JMenu gamePrefs = new JMenu("Global Game Prefs");
         stageMenu.setMnemonic(KeyEvent.VK_S);
-        JMenuItem setMaster = new JMenuItem("Set Master Stets");
+        JMenuItem setMaster = new JMenuItem("Set Master Stats");
         gamePrefs.add(setMaster);
 
-        // TODO: get this to call myWM.getMasterStatsTable() and myWM.setMasterStats(GameTableModel gtm)
+        // TODO: get this to call myWM.getMasterStatsTable() and
+        // myWM.setMasterStats(GameTableModel gtm)
         // alternatively you can make some fancy button for this, haha.
 
         JMenuItem setTeams = new JMenuItem("Configure Teams");
         gamePrefs.add(setTeams);
-        
-        // TODO: call myWM.getTableModel(GridConstants.TEAM) and myWM.setTeams(GameTableModel gtm);
-        
-        // TODO: add an "Edit Actions" button... somewhere. Call myWM.getTableModel(GridConstants.ACTION) and myWM.setActions(GameTableModel gtm);
-        
+
+        // TODO: call myWM.getTableModel(GridConstants.TEAM) and
+        // myWM.setTeams(GameTableModel gtm);
+
+        // TODO: add an "Edit Actions" button... somewhere. Call
+        // myWM.getTableModel(GridConstants.ACTION) and
+        // myWM.setActions(GameTableModel gtm);
+
         myMenuBar.add(stageMenu, 2);
         myMenuBar.add(gamePrefs, 2);
     }
@@ -244,10 +247,10 @@ public class EditorFrame extends GameView {
     }
 
     protected void setStage (String stageName) {
-        myGridController = new GridEditorController(myWorldManager, stageTabbedPane);
-        StagePanel sp =
-                new StagePanel(stageName, myWorldManager, myStagePanelList.size() + 1,
-                               myGridController);
+        myGridController = new GridEditorController(myWorldManager,
+                                                    stageTabbedPane);
+        StagePanel sp = new StagePanel(stageName, myWorldManager,
+                                       myStagePanelList.size() + 1, myGridController);
         myStagePanelList.add(sp);
         stageTabbedPane.addTab(stageName, sp);
         stageTabbedPane.setSelectedIndex(myStagePanelList.size() - 1);

@@ -25,8 +25,9 @@ public class PositionCondition extends Condition {
     @Override
     boolean isFulfilled (Stage stage) {
         Object object =
-                stage.getGrid().getObject(new Coordinate(Integer.parseInt(myData.get("x")),
-                                                         Integer.parseInt(myData.get("y"))));
+                stage.getGrid().getObject(
+                                          new Coordinate(Integer.parseInt(myData.get("x")), Integer
+                                                  .parseInt(myData.get("y"))));
 
         if (object instanceof GameUnit) {
             GameUnit gu = (GameUnit) object;

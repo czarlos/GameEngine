@@ -46,10 +46,11 @@ public class StatsTableModel extends GameTableModel {
 
     @Override
     public Object[] getNew () {
-        // TODO: pop up a message telling users to use the master stats editor to add/remove global stats
+        // TODO: pop up a message telling users to use the master stats editor
+        // to add/remove global stats
         return null;
     }
-    
+
     @Override
     public void removeRow (int index) {
         // TODO: same as above;

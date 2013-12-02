@@ -5,8 +5,8 @@ import java.util.List;
 
 
 /**
- * Is fulfilled when the number of units of a certain affiliation are greater than or less than a
- * certain amount
+ * Is fulfilled when the number of units of a certain affiliation are greater
+ * than or less than a certain amount
  * 
  * @author Leevi
  * 
@@ -33,6 +33,6 @@ public class UnitCountCondition extends Condition {
 
     @Override
     public String toString () {
-        return "Unit Count Condition"; 
+        return "Unit Count Condition";
     }
 }

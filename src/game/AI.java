@@ -38,13 +38,15 @@ public class AI {
     }
 
     /**
-     * Sends enemy units to attack your units, uses the pathfinding algorithm from
-     * the PathFinding class to find the shortest path and traverses as far as the unit can
-     * move on that path, when it encounters an enemy unit it attacks that unit with a randomly
-     * chosen attack from its active weapon.
+     * Sends enemy units to attack your units, uses the pathfinding algorithm
+     * from the PathFinding class to find the shortest path and traverses as far
+     * as the unit can move on that path, when it encounters an enemy unit it
+     * attacks that unit with a randomly chosen attack from its active weapon.
      * 
-     * @param unit - The game unit which is being moved by the AI
-     * @param allEnemies - A list of all of the enemy units
+     * @param unit
+     *        - The game unit which is being moved by the AI
+     * @param allEnemies
+     *        - A list of all of the enemy units
      */
     public void doAIMove (GameUnit unit, List<GameUnit> allEnemies) {
 
@@ -54,7 +56,8 @@ public class AI {
         Tile start = myGrid.getTile(myGrid.getUnitCoordinate(unit));
         Tile end = myGrid.getTile(other);
 
-        if (UnitUtilities.calculateLength(start.getCoordinate(), end.getCoordinate()) == 1) {
+        if (UnitUtilities.calculateLength(start.getCoordinate(),
+                                          end.getCoordinate()) == 1) {
             Random r = new Random();
             int rand = r.nextInt(unit.getActiveWeapon().getActions().size());
             Action randomAction = unit.getActiveWeapon().getActions().get(rand);
@@ -69,8 +72,8 @@ public class AI {
     }
 
     /**
-     * Finds all units for a player (or AI) other than your own and adds them to a list
-     * of units which contains all of the opponents of that affiliation.
+     * Finds all units for a player (or AI) other than your own and adds them to
+     * a list of units which contains all of the opponents of that affiliation.
      * 
      * @param thisAffiliation
      * @return
@@ -91,25 +94,28 @@ public class AI {
     /**
      * This unit searches for the closest unit on the grid
      * 
-     * @param opponents - List of opponents
+     * @param opponents
+     *        - List of opponents
      * @return
      */
-    public Coordinate findClosestOpponent (GameUnit unit, List<GameUnit> opponents) {
+    public Coordinate findClosestOpponent (GameUnit unit,
+                                           List<GameUnit> opponents) {
         GameUnit closest = null;
         double distance = 0;
         for (GameUnit opponent : opponents) {
             if (closest == null) {
                 closest = opponent;
-                distance =
-                        UnitUtilities.calculateLength(myGrid.getUnitCoordinate(unit),
-                                                      myGrid.getUnitCoordinate(opponent));
+                distance = UnitUtilities.calculateLength(
+                                                         myGrid.getUnitCoordinate(unit),
+                                                         myGrid.getUnitCoordinate(opponent));
             }
-            else if (UnitUtilities.calculateLength(myGrid.getUnitCoordinate(unit),
+            else if (UnitUtilities.calculateLength(
+                                                   myGrid.getUnitCoordinate(unit),
                                                    myGrid.getUnitCoordinate(opponent)) < distance) {
                 closest = opponent;
-                distance =
-                        UnitUtilities.calculateLength(myGrid.getUnitCoordinate(unit),
-                                                      myGrid.getUnitCoordinate(opponent));
+                distance = UnitUtilities.calculateLength(
+                                                         myGrid.getUnitCoordinate(unit),
+                                                         myGrid.getUnitCoordinate(opponent));
             }
         }
 
@@ -127,18 +133,21 @@ public class AI {
     /**
      * Makes a list of units sorted from closest to farthest.
      * 
-     * @param unit - The active unit
-     * @param otherUnits - All of the enemy units.
+     * @param unit
+     *        - The active unit
+     * @param otherUnits
+     *        - All of the enemy units.
      * @return
      */
-    public List<GameUnit> makeSortedUnitList (GameUnit unit, List<GameUnit> otherUnits) {
+    public List<GameUnit> makeSortedUnitList (GameUnit unit,
+                                              List<GameUnit> otherUnits) {
         Map<Double, GameUnit> unitDistance = new TreeMap<Double, GameUnit>();
         List<GameUnit> priorityUnitList = new ArrayList<GameUnit>();
 
         for (GameUnit other : otherUnits) {
-            double distance =
-                    UnitUtilities.calculateLength(myGrid.getUnitCoordinate(unit),
-                                                  myGrid.getUnitCoordinate(other));
+            double distance = UnitUtilities.calculateLength(
+                                                            myGrid.getUnitCoordinate(unit),
+                                                            myGrid.getUnitCoordinate(other));
             unitDistance.put(distance, other);
         }
         for (Double distance : unitDistance.keySet()) {

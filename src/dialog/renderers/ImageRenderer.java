@@ -25,16 +25,20 @@ public class ImageRenderer extends DefaultTableCellRenderer {
     private static final int DEFAULT_WIDTH = 52;
     private static final int DEFAULT_HEIGHT = DEFAULT_WIDTH;
 
-    public Component getTableCellRendererComponent (JTable table, Object value, boolean isSelected,
-                                                    boolean hasFocus, int row, int column) {
-        Component cell =
-                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row,
-                                                    column);
+    public Component getTableCellRendererComponent (JTable table,
+                                                    Object value,
+                                                    boolean isSelected,
+                                                    boolean hasFocus,
+                                                    int row,
+                                                    int column) {
+        Component cell = super.getTableCellRendererComponent(table, value,
+                                                             isSelected, hasFocus, row, column);
         ImageIcon image;
 
         if (value instanceof File) {
             image = new ImageIcon((String) ((File) value).getAbsolutePath());
-            value = new ImageIcon(getScaledImage(image.getImage(), DEFAULT_WIDTH, DEFAULT_HEIGHT));
+            value = new ImageIcon(getScaledImage(image.getImage(),
+                                                 DEFAULT_WIDTH, DEFAULT_HEIGHT));
         }
 
         ((JLabel) cell).setIcon((Icon) value);
@@ -51,13 +55,14 @@ public class ImageRenderer extends DefaultTableCellRenderer {
     }
 
     private Image getScaledImage (Image srcImg, int w, int h) {
-        BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage resizedImg = new BufferedImage(w, h,
+                                                     BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics2D = resizedImg.createGraphics();
         graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                                     RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         graphics2D.drawImage(srcImg, 0, 0, w, h, null);
         graphics2D.dispose();
-        
+
         return resizedImg;
     }
 }

@@ -20,9 +20,8 @@ public class GameUnitTest {
     }
 
     /**
-     * Initialized the unit 'customUnit' a non-default
-     * unit used for testing unit, combat, item, and interaction
-     * functionality.
+     * Initialized the unit 'customUnit' a non-default unit used for testing
+     * unit, combat, item, and interaction functionality.
      */
     // public void initializeCustom () {
     // // Setting up the units base stats
@@ -76,4 +75,3 @@ public class GameUnitTest {
         assertEquals(defaultUnit.getStats().getStatValue("movement"), 3, 0);
     }
 }
-

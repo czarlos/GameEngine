@@ -67,13 +67,13 @@ public class PlayerView extends GameView {
         loadPanel.add(gameNames);
         loadPanel.add(gameNamesMenu);
 
-        int value =
-                JOptionPane.showConfirmDialog(this, loadPanel, "Choose Game",
-                                              JOptionPane.OK_CANCEL_OPTION);
+        int value = JOptionPane.showConfirmDialog(this, loadPanel,
+                                                  "Choose Game", JOptionPane.OK_CANCEL_OPTION);
         if (value == JOptionPane.OK_OPTION) {
             String game = (String) gameNamesMenu.getSelectedItem();
             JSONParser p = new JSONParser();
-            WorldManager newWM = p.createObject("saves/" + game, controllers.WorldManager.class);
+            WorldManager newWM = p.createObject("saves/" + game,
+                                                controllers.WorldManager.class);
             myManager = new GameManager(newWM, this);
 
             super.clearWindow();

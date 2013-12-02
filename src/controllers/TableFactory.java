@@ -25,7 +25,8 @@ public class TableFactory {
         masterTableMap = new HashMap<String, GameTableModel>();
         masterTableMap.put(GridConstants.TILE, new TileTableModel());
         masterTableMap.put(GridConstants.STATS, new StatsTableModel());
-        masterTableMap.put(GridConstants.MASTERSTATS, new MasterStatsTableModel());
+        masterTableMap.put(GridConstants.MASTERSTATS,
+                           new MasterStatsTableModel());
         masterTableMap.put(GridConstants.GAMEOBJECT, new ObjectTableModel());
         masterTableMap.put(GridConstants.GAMEUNIT, new UnitTableModel());
         masterTableMap.put(GridConstants.ITEM, new ItemTableModel());

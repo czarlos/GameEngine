@@ -49,25 +49,23 @@ public class EditorData {
     private void loadObjects (String folderName) {
         for (String s : GridConstants.DEFAULTTYPES) {
             List<Customizable> list = new ArrayList<Customizable>();
-            list =
-                    myParser.createObject(folderName + "/" + s,
-                                          new ArrayList<Customizable>().getClass());
+            list = myParser.createObject(folderName + "/" + s,
+                                         new ArrayList<Customizable>().getClass());
             myDataMap.put(s, list);
         }
 
         List<Team> list = new ArrayList<Team>();
-        list =
-                myParser.createObject(folderName + "/" + GridConstants.TEAM,
-                                      new ArrayList<Team>().getClass());
+        list = myParser.createObject(folderName + "/" + GridConstants.TEAM,
+                                     new ArrayList<Team>().getClass());
         myDataMap.put(GridConstants.TEAM, list);
-        
+
         List<Action> list2 = new ArrayList<Action>();
-        list2 =
-                myParser.createObject(folderName + "/" + GridConstants.ACTION,
+        list2 = myParser.createObject(folderName + "/" + GridConstants.ACTION,
                                       new ArrayList<Action>().getClass());
         myDataMap.put(GridConstants.ACTION, list2);
-        
-        // need to generalize this for all data types. tile, gameobject, gameunit, item, team, action
+
+        // need to generalize this for all data types. tile, gameobject,
+        // gameunit, item, team, action
         MasterActions ma = MasterActions.getInstance();
         ma.setActionList(list2);
     }
@@ -75,7 +73,8 @@ public class EditorData {
     /**
      * Returns the data associated with the type requested.
      * 
-     * @param String type of Object
+     * @param String
+     *        type of Object
      * @return Collection of data
      */
 

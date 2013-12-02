@@ -22,15 +22,16 @@ public class JSONParser {
                 .withGetterVisibility(Visibility.NONE)
                 .withSetterVisibility(Visibility.NONE)
                 .withFieldVisibility(Visibility.NONE)
-                .withCreatorVisibility(Visibility.NONE)
-                );
-        myMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                .withCreatorVisibility(Visibility.NONE));
+        myMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
+                           false);
         // myMapper.registerModule(new ItemModule());
     }
 
     public void createJSON (String filename, Object object) {
         try {
-            myMapper.writerWithDefaultPrettyPrinter().writeValue(new File("JSONs/" + filename +
+            myMapper.writerWithDefaultPrettyPrinter().writeValue(
+                                                                 new File("JSONs/" + filename +
                                                                           ".json"), object);
         }
         catch (JsonGenerationException e) {

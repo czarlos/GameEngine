@@ -64,8 +64,8 @@ public class WorldManager extends Manager {
     // can generalize
     @JsonIgnore
     public GameTableModel getMasterStatsTable () {
-        return myEditorData
-                .getTableModel(GridConstants.MASTERSTATS, myMasterStats.getStats());
+        return myEditorData.getTableModel(GridConstants.MASTERSTATS,
+                                          myMasterStats.getStats());
     }
 
     @SuppressWarnings("unchecked")
@@ -78,7 +78,8 @@ public class WorldManager extends Manager {
     // harder to generalize because teams are in stage
     @JsonIgnore
     public GameTableModel getTeamTableModel (String type, Object toEdit) {
-        return myEditorData.getTableModel(GridConstants.TEAM, myActiveStage.getTeams());
+        return myEditorData.getTableModel(GridConstants.TEAM,
+                                          myActiveStage.getTeams());
     }
 
     // different because team data is in stage
@@ -100,7 +101,8 @@ public class WorldManager extends Manager {
         List<String> fullList = myActiveStage.getTeamNames();
 
         for (String s : names) {
-            myActiveStage.setTeamName(fullList.indexOf(s), list.get(0).getName());
+            myActiveStage.setTeamName(fullList.indexOf(s), list.get(0)
+                    .getName());
         }
 
         // replace all the teams with list
@@ -127,9 +129,12 @@ public class WorldManager extends Manager {
     /**
      * Add a new stage
      * 
-     * @param x width of the grid in tiles
-     * @param y height of the grid in tiles
-     * @param tileID, the type of tile to initially fill the background with
+     * @param x
+     *        width of the grid in tiles
+     * @param y
+     *        height of the grid in tiles
+     * @param tileID
+     *        , the type of tile to initially fill the background with
      * @return StageID
      */
 
@@ -137,7 +142,8 @@ public class WorldManager extends Manager {
     public int addStage (int x, int y, int tileID, String name) {
         myStages.add(new Stage(x, y, tileID, name));
         setActiveStage(myStages.size() - 1);
-        myActiveStage.setTeams((List<Team>) myEditorData.get(GridConstants.TEAM));
+        myActiveStage.setTeams((List<Team>) myEditorData
+                .get(GridConstants.TEAM));
         return myStages.size() - 1;
     }
 
@@ -167,12 +173,15 @@ public class WorldManager extends Manager {
     }
 
     /**
-     * Placing (previously created) things on the board. These will be replaced by table editing
-     * stuff
+     * Placing (previously created) things on the board. These will be replaced
+     * by table editing stuff
      * 
-     * @param ID of thing to place
-     * @param x Coordinate
-     * @param y Coordinate
+     * @param ID
+     *        of thing to place
+     * @param x
+     *        Coordinate
+     * @param y
+     *        Coordinate
      */
     public void setTile (int tileID, int x, int y) {
         myActiveStage.getGrid()
@@ -181,13 +190,15 @@ public class WorldManager extends Manager {
     }
 
     public void placeUnit (int unitID, int x, int y) {
-        GameUnit go = (GameUnit) myEditorData.getObject(GridConstants.GAMEUNIT, unitID);
+        GameUnit go = (GameUnit) myEditorData.getObject(GridConstants.GAMEUNIT,
+                                                        unitID);
         go.setAffiliation(myActiveStage.getTeamNames().get(0));
         myActiveStage.getGrid().placeObject(new Coordinate(x, y), go);
     }
 
     public void placeObject (int objectID, int x, int y) {
-        myActiveStage.getGrid().placeObject(new Coordinate(x, y),
+        myActiveStage.getGrid().placeObject(
+                                            new Coordinate(x, y),
                                             (GameObject) myEditorData
                                                     .getObject(GridConstants.GAMEOBJECT,
                                                                objectID));
@@ -196,15 +207,14 @@ public class WorldManager extends Manager {
     public void placeItem (int objectID, int x, int y) {
         GameUnit gu = myActiveStage.getGrid().getUnit(new Coordinate(x, y));
         if (gu != null) {
-            gu.addItem((Item) myEditorData.getObject(GridConstants.ITEM, objectID));
+            gu.addItem((Item) myEditorData.getObject(GridConstants.ITEM,
+                                                     objectID));
         }
     }
 
     /**
      * Gives access to certain names of customizables. Valid parameters are
-     * "GameUnit",
-     * "GameObject",
-     * "Tile", "Condition"
+     * "GameUnit", "GameObject", "Tile", "Condition"
      * 
      * @param className
      * @return List of names of customizable objects of that classname
@@ -212,7 +222,8 @@ public class WorldManager extends Manager {
     @SuppressWarnings("unchecked")
     public List<String> get (String className) {
         List<String> ret = new ArrayList<String>();
-        List<Customizable> myList = (List<Customizable>) myEditorData.get(className);
+        List<Customizable> myList = (List<Customizable>) myEditorData
+                .get(className);
 
         for (Customizable d : myList) {
             ret.add(d.getName());
@@ -230,17 +241,19 @@ public class WorldManager extends Manager {
      */
     @SuppressWarnings("unchecked")
     public Image getImage (String className, int ID) {
-        List<Customizable> myList = (List<Customizable>) myEditorData.get(className);
+        List<Customizable> myList = (List<Customizable>) myEditorData
+                .get(className);
 
         return myList.get(ID).getImage();
     }
 
     /**
-     * Calls update method for all stats of all placed units and unit definitions. If there are new
-     * stats in the master stats list, adds that stat to the stats of all placed units and unit
-     * definitions. If there is a stat in the stats list of placed units and unit definitions, but
-     * not in the master stats list, then it removes that stat from all stats lists of placed units
-     * and unit definitions
+     * Calls update method for all stats of all placed units and unit
+     * definitions. If there are new stats in the master stats list, adds that
+     * stat to the stats of all placed units and unit definitions. If there is a
+     * stat in the stats list of placed units and unit definitions, but not in
+     * the master stats list, then it removes that stat from all stats lists of
+     * placed units and unit definitions
      */
     public void syncStats () {
         List<?> editorUnitList = myEditorData.get(GridConstants.GAMEUNIT);
@@ -284,14 +297,16 @@ public class WorldManager extends Manager {
                 ret = myActiveStage.getTeamNames();
                 break;
             case GridConstants.GAMEOBJECT:
-                List<GameUnit> list = (List<GameUnit>) myEditorData.get(GridConstants.GAMEUNIT);
+                List<GameUnit> list = (List<GameUnit>) myEditorData
+                        .get(GridConstants.GAMEUNIT);
                 ret.add(GridConstants.DEFAULT_PASS_EVERYTHING);
                 for (GameUnit gu : list) {
                     ret.add(gu.getName());
                 }
                 break;
             case GridConstants.ITEM:
-                for (Action a : (List<Action>) myEditorData.get(GridConstants.ACTION)) {
+                for (Action a : (List<Action>) myEditorData
+                        .get(GridConstants.ACTION)) {
                     ret.add(a.getName());
                 }
                 break;

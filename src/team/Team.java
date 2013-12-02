@@ -13,9 +13,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * Team holds state about each team including the affiliation
- * number, the amount of gold a team, and the game units that
- * this team has.
+ * Team holds state about each team including the affiliation number, the amount
+ * of gold a team, and the game units that this team has.
  * 
  * @author carlosreyes
  * @author Leevi
@@ -96,7 +95,7 @@ public class Team extends Customizable {
     public void setGold (int myGold) {
         this.myGold = myGold;
     }
-    
+
     @JsonProperty("humanity")
     public boolean isHuman () {
         return isHuman;
@@ -114,5 +113,4 @@ public class Team extends Customizable {
     public int getLastEditingID () {
         return lastEditingID;
     }
-
 }

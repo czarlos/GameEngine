@@ -39,11 +39,8 @@ public class ModelEditor extends GameCellEditor {
         }
     }
 
-    public Component getTableCellEditorComponent (JTable table,
-                                                  Object value,
-                                                  boolean isSelected,
-                                                  int row,
-                                                  int column) {
+    public Component getTableCellEditorComponent (JTable table, Object value,
+                                                  boolean isSelected, int row, int column) {
         current = value;
         myModel.loadObject(value);
         return button;

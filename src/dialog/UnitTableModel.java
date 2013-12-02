@@ -11,11 +11,10 @@ import view.Customizable;
 
 /**
  * 
- * Maintains a state for a JTable
- * Holds rows of Unit definitions
+ * Maintains a state for a JTable Holds rows of Unit definitions
  * 
- * graphic held in "Image column" is an ImageIcon, to preserve editing capabilities and allow for
- * use as a label on a button in the cell of a JTable
+ * graphic held in "Image column" is an ImageIcon, to preserve editing
+ * capabilities and allow for use as a label on a button in the cell of a JTable
  * 
  * @author brooksmershon
  * 
@@ -30,11 +29,7 @@ public class UnitTableModel extends GameTableModel {
     public UnitTableModel () {
         // super();
 
-        String[] names = { "Type",
-                          "Name",
-                          "Image",
-                          "Stats",
-                          "Actions",
+        String[] names = { "Type", "Name", "Image", "Stats", "Actions",
                           "Affiliation" };
         setColumnNames(names);
 
@@ -94,11 +89,11 @@ public class UnitTableModel extends GameTableModel {
         // TODO Auto-generated method stub
         return null;
     }
-    
+
     @Override
     public void loadObject (Object object) {
         // TODO Auto-generated method stub
-        
+
     }
 
 }

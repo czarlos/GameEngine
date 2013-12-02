@@ -17,9 +17,8 @@ import dialog.renderers.ImageRenderer;
 /**
  * @author brooksmershon
  * 
- *         Presents a view of current units with the ability to add, remove operations for a
- *         scrolling
- *         table view of row definitions for units
+ *         Presents a view of current units with the ability to add, remove
+ *         operations for a scrolling table view of row definitions for units
  * 
  * 
  */
@@ -32,7 +31,8 @@ public class UnitEditorDialog extends JDialog {
 
     /**
      * 
-     * @param model - a TableModel class which provides getter and setter methods
+     * @param model
+     *        - a TableModel class which provides getter and setter methods
      *        for cell rendering and editing
      */
     public UnitEditorDialog (GameTableModel model) {
@@ -40,10 +40,8 @@ public class UnitEditorDialog extends JDialog {
         panel.setLayout(new BorderLayout());
 
         JTable table = new JTable(model);
-        table.setDefaultRenderer(ImageIcon.class,
-                                 new ImageRenderer());
-        table.setDefaultEditor(ImageIcon.class,
-                               new ImageEditor());
+        table.setDefaultRenderer(ImageIcon.class, new ImageRenderer());
+        table.setDefaultEditor(ImageIcon.class, new ImageEditor());
         table.setRowHeight(52);
         table.setPreferredScrollableViewportSize(new Dimension(500, 500));
         table.setFillsViewportHeight(true);

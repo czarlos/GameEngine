@@ -19,16 +19,14 @@ public class GridController implements GridMouseListener {
     }
 
     public void doCommand (String commandName, int numClicks, Object ... args) {
-        myCurrentAction = new NClickAction(numClicks, commandName, myManager, args);
+        myCurrentAction = new NClickAction(numClicks, commandName, myManager,
+                                           args);
         myCurrentAction.click(mySelectedCoordinate);
     }
 
     public void doCommand (NClickAction action) {
         myCurrentAction = action;
-        Object[] args = {
-                         myManager,
-                         action.getCurrentArgs()
-        };
+        Object[] args = { myManager, action.getCurrentArgs() };
         action.setArgs(args);
         myCurrentAction.click(mySelectedCoordinate);
         myView.revalidate();

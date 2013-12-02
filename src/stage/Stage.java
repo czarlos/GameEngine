@@ -14,8 +14,8 @@ import grid.Grid;
 
 /**
  * Stage is responsible for managing how turns are distributed and progressing
- * the game when it is won. The turns progress when the player indicates they are
- * done and when the AI deactivates all of their units.
+ * the game when it is won. The turns progress when the player indicates they
+ * are done and when the AI deactivates all of their units.
  * 
  * @author Andy Bradshaw
  * @author carlosreyes
@@ -44,9 +44,9 @@ public class Stage implements GridMouseListener {
     }
 
     /*
-     * Returns true if unit was added to team, false if teamID was invalid
-     * Note this logic works best if editor has a "team editor" tab that
-     * allows users to make teams and assign units to those teams.
+     * Returns true if unit was added to team, false if teamID was invalid Note
+     * this logic works best if editor has a "team editor" tab that allows users
+     * to make teams and assign units to those teams.
      */
 
     public boolean addUnitToTeam (int teamID, GameUnit gu) {
@@ -150,7 +150,8 @@ public class Stage implements GridMouseListener {
             conditionsMet = conditionsMet || t.hasWon(this);
             if (t.hasWon(this)) {
                 myWinningTeam = t;
-                // teams with lower IDs have a slight disadvantage here but that's offset by the
+                // teams with lower IDs have a slight disadvantage here but
+                // that's offset by the
                 // fact that their turn comes up later.
             }
         }

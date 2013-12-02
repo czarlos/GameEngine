@@ -28,17 +28,16 @@ public class MasterActions {
 
         myActionList = newActionList;
     }
-    
+
     // functionality currently in editordata
     public Action getAction (int actionIndex) {
         return myActionList.get(actionIndex);
     }
-    
+
     // functionality currently in gamemanager
     public Action getAction (String actionName) {
         for (int i = 0; i < myActionList.size(); i++) {
-            if (myActionList.get(i).getName().equals(actionName)) { return myActionList
-                    .get(i); }
+            if (myActionList.get(i).getName().equals(actionName)) { return myActionList.get(i); }
         }
 
         return null;
@@ -50,7 +49,7 @@ public class MasterActions {
         }
         return 0;
     }
-    
+
     // functionality currently in editordata
     public List<String> getActionNames () {
         List<String> actionNames = new ArrayList<>();

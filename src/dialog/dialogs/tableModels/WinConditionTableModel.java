@@ -6,20 +6,21 @@ import stage.PositionCondition;
 import stage.WinCondition;
 import grid.GridConstants;
 
+
 @SuppressWarnings("serial")
 public class WinConditionTableModel extends GameTableModel {
 
     public WinConditionTableModel () {
-        String[] names = { "Conditions" , "Data"};
+        String[] names = { "Conditions", "Data" };
         setColumnNames(names);
         myName = GridConstants.CONDITION;
     }
-    
+
     @Override
     public void loadObject (Object object) {
         myList.clear();
         WinCondition wc = (WinCondition) object;
-        for(Condition c: wc.getConditions()){
+        for (Condition c : wc.getConditions()) {
             Object[] row = new Object[myColumnNames.length];
             row[0] = c;
             row[1] = c.getData();
@@ -31,7 +32,7 @@ public class WinConditionTableModel extends GameTableModel {
     @Override
     public Object getObject () {
         WinCondition wc = new WinCondition();
-        for(Object[] row: myList){
+        for (Object[] row : myList) {
             Condition c = (Condition) row[0];
             c.setData((Map<String, String>) row[1]);
             wc.addCondition(c);
