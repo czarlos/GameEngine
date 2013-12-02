@@ -2,6 +2,7 @@ package gameObject.action;
 
 import java.util.ArrayList;
 import java.util.List;
+import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import gameObject.GameObject;
 import gameObject.GameUnit;
@@ -9,8 +10,7 @@ import grid.Coordinate;
 
 
 @JsonAutoDetect
-public abstract class Action {
-    private String myName;
+public abstract class Action extends Customizable {
     private List<Coordinate> myAOE;
     private boolean isAround;
     private int masterIndex;
@@ -20,19 +20,12 @@ public abstract class Action {
         AOE.add(new Coordinate(0, 1));
         setAround(false);
         masterIndex = -1;
+        setImagePath("resources/grass.png");
     }
 
     public abstract void doAction (GameUnit initiator, GameObject receiver);
 
-    public void setName (String name) {
-        myName = name;
-    }
-
     public abstract boolean isValidAction (GameUnit gameUnit, GameObject gameObject);
-
-    public String getName () {
-        return myName;
-    }
 
     public boolean isAround () {
         return isAround;

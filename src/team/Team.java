@@ -96,11 +96,13 @@ public class Team extends Customizable {
     public void setGold (int myGold) {
         this.myGold = myGold;
     }
-
+    
+    @JsonProperty("humanity")
     public boolean isHuman () {
         return isHuman;
     }
 
+    @JsonProperty("humanity")
     public void setIsHuman (boolean humanity) {
         isHuman = humanity;
     }

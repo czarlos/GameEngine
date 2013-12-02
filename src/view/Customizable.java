@@ -15,11 +15,19 @@ public abstract class Customizable {
     @JsonProperty
     protected String myImagePath;
     protected BufferedImage myImage;
-
+    protected int myLastIndex;
+    
     public Customizable () {
 
     }
 
+    public int getLastIndex () {
+        return myLastIndex;
+    }
+    
+    public void setLastIndex(int newLastIndex){
+        myLastIndex = newLastIndex;
+    }
     public String getName () {
         return myName;
     }

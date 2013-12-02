@@ -13,9 +13,11 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import parser.JSONParser;
+import team.Team;
 import dialog.dialogs.TableDialog;
 import dialog.dialogs.tableModels.ActionTableModel;
 import dialog.dialogs.tableModels.GameTableModel;
+import dialog.dialogs.tableModels.TeamTableModel;
 
 
 /**
@@ -40,7 +42,7 @@ public class TestTileEditor {
         JFrame frame = new JFrame("Unit Editor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        GameTableModel model = new ActionTableModel();
+        GameTableModel model = new TeamTableModel();
 
         List<?> tilesReadIn = makeTestLists();
 
@@ -75,6 +77,6 @@ public class TestTileEditor {
 
     private static List<?> makeTestLists () {
         JSONParser p = new JSONParser();
-        return p.createObject("defaults/Action", new ArrayList<Action>().getClass());
+        return p.createObject("defaults/Team", new ArrayList<Team>().getClass());
     }
 }
