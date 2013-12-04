@@ -309,10 +309,16 @@ public class WorldManager extends Manager {
                     ret.add(a.getName());
                 }
                 break;
+            case GridConstants.ACTION:
+                for (String s: myMasterStats.getStatNames()) {
+                    ret.add(s);
+                }
+                for (Item i: (List<Item>) myEditorData.get(GridConstants.ITEM)){
+                    ret.add(i.getName());
+                }
             default:
                 break;
         }
-
         return ret;
     }
 }

@@ -41,7 +41,7 @@ public class TestTileEditor {
         JFrame frame = new JFrame("Unit Editor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        GameTableModel model = new TeamTableModel();
+        GameTableModel model = new ActionTableModel();
 
         List<?> tilesReadIn = makeTestLists();
 
@@ -76,6 +76,6 @@ public class TestTileEditor {
 
     private static List<?> makeTestLists () {
         JSONParser p = new JSONParser();
-        return p.createObject("defaults/Team", new ArrayList<Team>().getClass());
+        return p.createObject("defaults/Action", new ArrayList<Action>().getClass());
     }
 }

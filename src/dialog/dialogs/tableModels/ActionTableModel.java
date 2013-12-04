@@ -2,6 +2,7 @@ package dialog.dialogs.tableModels;
 
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
+import gameObject.action.Outcome;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +11,8 @@ import java.util.List;
 public class ActionTableModel extends GameTableModel {
 
     public ActionTableModel () {
-        String[] names = { "Name", "Action Range"};
-        myName = "List";
+        String[] names = { "Name", "Action Range", "Initiator Outcomes", "Receiver Outcomes"};
+        myName = "Action";
         setColumnNames(names);
     }
 
@@ -20,6 +21,13 @@ public class ActionTableModel extends GameTableModel {
         Object[] ret = new Object[myColumnNames.length];
         ret[0] = "New Action";
         ret[1] = 1;
+        List<Outcome> initiator = new ArrayList<Outcome>();
+        initiator.add(new Outcome());
+        ret[2] = initiator;
+        List<Outcome> receiver = new ArrayList<Outcome>();
+        receiver.add(new Outcome());
+        ret[3] = receiver;
+        
         return ret;
     }
 
@@ -31,10 +39,13 @@ public class ActionTableModel extends GameTableModel {
             Object[] array = new Object[myColumnNames.length];
             array[0] = a.getName();
             array[1] = a.getActionRange();
+            array[2] = a.getInitiatorOutcomes();
+            array[3] = a.getReceiverOutcomes();
             addNewRow(array);
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Object getObject () {
         List<Action> list = new ArrayList<Action>();
@@ -42,6 +53,8 @@ public class ActionTableModel extends GameTableModel {
             Action a = new CombatAction();
             a.setName((String) row[0]);
             a.setActionRange((int) row[1]);
+            a.setInitiatorOutcomes((List<Outcome>) row[2]);
+            a.setReceiverOutcomes((List<Outcome>) row[3]);
             list.add(a);
         }
         return list;
