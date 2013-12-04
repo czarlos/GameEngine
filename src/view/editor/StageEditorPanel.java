@@ -159,6 +159,7 @@ public class StageEditorPanel extends JTabbedPane {
 
         @Override
         public void actionPerformed (ActionEvent e) {
+            myTableDialog.stopEditing();
             myWM.setData(myGTM);
             myPanel.refreshTab(myType);
             myTableDialog.setVisible(false);

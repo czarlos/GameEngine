@@ -179,4 +179,9 @@ public class TableDialog extends JDialog {
     private void setList (List<String> list) {
         myEnumList = list;
     }
+    
+    public void stopEditing(){
+        if (myTable.isEditing())
+            myTable.getCellEditor().stopCellEditing();
+    }
 }
