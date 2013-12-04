@@ -157,7 +157,7 @@ public class Grid implements Drawable {
                 Tile currentTile = getTile(adjacentCoordinate);
                 int newRange = range - currentTile.getMoveCost();
 
-                if (currentTile.isPassable(gameObject) && newRange >= 0) {
+                if (newRange >= 0) {
                     GameObject currentObject = getObject(adjacentCoordinate);
                     if (currentObject != null) {
                         if (currentObject.isPassable(gameObject)) {

@@ -29,6 +29,7 @@ public class Tile extends GameObject {
     private Coordinate myCoordinate;
 
     public Tile () {
+        
     }
 
     public void setActive (boolean active) {

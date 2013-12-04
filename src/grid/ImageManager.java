@@ -19,14 +19,31 @@ public class ImageManager {
     }
 
     public static BufferedImage getHightlightedTileImage (String filePath) {
+        if(!ourTileImages.containsKey(filePath)){
+            try {
+                addImage(filePath);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+  
         return ourHighlightedImage.get(filePath);
     }
 
     public static BufferedImage getTileImage (String filePath) {
+        if(!ourTileImages.containsKey(filePath)){
+            try {
+                addImage(filePath);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return ourTileImages.get(filePath);
     }
 
-    public static BufferedImage addImage (String filePath) throws Exception {
+    private static BufferedImage addImage (String filePath) throws Exception {
 
         if (!ourTileImages.containsKey(filePath)) {
             BufferedImage img;
