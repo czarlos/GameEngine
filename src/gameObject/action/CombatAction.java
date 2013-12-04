@@ -11,12 +11,10 @@ public class CombatAction extends Action {
 
     private Stats myInitiatorStats;
     private Stats myReceiverStats;
-    private List<Outcome> myInitiatorOutcomes;
-    private List<Outcome> myReceiverOutcomes;
+    private Outcomes myInitiatorOutcomes;
+    private Outcomes myReceiverOutcomes;
 
     public CombatAction () {
-        myInitiatorOutcomes = new ArrayList<Outcome>();
-        myReceiverOutcomes = new ArrayList<Outcome>();
     }
     
     private double getNetEffectiveness (GameUnit initiator, GameUnit receiver) {
@@ -51,13 +49,9 @@ public class CombatAction extends Action {
         double effectiveness = getNetEffectiveness(initiator,
                                                    (GameUnit) receiver);
 
-        for (Outcome o : myInitiatorOutcomes) {
-            o.applyOutcome(initiator, effectiveness);
-        }
+        myInitiatorOutcomes.applyOutcomes(initiator, effectiveness);
 
-        for (Outcome o : myReceiverOutcomes) {
-            o.applyOutcome((GameUnit) receiver, effectiveness);
-        }
+        myReceiverOutcomes.applyOutcomes((GameUnit) receiver, effectiveness);
     }
 
     @Override
@@ -65,25 +59,22 @@ public class CombatAction extends Action {
         double effectiveness = getNetEffectiveness(initiator,
                                                    (GameUnit) receiver);
 
-        for (Outcome o : myInitiatorOutcomes) {
-            if (!o.checkValidOutcome(initiator, effectiveness)) { return false; }
-        }
-        return true;
+        return myInitiatorOutcomes.checkValid(initiator, effectiveness);
     }
     
-    public List<Outcome> getInitiatorOutcomes() {
+    public Outcomes getInitiatorOutcomes() {
         return myInitiatorOutcomes;
     }
     
-    public void setInitiatorOutcomes(List<Outcome> outcomes) {
+    public void setInitiatorOutcomes(Outcomes outcomes) {
         myInitiatorOutcomes = outcomes;
     }
     
-    public List<Outcome> getReceiverOutcomes() {
+    public Outcomes getReceiverOutcomes() {
         return myReceiverOutcomes;
     }
     
-    public void setReceiverOutcomes(List<Outcome> outcomes) {
+    public void setReceiverOutcomes(Outcomes outcomes) {
         myReceiverOutcomes = outcomes;
     }
 }
