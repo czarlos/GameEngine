@@ -15,7 +15,7 @@ public class CombatAction extends Action {
 
     public CombatAction () {
     }
-
+    
     private double getNetEffectiveness (GameUnit initiator, GameUnit receiver) {
         myInitiatorStats = initiator.getStats();
         myReceiverStats = receiver.getStats();

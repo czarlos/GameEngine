@@ -10,7 +10,7 @@ import java.util.List;
 public class ActionTableModel extends GameTableModel {
 
     public ActionTableModel () {
-        String[] names = { "Name" };
+        String[] names = { "Name", "Action Range"};
         myName = "List";
         setColumnNames(names);
     }
@@ -19,6 +19,7 @@ public class ActionTableModel extends GameTableModel {
     public Object[] getNew () {
         Object[] ret = new Object[myColumnNames.length];
         ret[0] = "New Action";
+        ret[1] = 1;
         return ret;
     }
 
@@ -29,6 +30,7 @@ public class ActionTableModel extends GameTableModel {
         for (Action a : list) {
             Object[] array = new Object[myColumnNames.length];
             array[0] = a.getName();
+            array[1] = a.getActionRange();
             addNewRow(array);
         }
     }
@@ -39,6 +41,7 @@ public class ActionTableModel extends GameTableModel {
         for (Object[] row : myList) {
             Action a = new CombatAction();
             a.setName((String) row[0]);
+            a.setActionRange((int) row[1]);
             list.add(a);
         }
         return list;
