@@ -216,7 +216,6 @@ public class Grid implements Drawable {
                 int newRange = range - 1;
 
                 if (newRange >= 0) {
-                    GameObject currentObject = getObject(adjacentCoordinate);
                         currentTile.setActive(true);
                         beginAction(adjacentCoordinate, newRange);
                 }
