@@ -192,7 +192,6 @@ public class WorldManager extends Manager {
     public void placeUnit (int unitID, int x, int y) {
         GameUnit go = (GameUnit) myEditorData.getObject(GridConstants.GAMEUNIT,
                                                         unitID);
-        go.setAffiliation(myActiveStage.getTeamNames().get(0));
         myActiveStage.getGrid().placeObject(new Coordinate(x, y), go);
     }
 

@@ -35,7 +35,15 @@ public class GameManager extends Manager {
 
     public void beginTurn () {
         clear();
+        if (conditionsMet()) {
+            if (!nextStage())
+                // win
+                myView.setTitle(getActiveTeamName()+" won!!");
+                myView.displayWinDialog();
+            return;
+        }
         nextTurn();
+        myView.setTitle(getActiveTitle());
     }
 
     private void clear () {
@@ -64,12 +72,20 @@ public class GameManager extends Manager {
         isTurnCompleted = false;
         myPhaseCount++;
         myActiveTeam = myPhaseCount % myActiveStage.getNumberOfTeams();
-        String teamName = myActiveStage.getTeamNames().get(myActiveTeam);
+        String teamName = getActiveTeamName();
         List<GameUnit> list = myActiveStage.getTeamUnits(teamName);
 
         for (GameUnit unit : list) {
             unit.setActive(true);
         }
+    }
+
+    private String getActiveTeamName () {
+        return myActiveStage.getTeamNames().get(myActiveTeam);
+    }
+
+    private String getActiveTitle () {
+        return getActiveTeamName() + " - " + getActiveStageName() + " - " + myGameName;
     }
 
     public boolean nextStage () {
@@ -186,7 +202,7 @@ public class GameManager extends Manager {
     public void doAction (Coordinate unitCoordinate,
                           Coordinate actionCoordinate, int actionID) {
         GameUnit initiator = myActiveStage.getGrid().getUnit(unitCoordinate);
-        
+
         if (myActiveActions.get(actionID).getName()
                 .equals(MoveAction.MOVE_NAME) && myActiveStage.getGrid().isActive(actionCoordinate)) {
             myActiveStage.getGrid().doMove(unitCoordinate, actionCoordinate);
@@ -197,7 +213,7 @@ public class GameManager extends Manager {
                                                                   unitCoordinate);
             GameUnit receiver = myActiveStage.getGrid().getUnit(
                                                                 actionCoordinate);
-            if(receiver != null && myActiveStage.getGrid().isActive(actionCoordinate)){
+            if (receiver != null && myActiveStage.getGrid().isActive(actionCoordinate)) {
                 myActiveActions.get(actionID).doAction(activeUnit, receiver);
                 initiator.setActive(false);
             }
@@ -208,6 +224,7 @@ public class GameManager extends Manager {
 
     public void endTurn () {
         isTurnCompleted = true;
+        myView.removeAll();
     }
 
     public String getWinningTeam () {
@@ -217,7 +234,7 @@ public class GameManager extends Manager {
     public String getCurrentTeamName () {
         return myActiveStage.getTeam(myActiveTeam).getName();
     }
-    
+
     public String getPreStory () {
         return myActiveStage.getPreStory();
     }

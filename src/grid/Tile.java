@@ -1,5 +1,6 @@
 package grid;
 
+import game.ImageManager;
 import gameObject.GameObject;
 import gameObject.Stats;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class Tile extends GameObject {
     public void setActive (boolean active) {
         isActive = active;
         myImage = isActive ? ImageManager.getHightlightedTileImage(myImagePath)
-                          : ImageManager.getTileImage(myImagePath);
+                          : ImageManager.getImage(myImagePath);
     }
 
     public Stats getStats () {

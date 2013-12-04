@@ -19,7 +19,7 @@ public class StagePlayerPanel extends JPanel {
     private GridCanvas myGridCanvas;
     private TurnActionsPanel myTurnActions;
 
-    public StagePlayerPanel (GameManager manager) {
+    public StagePlayerPanel (GameManager manager, PlayerView pv) {
         myManager = manager;
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -35,7 +35,7 @@ public class StagePlayerPanel extends JPanel {
         myController = new GridController(myManager, this);
         myGridCanvas.addGridMouseListener(myController);
 
-        myTurnActions = new TurnActionsPanel((PlayerView) this.getParent());
+        myTurnActions = new TurnActionsPanel(pv);
         c.gridx = 0;
         c.gridy = 4;
         c.fill = GridBagConstraints.NONE;
