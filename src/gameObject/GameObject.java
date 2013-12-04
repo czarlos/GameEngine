@@ -3,7 +3,6 @@ package gameObject;
 import gameObject.action.Action;
 import grid.ImageManager;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;

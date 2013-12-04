@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.util.List;
+import java.util.concurrent.Semaphore;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,22 +14,23 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import parser.JSONParser;
 import controllers.GameManager;
 import controllers.WorldManager;
-import view.canvas.GridCanvas;
 import view.editor.GameView;
 
 
 public class PlayerView extends GameView {
     private GameManager myManager;
+    private Semaphore mySem;
     
     public PlayerView () {
+        mySem=new Semaphore(1);
     }
     
     public PlayerView(GameManager manager){
         myManager=manager;
+        mySem=new Semaphore(1);
     }
 
     @Override
@@ -71,42 +72,30 @@ public class PlayerView extends GameView {
         if (value == JOptionPane.OK_OPTION) {
             String game = (String) gameNamesMenu.getSelectedItem();
             JSONParser p = new JSONParser();
-            WorldManager wm = new WorldManager();
-            wm.setGameName("My game");
-            List<String> tileNames = wm.get("Tile");
-            wm.addStage(10,10, tileNames.indexOf("grass"),
-                                    "My Stage");
-            myManager = new GameManager(wm);
+            WorldManager newWM = p.createObject("saves/" + game, controllers.WorldManager.class);
+            myManager = new GameManager(newWM, this);
         }
-        
-        setGame();
         revalidate();
         repaint();
+        myManager.nextTurn();
+        doTurn();
     }
     
-    //@Override
-//    protected void loadGame () {
-//        JPanel newGamePanel = new JPanel();
-//        newGamePanel.setLayout(new GridLayout(1, 2));
-//        JLabel gameNameLabel = new JLabel("Game Name:");
-//        JTextField gameNameTextField = new JTextField(25);
-//        newGamePanel.add(gameNameLabel);
-//        newGamePanel.add(gameNameTextField);
-//
-//        this.remove(myBackground);
-//        String gameName = gameNameTextField.getText();
-//        this.setTitle(gameName);
-//
-//        myWorldManager.setGameName(gameName);
-//        setGame();
-//        revalidate();
-//        repaint();
-//    }
 
-    private void setGame () {
+    public void doTurn () {
         remove(myBackground);
-        StagePlayerPanel sp = new StagePlayerPanel("MyStage", myManager);
+        StagePlayerPanel sp = new StagePlayerPanel(myManager,mySem);
         add(sp);
+        revalidate();
+        repaint();
+
+//        try {
+//            //mySem.acquire();
+//        }
+//        catch (InterruptedException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
     }
 
     public static void main (String[] args) {

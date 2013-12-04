@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import view.player.PlayerView;
 import game.AI;
 import gameObject.GameObject;
 import gameObject.GameUnit;
@@ -17,26 +17,30 @@ public class GameManager extends Manager {
     private int myActiveTeam;
     private List<Action> myActiveActions;
     private boolean isTurnCompleted;
+    private PlayerView myView;
 
-    public GameManager (WorldManager wm) {
+    public GameManager (WorldManager wm, PlayerView view) {
         super();
         myActiveStage = wm.myActiveStage;
         myStages = wm.myStages;
         myGameName = wm.myGameName;
         myEditorData = wm.myEditorData;
+        myView=view;
     }
 
-    private void doTurn () {
+    public void doTurn () {
         clear();
         while(!conditionsMet()){
             nextTurn();
-            if(teamIsHuman()){
+            //if(teamIsHuman()){
                 doHumanTurn();
-            }
-            else{
-                doAITurn();
-            }
+            //}
+//            else{
+//                doAITurn();
+//            }
         }
+        
+        
     }
 
     private void clear () {
@@ -46,7 +50,7 @@ public class GameManager extends Manager {
     }
 
     public void doHumanTurn(){
-        // TODO: needs to wait until !turnCompleted();
+        myView.doTurn();
     }
     
     /**
@@ -56,11 +60,11 @@ public class GameManager extends Manager {
      * @param currentTeam
      */
     public void nextTurn () {
-        isTurnCompleted = false;
-        myPhaseNumber++;
-        myActiveTeam = myPhaseNumber % myActiveStage.getNumberOfTeams();
+   //     isTurnCompleted = false;
+  //      myPhaseNumber++;
+  //      myActiveTeam = myPhaseNumber % myActiveStage.getNumberOfTeams();
 
-        List<GameUnit> list = myActiveStage.getTeamUnits(myActiveTeam);
+        List<GameUnit> list = myActiveStage.getTeamUnits(0);
 
         for (GameUnit unit : list) {
             unit.setActive(true);
@@ -87,7 +91,7 @@ public class GameManager extends Manager {
     public void doAITurn () {
         // pass in gamemanager to AI because need moveOn command
         AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage);
-        ai.doTurn();
+    //    ai.doTurn();
     }
 
     public boolean turnCompleted () {
@@ -153,9 +157,9 @@ public class GameManager extends Manager {
         }
         else {
         	List<GameObject> receivers = myActiveStage.getGrid().doAction(unitCoordinate, actionCoordinate, myActiveActions.get(actionID));
-            for (GameObject receiver: receivers) {
+/*            for (GameObject receiver: receivers) {
             	myActiveActions.get(actionID).doAction(initiator, receiver);
-            }
+            }*/
             initiator.setActive(false);
         }
         

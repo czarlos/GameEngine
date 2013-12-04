@@ -23,7 +23,6 @@ public class Stats {
     protected Map<String, Integer> myStatMap;
     MasterStats masterStatsMap;
 
-
     /**
      * Constructor for stats which currently does nothing
      */

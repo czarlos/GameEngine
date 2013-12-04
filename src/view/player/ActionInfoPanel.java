@@ -2,11 +2,13 @@ package view.player;
 
 import grid.Coordinate;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import controller.actions.grid.BeginDoAction;
 import controller.actions.grid.DoAction;
 import controller.editor.GridController;
@@ -21,12 +23,16 @@ public class ActionInfoPanel extends ScrollableListPane {
                             GridController controller) {
         super(actions);
         myController = controller;
+        
 
     }
 
     @Override
     public void populate (List<String> data) {
-    	setLayout(new GridLayout(data.size(),0));
+
+        JPanel buttons=new JPanel();
+        buttons.setMaximumSize(new Dimension(200,data.size()*30));
+        buttons.setLayout(new GridLayout(0,1));
         for (int i = 0; i < data.size(); i++) {
             String s = data.get(i);
             JButton button = new JButton(s);
@@ -52,8 +58,9 @@ public class ActionInfoPanel extends ScrollableListPane {
                 
             }.init(i));
 
-            add(button);
+            buttons.add(button);
         }
+        add(buttons);
     }
 
 }

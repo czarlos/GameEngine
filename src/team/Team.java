@@ -8,6 +8,8 @@ import java.util.List;
 import stage.Condition;
 import stage.Stage;
 import stage.WinCondition;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -20,6 +22,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Leevi
  * 
  */
+
+@JsonAutoDetect
 public class Team {
     private List<GameUnit> myGameUnits;
     private int myGold;
@@ -29,10 +33,20 @@ public class Team {
     @JsonProperty
     private WinCondition myWinCondition;
 
+    public Team() {
+        
+    }
+    
     public Team (String name) {
         myGold = 0;
         myName = name;
         myWinCondition = new WinCondition();
+        myGameUnits = new ArrayList<GameUnit>();
+    }
+
+    public Team (String teamName, boolean humanity) {
+        this(teamName);
+        setIsHuman(humanity);
     }
 
     public void setWinCondition (WinCondition wc) {
@@ -42,11 +56,11 @@ public class Team {
     public void addCondition (Condition c) {
         myWinCondition.addCondition(c);
     }
-    
-    public boolean hasWon(Stage stage){
+
+    public boolean hasWon (Stage stage) {
         return myWinCondition.isFulfilled(stage);
     }
-    
+
     public String getName () {
         return myName;
     }
@@ -56,6 +70,7 @@ public class Team {
      * 
      * @return
      */
+    @JsonIgnore
     public List<UnitFactory> getFactories () {
         List<UnitFactory> factoryList = new ArrayList<UnitFactory>();
         for (GameObject obj : myGameUnits) {
