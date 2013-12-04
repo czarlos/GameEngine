@@ -207,8 +207,21 @@ public class Grid implements Drawable {
      * @param combatAction
      *        CombatAction that is being used
      */
-    public void beginAction (Coordinate unitCoordinate, Action action) {
-        findActionRange(unitCoordinate, action);
+    public void beginAction (Coordinate coordinate, int range) {
+        List<Coordinate> adjacentCoordinates = getAdjacentCoordinates(coordinate);
+
+        for (Coordinate adjacentCoordinate : adjacentCoordinates) {
+            if (onGrid(adjacentCoordinate)) {
+                Tile currentTile = getTile(adjacentCoordinate);
+                int newRange = range - 1;
+
+                if (newRange >= 0) {
+                    GameObject currentObject = getObject(adjacentCoordinate);
+                        currentTile.setActive(true);
+                        beginAction(adjacentCoordinate, newRange);
+                }
+            }
+        }
     }
 
     /**
@@ -244,8 +257,8 @@ public class Grid implements Drawable {
         return onGrid(coordinate) && isActive(coordinate);
     }
 
-    // TODO: maybe instead of onGrid check, check isValidAction?
-    /**
+/*    // TODO: maybe instead of onGrid check, check isValidAction?
+    *//**
      * Sets the tiles active that an action can affect
      * 
      * @param unitCoordinate
@@ -255,7 +268,7 @@ public class Grid implements Drawable {
      * @param isAround
      *        boolean of whether the action only affects one direction, or
      *        is all around the unit
-     */
+     *//*
     private void findActionRange (Coordinate unitCoordinate, Action action) {
         List<Coordinate> area = action.getAOE();
         if (action.isAround()) {
@@ -297,7 +310,7 @@ public class Grid implements Drawable {
         }
 
     }
-
+*/
     /**
      * Finds direction of action user selects
      * 

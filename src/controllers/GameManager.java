@@ -169,9 +169,13 @@ public class GameManager extends Manager {
                 .equals(MoveAction.MOVE_NAME)) {
             myActiveStage.getGrid().beginMove(unitCoordinate);
         }
+        else if (myActiveActions.get(actionID).getName()
+                .equals(WaitAction.WAIT_NAME)) {
+            myActiveStage.getGrid().getUnit(unitCoordinate).setActive(false);
+        }
         else {
             myActiveStage.getGrid().beginAction(unitCoordinate,
-                                                myActiveActions.get(actionID));
+                                                myActiveActions.get(actionID).getActionRange());
         }
     }
 
@@ -188,22 +192,21 @@ public class GameManager extends Manager {
     public void doAction (Coordinate unitCoordinate,
                           Coordinate actionCoordinate, int actionID) {
         GameUnit initiator = myActiveStage.getGrid().getUnit(unitCoordinate);
+        
         if (myActiveActions.get(actionID).getName()
-                .equals(MoveAction.MOVE_NAME)) {
+                .equals(MoveAction.MOVE_NAME) && myActiveStage.getGrid().isActive(actionCoordinate)) {
             myActiveStage.getGrid().doMove(unitCoordinate, actionCoordinate);
             initiator.hasMoved();
-        }
-        else if (myActiveActions.get(actionID).getName()
-                .equals(WaitAction.WAIT_NAME)) {
-            initiator.setActive(false);
         }
         else {
             GameUnit activeUnit = myActiveStage.getGrid().getUnit(
                                                                   unitCoordinate);
             GameUnit receiver = myActiveStage.getGrid().getUnit(
                                                                 actionCoordinate);
-            myActiveActions.get(actionID).doAction(activeUnit, receiver);
-            initiator.setActive(false);
+            if(receiver != null && myActiveStage.getGrid().isActive(actionCoordinate)){
+                myActiveActions.get(actionID).doAction(activeUnit, receiver);
+                initiator.setActive(false);
+            }
         }
 
         myActiveStage.getGrid().setTilesInactive();
@@ -218,6 +221,10 @@ public class GameManager extends Manager {
         return myActiveStage.getWinningTeam().getName();
     }
 
+    public String getCurrentTeamName () {
+        return myActiveStage.getTeam(myActiveTeam).getName();
+    }
+    
     public String getPreStory () {
         return myActiveStage.getPreStory();
     }

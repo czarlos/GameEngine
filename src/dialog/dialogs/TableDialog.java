@@ -38,6 +38,7 @@ import dialog.renderers.ImageRenderer;
 public class TableDialog extends JDialog {
     GameTableModel myModel;
     List<String> myEnumList;
+    JTable myTable;
 
     public TableDialog (GameTableModel gtm, ActionListener okListener) {
         this(gtm, okListener, new ArrayList<String>());
@@ -57,10 +58,12 @@ public class TableDialog extends JDialog {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
 
-        JButton addNewButton = new JButton("add new");
+        JButton addNewButton = new JButton("Add New " + myModel.getName());
 
+        JButton delete = new JButton("Delete");        
+        
         addNewButton.addActionListener(new AddNewListener());
-
+        delete.addActionListener(new DeleteListener());
         JButton ok = new JButton("Save");
         ok.addActionListener(okListener);
 
@@ -70,6 +73,7 @@ public class TableDialog extends JDialog {
         buttonPanel.add(ok);
         buttonPanel.add(cancel);
         buttonPanel.add(addNewButton);
+        buttonPanel.add(delete);
 
         add(buttonPanel, BorderLayout.SOUTH);
     }
@@ -77,15 +81,15 @@ public class TableDialog extends JDialog {
     private void addTable () {
         setLayout(new BorderLayout());
 
-        JTable table = new JTable(myModel);
+        myTable = new JTable(myModel);
 
-        JScrollPane scrollPane = new JScrollPane(table);
+        JScrollPane scrollPane = new JScrollPane(myTable);
 
-        table.setRowHeight(52);
-        table.setPreferredScrollableViewportSize(new Dimension(500, 300));
-        table.setFillsViewportHeight(true);
+        myTable.setRowHeight(52);
+        myTable.setPreferredScrollableViewportSize(new Dimension(500, 300));
+        myTable.setFillsViewportHeight(true);
 
-        setDefaultEditorsRenderers(table);
+        setDefaultEditorsRenderers(myTable);
 
         add(scrollPane, BorderLayout.CENTER);
     }
@@ -138,6 +142,20 @@ public class TableDialog extends JDialog {
         public void actionPerformed (ActionEvent e) {
             if (myListenerModel.getNew() != null)
                 myListenerModel.addNewRow(myListenerModel.getNew());
+        }
+    }
+    
+    private class DeleteListener implements ActionListener {
+
+        private GameTableModel myListenerModel;
+
+        public DeleteListener () {
+            super();
+            myListenerModel = myModel;
+        }
+
+        public void actionPerformed (ActionEvent e) {
+            myListenerModel.removeRow(myTable.getSelectedRow());
         }
     }
 
