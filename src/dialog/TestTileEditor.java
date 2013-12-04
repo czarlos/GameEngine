@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import parser.JSONParser;
 import team.Team;
 import dialog.dialogs.TableDialog;
-import dialog.dialogs.tableModels.ActionTableModel;
+import dialog.dialogs.tableModels.CombatActionTableModel;
 import dialog.dialogs.tableModels.GameTableModel;
 import dialog.dialogs.tableModels.TeamTableModel;
 
@@ -41,7 +41,7 @@ public class TestTileEditor {
         JFrame frame = new JFrame("Unit Editor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        GameTableModel model = new ActionTableModel();
+        GameTableModel model = new CombatActionTableModel();
 
         List<?> tilesReadIn = makeTestLists();
 

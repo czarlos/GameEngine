@@ -2,15 +2,21 @@ package gameObject.action;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.GameUnit;
 
-
+@JsonAutoDetect
 public class Outcome {
     private String myType;
     private String myName;
     private int myAmount;
     private boolean isFixed;
 
+    public Outcome (){
+        
+    }
+    
     public Outcome (String name, int amount, boolean fixed) {
         myName = name;
         myAmount = amount;
@@ -131,10 +137,12 @@ public class Outcome {
         myAmount = amount;
     }
 
+    @JsonProperty("fixed")
     public boolean isFixed () {
         return isFixed;
     }
 
+    @JsonProperty("fixed")
     public void setIsFixed (boolean fixed) {
         isFixed = fixed;
     }

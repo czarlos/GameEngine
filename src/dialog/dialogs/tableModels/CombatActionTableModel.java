@@ -8,9 +8,9 @@ import java.util.List;
 
 
 @SuppressWarnings("serial")
-public class ActionTableModel extends GameTableModel {
+public class CombatActionTableModel extends GameTableModel {
 
-    public ActionTableModel () {
+    public CombatActionTableModel () {
         String[] names = { "Name", "Action Range", "Initiator Outcomes", "Receiver Outcomes"};
         myName = "Action";
         setColumnNames(names);
@@ -34,8 +34,8 @@ public class ActionTableModel extends GameTableModel {
     @SuppressWarnings("unchecked")
     @Override
     public void loadObject (Object object) {
-        List<Action> list = (List<Action>) object;
-        for (Action a : list) {
+        List<CombatAction> list = (List<CombatAction>) object;
+        for (CombatAction a : list) {
             Object[] array = new Object[myColumnNames.length];
             array[0] = a.getName();
             array[1] = a.getActionRange();
@@ -48,9 +48,9 @@ public class ActionTableModel extends GameTableModel {
     @SuppressWarnings("unchecked")
     @Override
     public Object getObject () {
-        List<Action> list = new ArrayList<Action>();
+        List<CombatAction> list = new ArrayList<CombatAction>();
         for (Object[] row : myList) {
-            Action a = new CombatAction();
+            CombatAction a = new CombatAction();
             a.setName((String) row[0]);
             a.setActionRange((int) row[1]);
             a.setInitiatorOutcomes((List<Outcome>) row[2]);

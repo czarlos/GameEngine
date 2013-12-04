@@ -1,16 +1,14 @@
 package dialog.dialogs.tableModels;
 
-import gameObject.action.Action;
-import gameObject.action.CombatAction;
 import gameObject.action.Outcome;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class OutcomeTableModel extends GameTableModel {
 
     public OutcomeTableModel () {
-
-        String[] names = { "Affectee", "Amount", "Fixed?"};
+        String[] names = { "Affectee", "Amount", "Fixed?" };
         myName = "Outcome";
         setColumnNames(names);
     }
@@ -21,7 +19,7 @@ public class OutcomeTableModel extends GameTableModel {
         ret[0] = "Health";
         ret[1] = -10;
         ret[2] = false;
-        
+
         return ret;
     }
 
@@ -43,8 +41,8 @@ public class OutcomeTableModel extends GameTableModel {
         for (Object[] row : myList) {
             Outcome o = new Outcome();
             o.setName((String) row[0]);
-            o.setAmount((List<Outcome>) row[1]);
-            o.setIsFixed((List<Outcome>) row[2]);
+            o.setAmount((int) row[1]);
+            o.setIsFixed((boolean) row[2]);
             list.add(o);
         }
         return list;
