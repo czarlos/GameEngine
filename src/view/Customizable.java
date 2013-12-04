@@ -1,5 +1,6 @@
 package view;
 
+import game.ImageManager;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -43,12 +44,7 @@ public abstract class Customizable {
 
     public void setImagePath (String imagePath) {
         myImagePath = imagePath;
-        try {
-            myImage = ImageIO.read(new File(imagePath));
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        myImage=ImageManager.getImage(imagePath);
     }
 
     @JsonIgnore

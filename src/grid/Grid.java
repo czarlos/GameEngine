@@ -686,5 +686,4 @@ public class Grid implements Drawable {
     public void setHeight (int height) {
         myHeight = height;
     }
-
 }

@@ -1,8 +1,8 @@
 package gameObject;
 
+import game.ImageManager;
 import gameObject.action.Action;
 import grid.GridConstants;
-import grid.ImageManager;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class GameObject extends Customizable implements Drawable {
     public void setActive (boolean active) {
         isActive = active;
         myImage = active ? ImageManager.getHightlightedTileImage(myImagePath)
-                        : ImageManager.getTileImage(myImagePath);
+                        : ImageManager.getImage(myImagePath);
     }
 
     public List<String> getInfo () {
