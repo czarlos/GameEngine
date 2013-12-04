@@ -13,7 +13,7 @@ public class TurnActions extends JPanel {
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                
+
             }
         });
 

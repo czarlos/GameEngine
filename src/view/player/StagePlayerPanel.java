@@ -19,34 +19,34 @@ public class StagePlayerPanel extends JPanel {
     private GridCanvas myGridCanvas;
     private TurnActions myTurnActions;
 
-	public StagePlayerPanel(GameManager manager) {
-		myManager = manager;
-		setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = 0;
-		c.gridy = 0;
-		c.fill = GridBagConstraints.BOTH;
-		c.gridheight = 4;
-		c.gridwidth = 4;
-		c.weightx = 1;
-		c.weighty = 1;
-		myGridCanvas = new GridCanvas(myManager);
-		add(myGridCanvas, c);
-		myController = new GridController(myManager, this);
-		myGridCanvas.addGridMouseListener(myController);
+    public StagePlayerPanel (GameManager manager) {
+        myManager = manager;
+        setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 0;
+        c.fill = GridBagConstraints.BOTH;
+        c.gridheight = 4;
+        c.gridwidth = 4;
+        c.weightx = 1;
+        c.weighty = 1;
+        myGridCanvas = new GridCanvas(myManager);
+        add(myGridCanvas, c);
+        myController = new GridController(myManager, this);
+        myGridCanvas.addGridMouseListener(myController);
 
-		myTurnActions = new TurnActions();
-		c.gridx = 0;
-		c.gridy = 4;
-		c.fill = GridBagConstraints.NONE;
-		c.gridheight = 1;
-		c.gridwidth = 5;
-		c.weightx = 0;
-		c.weighty = 0;
-		add(myTurnActions, c);
-		repaint();
-		revalidate();
-	}
+        myTurnActions = new TurnActions();
+        c.gridx = 0;
+        c.gridy = 4;
+        c.fill = GridBagConstraints.NONE;
+        c.gridheight = 1;
+        c.gridwidth = 5;
+        c.weightx = 0;
+        c.weighty = 0;
+        add(myTurnActions, c);
+        repaint();
+        revalidate();
+    }
 
     @Override
     public void revalidate () {

@@ -44,13 +44,13 @@ public class GameManager extends Manager {
     }
 
     public void doUntilHumanTurn () {
-        int count=0;
+        int count = 0;
         while (!teamIsHuman()) {
-            // doAITurn();
+            doAITurn();
             beginTurn();
             count++;
-            if(count>10)
-                throw new RuntimeException("HOLY SHIT!!!");
+            if (count > 10)
+                throw new RuntimeException("Count Max reached.");
         }
     }
 
