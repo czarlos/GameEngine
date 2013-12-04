@@ -1,5 +1,6 @@
 package gameObject.action;
 
+import java.util.ArrayList;
 import java.util.List;
 import gameObject.GameObject;
 import gameObject.GameUnit;
@@ -14,6 +15,8 @@ public class CombatAction extends Action {
     private List<Outcome> myReceiverOutcomes;
 
     public CombatAction () {
+        myInitiatorOutcomes = new ArrayList<Outcome>();
+        myReceiverOutcomes = new ArrayList<Outcome>();
     }
     
     private double getNetEffectiveness (GameUnit initiator, GameUnit receiver) {
