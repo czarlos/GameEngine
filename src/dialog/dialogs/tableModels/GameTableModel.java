@@ -30,6 +30,7 @@ public abstract class GameTableModel extends AbstractTableModel {
 
     public void removeRow (int index) {
         myList.remove(index);
+        fireTableDataChanged();
     }
 
     @Override

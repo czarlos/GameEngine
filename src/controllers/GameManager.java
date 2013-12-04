@@ -35,7 +35,15 @@ public class GameManager extends Manager {
 
     public void beginTurn () {
         clear();
+        if (conditionsMet()) {
+            if (!nextStage())
+                // win
+                myView.setTitle(getActiveTeamName()+" won!!");
+                myView.displayWinDialog();
+            return;
+        }
         nextTurn();
+        myView.setTitle(getActiveTitle());
     }
 
     private void clear () {
@@ -64,12 +72,20 @@ public class GameManager extends Manager {
         isTurnCompleted = false;
         myPhaseCount++;
         myActiveTeam = myPhaseCount % myActiveStage.getNumberOfTeams();
-        String teamName = myActiveStage.getTeamNames().get(myActiveTeam);
+        String teamName = getActiveTeamName();
         List<GameUnit> list = myActiveStage.getTeamUnits(teamName);
 
         for (GameUnit unit : list) {
             unit.setActive(true);
         }
+    }
+
+    private String getActiveTeamName () {
+        return myActiveStage.getTeamNames().get(myActiveTeam);
+    }
+
+    private String getActiveTitle () {
+        return getActiveTeamName() + " - " + getActiveStageName() + " - " + myGameName;
     }
 
     public boolean nextStage () {
@@ -163,9 +179,13 @@ public class GameManager extends Manager {
                 .equals(MoveAction.MOVE_NAME)) {
             myActiveStage.getGrid().beginMove(unitCoordinate);
         }
+        else if (myActiveActions.get(actionID).getName()
+                .equals(WaitAction.WAIT_NAME)) {
+            myActiveStage.getGrid().getUnit(unitCoordinate).setActive(false);
+        }
         else {
             myActiveStage.getGrid().beginAction(unitCoordinate,
-                                                myActiveActions.get(actionID));
+                                                myActiveActions.get(actionID).getActionRange());
         }
     }
 
@@ -182,22 +202,21 @@ public class GameManager extends Manager {
     public void doAction (Coordinate unitCoordinate,
                           Coordinate actionCoordinate, int actionID) {
         GameUnit initiator = myActiveStage.getGrid().getUnit(unitCoordinate);
+
         if (myActiveActions.get(actionID).getName()
-                .equals(MoveAction.MOVE_NAME)) {
+                .equals(MoveAction.MOVE_NAME) && myActiveStage.getGrid().isActive(actionCoordinate)) {
             myActiveStage.getGrid().doMove(unitCoordinate, actionCoordinate);
             initiator.hasMoved();
-        }
-        else if (myActiveActions.get(actionID).getName()
-                .equals(WaitAction.WAIT_NAME)) {
-            initiator.setActive(false);
         }
         else {
             GameUnit activeUnit = myActiveStage.getGrid().getUnit(
                                                                   unitCoordinate);
             GameUnit receiver = myActiveStage.getGrid().getUnit(
                                                                 actionCoordinate);
-            myActiveActions.get(actionID).doAction(activeUnit, receiver);
-            initiator.setActive(false);
+            if (receiver != null && myActiveStage.getGrid().isActive(actionCoordinate)) {
+                myActiveActions.get(actionID).doAction(activeUnit, receiver);
+                initiator.setActive(false);
+            }
         }
 
         myActiveStage.getGrid().setTilesInactive();
@@ -205,10 +224,15 @@ public class GameManager extends Manager {
 
     public void endTurn () {
         isTurnCompleted = true;
+        myView.removeAll();
     }
 
     public String getWinningTeam () {
         return myActiveStage.getWinningTeam().getName();
+    }
+
+    public String getCurrentTeamName () {
+        return myActiveStage.getTeam(myActiveTeam).getName();
     }
 
     public String getPreStory () {

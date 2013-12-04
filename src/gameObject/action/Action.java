@@ -14,6 +14,7 @@ public abstract class Action {
     private List<Coordinate> myAOE;
     private boolean isAround;
     private int masterIndex;
+    private int myActionRange;
 
     public Action () {
         List<Coordinate> AOE = new ArrayList<>();
@@ -21,6 +22,15 @@ public abstract class Action {
         setAround(false);
         masterIndex = -1;
     }
+
+    public void setActionRange(int actionRange) {
+        myActionRange = actionRange;
+    }
+    
+    public int getActionRange (){
+        return myActionRange;
+    }
+
 
     public abstract void doAction (GameUnit initiator, GameObject receiver);
 

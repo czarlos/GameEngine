@@ -29,6 +29,7 @@ public class MakeDefaults {
 
         defaultAction = new CombatAction();
         defaultAction.setName("Slash");
+        defaultAction.setActionRange(1);
 
         defaultItem = new Item();
         List<String> actionList = new ArrayList<>();

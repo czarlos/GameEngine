@@ -16,12 +16,13 @@ import javax.swing.JPanel;
 import parser.JSONParser;
 import controllers.GameManager;
 import controllers.WorldManager;
-import view.editor.GameView;
+import view.GameView;
 
 
 @SuppressWarnings("serial")
 public class PlayerView extends GameView {
     private GameManager myManager;
+    private StagePlayerPanel myStagePlayerPanel;
 
     public PlayerView () {
     }
@@ -86,17 +87,27 @@ public class PlayerView extends GameView {
         myManager.beginTurn();
         myManager.doUntilHumanTurn();
         remove(myBackground);
-        StagePlayerPanel sp = new StagePlayerPanel(myManager);
-        add(sp);
+        myStagePlayerPanel = new StagePlayerPanel(myManager, this);
+        add(myStagePlayerPanel);
         revalidate();
         repaint();
     }
 
     public void endTurn () {
-        removeAll();
+        getContentPane().remove(myStagePlayerPanel);
+        getContentPane().add(myBackground);
+        revalidate();
+        repaint();
+        doTurn();
+        
     }
 
     public static void main (String[] args) {
         new PlayerView();
+    }
+
+    public void displayWinDialog () {
+        //TODO implement fancy win screen
+        JOptionPane.showMessageDialog(this, "You successfully completed all stages!");        
     }
 }

@@ -156,7 +156,7 @@ public class Stage implements GridMouseListener {
             }
         }
 
-        return false;
+        return conditionsMet;
     }
 
     public Team getWinningTeam () {
