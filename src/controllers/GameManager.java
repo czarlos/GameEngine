@@ -214,6 +214,10 @@ public class GameManager extends Manager {
         return myActiveStage.getWinningTeam().getName();
     }
 
+    public String getCurrentTeamName () {
+        return myActiveStage.getTeam(myActiveTeam).getName();
+    }
+    
     public String getPreStory () {
         return myActiveStage.getPreStory();
     }
