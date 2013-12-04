@@ -77,7 +77,7 @@ public class WorldManager extends Manager {
 
     // harder to generalize because teams are in stage
     @JsonIgnore
-    public GameTableModel getTeamTableModel (String type, Object toEdit) {
+    public GameTableModel getTeamTableModel () {
         return myEditorData.getTableModel(GridConstants.TEAM,
                                           myActiveStage.getTeams());
     }

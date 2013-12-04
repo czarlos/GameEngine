@@ -36,7 +36,6 @@ public class StageEditorPanel extends JTabbedPane {
         myID = stageID;
         setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         drawTabs(defaultTypes);
-        setSize(100, 450);
         repaint();
     }
 
@@ -75,7 +74,6 @@ public class StageEditorPanel extends JTabbedPane {
         SequentialGroup sg = layout.createSequentialGroup();
         ParallelGroup pg = layout.createParallelGroup();
 
-        // add edit button
         String editString = "Edit " + type + "s";
         JButton editType = new JButton(editString);
 
@@ -91,9 +89,8 @@ public class StageEditorPanel extends JTabbedPane {
                                         myWorldManager.getImage(type, n), tileNames.get(n), this);
             panel.add(gop);
             sg.addComponent(gop, 50, 50, 50);
-            pg.addComponent(gop, 170, 170, 170);
+            pg.addComponent(gop, 160, 160, 160);
         }
-
         layout.setVerticalGroup(sg);
         layout.setHorizontalGroup(pg);
         panel.revalidate();

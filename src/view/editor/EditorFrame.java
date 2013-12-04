@@ -19,12 +19,15 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import parser.JSONParser;
 import view.GameView;
 import controller.editor.GridEditorController;
 import controllers.WorldManager;
+import dialog.dialogs.TableDialog;
+import dialog.dialogs.tableModels.GameTableModel;
 
 
 public class EditorFrame extends GameView {
@@ -162,13 +165,20 @@ public class EditorFrame extends GameView {
                                               JOptionPane.OK_CANCEL_OPTION);
         if (value == JOptionPane.OK_OPTION) {
             String stageName = stageNameTextField.getText();
-            int gridWidth = Integer.parseInt(xTextField.getText());
-            int gridHeight = Integer.parseInt(yTextField.getText());
-            String image = (String) imageMenu.getSelectedItem();
-            int stageID = myWorldManager.addStage(gridWidth, gridHeight,
-                                                  tileNames.indexOf(image), stageName);// ****
 
-            setStage(stageName);
+            try{
+                int gridWidth = Integer.parseInt(xTextField.getText());
+                int gridHeight = Integer.parseInt(yTextField.getText());
+                String image = (String) imageMenu.getSelectedItem();
+                int stageID = myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image),
+                                            stageName);// ****
+                setStage(stageName, stageID);
+            }catch (NumberFormatException e){
+                JOptionPane.showMessageDialog(this, "Please enter integer values", "Input Error",
+                                              JOptionPane.WARNING_MESSAGE, null);
+                addStagePanel();
+                return;
+            }
         }
 
     }
@@ -194,7 +204,7 @@ public class EditorFrame extends GameView {
                                                 controllers.WorldManager.class);
             setFrame(newWM);
             for (String s : newWM.getStages()) {
-                setStage(s);
+                setStage(s, newWM.getStages().indexOf(s)+1);
             }
         }
     }
@@ -223,22 +233,13 @@ public class EditorFrame extends GameView {
         JMenu gamePrefs = new JMenu("Global Game Prefs");
         stageMenu.setMnemonic(KeyEvent.VK_S);
         JMenuItem setMaster = new JMenuItem("Set Master Stats");
+        setMaster.addActionListener(new GamePrefListener(myWorldManager, setMaster.getText()));
         gamePrefs.add(setMaster);
-
-        // TODO: get this to call myWM.getMasterStatsTable() and
-        // myWM.setMasterStats(GameTableModel gtm)
-        // alternatively you can make some fancy button for this, haha.
 
         JMenuItem setTeams = new JMenuItem("Configure Teams");
         gamePrefs.add(setTeams);
-
-        // TODO: call myWM.getTableModel(GridConstants.TEAM) and
-        // myWM.setTeams(GameTableModel gtm);
-
-        // TODO: add an "Edit Actions" button... somewhere. Call
-        // myWM.getTableModel(GridConstants.ACTION) and
-        // myWM.setActions(GameTableModel gtm);
-
+        setTeams.addActionListener(new GamePrefListener(myWorldManager, setTeams.getText()));
+        // TODO: call myWM.getTeamTableModel() and myWM.setTeams(MultipleTableModel mtm);
         myMenuBar.add(stageMenu, 2);
         myMenuBar.add(gamePrefs, 2);
     }
@@ -247,11 +248,12 @@ public class EditorFrame extends GameView {
         myWorldManager.saveGame();
     }
 
-    protected void setStage (String stageName) {
-        myGridController = new GridEditorController(myWorldManager,
-                                                    stageTabbedPane);
-        StagePanel sp = new StagePanel(stageName, myWorldManager,
-                                       myStagePanelList.size() + 1, myGridController);
+
+    protected void setStage (String stageName, int stageID) {
+        myGridController = new GridEditorController(myWorldManager, stageTabbedPane);
+        StagePanel sp =
+                new StagePanel(stageName, myWorldManager, stageID+1,
+                               myGridController);
         myStagePanelList.add(sp);
         stageTabbedPane.addTab(stageName, sp);
         stageTabbedPane.setSelectedIndex(myStagePanelList.size() - 1);
@@ -287,5 +289,58 @@ public class EditorFrame extends GameView {
         public void stateChanged (ChangeEvent e) {
             myWM.setActiveStage(myPanel.getSelectedIndex());
         }
+    }
+    
+    class GamePrefListener implements ActionListener {
+        private WorldManager myWM;
+        private String myRequest;
+        
+        public GamePrefListener (WorldManager wm, String request){
+            myWM = wm;
+            myRequest = request;
+        }
+        @Override
+        public void actionPerformed (ActionEvent e) {
+            GameTableModel model = null;
+            switch (myRequest){
+                case "Set Master Stats":
+                    model = myWM.getMasterStatsTable();
+                    break;
+                case "Configure Teams":
+                    model = myWM.getTeamTableModel();
+                    break;
+            }
+         
+            TableDialog dialog = new TableDialog(model, new GamePrefDialogListener(myWM, model, myRequest));
+            dialog.setVisible(true);
+            dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        }
+        
+    }
+    
+    class GamePrefDialogListener implements ActionListener {
+
+        private WorldManager myWM;
+        private GameTableModel myModel;
+        private String myRequest;
+        
+        public GamePrefDialogListener (WorldManager wm, GameTableModel model, String request){
+            myWM = wm;
+            myModel = model;
+            myRequest = request;
+        }
+        
+        @Override
+        public void actionPerformed (ActionEvent e) {
+            switch (myRequest){
+                case "Set Master Stats":
+                    myWM.setMasterStats(myModel);
+                    break;
+                case "Configure Teams":
+                    myWM.setTeams(myModel);
+                    break;
+            }
+        }
+        
     }
 }
