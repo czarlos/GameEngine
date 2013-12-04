@@ -23,15 +23,15 @@ public abstract class Manager {
     @JsonProperty
     protected EditorData myEditorData;
 
-    public Manager (String gameName) {
+    public Manager () {
         myStages = new ArrayList<Stage>();
-        myGameName = gameName;
         myEditorData = new EditorData("defaults");
     }
-
-    public Manager () {
-        this("");
+    
+    public void setGameName(String gameName){
+        myGameName=gameName;
     }
+
 
     /**
      * Returns list of stage names
@@ -76,6 +76,11 @@ public abstract class Manager {
     public String getGameName () {
         return myGameName;
     }
+    
+    protected String getActiveStageName(){
+        return myActiveStage.getName();
+    }
+    
 
     /**
      * Method to getting a Drawable version of the grid
