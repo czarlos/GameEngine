@@ -24,10 +24,10 @@ public class UnitCountCondition extends Condition {
     boolean isFulfilled (Stage stage) {
         List<GameUnit> theTeam = stage.getTeamUnits(myData.get("affiliation"));
         if (Boolean.parseBoolean(myData.get("boolean"))) {
-            return Integer.parseInt("count") < theTeam.size();
+            return Integer.parseInt(myData.get("count")) < theTeam.size();
         }
         else {
-            return Integer.parseInt("count") > theTeam.size();
+            return Integer.parseInt(myData.get("count")) >= theTeam.size();
         }
     }
 

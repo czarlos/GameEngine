@@ -35,6 +35,12 @@ public class GameManager extends Manager {
 
     public void beginTurn () {
         clear();
+        if(conditionsMet()){
+            if(!nextStage())
+                //win
+                myView.displayWinDialog();
+            return;
+        }
         nextTurn();
     }
 
@@ -205,6 +211,7 @@ public class GameManager extends Manager {
 
     public void endTurn () {
         isTurnCompleted = true;
+        myView.removeAll();
     }
 
     public String getWinningTeam () {
