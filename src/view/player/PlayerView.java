@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import parser.JSONParser;
 import controllers.GameManager;
 import controllers.WorldManager;
-import view.editor.GameView;
+import view.GameView;
 
 
 @SuppressWarnings("serial")
@@ -93,7 +93,7 @@ public class PlayerView extends GameView {
     }
 
     public void endTurn () {
-        removeAll();
+        getContentPane().removeAll();
     }
 
     public static void main (String[] args) {
