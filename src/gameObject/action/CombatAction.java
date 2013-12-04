@@ -70,4 +70,20 @@ public class CombatAction extends Action {
         }
         return true;
     }
+    
+    public List<Outcome> getInitiatorOutcomes() {
+        return myInitiatorOutcomes;
+    }
+    
+    public void setInitiatorOutcomes(List<Outcome> outcomes) {
+        myInitiatorOutcomes = outcomes;
+    }
+    
+    public List<Outcome> getReceiverOutcomes() {
+        return myReceiverOutcomes;
+    }
+    
+    public void setReceiverOutcomes(List<Outcome> outcomes) {
+        myReceiverOutcomes = outcomes;
+    }
 }
