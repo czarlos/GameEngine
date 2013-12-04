@@ -14,8 +14,8 @@ import grid.Grid;
 
 /**
  * Stage is responsible for managing how turns are distributed and progressing
- * the game when it is won. The turns progress when the player indicates they are
- * done and when the AI deactivates all of their units.
+ * the game when it is won. The turns progress when the player indicates they
+ * are done and when the AI deactivates all of their units.
  * 
  * @author Andy Bradshaw
  * @author carlosreyes
@@ -30,48 +30,60 @@ public class Stage implements GridMouseListener {
     private String myName;
     private String preText;
     private String postText;
-    @JsonProperty
-    private List<Team> myTeamList;
+    private List<Team> myTeams;
     private Team myWinningTeam;
 
     // only for use by deserializer
     public Stage () {
-        myTeamList = new ArrayList<Team>();
     }
 
     public Stage (int x, int y, int tileID, String name) {
         myGrid = new Grid(x, y, tileID);
         myName = name;
-        myTeamList = new ArrayList<Team>();
+        myTeams = new ArrayList<Team>();
     }
 
     /*
-     * Returns true if unit was added to team, false if teamID was invalid
-     * Note this logic works best if editor has a "team editor" tab that
-     * allows users to make teams and assign units to those teams.
+     * Returns true if unit was added to team, false if teamID was invalid Note
+     * this logic works best if editor has a "team editor" tab that allows users
+     * to make teams and assign units to those teams.
      */
 
     public boolean addUnitToTeam (int teamID, GameUnit gu) {
-        if (teamID < myTeamList.size()) {
-            myTeamList.get(teamID).addGameUnit(gu);
-            gu.setAffiliation(myTeamList.get(teamID).getName());
+        if (teamID < myTeams.size()) {
+            gu.setAffiliation(myTeams.get(teamID).getName());
             return true;
         }
         return false;
     }
 
-    public void addTeam (String teamName, boolean humanity) {
-        myTeamList.add(new Team(teamName, humanity));
+    public Team getTeam (int teamID) {
+        if (teamID < myTeams.size()) { return myTeams.get(teamID); }
+        return null;
     }
 
-    public Team getTeam (int teamID) {
-        if (teamID < myTeamList.size()) { return myTeamList.get(teamID); }
-        return null;
+    // for use by editor
+    public List<Team> getTeams () {
+        return myTeams;
+    }
+
+    public void setTeams (List<Team> teams) {
+        myTeams = teams;
+    }
+
+    @JsonIgnore
+    public void setTeamName (int teamID, String newName) {
+        if (teamID < myTeams.size()) {
+            for (GameUnit gu : getTeamUnits(myTeams.get(teamID).getName())) {
+                gu.setAffiliation(newName);
+            }
+            myTeams.get(teamID).setName(newName);
+        }
     }
 
     @JsonIgnore
     public int getNumberOfTeams () {
-        return myTeamList.size();
+        return myTeams.size();
     }
 
     public Grid getGrid () {
@@ -89,17 +101,25 @@ public class Stage implements GridMouseListener {
     @JsonIgnore
     public List<String> getTeamNames () {
         List<String> ret = new ArrayList<String>();
-        for (Team t : myTeamList) {
+        for (Team t : myTeams) {
             ret.add(t.getName());
         }
 
         return ret;
     }
 
-    public List<GameUnit> getTeamUnits (int ID) {
-        if (ID < myTeamList.size()) { return myTeamList.get(ID).getGameUnits(); }
+    public List<GameUnit> getTeamUnits (String teamName) {
+        GameUnit[][] units = myGrid.getGameUnits();
+        List<GameUnit> ret = new ArrayList<GameUnit>();
 
-        return null;
+        for (int i = 0; i < units.length; i++) {
+            for (GameUnit gu : units[i]) {
+                if (gu != null && teamName.equals(gu.getAffiliation())) {
+                    ret.add(gu);
+                }
+            }
+        }
+        return ret;
     }
 
     public void setPreStory (String pre) {
@@ -126,16 +146,17 @@ public class Stage implements GridMouseListener {
     public boolean conditionsMet () {
         boolean conditionsMet = false;
 
-        for (Team t : myTeamList) {
+        for (Team t : myTeams) {
             conditionsMet = conditionsMet || t.hasWon(this);
             if (t.hasWon(this)) {
                 myWinningTeam = t;
-                // teams with lower IDs have a slight disadvantage here but that's offset by the
+                // teams with lower IDs have a slight disadvantage here but
+                // that's offset by the
                 // fact that their turn comes up later.
             }
         }
 
-        return false;
+        return conditionsMet;
     }
 
     public Team getWinningTeam () {

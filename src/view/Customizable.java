@@ -1,6 +1,10 @@
 package view;
 
+import game.ImageManager;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,9 +16,18 @@ public abstract class Customizable {
     @JsonProperty
     protected String myImagePath;
     protected BufferedImage myImage;
+    protected int myLastIndex;
 
     public Customizable () {
 
+    }
+
+    public int getLastIndex () {
+        return myLastIndex;
+    }
+
+    public void setLastIndex (int newLastIndex) {
+        myLastIndex = newLastIndex;
     }
 
     public String getName () {
@@ -25,13 +38,13 @@ public abstract class Customizable {
         myName = name;
     }
 
-    @JsonProperty("imagePath")
     public String getImagePath () {
         return myImagePath;
     }
 
     public void setImagePath (String imagePath) {
         myImagePath = imagePath;
+        myImage=ImageManager.getImage(imagePath);
     }
 
     @JsonIgnore

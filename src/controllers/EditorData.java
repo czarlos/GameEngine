@@ -1,27 +1,26 @@
 package controllers;
 
-import gameObject.GameObject;
-import gameObject.GameUnit;
-import gameObject.item.Item;
-import grid.Tile;
+import gameObject.action.Action;
+import gameObject.action.MasterActions;
+import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import dialog.GameTableModel;
+import dialog.dialogs.tableModels.GameTableModel;
 import parser.JSONParser;
-import stage.Condition;
+import team.Team;
 import view.Customizable;
 
 
 @JsonAutoDetect
 public class EditorData {
     @JsonProperty
-    Map<String, List<Customizable>> myDataMap;
-    JSONParser myParser;
-    TableFactory myTableFactory;
+    private Map<String, List<?>> myDataMap;
+    private JSONParser myParser;
+    private TableFactory myTableFactory;
 
     // Only for use by deserializer
     public EditorData () {
@@ -37,7 +36,7 @@ public class EditorData {
     public EditorData (String folderName) {
         myParser = new JSONParser();
         myTableFactory = new TableFactory();
-        myDataMap = new HashMap<String, List<Customizable>>();
+        myDataMap = new HashMap<String, List<?>>();
         loadObjects(folderName);
     }
 
@@ -48,59 +47,58 @@ public class EditorData {
      */
     @SuppressWarnings("unchecked")
     private void loadObjects (String folderName) {
-        List<Customizable> gameObjects;
-        gameObjects =
-                myParser.createObject(folderName + "/GameObject",
-                                      new ArrayList<GameObject>().getClass());
-        myDataMap.put("GameObject", gameObjects);
+        for (String s : GridConstants.DEFAULTTYPES) {
+            List<Customizable> list = new ArrayList<Customizable>();
+            list = myParser.createObject(folderName + "/" + s,
+                                         new ArrayList<Customizable>().getClass());
+            myDataMap.put(s, list);
+        }
 
-        List<Customizable> gameUnits;
-        gameUnits =
-                myParser.createObject(folderName + "/GameUnit",
-                                      new ArrayList<GameUnit>().getClass());
-        myDataMap.put("GameUnit", gameUnits);
+        List<Team> list = new ArrayList<Team>();
+        list = myParser.createObject(folderName + "/" + GridConstants.TEAM,
+                                     new ArrayList<Team>().getClass());
+        myDataMap.put(GridConstants.TEAM, list);
 
-        List<Customizable> tiles;
-        tiles = myParser.createObject(folderName + "/Tile", new ArrayList<Tile>().getClass());
-        myDataMap.put("Tile", tiles);
+        List<Action> list2 = new ArrayList<Action>();
+        list2 = myParser.createObject(folderName + "/" + GridConstants.ACTION,
+                                      new ArrayList<Action>().getClass());
+        myDataMap.put(GridConstants.ACTION, list2);
 
-        List<Customizable> conditions;
-        conditions =
-                myParser.createObject(folderName + "/Condition",
-                                      new ArrayList<Condition>().getClass());
-        myDataMap.put("Condition", conditions);
-        
-
-        List<Customizable> items;
-        items =
-                myParser.createObject(folderName + "/Item",
-                                      new ArrayList<Item>().getClass());
-        myDataMap.put("Item", items);
-
+        // need to generalize this for all data types. tile, gameobject,
+        // gameunit, item, team, action
+        MasterActions ma = MasterActions.getInstance();
+        ma.setActionList(list2);
     }
 
     /**
      * Returns the data associated with the type requested.
      * 
-     * @param String type of Object
+     * @param String
+     *        type of Object
      * @return Collection of data
      */
 
-    public List<Customizable> get (String type) {
+    public List<?> get (String type) {
         return myDataMap.get(type);
     }
-    
+
     public Customizable getObject (String type, int ID) {
-        return myDataMap.get(type).get(ID);
+        return (Customizable) myDataMap.get(type).get(ID);
     }
-    
-    public GameTableModel getTable(String type){
+
+    public GameTableModel getTableModel (String type) {
         GameTableModel gtm = myTableFactory.makeTableModel(type);
-        gtm.addPreviouslyDefined(myDataMap.get(type));
+        gtm.loadObject(myDataMap.get(type));
         return gtm;
     }
 
-    public void setData(GameTableModel gtm){
-        myDataMap.put(gtm.getName(), gtm.getObjects());
+    public GameTableModel getTableModel (String type, Object toEdit) {
+        GameTableModel gtm = myTableFactory.makeTableModel(type);
+        gtm.loadObject(toEdit);
+        return gtm;
+    }
+
+    public void setData (GameTableModel gtm) {
+        myDataMap.put(gtm.getName(), (List<?>) gtm.getObject());
     }
 }

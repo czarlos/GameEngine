@@ -53,12 +53,17 @@ public class Coordinate {
 
     @Override
     public boolean equals (Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
         Coordinate other = (Coordinate) obj;
-        if (myX != other.myX) return false;
-        if (myY != other.myY) return false;
+        if (myX != other.myX)
+            return false;
+        if (myY != other.myY)
+            return false;
         return true;
     }
 

@@ -5,8 +5,8 @@ import java.util.List;
 
 
 /**
- * Is fulfilled when the number of units of a certain affiliation are greater than or less than a
- * certain amount
+ * Is fulfilled when the number of units of a certain affiliation are greater
+ * than or less than a certain amount
  * 
  * @author Leevi
  * 
@@ -15,19 +15,24 @@ public class UnitCountCondition extends Condition {
 
     public UnitCountCondition () {
         super();
-        myNeededData.add("count");
-        myNeededData.add("affiliation");
-        myNeededData.add("greater?");
+        myData.put("count", "0");
+        myData.put("affiliation", "enemy");
+        myData.put("greater?", "false");
     }
 
     @Override
     boolean isFulfilled (Stage stage) {
-        List<GameUnit> theTeam = stage.getTeamUnits(Integer.parseInt(myData.get("affiliation")));
+        List<GameUnit> theTeam = stage.getTeamUnits(myData.get("affiliation"));
         if (Boolean.parseBoolean(myData.get("boolean"))) {
-            return Integer.parseInt("count") < theTeam.size();
+            return Integer.parseInt(myData.get("count")) < theTeam.size();
         }
         else {
-            return Integer.parseInt("count") > theTeam.size();
+            return Integer.parseInt(myData.get("count")) >= theTeam.size();
         }
+    }
+
+    @Override
+    public String toString () {
+        return "Unit Count Condition";
     }
 }

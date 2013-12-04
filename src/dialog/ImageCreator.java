@@ -23,7 +23,8 @@ import javax.swing.JPanel;
 /**
  * @author brooksmershon
  * 
- *         Panel capable of making a dialog (of itself) for drawing images and saving them
+ *         Panel capable of making a dialog (of itself) for drawing images and
+ *         saving them
  */
 public class ImageCreator extends JPanel {
 
@@ -39,13 +40,13 @@ public class ImageCreator extends JPanel {
     DrawingPad canvas;
 
     /**
-     * Creates a new JComponent to permit loading, saving, and editing of images from file
+     * Creates a new JComponent to permit loading, saving, and editing of images
+     * from file
      */
     public ImageCreator () {
 
-        myImage =
-                new BufferedImage(DEFAULT_RESOLUTION_X, DEFAULT_RESOLUTION_Y,
-                                  BufferedImage.TYPE_INT_ARGB);
+        myImage = new BufferedImage(DEFAULT_RESOLUTION_X, DEFAULT_RESOLUTION_Y,
+                                    BufferedImage.TYPE_INT_ARGB);
 
         // a JComponent
 
@@ -69,11 +70,9 @@ public class ImageCreator extends JPanel {
      * @param cancelListener
      * @return JDialog in its own parent dialog
      */
-    public static JDialog createDialog (Component component,
-                                        String title,
+    public static JDialog createDialog (Component component, String title,
                                         boolean modal, ImageCreator imageCreator,
-                                        ActionListener okListener,
-                                        ActionListener cancelListener) {
+                                        ActionListener okListener, ActionListener cancelListener) {
 
         JDialog dialog = new JDialog();
 

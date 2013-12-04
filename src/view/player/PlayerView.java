@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.util.concurrent.Semaphore;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,20 +16,19 @@ import javax.swing.JPanel;
 import parser.JSONParser;
 import controllers.GameManager;
 import controllers.WorldManager;
-import view.editor.GameView;
+import view.GameView;
 
 
+@SuppressWarnings("serial")
 public class PlayerView extends GameView {
     private GameManager myManager;
-    private Semaphore mySem;
-    
+    private StagePlayerPanel myStagePlayerPanel;
+
     public PlayerView () {
-        mySem=new Semaphore(1);
     }
-    
-    public PlayerView(GameManager manager){
-        myManager=manager;
-        mySem=new Semaphore(1);
+
+    public PlayerView (GameManager manager) {
+        myManager = manager;
     }
 
     @Override
@@ -66,40 +64,50 @@ public class PlayerView extends GameView {
         loadPanel.add(gameNames);
         loadPanel.add(gameNamesMenu);
 
-        int value =
-                JOptionPane.showConfirmDialog(this, loadPanel, "Choose Game",
-                                              JOptionPane.OK_CANCEL_OPTION);
+        int value = JOptionPane.showConfirmDialog(this, loadPanel,
+                                                  "Choose Game", JOptionPane.OK_CANCEL_OPTION);
         if (value == JOptionPane.OK_OPTION) {
             String game = (String) gameNamesMenu.getSelectedItem();
             JSONParser p = new JSONParser();
-            WorldManager newWM = p.createObject("saves/" + game, controllers.WorldManager.class);
+            WorldManager newWM = p.createObject("saves/" + game,
+                                                controllers.WorldManager.class);
             myManager = new GameManager(newWM, this);
+
+            super.clearWindow();
+            this.remove(myBackground);
+
+            this.setTitle(myManager.getGameName());
         }
         revalidate();
         repaint();
-        myManager.nextTurn();
         doTurn();
     }
-    
 
     public void doTurn () {
+        myManager.beginTurn();
+        myManager.doUntilHumanTurn();
         remove(myBackground);
-        StagePlayerPanel sp = new StagePlayerPanel(myManager,mySem);
-        add(sp);
+        myStagePlayerPanel = new StagePlayerPanel(myManager, this);
+        add(myStagePlayerPanel);
         revalidate();
         repaint();
+    }
 
-//        try {
-//            //mySem.acquire();
-//        }
-//        catch (InterruptedException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
+    public void endTurn () {
+        getContentPane().remove(myStagePlayerPanel);
+        getContentPane().add(myBackground);
+        revalidate();
+        repaint();
+        doTurn();
+        
     }
 
     public static void main (String[] args) {
         new PlayerView();
     }
 
+    public void displayWinDialog () {
+        //TODO implement fancy win screen
+        JOptionPane.showMessageDialog(this, "You successfully completed all stages!");        
+    }
 }

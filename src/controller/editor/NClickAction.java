@@ -29,12 +29,13 @@ public class NClickAction {
     public void setArgs (Object[] args) {
         myArgs = args;
     }
-    
-    public Object[] getCurrentArgs(){
+
+    public Object[] getCurrentArgs () {
         return myArgs;
     }
 
-    public void addPrecursorCommand (int numClicks, String action, Object ... args) {
+    public void addPrecursorCommand (int numClicks, String action,
+                                     Object ... args) {
         if (precursorCommands == null) {
             precursorCommands = new HashMap<>();
         }
@@ -49,7 +50,8 @@ public class NClickAction {
     protected void checkActions () {
         if (precursorCommands.containsKey(myCoordinates.size())) {
             CommandShell pCmd = precursorCommands.get(myCoordinates.size());
-            doAction(pCmd.getCommandName(), ArrayUtils.add(pCmd.getArguments(), 0, myArgs[0]));
+            doAction(pCmd.getCommandName(),
+                     ArrayUtils.add(pCmd.getArguments(), 0, myArgs[0]));
         }
 
         if (myCoordinates.size() == myNumClicks) {
@@ -58,7 +60,8 @@ public class NClickAction {
     }
 
     protected void doAction (String actionName, Object[] args) {
-        Command action = (Command) Reflection.createInstance(actionName, args,  myCoordinates);
+        Command action = (Command) Reflection.createInstance(actionName, args,
+                                                             myCoordinates);
         action.execute();
     }
 }

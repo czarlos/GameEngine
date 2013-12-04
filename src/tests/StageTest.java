@@ -15,7 +15,7 @@ public class StageTest {
 
         List<List<GameUnit>> fullUnitList = new ArrayList<List<GameUnit>>();
 
-        Stage stage = new Stage();
+        Stage stage = new Stage(10, 10, 0, "name");
         GameUnit unit = new GameUnit();
         Coordinate coord = new Coordinate(0, 0);
         stage.getGrid().doMove(stage.getGrid().getUnitCoordinate(unit), coord);

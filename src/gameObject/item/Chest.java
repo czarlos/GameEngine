@@ -2,7 +2,6 @@ package gameObject.item;
 
 import java.util.List;
 import gameObject.GameObject;
-import gameObject.action.Action;
 
 
 /**
@@ -27,9 +26,19 @@ public class Chest extends GameObject {
         myItemList = itemList;
     }
 
-    // TODO: give objects to person
-    @Override
-    public Action getInteraction () {
-        return null;
-    };
+    /*
+     * // TODO: give objects to person
+     * 
+     * @Override public Action getInteraction(){ List<Outcome> initiatorOutcomes
+     * = new ArrayList<Outcome>(); List<Outcome> receiverOutcomes = new
+     * ArrayList<Outcome>();
+     * 
+     * for (Item i : myItemList) { initiatorOutcomes.add(new
+     * FixedOutcome("Item", i.getName(), i.getAmount()));
+     * receiverOutcomes.add(new FixedOutcome("Item", i.getName(),
+     * -i.getAmount())); }
+     * 
+     * Action getContents = new Action("Retrieve Items", initiatorOutcomes,
+     * receiverOutcomes); return getContents; };
+     */
 }

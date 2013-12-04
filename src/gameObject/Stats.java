@@ -6,21 +6,20 @@ import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
  * 
- * Stats class that keeps track of a group of stats and their values. Is used to store a game
- * unit's stat values.
+ * Stats class that keeps track of a group of stats and their values. Is used to
+ * store a game unit's stat values.
  * 
  * @author Andy Bradshaw
  * @author Ken McAndrews
  */
 @JsonAutoDetect
 public class Stats {
-    @JsonProperty
     protected Map<String, Integer> myStatMap;
+    @JsonIgnore
     MasterStats masterStatsMap;
 
     /**
@@ -36,16 +35,19 @@ public class Stats {
 
     public Stats (Stats stat) {
         myStatMap = new HashMap<>();
+
         for (String statName : stat.getStatNames()) {
             myStatMap.put(statName, stat.getStatValue(statName));
         }
-        updateFromMaster();
+
+        syncWithMaster();
     }
 
     /**
      * Gets the stat value for the given stat name
      * 
-     * @param statName - The stat name to get the value for
+     * @param statName
+     *        - The stat name to get the value for
      * @return The value of the stat name passed in
      */
     @JsonIgnore
@@ -54,10 +56,13 @@ public class Stats {
     }
 
     /**
-     * Modifies the value of an existing stat. If the stat does not exist, does nothing
+     * Modifies the value of an existing stat. If the stat does not exist, does
+     * nothing
      * 
-     * @param statName - Name of the stat to modify
-     * @param value - Value to modify the stat to
+     * @param statName
+     *        - Name of the stat to modify
+     * @param value
+     *        - Value to modify the stat to
      */
     public void modExisting (String statName, Integer value) {
         if (myStatMap.containsKey(statName)) {
@@ -68,7 +73,8 @@ public class Stats {
     /**
      * Removes a stat
      * 
-     * @param statName - The name of the stat to remove
+     * @param statName
+     *        - The name of the stat to remove
      */
     public void remove (String statName) {
         myStatMap.remove(statName);
@@ -98,35 +104,41 @@ public class Stats {
     /**
      * Sets the map of stats
      * 
-     * @param myStatMap - The map of stats to set to
+     * @param myStatMap
+     *        - The map of stats to set to
      */
-    public void setStats (Map<String, Integer> myStatMap) {
+    public void setStats (Map<String, Integer> statMap) {
         Map<String, Integer> newStats = new HashMap<>();
-        for (String statName : myStatMap.keySet()) {
-            newStats.put(statName, myStatMap.get(statName));
+        for (String statName : statMap.keySet()) {
+            newStats.put(statName, statMap.get(statName));
         }
         myStatMap = newStats;
     }
 
     /**
-     * Updates the stats maps of the current Stats instance and the master stats map. If a stat
-     * exists in the master stats map, but not in the current Stats instance map, then it adds it to
-     * the current Stats map instance. If a stat exists in the current Stats instance map, but not
-     * in the master stats map, it removes it from the current Stats map instance
-     * 
-     * @param masterStatMap The master stat map from the world manager
+     * Updates the stats maps of the current Stats instance and the master stats
+     * map. If a stat exists in the master stats map, but not in the current
+     * Stats instance map, then it adds it to the current Stats map instance. If
+     * a stat exists in the current Stats instance map, but not in the master
+     * stats map, it removes it from the current Stats map instance
      */
-    public void updateFromMaster () {
-        for (String stat : MasterStats.getInstance().getStatNames()) {
+    public void syncWithMaster () {
+        MasterStats masterStatMap = MasterStats.getInstance();
+
+        for (String stat : masterStatMap.getStatNames()) {
             if (!getStatNames().contains(stat)) {
-                myStatMap.put(stat, MasterStats.getInstance().getStatValue(stat));
+                myStatMap.put(stat, masterStatMap.getStatValue(stat));
             }
         }
 
         for (String stat : getStatNames()) {
-            if (!MasterStats.getInstance().getStatNames().contains(stat)) {
+            if (!masterStatMap.getStatNames().contains(stat)) {
                 remove(stat);
             }
         }
+    }
+
+    public String toString () {
+        return "Stats";
     }
 }

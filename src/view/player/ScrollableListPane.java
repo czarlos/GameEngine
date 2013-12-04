@@ -1,12 +1,8 @@
 package view.player;
 
-import java.awt.Dimension;
 import java.awt.LayoutManager;
-import java.awt.Rectangle;
 import java.util.List;
 import javax.swing.JPanel;
-import javax.swing.Scrollable;
-import javax.swing.SwingConstants;
 
 
 public abstract class ScrollableListPane extends JPanel {
@@ -17,8 +13,8 @@ public abstract class ScrollableListPane extends JPanel {
     public ScrollableListPane () {
         super();
     }
-    
-    public ScrollableListPane(List<String> data){
+
+    public ScrollableListPane (List<String> data) {
         populate(data);
     }
 
@@ -35,7 +31,5 @@ public abstract class ScrollableListPane extends JPanel {
     public ScrollableListPane (LayoutManager layout, boolean isDoubleBuffered) {
         super(layout, isDoubleBuffered);
     }
-
-
 
 }

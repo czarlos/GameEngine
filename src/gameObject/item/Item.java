@@ -1,6 +1,5 @@
 package gameObject.item;
 
-import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 import view.Customizable;
@@ -9,39 +8,84 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.Stats;
 import gameObject.action.Action;
-import grid.ImageManager;
-import view.Drawable;
+import gameObject.action.MasterActions;
 
 
 /**
- * Items have a name and an quantity (amount), items can have a wide range of effects including
- * effecting stats, which is evident in the statEffect abstract method. Alternatively they can have
- * an effect on the properties of a gameunit, such as reviving a units health.
+ * Items have a name, items can have a wide range of effects including effecting
+ * stats, which is evident in the statEffect abstract method. Alternatively they
+ * can have an effect on the properties of a gameunit, such as reviving a units
+ * health.
  * 
  * @author carlosreyes
  * 
  */
 @JsonAutoDetect
-public class Item extends Customizable implements Drawable {
+public class Item extends Customizable {
     @JsonProperty
-    private List<Action> myActions;
-    @JsonProperty
+    private List<Integer> myActions;
     private Stats myStats;
 
     public Item () {
-        myActions = new ArrayList<Action>();
+        myActions = new ArrayList<>();
         myStats = new Stats();
     }
+
+    @JsonIgnore
     public List<Action> getActions () {
+        List<Action> actionList = new ArrayList<>();
+
+        for (int actionIndex : myActions) {
+            actionList.add(MasterActions.getInstance().getAction(actionIndex));
+        }
+
+        return actionList;
+    }
+
+    public List<Integer> getActionIndices () {
         return myActions;
     }
 
-    public void addAction (Action action) {
-        myActions.add(action);
+    public void setActionIndices (List<Integer> newIndices) {
+        myActions = newIndices;
     }
 
-    public void setActions (List<Action> actions) {
-        myActions = actions;
+    @JsonIgnore
+    public List<String> getActionNames () {
+        List<String> actionNames = new ArrayList<>();
+
+        for (int actionIndex : myActions) {
+            actionNames.add(MasterActions.getInstance().getAction(actionIndex)
+                    .getName());
+        }
+
+        return actionNames;
+    }
+
+    @JsonIgnore
+    public void addAction (int actionIndex) {
+        myActions.add(actionIndex);
+    }
+
+    public void removeAction (int actionIndex) {
+        for (int i = 0; i < myActions.size(); i++) {
+            if (myActions.get(i) == actionIndex) {
+                myActions.remove(i);
+            }
+        }
+    }
+
+    /*
+     * public void setActions (List<Integer> actions) { myActions = actions; }
+     */
+
+    @JsonIgnore
+    public void setActionNames (List<String> actionNames) {
+        List<Integer> actionIDs = new ArrayList<Integer>();
+        for (String name : actionNames) {
+            actionIDs.add(MasterActions.getInstance().getActionID(name));
+        }
+        myActions = actionIDs;
     }
 
     @JsonIgnore
@@ -57,22 +101,5 @@ public class Item extends Customizable implements Drawable {
 
     public void setStats (Stats myStats) {
         this.myStats = new Stats(myStats);
-    }
-    
-    @JsonProperty("imagePath")
-    public void setImageAndPath (String imagePath) {
-
-        myImagePath = imagePath;
-        try {
-            myImage = ImageManager.addImage(imagePath);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    @Override
-    public void draw (Graphics g, int x, int y, int width, int height) {
-        g.drawImage(getImage(), x, y, width, height, null);
     }
 }

@@ -7,25 +7,39 @@ import gameObject.GameObject;
 import gameObject.GameUnit;
 import grid.Coordinate;
 
+
 @JsonAutoDetect
 public abstract class Action {
     private String myName;
     private List<Coordinate> myAOE;
     private boolean isAround;
+    private int masterIndex;
+    private int myActionRange;
 
     public Action () {
         List<Coordinate> AOE = new ArrayList<>();
         AOE.add(new Coordinate(0, 1));
         setAround(false);
+        masterIndex = -1;
+    }
+
+    public void setActionRange(int actionRange) {
+        myActionRange = actionRange;
     }
     
-    public abstract void doAction(GameUnit initiator, GameObject receiver);
-    
+    public int getActionRange (){
+        return myActionRange;
+    }
+
+
+    public abstract void doAction (GameUnit initiator, GameObject receiver);
+
     public void setName (String name) {
         myName = name;
     }
 
-    public abstract boolean isValidAction (GameUnit gameUnit, GameObject gameObject);
+    public abstract boolean isValidAction (GameUnit gameUnit,
+                                           GameObject gameObject);
 
     public String getName () {
         return myName;
@@ -45,5 +59,13 @@ public abstract class Action {
 
     public void setAOE (List<Coordinate> AOE) {
         myAOE = AOE;
+    }
+
+    public int getMasterIndex () {
+        return masterIndex;
+    }
+
+    public void setMasterIndex (int newIndex) {
+        masterIndex = newIndex;
     }
 }

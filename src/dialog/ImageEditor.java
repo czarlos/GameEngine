@@ -18,12 +18,11 @@ import javax.swing.table.TableCellEditor;
 /**
  * @author brooksmershon
  * 
- *         Allows a cell in a JTable representing an image to be edited in place by calling up a
- *         dialog
- *         that allows for image editing
+ *         Allows a cell in a JTable representing an image to be edited in place
+ *         by calling up a dialog that allows for image editing
  */
-public class ImageEditor extends AbstractCellEditor
-        implements TableCellEditor, ActionListener {
+public class ImageEditor extends AbstractCellEditor implements TableCellEditor,
+        ActionListener {
 
     BufferedImage currentImage;
     BufferedImage savedImage;
@@ -40,11 +39,9 @@ public class ImageEditor extends AbstractCellEditor
         button.setBorderPainted(false);
 
         imageCreator = new ImageCreator();
-        dialog = ImageCreator.createDialog(button,
-                                           "Image Editor",
-                                           true,  // modal
-                                           imageCreator,
-                                           this,  // this class handles OK button selection
+        dialog = ImageCreator.createDialog(button, "Image Editor", true, // modal
+                                           imageCreator, this, // this class handles OK button
+                                                               // selection
                                            null); // nothing happens when 'cancel' is selected
 
     }
@@ -74,20 +71,16 @@ public class ImageEditor extends AbstractCellEditor
     }
 
     @Override
-    public Component getTableCellEditorComponent (JTable table,
-                                                  Object value,
-                                                  boolean isSelected,
-                                                  int row,
-                                                  int col) {
+    public Component getTableCellEditorComponent (JTable table, Object value,
+                                                  boolean isSelected, int row, int col) {
 
         currentImage = (BufferedImage) ((ImageIcon) value).getImage();
         return button;
     }
 
     public static BufferedImage copyImage (BufferedImage source) {
-        BufferedImage copy =
-                new BufferedImage(source.getWidth(), source.getHeight(),
-                                  BufferedImage.TYPE_INT_ARGB);
+        BufferedImage copy = new BufferedImage(source.getWidth(),
+                                               source.getHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = (Graphics2D) copy.getGraphics();
         graphics.drawImage(source, 0, 0, null);
         graphics.dispose();

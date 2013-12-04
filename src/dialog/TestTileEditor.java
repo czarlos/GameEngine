@@ -1,30 +1,28 @@
 package dialog;
 
-import grid.Tile;
+import gameObject.action.Action;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import parser.JSONParser;
-import view.Customizable;
+import team.Team;
+import dialog.dialogs.TableDialog;
+import dialog.dialogs.tableModels.ActionTableModel;
+import dialog.dialogs.tableModels.GameTableModel;
+import dialog.dialogs.tableModels.TeamTableModel;
 
 
 /**
  * 
- * @author brooksmershon
- *         Testing setup for panel and table viewing
+ * @author brooksmershon Testing setup for panel and table viewing
  */
 
 public class TestTileEditor {
@@ -34,7 +32,6 @@ public class TestTileEditor {
                 createGUITester();
             }
         });
-
     }
 
     /**
@@ -44,17 +41,17 @@ public class TestTileEditor {
         JFrame frame = new JFrame("Unit Editor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        GameTableModel model = new TileTableModel();
+        GameTableModel model = new TeamTableModel();
 
-        List<Customizable> tilesReadIn = makeTestLists();
+        List<?> tilesReadIn = makeTestLists();
 
-        model.addPreviouslyDefined(tilesReadIn);
+        model.loadObject(tilesReadIn);
 
         Container content = frame.getContentPane();
         // Creates a new container
         content.setLayout(new BorderLayout());
 
-        final JDialog tileEditor = new TileEditorDialog(model, null);
+        final JDialog tileEditor = new TableDialog(model, null);
 
         JButton launchButton = new JButton("TileEditor");
         launchButton.addActionListener(new ActionListener() {
@@ -77,10 +74,8 @@ public class TestTileEditor {
         frame.setVisible(true);
     }
 
-    private static List<Customizable> makeTestLists () {
+    private static List<?> makeTestLists () {
         JSONParser p = new JSONParser();
-        List<Customizable> list = p.createObject("defaults/Tile", new ArrayList<Tile>().getClass());
-        return list;
+        return p.createObject("defaults/Team", new ArrayList<Team>().getClass());
     }
-
 }

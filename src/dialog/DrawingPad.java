@@ -17,7 +17,8 @@ import javax.swing.JComponent;
 /**
  * @author brooksmershon
  * 
- *         JComponent that presents a basic canvas to draw on and hold pictures for editing.
+ *         JComponent that presents a basic canvas to draw on and hold pictures
+ *         for editing.
  */
 public class DrawingPad extends JComponent {
 
@@ -30,7 +31,8 @@ public class DrawingPad extends JComponent {
     int currentX, currentY, oldX, oldY;
 
     /**
-     * Crate new DrawingPad which allows for mouse movement to be tracked for drawing
+     * Crate new DrawingPad which allows for mouse movement to be tracked for
+     * drawing
      */
     public DrawingPad () {
 
@@ -67,7 +69,8 @@ public class DrawingPad extends JComponent {
     @Override
     public void paintComponent (Graphics g) {
         if (image == null) {
-            image = new BufferedImage(DEFAULT_WIDTH, DEFAULT_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+            image = new BufferedImage(DEFAULT_WIDTH, DEFAULT_HEIGHT,
+                                      BufferedImage.TYPE_INT_ARGB);
             graphics2D = (Graphics2D) image.getGraphics();
             graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                                         RenderingHints.VALUE_ANTIALIAS_ON);
@@ -78,7 +81,8 @@ public class DrawingPad extends JComponent {
 
     /**
      * 
-     * @param color - a Color object
+     * @param color
+     *        - a Color object
      */
     public void setPenColor (Color color) {
         graphics2D.setPaint(color);
@@ -86,7 +90,8 @@ public class DrawingPad extends JComponent {
 
     /**
      * 
-     * @param size - integer
+     * @param size
+     *        - integer
      */
     public void setPenSize (int size) {
         graphics2D.setStroke(new BasicStroke(size));
@@ -94,7 +99,8 @@ public class DrawingPad extends JComponent {
 
     /**
      * 
-     * @param image - BufferedImage usually for drawing and easy saving/loading
+     * @param image
+     *        - BufferedImage usually for drawing and easy saving/loading
      */
     public void setBackgroundImage (Image image) {
 
@@ -106,7 +112,8 @@ public class DrawingPad extends JComponent {
      * leaves current image a white canvas
      */
     public void clear () {
-        image = new BufferedImage(DEFAULT_WIDTH, DEFAULT_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        image = new BufferedImage(DEFAULT_WIDTH, DEFAULT_HEIGHT,
+                                  BufferedImage.TYPE_INT_ARGB);
         graphics2D = (Graphics2D) image.getGraphics();
         graphics2D.setPaint(Color.white);
         graphics2D.fillRect(0, 0, getSize().width, getSize().height);

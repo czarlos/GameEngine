@@ -5,9 +5,9 @@ import java.util.List;
 
 
 /**
- * Nodes are used as data structures to make pathfinding easier by holding
- * more data than just coordinates. However the integral piece of this data
- * structure is the coordinate, as this is what the path is being made from.
+ * Nodes are used as data structures to make pathfinding easier by holding more
+ * data than just coordinates. However the integral piece of this data structure
+ * is the coordinate, as this is what the path is being made from.
  * 
  * @author carlosreyes
  * 

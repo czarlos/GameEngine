@@ -19,6 +19,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+
 public class CombatTest {
     GameUnit playerUnit;
     GameUnit enemyUnit;
@@ -36,12 +37,12 @@ public class CombatTest {
         masterStat.setStatValue("health", 15);
         masterStat.setStatValue("attack", 2);
         masterStat.setStatValue("defense", 1);
-        
+
         Stats playerStats = new Stats();
-      //TODO: Update stats from masterStat
+        // TODO: Update stats from masterStat
 
         Stats enemyStats = new Stats();
-        //TODO: Update stats from masterStat
+        // TODO: Update stats from masterStat
 
         Map<String, Integer> itemStatsMap = new HashMap<String, Integer>();
         itemStatsMap.put("attack", 1);
@@ -74,11 +75,12 @@ public class CombatTest {
             }
         }
 
-        //Need to do an attack here
+        // Need to do an attack here
         double enemyHealth = enemyUnit.getStat("health");
         double expectedEnemyHealth = 5;
 
-        assertEquals("Proper Enemy Damage Dealt", enemyHealth, expectedEnemyHealth, .001);
+        assertEquals("Proper Enemy Damage Dealt", enemyHealth,
+                     expectedEnemyHealth, .001);
     }
 
     @Test
@@ -91,11 +93,12 @@ public class CombatTest {
             }
         }
 
-        //Need to do an attack here
+        // Need to do an attack here
         double playerHealth = playerUnit.getStat("health");
         double expectedPlayerHealth = 10;
 
-        assertEquals("Proper Self Damage Dealt", playerHealth, expectedPlayerHealth, .001);
+        assertEquals("Proper Self Damage Dealt", playerHealth,
+                     expectedPlayerHealth, .001);
     }
 
     @Test
@@ -108,11 +111,12 @@ public class CombatTest {
             }
         }
 
-        //Need to do an attack here
+        // Need to do an attack here
         double enemyHealth = enemyUnit.getStat("health");
         double expectedEnemyHealth = 11;
 
-        assertEquals("Proper Damage Dealt", enemyHealth, expectedEnemyHealth, .001);
+        assertEquals("Proper Damage Dealt", enemyHealth, expectedEnemyHealth,
+                     .001);
     }
 
     @Test
@@ -125,7 +129,7 @@ public class CombatTest {
             }
         }
 
-        //Need to do an attack here
+        // Need to do an attack here
         double playerHealth = playerUnit.getStat("health");
         double expectedHealth = 11;
 
@@ -142,19 +146,19 @@ public class CombatTest {
             }
         }
 
-//        enemyUnit.addItem(makeEmptyItem("potion", 5));
+        // enemyUnit.addItem(makeEmptyItem("potion", 5));
 
-        //Need to do an attack here
-//        int itemCount = enemyUnit.getItem("potion");
-//        int expectedItemCount = 3;
-//
-//        assertEquals("Proper Items Removed", itemCount, expectedItemCount);
+        // Need to do an attack here
+        // int itemCount = enemyUnit.getItem("potion");
+        // int expectedItemCount = 3;
+        //
+        // assertEquals("Proper Items Removed", itemCount, expectedItemCount);
 
     }
 
     /**
-     * Creates an action that deals 10 damage to opponent health at the cost of 5 of the attackers
-     * health
+     * Creates an action that deals 10 damage to opponent health at the cost of
+     * 5 of the attackers health
      * 
      * @return CombatAction
      */
@@ -236,17 +240,18 @@ public class CombatTest {
     /**
      * Function to create empty items to test item deletion
      * 
-     * @param name - name of item
-     * @param quantity - number of them
+     * @param name
+     *        - name of item
+     * @param quantity
+     *        - number of them
      * @return Item - created items
      */
-//    public Item makeEmptyItem (String name, int quantity) {
-//        Equipment e = new Equipment(name, new StatModifier());
-//        e.setAmount(quantity);
-//        e.setModifier(new StatModifier(new HashMap<String, Integer>()));
-//
-//        return e;
-//    }
-
+    // public Item makeEmptyItem (String name, int quantity) {
+    // Equipment e = new Equipment(name, new StatModifier());
+    // e.setAmount(quantity);
+    // e.setModifier(new StatModifier(new HashMap<String, Integer>()));
+    //
+    // return e;
+    // }
 
 }

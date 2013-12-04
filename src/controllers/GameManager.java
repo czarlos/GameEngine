@@ -4,16 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 import view.player.PlayerView;
 import game.AI;
-import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.action.Action;
 import gameObject.action.MoveAction;
 import gameObject.action.WaitAction;
 import grid.Coordinate;
 
+
+/**
+ * 
+ * @author kevinjian, leevi, whoever else
+ * 
+ */
 public class GameManager extends Manager {
 
-    private int myPhaseNumber;
+    private int myPhaseCount;
     private int myActiveTeam;
     private List<Action> myActiveActions;
     private boolean isTurnCompleted;
@@ -25,61 +30,73 @@ public class GameManager extends Manager {
         myStages = wm.myStages;
         myGameName = wm.myGameName;
         myEditorData = wm.myEditorData;
-        myView=view;
+        myView = view;
     }
 
-    public void doTurn () {
+    public void beginTurn () {
         clear();
-        while(!conditionsMet()){
-            nextTurn();
-            //if(teamIsHuman()){
-                doHumanTurn();
-            //}
-//            else{
-//                doAITurn();
-//            }
+        if (conditionsMet()) {
+            if (!nextStage())
+                // win
+                myView.setTitle(getActiveTeamName()+" won!!");
+                myView.displayWinDialog();
+            return;
         }
-        
-        
+        nextTurn();
+        myView.setTitle(getActiveTitle());
     }
 
     private void clear () {
-        myPhaseNumber = -1;
         myActiveActions = new ArrayList<Action>();
         isTurnCompleted = false;
     }
 
-    public void doHumanTurn(){
-        myView.doTurn();
+    public void doUntilHumanTurn () {
+        int count = 0;
+        while (!teamIsHuman()) {
+            doAITurn();
+            beginTurn();
+            count++;
+            if (count > 10)
+                throw new RuntimeException("Count Max reached.");
+        }
     }
-    
+
     /**
-     * Loops through all of the game units in the current team (whose turn it is)
-     * and sets all of the units to active.
+     * Loops through all of the game units in the current team (whose turn it
+     * is) and sets all of the units to active.
      * 
      * @param currentTeam
      */
     public void nextTurn () {
-   //     isTurnCompleted = false;
-  //      myPhaseNumber++;
-  //      myActiveTeam = myPhaseNumber % myActiveStage.getNumberOfTeams();
-
-        List<GameUnit> list = myActiveStage.getTeamUnits(0);
+        isTurnCompleted = false;
+        myPhaseCount++;
+        myActiveTeam = myPhaseCount % myActiveStage.getNumberOfTeams();
+        String teamName = getActiveTeamName();
+        List<GameUnit> list = myActiveStage.getTeamUnits(teamName);
 
         for (GameUnit unit : list) {
             unit.setActive(true);
         }
     }
 
-    public boolean nextStage() {
+    private String getActiveTeamName () {
+        return myActiveStage.getTeamNames().get(myActiveTeam);
+    }
+
+    private String getActiveTitle () {
+        return getActiveTeamName() + " - " + getActiveStageName() + " - " + myGameName;
+    }
+
+    public boolean nextStage () {
         int index = myStages.indexOf(myActiveStage);
-        if(!(index < myStages.size())){
+        if (!(index < myStages.size())) {
             setActiveStage(index++);
             return true;
         }
         return false;
     }
-    
+
     public boolean conditionsMet () {
         return myActiveStage.conditionsMet();
     }
@@ -91,7 +108,7 @@ public class GameManager extends Manager {
     public void doAITurn () {
         // pass in gamemanager to AI because need moveOn command
         AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage);
-    //    ai.doTurn();
+        ai.doTurn();
     }
 
     public boolean turnCompleted () {
@@ -101,77 +118,121 @@ public class GameManager extends Manager {
     /**
      * Frontend communication
      */
-    
+
     /**
-     * Generates a list of information that a coordinate contains, including tiles and objects
+     * Generates a list of information that a coordinate contains, including
+     * tiles and objects
      * 
-     * @param coordinate Coordinate that is being asked for
+     * @param coordinate
+     *        Coordinate that is being asked for
      * @return List of Strings that contain information about the coordinate
      */
     public List<String> generateTileInfoList (Coordinate coordinate) {
-    	return myActiveStage.getGrid().generateTileInfo(coordinate);
+        return myActiveStage.getGrid().generateTileInfo(coordinate);
     }
-    
+
     /**
-     * Generates a list of information that a coordinate contains about a Game Object
+     * Generates a list of information that a coordinate contains about a Game
+     * Object
      * 
-     * @param coordinate Coordinate that is being asked for
-     * @return List of Strings that contain information about the coordinate. Null if there is no
-     *         object at coordinate
+     * @param coordinate
+     *        Coordinate that is being asked for
+     * @return List of Strings that contain information about the coordinate.
+     *         Null if there is no object at coordinate
      */
     public List<String> generateObjectInfo (Coordinate coordinate) {
-    	return myActiveStage.getGrid().generateObjectInfo(coordinate);
+        return myActiveStage.getGrid().generateObjectInfo(coordinate);
     }
-    
+
+    /**
+     * Gets a list of actions that a unit at a coordinate can perform. Null if
+     * there is no unit.
+     * 
+     * @param coordinate
+     *        Coordinate that is being asked for
+     * @return List of Strings that contain the action names
+     */
     public List<String> getActions (Coordinate coordinate) {
-    	myActiveActions = myActiveStage.getGrid().generateActionList(coordinate);
+        myActiveActions = myActiveStage.getGrid()
+                .generateActionList(coordinate);
         if (myActiveActions != null) {
-        	List<String> actionNames = new ArrayList<>();
-        	for (Action action: myActiveActions) {
-        		actionNames.add(action.getName());
-        	}
-        	return actionNames;
+            List<String> actionNames = new ArrayList<>();
+            for (Action action : myActiveActions) {
+                actionNames.add(action.getName());
+            }
+            return actionNames;
         }
         return null;
     }
-    
+
+    /**
+     * Sets the tiles that an action affects to active
+     * 
+     * @param unitCoordinate
+     *        Coordinate where the action originates
+     * @param actionID
+     *        int that represents the index of the action in myActiveActions
+     */
     public void beginAction (Coordinate unitCoordinate, int actionID) {
-    	myActiveStage.getGrid().setTilesInactive();
-        if (myActiveActions.get(actionID).getName().equals(MoveAction.NAME)) {
+        myActiveStage.getGrid().setTilesInactive();
+        if (myActiveActions.get(actionID).getName()
+                .equals(MoveAction.MOVE_NAME)) {
             myActiveStage.getGrid().beginMove(unitCoordinate);
         }
+        else if (myActiveActions.get(actionID).getName()
+                .equals(WaitAction.WAIT_NAME)) {
+            myActiveStage.getGrid().getUnit(unitCoordinate).setActive(false);
+        }
         else {
-        	myActiveStage.getGrid().beginAction(unitCoordinate, myActiveActions.get(actionID));
+            myActiveStage.getGrid().beginAction(unitCoordinate,
+                                                myActiveActions.get(actionID).getActionRange());
         }
     }
-    
-    public void doAction (Coordinate unitCoordinate, Coordinate actionCoordinate, int actionID) {
+
+    /**
+     * Performs the selected action
+     * 
+     * @param unitCoordinate
+     *        Coordinate where the action originates
+     * @param actionCoordinate
+     *        Coordinate where the action is targeting
+     * @param actionID
+     *        int that represents the index of the action in myActiveActions
+     */
+    public void doAction (Coordinate unitCoordinate,
+                          Coordinate actionCoordinate, int actionID) {
         GameUnit initiator = myActiveStage.getGrid().getUnit(unitCoordinate);
-        
-        if (myActiveActions.get(actionID).getName().equals(MoveAction.NAME)) {
+
+        if (myActiveActions.get(actionID).getName()
+                .equals(MoveAction.MOVE_NAME) && myActiveStage.getGrid().isActive(actionCoordinate)) {
             myActiveStage.getGrid().doMove(unitCoordinate, actionCoordinate);
             initiator.hasMoved();
         }
-        else if (myActiveActions.get(actionID).getName().equals(WaitAction.NAME)) {
-        	initiator.setActive(false);
-        }
         else {
-        	List<GameObject> receivers = myActiveStage.getGrid().doAction(unitCoordinate, actionCoordinate, myActiveActions.get(actionID));
-/*            for (GameObject receiver: receivers) {
-            	myActiveActions.get(actionID).doAction(initiator, receiver);
-            }*/
-            initiator.setActive(false);
+            GameUnit activeUnit = myActiveStage.getGrid().getUnit(
+                                                                  unitCoordinate);
+            GameUnit receiver = myActiveStage.getGrid().getUnit(
+                                                                actionCoordinate);
+            if (receiver != null && myActiveStage.getGrid().isActive(actionCoordinate)) {
+                myActiveActions.get(actionID).doAction(activeUnit, receiver);
+                initiator.setActive(false);
+            }
         }
-        
+
         myActiveStage.getGrid().setTilesInactive();
     }
 
     public void endTurn () {
         isTurnCompleted = true;
+        myView.removeAll();
     }
 
     public String getWinningTeam () {
         return myActiveStage.getWinningTeam().getName();
+    }
+
+    public String getCurrentTeamName () {
+        return myActiveStage.getTeam(myActiveTeam).getName();
     }
 
     public String getPreStory () {
@@ -181,8 +242,8 @@ public class GameManager extends Manager {
     public String getPostStory () {
         return myActiveStage.getPostStory();
     }
-    
-    public boolean didHumanWin(){
+
+    public boolean didHumanWin () {
         return myActiveStage.getWinningTeam().isHuman();
     }
 }

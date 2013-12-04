@@ -1,12 +1,12 @@
 package gameObject;
 
+import game.ImageManager;
 import gameObject.action.Action;
-import grid.ImageManager;
+import grid.GridConstants;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import view.Customizable;
 import view.Drawable;
 
@@ -19,7 +19,7 @@ import view.Drawable;
  */
 @JsonAutoDetect
 public class GameObject extends Customizable implements Drawable {
-    protected List<String> myPassableList;
+    private List<String> myPassableList;
     protected List<String> myDisplayData;
     protected boolean isActive;
 
@@ -30,9 +30,8 @@ public class GameObject extends Customizable implements Drawable {
 
     public void setActive (boolean active) {
         isActive = active;
-        myImage =
-                active ? ImageManager.getHightlightedTileImage(myImagePath) : ImageManager
-                        .getTileImage(myImagePath);
+        myImage = active ? ImageManager.getHightlightedTileImage(myImagePath)
+                        : ImageManager.getImage(myImagePath);
     }
 
     public List<String> getInfo () {
@@ -46,19 +45,22 @@ public class GameObject extends Customizable implements Drawable {
     /**
      * Checks if a unit can pass through the object
      * 
-     * @param unit - GameUnit that is moving
+     * @param unit
+     *        - GameUnit that is moving
      * @return - boolean of if unit can pass through
      */
 
     public boolean isPassable (GameUnit unit) {
-        return myPassableList.contains(unit.getName()) ||
-               myPassableList.contains(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
+        return myPassableList.contains(unit.getName())
+               || myPassableList
+                       .contains(GridConstants.DEFAULT_PASS_EVERYTHING);
     }
 
     /**
      * Adds a new object that can be passed through
      * 
-     * @param passable - String of object name that can pass
+     * @param passable
+     *        - String of object name that can pass
      */
     public void addPassable (String passable) {
         myPassableList.add(passable);
@@ -70,18 +72,6 @@ public class GameObject extends Customizable implements Drawable {
 
     public List<String> getPassableList () {
         return myPassableList;
-    }
-
-    @JsonProperty("imagePath")
-    public void setImageAndPath (String imagePath) {
-
-        myImagePath = imagePath;
-        try {
-            myImage = ImageManager.addImage(imagePath);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /**

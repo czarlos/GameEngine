@@ -33,5 +33,6 @@ public abstract class Outcome {
      * @param effectiveness
      * @return true if legal, false otherwise
      */
-    public abstract boolean checkValidOutcome (GameUnit unit, double effectiveness);
+    public abstract boolean checkValidOutcome (GameUnit unit,
+                                               double effectiveness);
 }

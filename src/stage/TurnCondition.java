@@ -10,14 +10,20 @@ public class TurnCondition extends Condition {
 
     public TurnCondition () {
         super();
-        myNeededData.add("count");
+        myData.put("count", "5");
     }
 
     @Override
     boolean isFulfilled (Stage stage) {
-        // TODO: when we have something that keeps track of the game/turns, it needs to be stored
+        // TODO: when we have something that keeps track of the game/turns, it
+        // needs to be stored
         // and accessible from Stage
         return false;
+    }
+
+    @Override
+    public String toString () {
+        return "Turn Condition";
     }
 
 }

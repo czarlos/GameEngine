@@ -1,17 +1,17 @@
 package parser;
 
-import gameObject.GameObjectConstants;
 import gameObject.Stats;
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
 import gameObject.item.Item;
+import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.List;
-import stage.ItemCondition;
-import stage.PositionCondition;
-import stage.StatCondition;
-import stage.TurnCondition;
+import controllers.WorldManager;
+import stage.Condition;
 import stage.UnitCountCondition;
+import stage.WinCondition;
+import team.Team;
 
 
 public class MakeDefaults {
@@ -25,29 +25,32 @@ public class MakeDefaults {
         p = new JSONParser();
 
         defaultStats = new Stats();
-        defaultStats.updateFromMaster();
+        defaultStats.syncWithMaster();
+
         defaultAction = new CombatAction();
-        defaultAction.setName("Attack");
+        defaultAction.setName("Slash");
+        defaultAction.setActionRange(1);
 
         defaultItem = new Item();
-        defaultItem.addAction(defaultAction);
+        List<String> actionList = new ArrayList<>();
+        actionList.add("Slash");
+        defaultItem.setActionNames(actionList);
         defaultItem.setName("Item");
         defaultItem.setStats(defaultStats);
         defaultItem.setImagePath("resources/potion.png");
     }
 
     public void makeTiles () throws Exception {
-        java.util.ArrayList<grid.Tile> list = new java.util.ArrayList<grid.Tile>();
+        java.util.ArrayList<grid.Tile> list = new java.util.ArrayList<>();
         List<String> passableList = new ArrayList<>();
         defaultStats = new Stats();
-        defaultStats.updateFromMaster();
+        defaultStats.syncWithMaster();
 
-        passableList.add(GameObjectConstants.DEFAULT_PASS_EVERYTHING);
+        passableList.add(GridConstants.DEFAULT_PASS_EVERYTHING);
 
         grid.Tile Grass = new grid.Tile();
         Grass.setName("Long Grass");
         Grass.setImagePath("resources/grass1.png");
-        Grass.setPassableList(passableList);
         Grass.setStats(defaultStats);
         Grass.setActive(false);
         Grass.setMoveCost(1);
@@ -55,7 +58,6 @@ public class MakeDefaults {
         grid.Tile Grass1 = new grid.Tile();
         Grass1.setName("Short Grass");
         Grass1.setImagePath("resources/grass.png");
-        Grass1.setPassableList(passableList);
         Grass1.setStats(defaultStats);
         Grass1.setActive(false);
         Grass1.setMoveCost(1);
@@ -63,7 +65,6 @@ public class MakeDefaults {
         grid.Tile Water = new grid.Tile();
         Water.setName("Water");
         Water.setImagePath("resources/water.png");
-        Water.setPassableList(passableList);
         Water.setStats(defaultStats);
         Water.setActive(false);
         Water.setMoveCost(2);
@@ -71,15 +72,13 @@ public class MakeDefaults {
         grid.Tile Lava = new grid.Tile();
         Lava.setName("Lava");
         Lava.setImagePath("resources/lava.png");
-        Lava.setPassableList(passableList);
         Lava.setStats(defaultStats);
         Lava.setActive(false);
-        Lava.setMoveCost(1);
+        Lava.setMoveCost(3);
 
         grid.Tile Brick = new grid.Tile();
         Brick.setName("Brick");
         Brick.setImagePath("resources/brick.png");
-        Brick.setPassableList(passableList);
         Brick.setStats(defaultStats);
         Brick.setActive(false);
         Brick.setMoveCost(1);
@@ -87,7 +86,6 @@ public class MakeDefaults {
         grid.Tile Rock = new grid.Tile();
         Rock.setName("Rock");
         Rock.setImagePath("resources/rocks.png");
-        Rock.setPassableList(passableList);
         Rock.setStats(defaultStats);
         Rock.setActive(false);
         Rock.setMoveCost(1);
@@ -95,7 +93,6 @@ public class MakeDefaults {
         grid.Tile Stone = new grid.Tile();
         Stone.setName("Stone");
         Stone.setImagePath("resources/stone.png");
-        Stone.setPassableList(passableList);
         Stone.setStats(defaultStats);
         Stone.setActive(false);
         Stone.setMoveCost(1);
@@ -103,7 +100,6 @@ public class MakeDefaults {
         grid.Tile Sand = new grid.Tile();
         Sand.setName("Sand");
         Sand.setImagePath("resources/sand.png");
-        Sand.setPassableList(passableList);
         Sand.setStats(defaultStats);
         Sand.setActive(false);
         Sand.setMoveCost(1);
@@ -111,7 +107,6 @@ public class MakeDefaults {
         grid.Tile Brush = new grid.Tile();
         Brush.setName("Brush");
         Brush.setImagePath("resources/brush.png");
-        Brush.setPassableList(passableList);
         Brush.setStats(defaultStats);
         Brush.setActive(false);
         Brush.setMoveCost(1);
@@ -126,7 +121,7 @@ public class MakeDefaults {
         list.add(Stone);
         list.add(Sand);
 
-        p.createJSON("defaults/Tile", list);
+        p.createJSON("defaults/" + GridConstants.TILE, list);
     }
 
     public void makeObjects () {
@@ -145,20 +140,11 @@ public class MakeDefaults {
         stone.setName("Stone");
         stone.setImagePath("resources/stone1.png");
 
-        tree.setPassableList(new java.util.ArrayList<String>());
-        tree.setDisplayData(new ArrayList<String>());
-
-        chest.setPassableList(new java.util.ArrayList<String>());
-        chest.setDisplayData(new ArrayList<String>());
-        
-        stone.setPassableList(new java.util.ArrayList<String>());
-        stone.setDisplayData(new ArrayList<String>());
-
         list.add(tree);
         list.add(chest);
         list.add(stone);
 
-        p.createJSON("defaults/GameObject", list);
+        p.createJSON("defaults/" + GridConstants.GAMEOBJECT, list);
     }
 
     public void makeUnits () {
@@ -173,43 +159,33 @@ public class MakeDefaults {
 
         hero.setName("hero");
         hero.setImagePath("resources/hero.png");
-        hero.setPassableList(new java.util.ArrayList<String>());
-        hero.setControllable(true);
         hero.setStats(defaultStats);
-        hero.setAffiliation("");
         hero.addItem(defaultItem);
+        hero.setAffiliation("player");
 
         goldensun.setName("Golden Sun");
         goldensun.setImagePath("resources/goldensun.png");
-        goldensun.setPassableList(new java.util.ArrayList<String>());
-        goldensun.setControllable(true);
-        goldensun.setAffiliation("");
         goldensun.setStats(defaultStats);
         goldensun.addItem(defaultItem);
+        goldensun.setAffiliation("player");
 
         enemy.setName("Enemy");
         enemy.setImagePath("resources/enemy.png");
-        enemy.setPassableList(new java.util.ArrayList<String>());
-        enemy.setControllable(true);
-        enemy.setAffiliation("");
         enemy.setStats(defaultStats);
         enemy.addItem(defaultItem);
+        enemy.setAffiliation("enemy");
 
         charizard.setName("Dragon");
         charizard.setImagePath("resources/charizard.png");
-        charizard.setPassableList(new java.util.ArrayList<String>());
-        charizard.setControllable(true);
-        charizard.setAffiliation("");
         charizard.setStats(defaultStats);
         charizard.addItem(defaultItem);
+        charizard.setAffiliation("enemy");
 
         roy.setName("Roy");
         roy.setImagePath("resources/roy.png");
-        roy.setPassableList(new java.util.ArrayList<String>());
-        roy.setControllable(true);
-        roy.setAffiliation("");
         roy.setStats(defaultStats);
         roy.addItem(defaultItem);
+        roy.setAffiliation("enemy");
 
         list.add(hero);
         list.add(goldensun);
@@ -217,7 +193,7 @@ public class MakeDefaults {
         list.add(charizard);
         list.add(roy);
 
-        p.createJSON("defaults/GameUnit", list);
+        p.createJSON("defaults/" + GridConstants.GAMEUNIT, list);
     }
 
     public void saveAndLoadGame () {
@@ -225,24 +201,45 @@ public class MakeDefaults {
         wm.setGameName("test");
         wm.addStage(10, 10, 1, "stageOne");
         wm.saveGame();
+
+        p.createObject("saves/test", WorldManager.class);
     }
 
-    public void makeConditions () {
-        java.util.ArrayList<stage.Condition> list = new java.util.ArrayList<stage.Condition>();
-        list.add(new PositionCondition());
-        list.add(new StatCondition());
-        list.add(new ItemCondition());
-        list.add(new UnitCountCondition());
-        list.add(new TurnCondition());
+    public void makeTeams () {
+        List<Team> list = new ArrayList<Team>();
+        Team defaultTeam = new Team();
+        defaultTeam.setName("player");
+        defaultTeam.setGold(0);
+        defaultTeam.setImagePath("resources/grass.png");
+        defaultTeam.setIsHuman(true);
+        WinCondition wc = new WinCondition();
+        wc.addCondition(new UnitCountCondition());
+        defaultTeam.setWinCondition(wc);
 
-        p.createJSON("defaults/Condition", list);
+        Team enemyTeam = new Team();
+        enemyTeam.setName("enemy");
+        enemyTeam.setGold(0);
+        enemyTeam.setImagePath("resources/grass.png");
+        enemyTeam.setIsHuman(false);
+
+        WinCondition wcEnemy = new WinCondition();
+        Condition c = new UnitCountCondition();
+        c.addData("affiliation", "player");
+        wcEnemy.addCondition(c);
+
+        enemyTeam.setWinCondition(wc);
+
+        list.add(defaultTeam);
+        list.add(enemyTeam);
+
+        p.createJSON("defaults/" + GridConstants.TEAM, list);
     }
 
     public void makeActions () {
         List<Action> list = new ArrayList<Action>();
-        list.add(new CombatAction());
+        list.add(defaultAction);
 
-        p.createJSON("defaults/Action", list);
+        p.createJSON("defaults/" + GridConstants.ACTION, list);
     }
 
     public void makeItems () {
@@ -269,14 +266,14 @@ public class MakeDefaults {
         Item helmet = new Item();
         helmet.setName("Helmet");
         helmet.setImagePath("resources/helmet.png");
-        
+
         list.add(milk);
         list.add(potion);
         list.add(armor);
         list.add(weapon);
         list.add(helmet);
-        
-        p.createJSON("defaults/Item", list);
+
+        p.createJSON("defaults/" + GridConstants.ITEM, list);
     }
 
     /**
@@ -292,7 +289,8 @@ public class MakeDefaults {
         maker.makeUnits();
         maker.makeItems();
         // handled differently in editor
-        maker.makeConditions();
+
+        maker.makeTeams();
         maker.makeActions();
 
         maker.saveAndLoadGame();

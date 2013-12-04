@@ -1,29 +1,19 @@
-package dialog;
+package dialog.dialogs.tableModels;
 
 import gameObject.Stats;
-import grid.Tile;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
+import grid.GridConstants;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import view.Customizable;
 
 
+@SuppressWarnings("serial")
 public class StatsTableModel extends GameTableModel {
-
-    /**
-     * 
-     */
-
-    private static final long serialVersionUID = -3269629394841470934L;
 
     public StatsTableModel () {
         super();
         String[] names = { "Stat", "Value" };
         setColumnNames(names);
-        myName = "Stats";
+        myName = GridConstants.STATS;
     }
 
     @Override
@@ -31,35 +21,38 @@ public class StatsTableModel extends GameTableModel {
         return col > 0;
     }
 
-    @Override
-    public void addPreviouslyDefined (List<Customizable> stats) {
-
-    }
-
-    public List<Customizable> getObjects () {
-        return null;
-    }
-
-    public void loadStats (Stats stats) {
-        Map<String, Integer> map = stats.getStats();
+    public void loadObject (Object stats) {
+        Stats s = (Stats) stats;
+        Map<String, Integer> map = s.getStats();
         myList.clear();
-        for (String s : map.keySet()) {
+        for (String stat : map.keySet()) {
             Object[] row = new Object[myColumnNames.length];
-            row[0] = s;
-            row[1] = map.get(s);
+            row[0] = stat;
+            row[1] = map.get(stat);
             addNewRow(row);
         }
-
     }
 
-    public Stats getStats () {
+    public Object getObject () {
         Stats ret = new Stats();
         Map<String, Integer> myMap = new HashMap<String, Integer>();
         for (Object[] row : myList) {
             myMap.put((String) row[0], (Integer) row[1]);
         }
-        ret.setStats(myMap);
 
+        ret.setStats(myMap);
         return ret;
+    }
+
+    @Override
+    public Object[] getNew () {
+        // TODO: pop up a message telling users to use the master stats editor
+        // to add/remove global stats
+        return null;
+    }
+
+    @Override
+    public void removeRow (int index) {
+        // TODO: same as above;
     }
 }

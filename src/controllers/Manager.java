@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 @JsonAutoDetect
 public abstract class Manager {
 
@@ -21,17 +22,16 @@ public abstract class Manager {
     protected String myGameName;
     @JsonProperty
     protected EditorData myEditorData;
-    
-    public Manager (String gameName) {
+
+    public Manager () {
         myStages = new ArrayList<Stage>();
-        myGameName = gameName;
         myEditorData = new EditorData("defaults");
     }
     
-    public Manager(){
-        this("");
+    public void setGameName(String gameName){
+        myGameName=gameName;
     }
-    
+
 
     /**
      * Returns list of stage names
@@ -49,8 +49,8 @@ public abstract class Manager {
     }
 
     /**
-     * Set which stage to assign "active", this
-     * is the stage that all methods will return information about by default.
+     * Set which stage to assign "active", this is the stage that all methods
+     * will return information about by default.
      * 
      * @param stageID
      */
@@ -67,7 +67,6 @@ public abstract class Manager {
     public void setStages (List<Stage> stages) {
         myStages = stages;
     }
-    
 
     /**
      * Gets the game name
@@ -77,6 +76,12 @@ public abstract class Manager {
     public String getGameName () {
         return myGameName;
     }
+    
+    protected String getActiveStageName(){
+        return myActiveStage.getName();
+    }
+    
+
     /**
      * Method to getting a Drawable version of the grid
      * 
@@ -90,7 +95,7 @@ public abstract class Manager {
     public Coordinate getCoordinate (double fracX, double fracY) {
         return myActiveStage.getGrid().getCoordinate(fracX, fracY);
     }
-    
+
     public void saveGame () {
         JSONParser p = new JSONParser();
         p.createJSON("saves/" + myGameName, this);

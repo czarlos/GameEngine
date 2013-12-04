@@ -39,8 +39,9 @@ public class GridCanvas extends Canvas implements Scrollable {
     public void notifySubscribersOfClick (MouseEvent e) {
 
         Coordinate clickGridCoordinate =
-                myManager.getCoordinate((double) e.getX() / getSize().width, (double) e.getY() /
-                                                                             getSize().height);
+                myManager.getCoordinate(
+                                        (double) e.getX() / getSize().width, (double) e.getY()
+                                                                             / getSize().height);
 
         for (GridMouseListener subscriber : myClickSubscribers) {
             subscriber.gridClicked(clickGridCoordinate);
@@ -76,11 +77,13 @@ public class GridCanvas extends Canvas implements Scrollable {
         return getPreferredSize();
     }
 
-    public int getScrollableUnitIncrement (Rectangle visibleRect, int orientation, int direction) {
+    public int getScrollableUnitIncrement (Rectangle visibleRect,
+                                           int orientation, int direction) {
         return 1;
     }
 
-    public int getScrollableBlockIncrement (Rectangle visibleRect, int orientation, int direction) {
+    public int getScrollableBlockIncrement (Rectangle visibleRect,
+                                            int orientation, int direction) {
         if (orientation == SwingConstants.HORIZONTAL)
             return visibleRect.width - 1;
         else return visibleRect.height - 1;

@@ -1,13 +1,8 @@
 package controller.editor;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 import controllers.GameManager;
 import grid.Coordinate;
 import view.canvas.GridMouseListener;
-import view.player.PlayerView;
-import view.player.SelectedInfoPanel;
 import view.player.StagePlayerPanel;
 
 
@@ -16,23 +11,22 @@ public class GridController implements GridMouseListener {
     private GameManager myManager;
     private Coordinate mySelectedCoordinate;
     private StagePlayerPanel myView;
+
     public GridController (GameManager manager, StagePlayerPanel view) {
         myManager = manager;
         mySelectedCoordinate = new Coordinate(0, 0);
-        myView=view;
+        myView = view;
     }
 
     public void doCommand (String commandName, int numClicks, Object ... args) {
-        myCurrentAction = new NClickAction(numClicks, commandName, myManager, args);
+        myCurrentAction = new NClickAction(numClicks, commandName, myManager,
+                                           args);
         myCurrentAction.click(mySelectedCoordinate);
     }
 
     public void doCommand (NClickAction action) {
         myCurrentAction = action;
-        Object[] args = {
-                         myManager,
-                         action.getCurrentArgs()
-        };
+        Object[] args = { myManager, action.getCurrentArgs() };
         action.setArgs(args);
         myCurrentAction.click(mySelectedCoordinate);
         myView.revalidate();
@@ -42,10 +36,10 @@ public class GridController implements GridMouseListener {
     public void gridClicked (Coordinate c) {
 
         mySelectedCoordinate = c;
-        
+
         if (myCurrentAction != null)
             myCurrentAction.click(c);
-        
+
         myView.updatedSelectedInfoPanel(c);
         myView.revalidate();
     }

@@ -4,7 +4,6 @@ import gameObject.GameObject;
 import gameObject.GameObjectConstants;
 import gameObject.GameUnit;
 import gameObject.action.Action;
-import gameObject.action.WaitAction;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +40,7 @@ public class Grid implements Drawable {
     protected static final int TILE_HEIGHT = 35;
 
     /**
-     * Creates a grid with the width and height set
-     * Only for use by deserializer
+     * Creates a grid with the width and height set Only for use by deserializer
      */
     public Grid () {
         myFactory = new FromJSONFactory();
@@ -51,9 +49,12 @@ public class Grid implements Drawable {
     /**
      * Creates a grid with the width and height set, and default tiles of tileID
      * 
-     * @param width int of columns of grid
-     * @param height int of rows of grid
-     * @param tileID int that defines the tile type
+     * @param width
+     *        int of columns of grid
+     * @param height
+     *        int of rows of grid
+     * @param tileID
+     *        int that defines the tile type
      */
     public Grid (int width, int height, int tileID) {
         myWidth = width;
@@ -97,33 +98,36 @@ public class Grid implements Drawable {
     /**
      * Initiates the moving process for a gameUnit
      * 
-     * @param coordinate Coordinate where the gameUnit is located
+     * @param coordinate
+     *        Coordinate where the gameUnit is located
      * 
      */
     public void beginMove (Coordinate coordinate) {
         GameUnit gameUnit = (GameUnit) getObject(coordinate);
         findMovementRange(coordinate,
-                          ((GameUnit) gameUnit).getTotalStat(GameObjectConstants.MOVEMENT),
-                          gameUnit);
+                          ((GameUnit) gameUnit)
+                                  .getTotalStat(GameObjectConstants.MOVEMENT), gameUnit);
     }
 
     /**
      * Return boolean of if a gameUnit can move to a given coordinatee
      * 
-     * @param coordinate Coordinate being moved to
+     * @param coordinate
+     *        Coordinate being moved to
      * @return boolean of if move is possible
      */
     public boolean isValidMove (Coordinate coordinate) {
-        return isValid(coordinate) &&
-               getObject(coordinate) == null;
+        return isValid(coordinate) && getObject(coordinate) == null;
     }
 
     // TODO: move validMove() check to controller
     /**
      * Moves the unit to a new coordinate if the move is valid
      * 
-     * @param oldCoordinate - Coordinate of the gameUnit's original position
-     * @param newCoordinate - Coordinate that unit is moving to
+     * @param oldCoordinate
+     *        - Coordinate of the gameUnit's original position
+     * @param newCoordinate
+     *        - Coordinate that unit is moving to
      * 
      */
     public void doMove (Coordinate oldCoordinate, Coordinate newCoordinate) {
@@ -136,35 +140,34 @@ public class Grid implements Drawable {
     /**
      * Sets the tiles active that the GameObject can move to
      * 
-     * @param coordinate Coordinate of the current position of the GameObject
-     * @param range int of range that the GameObject can move
-     * @param gameObject GameObject that we are finding the range of
+     * @param coordinate
+     *        Coordinate of the current position of the GameObject
+     * @param range
+     *        int of range that the GameObject can move
+     * @param gameObject
+     *        GameObject that we are finding the range of
      * 
      */
-    private void findMovementRange (Coordinate coordinate, int range, GameUnit gameObject) {
-        int[] rdelta = { -1, 0, 0, 1 };
-        int[] cdelta = { 0, -1, 1, 0 };
+    private void findMovementRange (Coordinate coordinate, int range,
+                                    GameUnit gameObject) {
+        List<Coordinate> adjacentCoordinates = getAdjacentCoordinates(coordinate);
 
-        for (int i = 0; i < rdelta.length; i++) {
-            int newX = coordinate.getX() + cdelta[i];
-            int newY = coordinate.getY() + rdelta[i];
-
-            if (onGrid(new Coordinate(newX, newY))) {
-
-                Tile currentTile = getTile(new Coordinate(newX, newY));
+        for (Coordinate adjacentCoordinate : adjacentCoordinates) {
+            if (onGrid(adjacentCoordinate)) {
+                Tile currentTile = getTile(adjacentCoordinate);
                 int newRange = range - currentTile.getMoveCost();
 
-                if (currentTile.isPassable(gameObject) && newRange >= 0) {
-                    GameObject currentObject = getObject(new Coordinate(newX, newY));
+                if (newRange >= 0) {
+                    GameObject currentObject = getObject(adjacentCoordinate);
                     if (currentObject != null) {
                         if (currentObject.isPassable(gameObject)) {
-                            findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
+                            findMovementRange(adjacentCoordinate, newRange, gameObject);
                         }
                         continue;
                     }
                     else {
                         currentTile.setActive(true);
-                        findMovementRange(new Coordinate(newX, newY), newRange, gameObject);
+                        findMovementRange(adjacentCoordinate, newRange, gameObject);
                     }
                 }
             }
@@ -174,18 +177,20 @@ public class Grid implements Drawable {
     /**
      * Checks if the input coordinate is on the grid
      * 
-     * @param coordinate Coordinate being checked
+     * @param coordinate
+     *        Coordinate being checked
      * @return boolean of if the coordinate is valid
      */
     private boolean onGrid (Coordinate coordinate) {
-        return (0 <= coordinate.getX() && coordinate.getX() < myWidth && 0 <= coordinate.getY() && coordinate
-                .getY() < myHeight);
+        return (0 <= coordinate.getX() && coordinate.getX() < myWidth
+                && 0 <= coordinate.getY() && coordinate.getY() < myHeight);
     }
 
     /**
      * Checks if a coordinate is a valid move or action (the tile is active)
      * 
-     * @param coordinate Coordinate being checked
+     * @param coordinate
+     *        Coordinate being checked
      * @return boolean of if the coordinate is active
      */
     public boolean isActive (Coordinate coordinate) {
@@ -195,114 +200,151 @@ public class Grid implements Drawable {
     /**
      * Initiates the action process
      * 
-     * @param objectCoordinate Coordinate where the action originates
-     * @param gameUnit GameUnit that is doing the action
-     * @param combatAction CombatAction that is being used
+     * @param objectCoordinate
+     *        Coordinate where the action originates
+     * @param gameUnit
+     *        GameUnit that is doing the action
+     * @param combatAction
+     *        CombatAction that is being used
      */
-    public void beginAction (Coordinate unitCoordinate, Action action) {
-        findActionRange(unitCoordinate, action);
+    public void beginAction (Coordinate coordinate, int range) {
+        List<Coordinate> adjacentCoordinates = getAdjacentCoordinates(coordinate);
+
+        for (Coordinate adjacentCoordinate : adjacentCoordinates) {
+            if (onGrid(adjacentCoordinate)) {
+                Tile currentTile = getTile(adjacentCoordinate);
+                int newRange = range - 1;
+
+                if (newRange >= 0) {
+                    GameObject currentObject = getObject(adjacentCoordinate);
+                        currentTile.setActive(true);
+                        beginAction(adjacentCoordinate, newRange);
+                }
+            }
+        }
     }
 
     /**
      * Returns the game objects affected by the action
      * 
-     * @param unitCoordinate Coordinate where the action originates
-     * @param actionCoordinate Coordinate that the user selects for the action
-     * @param combatAction CombatAction that is being used
+     * @param unitCoordinate
+     *        Coordinate where the action originates
+     * @param actionCoordinate
+     *        Coordinate that the user selects for the action
+     * @param combatAction
+     *        CombatAction that is being used
      * @return List of GameObjects that are affected
      */
     public List<GameObject> doAction (Coordinate unitCoordinate,
-                                      Coordinate actionCoordinate,
-                                      Action action) {
+                                      Coordinate actionCoordinate, Action action) {
         if (isValid(actionCoordinate)) {
-            String direction = findDirection(unitCoordinate, actionCoordinate, action);
+            String direction = findDirection(unitCoordinate, actionCoordinate,
+                                             action);
             return findAffectedObjects(unitCoordinate, action, direction);
         }
         return null;
     }
 
     /**
-     * Returns a boolean if a coordinate is on the grid and the tile for the coordinate is active
+     * Returns a boolean if a coordinate is on the grid and the tile for the
+     * coordinate is active
      * 
-     * @param coordinate Coordinate being checked
+     * @param coordinate
+     *        Coordinate being checked
      * @return boolean of if the coordinate is valid
      */
     public boolean isValid (Coordinate coordinate) {
         return onGrid(coordinate) && isActive(coordinate);
     }
 
-    /**
+/*    // TODO: maybe instead of onGrid check, check isValidAction?
+    *//**
      * Sets the tiles active that an action can affect
      * 
-     * @param unitCoordinate Coordinate where the action originates
-     * @param area List of Coordinates that map the area of the action
-     * @param isAround boolean of whether the action only affects one direction, or is all around
-     *        the unit
-     */
+     * @param unitCoordinate
+     *        Coordinate where the action originates
+     * @param area
+     *        List of Coordinates that map the area of the action
+     * @param isAround
+     *        boolean of whether the action only affects one direction, or
+     *        is all around the unit
+     *//*
     private void findActionRange (Coordinate unitCoordinate, Action action) {
-        /*
-         * List<Coordinate> area = action.getAOE();
-         * if (action.isAround()) {
-         * for (Coordinate cell : area) {
-         * Coordinate newCoordinate = new Coordinate(unitCoordinate.getX() + cell.getX(),
-         * unitCoordinate.getY() +
-         * cell.getY());
-         * if (onGrid(newCoordinate)) {
-         * getTile(newCoordinate).setActive(true);
-         * }
-         * }
-         * }
-         * else {
-         * for (Coordinate cell : area) {
-         * getTile(
-         * new Coordinate(unitCoordinate.getX() + cell.getX(), unitCoordinate.getY() +
-         * cell.getY()))
-         * .setActive(true); // up
-         * getTile(
-         * new Coordinate(unitCoordinate.getX() + cell.getY(), unitCoordinate.getY() -
-         * cell.getX()))
-         * .setActive(true); // right
-         * getTile(
-         * new Coordinate(unitCoordinate.getX() - cell.getX(), unitCoordinate.getY() -
-         * cell.getY()))
-         * .setActive(true); // down
-         * getTile(
-         * new Coordinate(unitCoordinate.getX() - cell.getY(), unitCoordinate.getY() +
-         * cell.getX()))
-         * .setActive(true); // left
-         * }
-         * }
-         */
-    }
+        List<Coordinate> area = action.getAOE();
+        if (action.isAround()) {
+            for (Coordinate cell : area) {
+                Coordinate newCoordinate =
+                        new Coordinate(unitCoordinate.getX()
+                                       + cell.getX(), unitCoordinate.getY() + cell.getY());
+                if (onGrid(newCoordinate)) {
+                    getTile(newCoordinate).setActive(true);
+                }
+            }
+        }
+        else {
+            for (Coordinate cell : area) {
+                Coordinate up = new Coordinate(unitCoordinate.getX()
+                                               + cell.getX(), unitCoordinate.getY() + cell.getY());
+                if (onGrid(up)) {
+                    getTile(up).setActive(true);
+                }
+                Coordinate right =
+                        new Coordinate(unitCoordinate.getX()
+                                       + cell.getY(), unitCoordinate.getY() - cell.getX());
+                if (onGrid(right)) {
+                    getTile(right).setActive(true);
+                }
+                Coordinate down =
+                        new Coordinate(unitCoordinate.getX()
+                                       - cell.getX(), unitCoordinate.getY() - cell.getY());
+                if (onGrid(down)) {
+                    getTile(down).setActive(true);
+                }
+                Coordinate left =
+                        new Coordinate(unitCoordinate.getX()
+                                       - cell.getY(), unitCoordinate.getY() + cell.getX());
+                if (onGrid(left)) {
+                    getTile(left).setActive(true);
+                }
+            }
+        }
 
+    }
+*/
     /**
      * Finds direction of action user selects
      * 
-     * @param unitCoordinate Coordinate of the unit
-     * @param actionCoordinate Coordinate that the user selected for the action
-     * @param action Action being performed
+     * @param unitCoordinate
+     *        Coordinate of the unit
+     * @param actionCoordinate
+     *        Coordinate that the user selected for the action
+     * @param action
+     *        Action being performed
      * @return String of the direction
      */
     private String findDirection (Coordinate unitCoordinate,
-                                  Coordinate actionCoordinate,
-                                  Action action) {
+                                  Coordinate actionCoordinate, Action action) {
         List<Coordinate> area = action.getAOE();
         if (action.isAround()) { return "around"; }
         for (Coordinate cell : area) {
-            if (actionCoordinate.equals(new Coordinate(unitCoordinate.getX() + cell.getX(),
-                                                       unitCoordinate.getY() + cell.getY()))) {
+            if (actionCoordinate.equals(new Coordinate(unitCoordinate.getX()
+                                                       + cell.getX(), unitCoordinate.getY() +
+                                                                      cell.getY()))) {
                 return "up";
             }
-            else if (actionCoordinate.equals(new Coordinate(unitCoordinate.getX() + cell.getY(),
-                                                            unitCoordinate.getY() - cell.getX()))) {
+            else if (actionCoordinate
+                    .equals(new Coordinate(unitCoordinate.getX() + cell.getY(),
+                                           unitCoordinate.getY() - cell.getX()))) {
                 return "right";
             }
-            else if (actionCoordinate.equals(new Coordinate(unitCoordinate.getX() - cell.getX(),
-                                                            unitCoordinate.getY() - cell.getY()))) {
+            else if (actionCoordinate
+                    .equals(new Coordinate(unitCoordinate.getX() - cell.getX(),
+                                           unitCoordinate.getY() - cell.getY()))) {
                 return "down";
             }
-            else if (actionCoordinate.equals(new Coordinate(unitCoordinate.getX() - cell.getY(),
-                                                            unitCoordinate.getY() + cell.getX()))) { return "left"; }
+            else if (actionCoordinate
+                    .equals(new Coordinate(unitCoordinate.getX() - cell.getY(),
+                                           unitCoordinate.getY() + cell.getX()))) { return "left"; }
         }
         return null;
     }
@@ -310,14 +352,16 @@ public class Grid implements Drawable {
     /**
      * Returns a list of affected objects in an action's area of effectiveness
      * 
-     * @param unitCoordinate Coordinate where the action originates
-     * @param action Action being used
-     * @param direction String of the direction of the action
+     * @param unitCoordinate
+     *        Coordinate where the action originates
+     * @param action
+     *        Action being used
+     * @param direction
+     *        String of the direction of the action
      * @return List of GameObjects that are affected by the action
      */
     private List<GameObject> findAffectedObjects (Coordinate unitCoordinate,
-                                                  Action action,
-                                                  String direction) {
+                                                  Action action, String direction) {
         List<Coordinate> area = action.getAOE();
         List<GameObject> affectedObjects = new ArrayList<GameObject>();
         GameUnit gameUnit = getUnit(unitCoordinate);
@@ -325,28 +369,28 @@ public class Grid implements Drawable {
         for (Coordinate cell : area) {
             if (direction.equals("around")) {
                 currentObject =
-                        getObject(new Coordinate(unitCoordinate.getX() + cell.getX(),
-                                                 unitCoordinate.getY() + cell.getY()));
+                        getObject(new Coordinate(unitCoordinate.getX()
+                                                 + cell.getX(), unitCoordinate.getY() + cell.getY()));
             }
             else if (direction.equals("up")) {
                 currentObject =
-                        getObject(new Coordinate(unitCoordinate.getX() + cell.getX(),
-                                                 unitCoordinate.getY() + cell.getY()));
+                        getObject(new Coordinate(unitCoordinate.getX()
+                                                 + cell.getX(), unitCoordinate.getY() + cell.getY()));
             }
             else if (direction.equals("right")) {
                 currentObject =
-                        getObject(new Coordinate(unitCoordinate.getX() + cell.getY(),
-                                                 unitCoordinate.getY() - cell.getX()));
+                        getObject(new Coordinate(unitCoordinate.getX()
+                                                 + cell.getY(), unitCoordinate.getY() - cell.getX()));
             }
             else if (direction.equals("down")) {
                 currentObject =
-                        getObject(new Coordinate(unitCoordinate.getX() - cell.getX(),
-                                                 unitCoordinate.getY() - cell.getY()));
+                        getObject(new Coordinate(unitCoordinate.getX()
+                                                 - cell.getX(), unitCoordinate.getY() - cell.getY()));
             }
             else {
                 currentObject =
-                        getObject(new Coordinate(unitCoordinate.getX() - cell.getY(),
-                                                 unitCoordinate.getY() + cell.getX()));
+                        getObject(new Coordinate(unitCoordinate.getX()
+                                                 - cell.getY(), unitCoordinate.getY() + cell.getX()));
             }
             if (currentObject != null) {
                 if (action.isValidAction(gameUnit, currentObject)) {
@@ -357,10 +401,13 @@ public class Grid implements Drawable {
         return affectedObjects;
     }
 
+    // TODO: Don't display experience
     /**
-     * Generates a list of information that a coordinate contains, including tiles and objects
+     * Generates a list of information that a coordinate contains, including
+     * tiles and objects
      * 
-     * @param coordinate Coordinate that is being asked for
+     * @param coordinate
+     *        Coordinate that is being asked for
      * @return List of Strings that contain information about the coordinate
      */
     public List<String> generateTileInfo (Coordinate coordinate) {
@@ -370,11 +417,13 @@ public class Grid implements Drawable {
     }
 
     /**
-     * Generates a list of information that a coordinate contains about a Game Object
+     * Generates a list of information that a coordinate contains about a Game
+     * Object
      * 
-     * @param coordinate Coordinate that is being asked for
-     * @return List of Strings that contain information about the coordinate. Null if there is no
-     *         object at coordinate
+     * @param coordinate
+     *        Coordinate that is being asked for
+     * @return List of Strings that contain information about the coordinate.
+     *         Null if there is no object at coordinate
      */
     public List<String> generateObjectInfo (Coordinate coordinate) {
         GameObject gameObject = getObject(coordinate);
@@ -386,9 +435,11 @@ public class Grid implements Drawable {
     }
 
     /**
-     * Generates a list of valid actions that a unit at the given coordinate can perform
+     * Generates a list of valid actions that a unit at the given coordinate can
+     * perform
      * 
-     * @param coordinate Coordinate of the unit's location
+     * @param coordinate
+     *        Coordinate of the unit's location
      * @return List of Actions
      */
     public List<Action> generateActionList (Coordinate coordinate) {
@@ -396,16 +447,18 @@ public class Grid implements Drawable {
             List<Action> actions = new ArrayList<>();
             GameUnit gameUnit = getUnit(coordinate);
             actions.addAll(gameUnit.getActions());
-            actions.addAll(getInteractions(coordinate)); // TODO: currently no interactions.
+            actions.addAll(getInteractions(coordinate)); // TODO: currently no
+                                                         // interactions.
             return actions;
         }
         return null;
     }
 
-    // TODO: when getting interactions, trade should only be valid between matching affiliations
-    // TODO: currently no interactions supported.
+    // TODO: when getting interactions, trade should only be valid between
+    // matching affiliations
     /**
-     * Gets a list of valid actions that the unit can perform on the objects around him
+     * Gets a list of valid actions that the unit can perform on the objects
+     * around him
      * 
      * @param gameUnit
      * @return
@@ -417,8 +470,9 @@ public class Grid implements Drawable {
 
         for (int i = 0; i < rdelta.length; i++) {
             Action interaction =
-                    getInteraction(new Coordinate(coordinate.getX() + cdelta[i], coordinate.getY() +
-                                                                                 rdelta[i]));
+                    getInteraction(new Coordinate(
+                                                  coordinate.getX() + cdelta[i], coordinate.getY()
+                                                                                 + rdelta[i]));
             if (interaction != null) {
                 interactions.add(interaction);
             }
@@ -426,17 +480,18 @@ public class Grid implements Drawable {
         return interactions;
     }
 
-    // TODO: currently no interactions supported
     /**
      * Gets an interaction if one exists at the given coordinate
      * 
-     * @param coordinate Coordinate of the location being searched
+     * @param coordinate
+     *        Coordinate of the location being searched
      * @return Action that can be performed
      */
     private Action getInteraction (Coordinate coordinate) {
         if (onGrid(coordinate)) {
             if (getObject(coordinate) != null) { return myObjects[coordinate.getX()][coordinate
-                    .getY()].getInteraction(); }
+                    .getY()]
+                    .getInteraction(); }
         }
         return null;
     }
@@ -444,7 +499,8 @@ public class Grid implements Drawable {
     /**
      * Returns an object at the given coordinates
      * 
-     * @param coordinate Coordinate being checked
+     * @param coordinate
+     *        Coordinate being checked
      * @return GameObject at coordinate
      */
     public GameObject getObject (Coordinate coordinate) {
@@ -455,7 +511,8 @@ public class Grid implements Drawable {
     /**
      * Returns a unit at the given coordinates
      * 
-     * @param coordinate Coordinate being checked
+     * @param coordinate
+     *        Coordinate being checked
      * @return GameUnit at the coordinate
      */
     public GameUnit getUnit (Coordinate coordinate) {
@@ -467,13 +524,15 @@ public class Grid implements Drawable {
     /**
      * Returns the coordinates of a unit's location
      * 
-     * @param gameUnit GameUnit that is being located
+     * @param gameUnit
+     *        GameUnit that is being located
      * @return Coordinate of unit's location
      */
     public Coordinate getUnitCoordinate (GameUnit gameUnit) {
         for (int i = 0; i < myUnits.length; i++) {
             for (int j = 0; j < myUnits[0].length; j++) {
-                if (myUnits[i][j].equals(gameUnit)) return new Coordinate(i, j);
+                if (myUnits[i][j].equals(gameUnit))
+                    return new Coordinate(i, j);
             }
         }
         return null;
@@ -482,8 +541,10 @@ public class Grid implements Drawable {
     /**
      * Places a GameObject at given coordinates
      * 
-     * @param coordinate Coordinate being checked
-     * @param gameObject GameObject to be placed
+     * @param coordinate
+     *        Coordinate being checked
+     * @param gameObject
+     *        GameObject to be placed
      * 
      */
     public void placeObject (Coordinate coordinate, GameObject gameObject) {
@@ -498,12 +559,18 @@ public class Grid implements Drawable {
     /**
      * Sets position in myObjects map to null
      * 
-     * @param coordinate Coordinate being checked
+     * @param coordinate
+     *        Coordinate being checked
      * @return Object removed from position (x,y)
      */
     private GameObject removeObject (Coordinate coordinate) {
         GameObject objToRemove = getObject(coordinate);
         myObjects[coordinate.getX()][coordinate.getY()] = null;
+
+        if (objToRemove instanceof GameUnit) {
+            objToRemove = getUnit(coordinate);
+            myObjects[coordinate.getX()][coordinate.getY()] = null;
+        }
         return objToRemove;
     }
 
@@ -512,26 +579,25 @@ public class Grid implements Drawable {
     }
 
     /**
-     * Finds all coordinates adjacent to the coordinate
-     * given.
+     * Finds all coordinates adjacent to the coordinate given.
      * 
-     * @param - Coordinate from which to find adjacent coords
-     * @return
+     * @param - Coordinate from which to find adjacent coordinates
+     * @return List of adjacent Coordinates
      */
-    public List<Coordinate> adjacentCoordinates (Coordinate coord) {
+    public List<Coordinate> getAdjacentCoordinates (Coordinate coord) {
         List<Coordinate> returnArray = new ArrayList<Coordinate>();
         returnArray.add(new Coordinate(coord.getX() + 1, coord.getY()));
         returnArray.add(new Coordinate(coord.getX(), coord.getY() + 1));
         returnArray.add(new Coordinate(coord.getX() - 1, coord.getY()));
         returnArray.add(new Coordinate(coord.getX(), coord.getY() - 1));
         return returnArray;
-
     }
 
     /**
      * Returns an tile at the given coordinates
      * 
-     * @param coordinate Coordinate being checked
+     * @param coordinate
+     *        Coordinate being checked
      * @return Tile at coordinate
      */
     public Tile getTile (Coordinate coordinate) {
@@ -542,8 +608,10 @@ public class Grid implements Drawable {
     /**
      * Places a Tile at given coordinates
      * 
-     * @param coordinate Coordinate being checked
-     * @param tile Tile to be placed
+     * @param coordinate
+     *        Coordinate being checked
+     * @param tile
+     *        Tile to be placed
      */
     public void placeTile (Coordinate coordinate, Tile tile) {
         // TODO: Generic method?
@@ -565,11 +633,16 @@ public class Grid implements Drawable {
     /**
      * Draws the tiles and objects on the grid
      * 
-     * @param g - Graphics for the image
-     * @param x - int of x coordinate on the grid
-     * @param y - int of y coordinate on the grid
-     * @param width - int of width of object
-     * @param height - int of height of object
+     * @param g
+     *        - Graphics for the image
+     * @param x
+     *        - int of x coordinate on the grid
+     * @param y
+     *        - int of y coordinate on the grid
+     * @param width
+     *        - int of width of object
+     * @param height
+     *        - int of height of object
      */
     public void draw (Graphics g, int x, int y, int width, int height) {
         int tileWidth = width / myWidth;
@@ -578,7 +651,8 @@ public class Grid implements Drawable {
         for (int i = 0; i < myTiles.length; i++) {
             for (int j = 0; j < myTiles[i].length; j++) {
                 Tile tile = myTiles[i][j];
-                tile.draw(g, i * tileWidth, j * tileHeight, tileWidth, tileHeight);
+                tile.draw(g, i * tileWidth, j * tileHeight, tileWidth,
+                          tileHeight);
             }
         }
 
@@ -587,7 +661,8 @@ public class Grid implements Drawable {
             for (int j = 0; j < myObjects[i].length; j++) {
                 GameObject gameObject = myObjects[i][j];
                 if (gameObject != null) {
-                    gameObject.draw(g, i * tileWidth, j * tileHeight, tileWidth, tileHeight);
+                    gameObject.draw(g, i * tileWidth, j * tileHeight,
+                                    tileWidth, tileHeight);
                 }
             }
         }
@@ -624,5 +699,4 @@ public class Grid implements Drawable {
     public void setHeight (int height) {
         myHeight = height;
     }
-
 }
