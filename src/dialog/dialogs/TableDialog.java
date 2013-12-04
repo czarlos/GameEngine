@@ -30,6 +30,7 @@ import dialog.dialogs.tableModels.MapTableModel;
 import dialog.dialogs.tableModels.StatsTableModel;
 import dialog.dialogs.tableModels.WinConditionTableModel;
 import dialog.editors.ImagePathEditor;
+import dialog.editors.IntegerEditor;
 import dialog.editors.ModelEditor;
 import dialog.renderers.ImageRenderer;
 
@@ -109,6 +110,7 @@ public class TableDialog extends JDialog {
                                                                 new EnumTableModel(), myEnumList));
         table.setDefaultEditor(ComboString.class, new DefaultCellEditor(
                                                                         getComboBox()));
+        table.setDefaultEditor(Integer.class, new IntegerEditor(0, 50));
     }
 
     // for Strings that you want to always be interpreted as comboboxes
@@ -155,7 +157,9 @@ public class TableDialog extends JDialog {
         }
 
         public void actionPerformed (ActionEvent e) {
-            myListenerModel.removeRow(myTable.getSelectedRow());
+            if(myTable.getSelectedRow() > -1){
+                myListenerModel.removeRow(myTable.getSelectedRow());
+            }
         }
     }
 
