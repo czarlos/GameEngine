@@ -1,4 +1,4 @@
-package view.editor;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.GraphicsConfiguration;

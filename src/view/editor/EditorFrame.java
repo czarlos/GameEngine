@@ -22,6 +22,7 @@ import javax.swing.KeyStroke;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import parser.JSONParser;
+import view.GameView;
 import controller.editor.GridEditorController;
 import controllers.WorldManager;
 
