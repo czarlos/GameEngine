@@ -3,6 +3,7 @@ package dialog.dialogs.tableModels;
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
 import gameObject.action.Outcome;
+import gameObject.action.Outcomes;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class CombatActionTableModel extends GameTableModel {
 
     public CombatActionTableModel () {
-        String[] names = { "Name", "Action Range", "Initiator Outcomes", "Receiver Outcomes"};
+        String[] names = { "Name", "Action Range", "Initiator Outcomes", "Initiator Stat Weights", "Receiver Outcomes", "Receiver Stat Weights"};
         myName = "Action";
         setColumnNames(names);
     }
@@ -21,12 +22,10 @@ public class CombatActionTableModel extends GameTableModel {
         Object[] ret = new Object[myColumnNames.length];
         ret[0] = "New Action";
         ret[1] = 1;
-        List<Outcome> initiator = new ArrayList<Outcome>();
-        initiator.add(new Outcome());
-        ret[2] = initiator;
-        List<Outcome> receiver = new ArrayList<Outcome>();
-        receiver.add(new Outcome());
-        ret[3] = receiver;
+        ret[2] = new Outcomes();
+        ret[3] = new Stats();
+        ret[3] = new Outcomes();
+        ret[5] = new Stats();
         
         return ret;
     }
@@ -34,13 +33,16 @@ public class CombatActionTableModel extends GameTableModel {
     @SuppressWarnings("unchecked")
     @Override
     public void loadObject (Object object) {
+        myList.clear();
         List<CombatAction> list = (List<CombatAction>) object;
         for (CombatAction a : list) {
             Object[] array = new Object[myColumnNames.length];
             array[0] = a.getName();
             array[1] = a.getActionRange();
             array[2] = a.getInitiatorOutcomes();
-            array[3] = a.getReceiverOutcomes();
+            array[3] = a.getInitiatorStatWeights();
+            array[4] = a.getReceiverOutcomes();
+            array[5] = a.getReceiverStatWeights();
             addNewRow(array);
         }
     }
@@ -53,8 +55,10 @@ public class CombatActionTableModel extends GameTableModel {
             CombatAction a = new CombatAction();
             a.setName((String) row[0]);
             a.setActionRange((int) row[1]);
-            a.setInitiatorOutcomes((List<Outcome>) row[2]);
-            a.setReceiverOutcomes((List<Outcome>) row[3]);
+            a.setInitiatorOutcomes((Outcomes) row[2]);
+            a.setInitiatorStatWeights((Stats) row[3]);
+            a.setReceiverOutcomes((Outcomes) row[4]);
+            a.setReceiverStatWeights((Stats) row[5]);
             list.add(a);
         }
         return list;

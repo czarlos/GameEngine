@@ -15,6 +15,8 @@ public class CombatAction extends Action {
     private Outcomes myReceiverOutcomes;
 
     public CombatAction () {
+        myInitiatorOutcomes = new Outcomes();
+        myReceiverOutcomes = new Outcomes();
     }
     
     private double getNetEffectiveness (GameUnit initiator, GameUnit receiver) {

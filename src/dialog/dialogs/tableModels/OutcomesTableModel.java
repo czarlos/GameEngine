@@ -1,13 +1,14 @@
 package dialog.dialogs.tableModels;
 
 import gameObject.action.Outcome;
+import gameObject.action.Outcomes;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class OutcomeTableModel extends GameTableModel {
+public class OutcomesTableModel extends GameTableModel {
 
-    public OutcomeTableModel () {
+    public OutcomesTableModel () {
         String[] names = { "Affectee", "Amount", "Fixed?" };
         myName = "Outcome";
         setColumnNames(names);
@@ -16,7 +17,7 @@ public class OutcomeTableModel extends GameTableModel {
     @Override
     public Object[] getNew () {
         Object[] ret = new Object[myColumnNames.length];
-        ret[0] = "Health";
+        ret[0] = new ComboString("Health");
         ret[1] = -10;
         ret[2] = false;
 
@@ -25,10 +26,12 @@ public class OutcomeTableModel extends GameTableModel {
 
     @Override
     public void loadObject (Object object) {
-        List<Outcome> list = (List<Outcome>) object;
+        myList.clear();
+        Outcomes outcomes = (Outcomes) object;
+        List<Outcome> list = outcomes.getOutcomes();
         for (Outcome o : list) {
             Object[] array = new Object[myColumnNames.length];
-            array[0] = o.getName();
+            array[0] = new ComboString(o.getName());
             array[1] = o.getAmount();
             array[2] = o.isFixed();
             addNewRow(array);
@@ -40,12 +43,15 @@ public class OutcomeTableModel extends GameTableModel {
         List<Outcome> list = new ArrayList<Outcome>();
         for (Object[] row : myList) {
             Outcome o = new Outcome();
-            o.setName((String) row[0]);
+            o.setName(((ComboString) row[0]).toString());
             o.setAmount((int) row[1]);
             o.setIsFixed((boolean) row[2]);
             list.add(o);
         }
-        return list;
+        Outcomes outcomes = new Outcomes();
+        outcomes.setOutcomes(list);
+        
+        return outcomes;
     }
 
 }

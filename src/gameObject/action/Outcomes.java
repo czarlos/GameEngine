@@ -2,13 +2,14 @@ package gameObject.action;
 
 import gameObject.GameObject;
 import gameObject.GameUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Outcomes {
     private List<Outcome> myOutcomes;
     
     public Outcomes(){
-        
+        myOutcomes = new ArrayList<Outcome>();
     }
     
     public void applyOutcomes (GameUnit unit, double effectiveness) {
@@ -32,5 +33,9 @@ public class Outcomes {
     
     public void setOutcomes(List<Outcome> outcomes) {
         myOutcomes = outcomes;
+    }
+    
+    public String toString(){
+        return "Outcomes";
     }
 }

@@ -3,6 +3,7 @@ package parser;
 import gameObject.Stats;
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
+import gameObject.action.Outcomes;
 import gameObject.item.Item;
 import grid.GridConstants;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class MakeDefaults {
 
     private JSONParser p;
     private Item defaultItem;
-    private Action defaultAction;
+    private CombatAction defaultCombatAction;
     private Stats defaultStats;
 
     public MakeDefaults () {
@@ -27,9 +28,11 @@ public class MakeDefaults {
         defaultStats = new Stats();
         defaultStats.syncWithMaster();
 
-        defaultAction = new CombatAction();
-        defaultAction.setName("Slash");
-        defaultAction.setActionRange(1);
+        defaultCombatAction = new CombatAction();
+        defaultCombatAction.setName("Slash");
+        defaultCombatAction.setActionRange(1);
+        defaultCombatAction.setInitiatorOutcomes(new Outcomes());
+        defaultCombatAction.setReceiverOutcomes(new Outcomes());
 
         defaultItem = new Item();
         List<String> actionList = new ArrayList<>();
@@ -237,7 +240,7 @@ public class MakeDefaults {
 
     public void makeActions () {
         List<Action> list = new ArrayList<Action>();
-        list.add(defaultAction);
+        list.add(defaultCombatAction);
 
         p.createJSON("defaults/" + GridConstants.ACTION, list);
     }
