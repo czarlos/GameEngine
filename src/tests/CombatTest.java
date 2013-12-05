@@ -236,6 +236,7 @@ public class CombatTest {
         return new CombatAction();
     }
 
+
     /**
      * Function to create empty items to test item deletion
      * 
