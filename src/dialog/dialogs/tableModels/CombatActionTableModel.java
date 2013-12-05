@@ -1,5 +1,6 @@
 package dialog.dialogs.tableModels;
 
+import gameObject.Stats;
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
 import gameObject.action.Outcome;
@@ -12,7 +13,7 @@ import java.util.List;
 public class CombatActionTableModel extends GameTableModel {
 
     public CombatActionTableModel () {
-        String[] names = { "Name", "Action Range", "Initiator Outcomes", "Initiator Stat Weights", "Receiver Outcomes", "Receiver Stat Weights"};
+        String[] names = { "Name", "Action Range", "Initiator Outcomes", "Init. Stat Weights", "Receiver Outcomes", "Rec. Stat Weights"};
         myName = "Action";
         setColumnNames(names);
     }
@@ -24,7 +25,7 @@ public class CombatActionTableModel extends GameTableModel {
         ret[1] = 1;
         ret[2] = new Outcomes();
         ret[3] = new Stats();
-        ret[3] = new Outcomes();
+        ret[4] = new Outcomes();
         ret[5] = new Stats();
         
         return ret;
