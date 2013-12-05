@@ -34,6 +34,7 @@ import dialog.dialogs.tableModels.WinConditionTableModel;
 import dialog.editors.ImagePathEditor;
 import dialog.editors.IntegerEditor;
 import dialog.editors.ModelEditor;
+import dialog.renderers.ComboStringRenderer;
 import dialog.renderers.ImageRenderer;
 
 /**
@@ -127,6 +128,8 @@ public class TableDialog extends JDialog {
                                                                 new EnumTableModel(), myEnumList));
         table.setDefaultEditor(ComboString.class, new DefaultCellEditor(
                                                                         getComboBox()));
+        //table.setDefaultRenderer(ComboString.class, new ComboStringRenderer());
+        
         table.setDefaultEditor(Integer.class, new IntegerEditor(0, 50));
         table.setDefaultEditor(Outcomes.class, new ModelEditor(new OutcomesTableModel()));
     }
