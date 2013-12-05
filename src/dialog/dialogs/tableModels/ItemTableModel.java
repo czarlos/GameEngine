@@ -12,6 +12,9 @@ import grid.GridConstants;
 @SuppressWarnings("serial")
 public class ItemTableModel extends GameTableModel {
 
+    /**
+     * Column names: Name, Graphic, Stats, Actions
+     */
     public ItemTableModel () {
         String[] names = { "Name", "Graphic", "Stats", "Actions" };
         myName = GridConstants.ITEM;

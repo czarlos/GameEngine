@@ -8,7 +8,7 @@ import javax.swing.table.AbstractTableModel;
 /**
  * Abstraction of the models that deal with type specific data editing
  * 
- * @author Leevi
+ * @author Leevi, brooksmershon
  * 
  */
 @SuppressWarnings("serial")

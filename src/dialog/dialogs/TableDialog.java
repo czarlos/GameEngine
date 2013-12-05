@@ -203,7 +203,7 @@ public class TableDialog extends JDialog {
     
     /**
      * Close Dialog when this listener is executed.
-     * e.g. Cancel button funcitonality.
+     * e.g. Cancel button functionality.
      * 
      * @author brooksmershon
      *
