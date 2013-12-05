@@ -9,8 +9,8 @@ import gameObject.Stats;
 
 public class CombatAction extends Action {
 
-    private Stats myInitiatorStats;
-    private Stats myReceiverStats;
+    private Stats myInitiatorStatWeights;
+    private Stats myReceiverStatWeights;
     private Outcomes myInitiatorOutcomes;
     private Outcomes myReceiverOutcomes;
 
@@ -18,20 +18,18 @@ public class CombatAction extends Action {
     }
     
     private double getNetEffectiveness (GameUnit initiator, GameUnit receiver) {
-        myInitiatorStats = initiator.getStats();
-        myReceiverStats = receiver.getStats();
 
         double offensiveStatSum = 0, defensiveStatSum = 0;
         double netStat = 0;
 
-        for (String statName : myInitiatorStats.getStatNames()) {
+        for (String statName : myInitiatorStatWeights.getStatNames()) {
             offensiveStatSum += initiator.getTotalStat(statName)
-                                * myInitiatorStats.getStatValue(statName);
+                                * myInitiatorStatWeights.getStatValue(statName);
         }
 
-        for (String statName : myReceiverStats.getStatNames()) {
+        for (String statName : myReceiverStatWeights.getStatNames()) {
             defensiveStatSum += receiver.getTotalStat(statName)
-                                * myReceiverStats.getStatValue(statName);
+                                * myReceiverStatWeights.getStatValue(statName);
         }
 
         // Creates a normalized output based on max possible difference in favor
@@ -60,6 +58,22 @@ public class CombatAction extends Action {
                                                    (GameUnit) receiver);
 
         return myInitiatorOutcomes.checkValid(initiator, effectiveness);
+    }
+    
+    public Stats getInitiatorStatWeights() {
+        return myInitiatorStatWeights;
+    }
+    
+    public void setInitiatorStatWeights(Stats statWeights) {
+        myInitiatorStatWeights = statWeights;
+    }
+    
+    public Stats getReceiverStatWeights() {
+        return myReceiverStatWeights;
+    }
+    
+    public void setReceiverStatWeights(Stats statWeights) {
+        myReceiverStatWeights = statWeights;
     }
     
     public Outcomes getInitiatorOutcomes() {
