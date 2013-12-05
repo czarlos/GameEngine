@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@SuppressWarnings("serial")
 public class OutcomesTableModel extends GameTableModel {
 
     public OutcomesTableModel () {
@@ -50,7 +51,7 @@ public class OutcomesTableModel extends GameTableModel {
         }
         Outcomes outcomes = new Outcomes();
         outcomes.setOutcomes(list);
-        
+
         return outcomes;
     }
 
