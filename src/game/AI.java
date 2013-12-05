@@ -29,9 +29,11 @@ public class AI {
     }
 
     public void doTurn () {
+                
         List<GameUnit> opponentList = findAllEnemies();
-        System.out.println(findAllEnemies().get(0).getAffiliation());
         for (GameUnit unit : myStage.getTeamUnits(myTeam.getName())) {
+            PathFinding.addNeighbors(PathFinding.coordinatesToTiles(myGrid, unit), myGrid);
+
             // delay?
             doAIMove(unit, opponentList);
             // Sleep?
@@ -50,14 +52,12 @@ public class AI {
      *        - A list of all of the enemy units
      */
     public void doAIMove (GameUnit unit, List<GameUnit> allEnemies) {
-
-        PathFinding.coordinatesToTiles(myGrid, unit);
         Coordinate other = findClosestOpponent(unit, allEnemies);
 
         Tile start = myGrid.getTile(myGrid.getUnitCoordinate(unit));
         Tile end = myGrid.getTile(other);
-        if (UnitUtilities.calculateLength(start.getCoordinate(),
-                                          end.getCoordinate()) == 1) {
+        if (UnitUtilities.calculateLength(myGrid.getTileCoordinate(start),
+                                          myGrid.getTileCoordinate(end)) == 1) {
             Random r = new Random();
             int rand = r.nextInt(unit.getActiveWeapon().getActions().size());
             Action randomAction = unit.getActiveWeapon().getActions().get(rand);

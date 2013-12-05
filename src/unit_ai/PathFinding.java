@@ -37,8 +37,14 @@ public class PathFinding {
     public static void autoMove (Tile start, Tile end, GameUnit unit, Grid grid) {
         int range = unit.getStat("movement");
         List<Tile> path = findPath(start, end);
-        Tile newTile = path.get(range);
-        grid.doMove(grid.getUnitCoordinate(unit), newTile.getCoordinate());
+        Tile newTile;
+        if (range > path.size()) {
+            newTile = path.get(path.size()-1);
+        }
+        else {
+            newTile = path.get(range-1);
+        }
+        grid.doMove(grid.getUnitCoordinate(unit), grid.getTileCoordinate(newTile));
     }
 
     /**
@@ -100,8 +106,11 @@ public class PathFinding {
         List<Tile> tileList = new ArrayList<Tile>();
         for (int i = 0; i < grid.getTiles().length; i++) {
             for (int j = 0; j < grid.getTiles().length; j++) {
-                if (grid.getTile(new Coordinate(i, j)).isPassable(unit))
-                    tileList.add(new Tile(null, new Coordinate(i, j)));
+              tileList.add(grid.getTile(new Coordinate(i, j)));
+    
+//                if (grid.getTile(new Coordinate(i, j)).isPassable(unit)) {
+//                    tileList.add(grid.getTile(new Coordinate(i, j)));
+//                }
             }
         }
         return tileList;
@@ -114,11 +123,11 @@ public class PathFinding {
      * @param tileList
      *        - The list of tiles in the grid
      */
-    public static void addNeighbors (List<Tile> tileList) {
+    public static void addNeighbors (List<Tile> tileList, Grid grid) {
         for (Tile tile : tileList) {
             List<Tile> tileAdjacencyList = new ArrayList<>();
             for (Tile otherTile : tileList) {
-                if (isNeighbor(tile, otherTile) && !otherTile.equals(tile)) {
+                if (isNeighbor(tile, otherTile, grid) && !otherTile.equals(tile)) {
                     tileAdjacencyList.add(otherTile);
                 }
             }
@@ -140,9 +149,9 @@ public class PathFinding {
      *        - A different tile
      * @return
      */
-    public static boolean isNeighbor (Tile tile, Tile otherTile) {
-        double delta = UnitUtilities.calculateLength(tile.getCoordinate(),
-                                                     otherTile.getCoordinate());
+    public static boolean isNeighbor (Tile tile, Tile otherTile, Grid grid) {
+        double delta = UnitUtilities.calculateLength(grid.getTileCoordinate(tile),
+                                                     grid.getTileCoordinate(otherTile));
         if (delta <= Math.sqrt(2)) { return true; }
         return false;
     }

@@ -544,23 +544,27 @@ public class Grid implements Drawable {
                 }
             }
         }
-        
-        
-//        for (int i = 0; i < myUnits.length; i++) {
-//            for (int j = 0; j < myUnits[0].length; j++) {
-//                GameUnit found = myUnits[i][j];
-//                if (found == null ) {
-//                    continue;
-//                }
-//                else if (found.equals(gameUnit)) {
-//                    return new Coordinate(i, j);
-//                }
-//                else {
-//                    continue;
-//                }
-//            }
-//        }
         return null;
+    }
+    
+    public Coordinate getTileCoordinate (Tile tile) {
+        for (int i = 0; i < myTiles.length; i++) {
+            for (int j=0; j < myTiles[0].length; j ++) {
+                Coordinate tileCoordinate = new Coordinate(i, j);
+
+                if (tile == null) {
+                    continue;
+                }
+                else if (tile.equals(myTiles[i][j])) {
+                    return tileCoordinate;
+                }
+                else {
+                    continue;
+                }
+            }
+        }
+        return null;
+        
     }
 
     /**
