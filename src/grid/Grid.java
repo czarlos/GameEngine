@@ -528,12 +528,38 @@ public class Grid implements Drawable {
      * @return Coordinate of unit's location
      */
     public Coordinate getUnitCoordinate (GameUnit gameUnit) {
-        for (int i = 0; i < myUnits.length; i++) {
-            for (int j = 0; j < myUnits[0].length; j++) {
-                if (myUnits[i][j].equals(gameUnit))
-                    return new Coordinate(i, j);
+        for (int i = 0; i < myTiles.length; i++) {
+            for (int j=0; j < myTiles[0].length; j ++) {
+                Coordinate tileCoordinate = new Coordinate(i, j);
+                GameUnit currentTileUnit = getUnit(tileCoordinate);
+
+                if (currentTileUnit == null) {
+                    continue;
+                }
+                else if (currentTileUnit.equals(gameUnit)) {
+                    return tileCoordinate;
+                }
+                else {
+                    continue;
+                }
             }
         }
+        
+        
+//        for (int i = 0; i < myUnits.length; i++) {
+//            for (int j = 0; j < myUnits[0].length; j++) {
+//                GameUnit found = myUnits[i][j];
+//                if (found == null ) {
+//                    continue;
+//                }
+//                else if (found.equals(gameUnit)) {
+//                    return new Coordinate(i, j);
+//                }
+//                else {
+//                    continue;
+//                }
+//            }
+//        }
         return null;
     }
 
@@ -593,7 +619,7 @@ public class Grid implements Drawable {
     }
 
     /**
-     * Returns an tile at the given coordinates
+     * Returns a tile at the given coordinates
      * 
      * @param coordinate
      *        Coordinate being checked

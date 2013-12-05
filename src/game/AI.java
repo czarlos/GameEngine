@@ -30,6 +30,7 @@ public class AI {
 
     public void doTurn () {
         List<GameUnit> opponentList = findAllEnemies();
+        System.out.println(findAllEnemies().get(0).getAffiliation());
         for (GameUnit unit : myStage.getTeamUnits(myTeam.getName())) {
             // delay?
             doAIMove(unit, opponentList);
@@ -55,7 +56,6 @@ public class AI {
 
         Tile start = myGrid.getTile(myGrid.getUnitCoordinate(unit));
         Tile end = myGrid.getTile(other);
-
         if (UnitUtilities.calculateLength(start.getCoordinate(),
                                           end.getCoordinate()) == 1) {
             Random r = new Random();
@@ -80,14 +80,12 @@ public class AI {
      */
     public List<GameUnit> findAllEnemies () {
         List<GameUnit> opponentList = new ArrayList<GameUnit>();
-
+        
         for (int i = 0; i < myStage.getNumberOfTeams(); i++) {
             Team team = myStage.getTeam(i);
-
             if (!team.getName().equals(myTeam.getName()))
-                opponentList.addAll(myStage.getTeamUnits(myTeam.getName()));
+                opponentList.addAll(myStage.getTeamUnits(team.getName()));
         }
-
         return opponentList;
     }
 
