@@ -9,6 +9,9 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class OutcomesTableModel extends GameTableModel {
 
+    /**
+     * Column names: Affectee, Amount, Fixed?
+     */
     public OutcomesTableModel () {
         String[] names = { "Affectee", "Amount", "Fixed?" };
         myName = "Outcome";

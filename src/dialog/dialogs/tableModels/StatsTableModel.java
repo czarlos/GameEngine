@@ -9,6 +9,9 @@ import java.util.Map;
 @SuppressWarnings("serial")
 public class StatsTableModel extends GameTableModel {
 
+    /**
+     * Column names: Stat, Value
+     */
     public StatsTableModel () {
         super();
         String[] names = { "Stat", "Value" };
