@@ -65,10 +65,10 @@ public class StageEditorPanel extends JTabbedPane {
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
         panel.setLayout(layout);
-        panel.setPreferredSize(new Dimension(200, 600));
+        //panel.setPreferredSize(new Dimension(170, 600));
         JScrollPane scroll = new JScrollPane(panel,
                                              ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                                             ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+                                             ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.setLayout(new ScrollPaneLayout());
 
         SequentialGroup sg = layout.createSequentialGroup();
@@ -86,15 +86,16 @@ public class StageEditorPanel extends JTabbedPane {
         for (int n = 0; n < tileNames.size(); n++) {
             GameObjectPanel gop =
                     new GameObjectPanel(type,
-                                        myWorldManager.getImage(type, n), tileNames.get(n), this);
+                                       myWorldManager.getImage(type, n), tileNames.get(n), this);
             panel.add(gop);
             sg.addComponent(gop, 50, 50, 50);
-            pg.addComponent(gop, 160, 160, 160);
+            pg.addComponent(gop, 170, 170, 170);
         }
         layout.setVerticalGroup(sg);
         layout.setHorizontalGroup(pg);
         panel.revalidate();
         panel.repaint();
+        scroll.setMaximumSize(new Dimension(200, 500));
         return scroll;
     }
 

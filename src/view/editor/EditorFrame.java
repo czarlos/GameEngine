@@ -65,7 +65,7 @@ public class EditorFrame extends GameView {
         myMenuBar.add(gameMenu);
         // add menu items
         JMenuItem newGame = new JMenuItem("New Game");
-        newGame.setAccelerator(KeyStroke.getKeyStroke("control G"));
+        newGame.setAccelerator(KeyStroke.getKeyStroke("control N"));
         gameMenu.add(newGame);
         JMenuItem loadGame = new JMenuItem("Load Game");
         gameMenu.add(loadGame);
@@ -97,7 +97,6 @@ public class EditorFrame extends GameView {
 
         // second menu
         JMenu editMenu = new JMenu("Edit");
-        editMenu.setMnemonic(KeyEvent.VK_E);
         myMenuBar.add(editMenu);
         // add menu items
         JMenuItem undo = new JMenuItem("Undo");
@@ -224,11 +223,24 @@ public class EditorFrame extends GameView {
     private void addGameEditorMenus () {
         JMenu stageMenu = new JMenu("Stage");
         stageMenu.setMnemonic(KeyEvent.VK_S);
-        JMenuItem objective = new JMenuItem("Set Objective");
-        objective.setAccelerator(KeyStroke.getKeyStroke("control O"));
-        stageMenu.add(objective);
-
-        // TODO: add setPreStory/setPostStory
+        
+        JMenuItem prestory = new JMenuItem("Set Pre-Story");
+        prestory.setAccelerator(KeyStroke.getKeyStroke("control S"));
+        stageMenu.add(prestory);
+        prestory.addActionListener(new ActionListener() {
+            public void actionPerformed (ActionEvent event) {
+                setPreStory();
+            }
+        });
+        
+        JMenuItem poststory = new JMenuItem("Set Post-Story");
+        poststory.setAccelerator(KeyStroke.getKeyStroke("control shift S"));
+        stageMenu.add(poststory);
+        poststory.addActionListener(new ActionListener() {
+            public void actionPerformed (ActionEvent event) {
+                setPostStory();
+            }
+        });
 
         JMenu gamePrefs = new JMenu("Global Game Prefs");
         stageMenu.setMnemonic(KeyEvent.VK_S);
@@ -239,7 +251,7 @@ public class EditorFrame extends GameView {
         JMenuItem setTeams = new JMenuItem("Configure Teams");
         gamePrefs.add(setTeams);
         setTeams.addActionListener(new GamePrefListener(myWorldManager, setTeams.getText()));
-        // TODO: call myWM.getTeamTableModel() and myWM.setTeams(MultipleTableModel mtm);
+        
         myMenuBar.add(stageMenu, 2);
         myMenuBar.add(gamePrefs, 2);
     }
@@ -265,6 +277,14 @@ public class EditorFrame extends GameView {
         });
 
         this.repaint();
+    }
+    
+    private void setPreStory(){
+        
+    }
+    
+    private void setPostStory(){
+        
     }
 
     private void switchActiveStage () {
