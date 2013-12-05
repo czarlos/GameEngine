@@ -129,7 +129,7 @@ public class TableDialog extends JDialog {
         table.setDefaultEditor(ComboString.class, new DefaultCellEditor(
                                                                         getComboBox()));
         //table.setDefaultRenderer(ComboString.class, new ComboStringRenderer());
-        
+
         table.setDefaultEditor(Integer.class, new IntegerEditor(0, 50));
         table.setDefaultEditor(Outcomes.class, new ModelEditor(new OutcomesTableModel()));
     }
