@@ -455,7 +455,6 @@ public class Grid implements Drawable {
         }
         return null;
     }
-
     // TODO: when getting interactions, trade should only be valid between
     // matching affiliations
     /**

@@ -28,9 +28,7 @@ public class PlayerView extends GameView {
     }
 
     public PlayerView (GameManager manager) {
-        myManager = manager;
         myGameManager=manager;
-        mySaveLocation = "gamesInProgress";
     }
 
     @Override
@@ -101,7 +99,7 @@ public class PlayerView extends GameView {
             super.clearWindow();
             this.remove(myBackground);
 
-            this.setTitle(myManager.getGameName());
+            this.setTitle(myGameManager.getGameName());
         }
         revalidate();
         repaint();
@@ -137,7 +135,7 @@ public class PlayerView extends GameView {
     }
     
     protected void saveGame () {
-        saveGame(mySaveLocation);
+        saveGame("saves");
     }
     
     protected void saveGame(String location){
