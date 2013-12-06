@@ -189,12 +189,16 @@ public class GameManager extends Manager {
 				.equals(WaitAction.WAIT_NAME)) {
 			initiator.setActive(false);
 		} else {
-			GameUnit activeUnit = myActiveStage.getGrid().getUnit(
-					unitCoordinate);
 			GameUnit receiver = myActiveStage.getGrid().getUnit(
 					actionCoordinate);
-			myActiveActions.get(actionID).doAction(activeUnit, receiver);
+			myActiveActions.get(actionID).doAction(initiator, receiver);
 			initiator.setActive(false);
+			if (initiator.getTotalStat("health")==0) {
+				myActiveStage.getGrid().removeObject(unitCoordinate);
+			}
+			if (receiver.getTotalStat("health")==0) {
+				myActiveStage.getGrid().removeObject(actionCoordinate);
+			}
 		}
 
 		myActiveStage.getGrid().setTilesInactive();
