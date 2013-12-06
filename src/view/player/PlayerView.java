@@ -33,6 +33,7 @@ public class PlayerView extends GameView {
 
     public PlayerView (GameManager manager) {
         myGameManager = manager;
+        mySaveLocation = "gamesInProgress";
     }
 
     @Override
