@@ -7,7 +7,7 @@ package reflection;
  */
 @SuppressWarnings("serial")
 public final class ReflectionException extends RuntimeException {
-	public ReflectionException(String s) {
-		super(s);
-	}
+    public ReflectionException (String s) {
+        super(s);
+    }
 }

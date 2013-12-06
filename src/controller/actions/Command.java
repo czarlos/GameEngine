@@ -6,8 +6,8 @@ package controller.actions;
  */
 public interface Command {
 
-	/**
-	 * Execute a predefined action.
-	 */
-	public void execute();
+    /**
+     * Execute a predefined action.
+     */
+    public void execute ();
 }

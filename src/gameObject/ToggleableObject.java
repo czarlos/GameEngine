@@ -1,19 +1,19 @@
 package gameObject;
 
 public class ToggleableObject extends GameObject {
-	GameObject myNextState;
+    GameObject myNextState;
 
-	public ToggleableObject(String name, String imagePath, GameObject nextState) {
-		super();
-		myNextState = nextState;
-	}
+    public ToggleableObject (String name, String imagePath, GameObject nextState) {
+        super();
+        myNextState = nextState;
+    }
 
-	public GameObject getNextState() {
-		return myNextState;
-	}
+    public GameObject getNextState () {
+        return myNextState;
+    }
 
-	public void setNextState(GameObject nextState) {
-		myNextState = nextState;
-	}
+    public void setNextState (GameObject nextState) {
+        myNextState = nextState;
+    }
 
 }

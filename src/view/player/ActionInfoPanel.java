@@ -12,49 +12,50 @@ import controller.actions.grid.DoAction;
 import controller.editor.GridController;
 import controller.editor.NClickAction;
 
+
 public class ActionInfoPanel extends ScrollableListPane {
 
-	protected GridController myController;
+    protected GridController myController;
 
-	public ActionInfoPanel(List<String> actions, GridController controller) {
-		super(actions);
-		myController = controller;
+    public ActionInfoPanel (List<String> actions, GridController controller) {
+        super(actions);
+        myController = controller;
 
-	}
+    }
 
-	@Override
-	public void populate(List<String> data) {
-		JPanel buttons = new JPanel();
-		buttons.setMaximumSize(new Dimension(200, data.size() * 30));
-		buttons.setLayout(new GridLayout(0, 1));
-		for (int i = 0; i < data.size(); i++) {
-			String s = data.get(i);
-			JButton button = new JButton(s);
-			button.setAlignmentX(CENTER_ALIGNMENT);
-			button.addActionListener(new ActionListener() {
+    @Override
+    public void populate (List<String> data) {
+        JPanel buttons = new JPanel();
+        buttons.setMaximumSize(new Dimension(200, data.size() * 30));
+        buttons.setLayout(new GridLayout(0, 1));
+        for (int i = 0; i < data.size(); i++) {
+            String s = data.get(i);
+            JButton button = new JButton(s);
+            button.setAlignmentX(CENTER_ALIGNMENT);
+            button.addActionListener(new ActionListener() {
 
-				int myActionId;
+                int myActionId;
 
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					NClickAction action = new NClickAction(2, DoAction.class
-							.toString().substring(6), myActionId);
-					action.addPrecursorCommand(1, BeginDoAction.class
-							.toString().substring(6), myActionId);
-					myController.doCommand(action);
-					revalidate();
-				}
+                @Override
+                public void actionPerformed (ActionEvent e) {
+                    NClickAction action = new NClickAction(2, DoAction.class
+                            .toString().substring(6), myActionId);
+                    action.addPrecursorCommand(1, BeginDoAction.class
+                            .toString().substring(6), myActionId);
+                    myController.doCommand(action);
+                    revalidate();
+                }
 
-				public ActionListener init(int id) {
-					myActionId = id;
-					return this;
-				}
+                public ActionListener init (int id) {
+                    myActionId = id;
+                    return this;
+                }
 
-			}.init(i));
+            }.init(i));
 
-			buttons.add(button);
-		}
-		add(buttons);
-	}
+            buttons.add(button);
+        }
+        add(buttons);
+    }
 
 }

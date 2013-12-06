@@ -7,54 +7,65 @@ import gameObject.GameObject;
 import gameObject.GameUnit;
 import grid.Coordinate;
 
+
 @JsonAutoDetect
 public abstract class Action {
-	private String myName;
-	private List<Coordinate> myAOE;
-	private boolean isAround;
-	private int masterIndex;
+    private String myName;
+    private List<Coordinate> myAOE;
+    private boolean isAround;
+    private int masterIndex;
+    private int myActionRange;
 
-	public Action() {
-		List<Coordinate> AOE = new ArrayList<>();
-		AOE.add(new Coordinate(0, 1));
-		setAround(false);
-		masterIndex = -1;
-	}
+    public Action () {
+        List<Coordinate> AOE = new ArrayList<>();
+        AOE.add(new Coordinate(0, 1));
+        setAround(false);
+        masterIndex = -1;
+    }
 
-	public abstract void doAction(GameUnit initiator, GameObject receiver);
+    public void setActionRange(int actionRange) {
+        myActionRange = actionRange;
+    }
+    
+    public int getActionRange (){
+        return myActionRange;
+    }
 
-	public void setName(String name) {
-		myName = name;
-	}
 
-	public abstract boolean isValidAction(GameUnit gameUnit,
-			GameObject gameObject);
+    public abstract void doAction (GameUnit initiator, GameObject receiver);
 
-	public String getName() {
-		return myName;
-	}
+    public void setName (String name) {
+        myName = name;
+    }
 
-	public boolean isAround() {
-		return isAround;
-	}
+    public abstract boolean isValidAction (GameUnit gameUnit,
+                                           GameObject gameObject);
 
-	public void setAround(boolean isAround) {
-		this.isAround = isAround;
-	}
+    public String getName () {
+        return myName;
+    }
 
-	public List<Coordinate> getAOE() {
-		return myAOE;
-	}
+    public boolean isAround () {
+        return isAround;
+    }
 
-	public void setAOE(List<Coordinate> AOE) {
-		myAOE = AOE;
-	}
+    public void setAround (boolean isAround) {
+        this.isAround = isAround;
+    }
 
-	public int getMasterIndex() {
-		return masterIndex;
-	}
+    public List<Coordinate> getAOE () {
+        return myAOE;
+    }
 
-	public void setMasterIndex(int newIndex) {
-		masterIndex = newIndex;
-	}
+    public void setAOE (List<Coordinate> AOE) {
+        myAOE = AOE;
+    }
+
+    public int getMasterIndex () {
+        return masterIndex;
+    }
+
+    public void setMasterIndex (int newIndex) {
+        masterIndex = newIndex;
+    }
 }

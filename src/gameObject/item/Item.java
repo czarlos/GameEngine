@@ -10,6 +10,7 @@ import gameObject.Stats;
 import gameObject.action.Action;
 import gameObject.action.MasterActions;
 
+
 /**
  * Items have a name, items can have a wide range of effects including effecting
  * stats, which is evident in the statEffect abstract method. Alternatively they
@@ -21,84 +22,84 @@ import gameObject.action.MasterActions;
  */
 @JsonAutoDetect
 public class Item extends Customizable {
-	@JsonProperty
-	private List<Integer> myActions;
-	private Stats myStats;
+    @JsonProperty
+    private List<Integer> myActions;
+    private Stats myStats;
 
-	public Item() {
-		myActions = new ArrayList<>();
-		myStats = new Stats();
-	}
+    public Item () {
+        myActions = new ArrayList<>();
+        myStats = new Stats();
+    }
 
-	@JsonIgnore
-	public List<Action> getActions() {
-		List<Action> actionList = new ArrayList<>();
+    @JsonIgnore
+    public List<Action> getActions () {
+        List<Action> actionList = new ArrayList<>();
 
-		for (int actionIndex : myActions) {
-			actionList.add(MasterActions.getInstance().getAction(actionIndex));
-		}
+        for (int actionIndex : myActions) {
+            actionList.add(MasterActions.getInstance().getAction(actionIndex));
+        }
 
-		return actionList;
-	}
+        return actionList;
+    }
 
-	public List<Integer> getActionIndices() {
-		return myActions;
-	}
+    public List<Integer> getActionIndices () {
+        return myActions;
+    }
 
-	public void setActionIndices(List<Integer> newIndices) {
-		myActions = newIndices;
-	}
+    public void setActionIndices (List<Integer> newIndices) {
+        myActions = newIndices;
+    }
 
-	@JsonIgnore
-	public List<String> getActionNames() {
-		List<String> actionNames = new ArrayList<>();
+    @JsonIgnore
+    public List<String> getActionNames () {
+        List<String> actionNames = new ArrayList<>();
 
-		for (int actionIndex : myActions) {
-			actionNames.add(MasterActions.getInstance().getAction(actionIndex)
-					.getName());
-		}
+        for (int actionIndex : myActions) {
+            actionNames.add(MasterActions.getInstance().getAction(actionIndex)
+                    .getName());
+        }
 
-		return actionNames;
-	}
+        return actionNames;
+    }
 
-	@JsonIgnore
-	public void addAction(int actionIndex) {
-		myActions.add(actionIndex);
-	}
+    @JsonIgnore
+    public void addAction (int actionIndex) {
+        myActions.add(actionIndex);
+    }
 
-	public void removeAction(int actionIndex) {
-		for (int i = 0; i < myActions.size(); i++) {
-			if (myActions.get(i) == actionIndex) {
-				myActions.remove(i);
-			}
-		}
-	}
+    public void removeAction (int actionIndex) {
+        for (int i = 0; i < myActions.size(); i++) {
+            if (myActions.get(i) == actionIndex) {
+                myActions.remove(i);
+            }
+        }
+    }
 
-	/*
-	 * public void setActions (List<Integer> actions) { myActions = actions; }
-	 */
+    /*
+     * public void setActions (List<Integer> actions) { myActions = actions; }
+     */
 
-	@JsonIgnore
-	public void setActionNames(List<String> actionNames) {
-		List<Integer> actionIDs = new ArrayList<Integer>();
-		for (String name : actionNames) {
-			actionIDs.add(MasterActions.getInstance().getActionID(name));
-		}
-		myActions = actionIDs;
-	}
+    @JsonIgnore
+    public void setActionNames (List<String> actionNames) {
+        List<Integer> actionIDs = new ArrayList<Integer>();
+        for (String name : actionNames) {
+            actionIDs.add(MasterActions.getInstance().getActionID(name));
+        }
+        myActions = actionIDs;
+    }
 
-	@JsonIgnore
-	public int getStat(String statName) {
-		if (myStats.getStats().containsKey(statName))
-			return myStats.getStatValue(statName);
-		return 0;
-	}
+    @JsonIgnore
+    public int getStat (String statName) {
+        if (myStats.getStats().containsKey(statName))
+            return myStats.getStatValue(statName);
+        return 0;
+    }
 
-	public Stats getStats() {
-		return myStats;
-	}
+    public Stats getStats () {
+        return myStats;
+    }
 
-	public void setStats(Stats myStats) {
-		this.myStats = new Stats(myStats);
-	}
+    public void setStats (Stats myStats) {
+        this.myStats = new Stats(myStats);
+    }
 }

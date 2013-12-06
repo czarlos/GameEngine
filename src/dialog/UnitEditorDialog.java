@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import dialog.dialogs.tableModels.GameTableModel;
 import dialog.renderers.ImageRenderer;
 
+
 /**
  * @author brooksmershon
  * 
@@ -23,33 +24,33 @@ import dialog.renderers.ImageRenderer;
  */
 public class UnitEditorDialog extends JDialog {
 
-	/**
+    /**
      * 
      */
-	private static final long serialVersionUID = 370838418473171385L;
+    private static final long serialVersionUID = 370838418473171385L;
 
-	/**
-	 * 
-	 * @param model
-	 *            - a TableModel class which provides getter and setter methods
-	 *            for cell rendering and editing
-	 */
-	public UnitEditorDialog(GameTableModel model) {
-		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout());
+    /**
+     * 
+     * @param model
+     *        - a TableModel class which provides getter and setter methods
+     *        for cell rendering and editing
+     */
+    public UnitEditorDialog (GameTableModel model) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
 
-		JTable table = new JTable(model);
-		table.setDefaultRenderer(ImageIcon.class, new ImageRenderer());
-		table.setDefaultEditor(ImageIcon.class, new ImageEditor());
-		table.setRowHeight(52);
-		table.setPreferredScrollableViewportSize(new Dimension(500, 500));
-		table.setFillsViewportHeight(true);
+        JTable table = new JTable(model);
+        table.setDefaultRenderer(ImageIcon.class, new ImageRenderer());
+        table.setDefaultEditor(ImageIcon.class, new ImageEditor());
+        table.setRowHeight(52);
+        table.setPreferredScrollableViewportSize(new Dimension(500, 500));
+        table.setFillsViewportHeight(true);
 
-		JScrollPane scrollPane = new JScrollPane(table);
+        JScrollPane scrollPane = new JScrollPane(table);
 
-		panel.add(scrollPane);
-		add(panel);
-		setSize(new Dimension(500, 500));
-	}
+        panel.add(scrollPane);
+        add(panel);
+        setSize(new Dimension(500, 500));
+    }
 
 }

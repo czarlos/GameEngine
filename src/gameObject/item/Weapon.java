@@ -11,8 +11,8 @@ package gameObject.item;
  */
 public class Weapon extends Item {
 
-	public Weapon() {
-		super();
-	}
+    public Weapon () {
+        super();
+    }
 
 }

@@ -3,6 +3,7 @@ package unit_ai;
 import grid.Coordinate;
 import java.util.List;
 
+
 /**
  * Nodes are used as data structures to make pathfinding easier by holding more
  * data than just coordinates. However the integral piece of this data structure
@@ -12,55 +13,55 @@ import java.util.List;
  * 
  */
 public class Node {
-	private List<Node> myNeighbors;
-	private Node myParent;
-	private int myLength;
-	private int myDistanceToGoal;
-	private Coordinate myCoordinate;
+    private List<Node> myNeighbors;
+    private Node myParent;
+    private int myLength;
+    private int myDistanceToGoal;
+    private Coordinate myCoordinate;
 
-	public Node(List<Node> neighbors, Coordinate coordinate) {
-		this.myNeighbors = neighbors;
-		this.myCoordinate = coordinate;
-	}
+    public Node (List<Node> neighbors, Coordinate coordinate) {
+        this.myNeighbors = neighbors;
+        this.myCoordinate = coordinate;
+    }
 
-	public List<Node> getNeighbors() {
-		return myNeighbors;
-	}
+    public List<Node> getNeighbors () {
+        return myNeighbors;
+    }
 
-	public void setNeighbors(List<Node> myNeighbors) {
-		this.myNeighbors = myNeighbors;
-	}
+    public void setNeighbors (List<Node> myNeighbors) {
+        this.myNeighbors = myNeighbors;
+    }
 
-	public Node getParent() {
-		return myParent;
-	}
+    public Node getParent () {
+        return myParent;
+    }
 
-	public void setParent(Node myParent) {
-		this.myParent = myParent;
-	}
+    public void setParent (Node myParent) {
+        this.myParent = myParent;
+    }
 
-	public int getLength() {
-		return myLength;
-	}
+    public int getLength () {
+        return myLength;
+    }
 
-	public void setLength(int myLength) {
-		this.myLength = myLength;
-	}
+    public void setLength (int myLength) {
+        this.myLength = myLength;
+    }
 
-	public int getDistanceToGoal() {
-		return myDistanceToGoal;
-	}
+    public int getDistanceToGoal () {
+        return myDistanceToGoal;
+    }
 
-	public void setDistanceToGoal(int myDistanceToGoal) {
-		this.myDistanceToGoal = myDistanceToGoal;
-	}
+    public void setDistanceToGoal (int myDistanceToGoal) {
+        this.myDistanceToGoal = myDistanceToGoal;
+    }
 
-	public Coordinate getCoordinate() {
-		return myCoordinate;
-	}
+    public Coordinate getCoordinate () {
+        return myCoordinate;
+    }
 
-	public void setCoordinate(Coordinate myCoordinate) {
-		this.myCoordinate = myCoordinate;
-	}
+    public void setCoordinate (Coordinate myCoordinate) {
+        this.myCoordinate = myCoordinate;
+    }
 
 }
