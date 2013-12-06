@@ -12,7 +12,6 @@ import view.Drawable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 /**
  * 
  * Grid class. Holds all tiles and objects, calculates movement

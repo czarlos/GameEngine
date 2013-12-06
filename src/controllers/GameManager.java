@@ -14,14 +14,12 @@ import grid.Coordinate;
 import grid.GridConstants;
 import grid.Tile;
 
-
 /**
  * 
  * @author kevinjian, leevi, whoever else
  * 
  */
 public class GameManager extends Manager {
-
     private int myPhaseCount;
     private int myActiveTeam;
     private List<Action> myActiveActions;
