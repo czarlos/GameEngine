@@ -3,10 +3,12 @@ package view.canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.LayoutManager;
+import java.awt.Rectangle;
 import javax.swing.JPanel;
+import javax.swing.Scrollable;
 
 
-public class Canvas extends JPanel {
+public class Canvas extends JPanel implements Scrollable{
 
     /**
      * 
@@ -33,7 +35,7 @@ public class Canvas extends JPanel {
     }
 
     public Dimension getPreferredSize () {
-        return new Dimension(250, 200);
+        return new Dimension(1000, 1000);
     }
 
     /**
@@ -41,6 +43,40 @@ public class Canvas extends JPanel {
      */
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
+    }
+    
+    public int getHeight () {
+        return getSize().height;
+    }
+
+    public int getWidth () {
+        return getSize().width;
+    }
+
+    public Dimension getPreferredScrollableSize () {
+        return new Dimension(500, 500);
+    }
+
+    public Dimension getPreferredScrollableViewportSize () {
+        return getPreferredScrollableSize();
+    }
+
+    public int getScrollableUnitIncrement (Rectangle visibleRect,
+                                           int orientation, int direction) {
+        return 1;
+    }
+
+    public int getScrollableBlockIncrement (Rectangle visibleRect,
+                                            int orientation, int direction) {
+        return 1;
+    }
+
+    public boolean getScrollableTracksViewportWidth () {
+        return false;
+    }
+
+    public boolean getScrollableTracksViewportHeight () {
+        return false;
     }
 
 }

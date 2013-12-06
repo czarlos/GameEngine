@@ -1,6 +1,7 @@
 package controllers;
 
 import grid.Coordinate;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import parser.JSONParser;
@@ -27,11 +28,10 @@ public abstract class Manager {
         myStages = new ArrayList<Stage>();
         myEditorData = new EditorData("defaults");
     }
-    
-    public void setGameName(String gameName){
-        myGameName=gameName;
-    }
 
+    public void setGameName (String gameName) {
+        myGameName = gameName;
+    }
 
     /**
      * Returns list of stage names
@@ -76,11 +76,10 @@ public abstract class Manager {
     public String getGameName () {
         return myGameName;
     }
-    
-    protected String getActiveStageName(){
+
+    protected String getActiveStageName () {
         return myActiveStage.getName();
     }
-    
 
     /**
      * Method to getting a Drawable version of the grid
@@ -94,6 +93,13 @@ public abstract class Manager {
 
     public Coordinate getCoordinate (double fracX, double fracY) {
         return myActiveStage.getGrid().getCoordinate(fracX, fracY);
+    }
+
+    public Dimension calculateGridDimensions (int preferredTileDimension) {
+
+        int width = (int) myActiveStage.getGrid().getWidth();
+        int height = (int) myActiveStage.getGrid().getHeight();
+        return new Dimension(width * preferredTileDimension, height * preferredTileDimension);
     }
 
     public void saveGame () {
