@@ -28,7 +28,7 @@ public class PlayerView extends GameView {
     }
 
     public PlayerView (GameManager manager) {
-        myGameManager=manager;
+        myGameManager = manager;
     }
 
     @Override
@@ -74,7 +74,7 @@ public class PlayerView extends GameView {
     }
 
     protected void loadGame (String folder) {
-        if(myStagePlayerPanel!=null)
+        if (myStagePlayerPanel != null)
             remove(myStagePlayerPanel);
         JPanel loadPanel = new JPanel();
         loadPanel.setLayout(new GridLayout(0, 2));
@@ -92,10 +92,9 @@ public class PlayerView extends GameView {
         if (value == JOptionPane.OK_OPTION) {
             String game = (String) gameNamesMenu.getSelectedItem();
             JSONParser p = new JSONParser();
-            WorldManager newWM = p.createObject(folder+"/" + game,
+            WorldManager newWM = p.createObject(folder + "/" + game,
                                                 controllers.WorldManager.class);
             myGameManager = new GameManager(newWM, this);
-            myManager=myGameManager;
             super.clearWindow();
             this.remove(myBackground);
 
@@ -133,12 +132,12 @@ public class PlayerView extends GameView {
         // TODO implement fancy win screen
         JOptionPane.showMessageDialog(this, "You successfully completed all stages!");
     }
-    
+
     protected void saveGame () {
         saveGame("saves");
     }
-    
-    protected void saveGame(String location){
+
+    protected void saveGame (String location) {
         myGameManager.saveGame(location);
     }
 }
