@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.GameUnit;
 
+
 @JsonAutoDetect
 public class Outcome {
     private String myType;
@@ -13,15 +14,15 @@ public class Outcome {
     private int myAmount;
     private boolean isFixed;
 
-    public Outcome (){
-        
+    public Outcome () {
+
     }
-    
+
     public Outcome (String name, int amount, boolean fixed) {
         myName = name;
         myAmount = amount;
         isFixed = fixed;
-    }    
+    }
 
     /**
      * applyOutcomes edits a GameUnit based on user specified type, name, and
@@ -34,14 +35,14 @@ public class Outcome {
      *        - A measurement of how much of an outcome should occur
      */
     public void applyOutcome (GameUnit unit, double effectiveness) {
-        
+
         if (isStat(unit, myName)) {
             myType = "Stat";
         }
         else {
             myType = "Item";
         }
-        
+
         try {
             Method get = unit.getClass().getDeclaredMethod("combatGet" + myType + "Value",
                                                            String.class);
@@ -80,14 +81,14 @@ public class Outcome {
      * @return true if legal, false otherwise
      */
     public boolean checkValidOutcome (GameUnit unit, double effectiveness) {
-        
+
         if (isStat(unit, myName)) {
             myType = "Stat";
         }
         else {
             myType = "Item";
         }
-        
+
         try {
             Method get = unit.getClass().getDeclaredMethod("combatGet" + myType + "Value",
                                                            String.class);
@@ -116,8 +117,8 @@ public class Outcome {
 
         return true;
     }
-    
-    private boolean isStat(GameUnit unit, String name) {
+
+    private boolean isStat (GameUnit unit, String name) {
         return unit.getStats().getStatNames().contains(name);
     }
 

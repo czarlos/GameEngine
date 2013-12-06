@@ -27,11 +27,10 @@ public abstract class Manager {
         myStages = new ArrayList<Stage>();
         myEditorData = new EditorData("defaults");
     }
-    
-    public void setGameName(String gameName){
-        myGameName=gameName;
-    }
 
+    public void setGameName (String gameName) {
+        myGameName = gameName;
+    }
 
     /**
      * Returns list of stage names
@@ -76,11 +75,10 @@ public abstract class Manager {
     public String getGameName () {
         return myGameName;
     }
-    
-    protected String getActiveStageName(){
+
+    protected String getActiveStageName () {
         return myActiveStage.getName();
     }
-    
 
     /**
      * Method to getting a Drawable version of the grid

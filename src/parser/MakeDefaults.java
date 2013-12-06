@@ -33,6 +33,8 @@ public class MakeDefaults {
         defaultCombatAction.setActionRange(1);
         defaultCombatAction.setInitiatorOutcomes(new Outcomes());
         defaultCombatAction.setReceiverOutcomes(new Outcomes());
+        defaultCombatAction.setInitiatorStatWeights(new Stats());
+        defaultCombatAction.setReceiverStatWeights(new Stats());
 
         defaultItem = new Item();
         List<String> actionList = new ArrayList<>();

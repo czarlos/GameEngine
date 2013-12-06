@@ -37,7 +37,7 @@ public class CombatTest {
         masterStat.setStatValue("health", 15);
         masterStat.setStatValue("attack", 2);
         masterStat.setStatValue("defense", 1);
-        
+
         MasterActions masterActions = MasterActions.getInstance();
         List<Action> myActions = new ArrayList<Action>();
         myActions.add(createStrongAction());
@@ -47,7 +47,7 @@ public class CombatTest {
 
         Stats playerStats = new Stats();
         playerStats.syncWithMaster();
-        
+
         Stats enemyStats = new Stats();
         enemyStats.syncWithMaster();
 
@@ -79,7 +79,7 @@ public class CombatTest {
     public void testPlayerStrongAttackEnemy () {
         Weapon weapon = playerUnit.getActiveWeapon();
         CombatAction action = null;
-        
+
         for (Action ca : weapon.getActions()) {
             if (ca.getName().equals("strong")) {
                 action = (CombatAction) ca;
@@ -87,7 +87,7 @@ public class CombatTest {
         }
 
         action.doAction(playerUnit, enemyUnit);
-        
+
         double enemyHealth = enemyUnit.getStat("health");
         double expectedEnemyHealth = 5;
 
@@ -99,7 +99,7 @@ public class CombatTest {
     public void testPlayerStrongAttackSelf () {
         Weapon weapon = playerUnit.getActiveWeapon();
         CombatAction action = null;
-        
+
         for (Action ca : weapon.getActions()) {
             if (ca.getName().equals("strong")) {
                 action = (CombatAction) ca;
@@ -107,7 +107,7 @@ public class CombatTest {
         }
 
         action.doAction(playerUnit, enemyUnit);
-        
+
         double playerHealth = playerUnit.getStat("health");
         double expectedPlayerHealth = 10;
 
@@ -119,7 +119,7 @@ public class CombatTest {
     public void testPlayerWeakAttack () {
         Weapon weapon = playerUnit.getActiveWeapon();
         CombatAction action = null;
-        
+
         for (Action ca : weapon.getActions()) {
             if (ca.getName().equals("weak")) {
                 action = (CombatAction) ca;
@@ -127,7 +127,7 @@ public class CombatTest {
         }
 
         action.doAction(playerUnit, enemyUnit);
-        
+
         double enemyHealth = enemyUnit.getStat("health");
         double expectedEnemyHealth = 11;
 
@@ -139,7 +139,7 @@ public class CombatTest {
     public void testEnemyWeakAttack () {
         Weapon weapon = enemyUnit.getActiveWeapon();
         CombatAction action = null;
-        
+
         for (Action ca : weapon.getActions()) {
             if (ca.getName().equals("weak")) {
                 action = (CombatAction) ca;
@@ -158,7 +158,7 @@ public class CombatTest {
     public void testPlayerItemDepletingAction () {
         Weapon weapon = playerUnit.getActiveWeapon();
         CombatAction action = null;
-        
+
         for (Action ca : weapon.getActions()) {
             if (ca.getName().equals("item")) {
                 action = (CombatAction) ca;
@@ -171,14 +171,13 @@ public class CombatTest {
         enemyUnit.addItem(potion);
         enemyUnit.addItem(potion);
         enemyUnit.addItem(potion);
-        
-        
+
         action.doAction(playerUnit, enemyUnit);
-        
-         int itemCount = enemyUnit.getItemAmount("potion");
-         int expectedItemCount = 3;
-        
-         assertEquals("Proper Items Removed", itemCount, expectedItemCount);
+
+        int itemCount = enemyUnit.getItemAmount("potion");
+        int expectedItemCount = 3;
+
+        assertEquals("Proper Items Removed", itemCount, expectedItemCount);
 
     }
 
@@ -225,7 +224,7 @@ public class CombatTest {
      * 
      * @return CombatAction
      */
-    public CombatAction createWeakAction () {  
+    public CombatAction createWeakAction () {
         Map<String, Integer> attackerStatsMap = new HashMap<String, Integer>();
         attackerStatsMap.put("attack", 1);
         Stats attackerStats = new Stats();
@@ -276,15 +275,15 @@ public class CombatTest {
      * 
      * @param name
      *        - name of item
-     *
+     * 
      * @return Item - created items
      */
-     public Item makeEmptyItem (String name) {
-     Item e = new Item();
-     e.setName(name);
-     e.setStats(new Stats());
-     
-     return e;
-     }
+    public Item makeEmptyItem (String name) {
+        Item e = new Item();
+        e.setName(name);
+        e.setStats(new Stats());
+
+        return e;
+    }
 
 }

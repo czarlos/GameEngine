@@ -1,12 +1,12 @@
 package gameObject.action;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.Stats;
 
 
+@JsonAutoDetect
 public class CombatAction extends Action {
 
     private Stats myInitiatorStatWeights;
@@ -20,7 +20,7 @@ public class CombatAction extends Action {
         myInitiatorStatWeights = new Stats();
         myReceiverStatWeights = new Stats();
     }
-    
+
     private double getNetEffectiveness (GameUnit initiator, GameUnit receiver) {
 
         double offensiveStatSum = 0, defensiveStatSum = 0;
@@ -63,36 +63,36 @@ public class CombatAction extends Action {
 
         return myInitiatorOutcomes.checkValid(initiator, effectiveness);
     }
-    
-    public Stats getInitiatorStatWeights() {
+
+    public Stats getInitiatorStatWeights () {
         return myInitiatorStatWeights;
     }
-    
-    public void setInitiatorStatWeights(Stats statWeights) {
+
+    public void setInitiatorStatWeights (Stats statWeights) {
         myInitiatorStatWeights = statWeights;
     }
-    
-    public Stats getReceiverStatWeights() {
+
+    public Stats getReceiverStatWeights () {
         return myReceiverStatWeights;
     }
-    
-    public void setReceiverStatWeights(Stats statWeights) {
+
+    public void setReceiverStatWeights (Stats statWeights) {
         myReceiverStatWeights = statWeights;
     }
-    
-    public Outcomes getInitiatorOutcomes() {
+
+    public Outcomes getInitiatorOutcomes () {
         return myInitiatorOutcomes;
     }
-    
-    public void setInitiatorOutcomes(Outcomes outcomes) {
+
+    public void setInitiatorOutcomes (Outcomes outcomes) {
         myInitiatorOutcomes = outcomes;
     }
-    
-    public Outcomes getReceiverOutcomes() {
+
+    public Outcomes getReceiverOutcomes () {
         return myReceiverOutcomes;
     }
-    
-    public void setReceiverOutcomes(Outcomes outcomes) {
+
+    public void setReceiverOutcomes (Outcomes outcomes) {
         myReceiverOutcomes = outcomes;
     }
 }
