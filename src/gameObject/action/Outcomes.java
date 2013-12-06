@@ -35,6 +35,10 @@ public class Outcomes {
         myOutcomes = outcomes;
     }
     
+    public void addOutcome(Outcome outcome) {
+        myOutcomes.add(outcome);
+    }
+    
     public String toString(){
         return "Outcomes";
     }

@@ -147,9 +147,6 @@ public class GameUnit extends GameObject {
         return myStats;
     }
 
-    // Adding for Outcomes, can potentially change later
-    // Need to keep method names and signatures similar for reflection
-    // since dealing with different data structures
     public int getStat (String statName) {
         return myStats.getStatValue(statName);
     }
@@ -157,7 +154,26 @@ public class GameUnit extends GameObject {
     public void setStat (String statName, int statValue) {
         myStats.modExisting(statName, statValue);
     }
+    
+    // Adding for Outcomes, can potentially change later
+    // Need to keep method names and signatures similar for reflection
+    // since dealing with different data structures
+    public int combatGetStatValue (String statName) {
+        return myStats.getStatValue(statName);
+    }
 
+    public void combatSetStatValue (String statName, int statValue) {
+        myStats.modExisting(statName, statValue);
+    }
+    
+    public int combatGetItemValue(String itemName) {
+        return (myItemAmounts.get(itemName) == null ? 0 : myItemAmounts.get(itemName));
+    }
+    
+    public void combatSetItemValue(String itemName, int itemValue) {
+        myItemAmounts.put(itemName, itemValue);
+    }
+   
     public Weapon getActiveWeapon () {
         return myActiveWeapon;
     }
