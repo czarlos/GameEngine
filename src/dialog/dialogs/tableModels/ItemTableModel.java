@@ -41,7 +41,7 @@ public class ItemTableModel extends GameTableModel {
             array[0] = i.getName();
             array[1] = new File(i.getImagePath());
             array[2] = i.getStats();
-            array[3] = i.getActionNames();
+            array[3] = i.getActions();
             addNewRow(array);
         }
     }
@@ -55,7 +55,7 @@ public class ItemTableModel extends GameTableModel {
             i.setName((String) row[0]);
             i.setImagePath((String) ((File) row[1]).getPath());
             i.setStats((Stats) row[2]);
-            i.setActionNames((List<String>) row[3]);
+            i.setActions((List<String>) row[3]);
             ret.add(i);
         }
         return ret;

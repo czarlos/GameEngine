@@ -108,9 +108,8 @@ public class EditorData {
 
     @SuppressWarnings("unchecked")
     public void setData (GameTableModel gtm, Stage activeStage) {
-        List<String> names = getNames(gtm.getName());
         // Include logic to know which sync method to call
-        syncActions(names, (List<Object>) gtm.getObject(), activeStage);
+        syncActions((List<Object>) gtm.getObject(), activeStage);
         syncStats();
         // Put sync methods here
 
@@ -118,31 +117,32 @@ public class EditorData {
     }
 
     @SuppressWarnings("unchecked")
-    private void syncActions (List<String> previousNames, List<Object> newActions, Stage activeStage) {
+    private void syncActions (List<Object> newActions, Stage activeStage) {
+        List<String> fullList = getNames(GridConstants.ACTION);
+        List<String> removedNames = getNames(GridConstants.ACTION);
         List<GameUnit> editorUnitList = (List<GameUnit>) getTableModel("GameUnit").getObject();
         GameUnit[][] placedUnits = activeStage.getGrid().getGameUnits();
         Map<String, String> nameTranslationMap = new HashMap<>();
 
         for (Object action : newActions) {
-            String prevName = previousNames.get(((Action) action).getLastIndex());
+            String prevName = fullList.get(((Action) action).getLastIndex());
             if (!((Action) action).getName().equals(prevName)) {
                 nameTranslationMap.put(prevName, ((Action) action).getName());
             }
-            previousNames.remove(prevName);
+            removedNames.remove(prevName);
         }
 
         for (Object unit : editorUnitList) {
-            ((GameUnit) unit).syncActionsWithMaster(nameTranslationMap, previousNames);
+            ((GameUnit) unit).syncActionsWithMaster(nameTranslationMap, removedNames);
         }
 
         for (int i = 0; i < placedUnits.length; i++) {
             for (int j = 0; j < placedUnits[i].length; j++) {
                 if (placedUnits[i][j] != null) {
-                    placedUnits[i][j].syncActionsWithMaster(nameTranslationMap, previousNames);
+                    placedUnits[i][j].syncActionsWithMaster(nameTranslationMap, removedNames);
                 }
             }
         }
-
     }
 
     private void syncStats () {

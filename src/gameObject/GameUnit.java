@@ -176,15 +176,15 @@ public class GameUnit extends GameObject {
     }
 
     @JsonIgnore
-    public List<Action> getActions () {
-        List<Action> actions = new ArrayList<>();
+    public List<String> getActions () {
+        List<String> actions = new ArrayList<>();
         if (isActive) {
             if (!hasMoved) {
-                actions.add(new MoveAction());
+                actions.add("move");
             }
-            actions.add(new WaitAction());
+            actions.add("wait");
             for (Item item : myItems) {
-                actions.addAll(item.getActions()); // Returns a list of strings now
+                actions.addAll(item.getActions());
             }
         }
         return actions;

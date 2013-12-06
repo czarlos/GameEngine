@@ -56,7 +56,6 @@ public class WorldManager extends Manager {
     public void setActions (GameTableModel gtm) {
         MasterActions ma = MasterActions.getInstance();
         ma.setActionList((List<Action>) gtm.getObject());
-        syncActions();
         myEditorData.setData(gtm, myActiveStage);
     }
 
@@ -219,7 +218,7 @@ public class WorldManager extends Manager {
      */
     @SuppressWarnings("unchecked")
     public List<String> get (String className) {
-        myEditorData.getNames(className);
+        return myEditorData.getNames(className);
     }
 
     /**
@@ -257,23 +256,6 @@ public class WorldManager extends Manager {
             for (int j = 0; j < placedUnits[i].length; j++) {
                 if (placedUnits[i][j] != null) {
                     placedUnits[i][j].getStats().syncWithMaster();
-                }
-            }
-        }
-    }
-
-    private void syncActions () {
-        List<?> editorUnitList = (List<?>) myEditorData.get("GameUnit");
-        GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
-
-        for (Object unit : editorUnitList) {
-            ((GameUnit) unit).syncActionsWithMaster();
-        }
-
-        for (int i = 0; i < placedUnits.length; i++) {
-            for (int j = 0; j < placedUnits[i].length; j++) {
-                if (placedUnits[i][j] != null) {
-                    placedUnits[i][j].syncActionsWithMaster();
                 }
             }
         }

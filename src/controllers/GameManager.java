@@ -38,8 +38,8 @@ public class GameManager extends Manager {
         if (conditionsMet()) {
             if (!nextStage())
                 // win
-                myView.setTitle(getActiveTeamName()+" won!!");
-                myView.displayWinDialog();
+                myView.setTitle(getActiveTeamName() + " won!!");
+            myView.displayWinDialog();
             return;
         }
         nextTurn();
@@ -152,15 +152,19 @@ public class GameManager extends Manager {
      *        Coordinate that is being asked for
      * @return List of Strings that contain the action names
      */
+    @SuppressWarnings("unchecked")
     public List<String> getActions (Coordinate coordinate) {
-        myActiveActions = myActiveStage.getGrid()
+        List<String> myActiveActionNames = myActiveStage.getGrid()
                 .generateActionList(coordinate);
-        if (myActiveActions != null) {
-            List<String> actionNames = new ArrayList<>();
-            for (Action action : myActiveActions) {
-                actionNames.add(action.getName());
+        List<Action> editorActions = (List<Action>) myEditorData.getTableModel("ACTION");
+        List<Action> newActiveActions = new ArrayList<>();
+
+        if (myActiveActionNames != null) {
+            for (String action : myActiveActionNames) {
+                newActiveActions.add(editorActions.get(editorActions.indexOf(action)));
             }
-            return actionNames;
+            myActiveActions = newActiveActions;
+            return myActiveActionNames;
         }
         return null;
     }
