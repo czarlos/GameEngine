@@ -77,10 +77,11 @@ public class GameObject extends Customizable implements Drawable {
     /**
      * Generates the List of Strings that the unit will display to the user
      */
-    public void generateDisplayData () {
+    public List<String> generateDisplayData () {
         List<String> displayData = new ArrayList<>();
         displayData.add("Name: " + myName);
         setDisplayData(displayData);
+        return displayData;
     }
 
     public List<String> getDisplayData () {

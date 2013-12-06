@@ -142,6 +142,7 @@ public class GameManager extends Manager {
     public List<String> generateTileInfoList (Coordinate coordinate) {
         Tile tile = myActiveStage.getGrid().getTile(coordinate);
         tile.generateDisplayData();
+        addCoordinateData(tile, coordinate);
         return tile.getDisplayData();
     }
 
@@ -158,9 +159,16 @@ public class GameManager extends Manager {
         GameObject gameObject = myActiveStage.getGrid().getObject(coordinate);
         if (gameObject != null) {
             gameObject.generateDisplayData();
+            addCoordinateData(gameObject, coordinate);
             return gameObject.getDisplayData();
         }
         return null;
+    }
+    
+    private void addCoordinateData (GameObject gameObject, Coordinate coordinate) {
+        List<String> displayData = gameObject.getDisplayData();
+        displayData.add("Coordinate: "+coordinate.getX()+", "+coordinate.getY());
+        gameObject.setDisplayData(displayData);   
     }
 
     @SuppressWarnings("unchecked")
@@ -168,12 +176,12 @@ public class GameManager extends Manager {
         List<Action> editorActions = (List<Action>) myEditorData.get(GridConstants.ACTION);
 
         // check first to see if it's one of the core actions so users can't override
-        for (Action a : GridConstants.COREACTIONS) {
-            if (a.getName().equals(actionName)) { return a; }
+        for (Action action : GridConstants.COREACTIONS) {
+            if (action.getName().equals(actionName)) { return action; }
         }
 
-        for (Action a : editorActions) {
-            if (a.getName().equals(actionName)) { return a; }
+        for (Action action : editorActions) {
+            if (action.getName().equals(actionName)) { return action; }
         }
         return null;
     }

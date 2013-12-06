@@ -66,17 +66,18 @@ public class Tile extends GameObject {
         myMoveCost = moveCost;
     }
 
-    public void generateDisplayData () {
-        List<String> displayData = new ArrayList<>();
-        displayData.add("Name: " + myName);
+    @Override
+    public List<String> generateDisplayData () {
+        List<String> displayData = super.generateDisplayData();
         displayData.add("Movement cost: " + myMoveCost);
         displayData.add("Stat Modifiers: ");
         for (String stat : myStats.getStatNames()) {
             if (!stat.equals("health") && !stat.equals("maxhealth") && !stat.equals("experience")) {
-                displayData.add(stat + ": " + myStats.getStatValue(stat));
+                displayData.add("    "+stat + ": " + myStats.getStatValue(stat));
             }
         }
-        myDisplayData = displayData;
+        setDisplayData(displayData);
+        return displayData;
     }
 
     public Tile (List<Tile> neighbors, Coordinate coordinate) {
