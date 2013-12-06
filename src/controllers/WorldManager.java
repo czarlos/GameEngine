@@ -48,6 +48,13 @@ public class WorldManager extends Manager {
         activeEditIDList = new ArrayList<Integer>();
         myMasterStats = MasterStats.getInstance();
     }
+    
+    public WorldManager(Manager m) {
+        super(m);
+        activeEditTypeList = new ArrayList<String>();
+        activeEditIDList = new ArrayList<Integer>();
+        myMasterStats = MasterStats.getInstance();
+    }
 
     @JsonIgnore
     public GameTableModel getTableModel (String type) {

@@ -14,6 +14,7 @@ import grid.Coordinate;
 import grid.GridConstants;
 import grid.Tile;
 
+
 /**
  * 
  * @author kevinjian, leevi, whoever else
@@ -26,12 +27,11 @@ public class GameManager extends Manager {
     private boolean isTurnCompleted;
     private PlayerView myView;
 
-    public GameManager (WorldManager wm, PlayerView view) {
-        super();
-        myActiveStage = wm.myActiveStage;
-        myStages = wm.myStages;
-        myGameName = wm.myGameName;
-        myEditorData = wm.myEditorData;
+    public GameManager (Manager m) {
+        super(m);
+    }
+
+    public void setView (PlayerView view) {
         myView = view;
     }
 
@@ -39,9 +39,9 @@ public class GameManager extends Manager {
         clear();
         if (conditionsMet()) {
             myView.showDialog(getPostStory());
-            if (!nextStage()) { //final stage
+            if (!nextStage()) { // final stage
                 // win
-                myView.setTitle(getActiveTeamName()+" won!!");
+                myView.setTitle(getActiveTeamName() + " won!!");
                 return;
             }
             myView.showDialog(getPreStory());
@@ -121,7 +121,7 @@ public class GameManager extends Manager {
     public void doAITurn () {
         // pass in gamemanager to AI because need moveOn command
         AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage);
-//        ai.doTurn();
+        // ai.doTurn();
         // ai.doTurn();
     }
 
@@ -196,7 +196,7 @@ public class GameManager extends Manager {
     public void beginAction (Coordinate unitCoordinate, int actionID) {
         setActiveActions(unitCoordinate);
         myActiveStage.getGrid().setTilesInactive();
-        
+
         if (myActiveActions.get(actionID).getName()
                 .equals(GridConstants.MOVE)) {
             myActiveStage.getGrid().beginMove(unitCoordinate);
@@ -224,7 +224,7 @@ public class GameManager extends Manager {
                 newActiveActions.add(getAction(action));
             }
             myActiveActions = newActiveActions;
-        }     
+        }
     }
 
     /**

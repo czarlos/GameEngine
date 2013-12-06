@@ -29,6 +29,13 @@ public abstract class Manager {
         myEditorData = new EditorData("defaults");
     }
 
+    public Manager(Manager m) {
+        myActiveStage = m.myActiveStage;
+        myStages = m.myStages;
+        myGameName = m.myGameName;
+        myEditorData = m.myEditorData;
+    }
+    
     public void setGameName (String gameName) {
         myGameName = gameName;
     }
