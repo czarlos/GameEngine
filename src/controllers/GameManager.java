@@ -58,7 +58,7 @@ public class GameManager extends Manager {
     public void doUntilHumanTurn () {
         int count = 0;
         while (!teamIsHuman()) {
-            // doAITurn();
+            doAITurn();
             beginTurn();
             count++;
             if (count > 10)
@@ -119,7 +119,7 @@ public class GameManager extends Manager {
     public void doAITurn () {
         // pass in gamemanager to AI because need moveOn command
         AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage);
-        // ai.doTurn();
+        ai.doTurn();
         // ai.doTurn();
     }
 
