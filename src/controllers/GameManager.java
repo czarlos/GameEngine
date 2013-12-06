@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import team.Team;
 import view.player.PlayerView;
 import game.AI;
 import gameObject.GameObject;
@@ -45,8 +46,10 @@ public class GameManager extends Manager {
             myView.displayWinDialog();
             return;
         }
+        
         nextTurn();
         myView.setTitle(getActiveTitle());
+        
     }
 
     private void clear () {
@@ -58,7 +61,7 @@ public class GameManager extends Manager {
     public void doUntilHumanTurn () {
         int count = 0;
         while (!teamIsHuman()) {
-            doAITurn();
+            //doAITurn();
             beginTurn();
             count++;
             if (count > 10)
@@ -260,7 +263,11 @@ public class GameManager extends Manager {
     }
 
     public String getWinningTeam () {
-        return myActiveStage.getWinningTeam().getName();
+        Team winningTeam = myActiveStage.getWinningTeam();
+        if(winningTeam == null){
+            return "";
+        }
+        return winningTeam.getName();
     }
 
     public String getCurrentTeamName () {
@@ -278,4 +285,5 @@ public class GameManager extends Manager {
     public boolean didHumanWin () {
         return myActiveStage.getWinningTeam().isHuman();
     }
+    
 }

@@ -39,9 +39,11 @@ public class EditorFrame extends GameView {
     private JMenuBar myMenuBar;
     private JTabbedPane stageTabbedPane;
     private GridEditorController myGridController;
+    protected WorldManager myWorldManager;
 
     public EditorFrame () {
         super("Omega_Nu Game Editor");
+        mySaveLocation="saves";
     }
 
     @Override
@@ -212,6 +214,7 @@ public class EditorFrame extends GameView {
     protected void setFrame (WorldManager wm) {
         super.clearWindow();
         myWorldManager = wm;
+        myManager=wm;
         myStagePanelList.clear();
         stageTabbedPane.removeAll();
         addGameEditorMenus();
@@ -260,11 +263,6 @@ public class EditorFrame extends GameView {
         myMenuBar.add(stageMenu, 2);
         myMenuBar.add(gamePrefs, 2);
     }
-
-    protected void saveGame () {
-        myWorldManager.saveGame();
-    }
-
 
     protected void setStage (String stageName, int stageID) {
         myGridController = new GridEditorController(myWorldManager, stageTabbedPane);
@@ -373,5 +371,13 @@ public class EditorFrame extends GameView {
             }
         }
         
+    }
+    
+    protected void saveGame () {
+        saveGame(mySaveLocation);
+    }
+    
+    protected void saveGame(String location){
+        myWorldManager.saveGame(location);
     }
 }
