@@ -285,7 +285,7 @@ public class EditorFrame extends GameView {
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                new PlayerView(myWorldManager);
+                new PlayerView(myWorldManager).setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);;
             }
             
         });
