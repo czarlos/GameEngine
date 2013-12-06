@@ -62,15 +62,7 @@ public class Grid implements Drawable {
         myObjects = new GameObject[width][height];
         myUnits = new GameUnit[width][height];
         myFactory = new FromJSONFactory();
-        initGrid(tileID);
-    }
-
-    /**
-     * Sets up default grid with tiles and objects
-     */
-    private void initGrid (int tileID) {
         initTiles(tileID);
-        initObjects();
     }
 
     /**
@@ -82,16 +74,6 @@ public class Grid implements Drawable {
                 myTiles[i][j] = (Tile) myFactory.make("Tile", tileID);
             }
         }
-    }
-
-    /**
-     * Creates default objects and units for grid
-     */
-    private void initObjects () {
-        GameObject tree = (GameObject) myFactory.make("GameObject", 0);
-        placeObject(new Coordinate(3, 5), tree);
-        GameObject hero = (GameUnit) myFactory.make("GameUnit", 0);
-        placeObject(new Coordinate(4, 5), hero);
     }
 
     /**
