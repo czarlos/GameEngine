@@ -571,7 +571,7 @@ public class Grid implements Drawable {
      */
     public void placeObject (String type, Coordinate coordinate, Object placeObject) {
         
-        if(type == GridConstants.ITEM){
+        if(type.equals(GridConstants.ITEM)){
             GameUnit gu = getUnit(coordinate);
             if (gu != null) {
                 gu.addItem((Item) placeObject);
@@ -580,10 +580,10 @@ public class Grid implements Drawable {
         
         myArrays.get(type)[coordinate.getX()][coordinate.getY()] = placeObject;
         
-        if(type == GridConstants.GAMEUNIT){
-            myArrays.get(GridConstants.GAMEUNIT)[coordinate.getX()][coordinate.getY()] = placeObject;
+        if(type.equals(GridConstants.GAMEUNIT)){
+            myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()] = placeObject;
         }
-        if(type == GridConstants.TILE){
+        if(type.equals(GridConstants.TILE)){
             removeObject(coordinate);
         }      
     }

@@ -23,17 +23,7 @@ public class GridEditorController implements GridMouseListener {
         if (id == -1)
             displayInfo(c);
         if (myWM.getActiveType(currentIndex) != null) {
-            switch (myWM.getActiveType(currentIndex).toLowerCase()) {
-                case "tile":
-                    myWM.setTile(id, c.getX(), c.getY());
-                    break;
-                case "gameunit":
-                    myWM.placeUnit(id, c.getX(), c.getY());
-                    break;
-                case "gameobject":
-                    myWM.placeObject(id, c.getX(), c.getY());
-                    break;
-            }
+            myWM.place(myWM.getActiveType(currentIndex), id, c.getX(), c.getY());
         }
 
     }
