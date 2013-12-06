@@ -55,6 +55,7 @@ public class StageEditorPanel extends JTabbedPane {
         replacement.setName(type);
         int index = this.indexOfTab(type);
         this.remove(myTabs.get(type));
+        myTabs.put(type, replacement);
         this.add(replacement, index);
         this.setSelectedIndex(index);
     }
@@ -65,7 +66,7 @@ public class StageEditorPanel extends JTabbedPane {
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
         panel.setLayout(layout);
-        //panel.setPreferredSize(new Dimension(170, 600));
+        
         JScrollPane scroll = new JScrollPane(panel,
                                              ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
                                              ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -102,14 +103,14 @@ public class StageEditorPanel extends JTabbedPane {
     public void changeSelected (GameObjectPanel selected) {
         if (selected == selectedPanel) {
             selectedPanel.deSelect();
-            myWorldManager.setActiveObject(myID - 1, "", -1);
+            myWorldManager.setActiveObject(myID , "", -1);
             return;
         }
         if (selectedPanel != null)
             selectedPanel.deSelect();
         selectedPanel = selected;
         myWorldManager.setActiveObject(
-                                       myID - 1,
+                                       myID,
                                        selected.getType(),
                                        myWorldManager.get(selected.getType())
                                                .indexOf(

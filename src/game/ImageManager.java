@@ -55,7 +55,7 @@ public class ImageManager {
                 highlightedImage = ImageIO.read(new File(filePath));
             }
             catch (Exception e) {
-                throw new Exception("Error reading image file.");
+                throw new Exception("Error reading image file: " + filePath);
             }
 
             ourImages.put(filePath, img);

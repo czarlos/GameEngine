@@ -30,6 +30,7 @@ public class MakeDefaults {
 
         defaultCombatAction = new CombatAction();
         defaultCombatAction.setName("Slash");
+        defaultCombatAction.setImagePath("resources/weapon.png");
         defaultCombatAction.setActionRange(1);
         defaultCombatAction.setInitiatorOutcomes(new Outcomes());
         defaultCombatAction.setReceiverOutcomes(new Outcomes());

@@ -63,6 +63,7 @@ public class CombatActionTableModel extends GameTableModel {
             a.setInitiatorStatWeights((Stats) row[3]);
             a.setReceiverOutcomes((Outcomes) row[4]);
             a.setReceiverStatWeights((Stats) row[5]);
+            a.setImagePath("resources/weapon.png");
             list.add(a);
         }
         return list;

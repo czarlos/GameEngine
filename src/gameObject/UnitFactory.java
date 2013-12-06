@@ -2,6 +2,7 @@ package gameObject;
 
 import grid.Coordinate;
 import grid.Grid;
+import grid.GridConstants;
 import java.util.List;
 import java.util.Map;
 import team.Team;
@@ -61,7 +62,7 @@ public class UnitFactory extends GameObject {
             if (myPendingUnits.get(unit) == 0) {
                 myPendingUnits.remove(unit);
                 unit.setAffiliation(team.getName());
-                myGrid.placeObject(validLocation(unit), unit);
+                myGrid.placeObject(GridConstants.GAMEUNIT, validLocation(unit), unit);
             }
             else {
                 myPendingUnits.put(unit, myPendingUnits.get(unit) - 1);

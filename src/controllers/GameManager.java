@@ -38,16 +38,17 @@ public class GameManager extends Manager {
     public void beginTurn () {
         clear();
         if (conditionsMet()) {
-            if (!nextStage())
+            myView.showDialog(getPostStory());
+            if (!nextStage()) { //final stage
                 // win
-                myView.setTitle(getActiveTeamName() + " won!!");
-            myView.displayWinDialog();
+                myView.setTitle(getActiveTeamName()+" won!!");
+                return;
+            }
+            myView.showDialog(getPreStory());
             return;
         }
-        
         nextTurn();
         myView.setTitle(getActiveTitle());
-        
     }
 
     private void clear () {
@@ -59,7 +60,7 @@ public class GameManager extends Manager {
     public void doUntilHumanTurn () {
         int count = 0;
         while (!teamIsHuman()) {
-            //doAITurn();
+            // doAITurn();
             beginTurn();
             count++;
             if (count > 10)
@@ -120,6 +121,7 @@ public class GameManager extends Manager {
     public void doAITurn () {
         // pass in gamemanager to AI because need moveOn command
         AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage);
+//        ai.doTurn();
         // ai.doTurn();
     }
 
@@ -163,31 +165,17 @@ public class GameManager extends Manager {
         return null;
     }
 
-    /**
-     * Gets a list of actions that a unit at a coordinate can perform. Null if
-     * there is no unit.
-     * 
-     * @param coordinate
-     *        Coordinate that is being asked for
-     * @return List of Strings that contain the action names
-     */
     @SuppressWarnings("unchecked")
-    public List<String> getActions (Coordinate coordinate) {
-        List<String> myActiveActionNames = myActiveStage.getGrid()
-                .generateActionList(coordinate);
-        // TODO: handle move, item, wait
-        // TODO: fix action handling (pass in gameManager and then make a method to call to get
-        // action from name
-        // TODO: make two lists of actions
+    private Action getAction (String actionName) {
         List<Action> editorActions = (List<Action>) myEditorData.get(GridConstants.ACTION);
-        List<Action> newActiveActions = new ArrayList<>();
 
-        if (myActiveActionNames != null) {
-            for (String action : myActiveActionNames) {
-                newActiveActions.add(editorActions.get(editorActions.indexOf(action)));
-            }
-            myActiveActions = newActiveActions;
-            return myActiveActionNames;
+        // check first to see if it's one of the core actions so users can't override
+        for (Action a : GridConstants.COREACTIONS) {
+            if (a.getName().equals(actionName)) { return a; }
+        }
+
+        for (Action a : editorActions) {
+            if (a.getName().equals(actionName)) { return a; }
         }
         return null;
     }
@@ -206,19 +194,37 @@ public class GameManager extends Manager {
      *        int that represents the index of the action in myActiveActions
      */
     public void beginAction (Coordinate unitCoordinate, int actionID) {
+        setActiveActions(unitCoordinate);
         myActiveStage.getGrid().setTilesInactive();
+        
         if (myActiveActions.get(actionID).getName()
-                .equals(MoveAction.MOVE_NAME)) {
+                .equals(GridConstants.MOVE)) {
             myActiveStage.getGrid().beginMove(unitCoordinate);
         }
         else if (myActiveActions.get(actionID).getName()
-                .equals(WaitAction.WAIT_NAME)) {
+                .equals(GridConstants.WAIT)) {
             myActiveStage.getGrid().getUnit(unitCoordinate).setActive(false);
         }
         else {
             myActiveStage.getGrid().beginAction(unitCoordinate,
                                                 myActiveActions.get(actionID).getActionRange());
         }
+    }
+
+    private void setActiveActions (Coordinate coordinate) {
+        List<String> myActiveActionNames = myActiveStage.getGrid()
+                .generateActionList(coordinate);
+        // TODO: fix AI action handling (pass in gameManager and then make a method to call to get
+        // action from name
+
+        if (myActiveActionNames != null) {
+            List<Action> newActiveActions = new ArrayList<>();
+
+            for (String action : myActiveActionNames) {
+                newActiveActions.add(getAction(action));
+            }
+            myActiveActions = newActiveActions;
+        }     
     }
 
     /**
@@ -237,7 +243,7 @@ public class GameManager extends Manager {
         Action activeAction = myActiveActions.get(actionID);
 
         if (activeAction.getName()
-                .equals(MoveAction.MOVE_NAME) && myActiveStage.getGrid().isActive(actionCoordinate)) {
+                .equals(GridConstants.MOVE) && myActiveStage.getGrid().isActive(actionCoordinate)) {
             myActiveStage.getGrid().doMove(unitCoordinate, actionCoordinate);
             initiator.hasMoved();
         }
@@ -262,9 +268,7 @@ public class GameManager extends Manager {
 
     public String getWinningTeam () {
         Team winningTeam = myActiveStage.getWinningTeam();
-        if(winningTeam == null){
-            return "";
-        }
+        if (winningTeam == null) { return ""; }
         return winningTeam.getName();
     }
 
@@ -283,5 +287,5 @@ public class GameManager extends Manager {
     public boolean didHumanWin () {
         return myActiveStage.getWinningTeam().isHuman();
     }
-    
+
 }

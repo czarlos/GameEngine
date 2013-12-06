@@ -3,6 +3,7 @@ package controllers;
 import gameObject.GameUnit;
 import gameObject.action.Action;
 import gameObject.action.MasterActions;
+import gameObject.item.Item;
 import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -109,9 +110,16 @@ public class EditorData {
     @SuppressWarnings("unchecked")
     public void setData (GameTableModel gtm, Stage activeStage) {
         // Include logic to know which sync method to call
-        syncActions((List<Object>) gtm.getObject(), activeStage);
-        syncStats();
-        // Put sync methods here
+        switch (gtm.getName()) {
+            case GridConstants.ACTION:
+                syncActions((List<Object>) gtm.getObject(), activeStage);
+                break;
+            case GridConstants.STATS:
+                syncStats();
+                break;
+            default:
+                break;
+        }
 
         myDataMap.put(gtm.getName(), (List<?>) gtm.getObject());
     }
@@ -129,6 +137,7 @@ public class EditorData {
             if (!((Action) action).getName().equals(prevName)) {
                 nameTranslationMap.put(prevName, ((Action) action).getName());
             }
+            System.out.println(prevName);
             removedNames.remove(prevName);
         }
 
