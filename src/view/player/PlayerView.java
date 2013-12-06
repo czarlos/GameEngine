@@ -1,6 +1,5 @@
 package view.player;
 
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,6 +28,19 @@ public class PlayerView extends GameView {
 
     public PlayerView () {
 
+    }
+
+    public PlayerView (WorldManager wm) {
+        myGameManager = new GameManager(wm);
+        myGameManager.setView(this);
+        super.clearWindow();
+        this.remove(myBackground);
+
+        this.setTitle(myGameManager.getGameName());
+
+        revalidate();
+        repaint();
+        doTurn();
     }
 
     public PlayerView (GameManager manager) {
@@ -143,7 +155,6 @@ public class PlayerView extends GameView {
     }
 
     public void displayWinDialog () {
-        // TODO implement fancy win screen
         JOptionPane.showMessageDialog(this, "You successfully completed all stages!");
     }
 

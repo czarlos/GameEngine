@@ -25,6 +25,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import parser.JSONParser;
 import view.GameView;
+import view.player.PlayerView;
 import controller.editor.GridEditorController;
 import controllers.Manager;
 import controllers.WorldManager;
@@ -73,7 +74,7 @@ public class EditorFrame extends GameView {
         myMenuBar = new JMenuBar();
 
         // first menu
-        JMenu gameMenu = new JMenu("Game");
+        JMenu gameMenu = new JMenu("File");
         gameMenu.setMnemonic(KeyEvent.VK_F);
         myMenuBar.add(gameMenu);
         // add menu items
@@ -108,15 +109,6 @@ public class EditorFrame extends GameView {
                 saveGame();
             }
         });
-
-        // second menu
-        JMenu editMenu = new JMenu("Edit");
-        myMenuBar.add(editMenu);
-        // add menu items
-        JMenuItem undo = new JMenuItem("Undo");
-        editMenu.add(undo);
-        JMenuItem redo = new JMenuItem("Redo");
-        editMenu.add(redo);
 
         return myMenuBar;
     }
@@ -272,6 +264,10 @@ public class EditorFrame extends GameView {
                 setPostStory();
             }
         });
+        
+        JMenuItem setTeams = new JMenuItem("Configure Teams");
+        stageMenu.add(setTeams);
+        setTeams.addActionListener(new GamePrefListener(myWorldManager, GridConstants.TEAM));
 
         JMenuItem deleteStage = new JMenuItem("Delete Stage");
         stageMenu.add(deleteStage);
@@ -282,23 +278,31 @@ public class EditorFrame extends GameView {
                 removeStage();
             }
         });
-
-        JMenu gamePrefs = new JMenu("Global Game Prefs");
+        
+        JMenu gameMenu = new JMenu("Game");
+        
         stageMenu.setMnemonic(KeyEvent.VK_S);
         JMenuItem setMaster = new JMenuItem("Set Master Stats");
         setMaster.addActionListener(new GamePrefListener(myWorldManager, GridConstants.MASTERSTATS));
-        gamePrefs.add(setMaster);
-
-        JMenuItem setTeams = new JMenuItem("Configure Teams");
-        gamePrefs.add(setTeams);
-        setTeams.addActionListener(new GamePrefListener(myWorldManager, GridConstants.TEAM));
+        gameMenu.add(setMaster);
 
         JMenuItem setActions = new JMenuItem("Add/Remove Actions");
-        gamePrefs.add(setActions);
+        gameMenu.add(setActions);
         setActions.addActionListener(new GamePrefListener(myWorldManager, GridConstants.ACTION));
+        
+        JMenuItem runGame=new JMenuItem("Run Game");
+        gameMenu.add(runGame);
+        runGame.addActionListener(new ActionListener(){
 
-        myMenuBar.add(stageMenu, 2);
-        myMenuBar.add(gamePrefs, 2);
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                new PlayerView(myWorldManager).setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);;
+            }
+            
+        });
+        
+        myMenuBar.add(stageMenu, 1);
+        myMenuBar.add(gameMenu, 1);
     }
 
     protected void setStage (String stageName, int stageID) {
