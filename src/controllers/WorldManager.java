@@ -1,11 +1,9 @@
 package controllers;
 
-import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.MasterStats;
 import grid.Coordinate;
 import grid.GridConstants;
-import grid.Tile;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,8 +28,10 @@ import gameObject.item.Item;
  */
 @JsonAutoDetect
 public class WorldManager extends Manager {
-    private String[] activeEditTypeList;
-    private int[] activeEditIDList;
+    @JsonProperty
+    private List<String> activeEditTypeList;
+    @JsonProperty
+    private List<Integer> activeEditIDList;
     @JsonProperty
     private MasterStats myMasterStats;
 
@@ -42,8 +42,15 @@ public class WorldManager extends Manager {
      */
     public WorldManager () {
         super();
-        activeEditTypeList = new String[4];
-        activeEditIDList = new int[4];
+        activeEditTypeList = new ArrayList<String>();
+        activeEditIDList = new ArrayList<Integer>();
+        myMasterStats = MasterStats.getInstance();
+    }
+
+    public WorldManager (Manager m) {
+        super(m);
+        activeEditTypeList = new ArrayList<String>();
+        activeEditIDList = new ArrayList<Integer>();
         myMasterStats = MasterStats.getInstance();
     }
 
@@ -111,17 +118,22 @@ public class WorldManager extends Manager {
         myEditorData.setData(gtm, myActiveStage);
     }
 
+    @JsonIgnore
     public void setActiveObject (int index, String type, int id) {
-        activeEditTypeList[index] = type;
-        activeEditIDList[index] = id;
+        activeEditTypeList.remove(index);
+        activeEditTypeList.add(index, type);
+        activeEditIDList.remove(index);
+        activeEditIDList.add(index, id);
     }
 
+    @JsonIgnore
     public String getActiveType (int index) {
-        return activeEditTypeList[index];
+        return activeEditTypeList.get(index);
     }
 
+    @JsonIgnore
     public int getActiveID (int index) {
-        return activeEditIDList[index];
+        return activeEditIDList.get(index);
     }
 
     /**
@@ -140,17 +152,32 @@ public class WorldManager extends Manager {
     public int addStage (int x, int y, int tileID, String name) {
         myStages.add(new Stage(x, y, tileID, name));
         setActiveStage(myStages.size() - 1);
+        activeEditTypeList.add("");
+        activeEditIDList.add(-1);
         myActiveStage.setTeams((List<Team>) myEditorData
                 .get(GridConstants.TEAM));
         return myStages.size() - 1;
     }
 
+    public void deleteStage (int i) {
+        myStages.remove(i);
+        setActiveStage(i - 1);
+        activeEditTypeList.remove(i);
+        activeEditIDList.remove(i);
+    }
+
     public void setPreStory (String prestory) {
-        myActiveStage.setPreStory(prestory);
+        if (prestory.equals(""))
+            myActiveStage
+                    .setPreStory("YOU SHOULD HAVE PUT IN A PRESTORY, WHAT THE FUCK YOU SCUMBAG OF THE EARTH");
+        else myActiveStage.setPreStory(prestory);
     }
 
     public void setPostStory (String poststory) {
-        myActiveStage.setPostStory(poststory);
+        if (poststory.equals(""))
+            myActiveStage
+                    .setPreStory("YOU SHOULD HAVE PUT IN A POSTSTORY, WHAT THE FOOK YOU SCUM OF THE EARTH");
+        else myActiveStage.setPreStory(poststory);
     }
 
     /**
@@ -181,32 +208,9 @@ public class WorldManager extends Manager {
      * @param y
      *        Coordinate
      */
-    public void setTile (int tileID, int x, int y) {
-        myActiveStage.getGrid()
-                .placeTile(new Coordinate(x, y),
-                           (Tile) myEditorData.getObject(GridConstants.TILE, tileID));
-    }
-
-    public void placeUnit (int unitID, int x, int y) {
-        GameUnit go = (GameUnit) myEditorData.getObject(GridConstants.GAMEUNIT,
-                                                        unitID);
-        myActiveStage.getGrid().placeObject(new Coordinate(x, y), go);
-    }
-
-    public void placeObject (int objectID, int x, int y) {
-        myActiveStage.getGrid().placeObject(
-                                            new Coordinate(x, y),
-                                            (GameObject) myEditorData
-                                                    .getObject(GridConstants.GAMEOBJECT,
-                                                               objectID));
-    }
-
-    public void placeItem (int objectID, int x, int y) {
-        GameUnit gu = myActiveStage.getGrid().getUnit(new Coordinate(x, y));
-        if (gu != null) {
-            gu.addItem((Item) myEditorData.getObject(GridConstants.ITEM,
-                                                     objectID));
-        }
+    public void place (String type, int objectID, int x, int y) {
+        Object object = myEditorData.getObject(type, objectID);
+        myActiveStage.getGrid().placeObject(type, new Coordinate(x, y), object);
     }
 
     /**

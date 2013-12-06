@@ -1,14 +1,14 @@
 package stage;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import team.Team;
-import view.canvas.GridMouseListener;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.GameUnit;
-import grid.Coordinate;
 import grid.Grid;
 
 
@@ -23,7 +23,7 @@ import grid.Grid;
  * 
  */
 @JsonAutoDetect
-public class Stage implements GridMouseListener {
+public class Stage {
 
     @JsonProperty
     private Grid myGrid;
@@ -41,6 +41,8 @@ public class Stage implements GridMouseListener {
         myGrid = new Grid(x, y, tileID);
         myName = name;
         myTeams = new ArrayList<Team>();
+        preText = "";
+        postText = "";
     }
 
     /*
@@ -119,6 +121,9 @@ public class Stage implements GridMouseListener {
                 }
             }
         }
+        
+        ret = new ArrayList<GameUnit>(new HashSet<GameUnit>(ret));
+
         return ret;
     }
 
@@ -131,16 +136,15 @@ public class Stage implements GridMouseListener {
     }
 
     public String getPreStory () {
+        if (preText == null)
+            return "";
         return preText;
     }
 
     public String getPostStory () {
+        if (postText == null)
+            return "";
         return postText;
-    }
-
-    @Override
-    public void gridClicked (Coordinate c) {
-        System.out.println(c);
     }
 
     public boolean conditionsMet () {

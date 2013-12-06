@@ -1,5 +1,6 @@
 package view.player;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +9,7 @@ import java.io.File;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -22,13 +24,16 @@ import view.GameView;
 @SuppressWarnings("serial")
 public class PlayerView extends GameView {
     private StagePlayerPanel myStagePlayerPanel;
+    public JLayeredPane myLayeredPane;
     protected GameManager myGameManager;
 
     public PlayerView () {
+
     }
 
     public PlayerView (GameManager manager) {
         myGameManager = manager;
+        mySaveLocation = "gamesInProgress";
     }
 
     @Override
@@ -94,7 +99,8 @@ public class PlayerView extends GameView {
             JSONParser p = new JSONParser();
             WorldManager newWM = p.createObject(folder + "/" + game,
                                                 controllers.WorldManager.class);
-            myGameManager = new GameManager(newWM, this);
+            myGameManager = new GameManager(newWM);
+            myGameManager.setView(this);
             super.clearWindow();
             this.remove(myBackground);
 
@@ -126,6 +132,14 @@ public class PlayerView extends GameView {
 
     public static void main (String[] args) {
         new PlayerView();
+    }
+
+    public void showDialog (String story) {
+        remove(myBackground);
+        final JOptionPane optionPane = new JOptionPane(
+                                                       story,
+                                                       JOptionPane.QUESTION_MESSAGE,
+                                                       JOptionPane.YES_NO_OPTION);
     }
 
     public void displayWinDialog () {

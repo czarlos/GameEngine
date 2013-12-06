@@ -29,6 +29,13 @@ public abstract class Manager {
         myEditorData = new EditorData("defaults");
     }
 
+    public Manager(Manager m) {
+        myActiveStage = m.myActiveStage;
+        myStages = m.myStages;
+        myGameName = m.myGameName;
+        myEditorData = m.myEditorData;
+    }
+    
     public void setGameName (String gameName) {
         myGameName = gameName;
     }
@@ -81,6 +88,19 @@ public abstract class Manager {
         return myActiveStage.getName();
     }
 
+    /**
+     * Gets a list of actions that a unit at a coordinate can perform. Null if
+     * there is no unit.
+     * 
+     * @param coordinate
+     *        Coordinate that is being asked for
+     * @return List of Strings that contain the action names
+     */
+    public List<String> getActions (Coordinate coordinate) {
+        return myActiveStage.getGrid()
+                .generateActionList(coordinate);        
+    }
+    
     /**
      * Method to getting a Drawable version of the grid
      * 
