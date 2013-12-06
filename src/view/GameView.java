@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import controllers.GameManager;
+import controllers.Manager;
 import controllers.WorldManager;
 
 
@@ -19,9 +20,10 @@ import controllers.WorldManager;
  *
  */
 public abstract class GameView extends JFrame {
-    protected WorldManager myWorldManager;
     protected JPanel myBackground;
-    protected GameManager myGameManager;
+    protected String mySaveLocation;
+    protected Manager myManager;
+    
 
     public GameView () throws HeadlessException {
         super();
@@ -68,5 +70,7 @@ public abstract class GameView extends JFrame {
         panel.add(label, BorderLayout.CENTER);
         return panel;
     }
+    
+
 
 }
