@@ -160,11 +160,12 @@ public class GameUnit extends GameObject {
     // Need to keep method names and signatures similar for reflection
     // since dealing with different data structures
     public int combatGetStatValue (String statName) {
-        return myStats.getStatValue(statName);
+        return getTotalStat(statName);
     }
 
     public void combatSetStatValue (String statName, int statValue) {
-        myStats.modExisting(statName, statValue);
+        int baseStatDiff = getTotalStat(statName) - myStats.getStatValue(statName);
+        myStats.modExisting(statName, statValue - baseStatDiff);
     }
 
     public int combatGetItemValue (String itemName) {
