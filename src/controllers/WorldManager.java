@@ -87,10 +87,11 @@ public class WorldManager extends Manager {
     public void setTeams (GameTableModel gtm) {
         List<Team> list = (List<Team>) gtm.getObject();
         List<String> names = myActiveStage.getTeamNames();
-
+        List<String> fullList = myActiveStage.getTeamNames();
+        
         // adjusting unit affiliation strings for renamed teams
         for (Team t : list) {
-            String prevName = names.get(t.getLastEditingID());
+            String prevName = fullList.get(t.getLastEditingID());
             if (!t.getName().equals(prevName)) {
                 myActiveStage.setTeamName(t.getLastEditingID(), t.getName());
             }
@@ -98,7 +99,6 @@ public class WorldManager extends Manager {
         }
 
         // units on deleted teams get their affiliation set to the first team.
-        List<String> fullList = myActiveStage.getTeamNames();
 
         for (String s : names) {
             myActiveStage.setTeamName(fullList.indexOf(s), list.get(0)

@@ -13,11 +13,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import parser.JSONParser;
-import team.Team;
 import dialog.dialogs.TableDialog;
 import dialog.dialogs.tableModels.CombatActionTableModel;
 import dialog.dialogs.tableModels.GameTableModel;
-import dialog.dialogs.tableModels.TeamTableModel;
 
 
 /**

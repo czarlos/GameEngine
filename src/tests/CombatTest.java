@@ -11,7 +11,6 @@ import gameObject.Stats;
 import gameObject.StatModifier;
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
-import gameObject.action.FixedOutcome;
 import gameObject.action.Outcome;
 import gameObject.item.Item;
 import gameObject.item.Weapon;
@@ -178,10 +177,10 @@ public class CombatTest {
         List<Outcome> attackerOutcomes = new ArrayList<>();
         List<Outcome> defenderOutcomes = new ArrayList<>();
 
-        Outcome a1 = new FixedOutcome("Stat", "health", -5);
+/*        Outcome a1 = new FixedOutcome("Stat", "health", -5);
         attackerOutcomes.add(a1);
         Outcome d1 = new FixedOutcome("Stat", "health", -10);
-        defenderOutcomes.add(d1);
+        defenderOutcomes.add(d1);*/
 
         return new CombatAction();
     }
@@ -203,10 +202,10 @@ public class CombatTest {
         List<Outcome> attackerOutcomes = new ArrayList<>();
         List<Outcome> defenderOutcomes = new ArrayList<>();
 
-        Outcome d1 = new FixedOutcome("Stat", "health", -4);
+/*        Outcome d1 = new FixedOutcome("Stat", "health", -4);
 
         defenderOutcomes.add(d1);
-
+*/
         return new CombatAction();
     }
 
@@ -229,10 +228,10 @@ public class CombatTest {
         List<Outcome> defenderOutcomes = new ArrayList<>();
 
         // removes two potions from opponents item list
-        Outcome d1 = new FixedOutcome("Item", "potion", -2);
+/*        Outcome d1 = new FixedOutcome("Item", "potion", -2);
 
         defenderOutcomes.add(d1);
-
+*/
         return new CombatAction();
     }
 

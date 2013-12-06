@@ -98,6 +98,8 @@ public class GameManager extends Manager {
     }
 
     public boolean conditionsMet () {
+        // return false;
+        //TODO: FIX THE PROBLEM
         return myActiveStage.conditionsMet();
     }
 
@@ -108,7 +110,7 @@ public class GameManager extends Manager {
     public void doAITurn () {
         // pass in gamemanager to AI because need moveOn command
         AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage);
-        ai.doTurn();
+        //ai.doTurn();
     }
 
     public boolean turnCompleted () {
