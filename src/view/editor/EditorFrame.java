@@ -1,5 +1,6 @@
 package view.editor;
 
+import grid.GridConstants;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -252,6 +253,10 @@ public class EditorFrame extends GameView {
         gamePrefs.add(setTeams);
         setTeams.addActionListener(new GamePrefListener(myWorldManager, setTeams.getText()));
         
+        JMenuItem setActions = new JMenuItem("Add/Remove Actions");
+        gamePrefs.add(setActions);
+        setActions.addActionListener(new GamePrefListener(myWorldManager, setActions.getText()));
+        
         myMenuBar.add(stageMenu, 2);
         myMenuBar.add(gamePrefs, 2);
     }
@@ -329,6 +334,9 @@ public class EditorFrame extends GameView {
                 case "Configure Teams":
                     model = myWM.getTeamTableModel();
                     break;
+                case "Add/Remove Actions":
+                    model = myWM.getTableModel(GridConstants.ACTION);
+                    break;
             }
          
             TableDialog dialog = new TableDialog(model, new GamePrefDialogListener(myWM, model, myRequest));
@@ -358,6 +366,9 @@ public class EditorFrame extends GameView {
                     break;
                 case "Configure Teams":
                     myWM.setTeams(myModel);
+                    break;
+                case "Add/Remove Actions":
+                    myWM.setData(myModel);
                     break;
             }
         }
