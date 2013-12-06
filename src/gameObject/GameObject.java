@@ -1,7 +1,6 @@
 package gameObject;
 
 import game.ImageManager;
-import gameObject.action.Action;
 import grid.GridConstants;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -51,16 +50,13 @@ public class GameObject extends Customizable implements Drawable {
      */
 
     public boolean isPassable (GameUnit unit) {
-        return myPassableList.contains(unit.getName())
-               || myPassableList
-                       .contains(GridConstants.DEFAULT_PASS_EVERYTHING);
+        return myPassableList.contains(unit.getName()) || myPassableList.contains(GridConstants.DEFAULT_PASS_EVERYTHING);
     }
 
     /**
      * Adds a new object that can be passed through
      * 
-     * @param passable
-     *        - String of object name that can pass
+     * @param passable String of object name that can pass
      */
     public void addPassable (String passable) {
         myPassableList.add(passable);
@@ -79,7 +75,7 @@ public class GameObject extends Customizable implements Drawable {
      */
     public List<String> generateDisplayData () {
         List<String> displayData = new ArrayList<>();
-        displayData.add("Name: " + myName);
+        displayData.add("Name: "+myName);
         setDisplayData(displayData);
         return displayData;
     }
@@ -92,7 +88,7 @@ public class GameObject extends Customizable implements Drawable {
         myDisplayData = displayData;
     }
 
-    public Action getInteraction () {
+    public List<String> getInteractions() {
         return null;
     };
 

@@ -23,7 +23,7 @@ public class GridEditorController implements GridMouseListener {
         if (id == -1)
             displayInfo(c);
         if (myWM.getActiveType(currentIndex) != null) {
-            myWM.place(myWM.getActiveType(currentIndex), id, c.getX(), c.getY());
+            myWM.place(myWM.getActiveType(currentIndex), id, c);
         }
 
     }

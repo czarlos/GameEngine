@@ -139,13 +139,11 @@ public class WorldManager extends Manager {
     /**
      * Add a new stage
      * 
-     * @param x
-     *        width of the grid in tiles
-     * @param y
-     *        height of the grid in tiles
-     * @param tileID
-     *        , the type of tile to initially fill the background with
-     * @return StageID
+     * @param x int of width of the grid in tiles
+     * @param y int of height of the grid in tiles
+     * @param tileID int of the type of tile to initially fill the background with
+     * @param name String of name of stage
+     * @return StageID int of ID of stage
      */
 
     @SuppressWarnings("unchecked")
@@ -201,16 +199,14 @@ public class WorldManager extends Manager {
      * Placing (previously created) things on the board. These will be replaced
      * by table editing stuff
      * 
-     * @param ID
-     *        of thing to place
-     * @param x
-     *        Coordinate
+     * @param ID int of ID thing to place
+     * @param x Coordinate
      * @param y
      *        Coordinate
      */
-    public void place (String type, int objectID, int x, int y) {
+    public void place (String type, int objectID, Coordinate coordinate) {
         Object object = myEditorData.getObject(type, objectID);
-        myActiveStage.getGrid().placeObject(type, new Coordinate(x, y), object);
+        myActiveStage.getGrid().placeObject(type, coordinate, object);
     }
 
     /**

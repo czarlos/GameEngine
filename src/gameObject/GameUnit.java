@@ -1,9 +1,5 @@
 package gameObject;
 
-import gameObject.action.Action;
-import gameObject.action.MasterActions;
-import gameObject.action.MoveAction;
-import gameObject.action.WaitAction;
 import gameObject.item.*;
 import grid.GridConstants;
 import java.util.ArrayList;
@@ -233,7 +229,7 @@ public class GameUnit extends GameObject {
 
     // TODO: trade with affiliates
     @Override
-    public Action getInteraction () {
+    public List<String> getInteractions () {
         return null;
     };
 
