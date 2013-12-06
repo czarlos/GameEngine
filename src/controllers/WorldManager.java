@@ -57,7 +57,7 @@ public class WorldManager extends Manager {
 		MasterActions ma = MasterActions.getInstance();
 		ma.setActionList((List<Action>) gtm.getObject());
 		syncActions();
-		myEditorData.setData(gtm);
+		myEditorData.setData(gtm, myActiveStage);
 	}
 
 	// can generalize
@@ -109,7 +109,7 @@ public class WorldManager extends Manager {
 	}
 
 	public void setData(GameTableModel gtm) {
-		myEditorData.setData(gtm);
+		myEditorData.setData(gtm, myActiveStage);
 	}
 
 	public void setActiveObject(int index, String type, int id) {
