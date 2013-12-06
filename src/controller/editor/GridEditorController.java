@@ -33,6 +33,9 @@ public class GridEditorController implements GridMouseListener {
                 case "gameobject":
                     myWM.placeObject(id, c.getX(), c.getY());
                     break;
+                case "item":
+                    myWM.placeItem(id, c.getX(), c.getY());
+                    break;
             }
         }
 
