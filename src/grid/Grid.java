@@ -254,7 +254,7 @@ public class Grid implements Drawable {
      */
     public boolean isValid (Coordinate coordinate) {
         return onGrid(coordinate);
-//        return onGrid(coordinate) && isActive(coordinate);
+        // return onGrid(coordinate) && isActive(coordinate);
     }
 
     /*
@@ -454,6 +454,7 @@ public class Grid implements Drawable {
         }
         return null;
     }
+
     // TODO: when getting interactions, trade should only be valid between
     // matching affiliations
     /**

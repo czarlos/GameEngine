@@ -86,7 +86,7 @@ public class WorldManager extends Manager {
         List<Team> list = (List<Team>) gtm.getObject();
         List<String> names = myActiveStage.getTeamNames();
         List<String> fullList = myActiveStage.getTeamNames();
-        
+
         // adjusting unit affiliation strings for renamed teams
         for (Team t : list) {
             String prevName = fullList.get(t.getLastEditingID());

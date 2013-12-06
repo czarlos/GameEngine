@@ -40,10 +40,11 @@ public class EditorFrame extends GameView {
     private JTabbedPane stageTabbedPane;
     private GridEditorController myGridController;
     protected WorldManager myWorldManager;
+    private TableDialog myDialog;
 
     public EditorFrame () {
         super("Omega_Nu Game Editor");
-        mySaveLocation="saves";
+        mySaveLocation = "saves";
     }
 
     @Override
@@ -168,14 +169,16 @@ public class EditorFrame extends GameView {
         if (value == JOptionPane.OK_OPTION) {
             String stageName = stageNameTextField.getText();
 
-            try{
+            try {
                 int gridWidth = Integer.parseInt(xTextField.getText());
                 int gridHeight = Integer.parseInt(yTextField.getText());
                 String image = (String) imageMenu.getSelectedItem();
-                int stageID = myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image),
-                                            stageName);// ****
+                int stageID =
+                        myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image),
+                                                stageName);// ****
                 setStage(stageName, stageID);
-            }catch (NumberFormatException e){
+            }
+            catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Please enter integer values", "Input Error",
                                               JOptionPane.WARNING_MESSAGE, null);
                 addStagePanel();
@@ -206,7 +209,7 @@ public class EditorFrame extends GameView {
                                                 controllers.WorldManager.class);
             setFrame(newWM);
             for (String s : newWM.getStages()) {
-                setStage(s, newWM.getStages().indexOf(s)+1);
+                setStage(s, newWM.getStages().indexOf(s) + 1);
             }
         }
     }
@@ -214,7 +217,7 @@ public class EditorFrame extends GameView {
     protected void setFrame (WorldManager wm) {
         super.clearWindow();
         myWorldManager = wm;
-        myManager=wm;
+        myManager = wm;
         myStagePanelList.clear();
         stageTabbedPane.removeAll();
         addGameEditorMenus();
@@ -227,7 +230,7 @@ public class EditorFrame extends GameView {
     private void addGameEditorMenus () {
         JMenu stageMenu = new JMenu("Stage");
         stageMenu.setMnemonic(KeyEvent.VK_S);
-        
+
         JMenuItem prestory = new JMenuItem("Set Pre-Story");
         prestory.setAccelerator(KeyStroke.getKeyStroke("control S"));
         stageMenu.add(prestory);
@@ -236,7 +239,7 @@ public class EditorFrame extends GameView {
                 setPreStory();
             }
         });
-        
+
         JMenuItem poststory = new JMenuItem("Set Post-Story");
         poststory.setAccelerator(KeyStroke.getKeyStroke("control shift S"));
         stageMenu.add(poststory);
@@ -249,17 +252,18 @@ public class EditorFrame extends GameView {
         JMenu gamePrefs = new JMenu("Global Game Prefs");
         stageMenu.setMnemonic(KeyEvent.VK_S);
         JMenuItem setMaster = new JMenuItem("Set Master Stats");
-        setMaster.addActionListener(new GamePrefListener(myWorldManager, setMaster.getText()));
+        setMaster
+                .addActionListener(new GamePrefListener(myWorldManager, GridConstants.MASTERSTATS));
         gamePrefs.add(setMaster);
 
         JMenuItem setTeams = new JMenuItem("Configure Teams");
         gamePrefs.add(setTeams);
-        setTeams.addActionListener(new GamePrefListener(myWorldManager, setTeams.getText()));
-        
+        setTeams.addActionListener(new GamePrefListener(myWorldManager, GridConstants.TEAM));
+
         JMenuItem setActions = new JMenuItem("Add/Remove Actions");
         gamePrefs.add(setActions);
-        setActions.addActionListener(new GamePrefListener(myWorldManager, setActions.getText()));
-        
+        setActions.addActionListener(new GamePrefListener(myWorldManager, GridConstants.ACTION));
+
         myMenuBar.add(stageMenu, 2);
         myMenuBar.add(gamePrefs, 2);
     }
@@ -267,7 +271,7 @@ public class EditorFrame extends GameView {
     protected void setStage (String stageName, int stageID) {
         myGridController = new GridEditorController(myWorldManager, stageTabbedPane);
         StagePanel sp =
-                new StagePanel(stageName, myWorldManager, stageID+1,
+                new StagePanel(stageName, myWorldManager, stageID + 1,
                                myGridController);
         myStagePanelList.add(sp);
         stageTabbedPane.addTab(stageName, sp);
@@ -281,13 +285,13 @@ public class EditorFrame extends GameView {
 
         this.repaint();
     }
-    
-    private void setPreStory(){
-        
+
+    private void setPreStory () {
+
     }
-    
-    private void setPostStory(){
-        
+
+    private void setPostStory () {
+
     }
 
     private void switchActiveStage () {
@@ -313,52 +317,54 @@ public class EditorFrame extends GameView {
             myWM.setActiveStage(myPanel.getSelectedIndex());
         }
     }
-    
+
     class GamePrefListener implements ActionListener {
         private WorldManager myWM;
         private String myRequest;
-        
-        public GamePrefListener (WorldManager wm, String request){
+
+        public GamePrefListener (WorldManager wm, String request) {
             myWM = wm;
             myRequest = request;
         }
+
         @Override
         public void actionPerformed (ActionEvent e) {
             GameTableModel model = null;
-            switch (myRequest){
-                case "Set Master Stats":
+            switch (myRequest) {
+                case GridConstants.MASTERSTATS:
                     model = myWM.getMasterStatsTable();
                     break;
-                case "Configure Teams":
+                case GridConstants.TEAM:
                     model = myWM.getTeamTableModel();
                     break;
-                case "Add/Remove Actions":
+                case GridConstants.ACTION:
                     model = myWM.getTableModel(GridConstants.ACTION);
                     break;
             }
-         
-            TableDialog dialog = new TableDialog(model, new GamePrefDialogListener(myWM, model, myRequest));
-            dialog.setVisible(true);
-            dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+
+            myDialog =
+                    new TableDialog(model, new GamePrefDialogListener(myWM, model, myRequest),
+                                    myWM.getDialogList(myRequest));
+            myDialog.setVisible(true);
+            myDialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         }
-        
     }
-    
+
     class GamePrefDialogListener implements ActionListener {
 
         private WorldManager myWM;
         private GameTableModel myModel;
         private String myRequest;
-        
-        public GamePrefDialogListener (WorldManager wm, GameTableModel model, String request){
+
+        public GamePrefDialogListener (WorldManager wm, GameTableModel model, String request) {
             myWM = wm;
             myModel = model;
             myRequest = request;
         }
-        
+
         @Override
         public void actionPerformed (ActionEvent e) {
-            switch (myRequest){
+            switch (myRequest) {
                 case "Set Master Stats":
                     myWM.setMasterStats(myModel);
                     break;
@@ -369,15 +375,15 @@ public class EditorFrame extends GameView {
                     myWM.setData(myModel);
                     break;
             }
+            myDialog.setVisible(false);
         }
-        
     }
-    
+
     protected void saveGame () {
         saveGame(mySaveLocation);
     }
-    
-    protected void saveGame(String location){
+
+    protected void saveGame (String location) {
         myWorldManager.saveGame(location);
     }
 }

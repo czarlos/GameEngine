@@ -8,8 +8,6 @@ import game.AI;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.action.Action;
-import gameObject.action.MoveAction;
-import gameObject.action.WaitAction;
 import grid.Coordinate;
 import grid.GridConstants;
 import grid.Tile;
@@ -110,8 +108,6 @@ public class GameManager extends Manager {
     }
 
     public boolean conditionsMet () {
-        // return false;
-        // TODO: FIX THE PROBLEM
         return myActiveStage.conditionsMet();
     }
 
