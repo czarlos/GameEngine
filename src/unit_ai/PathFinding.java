@@ -44,6 +44,7 @@ public class PathFinding {
         else {
             newTile = path.get(range-1);
         }
+        System.out.println("here it is: " + grid.getTileCoordinate(newTile).getX());
         grid.doMove(grid.getUnitCoordinate(unit), grid.getTileCoordinate(newTile));
     }
 

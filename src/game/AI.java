@@ -29,13 +29,12 @@ public class AI {
     }
 
     public void doTurn () {
-                
         List<GameUnit> opponentList = findAllEnemies();
         for (GameUnit unit : myStage.getTeamUnits(myTeam.getName())) {
             PathFinding.addNeighbors(PathFinding.coordinatesToTiles(myGrid, unit), myGrid);
-
             // delay?
             doAIMove(unit, opponentList);
+
             // Sleep?
         }
     }
@@ -53,7 +52,6 @@ public class AI {
      */
     public void doAIMove (GameUnit unit, List<GameUnit> allEnemies) {
         Coordinate other = findClosestOpponent(unit, allEnemies);
-
         Tile start = myGrid.getTile(myGrid.getUnitCoordinate(unit));
         Tile end = myGrid.getTile(other);
         if (UnitUtilities.calculateLength(myGrid.getTileCoordinate(start),
@@ -66,7 +64,9 @@ public class AI {
             // unit.attack(myGrid.getUnit(other), activeWeapon, randomAction);
         }
         else {
+            System.out.println(myGrid.getTileCoordinate(start) + " " + myGrid.getTileCoordinate(end));
             PathFinding.autoMove(start, end, unit, myGrid);
+            System.out.println("unit pos2: " + myGrid.getUnitCoordinate(unit));
         }
 
     }
