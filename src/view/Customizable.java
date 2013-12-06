@@ -1,5 +1,6 @@
 package view;
 
+import game.ImageManager;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -8,40 +9,46 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 @JsonAutoDetect
 public abstract class Customizable {
-	protected String myName;
-	@JsonProperty
-	protected String myImagePath;
-	protected BufferedImage myImage;
+    protected String myName;
+    @JsonProperty
+    protected String myImagePath;
+    protected BufferedImage myImage;
+    protected int myLastIndex;
 
-	public Customizable() {
+    public Customizable () {
 
-	}
+    }
 
-	public String getName() {
-		return myName;
-	}
+    public int getLastIndex () {
+        return myLastIndex;
+    }
 
-	public void setName(String name) {
-		myName = name;
-	}
+    public void setLastIndex (int newLastIndex) {
+        myLastIndex = newLastIndex;
+    }
 
-	public String getImagePath() {
-		return myImagePath;
-	}
+    public String getName () {
+        return myName;
+    }
 
-	public void setImagePath(String imagePath) {
-		myImagePath = imagePath;
-		try {
-			myImage = ImageIO.read(new File(imagePath));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    public void setName (String name) {
+        myName = name;
+    }
 
-	@JsonIgnore
-	public BufferedImage getImage() {
-		return myImage;
-	}
+    public String getImagePath () {
+        return myImagePath;
+    }
+
+    public void setImagePath (String imagePath) {
+        myImagePath = imagePath;
+        myImage=ImageManager.getImage(imagePath);
+    }
+
+    @JsonIgnore
+    public BufferedImage getImage () {
+        return myImage;
+    }
 }

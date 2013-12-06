@@ -8,32 +8,33 @@ import java.awt.event.ActionListener;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
+
 @SuppressWarnings("serial")
 public abstract class GameCellEditor extends AbstractCellEditor implements
-		TableCellEditor, ActionListener {
+        TableCellEditor, ActionListener {
 
-	protected static final String EDIT = "edit";
-	JButton button;
-	Object current;
+    protected static final String EDIT = "edit";
+    JButton button;
+    Object current;
 
-	public GameCellEditor() {
-		button = new JButton();
-		button.setActionCommand(EDIT);
-		button.addActionListener(this);
-		button.setBorderPainted(false);
-	}
+    public GameCellEditor () {
+        button = new JButton();
+        button.setActionCommand(EDIT);
+        button.addActionListener(this);
+        button.setBorderPainted(false);
+    }
 
-	@Override
-	public Object getCellEditorValue() {
-		return current;
-	}
+    @Override
+    public Object getCellEditorValue () {
+        return current;
+    }
 
-	@Override
-	public abstract void actionPerformed(ActionEvent e);
+    @Override
+    public abstract void actionPerformed (ActionEvent e);
 
-	public Component getTableCellEditorComponent(JTable table, Object value,
-			boolean isSelected, int row, int column) {
-		current = value;
-		return button;
-	}
+    public Component getTableCellEditorComponent (JTable table, Object value,
+                                                  boolean isSelected, int row, int column) {
+        current = value;
+        return button;
+    }
 }
