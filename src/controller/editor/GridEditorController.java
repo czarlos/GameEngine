@@ -19,23 +19,19 @@ public class GridEditorController implements GridMouseListener {
     @Override
     public void gridClicked (Coordinate c) {
         int currentIndex = myStagePanels.getSelectedIndex();
-        if (currentIndex == -1)
-            return;
         int id = myWM.getActiveID(currentIndex);
+        if (id == -1)
+            displayInfo(c);
         if (myWM.getActiveType(currentIndex) != null) {
-            switch (myWM.getActiveType(currentIndex).toLowerCase()) {
-                case "tile":
-                    myWM.setTile(id, c.getX(), c.getY());
-                    break;
-                case "gameunit":
-                    myWM.placeUnit(id, c.getX(), c.getY());
-                    break;
-                case "gameobject":
-                    myWM.placeObject(id, c.getX(), c.getY());
-                    break;
-            }
+            myWM.place(myWM.getActiveType(currentIndex), id, c.getX(), c.getY());
         }
 
+    }
+    
+    //TODO: display relevant information about tile/object (edit as well?)
+    private void displayInfo(Coordinate c){
+        System.out.println("WILL BE DISPLAYING STUFF");
+        
     }
 
 }

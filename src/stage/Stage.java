@@ -1,7 +1,9 @@
 package stage;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import team.Team;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -119,6 +121,9 @@ public class Stage {
                 }
             }
         }
+        
+        ret = new ArrayList<GameUnit>(new HashSet<GameUnit>(ret));
+
         return ret;
     }
 

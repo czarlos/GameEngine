@@ -36,7 +36,7 @@ public class EditorFrame extends GameView {
 
     private static final long serialVersionUID = -8550671173122103688L;
 
-    private ArrayList<StagePanel> myStagePanelList = new ArrayList<StagePanel>();
+    private ArrayList<StagePanel> myStagePanelList;
     private JMenuBar myMenuBar;
     private JTabbedPane stageTabbedPane;
     private GridEditorController myGridController;
@@ -62,7 +62,7 @@ public class EditorFrame extends GameView {
     @Override
     protected JMenuBar createMenuBar (JFrame frame) {
         myMenuBar = new JMenuBar();
-
+        
         // first menu
         JMenu gameMenu = new JMenu("File");
         gameMenu.setMnemonic(KeyEvent.VK_F);
@@ -77,7 +77,8 @@ public class EditorFrame extends GameView {
         gameMenu.add(saveGame);
         JMenuItem addStage = new JMenuItem("Add Stage");
         gameMenu.add(addStage);
-        // add action listeners
+        addStage.setAccelerator(KeyStroke.getKeyStroke("control S"));
+        
         addStage.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
                 addStagePanel();
@@ -117,6 +118,7 @@ public class EditorFrame extends GameView {
             WorldManager wm = new WorldManager();
             wm.setGameName(gameName);
 
+            
             setFrame(wm);
             addStagePanel();
             stageTabbedPane
@@ -176,6 +178,19 @@ public class EditorFrame extends GameView {
         }
 
     }
+    
+    
+    private void removeStage(){
+        int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this stage?",
+                                                      "Delete Stage?", JOptionPane.YES_NO_OPTION);
+        if (response == JOptionPane.YES_OPTION){
+            int i = stageTabbedPane.getSelectedIndex();
+            stageTabbedPane.remove(i);
+            myStagePanelList.remove(i);
+            stageTabbedPane.setSelectedIndex(i-1);
+            myWorldManager.deleteStage(i);
+        }
+    }
 
     protected void loadGame () {
         JPanel loadPanel = new JPanel();
@@ -198,7 +213,7 @@ public class EditorFrame extends GameView {
                                                 controllers.WorldManager.class);
             setFrame(newWM);
             for (String s : newWM.getStages()) {
-                setStage(s, newWM.getStages().indexOf(s)+1);
+                setStage(s, newWM.getStages().indexOf(s));
             }
         }
     }
@@ -206,8 +221,10 @@ public class EditorFrame extends GameView {
     protected void setFrame (WorldManager wm) {
         super.clearWindow();
         myWorldManager = wm;
+        myStagePanelList = new ArrayList<StagePanel>();
         myStagePanelList.clear();
         stageTabbedPane.removeAll();
+        myGridController = new GridEditorController(myWorldManager, stageTabbedPane);
         addGameEditorMenus();
         this.remove(myBackground);
         this.add(stageTabbedPane, BorderLayout.CENTER);
@@ -220,7 +237,7 @@ public class EditorFrame extends GameView {
         stageMenu.setMnemonic(KeyEvent.VK_S);
         
         JMenuItem prestory = new JMenuItem("Set Pre-Story");
-        prestory.setAccelerator(KeyStroke.getKeyStroke("control S"));
+        prestory.setAccelerator(KeyStroke.getKeyStroke("control P"));
         stageMenu.add(prestory);
         prestory.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
@@ -229,7 +246,7 @@ public class EditorFrame extends GameView {
         });
         
         JMenuItem poststory = new JMenuItem("Set Post-Story");
-        poststory.setAccelerator(KeyStroke.getKeyStroke("control shift S"));
+        poststory.setAccelerator(KeyStroke.getKeyStroke("control shift P"));
         stageMenu.add(poststory);
         poststory.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
@@ -241,7 +258,18 @@ public class EditorFrame extends GameView {
         stageMenu.add(setTeams);
         setTeams.addActionListener(new GamePrefListener(myWorldManager, setTeams.getText()));
 
+        JMenuItem deleteStage = new JMenuItem("Delete Stage");
+        stageMenu.add(deleteStage);
+        deleteStage.setAccelerator(KeyStroke.getKeyStroke("control shift S"));
+        
+        deleteStage.addActionListener(new ActionListener() {
+            public void actionPerformed (ActionEvent event) {
+                removeStage();
+            }
+        });
+        
         JMenu gameMenu = new JMenu("Game");
+        
         stageMenu.setMnemonic(KeyEvent.VK_S);
         JMenuItem setMaster = new JMenuItem("Set Master Stats");
         setMaster.addActionListener(new GamePrefListener(myWorldManager, setMaster.getText()));
@@ -267,9 +295,9 @@ public class EditorFrame extends GameView {
     }
 
     protected void setStage (String stageName, int stageID) {
-        myGridController = new GridEditorController(myWorldManager, stageTabbedPane);
+        //myGridController = new GridEditorController(myWorldManager, stageTabbedPane);
         StagePanel sp =
-                new StagePanel(stageName, myWorldManager, stageID+1,
+                new StagePanel(stageName, myWorldManager, stageID,
                                myGridController);
         myStagePanelList.add(sp);
         stageTabbedPane.addTab(stageName, sp);

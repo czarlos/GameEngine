@@ -70,7 +70,7 @@ public class PathfindingTests {
 
         Tile start = tileGrid.get(0);
         Tile end = tileGrid.get(tileGrid.size() - 1);
-        List<Tile> path = PathFinding.findPath(start, end);
+        List<Tile> path = PathFinding.findPath(start, end, grid);
         for (Tile tile : path) {
             System.out.println(tile.getCoordinate().getX() + " "
                                + tile.getCoordinate().getY());
