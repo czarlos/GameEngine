@@ -240,7 +240,7 @@ public class GameUnit extends GameObject {
     @JsonIgnore
     public int getItemAmount (String itemName) {
         for (Item i : myItems) {
-            if (i.getName().equals(itemName)) { return myItemAmounts.get(i); }
+            if (i.getName().equals(itemName)) { return myItemAmounts.get(itemName); }
         }
         return 0;
     }

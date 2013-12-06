@@ -1,4 +1,4 @@
-/*package tests;
+package tests;
 
 import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
@@ -62,9 +62,7 @@ public class CombatTest {
         action.add(createItemDepletingAction());
 
         Item sword = new Weapon();
-        sword.addAction(0);
-        sword.addAction(1);
-        sword.addAction(2);
+        
 
         // Creates Player Character
         playerUnit = new GameUnit();
@@ -77,14 +75,7 @@ public class CombatTest {
 
     @Test
     public void testPlayerStrongAttackEnemy () {
-        Weapon weapon = playerUnit.getActiveWeapon();
-        CombatAction action = null;
-
-        for (Action ca : weapon.getActions()) {
-            if (ca.getName().equals("strong")) {
-                action = (CombatAction) ca;
-            }
-        }
+        CombatAction action = createStrongAction();
 
         action.doAction(playerUnit, enemyUnit);
 
@@ -97,14 +88,7 @@ public class CombatTest {
 
     @Test
     public void testPlayerStrongAttackSelf () {
-        Weapon weapon = playerUnit.getActiveWeapon();
-        CombatAction action = null;
-
-        for (Action ca : weapon.getActions()) {
-            if (ca.getName().equals("strong")) {
-                action = (CombatAction) ca;
-            }
-        }
+        CombatAction action = createStrongAction();
 
         action.doAction(playerUnit, enemyUnit);
 
@@ -117,14 +101,7 @@ public class CombatTest {
 
     @Test
     public void testPlayerWeakAttack () {
-        Weapon weapon = playerUnit.getActiveWeapon();
-        CombatAction action = null;
-
-        for (Action ca : weapon.getActions()) {
-            if (ca.getName().equals("weak")) {
-                action = (CombatAction) ca;
-            }
-        }
+        CombatAction action = createWeakAction();
 
         action.doAction(playerUnit, enemyUnit);
 
@@ -137,14 +114,7 @@ public class CombatTest {
 
     @Test
     public void testEnemyWeakAttack () {
-        Weapon weapon = enemyUnit.getActiveWeapon();
-        CombatAction action = null;
-
-        for (Action ca : weapon.getActions()) {
-            if (ca.getName().equals("weak")) {
-                action = (CombatAction) ca;
-            }
-        }
+        CombatAction action = createWeakAction();
 
         action.doAction(enemyUnit, playerUnit);
 
@@ -156,14 +126,7 @@ public class CombatTest {
 
     @Test
     public void testPlayerItemDepletingAction () {
-        Weapon weapon = playerUnit.getActiveWeapon();
-        CombatAction action = null;
-
-        for (Action ca : weapon.getActions()) {
-            if (ca.getName().equals("item")) {
-                action = (CombatAction) ca;
-            }
-        }
+        CombatAction action = createItemDepletingAction();
 
         Item potion = makeEmptyItem("potion");
         enemyUnit.addItem(potion);
@@ -180,12 +143,13 @@ public class CombatTest {
         assertEquals("Proper Items Removed", itemCount, expectedItemCount);
 
     }
-    *//**
+
+    /**
      * Creates an action that deals 10 damage to opponent health at the cost of
      * 5 of the attackers health
      * 
      * @return CombatAction
-     *//*
+     */
     public CombatAction createStrongAction () {
         // Creating an action!
         // Requires stats that attack depends on
@@ -222,7 +186,7 @@ public class CombatTest {
      * Creates an action that deals 4 damage to the opponent health
      * 
      * @return CombatAction
-     
+     */
     public CombatAction createWeakAction () {
         Map<String, Integer> attackerStatsMap = new HashMap<String, Integer>();
         attackerStatsMap.put("attack", 1);
@@ -253,7 +217,7 @@ public class CombatTest {
      * Creates and action that removes two potions from enemy inventory
      * 
      * @return CombatAction
-     
+     */
     public CombatAction createItemDepletingAction () {
 
         Outcomes defenderOutcomes = new Outcomes();
@@ -269,7 +233,6 @@ public class CombatTest {
         return ca;
     }
 
-
     /**
      * Function to create empty items to test item deletion
      * 
@@ -277,7 +240,7 @@ public class CombatTest {
      *        - name of item
      * 
      * @return Item - created items
-     
+     */
     public Item makeEmptyItem (String name) {
         Item e = new Item();
         e.setName(name);
@@ -286,4 +249,3 @@ public class CombatTest {
         return e;
     }
 }
-*/
