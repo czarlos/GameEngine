@@ -31,8 +31,9 @@ public class PathfindingTests {
 
     @Test
     public void testIsNeighbor () {
+        initializeGrid();
         Tile tile = new Tile(null, new Coordinate(1, 1));
-        Tile otherTile = new Tile(null, new Coordinate(2, 2));
+        Tile otherTile = new Tile(null, new Coordinate(2, 1));
         assertEquals(PathFinding.isNeighbor(tile, otherTile, grid), true);
     }
 

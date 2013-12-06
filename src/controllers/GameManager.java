@@ -50,6 +50,7 @@ public class GameManager extends Manager {
     private void clear () {
         myActiveActions = new ArrayList<Action>();
         isTurnCompleted = false;
+
     }
 
     public void doUntilHumanTurn () {
@@ -70,13 +71,18 @@ public class GameManager extends Manager {
      * @param currentTeam
      */
     public void nextTurn () {
+        List<GameUnit> list = myActiveStage.getTeamUnits(getActiveTeamName());
+        for (GameUnit unit : list) {
+            unit.setActive(false);
+        }
+
         isTurnCompleted = false;
         myPhaseCount++;
         myActiveTeam = myPhaseCount % myActiveStage.getNumberOfTeams();
         String teamName = getActiveTeamName();
-        List<GameUnit> list = myActiveStage.getTeamUnits(teamName);
+        List<GameUnit> list2 = myActiveStage.getTeamUnits(teamName);
 
-        for (GameUnit unit : list) {
+        for (GameUnit unit : list2) {
             unit.setActive(true);
         }
     }
