@@ -15,7 +15,7 @@ import controllers.Manager;
 
 public class GridCanvas extends Canvas {
 
-    private final int DEFAULT_TILE_DISPLAY_SIZE = 75;
+    private final int DEFAULT_TILE_DISPLAY_SIZE = 50;
     Manager myManager;
     Collection<GridMouseListener> myClickSubscribers;
 
