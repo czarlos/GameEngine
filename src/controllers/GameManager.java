@@ -2,13 +2,16 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import view.player.PlayerView;
 import game.AI;
+import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.action.Action;
 import gameObject.action.MoveAction;
 import gameObject.action.WaitAction;
 import grid.Coordinate;
+import grid.Tile;
 
 
 /**
@@ -128,7 +131,9 @@ public class GameManager extends Manager {
      * @return List of Strings that contain information about the coordinate
      */
     public List<String> generateTileInfoList (Coordinate coordinate) {
-        return myActiveStage.getGrid().generateTileInfo(coordinate);
+    	Tile tile = myActiveStage.getGrid().getTile(coordinate);
+    	tile.generateDisplayData();
+    	return tile.getDisplayData();
     }
 
     /**
@@ -141,7 +146,12 @@ public class GameManager extends Manager {
      *         Null if there is no object at coordinate
      */
     public List<String> generateObjectInfo (Coordinate coordinate) {
-        return myActiveStage.getGrid().generateObjectInfo(coordinate);
+    	GameObject gameObject = myActiveStage.getGrid().getObject(coordinate);
+    	if (gameObject != null) {
+    		gameObject.generateDisplayData();
+    		return gameObject.getDisplayData();
+    	}
+    	return null;
     }
 
     /**
@@ -153,8 +163,13 @@ public class GameManager extends Manager {
      * @return List of Strings that contain the action names
      */
     public List<String> getActions (Coordinate coordinate) {
-        myActiveActions = myActiveStage.getGrid()
-                .generateActionList(coordinate);
+    	if (myActiveStage.getGrid().getUnit(coordinate) != null) {
+    		List<Action> actions = new ArrayList<>();
+    		GameUnit gameUnit = myActiveStage.getGrid().getUnit(coordinate);
+    		actions.addAll(gameUnit.getActions());
+    		actions.addAll(getInteractions(coordinate));
+    		myActiveActions = actions;
+    	}
         if (myActiveActions != null) {
             List<String> actionNames = new ArrayList<>();
             for (Action action : myActiveActions) {
@@ -163,6 +178,11 @@ public class GameManager extends Manager {
             return actionNames;
         }
         return null;
+    }
+    
+    private List<Action> getInteractions (Coordinate coordinate) {
+    	List<Action> interactions = new ArrayList<>();
+    	return interactions;
     }
 
     /**
@@ -202,8 +222,9 @@ public class GameManager extends Manager {
     public void doAction (Coordinate unitCoordinate,
                           Coordinate actionCoordinate, int actionID) {
         GameUnit initiator = myActiveStage.getGrid().getUnit(unitCoordinate);
+        Action activeAction = myActiveActions.get(actionID);
 
-        if (myActiveActions.get(actionID).getName()
+        if (activeAction.getName()
                 .equals(MoveAction.MOVE_NAME) && myActiveStage.getGrid().isActive(actionCoordinate)) {
             myActiveStage.getGrid().doMove(unitCoordinate, actionCoordinate);
             initiator.hasMoved();
@@ -214,7 +235,7 @@ public class GameManager extends Manager {
             GameUnit receiver = myActiveStage.getGrid().getUnit(
                                                                 actionCoordinate);
             if (receiver != null && myActiveStage.getGrid().isActive(actionCoordinate)) {
-                myActiveActions.get(actionID).doAction(activeUnit, receiver);
+                activeAction.doAction(activeUnit, receiver);
                 initiator.setActive(false);
             }
         }

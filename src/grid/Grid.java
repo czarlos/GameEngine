@@ -400,59 +400,6 @@ public class Grid implements Drawable {
         return affectedObjects;
     }
 
-    // TODO: Don't display experience
-    /**
-     * Generates a list of information that a coordinate contains, including
-     * tiles and objects
-     * 
-     * @param coordinate
-     *        Coordinate that is being asked for
-     * @return List of Strings that contain information about the coordinate
-     */
-    public List<String> generateTileInfo (Coordinate coordinate) {
-        Tile tile = getTile(coordinate);
-        tile.generateDisplayData();
-        return tile.getDisplayData();
-    }
-
-    /**
-     * Generates a list of information that a coordinate contains about a Game
-     * Object
-     * 
-     * @param coordinate
-     *        Coordinate that is being asked for
-     * @return List of Strings that contain information about the coordinate.
-     *         Null if there is no object at coordinate
-     */
-    public List<String> generateObjectInfo (Coordinate coordinate) {
-        GameObject gameObject = getObject(coordinate);
-        if (gameObject != null) {
-            gameObject.generateDisplayData();
-            return gameObject.getDisplayData();
-        }
-        return null;
-    }
-
-    /**
-     * Generates a list of valid actions that a unit at the given coordinate can
-     * perform
-     * 
-     * @param coordinate
-     *        Coordinate of the unit's location
-     * @return List of Actions
-     */
-    public List<Action> generateActionList (Coordinate coordinate) {
-        if (getUnit(coordinate) != null) {
-            List<Action> actions = new ArrayList<>();
-            GameUnit gameUnit = getUnit(coordinate);
-            actions.addAll(gameUnit.getActions());
-            actions.addAll(getInteractions(coordinate)); // TODO: currently no
-                                                         // interactions.
-            return actions;
-        }
-        return null;
-    }
-
     // TODO: when getting interactions, trade should only be valid between
     // matching affiliations
     /**
