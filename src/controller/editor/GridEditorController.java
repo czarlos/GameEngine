@@ -19,9 +19,9 @@ public class GridEditorController implements GridMouseListener {
     @Override
     public void gridClicked (Coordinate c) {
         int currentIndex = myStagePanels.getSelectedIndex();
-        if (currentIndex == -1)
-            return;
         int id = myWM.getActiveID(currentIndex);
+        if (id == -1)
+            displayInfo(c);
         if (myWM.getActiveType(currentIndex) != null) {
             switch (myWM.getActiveType(currentIndex).toLowerCase()) {
                 case "tile":
@@ -36,6 +36,12 @@ public class GridEditorController implements GridMouseListener {
             }
         }
 
+    }
+    
+    //TODO: display relevant information about tile/object (edit as well?)
+    private void displayInfo(Coordinate c){
+        System.out.println("WILL BE DISPLAYING STUFF");
+        
     }
 
 }
