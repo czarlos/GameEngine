@@ -5,6 +5,7 @@ import gameObject.action.MasterActions;
 import gameObject.action.MoveAction;
 import gameObject.action.WaitAction;
 import gameObject.item.*;
+import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -196,9 +197,10 @@ public class GameUnit extends GameObject {
         List<String> actions = new ArrayList<>();
         if (isActive) {
             if (!hasMoved) {
-                actions.add("move");
+                actions.add(GridConstants.MOVE);
             }
-            actions.add("wait");
+            actions.add(GridConstants.WAIT);
+            
             for (Item item : myItems) {
                 actions.addAll(item.getActions());
             }
@@ -259,8 +261,8 @@ public class GameUnit extends GameObject {
                 }
             }
             for (String action : item.getActions()) {
-                item.addAction(nameTranslations.get(action));
                 item.removeAction(action);
+                item.addAction(nameTranslations.get(action));
             }
         }
     }

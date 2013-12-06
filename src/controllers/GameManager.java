@@ -46,10 +46,10 @@ public class GameManager extends Manager {
             myView.displayWinDialog();
             return;
         }
-        
+
         nextTurn();
         myView.setTitle(getActiveTitle());
-        
+
     }
 
     private void clear () {
@@ -61,7 +61,7 @@ public class GameManager extends Manager {
     public void doUntilHumanTurn () {
         int count = 0;
         while (!teamIsHuman()) {
-            //doAITurn();
+            // doAITurn();
             beginTurn();
             count++;
             if (count > 10)
@@ -173,23 +173,35 @@ public class GameManager extends Manager {
      *        Coordinate that is being asked for
      * @return List of Strings that contain the action names
      */
-    @SuppressWarnings("unchecked")
     public List<String> getActions (Coordinate coordinate) {
         List<String> myActiveActionNames = myActiveStage.getGrid()
                 .generateActionList(coordinate);
-        // TODO: handle move, item, wait
-        // TODO: fix action handling (pass in gameManager and then make a method to call to get
+        // TODO: fix AI action handling (pass in gameManager and then make a method to call to get
         // action from name
-        // TODO: make two lists of actions
-        List<Action> editorActions = (List<Action>) myEditorData.get(GridConstants.ACTION);
-        List<Action> newActiveActions = new ArrayList<>();
 
         if (myActiveActionNames != null) {
+            List<Action> newActiveActions = new ArrayList<>();
+
             for (String action : myActiveActionNames) {
-                newActiveActions.add(editorActions.get(editorActions.indexOf(action)));
+                newActiveActions.add(getAction(action));
             }
             myActiveActions = newActiveActions;
             return myActiveActionNames;
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Action getAction (String actionName) {
+        List<Action> editorActions = (List<Action>) myEditorData.get(GridConstants.ACTION);
+
+        // check first to see if it's one of the core actions so users can't override
+        for (Action a : GridConstants.COREACTIONS) {
+            if (a.getName().equals(actionName)) { return a; }
+        }
+
+        for (Action a : editorActions) {
+            if (a.getName().equals(actionName)) { return a; }
         }
         return null;
     }
@@ -210,11 +222,11 @@ public class GameManager extends Manager {
     public void beginAction (Coordinate unitCoordinate, int actionID) {
         myActiveStage.getGrid().setTilesInactive();
         if (myActiveActions.get(actionID).getName()
-                .equals(MoveAction.MOVE_NAME)) {
+                .equals(GridConstants.MOVE)) {
             myActiveStage.getGrid().beginMove(unitCoordinate);
         }
         else if (myActiveActions.get(actionID).getName()
-                .equals(WaitAction.WAIT_NAME)) {
+                .equals(GridConstants.WAIT)) {
             myActiveStage.getGrid().getUnit(unitCoordinate).setActive(false);
         }
         else {
@@ -239,7 +251,7 @@ public class GameManager extends Manager {
         Action activeAction = myActiveActions.get(actionID);
 
         if (activeAction.getName()
-                .equals(MoveAction.MOVE_NAME) && myActiveStage.getGrid().isActive(actionCoordinate)) {
+                .equals(GridConstants.MOVE) && myActiveStage.getGrid().isActive(actionCoordinate)) {
             myActiveStage.getGrid().doMove(unitCoordinate, actionCoordinate);
             initiator.hasMoved();
         }
@@ -264,9 +276,7 @@ public class GameManager extends Manager {
 
     public String getWinningTeam () {
         Team winningTeam = myActiveStage.getWinningTeam();
-        if(winningTeam == null){
-            return "";
-        }
+        if (winningTeam == null) { return ""; }
         return winningTeam.getName();
     }
 
@@ -285,5 +295,5 @@ public class GameManager extends Manager {
     public boolean didHumanWin () {
         return myActiveStage.getWinningTeam().isHuman();
     }
-    
+
 }
