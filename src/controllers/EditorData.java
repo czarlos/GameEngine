@@ -1,5 +1,6 @@
 package controllers;
 
+import gameObject.GameUnit;
 import gameObject.action.Action;
 import gameObject.action.MasterActions;
 import grid.GridConstants;
@@ -105,8 +106,58 @@ public class EditorData {
         return gtm;
     }
 
+    @SuppressWarnings("unchecked")
     public void setData (GameTableModel gtm, Stage activeStage) {
-        myDataMap.put(gtm.getName(), (List<?>) gtm.getObject());
+        List<String> names = getNames(gtm.getName());
+        // Include logic to know which sync method to call
+        syncActions(names, (List<Object>) gtm.getObject(), activeStage);
+        syncStats();
         // Put sync methods here
+
+        myDataMap.put(gtm.getName(), (List<?>) gtm.getObject());
+    }
+
+    @SuppressWarnings("unchecked")
+    private void syncActions (List<String> previousNames, List<Object> newActions, Stage activeStage) {
+        List<GameUnit> editorUnitList = (List<GameUnit>) getTableModel("GameUnit").getObject();
+        GameUnit[][] placedUnits = activeStage.getGrid().getGameUnits();
+        Map<String, String> nameTranslationMap = new HashMap<>();
+
+        for (Object action : newActions) {
+            String prevName = previousNames.get(((Action) action).getLastIndex());
+            if (!((Action) action).getName().equals(prevName)) {
+                nameTranslationMap.put(prevName, ((Action) action).getName());
+            }
+            previousNames.remove(prevName);
+        }
+
+        for (Object unit : editorUnitList) {
+            ((GameUnit) unit).syncActionsWithMaster(nameTranslationMap, previousNames);
+        }
+
+        for (int i = 0; i < placedUnits.length; i++) {
+            for (int j = 0; j < placedUnits[i].length; j++) {
+                if (placedUnits[i][j] != null) {
+                    placedUnits[i][j].syncActionsWithMaster(nameTranslationMap, previousNames);
+                }
+            }
+        }
+
+    }
+
+    private void syncStats () {
+        // TODO Auto-generated method stub
+
+    }
+
+    public List<String> getNames (String className) {
+        List<String> ret = new ArrayList<String>();
+        List<Customizable> myList = (List<Customizable>) myDataMap.get(className);
+
+        for (Customizable d : myList) {
+            ret.add(d.getName());
+        }
+
+        return ret;
     }
 }

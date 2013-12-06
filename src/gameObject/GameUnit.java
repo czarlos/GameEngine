@@ -184,7 +184,7 @@ public class GameUnit extends GameObject {
             }
             actions.add(new WaitAction());
             for (Item item : myItems) {
-                actions.addAll(item.getActions());
+                actions.addAll(item.getActions()); // Returns a list of strings now
             }
         }
         return actions;
@@ -234,28 +234,18 @@ public class GameUnit extends GameObject {
         return myItems;
     }
 
-    public void syncActionsWithMaster () {
-        List<Integer> removedIndices = MasterActions.getInstance()
-                .getRemoveIndices();
-        Map<Integer, Integer> indexTranslations = MasterActions.getInstance()
-                .updateIndices();
-
+    public void syncActionsWithMaster (Map<String, String> nameTranslations,
+                                       List<String> removedActions) {
         for (Item item : myItems) {
-            for (int i = 0; i < item.getActionIndices().size(); i++) {
-                if (removedIndices.contains(item.getActionIndices().get(i))) {
-                    item.removeAction(i);
-                    i--;
+            for (String removedAction : removedActions) {
+                if (item.getActions().contains(removedAction)) {
+                    item.removeAction(removedAction);
                 }
             }
-
-            List<Integer> newIndices = new ArrayList<>();
-
-            for (int i = 0; i < item.getActionIndices().size(); i++) {
-                newIndices.add(indexTranslations.get(item.getActionIndices()
-                        .get(i)));
+            for (String action : item.getActions()) {
+                item.addAction(nameTranslations.get(action));
+                item.removeAction(action);
             }
-
-            item.setActionIndices(newIndices);
         }
     }
 }

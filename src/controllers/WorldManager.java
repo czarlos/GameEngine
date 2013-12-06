@@ -219,15 +219,7 @@ public class WorldManager extends Manager {
      */
     @SuppressWarnings("unchecked")
     public List<String> get (String className) {
-        List<String> ret = new ArrayList<String>();
-        List<Customizable> myList = (List<Customizable>) myEditorData
-                .get(className);
-
-        for (Customizable d : myList) {
-            ret.add(d.getName());
-        }
-
-        return ret;
+        myEditorData.getNames(className);
     }
 
     /**
