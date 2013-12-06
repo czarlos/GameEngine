@@ -11,7 +11,9 @@ import gameObject.Stats;
 import gameObject.StatModifier;
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
+import gameObject.action.MasterActions;
 import gameObject.action.Outcome;
+import gameObject.action.Outcomes;
 import gameObject.item.Item;
 import gameObject.item.Weapon;
 import org.junit.Before;
@@ -31,21 +33,28 @@ public class CombatTest {
     @Before
     public void setUp () throws Exception {
 
-        // Setting up the units base stats
         MasterStats masterStat = MasterStats.getInstance();
         masterStat.setStatValue("health", 15);
         masterStat.setStatValue("attack", 2);
         masterStat.setStatValue("defense", 1);
 
+        MasterActions masterActions = MasterActions.getInstance();
+        List<Action> myActions = new ArrayList<Action>();
+        myActions.add(createStrongAction());
+        myActions.add(createWeakAction());
+        myActions.add(createItemDepletingAction());
+        masterActions.setActionList(myActions);
+
         Stats playerStats = new Stats();
-        // TODO: Update stats from masterStat
+        playerStats.syncWithMaster();
 
         Stats enemyStats = new Stats();
-        // TODO: Update stats from masterStat
+        enemyStats.syncWithMaster();
 
-        Map<String, Integer> itemStatsMap = new HashMap<String, Integer>();
-        itemStatsMap.put("attack", 1);
-        StatModifier itemStats = new StatModifier();
+        Stats itemStats = new Stats();
+        itemStats.syncWithMaster();
+        itemStats.modExisting("health", 0);
+        itemStats.modExisting("defense", 0);
 
         List<CombatAction> action = new ArrayList<CombatAction>();
         action.add(createStrongAction());
@@ -53,11 +62,13 @@ public class CombatTest {
         action.add(createItemDepletingAction());
 
         Item sword = new Weapon();
+        sword.addAction(0);
+        sword.addAction(1);
+        sword.addAction(2);
 
         // Creates Player Character
         playerUnit = new GameUnit();
         playerUnit.setActiveWeapon(sword);
-        // playerUnit.addItem(sword);
 
         // Creates Enemy
         enemyUnit = new GameUnit();
@@ -66,15 +77,17 @@ public class CombatTest {
 
     @Test
     public void testPlayerStrongAttackEnemy () {
-        Weapon weapon = enemyUnit.getActiveWeapon();
+        Weapon weapon = playerUnit.getActiveWeapon();
         CombatAction action = null;
+
         for (Action ca : weapon.getActions()) {
-            if (ca.getName().equals("Strong")) {
+            if (ca.getName().equals("strong")) {
                 action = (CombatAction) ca;
             }
         }
 
-        // Need to do an attack here
+        action.doAction(playerUnit, enemyUnit);
+
         double enemyHealth = enemyUnit.getStat("health");
         double expectedEnemyHealth = 5;
 
@@ -84,15 +97,17 @@ public class CombatTest {
 
     @Test
     public void testPlayerStrongAttackSelf () {
-        Weapon weapon = enemyUnit.getActiveWeapon();
+        Weapon weapon = playerUnit.getActiveWeapon();
         CombatAction action = null;
+
         for (Action ca : weapon.getActions()) {
-            if (ca.getName().equals("Strong")) {
+            if (ca.getName().equals("strong")) {
                 action = (CombatAction) ca;
             }
         }
 
-        // Need to do an attack here
+        action.doAction(playerUnit, enemyUnit);
+
         double playerHealth = playerUnit.getStat("health");
         double expectedPlayerHealth = 10;
 
@@ -102,15 +117,17 @@ public class CombatTest {
 
     @Test
     public void testPlayerWeakAttack () {
-        Weapon weapon = enemyUnit.getActiveWeapon();
+        Weapon weapon = playerUnit.getActiveWeapon();
         CombatAction action = null;
+
         for (Action ca : weapon.getActions()) {
-            if (ca.getName().equals("Weak")) {
+            if (ca.getName().equals("weak")) {
                 action = (CombatAction) ca;
             }
         }
 
-        // Need to do an attack here
+        action.doAction(playerUnit, enemyUnit);
+
         double enemyHealth = enemyUnit.getStat("health");
         double expectedEnemyHealth = 11;
 
@@ -122,13 +139,15 @@ public class CombatTest {
     public void testEnemyWeakAttack () {
         Weapon weapon = enemyUnit.getActiveWeapon();
         CombatAction action = null;
+
         for (Action ca : weapon.getActions()) {
-            if (ca.getName().equals("Weak")) {
+            if (ca.getName().equals("weak")) {
                 action = (CombatAction) ca;
             }
         }
 
-        // Need to do an attack here
+        action.doAction(enemyUnit, playerUnit);
+
         double playerHealth = playerUnit.getStat("health");
         double expectedHealth = 11;
 
@@ -137,24 +156,31 @@ public class CombatTest {
 
     @Test
     public void testPlayerItemDepletingAction () {
-        Weapon weapon = enemyUnit.getActiveWeapon();
+        Weapon weapon = playerUnit.getActiveWeapon();
         CombatAction action = null;
+
         for (Action ca : weapon.getActions()) {
-            if (ca.getName().equals("ItemDepleting")) {
+            if (ca.getName().equals("item")) {
                 action = (CombatAction) ca;
             }
         }
 
-        // enemyUnit.addItem(makeEmptyItem("potion", 5));
+        Item potion = makeEmptyItem("potion");
+        enemyUnit.addItem(potion);
+        enemyUnit.addItem(potion);
+        enemyUnit.addItem(potion);
+        enemyUnit.addItem(potion);
+        enemyUnit.addItem(potion);
 
-        // Need to do an attack here
-        // int itemCount = enemyUnit.getItem("potion");
-        // int expectedItemCount = 3;
-        //
-        // assertEquals("Proper Items Removed", itemCount, expectedItemCount);
+        action.doAction(playerUnit, enemyUnit);
+
+        int itemCount = enemyUnit.getItemAmount("potion");
+        int expectedItemCount = 3;
+
+        assertEquals("Proper Items Removed", itemCount, expectedItemCount);
 
     }
-
+    *//**
      * Creates an action that deals 10 damage to opponent health at the cost of
      * 5 of the attackers health
      * 
@@ -167,90 +193,97 @@ public class CombatTest {
 
         Map<String, Integer> attackerStatsMap = new HashMap<String, Integer>();
         attackerStatsMap.put("attack", 1);
-        StatModifier attackerStats = new StatModifier(attackerStatsMap);
+        Stats attackerStats = new Stats();
+        attackerStats.setStats(attackerStatsMap);
 
         Map<String, Integer> defenderStatsMap = new HashMap<String, Integer>();
         defenderStatsMap.put("defense", 1);
-        StatModifier defenderStats = new StatModifier(defenderStatsMap);
+        Stats defenderStats = new Stats();
+        defenderStats.setStats(defenderStatsMap);
 
-        List<Outcome> attackerOutcomes = new ArrayList<>();
-        List<Outcome> defenderOutcomes = new ArrayList<>();
+        Outcomes attackerOutcomes = new Outcomes();
+        Outcomes defenderOutcomes = new Outcomes();
 
-        Outcome a1 = new FixedOutcome("Stat", "health", -5);
-        attackerOutcomes.add(a1);
-        Outcome d1 = new FixedOutcome("Stat", "health", -10);
-        defenderOutcomes.add(d1);
+        Outcome a1 = new Outcome("health", -5, true);
+        attackerOutcomes.addOutcome(a1);
+        Outcome d1 = new Outcome("health", -10, true);
+        defenderOutcomes.addOutcome(d1);
 
-        return new CombatAction();
+        CombatAction ca = new CombatAction();
+        ca.setName("strong");
+        ca.setInitiatorStatWeights(attackerStats);
+        ca.setReceiverStatWeights(defenderStats);
+        ca.setInitiatorOutcomes(attackerOutcomes);
+        ca.setReceiverOutcomes(defenderOutcomes);
+        return ca;
     }
 
-    *//**
+    /**
      * Creates an action that deals 4 damage to the opponent health
      * 
      * @return CombatAction
-     *//*
+     
     public CombatAction createWeakAction () {
         Map<String, Integer> attackerStatsMap = new HashMap<String, Integer>();
         attackerStatsMap.put("attack", 1);
-        StatModifier attackerStats = new StatModifier(attackerStatsMap);
+        Stats attackerStats = new Stats();
+        attackerStats.setStats(attackerStatsMap);
 
         Map<String, Integer> defenderStatsMap = new HashMap<String, Integer>();
         defenderStatsMap.put("defense", 1);
-        StatModifier defenderStats = new StatModifier(defenderStatsMap);
+        Stats defenderStats = new Stats();
+        defenderStats.setStats(defenderStatsMap);
 
-        List<Outcome> attackerOutcomes = new ArrayList<>();
-        List<Outcome> defenderOutcomes = new ArrayList<>();
+        Outcomes attackerOutcomes = new Outcomes();
+        Outcomes defenderOutcomes = new Outcomes();
 
-        Outcome d1 = new FixedOutcome("Stat", "health", -4);
+        Outcome d1 = new Outcome("health", -4, true);
+        defenderOutcomes.addOutcome(d1);
 
-        defenderOutcomes.add(d1);
-
-        return new CombatAction();
+        CombatAction ca = new CombatAction();
+        ca.setName("weak");
+        ca.setInitiatorStatWeights(attackerStats);
+        ca.setReceiverStatWeights(defenderStats);
+        ca.setInitiatorOutcomes(attackerOutcomes);
+        ca.setReceiverOutcomes(defenderOutcomes);
+        return ca;
     }
 
-    *//**
+    /**
      * Creates and action that removes two potions from enemy inventory
      * 
      * @return CombatAction
-     *//*
+     
     public CombatAction createItemDepletingAction () {
 
-        Map<String, Integer> attackerStatsMap = new HashMap<String, Integer>();
-        attackerStatsMap.put("attack", 1);
-        StatModifier attackerStats = new StatModifier(attackerStatsMap);
-
-        Map<String, Integer> defenderStatsMap = new HashMap<String, Integer>();
-        defenderStatsMap.put("defense", 1);
-        StatModifier defenderStats = new StatModifier(defenderStatsMap);
-
-        List<Outcome> attackerOutcomes = new ArrayList<>();
-        List<Outcome> defenderOutcomes = new ArrayList<>();
+        Outcomes defenderOutcomes = new Outcomes();
 
         // removes two potions from opponents item list
-        Outcome d1 = new FixedOutcome("Item", "potion", -2);
+        Outcome d1 = new Outcome("potion", -2, true);
 
-        defenderOutcomes.add(d1);
+        defenderOutcomes.addOutcome(d1);
 
-        return new CombatAction();
+        CombatAction ca = new CombatAction();
+        ca.setName("item");
+        ca.setReceiverOutcomes(defenderOutcomes);
+        return ca;
     }
 
 
-    *//**
+    /**
      * Function to create empty items to test item deletion
      * 
      * @param name
      *        - name of item
-     * @param quantity
-     *        - number of them
+     * 
      * @return Item - created items
-     *//*
-    // public Item makeEmptyItem (String name, int quantity) {
-    // Equipment e = new Equipment(name, new StatModifier());
-    // e.setAmount(quantity);
-    // e.setModifier(new StatModifier(new HashMap<String, Integer>()));
-    //
-    // return e;
-    // }
+     
+    public Item makeEmptyItem (String name) {
+        Item e = new Item();
+        e.setName(name);
+        e.setStats(new Stats());
 
+        return e;
+    }
 }
 */

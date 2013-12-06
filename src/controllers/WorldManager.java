@@ -216,7 +216,6 @@ public class WorldManager extends Manager {
      * @param className
      * @return List of names of customizable objects of that classname
      */
-    @SuppressWarnings("unchecked")
     public List<String> get (String className) {
         return myEditorData.getNames(className);
     }

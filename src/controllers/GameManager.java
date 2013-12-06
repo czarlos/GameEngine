@@ -9,6 +9,7 @@ import gameObject.action.Action;
 import gameObject.action.MoveAction;
 import gameObject.action.WaitAction;
 import grid.Coordinate;
+import grid.GridConstants;
 
 
 /**
@@ -158,7 +159,10 @@ public class GameManager extends Manager {
     public List<String> getActions (Coordinate coordinate) {
         List<String> myActiveActionNames = myActiveStage.getGrid()
                 .generateActionList(coordinate);
-        List<Action> editorActions = (List<Action>) myEditorData.getTableModel("ACTION");
+        // TODO: handle move, item, wait
+        // TODO: fix action handling (pass in gameManager and then make a method to call to get action from name
+        // TODO: make two lists of actions
+        List<Action> editorActions = (List<Action>) myEditorData.get(GridConstants.ACTION);
         List<Action> newActiveActions = new ArrayList<>();
 
         if (myActiveActionNames != null) {

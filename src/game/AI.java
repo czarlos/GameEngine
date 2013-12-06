@@ -59,10 +59,10 @@ public class AI {
         if (UnitUtilities.calculateLength(myGrid.getTileCoordinate(start),
                                           myGrid.getTileCoordinate(end)) == 1) {
             Random r = new Random();
-            int rand = r.nextInt(unit.getActiveWeapon().getActions().size());
-            Action randomAction = unit.getActiveWeapon().getActions().get(rand);
+            int rand = r.nextInt(unit.getActions().size());
+            String randomAction = unit.getActions().get(rand);
             String activeWeapon = unit.getActiveWeapon().toString();
-            randomAction.doAction(unit, myGrid.getUnit(other));
+        //    randomAction.doAction(unit, myGrid.getUnit(other));
             // unit.attack(myGrid.getUnit(other), activeWeapon, randomAction);
         }
         else {

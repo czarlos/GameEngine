@@ -44,9 +44,9 @@ public class Outcome {
         }
 
         try {
-            Method get = unit.getClass().getDeclaredMethod("get" + myType,
+            Method get = unit.getClass().getDeclaredMethod("combatGet" + myType + "Value",
                                                            String.class);
-            Method set = unit.getClass().getDeclaredMethod("set" + myType,
+            Method set = unit.getClass().getDeclaredMethod("combatSet" + myType + "Value",
                                                            String.class, int.class);
 
             int newAmount;
@@ -90,7 +90,7 @@ public class Outcome {
         }
 
         try {
-            Method get = unit.getClass().getDeclaredMethod("get" + myType,
+            Method get = unit.getClass().getDeclaredMethod("combatGet" + myType + "Value",
                                                            String.class);
 
             int oldAmount = (int) get.invoke(unit, myName);
