@@ -28,10 +28,7 @@ import gameObject.item.Item;
  */
 @JsonAutoDetect
 public class WorldManager extends Manager {
-    @JsonProperty
-    private List<String> activeEditTypeList;
-    @JsonProperty
-    private List<Integer> activeEditIDList;
+    // masterstats is probably broken with the structural changes but it's okay because we're removing it.
     @JsonProperty
     private MasterStats myMasterStats;
 
@@ -49,8 +46,6 @@ public class WorldManager extends Manager {
 
     public WorldManager (Manager m) {
         super(m);
-        activeEditTypeList = new ArrayList<String>();
-        activeEditIDList = new ArrayList<Integer>();
         myMasterStats = MasterStats.getInstance();
     }
 
