@@ -1,5 +1,10 @@
 package grid;
 
+import gameObject.action.Action;
+import gameObject.action.MoveAction;
+import gameObject.action.WaitAction;
+
+
 public class GridConstants {
     public final static int TRANSPARENCY = 50;
 
@@ -17,4 +22,10 @@ public class GridConstants {
     public static final String ACTION = "Action";
 
     public final static String DEFAULT_PASS_EVERYTHING = "everything";
+
+    public final static String WAIT = "Wait";
+    public final static String MOVE = "Move";
+    public final static String GETITEM = "Get item";
+
+    public static final Action[] COREACTIONS = { new MoveAction(), new WaitAction() };
 }

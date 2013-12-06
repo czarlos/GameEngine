@@ -161,4 +161,5 @@ public class Stage {
     public Team getWinningTeam () {
         return myWinningTeam;
     }
+    
 }

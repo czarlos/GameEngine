@@ -19,19 +19,20 @@ public class PositionCondition extends Condition {
         super();
         myData.put("x", "5");
         myData.put("y", "1");
-        myData.put("team name", "default");
+        myData.put("team name", "player");
     }
 
     @Override
     boolean isFulfilled (Stage stage) {
-        Object object =
-                stage.getGrid().getObject(
+        GameUnit object =
+                stage.getGrid().getUnit(
                                           new Coordinate(Integer.parseInt(myData.get("x")), Integer
                                                   .parseInt(myData.get("y"))));
 
-        if (object instanceof GameUnit) {
-            GameUnit gu = (GameUnit) object;
-            return gu.getAffiliation().equals(myData.get("affiliation"));
+        
+        if (object != null) {
+            GameUnit gu = object;
+            return gu.getAffiliation().equals(myData.get("team name"));
         }
 
         return false;

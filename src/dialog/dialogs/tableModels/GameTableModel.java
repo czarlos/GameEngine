@@ -8,7 +8,7 @@ import javax.swing.table.AbstractTableModel;
 /**
  * Abstraction of the models that deal with type specific data editing
  * 
- * @author Leevi
+ * @author Leevi, brooksmershon
  * 
  */
 @SuppressWarnings("serial")
@@ -22,7 +22,7 @@ public abstract class GameTableModel extends AbstractTableModel {
     public void setColumnNames (String[] names) {
         this.myColumnNames = names;
     }
-
+    
     public void addNewRow (Object[] row) {
         myList.add(row);
         fireTableDataChanged();
@@ -72,7 +72,12 @@ public abstract class GameTableModel extends AbstractTableModel {
         return true;
     }
 
-    // defines the default "new object"
+    /**
+     * Builds a default row, returns null if table model should not have
+     * "add new row" funcitonality
+     * 
+     * @return Object[]  - default row
+     */
     public abstract Object[] getNew ();
 
     public abstract void loadObject (Object object);

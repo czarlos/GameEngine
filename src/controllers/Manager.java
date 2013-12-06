@@ -102,8 +102,8 @@ public abstract class Manager {
         return new Dimension(width * preferredTileDimension, height * preferredTileDimension);
     }
 
-    public void saveGame () {
+    public void saveGame (String folder) {
         JSONParser p = new JSONParser();
-        p.createJSON("saves/" + myGameName, this);
+        p.createJSON(folder+"/" + myGameName, this);
     }
 }

@@ -31,8 +31,10 @@ public class AI {
     public void doTurn () {
         List<GameUnit> opponentList = findAllEnemies();
         for (GameUnit unit : myStage.getTeamUnits(myTeam.getName())) {
+            PathFinding.addNeighbors(PathFinding.coordinatesToTiles(myGrid, unit), myGrid);
             // delay?
             doAIMove(unit, opponentList);
+
             // Sleep?
         }
     }
@@ -49,24 +51,22 @@ public class AI {
      *        - A list of all of the enemy units
      */
     public void doAIMove (GameUnit unit, List<GameUnit> allEnemies) {
-
-        PathFinding.coordinatesToTiles(myGrid, unit);
         Coordinate other = findClosestOpponent(unit, allEnemies);
-
         Tile start = myGrid.getTile(myGrid.getUnitCoordinate(unit));
         Tile end = myGrid.getTile(other);
-
-        if (UnitUtilities.calculateLength(start.getCoordinate(),
-                                          end.getCoordinate()) == 1) {
+        if (UnitUtilities.calculateLength(myGrid.getTileCoordinate(start),
+                                          myGrid.getTileCoordinate(end)) == 1) {
             Random r = new Random();
-            int rand = r.nextInt(unit.getActiveWeapon().getActions().size());
-            Action randomAction = unit.getActiveWeapon().getActions().get(rand);
+            int rand = r.nextInt(unit.getActions().size());
+            String randomAction = unit.getActions().get(rand);
             String activeWeapon = unit.getActiveWeapon().toString();
-            randomAction.doAction(unit, myGrid.getUnit(other));
+        //    randomAction.doAction(unit, myGrid.getUnit(other));
             // unit.attack(myGrid.getUnit(other), activeWeapon, randomAction);
         }
         else {
+            System.out.println(myGrid.getTileCoordinate(start) + " " + myGrid.getTileCoordinate(end));
             PathFinding.autoMove(start, end, unit, myGrid);
+            System.out.println("unit pos2: " + myGrid.getUnitCoordinate(unit));
         }
 
     }
@@ -80,14 +80,12 @@ public class AI {
      */
     public List<GameUnit> findAllEnemies () {
         List<GameUnit> opponentList = new ArrayList<GameUnit>();
-
+        
         for (int i = 0; i < myStage.getNumberOfTeams(); i++) {
             Team team = myStage.getTeam(i);
-
             if (!team.getName().equals(myTeam.getName()))
-                opponentList.addAll(myStage.getTeamUnits(myTeam.getName()));
+                opponentList.addAll(myStage.getTeamUnits(team.getName()));
         }
-
         return opponentList;
     }
 

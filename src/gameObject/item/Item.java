@@ -23,7 +23,7 @@ import gameObject.action.MasterActions;
 @JsonAutoDetect
 public class Item extends Customizable {
     @JsonProperty
-    private List<Integer> myActions;
+    private List<String> myActions;
     private Stats myStats;
 
     public Item () {
@@ -31,61 +31,25 @@ public class Item extends Customizable {
         myStats = new Stats();
     }
 
-    @JsonIgnore
-    public List<Action> getActions () {
-        List<Action> actionList = new ArrayList<>();
-
-        for (int actionIndex : myActions) {
-            actionList.add(MasterActions.getInstance().getAction(actionIndex));
-        }
-
-        return actionList;
-    }
-
-    public List<Integer> getActionIndices () {
+    public List<String> getActions () {
         return myActions;
     }
 
-    public void setActionIndices (List<Integer> newIndices) {
-        myActions = newIndices;
+    public void setActions (List<String> newActions) {
+        myActions = newActions;
     }
 
     @JsonIgnore
-    public List<String> getActionNames () {
-        List<String> actionNames = new ArrayList<>();
-
-        for (int actionIndex : myActions) {
-            actionNames.add(MasterActions.getInstance().getAction(actionIndex)
-                    .getName());
-        }
-
-        return actionNames;
+    public void addAction (String action) {
+        myActions.add(action);
     }
 
-    @JsonIgnore
-    public void addAction (int actionIndex) {
-        myActions.add(actionIndex);
-    }
-
-    public void removeAction (int actionIndex) {
+    public void removeAction (String action) {
         for (int i = 0; i < myActions.size(); i++) {
-            if (myActions.get(i) == actionIndex) {
+            if (myActions.get(i).equals(action)) {
                 myActions.remove(i);
             }
         }
-    }
-
-    /*
-     * public void setActions (List<Integer> actions) { myActions = actions; }
-     */
-
-    @JsonIgnore
-    public void setActionNames (List<String> actionNames) {
-        List<Integer> actionIDs = new ArrayList<Integer>();
-        for (String name : actionNames) {
-            actionIDs.add(MasterActions.getInstance().getActionID(name));
-        }
-        myActions = actionIDs;
     }
 
     @JsonIgnore

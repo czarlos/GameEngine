@@ -10,7 +10,7 @@ import utils.ImageUtilities;
 
 public class ImageManager {
 
-	private static int ImageOpCode;
+    private static int ImageOpCode;
     private static Map<String, BufferedImage> ourImages;
     private static Map<String, BufferedImage> ourHighlightedImage;
 
@@ -21,7 +21,7 @@ public class ImageManager {
     }
 
     public static BufferedImage getHightlightedTileImage (String filePath) {
-        if(!ourImages.containsKey(filePath)){
+        if (!ourImages.containsKey(filePath)) {
             try {
                 addImage(filePath);
             }
@@ -29,12 +29,12 @@ public class ImageManager {
                 e.printStackTrace();
             }
         }
-  
+
         return ourHighlightedImage.get(filePath);
     }
 
     public static BufferedImage getImage (String filePath) {
-        if(!ourImages.containsKey(filePath)){
+        if (!ourImages.containsKey(filePath)) {
             try {
                 addImage(filePath);
             }
@@ -49,23 +49,21 @@ public class ImageManager {
 
         if (!ourImages.containsKey(filePath)) {
             BufferedImage img;
+            BufferedImage highlightedImage;
             try {
                 img = ImageIO.read(new File(filePath));
+                highlightedImage = ImageIO.read(new File(filePath));
             }
             catch (Exception e) {
-                throw new Exception("Error reading image file.");
+                throw new Exception("Error reading image file: " + filePath);
             }
 
             ourImages.put(filePath, img);
-            ourHighlightedImage.put(filePath, highlightImage(img, ImageOpCode));
+            ourHighlightedImage.put(filePath, ImageUtilities.highlight(highlightedImage, ImageOpCode));
             ourImages.put(filePath, img);
         }
 
         return ourImages.get(filePath);
 
-    }
-
-    private static BufferedImage highlightImage (BufferedImage img, int OpNumber) {
-        return ImageUtilities.highlight(img,OpNumber);
     }
 }
