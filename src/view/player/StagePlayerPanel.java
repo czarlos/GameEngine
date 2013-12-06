@@ -6,6 +6,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.ScrollPaneLayout;
 import controller.editor.GridController;
 import controllers.GameManager;
 import view.canvas.GridCanvas;
@@ -31,10 +33,14 @@ public class StagePlayerPanel extends JPanel {
         c.weightx = 1;
         c.weighty = 1;
         myGridCanvas = new GridCanvas(myManager);
-        add(myGridCanvas, c);
+        JScrollPane scrollGrid =
+                new JScrollPane(myGridCanvas,
+                                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollGrid.setLayout(new ScrollPaneLayout());
+        add(scrollGrid, c);
         myController = new GridController(myManager, this);
         myGridCanvas.addGridMouseListener(myController);
-
         myTurnActions = new TurnActionsPanel(pv);
         c.gridx = 0;
         c.gridy = 4;

@@ -1,6 +1,7 @@
 package controllers;
 
 import grid.Coordinate;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import parser.JSONParser;
@@ -92,6 +93,13 @@ public abstract class Manager {
 
     public Coordinate getCoordinate (double fracX, double fracY) {
         return myActiveStage.getGrid().getCoordinate(fracX, fracY);
+    }
+
+    public Dimension calculateGridDimensions (int preferredTileDimension) {
+
+        int width = (int) myActiveStage.getGrid().getWidth();
+        int height = (int) myActiveStage.getGrid().getHeight();
+        return new Dimension(width * preferredTileDimension, height * preferredTileDimension);
     }
 
     public void saveGame () {

@@ -1,7 +1,6 @@
 package view.canvas;
 
 import grid.Coordinate;
-import grid.Tile;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -11,16 +10,14 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.BorderFactory;
-import javax.swing.Scrollable;
-import javax.swing.SwingConstants;
 import controllers.Manager;
 
 
-public class GridCanvas extends Canvas implements Scrollable {
+public class GridCanvas extends Canvas {
 
+    private final int DEFAULT_TILE_DISPLAY_SIZE = 75;
     Manager myManager;
     Collection<GridMouseListener> myClickSubscribers;
-    Tile t;
 
     private static final long serialVersionUID = -3908147776463294489L;
 
@@ -61,40 +58,19 @@ public class GridCanvas extends Canvas implements Scrollable {
         myManager.getGrid().draw(g, STARTING_X, STARTING_Y, width, height);
     }
 
-    public int getHeight () {
-        return getSize().height;
-    }
-
-    public int getWidth () {
-        return getSize().width;
-    }
-
+    @Override
     public Dimension getPreferredSize () {
-        return new Dimension(700, 700);
-    }
-
-    public Dimension getPreferredScrollableViewportSize () {
-        return getPreferredSize();
+        return myManager.calculateGridDimensions(DEFAULT_TILE_DISPLAY_SIZE);
     }
 
     public int getScrollableUnitIncrement (Rectangle visibleRect,
                                            int orientation, int direction) {
-        return 1;
+        return DEFAULT_TILE_DISPLAY_SIZE;
     }
 
     public int getScrollableBlockIncrement (Rectangle visibleRect,
                                             int orientation, int direction) {
-        if (orientation == SwingConstants.HORIZONTAL)
-            return visibleRect.width - 1;
-        else return visibleRect.height - 1;
-    }
-
-    public boolean getScrollableTracksViewportWidth () {
-        return false;
-    }
-
-    public boolean getScrollableTracksViewportHeight () {
-        return false;
+        return DEFAULT_TILE_DISPLAY_SIZE;
     }
 
 }
