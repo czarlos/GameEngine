@@ -380,11 +380,11 @@ public class EditorFrame extends GameView {
             }
 
             myDialog =
-                    new TableDialog(model, new GamePrefDialogListener(myWM, model, myRequest), myWM.getDialogList(myRequest));
+                    new TableDialog(model, new GamePrefDialogListener(myWM, model, myRequest),
+                                    myWM.getDialogList(myRequest));
             myDialog.setVisible(true);
             myDialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         }
-
     }
 
     class GamePrefDialogListener implements ActionListener {
@@ -414,7 +414,6 @@ public class EditorFrame extends GameView {
             }
             myDialog.setVisible(false);
         }
-
     }
 
     protected void saveGame () {

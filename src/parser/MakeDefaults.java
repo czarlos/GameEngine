@@ -233,7 +233,7 @@ public class MakeDefaults {
         c.addData("affiliation", "player");
         wcEnemy.addCondition(c);
 
-        enemyTeam.setWinCondition(wc);
+        enemyTeam.setWinCondition(wcEnemy);
 
         list.add(defaultTeam);
         list.add(enemyTeam);
