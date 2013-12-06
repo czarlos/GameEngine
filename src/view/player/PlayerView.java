@@ -99,7 +99,8 @@ public class PlayerView extends GameView {
             JSONParser p = new JSONParser();
             WorldManager newWM = p.createObject(folder + "/" + game,
                                                 controllers.WorldManager.class);
-            myGameManager = new GameManager(newWM, this);
+            myGameManager = new GameManager(newWM);
+            myGameManager.setView(this);
             super.clearWindow();
             this.remove(myBackground);
 
@@ -128,7 +129,7 @@ public class PlayerView extends GameView {
         doTurn();
 
     }
-   
+
     public static void main (String[] args) {
         new PlayerView();
     }
@@ -138,8 +139,9 @@ public class PlayerView extends GameView {
         final JOptionPane optionPane = new JOptionPane(
                                                        story,
                                                        JOptionPane.QUESTION_MESSAGE,
-                                                       JOptionPane.YES_NO_OPTION); 
+                                                       JOptionPane.YES_NO_OPTION);
     }
+
     public void displayWinDialog () {
         // TODO implement fancy win screen
         JOptionPane.showMessageDialog(this, "You successfully completed all stages!");
