@@ -205,34 +205,11 @@ public class WorldManager extends Manager {
      * @param y
      *        Coordinate
      */
-    public void setTile (int tileID, int x, int y) {
-        myActiveStage.getGrid()
-                .placeTile(new Coordinate(x, y),
-                           (Tile) myEditorData.getObject(GridConstants.TILE, tileID));
+    public void place (String type, int objectID, int x, int y){
+        Object object = myEditorData.getObject(type, objectID);
+        myActiveStage.getGrid().placeObject(type, new Coordinate(x,y), object);
     }
-
-    public void placeUnit (int unitID, int x, int y) {
-        GameUnit go = (GameUnit) myEditorData.getObject(GridConstants.GAMEUNIT,
-                                                        unitID);
-        myActiveStage.getGrid().placeObject(new Coordinate(x, y), go);
-    }
-
-    public void placeObject (int objectID, int x, int y) {
-        myActiveStage.getGrid().placeObject(
-                                            new Coordinate(x, y),
-                                            (GameObject) myEditorData
-                                                    .getObject(GridConstants.GAMEOBJECT,
-                                                               objectID));
-    }
-
-    public void placeItem (int objectID, int x, int y) {
-        GameUnit gu = myActiveStage.getGrid().getUnit(new Coordinate(x, y));
-        if (gu != null) {
-            gu.addItem((Item) myEditorData.getObject(GridConstants.ITEM,
-                                                     objectID));
-        }
-    }
-
+    
     /**
      * Gives access to certain names of customizables. Valid parameters are
      * "GameUnit", "GameObject", "Tile", "Condition"
