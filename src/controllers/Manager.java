@@ -26,6 +26,12 @@ public abstract class Manager {
     @JsonProperty
     protected EditorData myEditorData;
 
+    // Editor instance variables 
+    @JsonProperty
+    protected List<String> activeEditTypeList;
+    @JsonProperty
+    protected List<Integer> activeEditIDList;
+
     public Manager () {
         myStages = new ArrayList<Stage>();
         myEditorData = new EditorData("defaults");
@@ -36,6 +42,8 @@ public abstract class Manager {
         myStages = m.myStages;
         myGameName = m.myGameName;
         myEditorData = m.myEditorData;
+        activeEditTypeList = m.activeEditTypeList;
+        activeEditIDList = m.activeEditIDList;
     }
     
     public void setGameName (String gameName) {

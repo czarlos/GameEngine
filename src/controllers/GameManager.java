@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import team.Team;
 import view.player.PlayerView;
 import game.AI;
@@ -23,7 +24,7 @@ public class GameManager extends Manager {
     private List<Action> myActiveActions;
     private boolean isTurnCompleted;
     private PlayerView myView;
-
+    
     public GameManager (Manager m) {
         super(m);
     }
@@ -57,7 +58,7 @@ public class GameManager extends Manager {
     public void doUntilHumanTurn () {
         int count = 0;
         while (!teamIsHuman()) {
-            // doAITurn();
+            doAITurn();
             beginTurn();
             count++;
             if (count > 10)
@@ -106,8 +107,6 @@ public class GameManager extends Manager {
     }
 
     public boolean conditionsMet () {
-        // return false;
-        // TODO: FIX THE PROBLEM
         return myActiveStage.conditionsMet();
     }
 
@@ -118,7 +117,7 @@ public class GameManager extends Manager {
     public void doAITurn () {
         // pass in gamemanager to AI because need moveOn command
         AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage);
-        // ai.doTurn();
+        ai.doTurn();
         // ai.doTurn();
     }
 
