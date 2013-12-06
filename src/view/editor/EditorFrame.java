@@ -26,6 +26,7 @@ import javax.swing.event.ChangeListener;
 import parser.JSONParser;
 import view.GameView;
 import controller.editor.GridEditorController;
+import controllers.Manager;
 import controllers.WorldManager;
 import dialog.dialogs.TableDialog;
 import dialog.dialogs.tableModels.GameTableModel;
@@ -45,7 +46,15 @@ public class EditorFrame extends GameView {
         super("Omega_Nu Game Editor");
         mySaveLocation="saves";
     }
-
+    
+    public EditorFrame(Manager m){
+        this();
+        setFrame(m);
+        for (String s : m.getStages()) {
+            setStage(s, m.getStages().indexOf(s));
+        }
+    }
+    
     @Override
     protected void initializeWindow () {
         super.initializeWindow();
@@ -226,9 +235,9 @@ public class EditorFrame extends GameView {
         }
     }
 
-    protected void setFrame (WorldManager wm) {
+    protected void setFrame (Manager m) {
         super.clearWindow();
-        myWorldManager = wm;
+        myWorldManager = new WorldManager(m);
         myStagePanelList = new ArrayList<StagePanel>();
         myStagePanelList.clear();
         stageTabbedPane.removeAll();
@@ -237,7 +246,7 @@ public class EditorFrame extends GameView {
         this.remove(myBackground);
         this.add(stageTabbedPane, BorderLayout.CENTER);
         this.repaint();
-        this.setTitle(wm.getGameName());
+        this.setTitle(myWorldManager.getGameName());
     }
 
     private void addGameEditorMenus () {

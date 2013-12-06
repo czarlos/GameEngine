@@ -28,8 +28,6 @@ import gameObject.item.Item;
  */
 @JsonAutoDetect
 public class WorldManager extends Manager {
-    // private String[] activeEditTypeList;
-    // private int[] activeEditIDList;
     @JsonProperty
     private List<String> activeEditTypeList;
     @JsonProperty
@@ -48,8 +46,8 @@ public class WorldManager extends Manager {
         activeEditIDList = new ArrayList<Integer>();
         myMasterStats = MasterStats.getInstance();
     }
-    
-    public WorldManager(Manager m) {
+
+    public WorldManager (Manager m) {
         super(m);
         activeEditTypeList = new ArrayList<String>();
         activeEditIDList = new ArrayList<Integer>();
