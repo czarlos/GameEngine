@@ -10,6 +10,10 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class CombatActionTableModel extends GameTableModel {
 
+    /**
+     * column names: Name, Action Range, Initiator Outcomes, Init. Stat Weights, Receiver Outcomes,
+     * Rec. Stat Weights
+     */
     public CombatActionTableModel () {
         String[] names =
         { "Name", "Action Range", "Initiator Outcomes", "Init. Stat Weights",

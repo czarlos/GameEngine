@@ -216,8 +216,8 @@ public class Grid implements Drawable {
                 int newRange = range - 1;
 
                 if (newRange >= 0) {
-                        currentTile.setActive(true);
-                        beginAction(adjacentCoordinate, newRange);
+                    currentTile.setActive(true);
+                    beginAction(adjacentCoordinate, newRange);
                 }
             }
         }
@@ -256,8 +256,9 @@ public class Grid implements Drawable {
         return onGrid(coordinate) && isActive(coordinate);
     }
 
-/*    // TODO: maybe instead of onGrid check, check isValidAction?
-    *//**
+    /*
+     * // TODO: maybe instead of onGrid check, check isValidAction?
+     *//**
      * Sets the tiles active that an action can affect
      * 
      * @param unitCoordinate
@@ -267,49 +268,50 @@ public class Grid implements Drawable {
      * @param isAround
      *        boolean of whether the action only affects one direction, or
      *        is all around the unit
-     *//*
-    private void findActionRange (Coordinate unitCoordinate, Action action) {
-        List<Coordinate> area = action.getAOE();
-        if (action.isAround()) {
-            for (Coordinate cell : area) {
-                Coordinate newCoordinate =
-                        new Coordinate(unitCoordinate.getX()
-                                       + cell.getX(), unitCoordinate.getY() + cell.getY());
-                if (onGrid(newCoordinate)) {
-                    getTile(newCoordinate).setActive(true);
-                }
-            }
-        }
-        else {
-            for (Coordinate cell : area) {
-                Coordinate up = new Coordinate(unitCoordinate.getX()
-                                               + cell.getX(), unitCoordinate.getY() + cell.getY());
-                if (onGrid(up)) {
-                    getTile(up).setActive(true);
-                }
-                Coordinate right =
-                        new Coordinate(unitCoordinate.getX()
-                                       + cell.getY(), unitCoordinate.getY() - cell.getX());
-                if (onGrid(right)) {
-                    getTile(right).setActive(true);
-                }
-                Coordinate down =
-                        new Coordinate(unitCoordinate.getX()
-                                       - cell.getX(), unitCoordinate.getY() - cell.getY());
-                if (onGrid(down)) {
-                    getTile(down).setActive(true);
-                }
-                Coordinate left =
-                        new Coordinate(unitCoordinate.getX()
-                                       - cell.getY(), unitCoordinate.getY() + cell.getX());
-                if (onGrid(left)) {
-                    getTile(left).setActive(true);
-                }
-            }
-        }
-
-    }
-*/
+     */
+    /*
+     * private void findActionRange (Coordinate unitCoordinate, Action action) {
+     * List<Coordinate> area = action.getAOE();
+     * if (action.isAround()) {
+     * for (Coordinate cell : area) {
+     * Coordinate newCoordinate =
+     * new Coordinate(unitCoordinate.getX()
+     * + cell.getX(), unitCoordinate.getY() + cell.getY());
+     * if (onGrid(newCoordinate)) {
+     * getTile(newCoordinate).setActive(true);
+     * }
+     * }
+     * }
+     * else {
+     * for (Coordinate cell : area) {
+     * Coordinate up = new Coordinate(unitCoordinate.getX()
+     * + cell.getX(), unitCoordinate.getY() + cell.getY());
+     * if (onGrid(up)) {
+     * getTile(up).setActive(true);
+     * }
+     * Coordinate right =
+     * new Coordinate(unitCoordinate.getX()
+     * + cell.getY(), unitCoordinate.getY() - cell.getX());
+     * if (onGrid(right)) {
+     * getTile(right).setActive(true);
+     * }
+     * Coordinate down =
+     * new Coordinate(unitCoordinate.getX()
+     * - cell.getX(), unitCoordinate.getY() - cell.getY());
+     * if (onGrid(down)) {
+     * getTile(down).setActive(true);
+     * }
+     * Coordinate left =
+     * new Coordinate(unitCoordinate.getX()
+     * - cell.getY(), unitCoordinate.getY() + cell.getX());
+     * if (onGrid(left)) {
+     * getTile(left).setActive(true);
+     * }
+     * }
+     * }
+     * 
+     * }
+     */
     /**
      * Finds direction of action user selects
      * 
@@ -441,13 +443,12 @@ public class Grid implements Drawable {
      *        Coordinate of the unit's location
      * @return List of Actions
      */
-    public List<Action> generateActionList (Coordinate coordinate) {
+    public List<String> generateActionList (Coordinate coordinate) {
         if (getUnit(coordinate) != null) {
-            List<Action> actions = new ArrayList<>();
+            List<String> actions = new ArrayList<>();
             GameUnit gameUnit = getUnit(coordinate);
             actions.addAll(gameUnit.getActions());
-            actions.addAll(getInteractions(coordinate)); // TODO: currently no
-                                                         // interactions.
+            // TODO: Add grid actions
             return actions;
         }
         return null;
@@ -528,13 +529,43 @@ public class Grid implements Drawable {
      * @return Coordinate of unit's location
      */
     public Coordinate getUnitCoordinate (GameUnit gameUnit) {
-        for (int i = 0; i < myUnits.length; i++) {
-            for (int j = 0; j < myUnits[0].length; j++) {
-                if (myUnits[i][j].equals(gameUnit))
-                    return new Coordinate(i, j);
+        for (int i = 0; i < myTiles.length; i++) {
+            for (int j = 0; j < myTiles[0].length; j++) {
+                Coordinate tileCoordinate = new Coordinate(i, j);
+                GameUnit currentTileUnit = getUnit(tileCoordinate);
+
+                if (currentTileUnit == null) {
+                    continue;
+                }
+                else if (currentTileUnit.equals(gameUnit)) {
+                    return tileCoordinate;
+                }
+                else {
+                    continue;
+                }
             }
         }
         return null;
+    }
+
+    public Coordinate getTileCoordinate (Tile tile) {
+        for (int i = 0; i < myTiles.length; i++) {
+            for (int j = 0; j < myTiles[0].length; j++) {
+                Coordinate tileCoordinate = new Coordinate(i, j);
+
+                if (tile == null) {
+                    continue;
+                }
+                else if (tile.equals(myTiles[i][j])) {
+                    return tileCoordinate;
+                }
+                else {
+                    continue;
+                }
+            }
+        }
+        return null;
+
     }
 
     /**
@@ -593,7 +624,7 @@ public class Grid implements Drawable {
     }
 
     /**
-     * Returns an tile at the given coordinates
+     * Returns a tile at the given coordinates
      * 
      * @param coordinate
      *        Coordinate being checked

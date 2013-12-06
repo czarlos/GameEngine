@@ -30,7 +30,6 @@ import gameObject.item.Item;
  */
 @JsonAutoDetect
 public class WorldManager extends Manager {
-
     private String[] activeEditTypeList;
     private int[] activeEditIDList;
     @JsonProperty
@@ -57,8 +56,7 @@ public class WorldManager extends Manager {
     public void setActions (GameTableModel gtm) {
         MasterActions ma = MasterActions.getInstance();
         ma.setActionList((List<Action>) gtm.getObject());
-        syncActions();
-        myEditorData.setData(gtm);
+        myEditorData.setData(gtm, myActiveStage);
     }
 
     // can generalize
@@ -110,7 +108,7 @@ public class WorldManager extends Manager {
     }
 
     public void setData (GameTableModel gtm) {
-        myEditorData.setData(gtm);
+        myEditorData.setData(gtm, myActiveStage);
     }
 
     public void setActiveObject (int index, String type, int id) {
@@ -220,15 +218,7 @@ public class WorldManager extends Manager {
      */
     @SuppressWarnings("unchecked")
     public List<String> get (String className) {
-        List<String> ret = new ArrayList<String>();
-        List<Customizable> myList = (List<Customizable>) myEditorData
-                .get(className);
-
-        for (Customizable d : myList) {
-            ret.add(d.getName());
-        }
-
-        return ret;
+        return myEditorData.getNames(className);
     }
 
     /**
@@ -271,23 +261,6 @@ public class WorldManager extends Manager {
         }
     }
 
-    private void syncActions () {
-        List<?> editorUnitList = (List<?>) myEditorData.get("GameUnit");
-        GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
-
-        for (Object unit : editorUnitList) {
-            ((GameUnit) unit).syncActionsWithMaster();
-        }
-
-        for (int i = 0; i < placedUnits.length; i++) {
-            for (int j = 0; j < placedUnits[i].length; j++) {
-                if (placedUnits[i][j] != null) {
-                    placedUnits[i][j].syncActionsWithMaster();
-                }
-            }
-        }
-    }
-
     @SuppressWarnings("unchecked")
     public List<String> getDialogList (String myType) {
         List<String> ret = new ArrayList<String>();
@@ -310,10 +283,10 @@ public class WorldManager extends Manager {
                 }
                 break;
             case GridConstants.ACTION:
-                for (String s: myMasterStats.getStatNames()) {
+                for (String s : myMasterStats.getStatNames()) {
                     ret.add(s);
                 }
-                for (Item i: (List<Item>) myEditorData.get(GridConstants.ITEM)){
+                for (Item i : (List<Item>) myEditorData.get(GridConstants.ITEM)) {
                     ret.add(i.getName());
                 }
             default:

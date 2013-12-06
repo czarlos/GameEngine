@@ -11,6 +11,9 @@ import team.Team;
 @SuppressWarnings("serial")
 public class TeamTableModel extends GameTableModel {
 
+    /**
+     * Column names: Name, Graphic, Gold, Win Conditions, Conditions needed to Win, Human?
+     */
     public TeamTableModel () {
         String[] names = { "Name", "Graphic", "Gold", "Win Conditions",
                           "Conditions needed to win", "Human?" };

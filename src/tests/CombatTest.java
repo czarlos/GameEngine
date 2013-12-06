@@ -1,4 +1,4 @@
-package tests;
+/*package tests;
 
 import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
@@ -155,12 +155,11 @@ public class CombatTest {
 
     }
 
-    /**
      * Creates an action that deals 10 damage to opponent health at the cost of
      * 5 of the attackers health
      * 
      * @return CombatAction
-     */
+     *//*
     public CombatAction createStrongAction () {
         // Creating an action!
         // Requires stats that attack depends on
@@ -177,19 +176,19 @@ public class CombatTest {
         List<Outcome> attackerOutcomes = new ArrayList<>();
         List<Outcome> defenderOutcomes = new ArrayList<>();
 
-/*        Outcome a1 = new FixedOutcome("Stat", "health", -5);
+        Outcome a1 = new FixedOutcome("Stat", "health", -5);
         attackerOutcomes.add(a1);
         Outcome d1 = new FixedOutcome("Stat", "health", -10);
-        defenderOutcomes.add(d1);*/
+        defenderOutcomes.add(d1);
 
         return new CombatAction();
     }
 
-    /**
+    *//**
      * Creates an action that deals 4 damage to the opponent health
      * 
      * @return CombatAction
-     */
+     *//*
     public CombatAction createWeakAction () {
         Map<String, Integer> attackerStatsMap = new HashMap<String, Integer>();
         attackerStatsMap.put("attack", 1);
@@ -202,18 +201,18 @@ public class CombatTest {
         List<Outcome> attackerOutcomes = new ArrayList<>();
         List<Outcome> defenderOutcomes = new ArrayList<>();
 
-/*        Outcome d1 = new FixedOutcome("Stat", "health", -4);
+        Outcome d1 = new FixedOutcome("Stat", "health", -4);
 
         defenderOutcomes.add(d1);
-*/
+
         return new CombatAction();
     }
 
-    /**
+    *//**
      * Creates and action that removes two potions from enemy inventory
      * 
      * @return CombatAction
-     */
+     *//*
     public CombatAction createItemDepletingAction () {
 
         Map<String, Integer> attackerStatsMap = new HashMap<String, Integer>();
@@ -228,15 +227,15 @@ public class CombatTest {
         List<Outcome> defenderOutcomes = new ArrayList<>();
 
         // removes two potions from opponents item list
-/*        Outcome d1 = new FixedOutcome("Item", "potion", -2);
+        Outcome d1 = new FixedOutcome("Item", "potion", -2);
 
         defenderOutcomes.add(d1);
-*/
+
         return new CombatAction();
     }
 
 
-    /**
+    *//**
      * Function to create empty items to test item deletion
      * 
      * @param name
@@ -244,7 +243,7 @@ public class CombatTest {
      * @param quantity
      *        - number of them
      * @return Item - created items
-     */
+     *//*
     // public Item makeEmptyItem (String name, int quantity) {
     // Equipment e = new Equipment(name, new StatModifier());
     // e.setAmount(quantity);
@@ -254,3 +253,4 @@ public class CombatTest {
     // }
 
 }
+*/

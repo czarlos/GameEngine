@@ -7,6 +7,9 @@ import java.util.Map;
 @SuppressWarnings("serial")
 public class MapTableModel extends GameTableModel {
 
+    /**
+     * Column names: Key, Value
+     */
     public MapTableModel () {
         String[] names = { "Key", "Value" };
         setColumnNames(names);

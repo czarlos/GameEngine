@@ -33,7 +33,7 @@ public class PathfindingTests {
     public void testIsNeighbor () {
         Tile tile = new Tile(null, new Coordinate(1, 1));
         Tile otherTile = new Tile(null, new Coordinate(2, 2));
-        assertEquals(PathFinding.isNeighbor(tile, otherTile), true);
+        assertEquals(PathFinding.isNeighbor(tile, otherTile, grid), true);
     }
 
     @Test
@@ -47,7 +47,7 @@ public class PathfindingTests {
         tileList.add(new Tile(null, new Coordinate(1, 2)));
         tileList.add(new Tile(null, new Coordinate(7, 7)));
 
-        PathFinding.addNeighbors(tileList);
+        PathFinding.addNeighbors(tileList, grid);
         assertEquals(tileList.get(0).getNeighbors().size(), 2, 0);
         assertEquals(tileList.get(1).getNeighbors().size(), 2, 0);
         assertEquals(tileList.get(2).getNeighbors().size(), 0, 0);
@@ -65,7 +65,7 @@ public class PathfindingTests {
         GameUnit unit = new GameUnit();
 
         List<Tile> tileGrid = PathFinding.coordinatesToTiles(grid, unit);
-        PathFinding.addNeighbors(tileGrid);
+        PathFinding.addNeighbors(tileGrid, grid);
 
         Tile start = tileGrid.get(0);
         Tile end = tileGrid.get(tileGrid.size() - 1);
@@ -84,7 +84,7 @@ public class PathfindingTests {
         GameUnit unit = new GameUnit();
 
         List<Tile> tileGrid = PathFinding.coordinatesToTiles(grid, unit);
-        PathFinding.addNeighbors(tileGrid);
+        PathFinding.addNeighbors(tileGrid, grid);
 
         Tile start = tileGrid.get(0);
         Tile end = tileGrid.get(tileGrid.size() - 1);
