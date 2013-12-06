@@ -9,6 +9,8 @@ import utils.ImageUtilities;
 
 
 public class ImageManager {
+
+	private static int ImageOpCode;
     private static Map<String, BufferedImage> ourImages;
     private static Map<String, BufferedImage> ourHighlightedImage;
 
@@ -55,14 +57,15 @@ public class ImageManager {
             }
 
             ourImages.put(filePath, img);
-            ourHighlightedImage.put(filePath, highlightImage(img));
+            ourHighlightedImage.put(filePath, highlightImage(img, ImageOpCode));
+            ourImages.put(filePath, img);
         }
 
         return ourImages.get(filePath);
 
     }
 
-    private static BufferedImage highlightImage (BufferedImage img) {
-        return ImageUtilities.brightenImage(img);
+    private static BufferedImage highlightImage (BufferedImage img, int OpNumber) {
+        return ImageUtilities.highlight(img,OpNumber);
     }
 }

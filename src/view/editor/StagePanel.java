@@ -42,10 +42,11 @@ public class StagePanel extends JPanel {
                                 ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
                                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollGrid.setLayout(new ScrollPaneLayout());
+        scrollGrid.setSize(new Dimension(600, 500));
         add(scrollGrid);
         StageEditorPanel panel = new StageEditorPanel(myWorldManager,
                                                       defaultTypes, myID);
-        panel.setMaximumSize(new Dimension(200, 500));
+        panel.setSize(new Dimension(200, 500));
         add(panel);
 
         repaint();

@@ -1,5 +1,7 @@
 package view.player;
 
+import grid.Coordinate;
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -25,6 +27,7 @@ public class ActionInfoPanel extends ScrollableListPane {
 
     @Override
     public void populate (List<String> data) {
+
         JPanel buttons = new JPanel();
         buttons.setMaximumSize(new Dimension(200, data.size() * 30));
         buttons.setLayout(new GridLayout(0, 1));
