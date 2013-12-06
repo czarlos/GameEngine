@@ -21,21 +21,14 @@ public class ComboStringRenderer extends DefaultTableCellRenderer{
                                                     int column) {
         Component cell = super.getTableCellRendererComponent(table, value,
                                                              isSelected, hasFocus, row, column);
-        if(("").equals(value)) {
-            ((JLabel) cell).setText("click to edit");
-            cell.setBackground(Color.red);
-        } else {
-            ((JLabel) cell).setText("");
-        }
         
+        ((JLabel) cell).setText(value.toString());
         ((JLabel) cell).setHorizontalAlignment(JLabel.CENTER);
 
-        if (isSelected) {
+        if (isSelected) 
             cell.setBackground(Color.blue);
-        }
-        else {
-            cell.setBackground(null);
-        }
+        else 
+            cell.setBackground(Color.LIGHT_GRAY);
         return cell;
     }
 
