@@ -18,6 +18,9 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class TileTableModel extends GameTableModel {
 
+    /**
+     * Column names: Name, Graphic, Move Cost, StatsModifiers
+     */
     public TileTableModel () {
         String[] names = { "Name", "Graphic", "Move Cost", "StatsModifiers" };
         myName = GridConstants.TILE;

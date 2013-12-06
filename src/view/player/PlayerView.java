@@ -1,5 +1,6 @@
 package view.player;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +9,7 @@ import java.io.File;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -21,14 +23,17 @@ import view.GameView;
 
 @SuppressWarnings("serial")
 public class PlayerView extends GameView {
-    private GameManager myManager;
     private StagePlayerPanel myStagePlayerPanel;
+    public JLayeredPane myLayeredPane;
+    protected GameManager myGameManager;
 
     public PlayerView () {
+
     }
 
     public PlayerView (GameManager manager) {
-        myManager = manager;
+        myGameManager = manager;
+        mySaveLocation = "gamesInProgress";
     }
 
     @Override
@@ -40,24 +45,47 @@ public class PlayerView extends GameView {
         gameMenu.setMnemonic(KeyEvent.VK_F);
         menuBar.add(gameMenu);
         // add menu items
+        JMenuItem loadNewGame = new JMenuItem("Load New Game");
+        gameMenu.add(loadNewGame);
+        // add action listeners
+        loadNewGame.addActionListener(new ActionListener() {
+            public void actionPerformed (ActionEvent event) {
+                loadGame("saves");
+            }
+        });
+
         JMenuItem loadGame = new JMenuItem("Load Game");
         gameMenu.add(loadGame);
         // add action listeners
         loadGame.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
-                loadGame();
+                loadGame("gamesInProgress");
             }
         });
+
+        JMenuItem saveGame = new JMenuItem("Save Game");
+        saveGame.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                saveGame("gamesInProgress");
+            }
+
+        });
+
+        gameMenu.add(saveGame);
 
         return menuBar;
     }
 
-    protected void loadGame () {
+    protected void loadGame (String folder) {
+        if (myStagePlayerPanel != null)
+            remove(myStagePlayerPanel);
         JPanel loadPanel = new JPanel();
         loadPanel.setLayout(new GridLayout(0, 2));
         JLabel gameNames = new JLabel("Choose Game Name:");
         JComboBox<String> gameNamesMenu = new JComboBox<>();
-        File savesDir = new File("JSONs/saves");
+        File savesDir = new File("JSONs/" + folder + "/");
         for (File child : savesDir.listFiles()) {
             gameNamesMenu.addItem(child.getName().split("\\.")[0]);
         }
@@ -69,14 +97,13 @@ public class PlayerView extends GameView {
         if (value == JOptionPane.OK_OPTION) {
             String game = (String) gameNamesMenu.getSelectedItem();
             JSONParser p = new JSONParser();
-            WorldManager newWM = p.createObject("saves/" + game,
+            WorldManager newWM = p.createObject(folder + "/" + game,
                                                 controllers.WorldManager.class);
-            myManager = new GameManager(newWM, this);
-
+            myGameManager = new GameManager(newWM, this);
             super.clearWindow();
             this.remove(myBackground);
 
-            this.setTitle(myManager.getGameName());
+            this.setTitle(myGameManager.getGameName());
         }
         revalidate();
         repaint();
@@ -84,10 +111,10 @@ public class PlayerView extends GameView {
     }
 
     public void doTurn () {
-        myManager.beginTurn();
-        myManager.doUntilHumanTurn();
+        myGameManager.beginTurn();
+        myGameManager.doUntilHumanTurn();
         remove(myBackground);
-        myStagePlayerPanel = new StagePlayerPanel(myManager, this);
+        myStagePlayerPanel = new StagePlayerPanel(myGameManager, this);
         add(myStagePlayerPanel);
         revalidate();
         repaint();
@@ -99,16 +126,30 @@ public class PlayerView extends GameView {
         revalidate();
         repaint();
         doTurn();
-        
-    }
-    
 
+    }
+   
     public static void main (String[] args) {
         new PlayerView();
     }
 
+    public void showDialog (String story) {
+        remove(myBackground);
+        final JOptionPane optionPane = new JOptionPane(
+                                                       story,
+                                                       JOptionPane.QUESTION_MESSAGE,
+                                                       JOptionPane.YES_NO_OPTION); 
+    }
     public void displayWinDialog () {
-        //TODO implement fancy win screen
-        JOptionPane.showMessageDialog(this, "You successfully completed all stages!");        
+        // TODO implement fancy win screen
+        JOptionPane.showMessageDialog(this, "You successfully completed all stages!");
+    }
+
+    protected void saveGame () {
+        saveGame("saves");
+    }
+
+    protected void saveGame (String location) {
+        myGameManager.saveGame(location);
     }
 }

@@ -1,7 +1,9 @@
 package controllers;
 
+import gameObject.GameUnit;
 import gameObject.action.Action;
 import gameObject.action.MasterActions;
+import gameObject.item.Item;
 import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,10 +13,17 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import dialog.dialogs.tableModels.GameTableModel;
 import parser.JSONParser;
+import stage.Stage;
 import team.Team;
 import view.Customizable;
 
 
+/**
+ * 
+ * @author Leevi Gray
+ * @author Ken McAndrews
+ * 
+ */
 @JsonAutoDetect
 public class EditorData {
     @JsonProperty
@@ -98,7 +107,66 @@ public class EditorData {
         return gtm;
     }
 
-    public void setData (GameTableModel gtm) {
+    @SuppressWarnings("unchecked")
+    public void setData (GameTableModel gtm, Stage activeStage) {
+        // Include logic to know which sync method to call
+        switch (gtm.getName()) {
+            case GridConstants.ACTION:
+                syncActions((List<Object>) gtm.getObject(), activeStage);
+                break;
+            case GridConstants.STATS:
+                syncStats();
+                break;
+            default:
+                break;
+        }
+
         myDataMap.put(gtm.getName(), (List<?>) gtm.getObject());
+    }
+
+    @SuppressWarnings("unchecked")
+    private void syncActions (List<Object> newActions, Stage activeStage) {
+        List<String> fullList = getNames(GridConstants.ACTION);
+        List<String> removedNames = getNames(GridConstants.ACTION);
+        List<GameUnit> editorUnitList = (List<GameUnit>) getTableModel("GameUnit").getObject();
+        GameUnit[][] placedUnits = activeStage.getGrid().getGameUnits();
+        Map<String, String> nameTranslationMap = new HashMap<>();
+
+        for (Object action : newActions) {
+            String prevName = fullList.get(((Action) action).getLastIndex());
+            if (!((Action) action).getName().equals(prevName)) {
+                nameTranslationMap.put(prevName, ((Action) action).getName());
+            }
+            System.out.println(prevName);
+            removedNames.remove(prevName);
+        }
+
+        for (Object unit : editorUnitList) {
+            ((GameUnit) unit).syncActionsWithMaster(nameTranslationMap, removedNames);
+        }
+
+        for (int i = 0; i < placedUnits.length; i++) {
+            for (int j = 0; j < placedUnits[i].length; j++) {
+                if (placedUnits[i][j] != null) {
+                    placedUnits[i][j].syncActionsWithMaster(nameTranslationMap, removedNames);
+                }
+            }
+        }
+    }
+
+    private void syncStats () {
+        // TODO Auto-generated method stub
+
+    }
+
+    public List<String> getNames (String className) {
+        List<String> ret = new ArrayList<String>();
+        List<Customizable> myList = (List<Customizable>) myDataMap.get(className);
+
+        for (Customizable d : myList) {
+            ret.add(d.getName());
+        }
+
+        return ret;
     }
 }

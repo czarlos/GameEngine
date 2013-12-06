@@ -3,6 +3,7 @@ package parser;
 import gameObject.Stats;
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
+import gameObject.action.Outcomes;
 import gameObject.item.Item;
 import grid.GridConstants;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class MakeDefaults {
 
     private JSONParser p;
     private Item defaultItem;
-    private Action defaultAction;
+    private CombatAction defaultCombatAction;
     private Stats defaultStats;
 
     public MakeDefaults () {
@@ -27,14 +28,19 @@ public class MakeDefaults {
         defaultStats = new Stats();
         defaultStats.syncWithMaster();
 
-        defaultAction = new CombatAction();
-        defaultAction.setName("Slash");
-        defaultAction.setActionRange(1);
+        defaultCombatAction = new CombatAction();
+        defaultCombatAction.setName("Slash");
+        defaultCombatAction.setImagePath("resources/weapon.png");
+        defaultCombatAction.setActionRange(1);
+        defaultCombatAction.setInitiatorOutcomes(new Outcomes());
+        defaultCombatAction.setReceiverOutcomes(new Outcomes());
+        defaultCombatAction.setInitiatorStatWeights(new Stats());
+        defaultCombatAction.setReceiverStatWeights(new Stats());
 
         defaultItem = new Item();
         List<String> actionList = new ArrayList<>();
         actionList.add("Slash");
-        defaultItem.setActionNames(actionList);
+        defaultItem.setActions(actionList);
         defaultItem.setName("Item");
         defaultItem.setStats(defaultStats);
         defaultItem.setImagePath("resources/potion.png");
@@ -200,7 +206,7 @@ public class MakeDefaults {
         controllers.WorldManager wm = new controllers.WorldManager();
         wm.setGameName("test");
         wm.addStage(10, 10, 1, "stageOne");
-        wm.saveGame();
+        wm.saveGame("saves");
 
         p.createObject("saves/test", WorldManager.class);
     }
@@ -237,7 +243,7 @@ public class MakeDefaults {
 
     public void makeActions () {
         List<Action> list = new ArrayList<Action>();
-        list.add(defaultAction);
+        list.add(defaultCombatAction);
 
         p.createJSON("defaults/" + GridConstants.ACTION, list);
     }

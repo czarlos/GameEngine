@@ -30,7 +30,6 @@ import gameObject.item.Item;
  */
 @JsonAutoDetect
 public class WorldManager extends Manager {
-
     //private String[] activeEditTypeList;
     //private int[] activeEditIDList;
     @JsonProperty
@@ -61,8 +60,7 @@ public class WorldManager extends Manager {
     public void setActions (GameTableModel gtm) {
         MasterActions ma = MasterActions.getInstance();
         ma.setActionList((List<Action>) gtm.getObject());
-        syncActions();
-        myEditorData.setData(gtm);
+        myEditorData.setData(gtm, myActiveStage);
     }
 
     // can generalize
@@ -91,10 +89,11 @@ public class WorldManager extends Manager {
     public void setTeams (GameTableModel gtm) {
         List<Team> list = (List<Team>) gtm.getObject();
         List<String> names = myActiveStage.getTeamNames();
-
+        List<String> fullList = myActiveStage.getTeamNames();
+        
         // adjusting unit affiliation strings for renamed teams
         for (Team t : list) {
-            String prevName = names.get(t.getLastEditingID());
+            String prevName = fullList.get(t.getLastEditingID());
             if (!t.getName().equals(prevName)) {
                 myActiveStage.setTeamName(t.getLastEditingID(), t.getName());
             }
@@ -102,7 +101,6 @@ public class WorldManager extends Manager {
         }
 
         // units on deleted teams get their affiliation set to the first team.
-        List<String> fullList = myActiveStage.getTeamNames();
 
         for (String s : names) {
             myActiveStage.setTeamName(fullList.indexOf(s), list.get(0)
@@ -114,7 +112,7 @@ public class WorldManager extends Manager {
     }
 
     public void setData (GameTableModel gtm) {
-        myEditorData.setData(gtm);
+        myEditorData.setData(gtm, myActiveStage);
     }
 
     @JsonIgnore
@@ -165,12 +163,18 @@ public class WorldManager extends Manager {
         activeEditIDList.remove(i);
     }
     
-    public void setPreStory (String prestory) {
-        myActiveStage.setPreStory(prestory);
+    public void setPreStory (String prestory) { 
+        if (prestory.equals(""))
+            myActiveStage.setPreStory("YOU SHOULD HAVE PUT IN A PRESTORY, WHAT THE FUCK YOU SCUMBAG OF THE EARTH");
+        else
+            myActiveStage.setPreStory(prestory);
     }
 
     public void setPostStory (String poststory) {
-        myActiveStage.setPostStory(poststory);
+        if (poststory.equals(""))
+            myActiveStage.setPreStory("YOU SHOULD HAVE PUT IN A POSTSTORY, WHAT THE FOOK YOU SCUM OF THE EARTH");
+        else
+            myActiveStage.setPreStory(poststory);
     }
 
     /**
@@ -236,17 +240,8 @@ public class WorldManager extends Manager {
      * @param className
      * @return List of names of customizable objects of that classname
      */
-    @SuppressWarnings("unchecked")
     public List<String> get (String className) {
-        List<String> ret = new ArrayList<String>();
-        List<Customizable> myList = (List<Customizable>) myEditorData
-                .get(className);
-
-        for (Customizable d : myList) {
-            ret.add(d.getName());
-        }
-
-        return ret;
+        return myEditorData.getNames(className);
     }
 
     /**
@@ -289,23 +284,6 @@ public class WorldManager extends Manager {
         }
     }
 
-    private void syncActions () {
-        List<?> editorUnitList = (List<?>) myEditorData.get("GameUnit");
-        GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
-
-        for (Object unit : editorUnitList) {
-            ((GameUnit) unit).syncActionsWithMaster();
-        }
-
-        for (int i = 0; i < placedUnits.length; i++) {
-            for (int j = 0; j < placedUnits[i].length; j++) {
-                if (placedUnits[i][j] != null) {
-                    placedUnits[i][j].syncActionsWithMaster();
-                }
-            }
-        }
-    }
-
     @SuppressWarnings("unchecked")
     public List<String> getDialogList (String myType) {
         List<String> ret = new ArrayList<String>();
@@ -327,10 +305,16 @@ public class WorldManager extends Manager {
                     ret.add(a.getName());
                 }
                 break;
+            case GridConstants.ACTION:
+                for (String s : myMasterStats.getStatNames()) {
+                    ret.add(s);
+                }
+                for (Item i : (List<Item>) myEditorData.get(GridConstants.ITEM)) {
+                    ret.add(i.getName());
+                }
             default:
                 break;
         }
-
         return ret;
     }
 }

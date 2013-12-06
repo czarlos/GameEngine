@@ -23,7 +23,7 @@ public class MasterActions {
 
     public void setActionList (List<Action> newActionList) {
         for (int i = 0; i < newActionList.size(); i++) {
-            newActionList.get(i).setMasterIndex(i);
+            newActionList.get(i).setLastIndex(i);
         }
 
         myActionList = newActionList;
@@ -66,8 +66,9 @@ public class MasterActions {
         int compare = 0;
 
         for (int i = 0; i < myActionList.size(); i++) {
-            if (Math.abs(myActionList.get(i).getMasterIndex() - i) != compare) {
-                removedIndices.add(myActionList.get(i).getMasterIndex() - 1);
+            if (Math.abs(myActionList.get(i).getLastIndex() - i) != compare) {
+                removedIndices.add(myActionList.get(i).getLastIndex() - 1);
+                compare++;
             }
         }
 
@@ -78,8 +79,8 @@ public class MasterActions {
         Map<Integer, Integer> translationTable = new HashMap<>();
 
         for (int i = 0; i < myActionList.size(); i++) {
-            translationTable.put(myActionList.get(i).getMasterIndex(), i);
-            myActionList.get(i).setMasterIndex(i);
+            translationTable.put(myActionList.get(i).getLastIndex(), i);
+            myActionList.get(i).setLastIndex(i);
         }
 
         return translationTable;

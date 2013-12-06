@@ -56,6 +56,10 @@ public class StagePlayerPanel extends JPanel {
 
     @Override
     public void revalidate () {
+        if (myController != null && myController.getCurrentCoordinate() != null) {
+            updatedSelectedInfoPanel(myController.getCurrentCoordinate());
+        }
+
         super.revalidate();
         if (myGridCanvas != null) {
             myGridCanvas.repaint();
@@ -87,6 +91,7 @@ public class StagePlayerPanel extends JPanel {
         cons.weightx = 0;
         cons.weighty = 0;
         add(mySidePanel, cons);
-        revalidate();
+        mySidePanel.repaint();
+        repaint();
     }
 }
