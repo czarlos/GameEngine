@@ -28,8 +28,6 @@ public class PlayerView extends GameView {
     }
 
     public PlayerView (GameManager manager) {
-        myManager = manager;
-        myGameManager=manager;
         mySaveLocation = "gamesInProgress";
     }
 
@@ -97,11 +95,10 @@ public class PlayerView extends GameView {
             WorldManager newWM = p.createObject(folder+"/" + game,
                                                 controllers.WorldManager.class);
             myGameManager = new GameManager(newWM, this);
-            myManager=myGameManager;
             super.clearWindow();
             this.remove(myBackground);
 
-            this.setTitle(myManager.getGameName());
+            this.setTitle(myGameManager.getGameName());
         }
         revalidate();
         repaint();

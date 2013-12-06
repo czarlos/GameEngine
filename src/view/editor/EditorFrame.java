@@ -214,7 +214,6 @@ public class EditorFrame extends GameView {
     protected void setFrame (WorldManager wm) {
         super.clearWindow();
         myWorldManager = wm;
-        myManager=wm;
         myStagePanelList.clear();
         stageTabbedPane.removeAll();
         addGameEditorMenus();
