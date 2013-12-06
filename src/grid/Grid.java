@@ -131,11 +131,10 @@ public class Grid implements Drawable {
      * 
      */
     public void doMove (Coordinate oldCoordinate, Coordinate newCoordinate) {
-        if (isValidMove(newCoordinate)) {
-            System.out.println("big money");
+//        if (isValidMove(newCoordinate)) {
             GameObject gameUnit = removeObject(oldCoordinate);
             placeObject(newCoordinate, gameUnit);
-        }
+//        }
     }
 
     /**
@@ -254,6 +253,7 @@ public class Grid implements Drawable {
      * @return boolean of if the coordinate is valid
      */
     public boolean isValid (Coordinate coordinate) {
+        //make tiles active in AI
         return onGrid(coordinate);
 //        return onGrid(coordinate) && isActive(coordinate);
     }
@@ -600,7 +600,7 @@ public class Grid implements Drawable {
 
         if (objToRemove instanceof GameUnit) {
             objToRemove = getUnit(coordinate);
-            myObjects[coordinate.getX()][coordinate.getY()] = null;
+            myUnits[coordinate.getX()][coordinate.getY()] = null;
         }
         return objToRemove;
     }
