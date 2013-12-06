@@ -36,11 +36,13 @@ public class GameManager extends Manager {
     public void beginTurn () {
         clear();
         if (conditionsMet()) {
-            if (!nextStage())
+            myView.showDialog(getPostStory());
+            if (!nextStage()) { //final stage
                 // win
                 myView.setTitle(getActiveTeamName()+" won!!");
-                myView.displayWinDialog();
-            return;
+                return;
+            }
+            myView.showDialog(getPreStory());
         }
         nextTurn();
         myView.setTitle(getActiveTitle());
@@ -108,7 +110,7 @@ public class GameManager extends Manager {
     public void doAITurn () {
         // pass in gamemanager to AI because need moveOn command
         AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage);
-        ai.doTurn();
+//        ai.doTurn();
     }
 
     public boolean turnCompleted () {

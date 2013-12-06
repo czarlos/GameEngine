@@ -1,5 +1,6 @@
 package view.player;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +9,7 @@ import java.io.File;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -23,8 +25,10 @@ import view.GameView;
 public class PlayerView extends GameView {
     private GameManager myManager;
     private StagePlayerPanel myStagePlayerPanel;
+    public JLayeredPane myLayeredPane;
 
     public PlayerView () {
+
     }
 
     public PlayerView (GameManager manager) {
@@ -39,7 +43,7 @@ public class PlayerView extends GameView {
         JMenu gameMenu = new JMenu("Game");
         gameMenu.setMnemonic(KeyEvent.VK_F);
         menuBar.add(gameMenu);
-        // add menu items
+        // add menu items       
         JMenuItem loadGame = new JMenuItem("Load Game");
         gameMenu.add(loadGame);
         // add action listeners
@@ -99,16 +103,17 @@ public class PlayerView extends GameView {
         revalidate();
         repaint();
         doTurn();
-        
     }
     
-
     public static void main (String[] args) {
         new PlayerView();
     }
 
-    public void displayWinDialog () {
-        //TODO implement fancy win screen
-        JOptionPane.showMessageDialog(this, "You successfully completed all stages!");        
+    public void showDialog (String story) {
+        remove(myBackground);
+        final JOptionPane optionPane = new JOptionPane(
+                                                       story,
+                                                       JOptionPane.QUESTION_MESSAGE,
+                                                       JOptionPane.YES_NO_OPTION); 
     }
 }

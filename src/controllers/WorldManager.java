@@ -147,12 +147,18 @@ public class WorldManager extends Manager {
         return myStages.size() - 1;
     }
 
-    public void setPreStory (String prestory) {
-        myActiveStage.setPreStory(prestory);
+    public void setPreStory (String prestory) { 
+        if (prestory.equals(""))
+            myActiveStage.setPreStory("YOU SHOULD HAVE PUT IN A PRESTORY, WHAT THE FUCK YOU SCUMBAG OF THE EARTH");
+        else
+            myActiveStage.setPreStory(prestory);
     }
 
     public void setPostStory (String poststory) {
-        myActiveStage.setPostStory(poststory);
+        if (poststory.equals(""))
+            myActiveStage.setPreStory("YOU SHOULD HAVE PUT IN A POSTSTORY, WHAT THE FOOK YOU SCUM OF THE EARTH");
+        else
+            myActiveStage.setPreStory(poststory);
     }
 
     /**
