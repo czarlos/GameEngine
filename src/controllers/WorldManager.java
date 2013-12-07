@@ -196,8 +196,7 @@ public class WorldManager extends Manager {
      * 
      * @param ID int of ID thing to place
      * @param x Coordinate
-     * @param y
-     *        Coordinate
+     * @param y Coordinate
      */
     public void place (String type, int objectID, Coordinate coordinate) {
         Object object = myEditorData.getObject(type, objectID);

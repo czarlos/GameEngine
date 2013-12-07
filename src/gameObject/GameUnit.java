@@ -1,5 +1,6 @@
 package gameObject;
 
+import game.ImageManager;
 import gameObject.item.*;
 import grid.GridConstants;
 import java.util.ArrayList;
@@ -11,7 +12,6 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 
 /**
  * Game Unit is any unit in the game that can be interacted with, game units can
@@ -31,7 +31,6 @@ public class GameUnit extends GameObject {
     private Stats myStats;
     private String myTeamName;
     private Weapon myActiveWeapon;
-    private boolean isActive;
     private boolean hasMoved;
 
     public GameUnit () {
@@ -52,8 +51,7 @@ public class GameUnit extends GameObject {
     /**
      * Sets the Game units active weapon to the weapon with a given string name.
      * 
-     * @param weaponName
-     *        - The string which represents a weapon
+     * @param weaponName The string which represents a weapon
      */
     public void selectWeapon (String weaponName) {
         for (Item item : myItems) {
@@ -67,18 +65,14 @@ public class GameUnit extends GameObject {
      * Takes an item and adds it to the list of items, adding to the stats of
      * the unit as it adds in an item.
      * 
-     * @param itemName
-     *        - The name of the item, not a string
+     * @param itemName The name of the item, not a string
      */
     public void addItem (Item item) {
-
         if (myItems.add(item)) {
             myItemAmounts.put(item.getName(), 1);
-
         }
         else {
-            myItemAmounts.put(item.getName(),
-                              myItemAmounts.get(item.getName()) + 1);
+            myItemAmounts.put(item.getName(), myItemAmounts.get(item.getName()) + 1);
         }
     }
 
@@ -86,8 +80,7 @@ public class GameUnit extends GameObject {
      * Removes a particular item from the units itemList, ensures that upon
      * removal the unit's stats get decremented accordingly.
      * 
-     * @param itemName
-     *        - The name of the item, not a string
+     * @param itemName The name of the item, not a string
      */
     public void removeItem (Item itemName) {
         myItemAmounts.remove(itemName);
@@ -103,8 +96,7 @@ public class GameUnit extends GameObject {
      * the item's stats have been applied. Assuming initializeStats has been
      * called.
      * 
-     * @param stat
-     *        - The stat that we want to see
+     * @param stat The stat that we want to see
      * @return
      */
     public int getTotalStat (String stat) {
@@ -113,43 +105,6 @@ public class GameUnit extends GameObject {
             value += i.getStat(stat);
         }
         return value;
-    }
-
-    /**
-     * Trade allows one unit to swap an item with another unit, no matter what
-     * team they are affiliated with. Note: as of this implementation any
-     * character will trade with you for anything you want, a system must be
-     * implemented which allows the other unit to determine what trades are
-     * appropriate.
-     * 
-     * @param other
-     *        - The unit that this unit is trading with
-     * @param otherItem
-     *        - The item that this unit wants
-     * @param item
-     *        - The item that this unit is giving away
-     */
-    public void trade (GameUnit other, Item otherItem, Item item) {
-        other.removeItem(otherItem);
-        this.removeItem(item);
-        other.addItem(item);
-        this.addItem(otherItem);
-    }
-
-    public void setStats (Stats stats) {
-        myStats = new Stats(stats);
-    }
-
-    public Stats getStats () {
-        return myStats;
-    }
-
-    public int getStat (String statName) {
-        return myStats.getStatValue(statName);
-    }
-
-    public void setStat (String statName, int statValue) {
-        myStats.modExisting(statName, statValue);
     }
 
     // Adding for Outcomes, can potentially change later
@@ -179,24 +134,26 @@ public class GameUnit extends GameObject {
         myActiveWeapon = (Weapon) activeItem;
     }
 
+    @Override
     public void setActive (boolean active) {
+        System.out.println("GameUnit setActive: "+active);
         hasMoved = !active;
         isActive = active;
+        myImage = isActive ? ImageManager.getHightlightedTileImage(myImagePath)
+                           : ImageManager.getImage(myImagePath);
     }
 
-    public boolean getActiveStatus () {
-        return isActive;
+    public void hasMoved () {
+        hasMoved = true;
     }
 
     @JsonIgnore
     public List<String> getActions () {
         List<String> actions = new ArrayList<>();
+        System.out.println("GameUnit getActions isActive/hasMoved: "+isActive+"/"+hasMoved);
         if (isActive) {
-            if (!hasMoved) {
-                actions.add(GridConstants.MOVE);
-            }
+            if (!hasMoved) { actions.add(GridConstants.MOVE); }
             actions.add(GridConstants.WAIT);
-            
             for (Item item : myItems) {
                 actions.addAll(item.getActions());
             }
@@ -233,24 +190,12 @@ public class GameUnit extends GameObject {
         return null;
     };
 
-    public void hasMoved () {
-        hasMoved = true;
-    }
-
     @JsonIgnore
     public int getItemAmount (String itemName) {
         for (Item i : myItems) {
             if (i.getName().equals(itemName)) { return myItemAmounts.get(i); }
         }
         return 0;
-    }
-
-    public void setItems (Set<Item> itemList) {
-        myItems = itemList;
-    }
-
-    public Set<Item> getItems () {
-        return myItems;
     }
 
     public void syncActionsWithMaster (Map<String, String> nameTranslations,
@@ -267,4 +212,29 @@ public class GameUnit extends GameObject {
             }
         }
     }
+
+    public void setStats (Stats stats) {
+        myStats = new Stats(stats);
+    }
+
+    public Stats getStats () {
+        return myStats;
+    }
+
+    public int getStat (String statName) {
+        return myStats.getStatValue(statName);
+    }
+
+    public void setStat (String statName, int statValue) {
+        myStats.modExisting(statName, statValue);
+    }
+    
+    public void setItems (Set<Item> itemList) {
+        myItems = itemList;
+    }
+
+    public Set<Item> getItems () {
+        return myItems;
+    }
+
 }

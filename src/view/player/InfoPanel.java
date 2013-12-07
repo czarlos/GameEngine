@@ -7,8 +7,6 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.Scrollable;
-
 
 public class InfoPanel extends ScrollableListPane {
     public InfoPanel (List<String> data) {
