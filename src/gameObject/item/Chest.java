@@ -1,5 +1,6 @@
 package gameObject.item;
 
+import java.util.ArrayList;
 import java.util.List;
 import gameObject.GameObject;
 import gameObject.action.Action;
@@ -28,11 +29,10 @@ public class Chest extends GameObject {
         myItemList = itemList;
     }
 
-    
     // TODO: give objects to person
     @Override
-    public Action getInteraction () {
-        return new ChestAction();
+    public List<String> getInteractions () {
+        return new ArrayList<String>() {{add(new ChestAction().getName());}};
     }
 
 }

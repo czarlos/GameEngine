@@ -66,7 +66,7 @@ public class TeamTableModel extends GameTableModel {
         if (ret.size() == 0) {
             Team t = new Team();
             t.setName("default");
-            t.setImagePath("resources/Grass.png");
+            t.setImagePath("resources/hero.png");
             t.setGold(0);
             t.setWinCondition(new WinCondition());
             t.setIsHuman(true);
@@ -80,7 +80,7 @@ public class TeamTableModel extends GameTableModel {
     public Object[] getNew () {
         Object[] array = new Object[myColumnNames.length];
         array[0] = "New Team";
-        array[1] = new File("resources/Grass.png");
+        array[1] = new File("resources/skull.png");
         array[2] = 0;
         array[3] = new WinCondition();
         array[4] = 0;

@@ -12,6 +12,7 @@ import utils.UnitUtilities;
 import gameObject.GameUnit;
 import grid.Coordinate;
 import grid.Grid;
+import grid.GridConstants;
 import grid.Tile;
 
 
@@ -45,7 +46,7 @@ public class PathFinding {
 //        System.out.println(grid.getTileCoordinate(start).getX() + " " + grid.getTileCoordinate(start).getY());
 //        System.out.println(grid.getTileCoordinate(end).getX() + " " + grid.getTileCoordinate(end).getY());
         for (Tile t : path) {
-            System.out.println(grid.getTileCoordinate(t).getX() + " " + grid.getTileCoordinate(t).getY());
+            System.out.println(grid.getObjectCoordinate(GridConstants.TILE, t).getX() + " " + grid.getObjectCoordinate(GridConstants.TILE, t).getY());
         }
         
         Tile newTile;
@@ -60,7 +61,7 @@ public class PathFinding {
             t.setActive(true);
         }
 
-        grid.doMove(grid.getUnitCoordinate(unit), grid.getTileCoordinate(newTile));
+        grid.doMove(grid.getObjectCoordinate(GridConstants.GAMEUNIT, unit), grid.getObjectCoordinate(GridConstants.TILE, newTile));
     }
 
     /**
@@ -84,7 +85,7 @@ public class PathFinding {
         
         for (int i = 0; i < grid.getTiles().length; i++) {
             for (int j = 0; j < grid.getTiles().length; j++) {
-                weights.put(grid.getTile(new Coordinate(i, j)), Integer.MAX_VALUE);
+                weights.put((Tile) grid.getObject(GridConstants.TILE, new Coordinate(i, j)), Integer.MAX_VALUE);
             }
         }
         
@@ -155,7 +156,7 @@ public class PathFinding {
         List<Tile> tileList = new ArrayList<Tile>();
         for (int i = 0; i < grid.getTiles().length; i++) {
             for (int j = 0; j < grid.getTiles().length; j++) {
-              tileList.add(grid.getTile(new Coordinate(i, j)));
+              tileList.add((Tile) grid.getObject(GridConstants.TILE, new Coordinate(i, j)));
     
 //                if (grid.getTile(new Coordinate(i, j)).isPassable(unit)) {
 //                    tileList.add(grid.getTile(new Coordinate(i, j)));
@@ -200,8 +201,8 @@ public class PathFinding {
      * @return
      */
     public static boolean isNeighbor (Tile tile, Tile otherTile, Grid grid) {
-        double delta = UnitUtilities.calculateLength(grid.getTileCoordinate(tile),
-                                                     grid.getTileCoordinate(otherTile));
+        double delta = UnitUtilities.calculateLength(grid.getObjectCoordinate(GridConstants.TILE, tile),
+                                                     grid.getObjectCoordinate(GridConstants.TILE, otherTile));
         if (delta <= 1) { return true; }
         return false;
     }

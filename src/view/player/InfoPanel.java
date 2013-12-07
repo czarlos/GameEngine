@@ -7,8 +7,6 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.Scrollable;
-
 
 public class InfoPanel extends ScrollableListPane {
     public InfoPanel (List<String> data) {
@@ -21,7 +19,7 @@ public class InfoPanel extends ScrollableListPane {
         setLayout(new GridLayout(0, 1));
         for (int i = 0; i < data.size(); i++) {
             String s = data.get(i);
-            JLabel entry = new JLabel(s, JLabel.CENTER);
+            JLabel entry = new JLabel(s, JLabel.LEFT);
             add(entry);
         }
     }

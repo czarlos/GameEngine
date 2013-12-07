@@ -1,6 +1,8 @@
 package controllers;
 
+import gameObject.GameUnit;
 import grid.Coordinate;
+import grid.GridConstants;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,13 +102,18 @@ public abstract class Manager {
      * Gets a list of actions that a unit at a coordinate can perform. Null if
      * there is no unit.
      * 
-     * @param coordinate
-     *        Coordinate that is being asked for
+     * @param coordinate Coordinate that is being asked for
      * @return List of Strings that contain the action names
      */
     public List<String> getActions (Coordinate coordinate) {
-        return myActiveStage.getGrid()
-                .generateActionList(coordinate);        
+        GameUnit gameUnit = (GameUnit) myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, coordinate);
+        if (gameUnit != null) {
+            List<String> actions = new ArrayList<>();
+            actions.addAll(gameUnit.getActions());
+            actions.addAll(myActiveStage.getGrid().getAllInteractions(coordinate));
+            return actions;
+        }
+        return null;
     }
     
     /**
@@ -114,7 +121,6 @@ public abstract class Manager {
      * 
      * @return
      */
-
     public Drawable getGrid () {
         return (Drawable) myActiveStage.getGrid();
     }
