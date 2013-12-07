@@ -36,6 +36,9 @@ public class GameManager extends Manager {
 
     public void beginTurn () {
         clear();
+        if (myPhaseCount == 0){
+            myView.showDialog(getPreStory());
+        }
         if (conditionsMet()) {
             myView.showDialog(getPostStory());
             if (!nextStage()) { // final stage
@@ -43,7 +46,6 @@ public class GameManager extends Manager {
                 myView.setTitle(getActiveTeamName() + " won!!");
                 return;
             }
-            myView.showDialog(getPreStory());
             return;
         }
         nextTurn();
@@ -132,37 +134,7 @@ public class GameManager extends Manager {
      * Frontend communication
      */
 
-    /**
-     * Generates a list of information that a coordinate contains, including
-     * tiles and objects
-     * 
-     * @param coordinate
-     *        Coordinate that is being asked for
-     * @return List of Strings that contain information about the coordinate
-     */
-    public List<String> generateTileInfoList (Coordinate coordinate) {
-        Tile tile = myActiveStage.getGrid().getTile(coordinate);
-        tile.generateDisplayData();
-        return tile.getDisplayData();
-    }
 
-    /**
-     * Generates a list of information that a coordinate contains about a Game
-     * Object
-     * 
-     * @param coordinate
-     *        Coordinate that is being asked for
-     * @return List of Strings that contain information about the coordinate.
-     *         Null if there is no object at coordinate
-     */
-    public List<String> generateObjectInfo (Coordinate coordinate) {
-        GameObject gameObject = myActiveStage.getGrid().getObject(coordinate);
-        if (gameObject != null) {
-            gameObject.generateDisplayData();
-            return gameObject.getDisplayData();
-        }
-        return null;
-    }
 
     @SuppressWarnings("unchecked")
     private Action getAction (String actionName) {
