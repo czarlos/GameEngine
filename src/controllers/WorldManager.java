@@ -158,31 +158,6 @@ public class WorldManager extends Manager {
         return myList.get(ID).getImage();
     }
 
-    /**
-     * Calls update method for all stats of all placed units and unit
-     * definitions. If there are new stats in the master stats list, adds that
-     * stat to the stats of all placed units and unit definitions. If there is a
-     * stat in the stats list of placed units and unit definitions, but not in
-     * the master stats list, then it removes that stat from all stats lists of
-     * placed units and unit definitions
-     */
-    public void syncStats () {
-        List<?> editorUnitList = myEditorData.get(GridConstants.GAMEUNIT);
-        GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
-
-        for (Object unit : editorUnitList) {
-            ((GameUnit) unit).getStats().syncWithMaster();
-        }
-
-        for (int i = 0; i < placedUnits.length; i++) {
-            for (int j = 0; j < placedUnits[i].length; j++) {
-                if (placedUnits[i][j] != null) {
-                    placedUnits[i][j].getStats().syncWithMaster();
-                }
-            }
-        }
-    }
-
     // TODO: get rid of this
     public List<String> getDialogList (String myType) {
         List<String> ret = new ArrayList<String>();
