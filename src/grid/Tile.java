@@ -6,6 +6,7 @@ import gameObject.Stats;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -79,23 +80,28 @@ public class Tile extends GameObject {
         myDisplayData = displayData;
     }
 
+    // ...the heck?
     public Tile (List<Tile> neighbors, Coordinate coordinate) {
         myNeighbors = neighbors;
         myCoordinate = coordinate;
     }
 
+    @JsonIgnore
     public List<Tile> getNeighbors () {
         return myNeighbors;
     }
 
+    @JsonIgnore
     public void setNeighbors (List<Tile> neighbors) {
         myNeighbors = neighbors;
     }
 
+    @JsonIgnore
     public Tile getParent () {
         return myParent;
     }
 
+    @JsonIgnore
     public void setParent (Tile parent) {
         myParent = parent;
     }
@@ -114,13 +120,5 @@ public class Tile extends GameObject {
 
     public void setDistanceToGoal (int distanceToGoal) {
         myDistanceToGoal = distanceToGoal;
-    }
-
-    public Coordinate getCoordinate () {
-        return myCoordinate;
-    }
-
-    public void setCoordinate (Coordinate coordinate) {
-        myCoordinate = coordinate;
     }
 }

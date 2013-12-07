@@ -1,5 +1,6 @@
 package controllers;
 
+import gameObject.action.Action;
 import grid.Coordinate;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -30,6 +31,12 @@ public abstract class Manager {
     @JsonProperty
     protected List<Integer> activeEditIDList;
 
+    // GameManager instance variables
+    protected int myPhaseCount;
+    protected int myActiveTeam;
+    protected List<Action> myActiveActions;
+    protected boolean isTurnCompleted;
+    
     public Manager () {
         myStages = new ArrayList<Stage>();
         myEditorData = new EditorData("defaults");
@@ -42,6 +49,8 @@ public abstract class Manager {
         myEditorData = m.myEditorData;
         activeEditTypeList = m.activeEditTypeList;
         activeEditIDList = m.activeEditIDList;
+        myPhaseCount = m.myPhaseCount;
+        myActiveTeam = m.myActiveTeam;
     }
     
     public void setGameName (String gameName) {
@@ -92,6 +101,7 @@ public abstract class Manager {
         return myGameName;
     }
 
+    @JsonIgnore
     protected String getActiveStageName () {
         return myActiveStage.getName();
     }
@@ -104,6 +114,7 @@ public abstract class Manager {
      *        Coordinate that is being asked for
      * @return List of Strings that contain the action names
      */
+    @JsonIgnore
     public List<String> getActions (Coordinate coordinate) {
         return myActiveStage.getGrid()
                 .generateActionList(coordinate);        
@@ -119,12 +130,12 @@ public abstract class Manager {
         return (Drawable) myActiveStage.getGrid();
     }
 
+    @JsonIgnore
     public Coordinate getCoordinate (double fracX, double fracY) {
         return myActiveStage.getGrid().getCoordinate(fracX, fracY);
     }
 
     public Dimension calculateGridDimensions (int preferredTileDimension) {
-
         int width = (int) myActiveStage.getGrid().getWidth();
         int height = (int) myActiveStage.getGrid().getHeight();
         return new Dimension(width * preferredTileDimension, height * preferredTileDimension);

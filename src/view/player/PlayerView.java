@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import parser.JSONParser;
 import controllers.GameManager;
+import controllers.Manager;
 import controllers.WorldManager;
 import view.GameView;
 
@@ -109,8 +110,8 @@ public class PlayerView extends GameView {
         if (value == JOptionPane.OK_OPTION) {
             String game = (String) gameNamesMenu.getSelectedItem();
             JSONParser p = new JSONParser();
-            WorldManager newWM = p.createObject(folder + "/" + game,
-                                                controllers.WorldManager.class);
+            Manager newWM = p.createObject(folder + "/" + game,
+                                                controllers.Manager.class);
             myGameManager = new GameManager(newWM);
             myGameManager.setView(this);
             super.clearWindow();

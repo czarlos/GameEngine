@@ -2,7 +2,8 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import team.Team;
 import view.player.PlayerView;
 import game.AI;
@@ -19,12 +20,12 @@ import grid.Tile;
  * @author kevinjian, leevi, whoever else
  * 
  */
+@JsonAutoDetect
 public class GameManager extends Manager {
-    private int myPhaseCount;
-    private int myActiveTeam;
-    private List<Action> myActiveActions;
-    private boolean isTurnCompleted;
     private PlayerView myView;
+
+    public GameManager(){
+    }
     
     public GameManager (Manager m) {
         super(m);
@@ -90,10 +91,12 @@ public class GameManager extends Manager {
         }
     }
 
+    @JsonIgnore
     private String getActiveTeamName () {
         return myActiveStage.getTeamNames().get(myActiveTeam);
     }
 
+    @JsonIgnore
     private String getActiveTitle () {
         return getActiveTeamName() + " - " + getActiveStageName() + " - " + myGameName;
     }
@@ -177,6 +180,7 @@ public class GameManager extends Manager {
         return null;
     }
 
+    @SuppressWarnings("unused")
     private List<Action> getInteractions (Coordinate coordinate) {
         List<Action> interactions = new ArrayList<>();
         return interactions;
@@ -207,7 +211,7 @@ public class GameManager extends Manager {
                                                 myActiveActions.get(actionID).getActionRange());
         }
     }
-
+    @JsonIgnore
     private void setActiveActions (Coordinate coordinate) {
         List<String> myActiveActionNames = myActiveStage.getGrid()
                 .generateActionList(coordinate);
@@ -263,20 +267,24 @@ public class GameManager extends Manager {
         myView.removeAll();
     }
 
+    @JsonIgnore
     public String getWinningTeam () {
         Team winningTeam = myActiveStage.getWinningTeam();
         if (winningTeam == null) { return ""; }
         return winningTeam.getName();
     }
 
+    @JsonIgnore
     public String getCurrentTeamName () {
         return myActiveStage.getTeam(myActiveTeam).getName();
     }
 
+    @JsonIgnore
     public String getPreStory () {
         return myActiveStage.getPreStory();
     }
 
+    @JsonIgnore
     public String getPostStory () {
         return myActiveStage.getPostStory();
     }
@@ -284,5 +292,4 @@ public class GameManager extends Manager {
     public boolean didHumanWin () {
         return myActiveStage.getWinningTeam().isHuman();
     }
-
 }
