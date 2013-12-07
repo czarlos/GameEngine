@@ -2,7 +2,6 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import team.Team;
 import view.player.PlayerView;
 import game.AI;

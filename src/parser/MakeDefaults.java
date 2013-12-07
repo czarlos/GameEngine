@@ -138,7 +138,7 @@ public class MakeDefaults {
         tree.setName("Tree");
         tree.setImagePath("resources/tree.png");
 
-        gameObject.GameObject chest = new gameObject.GameObject();
+        gameObject.item.Chest chest = new gameObject.item.Chest();
         chest.setName("Chest");
         chest.setImagePath("resources/chest.png");
 

@@ -108,10 +108,12 @@ public abstract class Manager {
     public List<String> getActions (Coordinate coordinate) {
         GameUnit gameUnit = (GameUnit) myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, coordinate);
         if (gameUnit != null) {
-            List<String> actions = new ArrayList<>();
-            actions.addAll(gameUnit.getActions());
-            actions.addAll(myActiveStage.getGrid().getAllInteractions(coordinate));
-            return actions;
+            if (gameUnit.isActive()) {
+                List<String> actions = new ArrayList<>();
+                actions.addAll(gameUnit.getActions());
+                actions.addAll(myActiveStage.getGrid().getAllInteractions(coordinate));
+                return actions;
+            }
         }
         return null;
     }

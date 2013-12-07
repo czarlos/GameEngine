@@ -24,13 +24,13 @@ public class ChestAction extends Action {
             initiator.addItem(i);
         }
         
-        chest.setItemList(new ArrayList<Item>());
+        chest.setItems(new ArrayList<Item>());
     }
 
     @Override
     public boolean isValidAction (GameUnit gameUnit, GameObject gameObject) {
         if(gameObject instanceof Chest) {
-            return !Chest.isEmpty();
+            return !((Chest) gameObject).isEmpty();
         }
         return true;
     }

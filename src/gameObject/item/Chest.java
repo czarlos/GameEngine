@@ -2,37 +2,58 @@ package gameObject.item;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import gameObject.GameObject;
-import gameObject.action.Action;
 import gameObject.action.ChestAction;
 
 
 /**
  * Holds a list of items that a unit can retrieve.
  * 
- * @author carlosreyes
+ * @author Kevin, Andy
  * 
  */
 public class Chest extends GameObject {
 
-    private List<Item> myItemList;
+    private List<Item> myItems;
 
-    public Chest (List<Item> itemList) {
-        myItemList = itemList;
+    public Chest () {
+        myItems = new ArrayList<>();
     }
 
     public List<Item> getItemList () {
-        return myItemList;
+        return myItems;
     }
 
-    public void setItemList (List<Item> itemList) {
-        myItemList = itemList;
+    public void setItems (List<Item> items) {
+        myItems = items;
+    }
+    
+    public boolean isEmpty() {
+        return myItems.isEmpty();
     }
 
-    // TODO: give objects to person
     @Override
+    @JsonIgnore
     public List<String> getInteractions () {
-        return new ArrayList<String>() {{add(new ChestAction().getName());}};
+        List<String> actions = new ArrayList<String>();
+        actions.add(new ChestAction().getName());
+        return actions;
+    }
+    
+    @Override
+    public List<String> generateDisplayData () {
+        List<String> displayData = super.generateDisplayData();
+        displayData.add("Inventory:");
+        if (!myItems.isEmpty()) {
+            for (Item item: myItems) {
+                displayData.add(item.getName());
+            }
+        }
+        else {
+            displayData.add("    Nothing");
+        }
+        return displayData;
     }
 
 }

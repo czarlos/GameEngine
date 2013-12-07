@@ -27,7 +27,8 @@ public class ChestTest {
         itemList.add(potion);
         itemList.add(key);
         
-        chest = new Chest(itemList);
+        chest = new Chest();
+        chest.setItems(itemList);
         
         playerUnit = new GameUnit();
     }
