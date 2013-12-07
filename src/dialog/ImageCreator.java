@@ -48,14 +48,9 @@ public class ImageCreator extends JPanel {
         myImage = new BufferedImage(DEFAULT_RESOLUTION_X, DEFAULT_RESOLUTION_Y,
                                     BufferedImage.TYPE_INT_ARGB);
 
-        // a JComponent
-
         setLayout(new BorderLayout());
-
         canvas = new DrawingPad();
-
         add(canvas, BorderLayout.CENTER);
-
         setPreferredSize(new Dimension(400, 400));
 
     }
@@ -80,7 +75,7 @@ public class ImageCreator extends JPanel {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        // panel for option buttons
+        
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
 
@@ -96,18 +91,12 @@ public class ImageCreator extends JPanel {
         JButton reset = new JButton("Reset");
         reset.addActionListener(new ResetListener(imageCreator));
 
-        JMenuBar menuBar = new JMenuBar();
-        JMenu fileMenu = new JMenu("File");
-        JMenuItem openItem = new JMenuItem("Open");
-        fileMenu.add(openItem);
 
         buttonPanel.add(ok);
         buttonPanel.add(cancel);
         buttonPanel.add(reset);
 
         dialog.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
-        dialog.getContentPane().add(menuBar, BorderLayout.NORTH);
-
         dialog.getContentPane().add(imageCreator, BorderLayout.CENTER);
         dialog.pack();
 
