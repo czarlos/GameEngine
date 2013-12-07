@@ -357,7 +357,7 @@ public class EditorFrame extends GameView implements WindowListener {
             String story = field.getText();
             if(prepost.equals("Pre"))
                 myWorldManager.setPreStory(story);
-            else if(prepost.equals("Post"))
+            if(prepost.equals("Post"))
                 myWorldManager.setPostStory(story);
         }
     }
