@@ -2,6 +2,7 @@ package gameObject.action;
 
 import gameObject.GameObject;
 import gameObject.GameUnit;
+import gameObject.item.Shop;
 import grid.GridConstants;
 
 public class TradeAction extends Action {
@@ -27,8 +28,19 @@ public class TradeAction extends Action {
     }
 
     @Override
-    public boolean isValidAction (GameUnit gameUnit, GameObject gameObject) {
-        return true;
+    public boolean isValid (GameUnit gameUnit, GameObject gameObject) {
+        if (gameObject == null) {
+            return false;
+        }
+        if (gameObject instanceof Shop) {
+            
+        }
+        else if (gameObject instanceof GameUnit) {
+            if (gameUnit.getAffiliation().equals(((GameUnit) gameObject).getAffiliation())) {
+                return true;
+            }
+        }
+        return false;
     }
     
     public Outcomes getInitiatorOutcomes () {

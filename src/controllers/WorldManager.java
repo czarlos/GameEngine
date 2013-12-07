@@ -187,7 +187,7 @@ public class WorldManager extends Manager {
     }
 
     public void removeRange () {
-        myActiveStage.getGrid().setTilesInactive();
+        myActiveStage.getGrid().setAllTilesInactive();
     }
 
     /**

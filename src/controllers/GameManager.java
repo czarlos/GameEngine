@@ -184,16 +184,17 @@ public class GameManager extends Manager {
      */
     public void beginAction (Coordinate unitCoordinate, int actionID) {
         GameUnit initiator = (GameUnit) myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, unitCoordinate);
+        Action activeAction = myActiveActions.get(actionID);
         setActiveActions(unitCoordinate);
-        myActiveStage.getGrid().setTilesInactive();
-        if (myActiveActions.get(actionID).getName().equals(GridConstants.MOVE)) {
+        myActiveStage.getGrid().setAllTilesInactive();
+        if (activeAction.getName().equals(GridConstants.MOVE)) {
             myActiveStage.getGrid().beginMove(unitCoordinate);
         }
-        else if (myActiveActions.get(actionID).getName().equals(GridConstants.WAIT)) {
-            myActiveActions.get(actionID).doAction(initiator, null);
+        else if (activeAction.getName().equals(GridConstants.WAIT)) {
+            activeAction.doAction(initiator, null);
         }
         else {
-            myActiveStage.getGrid().beginAction(unitCoordinate, myActiveActions.get(actionID).getActionRange());
+            myActiveStage.getGrid().findActionRange(unitCoordinate, activeAction.getActionRange(), activeAction);
         }
     }
 
@@ -214,12 +215,11 @@ public class GameManager extends Manager {
         else {
             GameObject receiver = myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, actionCoordinate);
             if (receiver != null && myActiveStage.getGrid().isActive(GridConstants.TILE, actionCoordinate)) {
-
                 activeAction.doAction(initiator, receiver);
                 initiator.setActive(false);
             }
         }
-        myActiveStage.getGrid().setTilesInactive();
+        myActiveStage.getGrid().setAllTilesInactive();
     }
 
     public void endTurn () {

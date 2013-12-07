@@ -57,7 +57,7 @@ public class CombatAction extends Action {
     }
 
     @Override
-    public boolean isValidAction (GameUnit initiator, GameObject receiver) {
+    public boolean isValid (GameUnit initiator, GameObject receiver) {
         double effectiveness = getNetEffectiveness(initiator,
                                                    (GameUnit) receiver);
 

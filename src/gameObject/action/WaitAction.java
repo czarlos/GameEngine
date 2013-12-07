@@ -17,7 +17,7 @@ public class WaitAction extends Action {
     }
 
     @Override
-    public boolean isValidAction (GameUnit gameUnit, GameObject gameObject) {
+    public boolean isValid (GameUnit gameUnit, GameObject gameObject) {
         return false;
     }
 }

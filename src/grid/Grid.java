@@ -3,6 +3,7 @@ package grid;
 import gameObject.GameObject;
 import gameObject.GameObjectConstants;
 import gameObject.GameUnit;
+import gameObject.action.Action;
 import gameObject.item.Item;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -138,6 +139,13 @@ public class Grid implements Drawable {
                 && 0 <= coordinate.getY() && coordinate.getY() < myHeight);
     }
     
+    /**
+     * Checks if the object at the input coordinate is active
+     * 
+     * @param type String of type of object
+     * @param coordinate Coordinate being checked
+     * @return boolean of whether the coordinate is active
+     */
     public boolean isActive (String type, Coordinate coordinate) {
         return getObject(type, coordinate).isActive();
     }
@@ -149,16 +157,16 @@ public class Grid implements Drawable {
      * @param gameUnit GameUnit that is doing the action
      * @param combatAction CombatAction that is being used
      */
-    public void beginAction (Coordinate coordinate, int range) {
+    public void findActionRange (Coordinate coordinate, int range, Action action) {
         List<Coordinate> adjacentCoordinates = getAdjacentCoordinates(coordinate);
 
         for (Coordinate adjacentCoordinate : adjacentCoordinates) {
             if (onGrid(adjacentCoordinate)) {
                 Tile currentTile = (Tile) getObject(GridConstants.TILE, adjacentCoordinate);
                 int newRange = range - 1;
-                if (newRange >= 0) {
+                if (newRange >= 0 && action.isValid((GameUnit) getObject(GridConstants.GAMEUNIT, coordinate), getObject(GridConstants.GAMEOBJECT, adjacentCoordinate))) {
                     currentTile.setActive(true);
-                    beginAction(adjacentCoordinate, newRange);
+                    findActionRange(adjacentCoordinate, newRange, action);
                 }
             }
         }
@@ -230,11 +238,11 @@ public class Grid implements Drawable {
     }
     
     /**
-     * Places a GameObject at given coordinates
+     * Places a Customizable at given coordinates
      * 
-     * @param type
-     * @param coordinate
-     * @param placeObject
+     * @param type String of the type of object being placed
+     * @param coordinate Coordinate of where the object is being placed
+     * @param placeObject Customizable of object being placed
      */
     public void placeObject (String type, Coordinate coordinate, Customizable placeObject) {
         if (type.equals(GridConstants.ITEM)) {
@@ -258,8 +266,9 @@ public class Grid implements Drawable {
     /**
      * Sets position in myObjects map to null
      * 
+     * @param type String of type of object being removed
      * @param coordinate Coordinate being checked
-     * @return Object removed from position (x,y)
+     * @return Object removed from position
      */
     private GameObject removeObject (String type, Coordinate coordinate) {
         GameObject removeObject = getObject(GridConstants.GAMEOBJECT, coordinate);
@@ -290,7 +299,7 @@ public class Grid implements Drawable {
     /**
      * Sets all tiles on grid to be inactive
      */
-    public void setTilesInactive () {
+    public void setAllTilesInactive () {
         for (int i = 0; i < myArrays.get(GridConstants.TILE).length; i++) {
             for (int j = 0; j < myArrays.get(GridConstants.TILE)[i].length; j++) {
                 ((Tile) myArrays.get(GridConstants.TILE)[i][j]).setActive(false);

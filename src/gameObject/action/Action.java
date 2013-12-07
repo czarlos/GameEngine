@@ -23,6 +23,5 @@ public abstract class Action extends Customizable {
 
     public abstract void doAction (GameUnit initiator, GameObject receiver);
 
-    public abstract boolean isValidAction (GameUnit gameUnit,
-                                           GameObject gameObject);
+    public abstract boolean isValid (GameUnit gameUnit, GameObject gameObject);
 }

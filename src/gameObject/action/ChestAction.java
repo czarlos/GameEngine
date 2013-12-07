@@ -25,7 +25,10 @@ public class ChestAction extends Action {
     }
 
     @Override
-    public boolean isValidAction (GameUnit gameUnit, GameObject gameObject) {
+    public boolean isValid (GameUnit gameUnit, GameObject gameObject) {
+        if (gameObject == null) {
+            return false;
+        }
         if(gameObject instanceof Chest) {
             return !((Chest) gameObject).isEmpty();
         }

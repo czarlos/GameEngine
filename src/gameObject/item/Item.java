@@ -7,8 +7,6 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.Stats;
-import gameObject.action.Action;
-import gameObject.action.MasterActions;
 
 
 /**
@@ -70,6 +68,10 @@ public class Item extends Customizable {
     public boolean equals (Item other) {
         return this.getName().equals(other.getName());
     }
-    
-    
+
+    @Override
+    public int hashCode () {
+        final int prime = 31;
+        return myName.length() * prime;
+    }
 }
