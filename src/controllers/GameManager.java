@@ -52,7 +52,6 @@ public class GameManager extends Manager {
     private void clear () {
         myActiveActions = new ArrayList<Action>();
         isTurnCompleted = false;
-
     }
 
     public void doUntilHumanTurn () {
@@ -73,8 +72,8 @@ public class GameManager extends Manager {
      * @param currentTeam
      */
     public void nextTurn () {
-        List<GameUnit> list = myActiveStage.getTeamUnits(getActiveTeamName());
-        for (GameUnit unit : list) {
+        List<GameUnit> units = myActiveStage.getTeamUnits(getActiveTeamName());
+        for (GameUnit unit : units) {
             unit.setActive(false);
         }
 
@@ -82,9 +81,9 @@ public class GameManager extends Manager {
         myPhaseCount++;
         myActiveTeam = myPhaseCount % myActiveStage.getNumberOfTeams();
         String teamName = getActiveTeamName();
-        List<GameUnit> list2 = myActiveStage.getTeamUnits(teamName);
+        List<GameUnit> units2 = myActiveStage.getTeamUnits(teamName);
 
-        for (GameUnit unit : list2) {
+        for (GameUnit unit : units2) {
             unit.setActive(true);
         }
     }
@@ -190,13 +189,12 @@ public class GameManager extends Manager {
     public void beginAction (Coordinate unitCoordinate, int actionID) {
         setActiveActions(unitCoordinate);
         myActiveStage.getGrid().setTilesInactive();
-
         if (myActiveActions.get(actionID).getName().equals(GridConstants.MOVE)) {
             myActiveStage.getGrid().beginMove(unitCoordinate);
         }
         else if (myActiveActions.get(actionID).getName().equals(GridConstants.WAIT)) {
-            myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, unitCoordinate).setActive(false);
-            System.out.println(myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, unitCoordinate).isActive());
+            myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, unitCoordinate).setActive(false);
+            System.out.println("Wait chosen, isActive: "+myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, unitCoordinate).isActive());
         }
         else {
             myActiveStage.getGrid().beginAction(unitCoordinate, myActiveActions.get(actionID).getActionRange());
@@ -213,7 +211,6 @@ public class GameManager extends Manager {
     public void doAction (Coordinate unitCoordinate, Coordinate actionCoordinate, int actionID) {
         GameUnit initiator = (GameUnit) myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, unitCoordinate);
         Action activeAction = myActiveActions.get(actionID);
-
         if (activeAction.getName().equals(GridConstants.MOVE) && myActiveStage.getGrid().isActive(GridConstants.TILE, actionCoordinate)) {
             myActiveStage.getGrid().doMove(unitCoordinate, actionCoordinate);
             initiator.hasMoved();

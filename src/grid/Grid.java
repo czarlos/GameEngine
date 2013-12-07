@@ -16,11 +16,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * 
  * Grid class. Holds all tiles and objects, calculates movement, actions
  * 
- * @author Kevin
- * @author Ken
+ * @author Kevin, Ken
  * 
  */
 @JsonAutoDetect
@@ -76,8 +74,7 @@ public class Grid implements Drawable {
     /**
      * Initiates the moving process for a gameUnit
      * 
-     * @param coordinate
-     *        Coordinate where the gameUnit is located
+     * @param coordinate Coordinate where the gameUnit is located
      * 
      */
     public void beginMove (Coordinate coordinate) {
@@ -88,26 +85,21 @@ public class Grid implements Drawable {
     /**
      * Moves the unit to a new coordinate if the move is valid
      * 
-     * @param oldCoordinate
-     *        - Coordinate of the gameUnit's original position
-     * @param newCoordinate
-     *        - Coordinate that unit is moving to
+     * @param oldCoordinate Coordinate of the gameUnit's original position
+     * @param newCoordinate Coordinate that unit is moving to
      * 
      */
     public void doMove (Coordinate oldCoordinate, Coordinate newCoordinate) {
-        GameObject gameUnit = removeObject(oldCoordinate);
+        GameObject gameUnit = removeObject(GridConstants.GAMEUNIT, oldCoordinate);
         placeObject(GridConstants.GAMEUNIT, newCoordinate, gameUnit);
     }
 
     /**
      * Sets the tiles active that the GameObject can move to
      * 
-     * @param coordinate
-     *        Coordinate of the current position of the GameObject
-     * @param range
-     *        int of range that the GameObject can move
-     * @param gameObject
-     *        GameObject that we are finding the range of
+     * @param coordinate Coordinate of the current position of the GameObject
+     * @param range int of range that the GameObject can move
+     * @param gameObject GameObject that we are finding the range of
      * 
      */
     private void findMovementRange (Coordinate coordinate, int range, GameUnit gameObject) {
@@ -124,7 +116,6 @@ public class Grid implements Drawable {
                         if (currentObject.isPassable(gameObject)) {
                             findMovementRange(adjacentCoordinate, newRange, gameObject);
                         }
-                        continue;
                     }
                     else {
                         currentTile.setActive(true);
@@ -193,7 +184,6 @@ public class Grid implements Drawable {
             if (onGrid(adjacentCoordinate)) {
                 Tile currentTile = (Tile) getObject(GridConstants.TILE, adjacentCoordinate);
                 int newRange = range - 1;
-
                 if (newRange >= 0) {
                     currentTile.setActive(true);
                     beginAction(adjacentCoordinate, newRange);
@@ -202,12 +192,12 @@ public class Grid implements Drawable {
         }
     }
 
+
     /**
-     * Gets a list of valid actions that the unit can perform on the objects
-     * around him
+     * Gets a list of valid actions that the unit can perform on the objects around him
      * 
-     * @param gameUnit
-     * @return
+     * @param coordinate Coordinate where the unit is
+     * @return List of Strings of actions
      */
     public List<String> getAllInteractions (Coordinate coordinate) {
         List<Coordinate> adjacentCoordinates = getAdjacentCoordinates(coordinate);
@@ -224,8 +214,7 @@ public class Grid implements Drawable {
     /**
      * Gets an interaction if one exists at the given coordinate
      * 
-     * @param coordinate
-     *        Coordinate of the location being searched
+     * @param coordinate Coordinate of the location being searched
      * @return Action that can be performed
      */
     private List<String> getInteractions (Coordinate coordinate) {
@@ -271,6 +260,7 @@ public class Grid implements Drawable {
     
     /**
      * Places a GameObject at given coordinates
+     * 
      * @param type
      * @param coordinate
      * @param placeObject
@@ -291,7 +281,7 @@ public class Grid implements Drawable {
                         placeObject;
             }
             if (type.equals(GridConstants.TILE)) {
-                removeObject(coordinate);
+                removeObject(type, coordinate);
             }
         }
     }
@@ -299,11 +289,10 @@ public class Grid implements Drawable {
     /**
      * Sets position in myObjects map to null
      * 
-     * @param coordinate
-     *        Coordinate being checked
+     * @param coordinate Coordinate being checked
      * @return Object removed from position (x,y)
      */
-    private GameObject removeObject (Coordinate coordinate) {
+    private GameObject removeObject (String type, Coordinate coordinate) {
         GameObject removeObject = getObject(GridConstants.GAMEOBJECT, coordinate);
         myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()] = null;
         
@@ -314,12 +303,10 @@ public class Grid implements Drawable {
         return removeObject;
     }
 
-
-
     /**
      * Finds all coordinates adjacent to the coordinate given.
      * 
-     * @param - Coordinate from which to find adjacent coordinates
+     * @param Coordinate from which to find adjacent coordinates
      * @return List of adjacent Coordinates
      */
     public List<Coordinate> getAdjacentCoordinates (Coordinate coord) {

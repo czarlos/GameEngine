@@ -28,6 +28,7 @@ public class GameObject extends Customizable implements Drawable {
     }
 
     public void setActive (boolean active) {
+        System.out.println("GameObject setActive: "+active);
         isActive = active;
         myImage = active ? ImageManager.getHightlightedTileImage(myImagePath)
                         : ImageManager.getImage(myImagePath);
