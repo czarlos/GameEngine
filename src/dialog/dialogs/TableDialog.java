@@ -126,8 +126,7 @@ public class TableDialog extends JDialog {
                                                               new MapTableModel()));
         table.setDefaultEditor(ArrayList.class, new ModelEditor(
                                                                 new EnumTableModel(), myEnumList));
-        table.setDefaultEditor(ComboString.class, new DefaultCellEditor(
-                                                                        getComboBox()));
+        
         table.setDefaultRenderer(ComboString.class, new ComboStringRenderer());
 
         table.setDefaultEditor(Integer.class, new IntegerEditor(0, 50));

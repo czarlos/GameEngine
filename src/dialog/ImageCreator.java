@@ -150,6 +150,11 @@ public class ImageCreator extends JPanel {
         }
     }
 
+    /**
+     * 
+     * @author brooksmershon
+     *
+     */
     private static class DefaultCancelListener implements ActionListener {
 
         private JDialog dialog;
@@ -164,7 +169,12 @@ public class ImageCreator extends JPanel {
             dialog.setVisible(false);
         }
     }
-
+    
+    /**
+     * 
+     * @author brooksmershon
+     *
+     */
     private static class ResetListener implements ActionListener {
 
         private JDialog dialog;
