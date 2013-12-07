@@ -200,7 +200,7 @@ public class WorldManager extends Manager {
      */
     public void place (String type, int objectID, Coordinate coordinate) {
         Object object = myEditorData.getObject(type, objectID);
-        myActiveStage.getGrid().placeObject(type, coordinate, object);
+        myActiveStage.getGrid().placeObject(type, coordinate, (Customizable) object);
     }
 
     /**

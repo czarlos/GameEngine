@@ -31,10 +31,10 @@ public class GameUnit extends GameObject {
 
     @JsonProperty
     private Map<String, Integer> myItemAmounts;
-    private Set<String> myItems;
+    private Set<Item> myItems;
     private Stats myStats;
     private String myTeamName;
-    private String myActiveWeapon;
+    private Item myActiveWeapon;
     private boolean hasMoved;
 
     public GameUnit () {
@@ -58,8 +58,8 @@ public class GameUnit extends GameObject {
      * @param weaponName The string which represents a weapon
      */
     public void selectWeapon (String weaponName) {
-        for (String item : myItems) {
-            if (item.equals(weaponName)) {
+        for (Item item : myItems) {
+            if (item.getName().equals(weaponName)) {
                 myActiveWeapon = item;
             }
         }
@@ -72,12 +72,12 @@ public class GameUnit extends GameObject {
      * @param itemName The name of the item, not a string
      */
     @Override
-    public void addItem (String item) {
+    public void addItem (Item item) {
         if (myItems.add(item)) {
-            myItemAmounts.put(item, 1);
+            myItemAmounts.put(item.getName(), 1);
         }
         else {
-            myItemAmounts.put(item, myItemAmounts.get(item) + 1);
+            myItemAmounts.put(item.getName(), myItemAmounts.get(item) + 1);
         }
     }
 
@@ -88,7 +88,7 @@ public class GameUnit extends GameObject {
         }
         else {
             myItemAmounts.remove(itemName);
-            for (String item : myItems) {
+            for (Item item : myItems) {
                 if (item.equals(itemName)) {
                     myItems.remove(item);
                 }
@@ -116,9 +116,9 @@ public class GameUnit extends GameObject {
      */
     public int getTotalStat (String stat) {
         int value = myStats.getStatValue(stat);
-        for (String i : myItems) {
+        for (Item item : myItems) {
             // TODO: Add call to get item here from manager
-            value += i.getStat(stat);
+            value += item.getStat(stat);
         }
         return value;
     }
@@ -148,11 +148,11 @@ public class GameUnit extends GameObject {
         }
     }
 
-    public String getActiveWeapon () {
+    public Item getActiveWeapon () {
         return myActiveWeapon;
     }
 
-    public void setActiveWeapon (String activeItem) {
+    public void setActiveWeapon (Item activeItem) {
         myActiveWeapon = activeItem;
     }
 
@@ -176,8 +176,7 @@ public class GameUnit extends GameObject {
                 actions.add(GridConstants.MOVE);
             }
             actions.add(GridConstants.WAIT);
-            for (String item : myItems) {
-                // TODO: Add call to get item here from manager
+            for (Item item : myItems) {
                 actions.addAll(item.getActions());
             }
         }
@@ -200,8 +199,8 @@ public class GameUnit extends GameObject {
             }
         }
         displayData.add("Equipment: ");
-        for (String item : myItems) {
-            displayData.add("    " + item + ": " + getItemAmount(item));
+        for (Item item : myItems) {
+            displayData.add("    " + item + ": " + getItemAmount(item.getName()));
         }
         setDisplayData(displayData);
         return displayData;
@@ -212,8 +211,8 @@ public class GameUnit extends GameObject {
     public List<String> getInteractions () {
         List<String> interactions = new ArrayList<>();
         
-        for (String item : myItems) {
-            interactions.add(GridConstants.TRADE+ " "+item);
+        for (Item item : myItems) {
+            interactions.add(GridConstants.TRADE+ " "+item.getName());
         }
 
         return interactions;
@@ -221,7 +220,7 @@ public class GameUnit extends GameObject {
 
     @JsonIgnore
     public int getItemAmount (String itemName) {
-        for (String item : myItems) {
+        for (Item item : myItems) {
             if (item.equals(itemName)) { return myItemAmounts.get(itemName); }
         }
         return 0;
@@ -229,7 +228,7 @@ public class GameUnit extends GameObject {
 
     public void syncActionsWithMaster (Map<String, String> nameTranslations,
                                        List<String> removedActions) {
-        for (String item : myItems) {
+        for (Item item : myItems) {
          // TODO: Add call to get item here from manager
             for (String removedAction : removedActions) {
                 // TODO: Add call to get item here from manager
@@ -261,11 +260,11 @@ public class GameUnit extends GameObject {
         myStats.modExisting(statName, statValue);
     }
 
-    public void setItems (Set<String> itemList) {
+    public void setItems (Set<Item> itemList) {
         myItems = itemList;
     }
 
-    public Set<String> getItems () {
+    public Set<Item> getItems () {
         return myItems;
     }
 

@@ -12,7 +12,6 @@ import gameObject.action.TradeAction;
 import grid.Coordinate;
 import grid.GridConstants;
 
-
 /**
  * 
  * @author kevinjian, leevi, whoever else
@@ -114,10 +113,8 @@ public class GameManager extends Manager {
     }
 
     public void doAITurn () {
-        // pass in gamemanager to AI because need moveOn command
         AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage);
         ai.doTurn();
-        // ai.doTurn();
     }
 
     public boolean turnCompleted () {
