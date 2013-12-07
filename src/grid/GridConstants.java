@@ -26,6 +26,7 @@ public class GridConstants {
     public final static String WAIT = "Wait";
     public final static String MOVE = "Move";
     public final static String CHEST = "Chest";
+    public final static String TRADE = "Trade";
     public final static String GETITEM = "Get item";
 
     public static final Action[] COREACTIONS = { new MoveAction(), new WaitAction() };
