@@ -52,8 +52,9 @@ public class Item extends Customizable {
 
     @JsonIgnore
     public int getStat (String statName) {
-        if (myStats.getStats().containsKey(statName))
+        if (myStats.getStats().containsKey(statName)) {
             return myStats.getStatValue(statName);
+        }
         return 0;
     }
 
