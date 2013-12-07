@@ -32,7 +32,7 @@ public class GridEditorController implements GridMouseListener {
     private void displayInfo (Coordinate c, int index) {
         myPanelList.get(index).displayInformation(c);
     }
-    
+
     public void addStageSidePanel (StageSidePanel panel) {
         myPanelList.add(panel);
     }

@@ -42,7 +42,6 @@ public class GridConstants {
                                                      ITEM, ACTION, TEAM, MASTERSTATS };
     public static final Action[] COREACTIONS = { new MoveAction(), new WaitAction(),
                                                 new ChestAction(), new TradeAction(),
-                                                new ShopAction() };
-    
+                                                new ShopAction() };    
     public static final Outcome[] COREOUTCOMES = { new StatOutcome(), new ItemOutcome()};
 }

@@ -191,8 +191,6 @@ public class EditorFrame extends GameView implements WindowListener {
                 int stageID =
                         myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image),
                                                 stageName);
-                myWorldManager.setPreStory("");
-                myWorldManager.setPostStory("");
                 setStage(stageName, stageID);
             }
             catch (NumberFormatException e) {
