@@ -175,4 +175,10 @@ public class EditorData {
         // replace all the teams with list in activeStage... TODO: remove
         activeStage.setTeams(list);
     }
+
+    public void refreshObjects (String type) {
+        GameTableModel gtm = myTableFactory.makeTableModel(type);
+        gtm.loadObject(myDataMap.get(type));
+        myDataMap.put(type, (List<?>) gtm.getObject());
+    }
 }

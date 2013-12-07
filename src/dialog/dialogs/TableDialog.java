@@ -131,7 +131,7 @@ public class TableDialog extends JDialog {
 
         table.setDefaultRenderer(ComboString.class, new ComboStringRenderer());
 
-        table.setDefaultEditor(Integer.class, new IntegerEditor(0, 50));
+        table.setDefaultEditor(Integer.class, new IntegerEditor(-25, 50));
         table.setDefaultEditor(Outcomes.class, new ModelEditor(new OutcomesTableModel(myWM)));
     }
 

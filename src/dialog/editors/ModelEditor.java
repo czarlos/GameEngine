@@ -6,8 +6,6 @@ import dialog.dialogs.TableDialog;
 import dialog.dialogs.tableModels.GameTableModel;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @SuppressWarnings("serial")
