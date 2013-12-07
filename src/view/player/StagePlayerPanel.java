@@ -1,6 +1,7 @@
 package view.player;
 
 import grid.Coordinate;
+import grid.GridConstants;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -73,8 +74,8 @@ public class StagePlayerPanel extends JPanel {
     public void updatedSelectedInfoPanel (Coordinate c) {
         SelectedInfoPanel infoPanel = new SelectedInfoPanel(myController);
         infoPanel.makeTabs(myManager.getActions(c),
-                           myManager.generateTileInfoList(c),
-                           myManager.generateObjectInfo(c));
+                           myManager.generateInfoList(GridConstants.TILE, c),
+                           myManager.generateInfoList(GridConstants.GAMEOBJECT, c));
         infoPanel.setPreferredSize(new Dimension(300, 500));
         if (mySidePanel != null) {
             remove(mySidePanel);

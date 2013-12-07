@@ -1,9 +1,5 @@
 package gameObject;
 
-import gameObject.action.Action;
-import gameObject.action.MasterActions;
-import gameObject.action.MoveAction;
-import gameObject.action.WaitAction;
 import gameObject.item.*;
 import grid.GridConstants;
 import java.util.ArrayList;
@@ -211,24 +207,29 @@ public class GameUnit extends GameObject {
     /**
      * Generates the List of Strings that the unit will display to the user
      */
-    public void generateDisplayData () {
-        List<String> displayData = new ArrayList<>();
-        displayData.add("Name: " + myName);
+    @Override
+    public List<String> generateDisplayData () {
+        List<String> displayData = super.generateDisplayData();
         displayData.add("Team: " + myTeamName);
         displayData.add("Stats: ");
-        displayData.add("Health: " + getTotalStat("health") + " / " +
+        displayData.add("    health: " + getTotalStat("health") + " / " +
                         myStats.getStatValue("maxhealth"));
         for (String stat : myStats.getStatNames()) {
             if (!stat.equals("health") && !stat.equals("maxhealth")) {
-                displayData.add(stat + ": " + getTotalStat(stat));
+                displayData.add("    "+stat + ": " + getTotalStat(stat));
             }
         }
+        displayData.add("Equipment: ");
+        for (Item item: myItems) {
+            displayData.add("    "+item.getName());
+        }
         setDisplayData(displayData);
+        return displayData;
     }
 
     // TODO: trade with affiliates
     @Override
-    public Action getInteraction () {
+    public List<String> getInteractions () {
         return null;
     };
 

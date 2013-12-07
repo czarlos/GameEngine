@@ -21,7 +21,7 @@ public class InfoPanel extends ScrollableListPane {
         setLayout(new GridLayout(0, 1));
         for (int i = 0; i < data.size(); i++) {
             String s = data.get(i);
-            JLabel entry = new JLabel(s, JLabel.CENTER);
+            JLabel entry = new JLabel(s, JLabel.LEFT);
             add(entry);
         }
     }
