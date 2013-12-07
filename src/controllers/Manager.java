@@ -102,8 +102,7 @@ public abstract class Manager {
      * Gets a list of actions that a unit at a coordinate can perform. Null if
      * there is no unit.
      * 
-     * @param coordinate
-     *        Coordinate that is being asked for
+     * @param coordinate Coordinate that is being asked for
      * @return List of Strings that contain the action names
      */
     public List<String> getActions (Coordinate coordinate) {
@@ -122,7 +121,6 @@ public abstract class Manager {
      * 
      * @return
      */
-
     public Drawable getGrid () {
         return (Drawable) myActiveStage.getGrid();
     }

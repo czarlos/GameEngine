@@ -165,11 +165,6 @@ public class GameManager extends Manager {
         }
         return null;
     }
-
-    private List<String> getInteractions (Coordinate coordinate) {
-        List<String> interactions = new ArrayList<>();
-        return interactions;
-    }
     
     private void setActiveActions (Coordinate coordinate) {
         List<String> myActiveActionNames = getActions(coordinate);
@@ -189,10 +184,8 @@ public class GameManager extends Manager {
     /**
      * Sets the tiles that an action affects to active
      * 
-     * @param unitCoordinate
-     *        Coordinate where the action originates
-     * @param actionID
-     *        int that represents the index of the action in myActiveActions
+     * @param unitCoordinate Coordinate where the action originates
+     * @param actionID int that represents the index of the action in myActiveActions
      */
     public void beginAction (Coordinate unitCoordinate, int actionID) {
         setActiveActions(unitCoordinate);
@@ -203,6 +196,7 @@ public class GameManager extends Manager {
         }
         else if (myActiveActions.get(actionID).getName().equals(GridConstants.WAIT)) {
             myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, unitCoordinate).setActive(false);
+            System.out.println(myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, unitCoordinate).isActive());
         }
         else {
             myActiveStage.getGrid().beginAction(unitCoordinate, myActiveActions.get(actionID).getActionRange());
@@ -220,13 +214,13 @@ public class GameManager extends Manager {
         GameUnit initiator = (GameUnit) myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, unitCoordinate);
         Action activeAction = myActiveActions.get(actionID);
 
-        if (activeAction.getName().equals(GridConstants.MOVE) && myActiveStage.getGrid().isActive(actionCoordinate)) {
+        if (activeAction.getName().equals(GridConstants.MOVE) && myActiveStage.getGrid().isActive(GridConstants.TILE, actionCoordinate)) {
             myActiveStage.getGrid().doMove(unitCoordinate, actionCoordinate);
             initiator.hasMoved();
         }
         else {
             GameObject receiver = myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, actionCoordinate);
-            if (receiver != null && myActiveStage.getGrid().isActive(actionCoordinate)) {
+            if (receiver != null && myActiveStage.getGrid().isActive(GridConstants.TILE, actionCoordinate)) {
                 activeAction.doAction(initiator, receiver);
                 initiator.setActive(false);
             }

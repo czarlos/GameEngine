@@ -103,8 +103,7 @@ public class GameUnit extends GameObject {
      * the item's stats have been applied. Assuming initializeStats has been
      * called.
      * 
-     * @param stat
-     *        - The stat that we want to see
+     * @param stat The stat that we want to see
      * @return
      */
     public int getTotalStat (String stat) {
@@ -113,27 +112,6 @@ public class GameUnit extends GameObject {
             value += i.getStat(stat);
         }
         return value;
-    }
-
-    /**
-     * Trade allows one unit to swap an item with another unit, no matter what
-     * team they are affiliated with. Note: as of this implementation any
-     * character will trade with you for anything you want, a system must be
-     * implemented which allows the other unit to determine what trades are
-     * appropriate.
-     * 
-     * @param other
-     *        - The unit that this unit is trading with
-     * @param otherItem
-     *        - The item that this unit wants
-     * @param item
-     *        - The item that this unit is giving away
-     */
-    public void trade (GameUnit other, Item otherItem, Item item) {
-        other.removeItem(otherItem);
-        this.removeItem(item);
-        other.addItem(item);
-        this.addItem(otherItem);
     }
 
     public void setStats (Stats stats) {

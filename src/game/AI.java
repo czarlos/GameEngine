@@ -4,6 +4,7 @@ import gameObject.GameUnit;
 import gameObject.action.Action;
 import grid.Coordinate;
 import grid.Grid;
+import grid.GridConstants;
 import grid.Tile;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -54,10 +55,10 @@ public class AI {
     public void doAIMove (GameUnit unit, Set<GameUnit> allEnemies) {
         Coordinate other = findClosestOpponent(unit, allEnemies);
         System.out.println(other.getX() + " x " + other.getY());
-        Tile start = myGrid.getTile(myGrid.getUnitCoordinate(unit));
-        Tile end = myGrid.getTile(other);
-        if (UnitUtilities.calculateLength(myGrid.getTileCoordinate(start),
-                                          myGrid.getTileCoordinate(end)) == 1) {
+        Tile start = (Tile) myGrid.getObject(GridConstants.TILE, myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit));
+        Tile end = (Tile) myGrid.getObject(GridConstants.TILE, other);
+        if (UnitUtilities.calculateLength(myGrid.getObjectCoordinate(GridConstants.TILE, start),
+                                          myGrid.getObjectCoordinate(GridConstants.TILE, end)) == 1) {
             /*
             Random r = new Random();
             int rand = r.nextInt(unit.getActions().size());
@@ -109,20 +110,20 @@ public class AI {
             if (closest == null) {
                 closest = opponent;
                 distance = UnitUtilities.calculateLength(
-                                                         myGrid.getUnitCoordinate(unit),
-                                                         myGrid.getUnitCoordinate(opponent));
+                                                         myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit),
+                                                         myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, opponent));
             }
             else if (UnitUtilities.calculateLength(
-                                                   myGrid.getUnitCoordinate(unit),
-                                                   myGrid.getUnitCoordinate(opponent)) < distance) {
+                                                   myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit),
+                                                   myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, opponent)) < distance) {
                 closest = opponent;
                 distance = UnitUtilities.calculateLength(
-                                                         myGrid.getUnitCoordinate(unit),
-                                                         myGrid.getUnitCoordinate(opponent));
+                                                         myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit),
+                                                         myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, opponent));
             }
         }
 
-        return myGrid.getUnitCoordinate(closest);
+        return myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, closest);
     }
 
     /**
@@ -149,8 +150,8 @@ public class AI {
 
         for (GameUnit other : otherUnits) {
             double distance = UnitUtilities.calculateLength(
-                                                            myGrid.getUnitCoordinate(unit),
-                                                            myGrid.getUnitCoordinate(other));
+                                                            myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit),
+                                                            myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, other));
             unitDistance.put(distance, other);
         }
         for (Double distance : unitDistance.keySet()) {

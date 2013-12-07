@@ -86,18 +86,6 @@ public class Grid implements Drawable {
     }
 
     /**
-     * Return boolean of if a gameUnit can move to a given coordinatee
-     * 
-     * @param coordinate
-     *        Coordinate being moved to
-     * @return boolean of if move is possible
-     */
-    public boolean isValidMove (Coordinate coordinate) {
-        return isValid(coordinate) && getObject(GridConstants.GAMEOBJECT, coordinate) == null;
-    }
-
-    // TODO: move validMove() check to controller
-    /**
      * Moves the unit to a new coordinate if the move is valid
      * 
      * @param oldCoordinate
@@ -107,10 +95,8 @@ public class Grid implements Drawable {
      * 
      */
     public void doMove (Coordinate oldCoordinate, Coordinate newCoordinate) {
-        // if (isValidMove(newCoordinate)) {
         GameObject gameUnit = removeObject(oldCoordinate);
         placeObject(GridConstants.GAMEUNIT, newCoordinate, gameUnit);
-        // }
     }
 
     /**
@@ -129,7 +115,7 @@ public class Grid implements Drawable {
 
         for (Coordinate adjacentCoordinate : adjacentCoordinates) {
             if (onGrid(adjacentCoordinate)) {
-                Tile currentTile = getTile(adjacentCoordinate);
+                Tile currentTile = (Tile) getObject(GridConstants.TILE, adjacentCoordinate);
                 int newRange = range - currentTile.getMoveCost();
 
                 if (newRange >= 0) {
@@ -152,8 +138,7 @@ public class Grid implements Drawable {
     /**
      * Checks if the input coordinate is on the grid
      * 
-     * @param coordinate
-     *        Coordinate being checked
+     * @param coordinate Coordinate being checked
      * @return boolean of if the coordinate is valid
      */
     private boolean onGrid (Coordinate coordinate) {
@@ -164,30 +149,49 @@ public class Grid implements Drawable {
     /**
      * Checks if a coordinate is a valid move or action (the tile is active)
      * 
-     * @param coordinate
-     *        Coordinate being checked
+     * @param coordinate Coordinate being checked
      * @return boolean of if the coordinate is active
      */
-    public boolean isActive (Coordinate coordinate) {
-        return getTile(coordinate).isActive();
+    public boolean isActive (String type, Coordinate coordinate) {
+        return ((GameObject) getObject(type, coordinate)).isActive();
+    }
+    
+    /**
+     * Return boolean of if a gameUnit can move to a given coordinatee
+     * 
+     * @param coordinate Coordinate being moved to
+     * @return boolean of if move is possible
+     */
+    public boolean isValidMove (Coordinate coordinate) {
+        return isValid(coordinate) && getObject(GridConstants.GAMEOBJECT, coordinate) == null;
+    }
+    
+    /**
+     * Returns a boolean if a coordinate is on the grid and the tile for the
+     * coordinate is active
+     * 
+     * @param coordinate Coordinate being checked
+     * @return boolean of if the coordinate is valid
+     */
+    public boolean isValid (Coordinate coordinate) {
+        // make tiles active in AI
+        return onGrid(coordinate);
+        // return onGrid(coordinate) && isActive(coordinate);
     }
 
     /**
      * Initiates the action process
      * 
-     * @param objectCoordinate
-     *        Coordinate where the action originates
-     * @param gameUnit
-     *        GameUnit that is doing the action
-     * @param combatAction
-     *        CombatAction that is being used
+     * @param objectCoordinate Coordinate where the action originates
+     * @param gameUnit GameUnit that is doing the action
+     * @param combatAction CombatAction that is being used
      */
     public void beginAction (Coordinate coordinate, int range) {
         List<Coordinate> adjacentCoordinates = getAdjacentCoordinates(coordinate);
 
         for (Coordinate adjacentCoordinate : adjacentCoordinates) {
             if (onGrid(adjacentCoordinate)) {
-                Tile currentTile = getTile(adjacentCoordinate);
+                Tile currentTile = (Tile) getObject(GridConstants.TILE, adjacentCoordinate);
                 int newRange = range - 1;
 
                 if (newRange >= 0) {
@@ -196,20 +200,6 @@ public class Grid implements Drawable {
                 }
             }
         }
-    }
-
-    /**
-     * Returns a boolean if a coordinate is on the grid and the tile for the
-     * coordinate is active
-     * 
-     * @param coordinate
-     *        Coordinate being checked
-     * @return boolean of if the coordinate is valid
-     */
-    public boolean isValid (Coordinate coordinate) {
-        // make tiles active in AI
-        return onGrid(coordinate);
-        // return onGrid(coordinate) && isActive(coordinate);
     }
 
     /**
@@ -257,54 +247,28 @@ public class Grid implements Drawable {
         return (GameObject) myArrays.get(type)[coordinate.getX()][coordinate.getY()];
     }
 
-    // TODO: may not be necessary
     /**
-     * Returns the coordinates of a unit's location
+     * Gets the coordinate for a given gameObject
      * 
-     * @param gameUnit
-     *        GameUnit that is being located
-     * @return Coordinate of unit's location
+     * @param type String of type of gameObject being looked for
+     * @param gameObject GameObject being looked for
+     * @return Coordinate of gameObject's location
      */
-    public Coordinate getUnitCoordinate (GameUnit gameUnit) {
-        for (int i = 0; i < myArrays.get(GridConstants.TILE).length; i++) {
-            for (int j = 0; j < myArrays.get(GridConstants.TILE)[0].length; j++) {
-                Coordinate tileCoordinate = new Coordinate(i, j);
-                GameUnit currentTileUnit = (GameUnit) getObject(GridConstants.GAMEUNIT, tileCoordinate);
-
-                if (currentTileUnit == null) {
-                    continue;
-                }
-                else if (currentTileUnit.equals(gameUnit)) {
-                    return tileCoordinate;
-                }
-                else {
-                    continue;
+    public Coordinate getObjectCoordinate (String type, GameObject gameObject) {
+        for (int i=0; i < myArrays.get(type).length; i++) {
+            for (int j=0; j < myArrays.get(type)[0].length; j++) {
+                Coordinate currentCoordinate = new Coordinate(i, j);
+                GameObject currentObject = (GameObject) getObject(type, currentCoordinate);
+                if (currentObject != null) {
+                    if (currentObject.equals(gameObject)) {
+                        return currentCoordinate;
+                    }
                 }
             }
         }
         return null;
     }
-
-    public Coordinate getTileCoordinate (Tile tile) {
-        for (int i = 0; i < myArrays.get(GridConstants.TILE).length; i++) {
-            for (int j = 0; j < myArrays.get(GridConstants.TILE)[0].length; j++) {
-                Coordinate tileCoordinate = new Coordinate(i, j);
-
-                if (tile == null) {
-                    continue;
-                }
-                else if (tile.equals(myArrays.get(GridConstants.TILE)[i][j])) {
-                    return tileCoordinate;
-                }
-                else {
-                    continue;
-                }
-            }
-        }
-        return null;
-
-    }
-
+    
     /**
      * Places a GameObject at given coordinates
      * @param type
@@ -340,20 +304,17 @@ public class Grid implements Drawable {
      * @return Object removed from position (x,y)
      */
     private GameObject removeObject (Coordinate coordinate) {
-        GameObject objToRemove = getObject(GridConstants.GAMEOBJECT, coordinate);
+        GameObject removeObject = getObject(GridConstants.GAMEOBJECT, coordinate);
         myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()] = null;
         
-        if (objToRemove instanceof GameUnit) {
-            objToRemove = getObject(GridConstants.GAMEUNIT, coordinate);
+        if (removeObject instanceof GameUnit) {
+            removeObject = getObject(GridConstants.GAMEUNIT, coordinate);
             myArrays.get(GridConstants.GAMEUNIT)[coordinate.getX()][coordinate.getY()] = null;
         }
-        return objToRemove;
+        return removeObject;
     }
 
-    @JsonIgnore
-    public GameUnit[][] getGameUnits () {
-        return (GameUnit[][]) myArrays.get(GridConstants.GAMEUNIT);
-    }
+
 
     /**
      * Finds all coordinates adjacent to the coordinate given.
@@ -368,17 +329,6 @@ public class Grid implements Drawable {
         returnArray.add(new Coordinate(coord.getX() - 1, coord.getY()));
         returnArray.add(new Coordinate(coord.getX(), coord.getY() - 1));
         return returnArray;
-    }
-
-    /**
-     * Returns a tile at the given coordinates
-     * 
-     * @param coordinate Coordinate being checked
-     * @return Tile at coordinate
-     */
-    public Tile getTile (Coordinate coordinate) {
-        // TODO: Generic method?
-        return (Tile) myArrays.get(GridConstants.TILE)[coordinate.getX()][coordinate.getY()];
     }
 
     /**
@@ -404,27 +354,26 @@ public class Grid implements Drawable {
     public void draw (Graphics g, int x, int y, int width, int height) {
         int tileWidth = width / myWidth;
         int tileHeight = height / myHeight;
-
-        for (int i = 0; i < myArrays.get(GridConstants.TILE).length; i++) {
-            for (int j = 0; j < myArrays.get(GridConstants.TILE)[i].length; j++) {
-                Tile tile = (Tile) myArrays.get(GridConstants.TILE)[i][j];
-                tile.draw(g, i * tileWidth, j * tileHeight, tileWidth,
-                          tileHeight);
-            }
-        }
-
-        // TODO: duplicate for tile and object. generic
-        for (int i = 0; i < myArrays.get(GridConstants.GAMEOBJECT).length; i++) {
-            for (int j = 0; j < myArrays.get(GridConstants.GAMEOBJECT)[i].length; j++) {
-                GameObject gameObject = (GameObject) myArrays.get(GridConstants.GAMEOBJECT)[i][j];
+        drawType(GridConstants.TILE, tileWidth, tileHeight, g);
+        drawType(GridConstants.GAMEOBJECT, tileWidth, tileHeight, g);
+    }
+    
+    private void drawType (String type, int tileWidth, int tileHeight, Graphics g) {
+        for (int i=0; i < myArrays.get(type).length; i++) {
+            for (int j=0; j < myArrays.get(type)[i].length; j++) {
+                GameObject gameObject = (GameObject) myArrays.get(type)[i][j];
                 if (gameObject != null) {
-                    gameObject.draw(g, i * tileWidth, j * tileHeight,
-                                    tileWidth, tileHeight);
-                }
+                    gameObject.draw(g, i * tileWidth, j * tileHeight, tileWidth, tileHeight);
+                }                
             }
         }
     }
 
+    @JsonIgnore
+    public GameUnit[][] getGameUnits () {
+        return (GameUnit[][]) myArrays.get(GridConstants.GAMEUNIT);
+    }
+    
     @JsonIgnore
     public Tile[][] getTiles () {
         return (Tile[][]) myArrays.get(GridConstants.TILE);
