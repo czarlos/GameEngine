@@ -1,25 +1,20 @@
 package gameObject.action;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.GameUnit;
 
 
 @JsonAutoDetect
-public class Outcome {
-    private String myType;
-    private String myName;
-    private int myAmount;
-    private boolean isFixed;
+public abstract class Outcome {
+    protected int myAmount;
+    protected boolean isFixed;
 
     public Outcome () {
 
     }
 
-    public Outcome (String name, int amount, boolean fixed) {
-        myName = name;
+    public Outcome (int amount, boolean fixed) {
         myAmount = amount;
         isFixed = fixed;
     }
@@ -34,44 +29,7 @@ public class Outcome {
      * @param effectiveness
      *        - A measurement of how much of an outcome should occur
      */
-    public void applyOutcome (GameUnit unit, double effectiveness) {
-
-        if (isStat(unit, myName)) {
-            myType = "Stat";
-        }
-        else {
-            myType = "Item";
-        }
-
-        try {
-            Method get = unit.getClass().getDeclaredMethod("combatGet" + myType + "Value",
-                                                           String.class);
-            Method set = unit.getClass().getDeclaredMethod("combatSet" + myType + "Value",
-                                                           String.class, int.class);
-
-            int newAmount;
-
-            if (isFixed) {
-                newAmount = (int) get.invoke(unit, myName) + myAmount;
-            }
-            else {
-                newAmount = Math
-                        .round((float) ((int) get.invoke(unit, myName) + myAmount
-                                                                         * effectiveness));
-            }
-
-            newAmount = (newAmount > 0 ? newAmount : 0);
-
-            set.invoke(unit, myName, newAmount);
-
-        }
-        catch (NoSuchMethodException | SecurityException
-                | IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException e) {
-            // TODO Figure out what to do
-            e.printStackTrace();
-        }
-    }
+    public abstract void applyOutcome (GameUnit unit, double effectiveness);
 
     /**
      * Checks whether or not an outcome is legal
@@ -80,55 +38,7 @@ public class Outcome {
      * @param effectiveness
      * @return true if legal, false otherwise
      */
-    public boolean checkValidOutcome (GameUnit unit, double effectiveness) {
-
-        if (isStat(unit, myName)) {
-            myType = "Stat";
-        }
-        else {
-            myType = "Item";
-        }
-
-        try {
-            Method get = unit.getClass().getDeclaredMethod("combatGet" + myType + "Value",
-                                                           String.class);
-
-            int oldAmount = (int) get.invoke(unit, myName);
-            int newAmount;
-
-            if (isFixed) {
-                newAmount = (int) get.invoke(unit, myName) + myAmount;
-            }
-            else {
-                newAmount = Math
-                        .round((float) ((int) get.invoke(unit, myName) + myAmount
-                                                                         * effectiveness));
-            }
-
-            if (oldAmount - newAmount < 0) { return false; }
-
-        }
-        catch (NoSuchMethodException | SecurityException
-                | IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException e) {
-            // TODO Figure out what to do
-            e.printStackTrace();
-        }
-
-        return true;
-    }
-
-    private boolean isStat (GameUnit unit, String name) {
-        return unit.getStats().getStatNames().contains(name);
-    }
-
-    public String getName () {
-        return myName;
-    }
-
-    public void setName (String name) {
-        myName = name;
-    }
+    public abstract boolean checkValidOutcome (GameUnit unit, double effectiveness);
 
     public int getAmount () {
         return myAmount;

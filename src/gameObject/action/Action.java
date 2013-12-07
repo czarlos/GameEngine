@@ -1,24 +1,18 @@
 package gameObject.action;
 
-import java.util.ArrayList;
-import java.util.List;
 import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import gameObject.GameObject;
 import gameObject.GameUnit;
-import grid.Coordinate;
+import grid.GridConstants;
 
 
 @JsonAutoDetect
 public abstract class Action extends Customizable {
-    private List<Coordinate> myAOE;
-    private boolean isAround;
-    private int myActionRange;
+    protected int myActionRange;
 
     public Action () {
-        List<Coordinate> AOE = new ArrayList<>();
-        AOE.add(new Coordinate(0, 1));
-        setAround(false);
+        myActionRange = GridConstants.ACTIONRANGE;
     }
 
     public void setActionRange (int actionRange) {
@@ -31,22 +25,5 @@ public abstract class Action extends Customizable {
 
     public abstract void doAction (GameUnit initiator, GameObject receiver);
 
-    public abstract boolean isValidAction (GameUnit gameUnit,
-                                           GameObject gameObject);
-
-    public boolean isAround () {
-        return isAround;
-    }
-
-    public void setAround (boolean isAround) {
-        this.isAround = isAround;
-    }
-
-    public List<Coordinate> getAOE () {
-        return myAOE;
-    }
-
-    public void setAOE (List<Coordinate> AOE) {
-        myAOE = AOE;
-    }
+    public abstract boolean isValid (GameUnit gameUnit, GameObject gameObject);
 }

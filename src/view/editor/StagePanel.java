@@ -2,6 +2,7 @@ package view.editor;
 
 import grid.GridConstants;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -19,7 +20,7 @@ public class StagePanel extends JPanel {
      * 
      */
     private static final long serialVersionUID = 1534023398376725167L;
-    private final String[] defaultTypes = GridConstants.DEFAULTTYPES;
+    private final String[] defaultTypes = GridConstants.DEFAULTTABTYPES;
     private GridCanvas myCanvas;
     private WorldManager myWorldManager;
     private int myID;
@@ -43,7 +44,6 @@ public class StagePanel extends JPanel {
                                 ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
                                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollGrid.setLayout(new ScrollPaneLayout());
-        scrollGrid.setSize(new Dimension(600, 500));
         add(scrollGrid);
         //StageEditorPanel panel = new StageEditorPanel(myWorldManager,
         //                                          defaultTypes, myID);

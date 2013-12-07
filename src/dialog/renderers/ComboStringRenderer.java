@@ -20,13 +20,13 @@ public class ComboStringRenderer extends DefaultTableCellRenderer {
         Component cell = super.getTableCellRendererComponent(table, value,
                                                              isSelected, hasFocus, row, column);
 
-        ((JLabel) cell).setText(value.toString());
+        if (value != null)
+            ((JLabel) cell).setText(value.toString());
         ((JLabel) cell).setHorizontalAlignment(JLabel.CENTER);
 
         if (isSelected)
-            cell.setBackground(Color.blue);
-        else cell.setBackground(Color.LIGHT_GRAY);
+            cell.setBackground(Color.LIGHT_GRAY);
+        else cell.setBackground(null);
         return cell;
     }
-
 }

@@ -41,7 +41,7 @@ public abstract class Customizable {
 
     public void setImagePath (String imagePath) {
         myImagePath = imagePath;
-        myImage=ImageManager.getImage(imagePath);
+        myImage = ImageManager.getImage(imagePath);
     }
 
     @JsonIgnore

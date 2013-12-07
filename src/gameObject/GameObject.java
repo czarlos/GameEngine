@@ -1,6 +1,7 @@
 package gameObject;
 
 import game.ImageManager;
+import gameObject.item.Item;
 import grid.GridConstants;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -33,6 +34,10 @@ public class GameObject extends Customizable implements Drawable {
                         : ImageManager.getImage(myImagePath);
     }
 
+    public boolean isActive () {
+        return isActive;
+    }
+
     public List<String> getInfo () {
         return myDisplayData;
     }
@@ -50,7 +55,8 @@ public class GameObject extends Customizable implements Drawable {
      */
 
     public boolean isPassable (GameUnit unit) {
-        return myPassableList.contains(unit.getName()) || myPassableList.contains(GridConstants.DEFAULT_PASS_EVERYTHING);
+        return myPassableList.contains(unit.getName()) ||
+               myPassableList.contains(GridConstants.DEFAULT_PASS_EVERYTHING);
     }
 
     /**
@@ -75,7 +81,7 @@ public class GameObject extends Customizable implements Drawable {
      */
     public List<String> generateDisplayData () {
         List<String> displayData = new ArrayList<>();
-        displayData.add("Name: "+myName);
+        displayData.add("<html><b>Name:</b> " + myName+"</htmL>");
         setDisplayData(displayData);
         return displayData;
     }
@@ -88,12 +94,16 @@ public class GameObject extends Customizable implements Drawable {
         myDisplayData = displayData;
     }
 
-    public List<String> getInteractions() {
+    public List<String> getInteractions () {
         return null;
     };
 
     @Override
     public void draw (Graphics g, int x, int y, int width, int height) {
         g.drawImage(getImage(), x, y, width, height, null);
+    }
+
+    public void addItem (Item item) {
+        // Does nothing
     }
 }

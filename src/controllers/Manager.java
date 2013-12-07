@@ -28,7 +28,7 @@ public abstract class Manager {
     @JsonProperty
     protected EditorData myEditorData;
 
-    // Editor instance variables 
+    // Editor instance variables
     @JsonProperty
     protected List<String> activeEditTypeList;
     @JsonProperty
@@ -45,7 +45,7 @@ public abstract class Manager {
         myEditorData = new EditorData("defaults");
     }
 
-    public Manager(Manager m) {
+    public Manager (Manager m) {
         myActiveStage = m.myActiveStage;
         myStages = m.myStages;
         myGameName = m.myGameName;
@@ -55,7 +55,7 @@ public abstract class Manager {
         myPhaseCount = m.myPhaseCount;
         myActiveTeam = m.myActiveTeam;
     }
-    
+
     public void setGameName (String gameName) {
         myGameName = gameName;
     }
@@ -136,28 +136,29 @@ public abstract class Manager {
      * Gets a list of actions that a unit at a coordinate can perform. Null if
      * there is no unit.
      * 
-     * @param coordinate
-     *        Coordinate that is being asked for
+     * @param coordinate Coordinate that is being asked for
      * @return List of Strings that contain the action names
      */
     @JsonIgnore
     public List<String> getActions (Coordinate coordinate) {
-        GameUnit gameUnit = (GameUnit) myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, coordinate);
+        GameUnit gameUnit =
+                (GameUnit) myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, coordinate);
         if (gameUnit != null) {
-            List<String> actions = new ArrayList<>();
-            actions.addAll(gameUnit.getActions());
-            actions.addAll(myActiveStage.getGrid().getAllInteractions(coordinate));
-            return actions;
+            if (gameUnit.isActive()) {
+                List<String> actions = new ArrayList<>();
+                actions.addAll(gameUnit.getActions());
+                actions.addAll(myActiveStage.getGrid().getAllInteractions(coordinate));
+                return actions;
+            }
         }
         return null;
     }
-    
+
     /**
      * Method to getting a Drawable version of the grid
      * 
      * @return
      */
-
     public Drawable getGrid () {
         return (Drawable) myActiveStage.getGrid();
     }
@@ -175,6 +176,6 @@ public abstract class Manager {
 
     public void saveGame (String folder) {
         JSONParser p = new JSONParser();
-        p.createJSON(folder+"/" + myGameName, this);
+        p.createJSON(folder + "/" + myGameName, this);
     }
 }

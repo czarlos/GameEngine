@@ -47,8 +47,8 @@ public class GridController implements GridMouseListener {
     public void clearCurrentCommand () {
         myCurrentAction = null;
     }
-    
-    public Coordinate getCurrentCoordinate(){
+
+    public Coordinate getCurrentCoordinate () {
         return mySelectedCoordinate;
     }
 

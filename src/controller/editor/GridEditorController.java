@@ -26,16 +26,14 @@ public class GridEditorController implements GridMouseListener {
         int id = myWM.getActiveID(currentIndex);
         if (id >= 0)
             myWM.place(myWM.getActiveType(currentIndex), id, c);
-        displayInfo(c , currentIndex);
+        displayInfo(c, currentIndex);
     }
 
     private void displayInfo (Coordinate c, int index) {
         myPanelList.get(index).displayInformation(c);
     }
     
-    public void addStageSidePanel( StageSidePanel panel){
+    public void addStageSidePanel (StageSidePanel panel) {
         myPanelList.add(panel);
     }
-    
-
 }
