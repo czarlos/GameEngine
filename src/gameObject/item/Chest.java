@@ -22,8 +22,8 @@ import gameObject.action.ChestAction;
 public class Chest extends GameObject {
     
     @JsonProperty
-    private Map<String, Integer> myItemAmounts;
-    private Set<Item> myItems;
+    protected Map<String, Integer> myItemAmounts;
+    protected Set<Item> myItems;
 
     public Chest () {
         myItems = new HashSet<>();
@@ -59,7 +59,7 @@ public class Chest extends GameObject {
             myItemAmounts.put(item.getName(), 1);
         }
         else {
-            myItemAmounts.put(item.getName(), myItemAmounts.get(item) + 1);
+            myItemAmounts.put(item.getName(), myItemAmounts.get(item.getName()) + 1);
         }
     }
 
@@ -85,8 +85,13 @@ public class Chest extends GameObject {
     @Override
     @JsonIgnore
     public List<String> getInteractions () {
+        System.out.println("chest getInteractions");
+        if (myItems.isEmpty()) {
+            return null;
+        }
         List<String> actions = new ArrayList<String>();
         actions.add(new ChestAction().getName());
+        System.out.println(actions);
         return actions;
     }
     

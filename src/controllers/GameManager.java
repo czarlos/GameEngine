@@ -8,6 +8,7 @@ import game.AI;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.action.Action;
+import gameObject.action.ShopAction;
 import gameObject.action.TradeAction;
 import grid.Coordinate;
 import grid.GridConstants;
@@ -162,12 +163,16 @@ public class GameManager extends Manager {
     @SuppressWarnings("unchecked")
     private Action getAction (String actionName) {
         List<Action> editorActions = (List<Action>) myEditorData.get(GridConstants.ACTION);
-
+        String[] actionNameSplit = actionName.split(" ");
+        if (actionNameSplit[0].equals(GridConstants.TRADE)) {
+            return new TradeAction(actionNameSplit[1]);
+        }
+        if (actionNameSplit[0].equals(GridConstants.SHOP)) {
+            return new ShopAction(actionNameSplit[1]);
+        }
         // check first to see if it's one of the core actions so users can't override
         for (Action action : GridConstants.COREACTIONS) {
-            if (action.getName().split(" ")[0].equals(GridConstants.TRADE)) {
-                return new TradeAction(action.getName().split(" ")[1]);
-            }
+
             if (action.getName().equals(actionName)) { return action; }
         }
         for (Action action : editorActions) {
@@ -185,9 +190,9 @@ public class GameManager extends Manager {
      */
     public void beginAction (Coordinate unitCoordinate, int actionID) {
         GameUnit initiator = (GameUnit) myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, unitCoordinate);
-        Action activeAction = myActiveActions.get(actionID);
         setActiveActions(unitCoordinate);
         myActiveStage.getGrid().setAllTilesInactive();
+        Action activeAction = myActiveActions.get(actionID);
         if (activeAction.getName().equals(GridConstants.MOVE)) {
             myActiveStage.getGrid().beginMove(unitCoordinate);
         }
@@ -208,6 +213,7 @@ public class GameManager extends Manager {
      */
     public void doAction (Coordinate unitCoordinate, Coordinate actionCoordinate, int actionID) {
         GameUnit initiator = (GameUnit) myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, unitCoordinate);
+        setActiveActions(unitCoordinate);
         Action activeAction = myActiveActions.get(actionID);
         if (activeAction.getName().equals(GridConstants.MOVE) && myActiveStage.getGrid().isActive(GridConstants.TILE, actionCoordinate)) {
             myActiveStage.getGrid().doMove(unitCoordinate, actionCoordinate);

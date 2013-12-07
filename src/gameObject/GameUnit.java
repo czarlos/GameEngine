@@ -77,7 +77,7 @@ public class GameUnit extends GameObject {
             myItemAmounts.put(item.getName(), 1);
         }
         else {
-            myItemAmounts.put(item.getName(), myItemAmounts.get(item) + 1);
+            myItemAmounts.put(item.getName(), myItemAmounts.get(item.getName()) + 1);
         }
     }
 
@@ -209,15 +209,17 @@ public class GameUnit extends GameObject {
         }
         displayData.add("Equipment: ");
         for (Item item : myItems) {
-            displayData.add("    " + item + ": " + getItemAmount(item.getName()));
+            displayData.add("    " + item.getName() + ": " + getItemAmount(item.getName()));
         }
         setDisplayData(displayData);
         return displayData;
     }
 
-    // TODO: trade with affiliates
     @Override
     public List<String> getInteractions () {
+        if (myItems.isEmpty()) {
+            return null;
+        }
         List<String> interactions = new ArrayList<>();
         
         for (Item item : myItems) {
@@ -230,7 +232,7 @@ public class GameUnit extends GameObject {
     @JsonIgnore
     public int getItemAmount (String itemName) {
         for (Item item : myItems) {
-            if (item.equals(itemName)) { return myItemAmounts.get(itemName); }
+            if (item.getName().equals(itemName)) { return myItemAmounts.get(itemName); }
         }
         return 0;
     }

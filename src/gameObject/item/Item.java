@@ -65,8 +65,12 @@ public class Item extends Customizable {
         this.myStats = new Stats(myStats);
     }
     
-    public boolean equals (Item other) {
-        return this.getName().equals(other.getName());
+    @Override
+    public boolean equals (Object other) {
+        if (other instanceof Customizable) {
+            return this.getName().equals(((Customizable) other).getName());
+        }
+        else return false;
     }
 
     @Override

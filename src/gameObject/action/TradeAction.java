@@ -2,7 +2,6 @@ package gameObject.action;
 
 import gameObject.GameObject;
 import gameObject.GameUnit;
-import gameObject.item.Item;
 import gameObject.item.Shop;
 import grid.GridConstants;
 
@@ -12,11 +11,12 @@ public class TradeAction extends Action {
     private Outcomes myInitiatorOutcomes;
     private Outcomes myReceiverOutcomes;
     
+    public TradeAction() {
+        myName = "Trade";
+    }
+    
     public TradeAction(String string) {
-        super.setName(GridConstants.TRADE+ " "+string);
-        myItem = string;
-        myInitiatorOutcomes = new Outcomes();
-        myReceiverOutcomes = new Outcomes();
+        init(string);
     }
     
     @Override
@@ -58,6 +58,17 @@ public class TradeAction extends Action {
 
     public void setReceiverOutcomes (Outcomes outcomes) {
         myReceiverOutcomes = outcomes;
+    }
+    
+    public void init (String itemName) {
+        setItem(itemName);
+        myInitiatorOutcomes = new Outcomes();
+        myReceiverOutcomes = new Outcomes();
+    }
+    
+    private void setItem (String itemName) {
+        setName(GridConstants.TRADE + " " + itemName);
+        myItem = itemName;
     }
 
 }

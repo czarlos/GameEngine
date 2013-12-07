@@ -58,9 +58,14 @@ public class CombatAction extends Action {
 
     @Override
     public boolean isValid (GameUnit initiator, GameObject receiver) {
-        if(receiver == null) {return false;}
-        double effectiveness = getNetEffectiveness(initiator, (GameUnit) receiver);
-        return myInitiatorOutcomes.checkValid(initiator, effectiveness);
+        if(receiver == null) {
+            return false;
+        }
+        if (receiver instanceof GameUnit) {
+            double effectiveness = getNetEffectiveness(initiator, (GameUnit) receiver);
+            return myInitiatorOutcomes.checkValid(initiator, effectiveness);
+        }
+        return false;
     }
 
     public Stats getInitiatorStatWeights () {
