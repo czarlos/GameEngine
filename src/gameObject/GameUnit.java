@@ -225,7 +225,6 @@ public class GameUnit extends GameObject {
         List<String> interactions = new ArrayList<>();
         System.out.println(myItems);
         for (Item item : myItems) {
-            System.out.println(item.getName());
             interactions.add(GridConstants.TRADE+ " "+item.getName());
         }
 
