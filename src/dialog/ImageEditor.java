@@ -62,6 +62,7 @@ public class ImageEditor extends AbstractCellEditor implements TableCellEditor,
             fireEditingStopped();
 
             // OK has been clicked in the ImageCreator
+            // cancel functionality to be implemented by ImageCreator
         }
         else {
             currentImage = (BufferedImage) imageCreator.getImage();
@@ -77,8 +78,14 @@ public class ImageEditor extends AbstractCellEditor implements TableCellEditor,
         currentImage = (BufferedImage) ((ImageIcon) value).getImage();
         return button;
     }
-
-    public static BufferedImage copyImage (BufferedImage source) {
+    
+    /**
+     * Copy BufferedImage
+     * 
+     * @param source
+     * @return BufferedImage copy in ARGB colorspace
+     */
+    private static BufferedImage copyImage (BufferedImage source) {
         BufferedImage copy = new BufferedImage(source.getWidth(),
                                                source.getHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = (Graphics2D) copy.getGraphics();

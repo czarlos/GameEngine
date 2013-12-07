@@ -8,6 +8,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
+/**
+ * 
+ * @author Leevi, brooksmershon
+ *
+ */
 
 @SuppressWarnings("serial")
 public abstract class GameCellEditor extends AbstractCellEditor implements
@@ -32,6 +37,7 @@ public abstract class GameCellEditor extends AbstractCellEditor implements
     @Override
     public abstract void actionPerformed (ActionEvent e);
 
+    @Override
     public Component getTableCellEditorComponent (JTable table, Object value,
                                                   boolean isSelected, int row, int column) {
         current = value;
