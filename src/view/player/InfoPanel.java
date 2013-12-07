@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.JLabel;
 
 
+@SuppressWarnings("serial")
 public class InfoPanel extends ScrollableListPane {
     public InfoPanel (List<String> data) {
         setPreferredSize(new Dimension(WIDTH, data.size() * DATA_HEIGHT));

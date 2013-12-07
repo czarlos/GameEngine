@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 
+@SuppressWarnings("serial")
 public class StoryPanel extends JPanel {
 
     private JTextArea myText;
@@ -25,12 +26,14 @@ public class StoryPanel extends JPanel {
     private JButton generateMoveButton (PlayerView p) {
         JButton moveButton = new JButton("Continue");
         moveButton.addActionListener(new ActionListener() {
+            private PlayerView myPlayerView;
 
             @Override
             public void actionPerformed (ActionEvent e) {
             }
 
             public ActionListener init (PlayerView mvp) {
+                myPlayerView = mvp;
                 return this;
             }
         }.init(p));

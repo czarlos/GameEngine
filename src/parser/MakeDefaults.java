@@ -3,7 +3,9 @@ package parser;
 import gameObject.Stats;
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
+import gameObject.action.Outcome;
 import gameObject.action.Outcomes;
+import gameObject.action.StatOutcome;
 import gameObject.item.Item;
 import grid.GridConstants;
 import java.util.ArrayList;
@@ -33,7 +35,10 @@ public class MakeDefaults {
         defaultCombatAction.setImagePath("resources/weapon.png");
         defaultCombatAction.setActionRange(1);
         defaultCombatAction.setInitiatorOutcomes(new Outcomes());
-        defaultCombatAction.setReceiverOutcomes(new Outcomes());
+        Outcome r1 = new StatOutcome("health", -10, true);
+        Outcomes recvOutcomes = new Outcomes();
+        recvOutcomes.addOutcome(r1);
+        defaultCombatAction.setReceiverOutcomes(recvOutcomes);
         defaultCombatAction.setInitiatorStatWeights(new Stats());
         defaultCombatAction.setReceiverStatWeights(new Stats());
 
@@ -138,9 +143,13 @@ public class MakeDefaults {
         tree.setName("Tree");
         tree.setImagePath("resources/tree.png");
 
-        gameObject.GameObject chest = new gameObject.GameObject();
+        gameObject.Chest chest = new gameObject.Chest();
         chest.setName("Chest");
-        chest.setImagePath("resources/chest.png");
+        chest.setImagePath("resources/chest.png");   
+        
+        gameObject.Shop shop = new gameObject.Shop();
+        shop.setName("Shop");
+        shop.setImagePath("resources/shop.png");
 
         gameObject.GameObject stone = new gameObject.GameObject();
         stone.setName("Stone");
@@ -148,6 +157,7 @@ public class MakeDefaults {
 
         list.add(tree);
         list.add(chest);
+        list.add(shop);
         list.add(stone);
 
         p.createJSON("defaults/" + GridConstants.GAMEOBJECT, list);

@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.Scrollable;
 
 
-public class Canvas extends JPanel implements Scrollable{
+public class Canvas extends JPanel implements Scrollable {
 
     /**
      * 
@@ -44,7 +44,7 @@ public class Canvas extends JPanel implements Scrollable{
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
     }
-    
+
     public int getHeight () {
         return getSize().height;
     }

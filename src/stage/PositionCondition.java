@@ -25,11 +25,13 @@ public class PositionCondition extends Condition {
 
     @Override
     boolean isFulfilled (Stage stage) {
-        GameUnit object = (GameUnit) stage.getGrid().getObject(GridConstants.GAMEUNIT, new Coordinate(Integer.parseInt(myData.get("x")), Integer.parseInt(myData.get("y"))));
+        GameUnit object =
+                (GameUnit) stage.getGrid().getObject(GridConstants.GAMEUNIT,
+                                                     new Coordinate(Integer.parseInt(myData
+                                                             .get("x")), Integer.parseInt(myData
+                                                             .get("y"))));
 
-        if (object != null) {
-            return object.getAffiliation().equals(myData.get("team name"));
-        }
+        if (object != null) { return object.getAffiliation().equals(myData.get("team name")); }
 
         return false;
     }

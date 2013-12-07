@@ -52,8 +52,7 @@ public class Item extends Customizable {
 
     @JsonIgnore
     public int getStat (String statName) {
-        if (myStats.getStats().containsKey(statName))
-            return myStats.getStatValue(statName);
+        if (myStats.getStats().containsKey(statName)) { return myStats.getStatValue(statName); }
         return 0;
     }
 
@@ -63,5 +62,19 @@ public class Item extends Customizable {
 
     public void setStats (Stats myStats) {
         this.myStats = new Stats(myStats);
+    }
+
+    @Override
+    public boolean equals (Object other) {
+        if (other instanceof Customizable) {
+            return this.getName().equals(((Customizable) other).getName());
+        }
+        else return false;
+    }
+
+    @Override
+    public int hashCode () {
+        final int prime = 31;
+        return myName.length() * prime;
     }
 }

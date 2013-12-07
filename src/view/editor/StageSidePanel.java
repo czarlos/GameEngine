@@ -15,7 +15,7 @@ public class StageSidePanel extends JPanel {
 
     private WorldManager myWorldManager;
     private int myID;
-    private final String[] defaultTypes = GridConstants.DEFAULTTYPES;
+    private final String[] defaultTypes = GridConstants.DEFAULTTABTYPES;
     private SelectedInfoPanel myInfoPanel;
     
     public StageSidePanel(WorldManager wm, String[] defaultTypes, int stageID){

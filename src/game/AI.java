@@ -34,12 +34,10 @@ public class AI {
     }
 
     public void doTurn () {
-        Set<GameUnit> opponentList = findAllEnemies();        
+        Set<GameUnit> opponentList = findAllEnemies();
         for (GameUnit unit : myStage.getTeamUnits(myTeam.getName())) {
             PathFinding.addNeighbors(PathFinding.coordinatesToTiles(myGrid, unit), myGrid);
-            // delay?
             doAIMove(unit, opponentList);
-            // Sleep?
         }
     }
 
@@ -56,17 +54,17 @@ public class AI {
      */
     public void doAIMove (GameUnit unit, Set<GameUnit> allEnemies) {
         Coordinate other = findClosestOpponent(unit, allEnemies);
-        System.out.println(other.getX() + " x " + other.getY());
-        Tile start = myGrid.getTile(myGrid.getUnitCoordinate(unit));
-        Tile end = myGrid.getTile(other);
-        if (UnitUtilities.calculateLength(myGrid.getTileCoordinate(start),
-                                          myGrid.getTileCoordinate(end)) == 1) {
-            
+        Tile start =
+                (Tile) myGrid.getObject(GridConstants.TILE,
+                                        myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit));
+        Tile end = (Tile) myGrid.getObject(GridConstants.TILE, other);
+        if (UnitUtilities.calculateLength(myGrid.getObjectCoordinate(GridConstants.TILE, start),
+                                          myGrid.getObjectCoordinate(GridConstants.TILE, end)) == 1) {
             Random r = new Random();
             int rand = r.nextInt(unit.getActions().size());
             String randomAction = unit.getActions().get(rand);
-            String activeWeapon = unit.getActiveWeapon().toString();
-            myGM.getAction(randomAction).doAction(unit, myGrid.getObject(GridConstants.GAMEUNIT, other));
+            myGM.getAction(randomAction).doAction(unit,
+                                                  myGrid.getObject(GridConstants.GAMEUNIT, other));
         }
         else {
             PathFinding.autoMove(start, end, unit, myGrid);
@@ -82,13 +80,13 @@ public class AI {
      */
     public Set<GameUnit> findAllEnemies () {
         Set<GameUnit> opponentList = new HashSet<GameUnit>();
-        
+
         for (int i = 0; i < myStage.getNumberOfTeams(); i++) {
             Team team = myStage.getTeam(i);
             if (!team.getName().equals(myTeam.getName()))
                 opponentList.addAll(myStage.getTeamUnits(team.getName()));
         }
-//        System.out.println(opponentList);
+        // System.out.println(opponentList);
         return opponentList;
     }
 
@@ -106,30 +104,31 @@ public class AI {
         for (GameUnit opponent : opponents) {
             if (closest == null) {
                 closest = opponent;
-                distance = UnitUtilities.calculateLength(
-                                                         myGrid.getUnitCoordinate(unit),
-                                                         myGrid.getUnitCoordinate(opponent));
+                distance =
+                        UnitUtilities
+                                .calculateLength(
+                                                 myGrid.getObjectCoordinate(GridConstants.GAMEUNIT,
+                                                                            unit),
+                                                 myGrid.getObjectCoordinate(GridConstants.GAMEUNIT,
+                                                                            opponent));
             }
-            else if (UnitUtilities.calculateLength(
-                                                   myGrid.getUnitCoordinate(unit),
-                                                   myGrid.getUnitCoordinate(opponent)) < distance) {
+            else if (UnitUtilities
+                    .calculateLength(
+                                     myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit),
+                                     myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, opponent)) < distance) {
                 closest = opponent;
-                distance = UnitUtilities.calculateLength(
-                                                         myGrid.getUnitCoordinate(unit),
-                                                         myGrid.getUnitCoordinate(opponent));
+                distance =
+                        UnitUtilities
+                                .calculateLength(
+                                                 myGrid.getObjectCoordinate(GridConstants.GAMEUNIT,
+                                                                            unit),
+                                                 myGrid.getObjectCoordinate(GridConstants.GAMEUNIT,
+                                                                            opponent));
             }
         }
 
-        return myGrid.getUnitCoordinate(closest);
+        return myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, closest);
     }
-
-    /**
-     * The AI will move to your unit's positions and attack them.
-     */
-    // public void doAIMove (int aiTeamIndex, int otherTeamIndex) {
-    //
-    // moveToOpponents(aiTeamIndex, otherTeamIndex);
-    // }
 
     /**
      * Makes a list of units sorted from closest to farthest.
@@ -146,9 +145,13 @@ public class AI {
         List<GameUnit> priorityUnitList = new ArrayList<GameUnit>();
 
         for (GameUnit other : otherUnits) {
-            double distance = UnitUtilities.calculateLength(
-                                                            myGrid.getUnitCoordinate(unit),
-                                                            myGrid.getUnitCoordinate(other));
+            double distance =
+                    UnitUtilities
+                            .calculateLength(
+                                             myGrid.getObjectCoordinate(GridConstants.GAMEUNIT,
+                                                                        unit),
+                                             myGrid.getObjectCoordinate(GridConstants.GAMEUNIT,
+                                                                        other));
             unitDistance.put(distance, other);
         }
         for (Double distance : unitDistance.keySet()) {
@@ -156,5 +159,4 @@ public class AI {
         }
         return priorityUnitList;
     }
-
 }

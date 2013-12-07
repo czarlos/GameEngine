@@ -20,7 +20,7 @@ public class StagePanel extends JPanel {
      * 
      */
     private static final long serialVersionUID = 1534023398376725167L;
-    private final String[] defaultTypes = GridConstants.DEFAULTTYPES;
+    private final String[] defaultTypes = GridConstants.DEFAULTTABTYPES;
     private GridCanvas myCanvas;
     private WorldManager myWorldManager;
     private int myID;

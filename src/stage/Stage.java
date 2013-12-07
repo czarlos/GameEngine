@@ -40,8 +40,8 @@ public class Stage {
         myGrid = new Grid(x, y, tileID);
         myName = name;
         myTeams = new ArrayList<Team>();
-        preText = "";
-        postText = "";
+        preText = "Once upon a time...";
+        postText = "Somebody won!";
     }
 
     /*
@@ -120,7 +120,7 @@ public class Stage {
                 }
             }
         }
-        
+
         ret = new ArrayList<GameUnit>(new HashSet<GameUnit>(ret));
 
         return ret;
@@ -135,14 +135,10 @@ public class Stage {
     }
 
     public String getPreStory () {
-        if (preText == null)
-            return "";
         return preText;
     }
 
     public String getPostStory () {
-        if (postText == null)
-            return "";
         return postText;
     }
 
@@ -165,5 +161,5 @@ public class Stage {
     public Team getWinningTeam () {
         return myWinningTeam;
     }
-    
+
 }

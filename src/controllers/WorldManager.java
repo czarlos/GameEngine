@@ -1,7 +1,6 @@
 package controllers;
 
 import gameObject.GameUnit;
-import gameObject.MasterStats;
 import grid.Coordinate;
 import grid.GridConstants;
 import java.awt.Image;
@@ -12,7 +11,6 @@ import team.Team;
 import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import dialog.dialogs.tableModels.GameTableModel;
 
 
@@ -24,8 +22,6 @@ import dialog.dialogs.tableModels.GameTableModel;
  */
 @JsonAutoDetect
 public class WorldManager extends Manager {
-    @JsonProperty
-    private MasterStats myMasterStats;
 
     /**
      * Intermediary between views and EditorData and Grid, stores List of Stages
@@ -98,17 +94,11 @@ public class WorldManager extends Manager {
     }
 
     public void setPreStory (String prestory) {
-        if (prestory.equals(""))
-            myActiveStage
-                    .setPreStory("YOU SHOULD HAVE PUT IN A PRESTORY, WHAT THE FUCK YOU SCUMBAG OF THE EARTH");
-        else myActiveStage.setPreStory(prestory);
+        myActiveStage.setPreStory(prestory);
     }
 
     public void setPostStory (String poststory) {
-        if (poststory.equals(""))
-            myActiveStage
-                    .setPostStory("YOU SHOULD HAVE PUT IN A POSTSTORY, WHAT THE FOOK YOU SCUM OF THE EARTH");
-        else myActiveStage.setPostStory(poststory);
+        myActiveStage.setPostStory(poststory);
     }
 
     /**
@@ -125,7 +115,7 @@ public class WorldManager extends Manager {
     }
 
     public void removeRange () {
-        myActiveStage.getGrid().setTilesInactive();
+        myActiveStage.getGrid().setAllTilesInactive();
     }
 
     /**
@@ -134,12 +124,11 @@ public class WorldManager extends Manager {
      * 
      * @param ID int of ID thing to place
      * @param x Coordinate
-     * @param y
-     *        Coordinate
+     * @param y Coordinate
      */
     public void place (String type, int objectID, Coordinate coordinate) {
         Object object = myEditorData.getObject(type, objectID);
-        myActiveStage.getGrid().placeObject(type, coordinate, object);
+        myActiveStage.getGrid().placeObject(type, coordinate, (Customizable) object);
         myEditorData.refreshObjects(type);
     }
 
@@ -209,7 +198,7 @@ public class WorldManager extends Manager {
                 ret.addAll(myEditorData.getNames(GridConstants.ACTION));
                 break;
             case GridConstants.ACTION:
-     //           ret.addAll(myEditorData.getNames(GridConstants.MASTERSTATS));
+                // ret.addAll(myEditorData.getNames(GridConstants.MASTERSTATS));
                 ret.addAll(myEditorData.getNames(GridConstants.ITEM));
             default:
                 break;
