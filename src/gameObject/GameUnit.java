@@ -117,7 +117,6 @@ public class GameUnit extends GameObject {
     public int getTotalStat (String stat) {
         int value = myStats.getStatValue(stat);
         for (Item item : myItems) {
-            // TODO: Add call to get item here from manager
             value += item.getStat(stat);
         }
         return value;
@@ -215,7 +214,9 @@ public class GameUnit extends GameObject {
         return displayData;
     }
 
+
     @Override
+    @JsonIgnore
     public List<String> getInteractions () {
         if (myItems.isEmpty()) {
             return null;
