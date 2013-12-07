@@ -3,53 +3,36 @@ package view.player;
 import grid.Coordinate;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.ScrollPaneLayout;
 import controller.editor.GridController;
 import controllers.GameManager;
-import view.canvas.GridCanvas;
+import view.GridWithSide;
 
 
 @SuppressWarnings("serial")
-public class StagePlayerPanel extends JPanel {
+public class StagePlayerPanel extends GridWithSide {
     private JScrollPane mySidePanel;
     private GridController myController;
     private GameManager myManager;
-    private GridCanvas myGridCanvas;
     private TurnActionsPanel myTurnActions;
+    private SelectedInfoPanel myInfoPanel;
 
     public StagePlayerPanel (GameManager manager, PlayerView pv) {
+        super(manager);
         myManager = manager;
-        setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridx = 0;
-        c.gridy = 0;
-        c.fill = GridBagConstraints.BOTH;
-        c.gridheight = 4;
-        c.gridwidth = 4;
-        c.weightx = 1;
-        c.weighty = 1;
-        myGridCanvas = new GridCanvas(myManager);
-        JScrollPane scrollGrid =
-                new JScrollPane(myGridCanvas,
-                                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollGrid.setLayout(new ScrollPaneLayout());
-        add(scrollGrid, c);
         myController = new GridController(myManager, this);
-        myGridCanvas.addGridMouseListener(myController);
+        myGrid.addGridMouseListener(myController);
         myTurnActions = new TurnActionsPanel(pv);
-        c.gridx = 0;
+
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 4;
         c.gridy = 4;
         c.fill = GridBagConstraints.NONE;
         c.gridheight = 1;
         c.gridwidth = 5;
         c.weightx = 0;
         c.weighty = 0;
-        add(myTurnActions, c);
+        addCustomPanel(myTurnActions, c);
         repaint();
         revalidate();
     }
@@ -61,9 +44,6 @@ public class StagePlayerPanel extends JPanel {
         }
 
         super.revalidate();
-        if (myGridCanvas != null) {
-            myGridCanvas.repaint();
-        }
 
         if (mySidePanel != null) {
             mySidePanel.repaint();
@@ -71,26 +51,19 @@ public class StagePlayerPanel extends JPanel {
     }
 
     public void updatedSelectedInfoPanel (Coordinate c) {
-        SelectedInfoPanel infoPanel = new SelectedInfoPanel(myController);
-        infoPanel.makeTabs(myManager.getActions(c),
-                           myManager.generateTileInfoList(c),
-                           myManager.generateObjectInfo(c));
-        infoPanel.setPreferredSize(new Dimension(300, 500));
+        myInfoPanel=new SelectedInfoPanel(myController);
+        myInfoPanel.removeAll();
+        myInfoPanel.makeTabs(myManager.getActions(c),
+                             myManager.generateTileInfoList(c),
+                             myManager.generateObjectInfo(c));
+        myInfoPanel.setPreferredSize(new Dimension(300, 500));
         if (mySidePanel != null) {
             remove(mySidePanel);
         }
 
-        mySidePanel = new JScrollPane(infoPanel);
+        mySidePanel = new JScrollPane(myInfoPanel);
         mySidePanel.setMinimumSize(new Dimension(300, 0));
-        GridBagConstraints cons = new GridBagConstraints();
-        cons.gridx = 5;
-        cons.gridy = 0;
-        cons.fill = GridBagConstraints.BOTH;
-        cons.gridheight = 4;
-        cons.gridwidth = 1;
-        cons.weightx = 0;
-        cons.weighty = 0;
-        add(mySidePanel, cons);
+        addToSideColumn(mySidePanel);
         mySidePanel.repaint();
         repaint();
     }
