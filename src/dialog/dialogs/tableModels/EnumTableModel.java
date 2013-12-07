@@ -14,16 +14,19 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class EnumTableModel extends GameTableModel {
 
-    public EnumTableModel () {
+    List<String> myComboList;
+
+    public EnumTableModel (List<String> list) {
         String[] names = { "" };
         myName = "List";
         setColumnNames(names);
+        myComboList = list;
     }
 
     @Override
     public Object[] getNew () {
         Object[] ret = new Object[myColumnNames.length];
-        ret[0] = new ComboString("");
+        ret[0] = new ComboString(myComboList);
         return ret;
     }
 
@@ -34,7 +37,7 @@ public class EnumTableModel extends GameTableModel {
         List<String> list = (List<String>) object;
         for (String s : list) {
             Object[] array = new Object[myColumnNames.length];
-            array[0] = new ComboString(s);
+            array[0] = new ComboString(myComboList, s);
             addNewRow(array);
         }
     }

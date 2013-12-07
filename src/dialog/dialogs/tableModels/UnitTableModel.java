@@ -6,23 +6,28 @@ import grid.GridConstants;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import controllers.EditorData;
+
 
 /**
  * 
  * @author brooksmershon
- *
+ * 
  */
 @SuppressWarnings("serial")
 public class UnitTableModel extends GameTableModel {
 
     String defaultAffiliation;
+    EditorData myED;
+
     /**
      * Column names: name, Graphic, Affiliation, Stats
      */
-    public UnitTableModel () {
+    public UnitTableModel (EditorData ed) {
         String[] names = { "Name", "Graphic", "Affiliation", "Stats" };
         myName = GridConstants.GAMEUNIT;
         setColumnNames(names);
+        myED = ed;
     }
 
     @Override
@@ -30,7 +35,7 @@ public class UnitTableModel extends GameTableModel {
         Object[] ret = new Object[myColumnNames.length];
         ret[0] = "New Unit";
         ret[1] = new File("resources/grass.png");
-        ret[2] = new ComboString(defaultAffiliation);
+        ret[2] = new ComboString(myED.getNames(GridConstants.TEAM), defaultAffiliation);
         ret[3] = new Stats();
         return ret;
     }
@@ -44,7 +49,7 @@ public class UnitTableModel extends GameTableModel {
             Object[] array = new Object[myColumnNames.length];
             array[0] = gu.getName();
             array[1] = new File(gu.getImagePath());
-            array[2] = new ComboString(gu.getAffiliation());
+            array[2] = new ComboString(myED.getNames(GridConstants.TEAM), gu.getAffiliation());
             array[3] = gu.getStats();
             addNewRow(array);
         }

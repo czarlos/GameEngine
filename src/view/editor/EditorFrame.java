@@ -398,55 +398,30 @@ public class EditorFrame extends GameView implements WindowListener {
         @Override
         public void actionPerformed (ActionEvent e) {
             GameTableModel model = null;
-            switch (myRequest) {
-                case GridConstants.MASTERSTATS:
-                    model = myWM.getMasterStatsTable();
-                    break;
-                case GridConstants.TEAM:
-                    model = myWM.getTeamTableModel();
-                    break;
-                case GridConstants.ACTION:
-                    model = myWM.getTableModel(GridConstants.ACTION);
-                    break;
-            }
+            model = myWM.getTableModel(myRequest);
 
             myDialog =
-                    new TableDialog(model, new GamePrefDialogListener(myWM, model, myRequest),
-                                    myWM.getDialogList(myRequest));
+                    new TableDialog(model, new GamePrefDialogListener(myWM, model), myWM);
             myDialog.setVisible(true);
             myDialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         }
-
     }
 
     class GamePrefDialogListener implements ActionListener {
 
         private WorldManager myWM;
         private GameTableModel myModel;
-        private String myRequest;
 
-        public GamePrefDialogListener (WorldManager wm, GameTableModel model, String request) {
+        public GamePrefDialogListener (WorldManager wm, GameTableModel model) {
             myWM = wm;
             myModel = model;
-            myRequest = request;
         }
 
         @Override
         public void actionPerformed (ActionEvent e) {
-            switch (myRequest) {
-                case GridConstants.MASTERSTATS:
-                    myWM.setMasterStats(myModel);
-                    break;
-                case GridConstants.TEAM:
-                    myWM.setTeams(myModel);
-                    break;
-                case GridConstants.ACTION:
-                    myWM.setData(myModel);
-                    break;
-            }
+            myWM.setData(myModel);
             myDialog.setVisible(false);
         }
-
     }
 
     protected void saveGame () {
@@ -459,37 +434,25 @@ public class EditorFrame extends GameView implements WindowListener {
 
     @Override
     public void windowOpened (WindowEvent e) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void windowClosed (WindowEvent e) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void windowIconified (WindowEvent e) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void windowDeiconified (WindowEvent e) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void windowActivated (WindowEvent e) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void windowDeactivated (WindowEvent e) {
-        // TODO Auto-generated method stub
-
     }
 }

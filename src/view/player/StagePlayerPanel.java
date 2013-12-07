@@ -1,6 +1,7 @@
 package view.player;
 
 import grid.Coordinate;
+import grid.GridConstants;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import javax.swing.JScrollPane;
@@ -23,6 +24,7 @@ public class StagePlayerPanel extends GridWithSide {
         myController = new GridController(myManager, this);
         myGrid.addGridMouseListener(myController);
         myTurnActions = new TurnActionsPanel(pv);
+        myInfoPanel = new SelectedInfoPanel(myController);
 
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 4;
@@ -51,12 +53,11 @@ public class StagePlayerPanel extends GridWithSide {
     }
 
     public void updatedSelectedInfoPanel (Coordinate c) {
-        myInfoPanel=new SelectedInfoPanel(myController);
+
         myInfoPanel.removeAll();
         myInfoPanel.makeTabs(myManager.getActions(c),
-                             myManager.generateTileInfoList(c),
-                             myManager.generateObjectInfo(c));
-        myInfoPanel.setPreferredSize(new Dimension(300, 500));
+                             myManager.generateInfoList(GridConstants.TILE, c),
+                             myManager.generateInfoList(GridConstants.GAMEOBJECT, c));
         if (mySidePanel != null) {
             remove(mySidePanel);
         }

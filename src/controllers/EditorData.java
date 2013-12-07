@@ -2,7 +2,6 @@ package controllers;
 
 import gameObject.GameUnit;
 import gameObject.action.Action;
-import gameObject.action.MasterActions;
 import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +32,7 @@ public class EditorData {
     // Only for use by deserializer
     public EditorData () {
         myParser = new JSONParser();
-        myTableFactory = new TableFactory();
+        myTableFactory = new TableFactory(this);
     }
 
     /**
@@ -43,7 +42,7 @@ public class EditorData {
      */
     public EditorData (String folderName) {
         myParser = new JSONParser();
-        myTableFactory = new TableFactory();
+        myTableFactory = new TableFactory(this);
         myDataMap = new HashMap<String, List<?>>();
         loadObjects(folderName);
     }
@@ -55,27 +54,14 @@ public class EditorData {
      */
     @SuppressWarnings("unchecked")
     private void loadObjects (String folderName) {
-        for (String s : GridConstants.DEFAULTTYPES) {
+        for (String s : GridConstants.DEFAULTEDITTYPES) {
             List<Customizable> list = new ArrayList<Customizable>();
             list = myParser.createObject(folderName + "/" + s,
                                          new ArrayList<Customizable>().getClass());
             myDataMap.put(s, list);
         }
-
-        List<Team> list = new ArrayList<Team>();
-        list = myParser.createObject(folderName + "/" + GridConstants.TEAM,
-                                     new ArrayList<Team>().getClass());
-        myDataMap.put(GridConstants.TEAM, list);
-
-        List<Action> list2 = new ArrayList<Action>();
-        list2 = myParser.createObject(folderName + "/" + GridConstants.ACTION,
-                                      new ArrayList<Action>().getClass());
-        myDataMap.put(GridConstants.ACTION, list2);
-
         // need to generalize this for all data types. tile, gameobject,
         // gameunit, item, team, action
-        MasterActions ma = MasterActions.getInstance();
-        ma.setActionList(list2);
     }
 
     /**
@@ -100,20 +86,17 @@ public class EditorData {
         return gtm;
     }
 
-    public GameTableModel getTableModel (String type, Object toEdit) {
-        GameTableModel gtm = myTableFactory.makeTableModel(type);
-        gtm.loadObject(toEdit);
-        return gtm;
-    }
-
     @SuppressWarnings("unchecked")
     public void setData (GameTableModel gtm, Stage activeStage) {
         switch (gtm.getName()) {
             case GridConstants.ACTION:
                 syncActions((List<Object>) gtm.getObject(), activeStage);
                 break;
-            case GridConstants.STATS:
+            case GridConstants.MASTERSTATS:
                 syncStats();
+                break;
+            case GridConstants.TEAM:
+                syncTeams((List<Team>) gtm.getObject(), activeStage);
                 break;
             default:
                 break;
@@ -166,5 +149,36 @@ public class EditorData {
         }
 
         return ret;
+    }
+    
+ // different because team data is in stage
+    public void syncTeams (List<Team> newList, Stage activeStage) {
+        List<Team> list = newList;
+        List<String> names = getNames(GridConstants.TEAM); // edited list
+        List<String> fullList = getNames(GridConstants.TEAM); // reference list
+
+        // adjusting unit affiliation strings for renamed teams
+        for (Team t : list) {
+            String prevName = fullList.get(t.getLastEditingID());
+            if (!t.getName().equals(prevName)) {
+                activeStage.setTeamName(t.getLastEditingID(), t.getName());
+            }
+            names.remove(prevName);
+        }
+
+        // units on deleted teams get their affiliation set to the first team.
+        for (String s : names) {
+            activeStage.setTeamName(fullList.indexOf(s), list.get(0)
+                    .getName());
+        }
+
+        // replace all the teams with list in activeStage... TODO: remove
+        activeStage.setTeams(list);
+    }
+
+    public void refreshObjects (String type) {
+        GameTableModel gtm = myTableFactory.makeTableModel(type);
+        gtm.loadObject(myDataMap.get(type));
+        myDataMap.put(type, (List<?>) gtm.getObject());
     }
 }

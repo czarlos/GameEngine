@@ -7,7 +7,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneLayout;
-import view.player.InfoPanel;
 import view.player.SelectedInfoPanel;
 import controllers.WorldManager;
 
@@ -47,7 +46,7 @@ public class StageSidePanel extends JPanel {
     public void displayInformation(Coordinate c){
         myInfoPanel.removeAll();
         myInfoPanel.makeTabs(myWorldManager.getActions(c),
-                             myWorldManager.generateTileInfoList(c),
-                             myWorldManager.generateObjectInfo(c));
+                             myWorldManager.generateInfoList(GridConstants.TILE, c),
+                             myWorldManager.generateInfoList(GridConstants.GAMEOBJECT, c));
     }
 }

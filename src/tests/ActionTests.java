@@ -3,6 +3,7 @@ package tests;
 import gameObject.GameUnit;
 import gameObject.action.CombatAction;
 import gameObject.item.Item;
+import grid.Coordinate;
 import grid.Grid;
 import grid.GridConstants;
 import org.junit.Test;
@@ -19,7 +20,7 @@ public class ActionTests {
         GameUnit defaultUnit = new GameUnit();
 
         myWorldManager.addStage(15, 15, 0, "Game");
-        myWorldManager.place(GridConstants.GAMEUNIT, 0, 2, 2);
+        myWorldManager.place(GridConstants.GAMEUNIT, 0, new Coordinate(2, 2));
         defaultUnit = ((Grid) myWorldManager.getGrid()).getGameUnits()[2][2];
 
         action.setName("attack");

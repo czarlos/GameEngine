@@ -25,7 +25,7 @@ public class GridEditorController implements GridMouseListener {
         int currentIndex = myStagePanels.getSelectedIndex();
         int id = myWM.getActiveID(currentIndex);
         if (id >= 0)
-            myWM.place(myWM.getActiveType(currentIndex), id, c.getX(), c.getY());
+            myWM.place(myWM.getActiveType(currentIndex), id, c);
         displayInfo(c , currentIndex);
     }
 

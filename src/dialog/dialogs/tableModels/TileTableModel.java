@@ -6,6 +6,7 @@ import grid.Tile;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import controllers.EditorData;
 
 
 /**
@@ -19,10 +20,10 @@ import java.util.List;
 public class TileTableModel extends GameTableModel {
 
     /**
-     * Column names: Name, Graphic, Move Cost, StatsModifiers
+     * Column names: Name, Graphic, Move Cost, Stats
      */
-    public TileTableModel () {
-        String[] names = { "Name", "Graphic", "Move Cost", "StatsModifiers" };
+    public TileTableModel (EditorData myED) {
+        String[] names = { "Name", "Graphic", "Move Cost", "Stats" };
         myName = GridConstants.TILE;
         setColumnNames(names);
     }

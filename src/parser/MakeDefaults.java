@@ -233,7 +233,7 @@ public class MakeDefaults {
         c.addData("affiliation", "player");
         wcEnemy.addCondition(c);
 
-        enemyTeam.setWinCondition(wc);
+        enemyTeam.setWinCondition(wcEnemy);
 
         list.add(defaultTeam);
         list.add(enemyTeam);
@@ -247,7 +247,19 @@ public class MakeDefaults {
 
         p.createJSON("defaults/" + GridConstants.ACTION, list);
     }
+    
+    public void makeStats () {
+        List<String> list = new ArrayList<String>();
+        list.add("movement");
+        list.add("defense");
+        list.add("attack");
+        list.add("experience");
+        list.add("max health");        
+        list.add("health");
 
+        p.createJSON("defaults/" + GridConstants.MASTERSTATS, list);
+    }
+    
     public void makeItems () {
         List<Item> list = new ArrayList<Item>();
 
@@ -294,8 +306,7 @@ public class MakeDefaults {
         maker.makeObjects();
         maker.makeUnits();
         maker.makeItems();
-        // handled differently in editor
-
+        maker.makeStats();
         maker.makeTeams();
         maker.makeActions();
 

@@ -3,6 +3,7 @@ package dialog.dialogs.tableModels;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import controllers.WorldManager;
 
 
 /**
@@ -83,4 +84,5 @@ public abstract class GameTableModel extends AbstractTableModel {
     public abstract void loadObject (Object object);
 
     public abstract Object getObject ();
+
 }

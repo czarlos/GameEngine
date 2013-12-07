@@ -10,18 +10,17 @@ import java.io.File;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import parser.JSONParser;
-import sun.awt.WindowClosingListener;
-import controllers.GameManager;
-import controllers.WorldManager;
 import view.GameStartView;
 import view.GameView;
+import controllers.GameManager;
+import controllers.Manager;
+import controllers.WorldManager;
 
 
 @SuppressWarnings("serial")
@@ -122,8 +121,8 @@ public class PlayerView extends GameView implements WindowListener{
         if (value == JOptionPane.OK_OPTION) {
             String game = (String) gameNamesMenu.getSelectedItem();
             JSONParser p = new JSONParser();
-            WorldManager newWM = p.createObject(folder + "/" + game,
-                                                controllers.WorldManager.class);
+            Manager newWM = p.createObject(folder + "/" + game,
+                                                controllers.Manager.class);
             myGameManager = new GameManager(newWM);
             myGameManager.setView(this);
             super.clearWindow();

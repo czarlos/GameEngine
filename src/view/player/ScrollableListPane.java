@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 public abstract class ScrollableListPane extends JPanel {
 
-    protected final int DATA_HEIGHT = 60;
+    protected final int DATA_HEIGHT = 30;
     protected final int WIDTH = 300;
 
     public ScrollableListPane () {

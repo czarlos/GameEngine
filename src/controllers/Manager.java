@@ -1,8 +1,10 @@
 package controllers;
 
+import gameObject.action.Action;
 import gameObject.GameObject;
+import gameObject.GameUnit;
 import grid.Coordinate;
-import grid.Tile;
+import grid.GridConstants;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,12 @@ public abstract class Manager {
     @JsonProperty
     protected List<Integer> activeEditIDList;
 
+    // GameManager instance variables
+    protected int myPhaseCount;
+    protected int myActiveTeam;
+    protected List<Action> myActiveActions;
+    protected boolean isTurnCompleted;
+    
     public Manager () {
         myStages = new ArrayList<Stage>();
         myEditorData = new EditorData("defaults");
@@ -44,6 +52,8 @@ public abstract class Manager {
         myEditorData = m.myEditorData;
         activeEditTypeList = m.activeEditTypeList;
         activeEditIDList = m.activeEditIDList;
+        myPhaseCount = m.myPhaseCount;
+        myActiveTeam = m.myActiveTeam;
     }
     
     public void setGameName (String gameName) {
@@ -94,40 +104,32 @@ public abstract class Manager {
         return myGameName;
     }
 
+    @JsonIgnore
     protected String getActiveStageName () {
         return myActiveStage.getName();
     }
 
     /**
-     * Generates a list of information that a coordinate contains, including
-     * tiles and objects
+     * Creates a List of Strings that contain data about a coordinate
      * 
-     * @param coordinate
-     *        Coordinate that is being asked for
-     * @return List of Strings that contain information about the coordinate
+     * @param type String of type of gameObject being queried
+     * @param coordinate Coordinate containing object being queried
+     * @return List of Strings containing data about coordinate
      */
-    public List<String> generateTileInfoList (Coordinate coordinate) {
-        Tile tile = myActiveStage.getGrid().getTile(coordinate);
-        tile.generateDisplayData();
-        return tile.getDisplayData();
-    }
-
-    /**
-     * Generates a list of information that a coordinate contains about a Game
-     * Object
-     * 
-     * @param coordinate
-     *        Coordinate that is being asked for
-     * @return List of Strings that contain information about the coordinate.
-     *         Null if there is no object at coordinate
-     */
-    public List<String> generateObjectInfo (Coordinate coordinate) {
-        GameObject gameObject = myActiveStage.getGrid().getObject(coordinate);
+    public List<String> generateInfoList (String type, Coordinate coordinate) {
+        GameObject gameObject = myActiveStage.getGrid().getObject(type, coordinate);
         if (gameObject != null) {
             gameObject.generateDisplayData();
+            addCoordinateData(gameObject, coordinate);
             return gameObject.getDisplayData();
         }
         return null;
+    }
+    
+    private void addCoordinateData (GameObject gameObject, Coordinate coordinate) {
+        List<String> displayData = gameObject.getDisplayData();
+        displayData.add("Coordinate: " + coordinate.getX() + ", " + coordinate.getY());
+        gameObject.setDisplayData(displayData);
     }
     
     /**
@@ -138,9 +140,16 @@ public abstract class Manager {
      *        Coordinate that is being asked for
      * @return List of Strings that contain the action names
      */
+    @JsonIgnore
     public List<String> getActions (Coordinate coordinate) {
-        return myActiveStage.getGrid()
-                .generateActionList(coordinate);        
+        GameUnit gameUnit = (GameUnit) myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, coordinate);
+        if (gameUnit != null) {
+            List<String> actions = new ArrayList<>();
+            actions.addAll(gameUnit.getActions());
+            actions.addAll(myActiveStage.getGrid().getAllInteractions(coordinate));
+            return actions;
+        }
+        return null;
     }
     
     /**
@@ -153,12 +162,12 @@ public abstract class Manager {
         return (Drawable) myActiveStage.getGrid();
     }
 
+    @JsonIgnore
     public Coordinate getCoordinate (double fracX, double fracY) {
         return myActiveStage.getGrid().getCoordinate(fracX, fracY);
     }
 
     public Dimension calculateGridDimensions (int preferredTileDimension) {
-
         int width = (int) myActiveStage.getGrid().getWidth();
         int height = (int) myActiveStage.getGrid().getHeight();
         return new Dimension(width * preferredTileDimension, height * preferredTileDimension);

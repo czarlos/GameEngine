@@ -2,7 +2,8 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import team.Team;
 import view.player.PlayerView;
 import game.AI;
@@ -11,7 +12,6 @@ import gameObject.GameUnit;
 import gameObject.action.Action;
 import grid.Coordinate;
 import grid.GridConstants;
-import grid.Tile;
 
 
 /**
@@ -19,13 +19,13 @@ import grid.Tile;
  * @author kevinjian, leevi, whoever else
  * 
  */
+@JsonAutoDetect
 public class GameManager extends Manager {
-    private int myPhaseCount;
-    private int myActiveTeam;
-    private List<Action> myActiveActions;
-    private boolean isTurnCompleted;
     private PlayerView myView;
-    
+
+    public GameManager () {
+    }
+
     public GameManager (Manager m) {
         super(m);
     }
@@ -61,7 +61,7 @@ public class GameManager extends Manager {
     public void doUntilHumanTurn () {
         int count = 0;
         while (!teamIsHuman()) {
-            // doAITurn();
+            doAITurn();
             beginTurn();
             count++;
             if (count > 10)
@@ -92,10 +92,12 @@ public class GameManager extends Manager {
         }
     }
 
+    @JsonIgnore
     private String getActiveTeamName () {
         return myActiveStage.getTeamNames().get(myActiveTeam);
     }
 
+    @JsonIgnore
     private String getActiveTitle () {
         return getActiveTeamName() + " - " + getActiveStageName() + " - " + myGameName;
     }
@@ -110,8 +112,6 @@ public class GameManager extends Manager {
     }
 
     public boolean conditionsMet () {
-        // return false;
-        // TODO: FIX THE PROBLEM
         return myActiveStage.conditionsMet();
     }
 
@@ -122,69 +122,36 @@ public class GameManager extends Manager {
     public void doAITurn () {
         // pass in gamemanager to AI because need moveOn command
         AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage);
-        // ai.doTurn();
+        ai.doTurn();
         // ai.doTurn();
     }
 
     public boolean turnCompleted () {
         return isTurnCompleted;
     }
-
-    /**
-     * Frontend communication
-     */
-
-
-
+    
     @SuppressWarnings("unchecked")
     private Action getAction (String actionName) {
         List<Action> editorActions = (List<Action>) myEditorData.get(GridConstants.ACTION);
 
         // check first to see if it's one of the core actions so users can't override
-        for (Action a : GridConstants.COREACTIONS) {
-            if (a.getName().equals(actionName)) { return a; }
+        for (Action action : GridConstants.COREACTIONS) {
+            if (action.getName().equals(actionName)) { return action; }
         }
 
-        for (Action a : editorActions) {
-            if (a.getName().equals(actionName)) { return a; }
+        for (Action action : editorActions) {
+            if (action.getName().equals(actionName)) { return action; }
         }
         return null;
     }
 
-    private List<Action> getInteractions (Coordinate coordinate) {
-        List<Action> interactions = new ArrayList<>();
+    private List<String> getInteractions (Coordinate coordinate) {
+        List<String> interactions = new ArrayList<>();
         return interactions;
     }
 
-    /**
-     * Sets the tiles that an action affects to active
-     * 
-     * @param unitCoordinate
-     *        Coordinate where the action originates
-     * @param actionID
-     *        int that represents the index of the action in myActiveActions
-     */
-    public void beginAction (Coordinate unitCoordinate, int actionID) {
-        setActiveActions(unitCoordinate);
-        myActiveStage.getGrid().setTilesInactive();
-
-        if (myActiveActions.get(actionID).getName()
-                .equals(GridConstants.MOVE)) {
-            myActiveStage.getGrid().beginMove(unitCoordinate);
-        }
-        else if (myActiveActions.get(actionID).getName()
-                .equals(GridConstants.WAIT)) {
-            myActiveStage.getGrid().getUnit(unitCoordinate).setActive(false);
-        }
-        else {
-            myActiveStage.getGrid().beginAction(unitCoordinate,
-                                                myActiveActions.get(actionID).getActionRange());
-        }
-    }
-
     private void setActiveActions (Coordinate coordinate) {
-        List<String> myActiveActionNames = myActiveStage.getGrid()
-                .generateActionList(coordinate);
+        List<String> myActiveActionNames = getActions(coordinate);
         // TODO: fix AI action handling (pass in gameManager and then make a method to call to get
         // action from name
 
@@ -199,36 +166,56 @@ public class GameManager extends Manager {
     }
 
     /**
-     * Performs the selected action
+     * Sets the tiles that an action affects to active
      * 
      * @param unitCoordinate
      *        Coordinate where the action originates
-     * @param actionCoordinate
-     *        Coordinate where the action is targeting
      * @param actionID
      *        int that represents the index of the action in myActiveActions
      */
-    public void doAction (Coordinate unitCoordinate,
-                          Coordinate actionCoordinate, int actionID) {
-        GameUnit initiator = myActiveStage.getGrid().getUnit(unitCoordinate);
+    public void beginAction (Coordinate unitCoordinate, int actionID) {
+        setActiveActions(unitCoordinate);
+        myActiveStage.getGrid().setTilesInactive();
+
+        if (myActiveActions.get(actionID).getName().equals(GridConstants.MOVE)) {
+            myActiveStage.getGrid().beginMove(unitCoordinate);
+        }
+        else if (myActiveActions.get(actionID).getName().equals(GridConstants.WAIT)) {
+            myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, unitCoordinate)
+                    .setActive(false);
+        }
+        else {
+            myActiveStage.getGrid().beginAction(unitCoordinate,
+                                                myActiveActions.get(actionID).getActionRange());
+        }
+    }
+
+    /**
+     * Performs the selected action
+     * 
+     * @param unitCoordinate Coordinate where the action originates
+     * @param actionCoordinate Coordinate where the action is targeting
+     * @param actionID int that represents the index of the action in myActiveActions
+     */
+    public void doAction (Coordinate unitCoordinate, Coordinate actionCoordinate, int actionID) {
+        GameUnit initiator =
+                (GameUnit) myActiveStage.getGrid()
+                        .getObject(GridConstants.GAMEUNIT, unitCoordinate);
         Action activeAction = myActiveActions.get(actionID);
 
-        if (activeAction.getName()
-                .equals(GridConstants.MOVE) && myActiveStage.getGrid().isActive(actionCoordinate)) {
+        if (activeAction.getName().equals(GridConstants.MOVE) &&
+            myActiveStage.getGrid().isActive(actionCoordinate)) {
             myActiveStage.getGrid().doMove(unitCoordinate, actionCoordinate);
             initiator.hasMoved();
         }
         else {
-            GameUnit activeUnit = myActiveStage.getGrid().getUnit(
-                                                                  unitCoordinate);
-            GameUnit receiver = myActiveStage.getGrid().getUnit(
-                                                                actionCoordinate);
+            GameObject receiver =
+                    myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, actionCoordinate);
             if (receiver != null && myActiveStage.getGrid().isActive(actionCoordinate)) {
-                activeAction.doAction(activeUnit, receiver);
+                activeAction.doAction(initiator, receiver);
                 initiator.setActive(false);
             }
         }
-
         myActiveStage.getGrid().setTilesInactive();
     }
 
@@ -237,20 +224,24 @@ public class GameManager extends Manager {
         myView.removeAll();
     }
 
+    @JsonIgnore
     public String getWinningTeam () {
         Team winningTeam = myActiveStage.getWinningTeam();
         if (winningTeam == null) { return ""; }
         return winningTeam.getName();
     }
 
+    @JsonIgnore
     public String getCurrentTeamName () {
         return myActiveStage.getTeam(myActiveTeam).getName();
     }
 
+    @JsonIgnore
     public String getPreStory () {
         return myActiveStage.getPreStory();
     }
 
+    @JsonIgnore
     public String getPostStory () {
         return myActiveStage.getPostStory();
     }
@@ -258,5 +249,4 @@ public class GameManager extends Manager {
     public boolean didHumanWin () {
         return myActiveStage.getWinningTeam().isHuman();
     }
-
 }
