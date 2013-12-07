@@ -48,11 +48,15 @@ public class StagePanel extends JPanel {
         //StageEditorPanel panel = new StageEditorPanel(myWorldManager,
         //                                          defaultTypes, myID);
         StageSidePanel panel = new StageSidePanel(myWorldManager,
-                                                      defaultTypes, myID);
+                                                      defaultTypes);
         panel.setSize(new Dimension(200, 500));
         add(panel);
-        myController.addStageSidePanel(panel);
+        myController.addStageSidePanel(myID, panel);
         repaint();
         myCanvas.addGridMouseListener(myController);
+    }
+    
+    public GridCanvas getGridCanvas(){
+        return myCanvas;
     }
 }

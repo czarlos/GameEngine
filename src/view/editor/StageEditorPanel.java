@@ -27,13 +27,11 @@ public class StageEditorPanel extends JTabbedPane {
     private WorldManager myWorldManager;
     private HashMap<String, JScrollPane> myTabs;
     private GameObjectPanel selectedPanel;
-    private int myID;
     private TableDialog myTableDialog;
 
-    public StageEditorPanel (WorldManager wm, String[] defaultTypes, int stageID) {
+    public StageEditorPanel (WorldManager wm, String[] defaultTypes) {
         myTabs = new HashMap<String, JScrollPane>();
         myWorldManager = wm;
-        myID = stageID;
         setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         drawTabs(defaultTypes);
         repaint();
@@ -103,14 +101,14 @@ public class StageEditorPanel extends JTabbedPane {
     public void changeSelected (GameObjectPanel selected) {
         if (selected == selectedPanel) {
             selectedPanel.deSelect();
-            myWorldManager.setActiveObject(myID, "", -1);
+            myWorldManager.setActiveObject( "", -1);
+            selectedPanel = null;
             return;
         }
         if (selectedPanel != null)
             selectedPanel.deSelect();
         selectedPanel = selected;
         myWorldManager.setActiveObject(
-                                       myID,
                                        selected.getType(),
                                        myWorldManager.get(selected.getType())
                                                .indexOf(

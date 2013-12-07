@@ -48,21 +48,19 @@ public class WorldManager extends Manager {
     }
 
     @JsonIgnore
-    public void setActiveObject (int index, String type, int id) {
-        activeEditTypeList.remove(index);
-        activeEditTypeList.add(index, type);
-        activeEditIDList.remove(index);
-        activeEditIDList.add(index, id);
+    public void setActiveObject (String type, int id) {
+        activeEditTypeList.set(myStages.indexOf(myActiveStage), type);
+        activeEditIDList.set(myStages.indexOf(myActiveStage), id);
     }
 
     @JsonIgnore
-    public String getActiveType (int index) {
-        return activeEditTypeList.get(index);
+    public String getActiveType () {
+        return activeEditTypeList.get(myStages.indexOf(myActiveStage));
     }
 
     @JsonIgnore
-    public int getActiveID (int index) {
-        return activeEditIDList.get(index);
+    public int getActiveID () {
+        return activeEditIDList.get(myStages.indexOf(myActiveStage));
     }
 
     /**
@@ -76,14 +74,14 @@ public class WorldManager extends Manager {
      */
 
     @SuppressWarnings("unchecked")
-    public int addStage (int x, int y, int tileID, String name) {
-        myStages.add(new Stage(x, y, tileID, name));
-        setActiveStage(myStages.size() - 1);
-        activeEditTypeList.add("");
-        activeEditIDList.add(-1);
+    public int addStage (int x, int y, int tileID, String name, int index) {
+        myStages.add(index, new Stage(x, y, tileID, name));
+        setActiveStage(index);
+        activeEditTypeList.add(index, "");
+        activeEditIDList.add(index, -1);
         myActiveStage.setTeams((List<Team>) myEditorData
                 .get(GridConstants.TEAM));
-        return myStages.size() - 1;
+        return index;
     }
 
     public void deleteStage (int i) {
@@ -112,6 +110,7 @@ public class WorldManager extends Manager {
 
     public void displayRange (Coordinate coordinate) {
         myActiveStage.getGrid().beginMove(coordinate);
+       
     }
 
     public void removeRange () {

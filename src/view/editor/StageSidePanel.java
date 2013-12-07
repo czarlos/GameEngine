@@ -14,13 +14,13 @@ import controllers.WorldManager;
 public class StageSidePanel extends JPanel {
 
     private WorldManager myWorldManager;
-    private int myID;
+    //private int myID;
     private final String[] defaultTypes = GridConstants.DEFAULTTABTYPES;
     private SelectedInfoPanel myInfoPanel;
     
-    public StageSidePanel(WorldManager wm, String[] defaultTypes, int stageID){
+    public StageSidePanel(WorldManager wm, String[] defaultTypes){
         myWorldManager = wm;
-        myID = stageID;
+        //myID = stageID;
         
         setSize(new Dimension(200,500));
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -30,10 +30,10 @@ public class StageSidePanel extends JPanel {
     
     public void initSubPanels(){
         StageEditorPanel panel = new StageEditorPanel(myWorldManager,
-                                                      defaultTypes, myID);
+                                                      defaultTypes);
         panel.setSize(new Dimension(200,200));
         add(panel);
-        myInfoPanel = new SelectedInfoEditorPanel();
+        myInfoPanel = new SelectedInfoEditorPanel(myWorldManager);
 
         myInfoPanel.setSize(new Dimension(200, 200));
         

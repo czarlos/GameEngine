@@ -175,6 +175,10 @@ public abstract class Manager {
     }
 
     public void saveGame (String folder) {
+        for(int i=0; i<activeEditTypeList.size(); i++){
+            activeEditTypeList.set(i, "");
+            activeEditIDList.set(i, -1);
+        }
         JSONParser p = new JSONParser();
         p.createJSON(folder + "/" + myGameName, this);
     }
