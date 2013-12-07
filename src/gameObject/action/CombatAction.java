@@ -53,6 +53,7 @@ public class CombatAction extends Action {
         
         for(Outcome o : myReceiverOutcomes.getOutcomes()) {
             System.out.println("Outcome - Type:" +o.getClass().toString());
+            System.out.println("Name: "+((StatOutcome) o).getStatName());
             System.out.println("Amount: "+o.getAmount());
         }
         

@@ -7,8 +7,8 @@ import gameObject.GameUnit;
 
 @JsonAutoDetect
 public abstract class Outcome {
-    private int myAmount;
-    private boolean isFixed;
+    protected int myAmount;
+    protected boolean isFixed;
 
     public Outcome () {
 

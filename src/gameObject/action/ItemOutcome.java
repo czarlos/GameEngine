@@ -7,17 +7,14 @@ import gameObject.item.Item;
 @JsonAutoDetect
 public class ItemOutcome extends Outcome {
     private Item myItem;
-    private int myAmount;
-    private boolean isFixed;
     
     public ItemOutcome () {
         
     }
     
     public ItemOutcome (Item item, int amount, boolean fixed) {
-        myItem = item;
-        myAmount = amount;
-        isFixed = fixed;
+        super(amount, fixed);
+        myItem = item;        
     }
     
     public void applyOutcome (GameUnit unit, double effectiveness) {
