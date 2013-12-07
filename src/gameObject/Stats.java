@@ -18,41 +18,27 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @JsonAutoDetect
 public class Stats {
-    protected Map<String, Integer> myStatMap;
-    @JsonIgnore
-    MasterStats masterStatsMap;
+    protected List<Stat> myStatList;
 
     /**
      * Constructor for stats which currently does nothing
      */
     public Stats () {
-        myStatMap = new HashMap<>();
-        masterStatsMap = MasterStats.getInstance();
-        for (String stat : masterStatsMap.getStatNames()) {
-            myStatMap.put(stat, masterStatsMap.getStatValue(stat));
-        }
+        myStatList = new ArrayList<>();
     }
 
-    public Stats (Stats stat) {
-        myStatMap = new HashMap<>();
+    public Stats (Stats newStats) {
+        myStatList = new ArrayList<>();
 
-        for (String statName : stat.getStatNames()) {
-            myStatMap.put(statName, stat.getStatValue(statName));
+        for (Stat stat : newStats.getStats()) {
+            myStatList.add(stat.clone());
         }
 
-        syncWithMaster();
+        // syncWithMaster();
     }
 
-    /**
-     * Gets the stat value for the given stat name
-     * 
-     * @param statName
-     *        - The stat name to get the value for
-     * @return The value of the stat name passed in
-     */
-    @JsonIgnore
-    public Integer getStatValue (String statName) {
-        return myStatMap.get(statName);
+    public void addStat (Stat newStat) {
+        myStatList.add(newStat);
     }
 
     /**
@@ -65,8 +51,9 @@ public class Stats {
      *        - Value to modify the stat to
      */
     public void modExisting (String statName, Integer value) {
-        if (myStatMap.containsKey(statName)) {
-            myStatMap.put(statName, value);
+        int statIndex = getStatNames().indexOf(statName);
+        if (statIndex != -1) {
+            myStatList.get(statIndex).setValue(value);
         }
     }
 
@@ -77,7 +64,32 @@ public class Stats {
      *        - The name of the stat to remove
      */
     public void remove (String statName) {
-        myStatMap.remove(statName);
+        int statIndex = getStatNames().indexOf(statName);
+        if (statIndex != -1) {
+            myStatList.remove(statIndex);
+        }
+    }
+
+    public void changeName (String oldName, String newName) {
+        for (Stat stat : myStatList) {
+            if (stat.getName().equals(oldName)) {
+                stat.setName(newName);
+            }
+        }
+    }
+
+    /**
+     * Gets the stat value for the given stat name
+     * 
+     * @param statName
+     *        - The stat name to get the value for
+     * @return The value of the stat name passed in
+     */
+    @JsonIgnore
+    public Integer getStatValue (String statName) {
+        int statIndex = getStatNames().indexOf(statName);
+        if (statIndex != -1) { return myStatList.get(statIndex).getValue(); }
+        return null;
     }
 
     /**
@@ -88,7 +100,9 @@ public class Stats {
     @JsonIgnore
     public List<String> getStatNames () {
         List<String> statNames = new ArrayList<>();
-        statNames.addAll(myStatMap.keySet());
+        for (Stat stat : myStatList) {
+            statNames.add(stat.getName());
+        }
         return statNames;
     }
 
@@ -97,8 +111,8 @@ public class Stats {
      * 
      * @return The stat map of the Stats instance
      */
-    public Map<String, Integer> getStats () {
-        return myStatMap;
+    public List<Stat> getStats () {
+        return myStatList;
     }
 
     /**
@@ -107,12 +121,12 @@ public class Stats {
      * @param myStatMap
      *        - The map of stats to set to
      */
-    public void setStats (Map<String, Integer> statMap) {
-        Map<String, Integer> newStats = new HashMap<>();
-        for (String statName : statMap.keySet()) {
-            newStats.put(statName, statMap.get(statName));
+    public void setStats (List<Stat> newStatList) {
+        List<Stat> newStats = new ArrayList<>();
+        for (Stat stat : newStatList) {
+            newStats.add(stat.clone());
         }
-        myStatMap = newStats;
+        myStatList = newStats;
     }
 
     /**

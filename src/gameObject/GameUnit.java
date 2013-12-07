@@ -146,9 +146,7 @@ public class GameUnit extends GameObject {
     }
 
     public Item getItem (String itemName) {
-        if (myItems.isEmpty()) {
-            return null;
-        }
+        if (myItems.isEmpty()) { return null; }
         for (Item item : myItems) {
             if (itemName.equals(item.getName())) { return item; }
         }
@@ -196,7 +194,7 @@ public class GameUnit extends GameObject {
     @Override
     public List<String> generateDisplayData () {
         List<String> displayData = super.generateDisplayData();
-        displayData.add("<html><b>Team: </b>" + myTeamName+"</html>");
+        displayData.add("<html><b>Team: </b>" + myTeamName + "</html>");
         displayData.add("<html><b>Stats: </b></html>");
         displayData.add("    health: " + getTotalStat("health") + " / " +
                         myStats.getStatValue("maxhealth"));
@@ -275,4 +273,21 @@ public class GameUnit extends GameObject {
         return myItems;
     }
 
+    public void syncStatsWithMaster (Map<String, String> nameTranslationMap,
+                                     List<String> removedNames,
+                                     List<Object> newStats) {
+        for (String removedStat : removedNames) {
+            myStats.remove(removedStat);
+            for (Item item : myItems) {
+                item.removeStat(removedStat);
+            }
+        }
+
+        for (String oldName : nameTranslationMap.keySet()) {
+            myStats.changeName(oldName, nameTranslationMap.get(oldName));
+            for (Item item : myItems) {
+                item.changeStatName(oldName, nameTranslationMap.get(oldName));
+            }
+        }
+    }
 }
