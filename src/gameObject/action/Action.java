@@ -8,7 +8,7 @@ import gameObject.GameUnit;
 
 @JsonAutoDetect
 public abstract class Action extends Customizable {
-    private int myActionRange;
+    protected int myActionRange;
 
     public Action () {
     }

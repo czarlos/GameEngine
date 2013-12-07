@@ -34,9 +34,18 @@ public class Chest extends GameObject {
     public Set<Item> getItems () {
         return myItems;
     }
+    
+    public int getItemAmount (String itemName) {
+        return myItemAmounts.get(itemName);
+    }
 
     public void setItems (Set<Item> items) {
         myItems = items;
+    }
+    
+    public void emptyItems () {
+        myItems = new HashSet<>();
+        myItemAmounts = new HashMap<>();
     }
     
     /**

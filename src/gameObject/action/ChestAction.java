@@ -1,6 +1,5 @@
 package gameObject.action;
 
-import java.util.HashSet;
 import java.util.Set;
 import gameObject.GameObject;
 import gameObject.GameUnit;
@@ -12,16 +11,17 @@ public class ChestAction extends Action {
 
     public ChestAction() {
         super.setName(GridConstants.CHEST);
+        myActionRange = 1;
     }
     
     @Override
     public void doAction (GameUnit initiator, GameObject receiver) {
         Chest chest = (Chest) receiver;
         Set<Item> chestItems = chest.getItems();
-        for(Item i : chestItems) {
-            initiator.addItem(i);
+        for(Item item : chestItems) {
+            initiator.combatSetItemValue(item.getName(), initiator.combatGetItemValue(item.getName()) + chest.getItemAmount(item.getName()));
         }       
-        chest.setItems(new HashSet<Item>());  // TODO : THIS 
+        chest.emptyItems();
     }
 
     @Override
