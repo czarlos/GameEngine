@@ -1,15 +1,14 @@
 package stage;
 
+import gameObject.GameUnit;
+import grid.Grid;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import team.Team;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import gameObject.GameUnit;
-import grid.Grid;
 
 
 /**
@@ -41,8 +40,8 @@ public class Stage {
         myGrid = new Grid(x, y, tileID);
         myName = name;
         myTeams = new ArrayList<Team>();
-        preText = "";
-        postText = "";
+        preText = "Once upon a time...";
+        postText = "Somebody won!";
     }
 
     /*
@@ -136,14 +135,10 @@ public class Stage {
     }
 
     public String getPreStory () {
-        if (preText == null)
-            return "";
         return preText;
     }
 
     public String getPostStory () {
-        if (postText == null)
-            return "";
         return postText;
     }
 

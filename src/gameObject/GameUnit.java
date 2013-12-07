@@ -236,15 +236,12 @@ public class GameUnit extends GameObject {
     public void syncActionsWithMaster (Map<String, String> nameTranslations,
                                        List<String> removedActions) {
         for (Item item : myItems) {
-            // TODO: Add call to get item here from manager
             for (String removedAction : removedActions) {
-                // TODO: Add call to get item here from manager
                 if (item.getActions().contains(removedAction)) {
                     item.removeAction(removedAction);
                 }
             }
-            for (String action : item.getActions()) {
-                // TODO: Add call to get item here from manager
+            for (String action : nameTranslations.keySet()) {
                 item.removeAction(action);
                 item.addAction(nameTranslations.get(action));
             }

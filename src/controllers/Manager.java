@@ -1,5 +1,7 @@
 package controllers;
 
+import gameObject.action.Action;
+import gameObject.GameObject;
 import gameObject.GameUnit;
 import grid.Coordinate;
 import grid.GridConstants;
@@ -32,6 +34,12 @@ public abstract class Manager {
     @JsonProperty
     protected List<Integer> activeEditIDList;
 
+    // GameManager instance variables
+    protected int myPhaseCount;
+    protected int myActiveTeam;
+    protected List<Action> myActiveActions;
+    protected boolean isTurnCompleted;
+    
     public Manager () {
         myStages = new ArrayList<Stage>();
         myEditorData = new EditorData("defaults");
@@ -44,6 +52,8 @@ public abstract class Manager {
         myEditorData = m.myEditorData;
         activeEditTypeList = m.activeEditTypeList;
         activeEditIDList = m.activeEditIDList;
+        myPhaseCount = m.myPhaseCount;
+        myActiveTeam = m.myActiveTeam;
     }
 
     public void setGameName (String gameName) {
@@ -94,10 +104,34 @@ public abstract class Manager {
         return myGameName;
     }
 
+    @JsonIgnore
     protected String getActiveStageName () {
         return myActiveStage.getName();
     }
 
+    /**
+     * Creates a List of Strings that contain data about a coordinate
+     * 
+     * @param type String of type of gameObject being queried
+     * @param coordinate Coordinate containing object being queried
+     * @return List of Strings containing data about coordinate
+     */
+    public List<String> generateInfoList (String type, Coordinate coordinate) {
+        GameObject gameObject = myActiveStage.getGrid().getObject(type, coordinate);
+        if (gameObject != null) {
+            gameObject.generateDisplayData();
+            addCoordinateData(gameObject, coordinate);
+            return gameObject.getDisplayData();
+        }
+        return null;
+    }
+    
+    private void addCoordinateData (GameObject gameObject, Coordinate coordinate) {
+        List<String> displayData = gameObject.getDisplayData();
+        displayData.add("Coordinate: " + coordinate.getX() + ", " + coordinate.getY());
+        gameObject.setDisplayData(displayData);
+    }
+    
     /**
      * Gets a list of actions that a unit at a coordinate can perform. Null if
      * there is no unit.
@@ -105,6 +139,7 @@ public abstract class Manager {
      * @param coordinate Coordinate that is being asked for
      * @return List of Strings that contain the action names
      */
+    @JsonIgnore
     public List<String> getActions (Coordinate coordinate) {
         GameUnit gameUnit =
                 (GameUnit) myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, coordinate);
@@ -128,6 +163,7 @@ public abstract class Manager {
         return (Drawable) myActiveStage.getGrid();
     }
 
+    @JsonIgnore
     public Coordinate getCoordinate (double fracX, double fracY) {
         return myActiveStage.getGrid().getCoordinate(fracX, fracY);
     }

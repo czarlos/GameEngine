@@ -3,6 +3,7 @@ package dialog.dialogs.tableModels;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import controllers.EditorData;
 import gameObject.Stats;
 import gameObject.action.Action;
 import gameObject.item.Item;
@@ -15,7 +16,8 @@ public class ItemTableModel extends GameTableModel {
     /**
      * Column names: Name, Graphic, Stats, Actions
      */
-    public ItemTableModel () {
+
+    public ItemTableModel (EditorData myED) {
         String[] names = { "Name", "Graphic", "Stats", "Actions" };
         myName = GridConstants.ITEM;
         setColumnNames(names);

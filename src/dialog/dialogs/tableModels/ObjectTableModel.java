@@ -3,6 +3,7 @@ package dialog.dialogs.tableModels;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import controllers.EditorData;
 import gameObject.GameObject;
 import grid.GridConstants;
 
@@ -10,7 +11,7 @@ import grid.GridConstants;
 @SuppressWarnings("serial")
 public class ObjectTableModel extends GameTableModel {
 
-    public ObjectTableModel () {
+    public ObjectTableModel (EditorData myED) {
         String[] names = { "Name", "Graphic", "Passables" };
         myName = GridConstants.GAMEOBJECT;
         setColumnNames(names);

@@ -4,6 +4,7 @@ import grid.GridConstants;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import controllers.EditorData;
 import stage.WinCondition;
 import team.Team;
 
@@ -14,7 +15,8 @@ public class TeamTableModel extends GameTableModel {
     /**
      * Column names: Name, Graphic, Gold, Win Conditions, Conditions needed to Win, Human?
      */
-    public TeamTableModel () {
+
+    public TeamTableModel (EditorData myED) {
         String[] names = { "Name", "Graphic", "Gold", "Win Conditions",
                           "Conditions needed to win", "Human?" };
         myName = GridConstants.TEAM;
