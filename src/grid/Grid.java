@@ -13,7 +13,9 @@ import java.util.Map;
 import grid.Coordinate;
 import view.Drawable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 /**
  * 
@@ -29,15 +31,9 @@ public class Grid implements Drawable {
     private int myWidth;
     @JsonProperty
     private int myHeight;
- //   @JsonProperty
- //   private Tile[][] myTiles;
 
- //   @JsonProperty
- //   private GameObject[][] myObjects;
- //   @JsonProperty
- //   private GameUnit[][] myUnits;
-    
-    private Map<String, Object[][]> myArrays; 
+    @JsonProperty
+    private Map<String, Object[][]> myArrays;
     private FromJSONFactory myFactory;
 
     protected static final int TILE_WIDTH = 35;
@@ -67,11 +63,7 @@ public class Grid implements Drawable {
         myArrays.put(GridConstants.TILE, new Tile[width][height]);
         myArrays.put(GridConstants.GAMEOBJECT, new GameObject[width][height]);
         myArrays.put(GridConstants.GAMEUNIT, new GameUnit[width][height]);
-      
-        /*myTiles = new Tile[width][height];
-        myObjects = new GameObject[width][height];
-        myUnits = new GameUnit[width][height];
-        */myFactory = new FromJSONFactory();
+        myFactory = new FromJSONFactory();
         initTiles(tileID);
     }
 
@@ -122,10 +114,10 @@ public class Grid implements Drawable {
      * 
      */
     public void doMove (Coordinate oldCoordinate, Coordinate newCoordinate) {
-//        if (isValidMove(newCoordinate)) {
-            GameObject gameUnit = removeObject(oldCoordinate);
-            placeObject(GridConstants.GAMEUNIT, newCoordinate, gameUnit);
-//        }
+        // if (isValidMove(newCoordinate)) {
+        GameObject gameUnit = removeObject(oldCoordinate);
+        placeObject(GridConstants.GAMEUNIT, newCoordinate, gameUnit);
+        // }
     }
 
     /**
@@ -244,9 +236,9 @@ public class Grid implements Drawable {
      * @return boolean of if the coordinate is valid
      */
     public boolean isValid (Coordinate coordinate) {
-        //make tiles active in AI
+        // make tiles active in AI
         return onGrid(coordinate);
-//        return onGrid(coordinate) && isActive(coordinate);
+        // return onGrid(coordinate) && isActive(coordinate);
     }
 
     /*
@@ -446,6 +438,7 @@ public class Grid implements Drawable {
         }
         return null;
     }
+
     // TODO: when getting interactions, trade should only be valid between
     // matching affiliations
     /**
@@ -481,7 +474,8 @@ public class Grid implements Drawable {
      */
     private Action getInteraction (Coordinate coordinate) {
         if (onGrid(coordinate)) {
-            if (getObject(coordinate) != null) { return ((GameObject) myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate
+            if (getObject(coordinate) != null) { return ((GameObject) myArrays
+                    .get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate
                     .getY()])
                     .getInteraction(); }
         }
@@ -497,7 +491,8 @@ public class Grid implements Drawable {
      */
     public GameObject getObject (Coordinate coordinate) {
         // TODO: Generic method?
-        return (GameObject) myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()];
+        return (GameObject) myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate
+                .getY()];
     }
 
     /**
@@ -570,22 +565,24 @@ public class Grid implements Drawable {
      * 
      */
     public void placeObject (String type, Coordinate coordinate, Object placeObject) {
-        
-        if(type.equals(GridConstants.ITEM)){
+
+        if (type.equals(GridConstants.ITEM)) {
             GameUnit gu = getUnit(coordinate);
             if (gu != null) {
                 gu.addItem((Item) placeObject);
             }
         }
-        
-        myArrays.get(type)[coordinate.getX()][coordinate.getY()] = placeObject;
-        
-        if(type.equals(GridConstants.GAMEUNIT)){
-            myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()] = placeObject;
+        else {
+            myArrays.get(type)[coordinate.getX()][coordinate.getY()] = placeObject;
+
+            if (type.equals(GridConstants.GAMEUNIT)) {
+                myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()] =
+                        placeObject;
+            }
+            if (type.equals(GridConstants.TILE)) {
+                removeObject(coordinate);
+            }
         }
-        if(type.equals(GridConstants.TILE)){
-            removeObject(coordinate);
-        }      
     }
 
     /**
@@ -606,6 +603,7 @@ public class Grid implements Drawable {
         return objToRemove;
     }
 
+    @JsonIgnore
     public GameUnit[][] getGameUnits () {
         return (GameUnit[][]) myArrays.get(GridConstants.GAMEUNIT);
     }
@@ -686,6 +684,7 @@ public class Grid implements Drawable {
         }
     }
 
+    @JsonIgnore
     public Tile[][] getTiles () {
         return (Tile[][]) myArrays.get(GridConstants.TILE);
     }

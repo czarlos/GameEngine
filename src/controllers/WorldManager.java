@@ -1,11 +1,9 @@
 package controllers;
 
-import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.MasterStats;
 import grid.Coordinate;
 import grid.GridConstants;
-import grid.Tile;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,12 +28,7 @@ import gameObject.item.Item;
  */
 @JsonAutoDetect
 public class WorldManager extends Manager {
-    //private String[] activeEditTypeList;
-    //private int[] activeEditIDList;
-    @JsonProperty
-    private List<String> activeEditTypeList;
-    @JsonProperty
-    private List<Integer> activeEditIDList;
+    // masterstats is probably broken with the structural changes but it's okay because we're removing it.
     @JsonProperty
     private MasterStats myMasterStats;
 
@@ -48,6 +41,11 @@ public class WorldManager extends Manager {
         super();
         activeEditTypeList = new ArrayList<String>();
         activeEditIDList = new ArrayList<Integer>();
+        myMasterStats = MasterStats.getInstance();
+    }
+
+    public WorldManager (Manager m) {
+        super(m);
         myMasterStats = MasterStats.getInstance();
     }
 
@@ -90,7 +88,7 @@ public class WorldManager extends Manager {
         List<Team> list = (List<Team>) gtm.getObject();
         List<String> names = myActiveStage.getTeamNames();
         List<String> fullList = myActiveStage.getTeamNames();
-        
+
         // adjusting unit affiliation strings for renamed teams
         for (Team t : list) {
             String prevName = fullList.get(t.getLastEditingID());
@@ -156,25 +154,25 @@ public class WorldManager extends Manager {
         return myStages.size() - 1;
     }
 
-    public void deleteStage(int i){
+    public void deleteStage (int i) {
         myStages.remove(i);
-        setActiveStage(i-1);
+        setActiveStage(i - 1);
         activeEditTypeList.remove(i);
         activeEditIDList.remove(i);
     }
-    
-    public void setPreStory (String prestory) { 
+
+    public void setPreStory (String prestory) {
         if (prestory.equals(""))
-            myActiveStage.setPreStory("YOU SHOULD HAVE PUT IN A PRESTORY, WHAT THE FUCK YOU SCUMBAG OF THE EARTH");
-        else
-            myActiveStage.setPreStory(prestory);
+            myActiveStage
+                    .setPreStory("YOU SHOULD HAVE PUT IN A PRESTORY, WHAT THE FUCK YOU SCUMBAG OF THE EARTH");
+        else myActiveStage.setPreStory(prestory);
     }
 
     public void setPostStory (String poststory) {
         if (poststory.equals(""))
-            myActiveStage.setPreStory("YOU SHOULD HAVE PUT IN A POSTSTORY, WHAT THE FOOK YOU SCUM OF THE EARTH");
-        else
-            myActiveStage.setPreStory(poststory);
+            myActiveStage
+                    .setPreStory("YOU SHOULD HAVE PUT IN A POSTSTORY, WHAT THE FOOK YOU SCUM OF THE EARTH");
+        else myActiveStage.setPreStory(poststory);
     }
 
     /**
@@ -205,11 +203,11 @@ public class WorldManager extends Manager {
      * @param y
      *        Coordinate
      */
-    public void place (String type, int objectID, int x, int y){
+    public void place (String type, int objectID, int x, int y) {
         Object object = myEditorData.getObject(type, objectID);
-        myActiveStage.getGrid().placeObject(type, new Coordinate(x,y), object);
+        myActiveStage.getGrid().placeObject(type, new Coordinate(x, y), object);
     }
-    
+
     /**
      * Gives access to certain names of customizables. Valid parameters are
      * "GameUnit", "GameObject", "Tile", "Condition"

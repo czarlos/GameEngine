@@ -36,7 +36,8 @@ public class PlayerView extends GameView implements WindowListener{
     }
 
     public PlayerView (WorldManager wm) {
-        myGameManager = new GameManager(wm, this);
+        myGameManager = new GameManager(wm);
+        myGameManager.setView(this);
         super.clearWindow();
         this.remove(myBackground);
 
@@ -123,7 +124,8 @@ public class PlayerView extends GameView implements WindowListener{
             JSONParser p = new JSONParser();
             WorldManager newWM = p.createObject(folder + "/" + game,
                                                 controllers.WorldManager.class);
-            myGameManager = new GameManager(newWM, this);
+            myGameManager = new GameManager(newWM);
+            myGameManager.setView(this);
             super.clearWindow();
             this.remove(myBackground);
 

@@ -22,16 +22,15 @@ public class GridEditorController implements GridMouseListener {
         int id = myWM.getActiveID(currentIndex);
         if (id == -1)
             displayInfo(c);
-        if (myWM.getActiveType(currentIndex) != null) {
+        else {
             myWM.place(myWM.getActiveType(currentIndex), id, c.getX(), c.getY());
         }
-
     }
-    
-    //TODO: display relevant information about tile/object (edit as well?)
-    private void displayInfo(Coordinate c){
+
+    // TODO: display relevant information about tile/object (edit as well?)
+    private void displayInfo (Coordinate c) {
         System.out.println("WILL BE DISPLAYING STUFF");
-        
+
     }
 
 }

@@ -22,9 +22,7 @@ import controllers.WorldManager;
 public abstract class GameView extends JFrame {
     protected JPanel myBackground;
     protected String mySaveLocation;
-    protected Manager myManager;
-    
-
+ 
     public GameView () throws HeadlessException {
         super();
         initializeWindow();
@@ -69,7 +67,5 @@ public abstract class GameView extends JFrame {
         panel.add(label, BorderLayout.CENTER);
         return panel;
     }
-    
-
 
 }

@@ -1,11 +1,7 @@
 package tests;
 
-import static org.junit.Assert.*;
-import gameObject.GameObject;
 import gameObject.GameUnit;
-import gameObject.action.Action;
 import gameObject.action.CombatAction;
-import gameObject.action.MoveAction;
 import gameObject.item.Item;
 import grid.Grid;
 import grid.GridConstants;
