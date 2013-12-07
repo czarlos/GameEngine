@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 /**
  * Grid class. Holds all tiles and objects, calculates movement, actions
  * 
@@ -113,7 +114,8 @@ public class Grid implements Drawable {
                 int newRange = range - currentTile.getMoveCost();
 
                 if (newRange >= 0) {
-                    GameObject currentObject = getObject(GridConstants.GAMEOBJECT, adjacentCoordinate);
+                    GameObject currentObject =
+                            getObject(GridConstants.GAMEOBJECT, adjacentCoordinate);
                     if (currentObject != null) {
                         if (currentObject.isPassable(gameObject)) {
                             findMovementRange(adjacentCoordinate, newRange, gameObject);
@@ -138,7 +140,7 @@ public class Grid implements Drawable {
         return (0 <= coordinate.getX() && coordinate.getX() < myWidth
                 && 0 <= coordinate.getY() && coordinate.getY() < myHeight);
     }
-    
+
     /**
      * Checks if the object at the input coordinate is active
      * 
@@ -164,7 +166,9 @@ public class Grid implements Drawable {
             if (onGrid(adjacentCoordinate)) {
                 Tile currentTile = (Tile) getObject(GridConstants.TILE, adjacentCoordinate);
                 int newRange = range - 1;
-                if (newRange >= 0 && action.isValid((GameUnit) getObject(GridConstants.GAMEUNIT, coordinate), getObject(GridConstants.GAMEOBJECT, adjacentCoordinate))) {
+                if (newRange >= 0 &&
+                    action.isValid((GameUnit) getObject(GridConstants.GAMEUNIT, coordinate),
+                                   getObject(GridConstants.GAMEOBJECT, adjacentCoordinate))) {
                     currentTile.setActive(true);
                     findActionRange(adjacentCoordinate, newRange, action);
                 }
@@ -181,7 +185,7 @@ public class Grid implements Drawable {
     public List<String> getAllInteractions (Coordinate coordinate) {
         List<Coordinate> adjacentCoordinates = getAdjacentCoordinates(coordinate);
         List<String> allInteractions = new ArrayList<>();
-        for (Coordinate adjacentCoordinate: adjacentCoordinates) {
+        for (Coordinate adjacentCoordinate : adjacentCoordinates) {
             List<String> interactions = getInteractions(adjacentCoordinate);
             if (interactions != null) {
                 allInteractions.addAll(interactions);
@@ -198,9 +202,9 @@ public class Grid implements Drawable {
      */
     private List<String> getInteractions (Coordinate coordinate) {
         if (onGrid(coordinate)) {
-            if (getObject(GridConstants.GAMEOBJECT, coordinate) != null) { 
-                return ((GameObject) myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()]).getInteractions();
-            }
+            if (getObject(GridConstants.GAMEOBJECT, coordinate) != null) { return ((GameObject) myArrays
+                    .get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()])
+                    .getInteractions(); }
         }
         return null;
     }
@@ -223,20 +227,18 @@ public class Grid implements Drawable {
      * @return Coordinate of gameObject's location
      */
     public Coordinate getObjectCoordinate (String type, GameObject gameObject) {
-        for (int i=0; i < myArrays.get(type).length; i++) {
-            for (int j=0; j < myArrays.get(type)[0].length; j++) {
+        for (int i = 0; i < myArrays.get(type).length; i++) {
+            for (int j = 0; j < myArrays.get(type)[0].length; j++) {
                 Coordinate currentCoordinate = new Coordinate(i, j);
                 GameObject currentObject = (GameObject) getObject(type, currentCoordinate);
                 if (currentObject != null) {
-                    if (currentObject.equals(gameObject)) {
-                        return currentCoordinate;
-                    }
+                    if (currentObject.equals(gameObject)) { return currentCoordinate; }
                 }
             }
         }
         return null;
     }
-    
+
     /**
      * Places a Customizable at given coordinates
      * 
@@ -273,7 +275,7 @@ public class Grid implements Drawable {
     private GameObject removeObject (String type, Coordinate coordinate) {
         GameObject removeObject = getObject(GridConstants.GAMEOBJECT, coordinate);
         myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()] = null;
-        
+
         if (removeObject instanceof GameUnit) {
             removeObject = getObject(GridConstants.GAMEUNIT, coordinate);
             myArrays.get(GridConstants.GAMEUNIT)[coordinate.getX()][coordinate.getY()] = null;
@@ -288,7 +290,7 @@ public class Grid implements Drawable {
      * @return List of adjacent Coordinates
      */
     public List<Coordinate> getAdjacentCoordinates (Coordinate coord) {
-        List<Coordinate> adjacentCoordinates= new ArrayList<Coordinate>();
+        List<Coordinate> adjacentCoordinates = new ArrayList<Coordinate>();
         adjacentCoordinates.add(new Coordinate(coord.getX() + 1, coord.getY()));
         adjacentCoordinates.add(new Coordinate(coord.getX(), coord.getY() + 1));
         adjacentCoordinates.add(new Coordinate(coord.getX() - 1, coord.getY()));
@@ -322,14 +324,14 @@ public class Grid implements Drawable {
         drawType(GridConstants.TILE, tileWidth, tileHeight, g);
         drawType(GridConstants.GAMEOBJECT, tileWidth, tileHeight, g);
     }
-    
+
     private void drawType (String type, int tileWidth, int tileHeight, Graphics g) {
-        for (int i=0; i < myArrays.get(type).length; i++) {
-            for (int j=0; j < myArrays.get(type)[i].length; j++) {
+        for (int i = 0; i < myArrays.get(type).length; i++) {
+            for (int j = 0; j < myArrays.get(type)[i].length; j++) {
                 GameObject gameObject = (GameObject) myArrays.get(type)[i][j];
                 if (gameObject != null) {
                     gameObject.draw(g, i * tileWidth, j * tileHeight, tileWidth, tileHeight);
-                }                
+                }
             }
         }
     }
@@ -338,7 +340,7 @@ public class Grid implements Drawable {
     public GameUnit[][] getGameUnits () {
         return (GameUnit[][]) myArrays.get(GridConstants.GAMEUNIT);
     }
-    
+
     @JsonIgnore
     public Tile[][] getTiles () {
         return (Tile[][]) myArrays.get(GridConstants.TILE);

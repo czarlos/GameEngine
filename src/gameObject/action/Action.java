@@ -12,7 +12,7 @@ public abstract class Action extends Customizable {
     protected int myActionRange;
 
     public Action () {
-        myActionRange=GridConstants.ACTIONRANGE;
+        myActionRange = GridConstants.ACTIONRANGE;
     }
 
     public void setActionRange (int actionRange) {

@@ -50,24 +50,22 @@ public class CombatAction extends Action {
     public void doAction (GameUnit initiator, GameObject receiver) {
         double effectiveness = getNetEffectiveness(initiator,
                                                    (GameUnit) receiver);
-        
-        for(Outcome o : myReceiverOutcomes.getOutcomes()) {
-            System.out.println("Outcome - Type:" +o.getClass().toString());
-            System.out.println("Name: "+((StatOutcome) o).getStatName());
-            System.out.println("Amount: "+o.getAmount());
+
+        for (Outcome o : myReceiverOutcomes.getOutcomes()) {
+            System.out.println("Outcome - Type:" + o.getClass().toString());
+            System.out.println("Name: " + ((StatOutcome) o).getStatName());
+            System.out.println("Amount: " + o.getAmount());
         }
-        
+
         myInitiatorOutcomes.applyOutcomes(initiator, effectiveness);
-        System.out.println("Before: "+((GameUnit)receiver).getTotalStat("health"));
+        System.out.println("Before: " + ((GameUnit) receiver).getTotalStat("health"));
         myReceiverOutcomes.applyOutcomes((GameUnit) receiver, effectiveness);
-        System.out.println("After: "+((GameUnit)receiver).getTotalStat("health"));
+        System.out.println("After: " + ((GameUnit) receiver).getTotalStat("health"));
     }
 
     @Override
     public boolean isValid (GameUnit initiator, GameObject receiver) {
-        if(receiver == null) {
-            return false;
-        }
+        if (receiver == null) { return false; }
         if (receiver instanceof GameUnit) {
             double effectiveness = getNetEffectiveness(initiator, (GameUnit) receiver);
             return myInitiatorOutcomes.checkValid(initiator, effectiveness);

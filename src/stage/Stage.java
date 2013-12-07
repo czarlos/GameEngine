@@ -121,7 +121,7 @@ public class Stage {
                 }
             }
         }
-        
+
         ret = new ArrayList<GameUnit>(new HashSet<GameUnit>(ret));
 
         return ret;
@@ -166,5 +166,5 @@ public class Stage {
     public Team getWinningTeam () {
         return myWinningTeam;
     }
-    
+
 }

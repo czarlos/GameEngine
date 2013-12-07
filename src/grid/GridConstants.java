@@ -34,5 +34,7 @@ public class GridConstants {
     public final static String SHOP = "Shop";
     public final static String GETITEM = "Get item";
 
-    public static final Action[] COREACTIONS = { new MoveAction(), new WaitAction(), new ChestAction(), new TradeAction(), new ShopAction() };
+    public static final Action[] COREACTIONS = { new MoveAction(), new WaitAction(),
+                                                new ChestAction(), new TradeAction(),
+                                                new ShopAction() };
 }

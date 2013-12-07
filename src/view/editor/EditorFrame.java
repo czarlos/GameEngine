@@ -264,7 +264,7 @@ public class EditorFrame extends GameView {
                 setPostStory();
             }
         });
-        
+
         JMenuItem setTeams = new JMenuItem("Configure Teams");
         stageMenu.add(setTeams);
         setTeams.addActionListener(new GamePrefListener(myWorldManager, GridConstants.TEAM));
@@ -278,29 +278,31 @@ public class EditorFrame extends GameView {
                 removeStage();
             }
         });
-        
+
         JMenu gameMenu = new JMenu("Game");
-        
+
         stageMenu.setMnemonic(KeyEvent.VK_S);
         JMenuItem setMaster = new JMenuItem("Set Master Stats");
-        setMaster.addActionListener(new GamePrefListener(myWorldManager, GridConstants.MASTERSTATS));
+        setMaster
+                .addActionListener(new GamePrefListener(myWorldManager, GridConstants.MASTERSTATS));
         gameMenu.add(setMaster);
 
         JMenuItem setActions = new JMenuItem("Add/Remove Actions");
         gameMenu.add(setActions);
         setActions.addActionListener(new GamePrefListener(myWorldManager, GridConstants.ACTION));
-        
-        JMenuItem runGame=new JMenuItem("Run Game");
+
+        JMenuItem runGame = new JMenuItem("Run Game");
         gameMenu.add(runGame);
-        runGame.addActionListener(new ActionListener(){
+        runGame.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                new PlayerView(myWorldManager).setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);;
+                new PlayerView(myWorldManager).setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                ;
             }
-            
+
         });
-        
+
         myMenuBar.add(stageMenu, 1);
         myMenuBar.add(gameMenu, 1);
     }

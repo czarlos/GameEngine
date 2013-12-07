@@ -28,7 +28,8 @@ import gameObject.item.Item;
  */
 @JsonAutoDetect
 public class WorldManager extends Manager {
-    // masterstats is probably broken with the structural changes but it's okay because we're removing it.
+    // masterstats is probably broken with the structural changes but it's okay because we're
+    // removing it.
     @JsonProperty
     private MasterStats myMasterStats;
 

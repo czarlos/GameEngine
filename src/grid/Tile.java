@@ -5,6 +5,7 @@ import gameObject.Stats;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
+
 /**
  * 
  * Tile Class. Held by grid. Affects unit stats and movement.
@@ -32,7 +33,7 @@ public class Tile extends GameObject {
     public void setStats (Stats stat) {
         myStats = new Stats(stat);
     }
-    
+
     public int getMoveCost () {
         return myMoveCost;
     }
@@ -48,7 +49,7 @@ public class Tile extends GameObject {
         displayData.add("Stat Modifiers: ");
         for (String stat : myStats.getStatNames()) {
             if (!stat.equals("health") && !stat.equals("maxhealth") && !stat.equals("experience")) {
-                displayData.add("    "+stat + ": " + myStats.getStatValue(stat));
+                displayData.add("    " + stat + ": " + myStats.getStatValue(stat));
             }
         }
         setDisplayData(displayData);

@@ -26,7 +26,7 @@ public abstract class Manager {
     @JsonProperty
     protected EditorData myEditorData;
 
-    // Editor instance variables 
+    // Editor instance variables
     @JsonProperty
     protected List<String> activeEditTypeList;
     @JsonProperty
@@ -37,7 +37,7 @@ public abstract class Manager {
         myEditorData = new EditorData("defaults");
     }
 
-    public Manager(Manager m) {
+    public Manager (Manager m) {
         myActiveStage = m.myActiveStage;
         myStages = m.myStages;
         myGameName = m.myGameName;
@@ -45,7 +45,7 @@ public abstract class Manager {
         activeEditTypeList = m.activeEditTypeList;
         activeEditIDList = m.activeEditIDList;
     }
-    
+
     public void setGameName (String gameName) {
         myGameName = gameName;
     }
@@ -106,7 +106,8 @@ public abstract class Manager {
      * @return List of Strings that contain the action names
      */
     public List<String> getActions (Coordinate coordinate) {
-        GameUnit gameUnit = (GameUnit) myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, coordinate);
+        GameUnit gameUnit =
+                (GameUnit) myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, coordinate);
         if (gameUnit != null) {
             if (gameUnit.isActive()) {
                 List<String> actions = new ArrayList<>();
@@ -117,7 +118,7 @@ public abstract class Manager {
         }
         return null;
     }
-    
+
     /**
      * Method to getting a Drawable version of the grid
      * 
@@ -132,7 +133,6 @@ public abstract class Manager {
     }
 
     public Dimension calculateGridDimensions (int preferredTileDimension) {
-
         int width = (int) myActiveStage.getGrid().getWidth();
         int height = (int) myActiveStage.getGrid().getHeight();
         return new Dimension(width * preferredTileDimension, height * preferredTileDimension);
@@ -140,6 +140,6 @@ public abstract class Manager {
 
     public void saveGame (String folder) {
         JSONParser p = new JSONParser();
-        p.createJSON(folder+"/" + myGameName, this);
+        p.createJSON(folder + "/" + myGameName, this);
     }
 }

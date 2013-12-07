@@ -78,7 +78,7 @@ public class ImageEditor extends AbstractCellEditor implements TableCellEditor,
         currentImage = (BufferedImage) ((ImageIcon) value).getImage();
         return button;
     }
-    
+
     /**
      * Copy BufferedImage
      * 

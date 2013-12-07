@@ -54,8 +54,8 @@ public class ImageCreator extends JPanel {
 
     /**
      * 
-     * Utilizes ImageCreator Panel, but adds default "ok" and "cancel" buttons in a surrounding 
-     * JDialog. Uses input listeners to give control over this dialog to its containing frame or 
+     * Utilizes ImageCreator Panel, but adds default "ok" and "cancel" buttons in a surrounding
+     * JDialog. Uses input listeners to give control over this dialog to its containing frame or
      * editor which spawned it.
      * 
      * @param component
@@ -76,7 +76,7 @@ public class ImageCreator extends JPanel {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
 
@@ -91,7 +91,6 @@ public class ImageCreator extends JPanel {
 
         JButton reset = new JButton("Reset");
         reset.addActionListener(new ResetListener(imageCreator));
-
 
         buttonPanel.add(ok);
         buttonPanel.add(cancel);
@@ -154,7 +153,7 @@ public class ImageCreator extends JPanel {
             dialog.setVisible(false);
         }
     }
-    
+
     private static class ResetListener implements ActionListener {
 
         private JDialog dialog;

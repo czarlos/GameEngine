@@ -33,8 +33,8 @@ public class GameObject extends Customizable implements Drawable {
         myImage = active ? ImageManager.getHightlightedTileImage(myImagePath)
                         : ImageManager.getImage(myImagePath);
     }
-    
-    public boolean isActive() {
+
+    public boolean isActive () {
         return isActive;
     }
 
@@ -55,7 +55,8 @@ public class GameObject extends Customizable implements Drawable {
      */
 
     public boolean isPassable (GameUnit unit) {
-        return myPassableList.contains(unit.getName()) || myPassableList.contains(GridConstants.DEFAULT_PASS_EVERYTHING);
+        return myPassableList.contains(unit.getName()) ||
+               myPassableList.contains(GridConstants.DEFAULT_PASS_EVERYTHING);
     }
 
     /**
@@ -80,7 +81,7 @@ public class GameObject extends Customizable implements Drawable {
      */
     public List<String> generateDisplayData () {
         List<String> displayData = new ArrayList<>();
-        displayData.add("Name: "+myName);
+        displayData.add("Name: " + myName);
         setDisplayData(displayData);
         return displayData;
     }
@@ -93,7 +94,7 @@ public class GameObject extends Customizable implements Drawable {
         myDisplayData = displayData;
     }
 
-    public List<String> getInteractions() {
+    public List<String> getInteractions () {
         return null;
     };
 
@@ -101,8 +102,8 @@ public class GameObject extends Customizable implements Drawable {
     public void draw (Graphics g, int x, int y, int width, int height) {
         g.drawImage(getImage(), x, y, width, height, null);
     }
-    
+
     public void addItem (Item item) {
-        //Does nothing
+        // Does nothing
     }
 }

@@ -11,6 +11,7 @@ import gameObject.item.Item;
 import org.junit.Before;
 import org.junit.Test;
 
+
 public class ChestTest {
     GameUnit playerUnit;
     Chest chest;
@@ -20,16 +21,16 @@ public class ChestTest {
     @Before
     public void setUp () throws Exception {
         Set<Item> itemList = new HashSet<>();
-        
+
         potion = makeEmptyItem("potion");
         key = makeEmptyItem("key");
-        
+
         itemList.add(potion);
         itemList.add(key);
-        
+
         chest = new Chest();
         chest.setItems(itemList);
-        
+
         playerUnit = new GameUnit();
     }
 
@@ -38,31 +39,31 @@ public class ChestTest {
         assertTrue(!playerUnit.getItems().contains(key));
         assertTrue(!playerUnit.getItems().contains(potion));
     }
-    
+
     @Test
     public void testPlayerAfterChestAction () {
         ChestAction ca = new ChestAction();
         ca.doAction(playerUnit, chest);
-        
+
         assertTrue(playerUnit.getItems().contains(potion));
         assertTrue(playerUnit.getItems().contains(key));
     }
-    
+
     @Test
     public void testChestBeforeChestAction () {
         assertTrue(chest.getItems().contains(potion));
         assertTrue(chest.getItems().contains(key));
     }
-    
+
     @Test
     public void testChestAfterChestAction () {
         ChestAction ca = new ChestAction();
         ca.doAction(playerUnit, chest);
-        
+
         assertTrue(!chest.getItems().contains(potion));
         assertTrue(!chest.getItems().contains(key));
     }
- 
+
     /**
      * Function to create empty items to test item deletion
      * 

@@ -5,7 +5,7 @@ package dialog.dialogs.tableModels;
  * purposes of selecting appropriate cell editor/renderer
  * 
  * @author Leevi
- *
+ * 
  */
 public class ComboString {
 

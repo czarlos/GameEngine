@@ -22,7 +22,7 @@ import controllers.WorldManager;
 public abstract class GameView extends JFrame {
     protected JPanel myBackground;
     protected String mySaveLocation;
- 
+
     public GameView () throws HeadlessException {
         super();
         initializeWindow();

@@ -47,13 +47,13 @@ public class ActionInfoPanel extends ScrollableListPane {
                     myController.doCommand(action);
                 }
 
-                public ActionListener init (int id,JPanel panel) {
+                public ActionListener init (int id, JPanel panel) {
                     myActionId = id;
-                    myPanel=panel;
+                    myPanel = panel;
                     return this;
                 }
 
-            }.init(i,this));
+            }.init(i, this));
 
             buttons.add(button);
         }

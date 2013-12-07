@@ -3,10 +3,11 @@ package dialog.editors;
 import javax.swing.JFileChooser;
 import java.awt.event.ActionEvent;
 
+
 /**
  * 
  * @author brooksmershon
- *
+ * 
  */
 @SuppressWarnings("serial")
 public class ImagePathEditor extends GameCellEditor {

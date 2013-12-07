@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.GameObject;
 import gameObject.action.ChestAction;
 
+
 /**
  * Holds a list of items that a unit can retrieve.
  * 
@@ -20,7 +21,7 @@ import gameObject.action.ChestAction;
  */
 @JsonAutoDetect
 public class Chest extends GameObject {
-    
+
     @JsonProperty
     protected Map<String, Integer> myItemAmounts;
     protected Set<Item> myItems;
@@ -33,7 +34,7 @@ public class Chest extends GameObject {
     public Set<Item> getItems () {
         return myItems;
     }
-    
+
     public int getItemAmount (String itemName) {
         return myItemAmounts.get(itemName);
     }
@@ -41,12 +42,12 @@ public class Chest extends GameObject {
     public void setItems (Set<Item> items) {
         myItems = items;
     }
-    
+
     public void emptyItems () {
         myItems = new HashSet<>();
         myItemAmounts = new HashMap<>();
     }
-    
+
     /**
      * Takes an item and adds it to the list of items, adding to the stats of
      * the unit as it adds in an item.
@@ -70,36 +71,34 @@ public class Chest extends GameObject {
         }
         else {
             myItemAmounts.remove(itemName);
-            for (Item item: myItems) {
+            for (Item item : myItems) {
                 if (item.equals(itemName)) {
                     myItems.remove(item);
                 }
             }
         }
     }
-    
-    public boolean isEmpty() {
+
+    public boolean isEmpty () {
         return myItems.isEmpty();
     }
 
     @Override
     @JsonIgnore
     public List<String> getInteractions () {
-        if (myItems.isEmpty()) {
-            return null;
-        }
+        if (myItems.isEmpty()) { return null; }
         List<String> actions = new ArrayList<String>();
         actions.add(new ChestAction().getName());
         return actions;
     }
-    
+
     @Override
     public List<String> generateDisplayData () {
         List<String> displayData = super.generateDisplayData();
         displayData.add("Inventory:");
         if (!myItems.isEmpty()) {
-            for (Item item: myItems) {            
-                displayData.add("   "+item.getName()+": "+myItemAmounts.get(item.getName()));
+            for (Item item : myItems) {
+                displayData.add("   " + item.getName() + ": " + myItemAmounts.get(item.getName()));
             }
         }
         else {

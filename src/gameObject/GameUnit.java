@@ -92,8 +92,8 @@ public class GameUnit extends GameObject {
             }
         }
     }
-    
-    public void removeAllItem(Item item) {
+
+    public void removeAllItem (Item item) {
         myItems.remove(item);
         myItemAmounts.remove(item.getName());
     }
@@ -132,7 +132,8 @@ public class GameUnit extends GameObject {
     }
 
     public int combatGetItemValue (Item item) {
-        return (myItemAmounts.containsKey(item.getName()) == false ? 0 : myItemAmounts.get(item.getName()));
+        return (myItemAmounts.containsKey(item.getName()) == false ? 0 : myItemAmounts.get(item
+                .getName()));
     }
 
     public void combatSetItemValue (Item item, int itemValue) {
@@ -143,12 +144,10 @@ public class GameUnit extends GameObject {
             myItemAmounts.put(item.getName(), itemValue);
         }
     }
-    
+
     public Item getItem (String itemName) {
-        for(Item item : myItems) {
-            if (itemName.equals(item.getName())) {
-                return item;
-            }
+        for (Item item : myItems) {
+            if (itemName.equals(item.getName())) { return item; }
         }
         return null;
     }
@@ -211,16 +210,13 @@ public class GameUnit extends GameObject {
         return displayData;
     }
 
-
     @Override
     @JsonIgnore
     public List<String> getInteractions () {
-        if (myItems.isEmpty()) {
-            return null;
-        }
+        if (myItems.isEmpty()) { return null; }
         List<String> interactions = new ArrayList<>();
         for (Item item : myItems) {
-            interactions.add(GridConstants.TRADE+ " "+item.getName());
+            interactions.add(GridConstants.TRADE + " " + item.getName());
         }
 
         return interactions;
@@ -237,7 +233,7 @@ public class GameUnit extends GameObject {
     public void syncActionsWithMaster (Map<String, String> nameTranslations,
                                        List<String> removedActions) {
         for (Item item : myItems) {
-         // TODO: Add call to get item here from manager
+            // TODO: Add call to get item here from manager
             for (String removedAction : removedActions) {
                 // TODO: Add call to get item here from manager
                 if (item.getActions().contains(removedAction)) {

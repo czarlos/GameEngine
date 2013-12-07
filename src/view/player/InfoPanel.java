@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
+
 public class InfoPanel extends ScrollableListPane {
     public InfoPanel (List<String> data) {
         setPreferredSize(new Dimension(WIDTH, data.size() * DATA_HEIGHT));

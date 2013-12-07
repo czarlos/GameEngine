@@ -42,26 +42,30 @@ public class PathFinding {
     public static void autoMove (Tile start, Tile end, GameUnit unit, Grid grid) {
         int range = unit.getStat("movement");
         List<Tile> path = findPath(start, end, grid);
-        
-//        System.out.println(grid.getTileCoordinate(start).getX() + " " + grid.getTileCoordinate(start).getY());
-//        System.out.println(grid.getTileCoordinate(end).getX() + " " + grid.getTileCoordinate(end).getY());
+
+        // System.out.println(grid.getTileCoordinate(start).getX() + " " +
+        // grid.getTileCoordinate(start).getY());
+        // System.out.println(grid.getTileCoordinate(end).getX() + " " +
+        // grid.getTileCoordinate(end).getY());
         for (Tile t : path) {
-            System.out.println(grid.getObjectCoordinate(GridConstants.TILE, t).getX() + " " + grid.getObjectCoordinate(GridConstants.TILE, t).getY());
+            System.out.println(grid.getObjectCoordinate(GridConstants.TILE, t).getX() + " " +
+                               grid.getObjectCoordinate(GridConstants.TILE, t).getY());
         }
-        
+
         Tile newTile;
         if (range > path.size()) {
-            newTile = path.get(path.size()-1);
+            newTile = path.get(path.size() - 1);
         }
         else {
-            newTile = path.get(range-1);
+            newTile = path.get(range - 1);
         }
-        
+
         for (Tile t : path) {
             t.setActive(true);
         }
 
-        grid.doMove(grid.getObjectCoordinate(GridConstants.GAMEUNIT, unit), grid.getObjectCoordinate(GridConstants.TILE, newTile));
+        grid.doMove(grid.getObjectCoordinate(GridConstants.GAMEUNIT, unit),
+                    grid.getObjectCoordinate(GridConstants.TILE, newTile));
     }
 
     /**
@@ -82,61 +86,62 @@ public class PathFinding {
         Set<Tile> visited = new HashSet<Tile>();
         List<Tile> path = new ArrayList<Tile>();
         Map<Tile, Integer> weights = new HashMap<Tile, Integer>();
-        
+
         for (int i = 0; i < grid.getTiles().length; i++) {
             for (int j = 0; j < grid.getTiles().length; j++) {
-                weights.put((Tile) grid.getObject(GridConstants.TILE, new Coordinate(i, j)), Integer.MAX_VALUE);
+                weights.put((Tile) grid.getObject(GridConstants.TILE, new Coordinate(i, j)),
+                            Integer.MAX_VALUE);
             }
         }
-        
+
         queue.add(start);
         weights.put(start, 0);
-        
+
         while (!queue.isEmpty()) {
             Tile workingTile = queue.poll();
-            
+
             for (Tile neighbor : workingTile.getNeighbors()) {
-                if (weights.get(workingTile)+1 < weights.get(neighbor)) {
-                    weights.put(neighbor, weights.get(neighbor)+1);
+                if (weights.get(workingTile) + 1 < weights.get(neighbor)) {
+                    weights.put(neighbor, weights.get(neighbor) + 1);
                     neighbor.setParent(workingTile);
                 }
             }
-            
+
             for (Tile neighbor : workingTile.getNeighbors()) {
-                
+
                 if (!visited.contains(neighbor)) {
                     queue.add(neighbor);
-                }          
+                }
             }
-            
-            if(workingTile.equals(end)) {
-                  while (!workingTile.equals(start)) {
-                      path.add(workingTile);
-                      workingTile = workingTile.getParent();
-                  }
-                  return path;
+
+            if (workingTile.equals(end)) {
+                while (!workingTile.equals(start)) {
+                    path.add(workingTile);
+                    workingTile = workingTile.getParent();
+                }
+                return path;
             }
-            
+
             visited.add(workingTile);
-            
-//            if (workingTile.equals(end)) {
-//                while (!workingTile.equals(start)) {
-//                    path.add(workingTile);
-//                    workingTile = workingTile.getParent();
-//                }
-//                return path;
-//            }
-//            else {
-//                if (!visited.contains(workingTile)) {
-//                    visited.add(workingTile);
-//                    for (Tile neighbor : workingTile.getNeighbors()) {
-//                        if (!visited.contains(neighbor)) {
-//                            neighbor.setParent(workingTile);
-//                            queue.add(neighbor);
-//                        }
-//                    }
-//                }
-//            }
+
+            // if (workingTile.equals(end)) {
+            // while (!workingTile.equals(start)) {
+            // path.add(workingTile);
+            // workingTile = workingTile.getParent();
+            // }
+            // return path;
+            // }
+            // else {
+            // if (!visited.contains(workingTile)) {
+            // visited.add(workingTile);
+            // for (Tile neighbor : workingTile.getNeighbors()) {
+            // if (!visited.contains(neighbor)) {
+            // neighbor.setParent(workingTile);
+            // queue.add(neighbor);
+            // }
+            // }
+            // }
+            // }
         }
         return path;
 
@@ -156,11 +161,11 @@ public class PathFinding {
         List<Tile> tileList = new ArrayList<Tile>();
         for (int i = 0; i < grid.getTiles().length; i++) {
             for (int j = 0; j < grid.getTiles().length; j++) {
-              tileList.add((Tile) grid.getObject(GridConstants.TILE, new Coordinate(i, j)));
-    
-//                if (grid.getTile(new Coordinate(i, j)).isPassable(unit)) {
-//                    tileList.add(grid.getTile(new Coordinate(i, j)));
-//                }
+                tileList.add((Tile) grid.getObject(GridConstants.TILE, new Coordinate(i, j)));
+
+                // if (grid.getTile(new Coordinate(i, j)).isPassable(unit)) {
+                // tileList.add(grid.getTile(new Coordinate(i, j)));
+                // }
             }
         }
         return tileList;
@@ -201,8 +206,10 @@ public class PathFinding {
      * @return
      */
     public static boolean isNeighbor (Tile tile, Tile otherTile, Grid grid) {
-        double delta = UnitUtilities.calculateLength(grid.getObjectCoordinate(GridConstants.TILE, tile),
-                                                     grid.getObjectCoordinate(GridConstants.TILE, otherTile));
+        double delta =
+                UnitUtilities.calculateLength(grid.getObjectCoordinate(GridConstants.TILE, tile),
+                                              grid.getObjectCoordinate(GridConstants.TILE,
+                                                                       otherTile));
         if (delta <= 1) { return true; }
         return false;
     }

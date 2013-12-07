@@ -7,15 +7,17 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * 
  * @author brooksmershon
- *
+ * 
  */
 @SuppressWarnings("serial")
 public class UnitTableModel extends GameTableModel {
 
     String defaultAffiliation;
+
     /**
      * Column names: name, Graphic, Affiliation, Stats
      */

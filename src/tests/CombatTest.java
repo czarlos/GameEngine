@@ -65,7 +65,6 @@ public class CombatTest {
         action.add(createItemDepletingAction());
 
         Item sword = new Weapon();
-        
 
         // Creates Player Character
         playerUnit = new GameUnit();
@@ -74,7 +73,7 @@ public class CombatTest {
         // Creates Enemy
         enemyUnit = new GameUnit();
         enemyUnit.setActiveWeapon(sword);
-        
+
         // Creates Item 'potion'
         potion = makeEmptyItem("potion");
     }
@@ -145,7 +144,7 @@ public class CombatTest {
         int itemCount = enemyUnit.getItemAmount("potion");
         int expectedItemCount = 3;
 
-        assertEquals("Proper Items Removed",expectedItemCount, itemCount);
+        assertEquals("Proper Items Removed", expectedItemCount, itemCount);
 
     }
 
