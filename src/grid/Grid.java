@@ -177,7 +177,7 @@ public class Grid implements Drawable {
      * @param gameUnit GameUnit that is doing the action
      * @param combatAction CombatAction that is being used
      */
-    public void beginAction (Coordinate coordinate, int range) {
+    public void beginCombatAction (Coordinate coordinate, int range) {
         List<Coordinate> adjacentCoordinates = getAdjacentCoordinates(coordinate);
 
         for (Coordinate adjacentCoordinate : adjacentCoordinates) {
@@ -186,7 +186,7 @@ public class Grid implements Drawable {
                 int newRange = range - 1;
                 if (newRange >= 0) {
                     currentTile.setActive(true);
-                    beginAction(adjacentCoordinate, newRange);
+                    beginCombatAction(adjacentCoordinate, newRange);
                 }
             }
         }
@@ -268,9 +268,9 @@ public class Grid implements Drawable {
     public void placeObject (String type, Coordinate coordinate, Object placeObject) {
 
         if (type.equals(GridConstants.ITEM)) {
-            GameUnit gameUnit = (GameUnit) getObject(GridConstants.GAMEUNIT, coordinate);
-            if (gameUnit != null) {
-                gameUnit.addItem((Item) placeObject);
+            GameObject gameObject = (GameObject) getObject(GridConstants.GAMEOBJECT, coordinate);
+            if (gameObject != null) {
+                gameObject.addItem((Item) placeObject);
             }
         }
         else {

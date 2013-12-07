@@ -50,8 +50,8 @@ public class ChestTest {
     
     @Test
     public void testChestBeforeChestAction () {
-        assertTrue(chest.getItemList().contains(potion));
-        assertTrue(chest.getItemList().contains(key));
+        assertTrue(chest.getItems().contains(potion));
+        assertTrue(chest.getItems().contains(key));
     }
     
     @Test
@@ -59,8 +59,8 @@ public class ChestTest {
         ChestAction ca = new ChestAction();
         ca.doAction(playerUnit, chest);
         
-        assertTrue(!chest.getItemList().contains(potion));
-        assertTrue(!chest.getItemList().contains(key));
+        assertTrue(!chest.getItems().contains(potion));
+        assertTrue(!chest.getItems().contains(key));
     }
  
     /**

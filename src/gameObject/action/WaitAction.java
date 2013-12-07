@@ -13,6 +13,7 @@ public class WaitAction extends Action {
 
     @Override
     public void doAction (GameUnit initiator, GameObject receiver) {
+        initiator.setActive(false);
     }
 
     @Override

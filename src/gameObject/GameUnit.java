@@ -34,8 +34,8 @@ public class GameUnit extends GameObject {
     private boolean hasMoved;
 
     public GameUnit () {
-        myItems = new HashSet<Item>();
-        myItemAmounts = new HashMap<String, Integer>();
+        myItems = new HashSet<>();
+        myItemAmounts = new HashMap<>();
         myStats = new Stats();
     }
 
@@ -67,6 +67,7 @@ public class GameUnit extends GameObject {
      * 
      * @param itemName The name of the item, not a string
      */
+    @Override
     public void addItem (Item item) {
         if (myItems.add(item)) {
             myItemAmounts.put(item.getName(), 1);
@@ -76,14 +77,19 @@ public class GameUnit extends GameObject {
         }
     }
 
-    /**
-     * Removes a particular item from the units itemList, ensures that upon
-     * removal the unit's stats get decremented accordingly.
-     * 
-     * @param itemName The name of the item, not a string
-     */
-    public void removeItem (Item itemName) {
-        myItemAmounts.remove(itemName);
+    public void removeItem (String itemName) {
+        int amount = myItemAmounts.get(itemName);
+        if (amount > 1) {
+            myItemAmounts.put(itemName, amount - 1);
+        }
+        else {
+            myItemAmounts.remove(itemName);
+            for (Item item: myItems) {
+                if (item.getName().equals(itemName)) {
+                    myItems.remove(item);
+                }
+            }
+        }
     }
 
     @Override
@@ -177,7 +183,7 @@ public class GameUnit extends GameObject {
         }
         displayData.add("Equipment: ");
         for (Item item: myItems) {
-            displayData.add("    "+item.getName());
+            displayData.add("    " + item.getName()+": " + getItemAmount(item.getName()));
         }
         setDisplayData(displayData);
         return displayData;

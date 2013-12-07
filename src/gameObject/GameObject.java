@@ -1,6 +1,7 @@
 package gameObject;
 
 import game.ImageManager;
+import gameObject.item.Item;
 import grid.GridConstants;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -99,5 +100,9 @@ public class GameObject extends Customizable implements Drawable {
     @Override
     public void draw (Graphics g, int x, int y, int width, int height) {
         g.drawImage(getImage(), x, y, width, height, null);
+    }
+    
+    public void addItem (Item item) {
+        //Does nothing
     }
 }

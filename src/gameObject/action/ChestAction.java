@@ -1,7 +1,7 @@
 package gameObject.action;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.item.Chest;
@@ -17,14 +17,11 @@ public class ChestAction extends Action {
     @Override
     public void doAction (GameUnit initiator, GameObject receiver) {
         Chest chest = (Chest) receiver;
-        
-        List<Item> chestItems = chest.getItemList();
-        
+        Set<Item> chestItems = chest.getItems();
         for(Item i : chestItems) {
             initiator.addItem(i);
-        }
-        
-        chest.setItems(new ArrayList<Item>());
+        }       
+        chest.setItems(new HashSet<Item>());  // TODO : THIS 
     }
 
     @Override

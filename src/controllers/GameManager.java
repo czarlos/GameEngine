@@ -8,6 +8,7 @@ import game.AI;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.action.Action;
+import gameObject.action.CombatAction;
 import grid.Coordinate;
 import grid.GridConstants;
 
@@ -191,11 +192,13 @@ public class GameManager extends Manager {
         if (myActiveActions.get(actionID).getName().equals(GridConstants.MOVE)) {
             myActiveStage.getGrid().beginMove(unitCoordinate);
         }
-        else if (myActiveActions.get(actionID).getName().equals(GridConstants.WAIT)) {
-            myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, unitCoordinate).setActive(false);
+        else if (myActiveActions.get(actionID) instanceof CombatAction) {
+            myActiveStage.getGrid().beginCombatAction(unitCoordinate, myActiveActions.get(actionID).getActionRange());
         }
         else {
-            myActiveStage.getGrid().beginAction(unitCoordinate, myActiveActions.get(actionID).getActionRange());
+            GameUnit initiator = (GameUnit) myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, unitCoordinate);
+            myActiveActions.get(actionID).doAction(initiator, null);
+            initiator.setActive(false);
         }
     }
 
@@ -216,6 +219,7 @@ public class GameManager extends Manager {
         else {
             GameObject receiver = myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, actionCoordinate);
             if (receiver != null && myActiveStage.getGrid().isActive(GridConstants.TILE, actionCoordinate)) {
+
                 activeAction.doAction(initiator, receiver);
                 initiator.setActive(false);
             }
