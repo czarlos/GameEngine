@@ -38,6 +38,9 @@ public class TradeAction extends Action {
         }
         else if (gameObject instanceof GameUnit) {
             if (gameUnit.getAffiliation().equals(((GameUnit) gameObject).getAffiliation())) {
+                if (((GameUnit)gameObject).getItemAmount(myItem) != 0) {
+                    return true;
+                }
                 return true;
             }
         }
