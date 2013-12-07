@@ -165,6 +165,7 @@ public class GameManager extends Manager {
         List<Action> editorActions = (List<Action>) myEditorData.get(GridConstants.ACTION);
         String[] actionNameSplit = actionName.split(" ");
         if (actionNameSplit[0].equals(GridConstants.TRADE)) {
+            System.out.println(actionNameSplit[1]);
             return new TradeAction(actionNameSplit[1]);
         }
         if (actionNameSplit[0].equals(GridConstants.SHOP)) {
@@ -172,7 +173,6 @@ public class GameManager extends Manager {
         }
         // check first to see if it's one of the core actions so users can't override
         for (Action action : GridConstants.COREACTIONS) {
-
             if (action.getName().equals(actionName)) { return action; }
         }
         for (Action action : editorActions) {
