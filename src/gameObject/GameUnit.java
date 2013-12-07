@@ -4,14 +4,10 @@ import game.ImageManager;
 import gameObject.item.*;
 import grid.GridConstants;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
@@ -24,19 +20,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 
 @JsonAutoDetect
-public class GameUnit extends GameObject {
+public class GameUnit extends InventoryObject {
 
-    @JsonProperty
-    private Map<String, Integer> myItemAmounts;
-    private Set<Item> myItems;
     private Stats myStats;
     private String myTeamName;
     private Item myActiveWeapon;
     private boolean hasMoved;
 
     public GameUnit () {
-        myItems = new HashSet<>();
-        myItemAmounts = new HashMap<>();
         myStats = new Stats();
     }
 
@@ -60,42 +51,6 @@ public class GameUnit extends GameObject {
                 myActiveWeapon = item;
             }
         }
-    }
-
-    /**
-     * Takes an item and adds it to the list of items, adding to the stats of
-     * the unit as it adds in an item.
-     * 
-     * @param itemName The name of the item, not a string
-     */
-    @Override
-    public void addItem (Item item) {
-        if (myItems.add(item)) {
-            myItemAmounts.put(item.getName(), 1);
-        }
-        else {
-            myItemAmounts.put(item.getName(), myItemAmounts.get(item.getName()) + 1);
-        }
-    }
-
-    public void removeItem (String itemName) {
-        int amount = myItemAmounts.get(itemName);
-        if (amount > 1) {
-            myItemAmounts.put(itemName, amount - 1);
-        }
-        else {
-            myItemAmounts.remove(itemName);
-            for (Item item : myItems) {
-                if (item.equals(itemName)) {
-                    myItems.remove(item);
-                }
-            }
-        }
-    }
-
-    public void removeAllItem (Item item) {
-        myItems.remove(item);
-        myItemAmounts.remove(item.getName());
     }
 
     @Override
@@ -143,14 +98,6 @@ public class GameUnit extends GameObject {
         else {
             myItemAmounts.put(item.getName(), itemValue);
         }
-    }
-
-    public Item getItem (String itemName) {
-        if (myItems.isEmpty()) { return null; }
-        for (Item item : myItems) {
-            if (itemName.equals(item.getName())) { return item; }
-        }
-        return null;
     }
 
     public Item getActiveWeapon () {
@@ -203,10 +150,6 @@ public class GameUnit extends GameObject {
                 displayData.add("    " + stat + ": " + getTotalStat(stat));
             }
         }
-        displayData.add("<html><b>Equipment: </b></html>");
-        for (Item item : myItems) {
-            displayData.add("    " + item.getName() + ": " + getItemAmount(item.getName()));
-        }
         setDisplayData(displayData);
         return displayData;
     }
@@ -222,14 +165,6 @@ public class GameUnit extends GameObject {
 
         return interactions;
     };
-
-    @JsonIgnore
-    public int getItemAmount (String itemName) {
-        for (Item item : myItems) {
-            if (item.getName().equals(itemName)) { return myItemAmounts.get(itemName); }
-        }
-        return 0;
-    }
 
     public void syncActionsWithMaster (Map<String, String> nameTranslations,
                                        List<String> removedActions) {
@@ -260,14 +195,6 @@ public class GameUnit extends GameObject {
 
     public void setStat (String statName, int statValue) {
         myStats.modExisting(statName, statValue);
-    }
-
-    public void setItems (Set<Item> itemList) {
-        myItems = itemList;
-    }
-
-    public Set<Item> getItems () {
-        return myItems;
     }
 
     public void syncStatsWithMaster (Map<String, String> nameTranslationMap,

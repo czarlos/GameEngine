@@ -1,17 +1,20 @@
 package controllers;
 
-import gameObject.GameUnit;
+import gameObject.GameObject;
+import gameObject.InventoryObject;
 import grid.Coordinate;
 import grid.GridConstants;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import stage.Stage;
 import team.Team;
 import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import dialog.dialogs.tableModels.GameTableModel;
+import dialog.dialogs.tableModels.MapTableModel;
 
 
 /**
@@ -53,6 +56,24 @@ public class WorldManager extends Manager {
         activeEditTypeList.add(index, type);
         activeEditIDList.remove(index);
         activeEditIDList.add(index, id);
+    }
+
+    /**
+     * For specific unit/chest items. To get the generic item table model use generic
+     * getTableModel/setDatas
+     */
+    @JsonIgnore
+    public GameTableModel getItemTableModel (Coordinate coordinate) {
+        GameTableModel gtm = new MapTableModel();
+
+        GameObject go = myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, coordinate);
+
+        if (go instanceof InventoryObject) {
+            Map<String, Integer> items = ((InventoryObject) go).getItemAmounts();
+            gtm.loadObject(items);
+        }
+
+        return gtm;
     }
 
     @JsonIgnore
@@ -173,7 +194,7 @@ public class WorldManager extends Manager {
                 ret.addAll(myEditorData.getNames(GridConstants.ACTION));
                 break;
             case GridConstants.ACTION:
-                // ret.addAll(myEditorData.getNames(GridConstants.MASTERSTATS));
+                ret.addAll(myEditorData.getNames(GridConstants.MASTERSTATS));
                 ret.addAll(myEditorData.getNames(GridConstants.ITEM));
             default:
                 break;

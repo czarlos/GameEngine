@@ -23,7 +23,7 @@ public class TradeAction extends Action {
         Item tradeItem = receiverUnit.getItem(myItem);
         initiator.combatSetItemValue(tradeItem, receiverUnit.combatGetItemValue(tradeItem) +
                                                 initiator.combatGetItemValue(tradeItem));
-        receiverUnit.removeAllItem(tradeItem);
+        receiverUnit.removeAllOfAnItem(tradeItem);
     }
 
     @Override
