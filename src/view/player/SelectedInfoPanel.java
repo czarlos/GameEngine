@@ -14,14 +14,20 @@ import controller.editor.GridController;
  * Panel to display tabs that are shown on the side of the player.
  */
 @SuppressWarnings("serial")
-public class SelectedInfoPanel extends JPanel implements Scrollable {
-    protected JTabbedPane myTabs;
+public class SelectedInfoPanel extends JTabbedPane implements Scrollable {
+    //protected JTabbedPane myTabs;
     protected GridController myController;
 
     public SelectedInfoPanel (GridController controller) {
-        myTabs = new JTabbedPane();
+        //myTabs = new JTabbedPane();
         myController = controller;
         setPreferredSize(new Dimension(300, 500));
+
+    }
+    
+    public SelectedInfoPanel () {
+        //myTabs = new JTabbedPane();
+        setPreferredSize(new Dimension(200, 200));
 
     }
 
@@ -30,19 +36,19 @@ public class SelectedInfoPanel extends JPanel implements Scrollable {
 
         if (buttonTab != null) {
 
-            myTabs.add("Actions", new ActionInfoPanel(buttonTab, myController));
+            add("Actions", new ActionInfoPanel(buttonTab, myController));
             ;
         }
 
         if (tileInfo != null) {
-            myTabs.add("Tile", new InfoPanel(tileInfo));
+            add("Tile", new InfoPanel(tileInfo));
         }
 
         if (objectInfo != null) {
-            myTabs.add("Object", new InfoPanel(objectInfo));
+            add("Object", new InfoPanel(objectInfo));
         }
 
-        add(myTabs);
+        //add(myTabs);
         repaint();
     }
 

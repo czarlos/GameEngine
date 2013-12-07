@@ -36,6 +36,9 @@ public class GameManager extends Manager {
 
     public void beginTurn () {
         clear();
+        if (myPhaseCount == 0){
+            myView.showDialog(getPreStory());
+        }
         if (conditionsMet()) {
             myView.showDialog(getPostStory());
             if (!nextStage()) { // final stage
@@ -43,7 +46,6 @@ public class GameManager extends Manager {
                 myView.setTitle(getActiveTeamName() + " won!!");
                 return;
             }
-            myView.showDialog(getPreStory());
             return;
         }
         nextTurn();
@@ -127,34 +129,7 @@ public class GameManager extends Manager {
     public boolean turnCompleted () {
         return isTurnCompleted;
     }
-
-    /**
-     * Frontend communication
-     */
-
-    /**
-     * Creates a List of Strings that contain data about a coordinate
-     * 
-     * @param type String of type of gameObject being queried
-     * @param coordinate Coordinate containing object being queried
-     * @return List of Strings containing data about coordinate
-     */
-    public List<String> generateInfoList (String type, Coordinate coordinate) {
-        GameObject gameObject = myActiveStage.getGrid().getObject(type, coordinate);
-        if (gameObject != null) {
-            gameObject.generateDisplayData();
-            addCoordinateData(gameObject, coordinate);
-            return gameObject.getDisplayData();
-        }
-        return null;
-    }
-
-    private void addCoordinateData (GameObject gameObject, Coordinate coordinate) {
-        List<String> displayData = gameObject.getDisplayData();
-        displayData.add("Coordinate: " + coordinate.getX() + ", " + coordinate.getY());
-        gameObject.setDisplayData(displayData);
-    }
-
+    
     @SuppressWarnings("unchecked")
     private Action getAction (String actionName) {
         List<Action> editorActions = (List<Action>) myEditorData.get(GridConstants.ACTION);

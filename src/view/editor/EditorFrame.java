@@ -6,9 +6,12 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,12 +21,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import parser.JSONParser;
+import view.GameStartView;
 import view.GameView;
 import view.player.PlayerView;
 import controller.editor.GridEditorController;
@@ -33,7 +38,7 @@ import dialog.dialogs.TableDialog;
 import dialog.dialogs.tableModels.GameTableModel;
 
 
-public class EditorFrame extends GameView {
+public class EditorFrame extends GameView implements WindowListener {
 
     private static final long serialVersionUID = -8550671173122103688L;
 
@@ -46,7 +51,9 @@ public class EditorFrame extends GameView {
 
     public EditorFrame () {
         super("Omega_Nu Game Editor");
-        mySaveLocation = "saves";
+        mySaveLocation="saves";
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(this);
     }
 
     public EditorFrame (Manager m) {
@@ -55,6 +62,12 @@ public class EditorFrame extends GameView {
         for (String s : m.getStages()) {
             setStage(s, m.getStages().indexOf(s));
         }
+    }
+
+    @Override
+    public void windowClosing (WindowEvent e) {
+        dispose();
+        new GameStartView();
     }
 
     @Override
@@ -178,6 +191,8 @@ public class EditorFrame extends GameView {
                 int stageID =
                         myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image),
                                                 stageName);
+                myWorldManager.setPreStory("");
+                myWorldManager.setPostStory("");
                 setStage(stageName, stageID);
             }
             catch (NumberFormatException e) {
@@ -252,7 +267,7 @@ public class EditorFrame extends GameView {
         stageMenu.add(prestory);
         prestory.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
-                setPreStory();
+                setStory("Pre");
             }
         });
 
@@ -261,7 +276,7 @@ public class EditorFrame extends GameView {
         stageMenu.add(poststory);
         poststory.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
-                setPostStory();
+                setStory("Post");
             }
         });
 
@@ -324,12 +339,27 @@ public class EditorFrame extends GameView {
         this.repaint();
     }
 
-    private void setPreStory () {
-
-    }
-
-    private void setPostStory () {
-
+    private void setStory (String prepost) {
+        JPanel storyPanel = new JPanel();
+        storyPanel.setLayout(new BoxLayout(storyPanel, BoxLayout.LINE_AXIS));
+        JLabel label = new JLabel("Story:");
+        JTextArea field = new JTextArea(10, 40);
+        field.setLineWrap(true);
+        field.setWrapStyleWord(true);
+        storyPanel.add(label);
+        storyPanel.add(field);
+        int value =
+                JOptionPane.showConfirmDialog(this, storyPanel,
+                                              "Enter "+prepost+ "story",
+                                              JOptionPane.OK_CANCEL_OPTION,
+                                              JOptionPane.PLAIN_MESSAGE);
+        if (value == JOptionPane.OK_OPTION) {
+            String story = field.getText();
+            if(prepost.equals("Pre"))
+                myWorldManager.setPreStory(story);
+            if(prepost.equals("Post"))
+                myWorldManager.setPostStory(story);
+        }
     }
 
     private void switchActiveStage () {
@@ -400,5 +430,29 @@ public class EditorFrame extends GameView {
 
     protected void saveGame (String location) {
         myWorldManager.saveGame(location);
+    }
+
+    @Override
+    public void windowOpened (WindowEvent e) {
+    }
+
+    @Override
+    public void windowClosed (WindowEvent e) {
+    }
+
+    @Override
+    public void windowIconified (WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeiconified (WindowEvent e) {
+    }
+
+    @Override
+    public void windowActivated (WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeactivated (WindowEvent e) {
     }
 }

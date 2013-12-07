@@ -1,6 +1,7 @@
 package controllers;
 
 import gameObject.action.Action;
+import gameObject.GameObject;
 import gameObject.GameUnit;
 import grid.Coordinate;
 import grid.GridConstants;
@@ -108,6 +109,29 @@ public abstract class Manager {
         return myActiveStage.getName();
     }
 
+    /**
+     * Creates a List of Strings that contain data about a coordinate
+     * 
+     * @param type String of type of gameObject being queried
+     * @param coordinate Coordinate containing object being queried
+     * @return List of Strings containing data about coordinate
+     */
+    public List<String> generateInfoList (String type, Coordinate coordinate) {
+        GameObject gameObject = myActiveStage.getGrid().getObject(type, coordinate);
+        if (gameObject != null) {
+            gameObject.generateDisplayData();
+            addCoordinateData(gameObject, coordinate);
+            return gameObject.getDisplayData();
+        }
+        return null;
+    }
+    
+    private void addCoordinateData (GameObject gameObject, Coordinate coordinate) {
+        List<String> displayData = gameObject.getDisplayData();
+        displayData.add("Coordinate: " + coordinate.getX() + ", " + coordinate.getY());
+        gameObject.setDisplayData(displayData);
+    }
+    
     /**
      * Gets a list of actions that a unit at a coordinate can perform. Null if
      * there is no unit.
