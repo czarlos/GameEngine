@@ -19,7 +19,7 @@ public class ChestAction extends Action {
         Chest chest = (Chest) receiver;
         Set<Item> chestItems = chest.getItems();
         for(Item item : chestItems) {
-            initiator.combatSetItemValue(item.getName(), initiator.combatGetItemValue(item.getName()) + chest.getItemAmount(item.getName()));
+            initiator.combatSetItemValue(item, initiator.combatGetItemValue(item) + chest.getItemAmount(item.getName()));
         }       
         chest.emptyItems();
     }

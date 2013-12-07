@@ -45,4 +45,12 @@ public class ItemOutcome extends Outcome {
         }
         return newAmount;
     }
+    
+    public Item getItem() {
+        return myItem;
+    }
+    
+    public void setItem(Item item) {
+        myItem = item;
+    }
 }

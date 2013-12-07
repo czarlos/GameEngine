@@ -1,9 +1,7 @@
 package gameObject.action;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.GameUnit;
-import gameObject.item.Item;
 
 @JsonAutoDetect
 public class StatOutcome extends Outcome {
@@ -53,23 +51,5 @@ public class StatOutcome extends Outcome {
     
     public void setStatName(String statName) {
         myStatName = statName;
-    }
-    
-    public int getAmount() {
-        return myAmount;
-    }
-    
-    public void setAmount (int amount) {
-        myAmount = amount;
-    }
-    
-    @JsonProperty("fixed")
-    public boolean isFixed () {
-        return isFixed;
-    }
-
-    @JsonProperty("fixed")
-    public void setIsFixed (boolean fixed) {
-        isFixed = fixed;
     }
 }

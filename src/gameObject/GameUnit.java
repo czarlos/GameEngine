@@ -135,16 +135,16 @@ public class GameUnit extends GameObject {
         myStats.modExisting(statName, statValue - baseStatDiff);
     }
 
-    public int combatGetItemValue (String itemName) {
-        return (myItemAmounts.get(itemName) == null ? 0 : myItemAmounts.get(itemName));
+    public int combatGetItemValue (Item item) {
+        return (myItemAmounts.get(item.getName()) == null ? 0 : myItemAmounts.get(item.getName()));
     }
 
-    public void combatSetItemValue (String itemName, int itemValue) {
-        if (myItems.add(itemName)) {
-            myItemAmounts.put(itemName, itemValue);
+    public void combatSetItemValue (Item item, int itemValue) {
+        if (myItems.add(item)) {
+            myItemAmounts.put(item.getName(), itemValue);
         }
         else {
-            myItemAmounts.put(itemName, itemValue);
+            myItemAmounts.put(item.getName(), itemValue);
         }
     }
 
