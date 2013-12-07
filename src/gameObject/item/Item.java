@@ -66,4 +66,10 @@ public class Item extends Customizable {
     public void setStats (Stats myStats) {
         this.myStats = new Stats(myStats);
     }
+    
+    public boolean equals (Item other) {
+        return this.getName().equals(other.getName());
+    }
+    
+    
 }

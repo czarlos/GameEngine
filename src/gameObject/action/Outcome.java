@@ -48,7 +48,7 @@ public class Outcome {
                                                            String.class);
             Method set = unit.getClass().getDeclaredMethod("combatSet" + myType + "Value",
                                                            String.class, int.class);
-
+            
             int newAmount;
 
             if (isFixed) {

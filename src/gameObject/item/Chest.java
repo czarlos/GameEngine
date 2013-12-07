@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.GameObject;
 import gameObject.action.ChestAction;
 
-
 /**
  * Holds a list of items that a unit can retrieve.
  * 
@@ -24,14 +23,14 @@ public class Chest extends GameObject {
     
     @JsonProperty
     private Map<String, Integer> myItemAmounts;
-    private Set<String> myItems;
+    private Set<Item> myItems;
 
     public Chest () {
         myItems = new HashSet<>();
         myItemAmounts = new HashMap<>();
     }
 
-    public Set<String> getItems () {
+    public Set<Item> getItems () {
         return myItems;
     }
     
@@ -39,7 +38,7 @@ public class Chest extends GameObject {
         return myItemAmounts.get(itemName);
     }
 
-    public void setItems (Set<String> items) {
+    public void setItems (Set<Item> items) {
         myItems = items;
     }
     
@@ -55,12 +54,12 @@ public class Chest extends GameObject {
      * @param itemName The name of the item, not a string
      */
     @Override
-    public void addItem (String item) {
+    public void addItem (Item item) {
         if (myItems.add(item)) {
-            myItemAmounts.put(item, 1);
+            myItemAmounts.put(item.getName(), 1);
         }
         else {
-            myItemAmounts.put(item, myItemAmounts.get(item) + 1);
+            myItemAmounts.put(item.getName(), myItemAmounts.get(item) + 1);
         }
     }
 
@@ -71,7 +70,7 @@ public class Chest extends GameObject {
         }
         else {
             myItemAmounts.remove(itemName);
-            for (String item: myItems) {
+            for (Item item: myItems) {
                 if (item.equals(itemName)) {
                     myItems.remove(item);
                 }
@@ -96,8 +95,8 @@ public class Chest extends GameObject {
         List<String> displayData = super.generateDisplayData();
         displayData.add("Inventory:");
         if (!myItems.isEmpty()) {
-            for (String item: myItems) {            
-                displayData.add("   "+item+": "+myItemAmounts.get(item));
+            for (Item item: myItems) {            
+                displayData.add("   "+item.getName()+": "+myItemAmounts.get(item.getName()));
             }
         }
         else {

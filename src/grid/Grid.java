@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import grid.Coordinate;
+import view.Customizable;
 import view.Drawable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -136,38 +137,9 @@ public class Grid implements Drawable {
         return (0 <= coordinate.getX() && coordinate.getX() < myWidth
                 && 0 <= coordinate.getY() && coordinate.getY() < myHeight);
     }
-
-    /**
-     * Checks if a coordinate is a valid move or action (the tile is active)
-     * 
-     * @param coordinate Coordinate being checked
-     * @return boolean of if the coordinate is active
-     */
+    
     public boolean isActive (String type, Coordinate coordinate) {
-        return ((GameObject) getObject(type, coordinate)).isActive();
-    }
-    
-    /**
-     * Return boolean of if a gameUnit can move to a given coordinatee
-     * 
-     * @param coordinate Coordinate being moved to
-     * @return boolean of if move is possible
-     */
-    public boolean isValidMove (Coordinate coordinate) {
-        return isValid(coordinate) && getObject(GridConstants.GAMEOBJECT, coordinate) == null;
-    }
-    
-    /**
-     * Returns a boolean if a coordinate is on the grid and the tile for the
-     * coordinate is active
-     * 
-     * @param coordinate Coordinate being checked
-     * @return boolean of if the coordinate is valid
-     */
-    public boolean isValid (Coordinate coordinate) {
-        // make tiles active in AI
-        return onGrid(coordinate);
-        // return onGrid(coordinate) && isActive(coordinate);
+        return getObject(type, coordinate).isActive();
     }
 
     /**
@@ -191,7 +163,6 @@ public class Grid implements Drawable {
             }
         }
     }
-
 
     /**
      * Gets a list of valid actions that the unit can perform on the objects around him
@@ -265,7 +236,7 @@ public class Grid implements Drawable {
      * @param coordinate
      * @param placeObject
      */
-    public void placeObject (String type, Coordinate coordinate, Object placeObject) {
+    public void placeObject (String type, Coordinate coordinate, Customizable placeObject) {
         if (type.equals(GridConstants.ITEM)) {
             GameObject gameObject = (GameObject) getObject(GridConstants.GAMEOBJECT, coordinate);
             if (gameObject != null) {
@@ -308,12 +279,12 @@ public class Grid implements Drawable {
      * @return List of adjacent Coordinates
      */
     public List<Coordinate> getAdjacentCoordinates (Coordinate coord) {
-        List<Coordinate> returnArray = new ArrayList<Coordinate>();
-        returnArray.add(new Coordinate(coord.getX() + 1, coord.getY()));
-        returnArray.add(new Coordinate(coord.getX(), coord.getY() + 1));
-        returnArray.add(new Coordinate(coord.getX() - 1, coord.getY()));
-        returnArray.add(new Coordinate(coord.getX(), coord.getY() - 1));
-        return returnArray;
+        List<Coordinate> adjacentCoordinates= new ArrayList<Coordinate>();
+        adjacentCoordinates.add(new Coordinate(coord.getX() + 1, coord.getY()));
+        adjacentCoordinates.add(new Coordinate(coord.getX(), coord.getY() + 1));
+        adjacentCoordinates.add(new Coordinate(coord.getX() - 1, coord.getY()));
+        adjacentCoordinates.add(new Coordinate(coord.getX(), coord.getY() - 1));
+        return adjacentCoordinates;
     }
 
     /**
