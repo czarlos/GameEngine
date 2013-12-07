@@ -261,7 +261,7 @@ public class GameUnit extends GameObject {
                     item.removeAction(removedAction);
                 }
             }
-            for (String action : item.getActions()) {
+            for (String action : nameTranslations.keySet()) {
                 item.removeAction(action);
                 item.addAction(nameTranslations.get(action));
             }

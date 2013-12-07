@@ -121,7 +121,7 @@ public class GameManager extends Manager {
 
     public void doAITurn () {
         // pass in gamemanager to AI because need moveOn command
-        AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage);
+        AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage, this);
         ai.doTurn();
         // ai.doTurn();
     }
@@ -131,7 +131,7 @@ public class GameManager extends Manager {
     }
     
     @SuppressWarnings("unchecked")
-    private Action getAction (String actionName) {
+    public Action getAction (String actionName) {
         List<Action> editorActions = (List<Action>) myEditorData.get(GridConstants.ACTION);
 
         // check first to see if it's one of the core actions so users can't override
