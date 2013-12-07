@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,6 +19,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
@@ -178,6 +180,8 @@ public class EditorFrame extends GameView {
                 int stageID =
                         myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image),
                                                 stageName);
+                myWorldManager.setPreStory("");
+                myWorldManager.setPostStory("");
                 setStage(stageName, stageID);
             }
             catch (NumberFormatException e) {
@@ -252,7 +256,7 @@ public class EditorFrame extends GameView {
         stageMenu.add(prestory);
         prestory.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
-                setPreStory();
+                setStory("Pre");
             }
         });
 
@@ -261,7 +265,7 @@ public class EditorFrame extends GameView {
         stageMenu.add(poststory);
         poststory.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
-                setPostStory();
+                setStory("Post");
             }
         });
         
@@ -306,7 +310,6 @@ public class EditorFrame extends GameView {
     }
 
     protected void setStage (String stageName, int stageID) {
-        // myGridController = new GridEditorController(myWorldManager, stageTabbedPane);
         StagePanel sp =
                 new StagePanel(stageName, myWorldManager, stageID,
                                myGridController);
@@ -323,12 +326,27 @@ public class EditorFrame extends GameView {
         this.repaint();
     }
 
-    private void setPreStory () {
-
-    }
-
-    private void setPostStory () {
-
+    private void setStory (String prepost) {
+        JPanel storyPanel = new JPanel();
+        storyPanel.setLayout(new BoxLayout(storyPanel, BoxLayout.LINE_AXIS));
+        JLabel label = new JLabel("Story:");
+        JTextArea field = new JTextArea(10, 40);
+        field.setLineWrap(true);
+        field.setWrapStyleWord(true);
+        storyPanel.add(label);
+        storyPanel.add(field);
+        int value =
+                JOptionPane.showConfirmDialog(this, storyPanel,
+                                              "Enter "+prepost+ "story",
+                                              JOptionPane.OK_CANCEL_OPTION,
+                                              JOptionPane.PLAIN_MESSAGE);
+        if (value == JOptionPane.OK_OPTION) {
+            String story = field.getText();
+            if(prepost.equals("Pre"))
+                myWorldManager.setPreStory(story);
+            else if(prepost.equals("Post"))
+                myWorldManager.setPostStory(story);
+        }
     }
 
     private void switchActiveStage () {
