@@ -1,9 +1,6 @@
 package gameObject;
 
 import game.ImageManager;
-import gameObject.action.Outcome;
-import gameObject.action.Outcomes;
-import gameObject.action.TradeAction;
 import gameObject.item.*;
 import grid.GridConstants;
 import java.util.ArrayList;
