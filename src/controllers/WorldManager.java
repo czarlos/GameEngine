@@ -97,19 +97,21 @@ public class WorldManager extends Manager {
      */
 
     @SuppressWarnings("unchecked")
-    public int addStage (int x, int y, int tileID, String name) {
-        myStages.add(new Stage(x, y, tileID, name));
-        setActiveStage(myStages.size() - 1);
-        activeEditTypeList.add("");
-        activeEditIDList.add(-1);
+    public int addStage (int x, int y, int tileID, String name, int index) {
+        myStages.add(index, new Stage(x, y, tileID, name));
+        setActiveStage(index);
+        activeEditTypeList.add(index, "");
+        activeEditIDList.add(index, -1);
         myActiveStage.setTeams((List<Team>) myEditorData
                 .get(GridConstants.TEAM));
-        return myStages.size() - 1;
+        return index;
     }
 
     public void deleteStage (int i) {
         myStages.remove(i);
-        setActiveStage(i - 1);
+
+        setActiveStage(Math.min(i, myStages.size() - 1));
+
         activeEditTypeList.remove(i);
         activeEditIDList.remove(i);
     }
