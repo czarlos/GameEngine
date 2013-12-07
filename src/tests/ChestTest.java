@@ -1,8 +1,8 @@
 package tests;
 
 import static org.junit.Assert.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import gameObject.GameUnit;
 import gameObject.Stats;
 import gameObject.action.ChestAction;
@@ -19,7 +19,7 @@ public class ChestTest {
 
     @Before
     public void setUp () throws Exception {
-        List<Item> itemList = new ArrayList<>();
+        Set<Item> itemList = new HashSet<>();
         
         potion = makeEmptyItem("potion");
         key = makeEmptyItem("key");

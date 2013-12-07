@@ -102,7 +102,7 @@ public class GameObject extends Customizable implements Drawable {
         g.drawImage(getImage(), x, y, width, height, null);
     }
     
-    public void addItem (Item item) {
+    public void addItem (String item) {
         //Does nothing
     }
 }
