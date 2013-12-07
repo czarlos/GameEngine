@@ -15,40 +15,35 @@ import controller.editor.GridController;
  */
 @SuppressWarnings("serial")
 public class SelectedInfoPanel extends JTabbedPane implements Scrollable {
-    //protected JTabbedPane myTabs;
     protected GridController myController;
 
     public SelectedInfoPanel (GridController controller) {
-        //myTabs = new JTabbedPane();
         myController = controller;
         setPreferredSize(new Dimension(300, 500));
 
     }
     
     public SelectedInfoPanel () {
-        //myTabs = new JTabbedPane();
         setPreferredSize(new Dimension(200, 200));
 
     }
 
-    public void makeTabs (List<String> buttonTab, List<String> tileInfo,
+    public void makeTabs (List<String> actionInfo, List<String> tileInfo,
                           List<String> objectInfo) {
 
-        if (buttonTab != null) {
+        if (actionInfo != null && !actionInfo.isEmpty()) {
 
-            add("Actions", new ActionInfoPanel(buttonTab, myController));
-            ;
+            add("Actions", makeActionPane(actionInfo));
         }
 
-        if (tileInfo != null) {
+        if (tileInfo != null && !tileInfo.isEmpty()) {
             add("Tile", new InfoPanel(tileInfo));
         }
 
-        if (objectInfo != null) {
+        if (objectInfo != null && !objectInfo.isEmpty()) {
             add("Object", new InfoPanel(objectInfo));
         }
 
-        //add(myTabs);
         repaint();
     }
 
@@ -78,5 +73,9 @@ public class SelectedInfoPanel extends JTabbedPane implements Scrollable {
     @Override
     public boolean getScrollableTracksViewportHeight () {
         return false;
+    }
+
+    public JPanel makeActionPane (List<String> actionInfo) {
+        return new ActionInfoPanel(actionInfo, myController);
     }
 }
