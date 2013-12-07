@@ -1,16 +1,17 @@
 package view.player;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class StoryPanel extends JPanel{
+
+public class StoryPanel extends JPanel {
 
     private JTextArea myText;
-    public StoryPanel(String story, PlayerView p)
+
+    public StoryPanel (String story)
     {
         myText = new JTextArea(story);
         myText.setLineWrap(true);
@@ -19,29 +20,26 @@ public class StoryPanel extends JPanel{
         myText.setFont(new Font("serif", Font.BOLD, 16));
         add(myText);
         myText.setVisible(true);
-        generateMoveButton(p);
     }
-    
+
     private JButton generateMoveButton (PlayerView p) {
-        JButton moveButton = new JButton("DONE READING STORY BITCH");
+        JButton moveButton = new JButton("Continue");
         moveButton.addActionListener(new ActionListener() {
-            private PlayerView myPlayerView; 
+
             @Override
             public void actionPerformed (ActionEvent e) {
-                //myPlayerView.myLayeredPane.remove(myPlayerView.myStoryPanel);
             }
-            public ActionListener init(PlayerView mvp){
-                myPlayerView = mvp;
+
+            public ActionListener init (PlayerView mvp) {
                 return this;
             }
         }.init(p));
         moveButton.setEnabled(true);
-        return moveButton;      
+        return moveButton;
     }
 
     public void setText (String story) {
         myText.setText(story);
-        
+
     }
 }
-

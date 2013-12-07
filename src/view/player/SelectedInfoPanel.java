@@ -26,7 +26,6 @@ public class SelectedInfoPanel extends JTabbedPane implements Scrollable {
     }
     
     public SelectedInfoPanel () {
-        //myTabs = new JTabbedPane();
         setPreferredSize(new Dimension(200, 200));
 
     }
@@ -37,7 +36,6 @@ public class SelectedInfoPanel extends JTabbedPane implements Scrollable {
         if (buttonTab != null) {
 
             add("Actions", new ActionInfoPanel(buttonTab, myController));
-            ;
         }
 
         if (tileInfo != null) {
