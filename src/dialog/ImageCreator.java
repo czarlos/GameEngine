@@ -28,9 +28,6 @@ import javax.swing.JPanel;
  */
 public class ImageCreator extends JPanel {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -38084645183859719L;
 
     private static final int DEFAULT_RESOLUTION_X = 100;
@@ -56,6 +53,10 @@ public class ImageCreator extends JPanel {
     }
 
     /**
+     * 
+     * Utilizes ImageCreator Panel, but adds default "ok" and "cancel" buttons in a surrounding 
+     * JDialog. Uses input listeners to give control over this dialog to its containing frame or 
+     * editor which spawned it.
      * 
      * @param component
      * @param title
@@ -139,11 +140,6 @@ public class ImageCreator extends JPanel {
         }
     }
 
-    /**
-     * 
-     * @author brooksmershon
-     *
-     */
     private static class DefaultCancelListener implements ActionListener {
 
         private JDialog dialog;
@@ -159,11 +155,6 @@ public class ImageCreator extends JPanel {
         }
     }
     
-    /**
-     * 
-     * @author brooksmershon
-     *
-     */
     private static class ResetListener implements ActionListener {
 
         private JDialog dialog;

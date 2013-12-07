@@ -80,6 +80,7 @@ public class ImageEditor extends AbstractCellEditor implements TableCellEditor,
     }
     
     /**
+     * Copy BufferedImage
      * 
      * @param source
      * @return BufferedImage copy in ARGB colorspace
