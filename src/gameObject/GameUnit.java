@@ -96,9 +96,9 @@ public class GameUnit extends GameObject {
         }
     }
     
-    public void removeAllItem(String itemName) {
-        myItems.remove(itemName);
-        myItemAmounts.remove(itemName);
+    public void removeAllItem(Item item) {
+        myItems.remove(item);
+        myItemAmounts.remove(item.getName());
     }
 
     @Override
@@ -219,11 +219,13 @@ public class GameUnit extends GameObject {
     @JsonIgnore
     public List<String> getInteractions () {
         if (myItems.isEmpty()) {
+            System.out.println("get interactions null");
             return null;
         }
         List<String> interactions = new ArrayList<>();
-        
+        System.out.println(myItems);
         for (Item item : myItems) {
+            System.out.println(item.getName());
             interactions.add(GridConstants.TRADE+ " "+item.getName());
         }
 

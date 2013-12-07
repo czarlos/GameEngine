@@ -23,6 +23,7 @@ public class GridConstants {
     public static final String TEAM = "Team";
     public static final String CONDITION = "Condition";
     public static final String ACTION = "Action";
+    public static final int ACTIONRANGE = 1;
 
     public final static String DEFAULT_PASS_EVERYTHING = "everything";
 

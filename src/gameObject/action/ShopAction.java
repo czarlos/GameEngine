@@ -1,10 +1,12 @@
 package gameObject.action;
 
+import grid.GridConstants;
+
 
 public class ShopAction extends TradeAction {
 
     public ShopAction () {   
-        myName = "Shop";
+        super.setName(GridConstants.SHOP);
     }
     
     public ShopAction (String item) {

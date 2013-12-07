@@ -172,7 +172,6 @@ public class GameManager extends Manager {
         }
         // check first to see if it's one of the core actions so users can't override
         for (Action action : GridConstants.COREACTIONS) {
-
             if (action.getName().equals(actionName)) { return action; }
         }
         for (Action action : editorActions) {
@@ -220,11 +219,16 @@ public class GameManager extends Manager {
             initiator.hasMoved();
         }
         else {
+            
+            System.out.println(initiator.getItems().size());
+            System.out.println("doAction name: "+activeAction.getName());
             GameObject receiver = myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, actionCoordinate);
             if (receiver != null && myActiveStage.getGrid().isActive(GridConstants.TILE, actionCoordinate)) {
                 activeAction.doAction(initiator, receiver);
                 initiator.setActive(false);
             }
+            System.out.println(initiator.getItems().size());
+            
         }
         myActiveStage.getGrid().setAllTilesInactive();
     }

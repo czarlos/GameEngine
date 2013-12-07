@@ -11,7 +11,6 @@ public class ChestAction extends Action {
 
     public ChestAction() {
         super.setName(GridConstants.CHEST);
-        myActionRange = 1;
     }
     
     @Override
