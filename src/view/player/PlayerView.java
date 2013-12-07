@@ -23,7 +23,7 @@ import view.GameView;
 @SuppressWarnings("serial")
 public class PlayerView extends GameView {
     private StagePlayerPanel myStagePlayerPanel;
-    public JLayeredPane myLayeredPane;
+    //public JLayeredPane myLayeredPane;
     protected GameManager myGameManager;
 
     public PlayerView () {
@@ -35,7 +35,7 @@ public class PlayerView extends GameView {
         myGameManager.setView(this);
         super.clearWindow();
         this.remove(myBackground);
-
+        //myLayeredPane = new JLayeredPane();
         this.setTitle(myGameManager.getGameName());
 
         revalidate();
@@ -129,17 +129,19 @@ public class PlayerView extends GameView {
         remove(myBackground);
         myStagePlayerPanel = new StagePlayerPanel(myGameManager, this);
         add(myStagePlayerPanel);
+        //myLayeredPane.add(myStagePlayerPanel);
+        //myLayeredPane.moveToFront(myStagePlayerPanel);
         revalidate();
         repaint();
     }
 
     public void endTurn () {
         getContentPane().remove(myStagePlayerPanel);
-        getContentPane().add(myBackground);
+        getContentPane().add(myBackground); 
         revalidate();
         repaint();
         doTurn();
-
+        
     }
 
     public static void main (String[] args) {
@@ -147,15 +149,12 @@ public class PlayerView extends GameView {
     }
 
     public void showDialog (String story) {
+        //myLayeredPane = new JLayeredPane();
         remove(myBackground);
-        final JOptionPane optionPane = new JOptionPane(
-                                                       story,
-                                                       JOptionPane.QUESTION_MESSAGE,
-                                                       JOptionPane.YES_NO_OPTION);
-    }
-
-    public void displayWinDialog () {
-        JOptionPane.showMessageDialog(this, "You successfully completed all stages!");
+        //myLayeredPane.add(curStory);
+        //myLayeredPane.moveToFront(curStory);
+        //this.add(myLayeredPane);
+        JOptionPane.showMessageDialog(this, story);
     }
 
     protected void saveGame () {
