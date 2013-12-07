@@ -1,6 +1,7 @@
 package dialog.editors;
 
 import javax.swing.JTable;
+import controllers.WorldManager;
 import dialog.dialogs.TableDialog;
 import dialog.dialogs.tableModels.GameTableModel;
 import java.awt.Component;
@@ -14,22 +15,22 @@ public class ModelEditor extends GameCellEditor {
 
     private GameTableModel myModel;
     private TableDialog statsEditor;
-    private List<String> myEnumList;
+    private WorldManager myWM;
 
     public ModelEditor (GameTableModel gtm) {
-        this(gtm, new ArrayList<String>());
+        this(gtm, new WorldManager());
     }
 
-    public ModelEditor (GameTableModel gtm, List<String> enumList) {
+    public ModelEditor (GameTableModel gtm, WorldManager wm) {
         myModel = gtm;
-        myEnumList = enumList;
+        myWM = wm;
     }
 
     // opens and closes editor
     public void actionPerformed (ActionEvent e) {
 
         if (EDIT.equals(e.getActionCommand())) {
-            statsEditor = new TableDialog(myModel, this, myEnumList);
+            statsEditor = new TableDialog(myModel, this, myWM);
             statsEditor.setVisible(true);
         }
         else {

@@ -9,7 +9,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
 
 public class JSONParser {
@@ -26,7 +25,6 @@ public class JSONParser {
                 .withCreatorVisibility(Visibility.NONE));
         myMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
                            false);
-        // myMapper.registerModule(new ItemModule());
     }
 
     public void createJSON (String filename, Object object) {

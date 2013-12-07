@@ -3,7 +3,6 @@ package grid;
 import game.ImageManager;
 import gameObject.GameObject;
 import gameObject.Stats;
-import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,8 +27,6 @@ public class Tile extends GameObject {
     private Tile myParent;
     private int myLength;
     private int myDistanceToGoal;
-    private Coordinate myCoordinate;
-
     public Tile () {
         
     }
@@ -79,12 +76,6 @@ public class Tile extends GameObject {
         }
         setDisplayData(displayData);
         return displayData;
-    }
-
-    // ...the heck?
-    public Tile (List<Tile> neighbors, Coordinate coordinate) {
-        myNeighbors = neighbors;
-        myCoordinate = coordinate;
     }
 
     @JsonIgnore

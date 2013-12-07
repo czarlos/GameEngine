@@ -264,7 +264,7 @@ public class EditorFrame extends GameView {
                 setPostStory();
             }
         });
-        
+
         JMenuItem setTeams = new JMenuItem("Configure Teams");
         stageMenu.add(setTeams);
         setTeams.addActionListener(new GamePrefListener(myWorldManager, GridConstants.TEAM));
@@ -278,35 +278,36 @@ public class EditorFrame extends GameView {
                 removeStage();
             }
         });
-        
+
         JMenu gameMenu = new JMenu("Game");
-        
+
         stageMenu.setMnemonic(KeyEvent.VK_S);
         JMenuItem setMaster = new JMenuItem("Set Master Stats");
-        setMaster.addActionListener(new GamePrefListener(myWorldManager, GridConstants.MASTERSTATS));
+        setMaster
+                .addActionListener(new GamePrefListener(myWorldManager, GridConstants.MASTERSTATS));
         gameMenu.add(setMaster);
 
         JMenuItem setActions = new JMenuItem("Add/Remove Actions");
         gameMenu.add(setActions);
         setActions.addActionListener(new GamePrefListener(myWorldManager, GridConstants.ACTION));
-        
-        JMenuItem runGame=new JMenuItem("Run Game");
+
+        JMenuItem runGame = new JMenuItem("Run Game");
         gameMenu.add(runGame);
-        runGame.addActionListener(new ActionListener(){
+        runGame.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                new PlayerView(myWorldManager).setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);;
+                new PlayerView(myWorldManager).setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                ;
             }
-            
+
         });
-        
+
         myMenuBar.add(stageMenu, 1);
         myMenuBar.add(gameMenu, 1);
     }
 
     protected void setStage (String stageName, int stageID) {
-        // myGridController = new GridEditorController(myWorldManager, stageTabbedPane);
         StagePanel sp =
                 new StagePanel(stageName, myWorldManager, stageID,
                                myGridController);
@@ -367,21 +368,10 @@ public class EditorFrame extends GameView {
         @Override
         public void actionPerformed (ActionEvent e) {
             GameTableModel model = null;
-            switch (myRequest) {
-                case GridConstants.MASTERSTATS:
-                    model = myWM.getMasterStatsTable();
-                    break;
-                case GridConstants.TEAM:
-                    model = myWM.getTeamTableModel();
-                    break;
-                case GridConstants.ACTION:
-                    model = myWM.getTableModel(GridConstants.ACTION);
-                    break;
-            }
+            model = myWM.getTableModel(myRequest);
 
             myDialog =
-                    new TableDialog(model, new GamePrefDialogListener(myWM, model, myRequest),
-                                    myWM.getDialogList(myRequest));
+                    new TableDialog(model, new GamePrefDialogListener(myWM, model), myWM);
             myDialog.setVisible(true);
             myDialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         }
@@ -391,27 +381,15 @@ public class EditorFrame extends GameView {
 
         private WorldManager myWM;
         private GameTableModel myModel;
-        private String myRequest;
 
-        public GamePrefDialogListener (WorldManager wm, GameTableModel model, String request) {
+        public GamePrefDialogListener (WorldManager wm, GameTableModel model) {
             myWM = wm;
             myModel = model;
-            myRequest = request;
         }
 
         @Override
         public void actionPerformed (ActionEvent e) {
-            switch (myRequest) {
-                case GridConstants.MASTERSTATS:
-                    myWM.setMasterStats(myModel);
-                    break;
-                case GridConstants.TEAM:
-                    myWM.setTeams(myModel);
-                    break;
-                case GridConstants.ACTION:
-                    myWM.setData(myModel);
-                    break;
-            }
+            myWM.setData(myModel);
             myDialog.setVisible(false);
         }
     }

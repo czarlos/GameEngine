@@ -1,7 +1,6 @@
 package game;
 
 import gameObject.GameUnit;
-import gameObject.action.Action;
 import grid.Coordinate;
 import grid.Grid;
 import grid.Tile;
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
 import stage.Stage;

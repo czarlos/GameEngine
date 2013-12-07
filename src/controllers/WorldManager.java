@@ -6,7 +6,6 @@ import grid.Coordinate;
 import grid.GridConstants;
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import stage.Stage;
 import team.Team;
@@ -15,9 +14,6 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import dialog.dialogs.tableModels.GameTableModel;
-import gameObject.action.Action;
-import gameObject.action.MasterActions;
-import gameObject.item.Item;
 
 
 /**
@@ -28,7 +24,6 @@ import gameObject.item.Item;
  */
 @JsonAutoDetect
 public class WorldManager extends Manager {
-    // masterstats is probably broken with the structural changes but it's okay because we're removing it.
     @JsonProperty
     private MasterStats myMasterStats;
 
@@ -41,72 +36,15 @@ public class WorldManager extends Manager {
         super();
         activeEditTypeList = new ArrayList<String>();
         activeEditIDList = new ArrayList<Integer>();
-        myMasterStats = MasterStats.getInstance();
     }
 
     public WorldManager (Manager m) {
         super(m);
-        myMasterStats = MasterStats.getInstance();
     }
 
     @JsonIgnore
     public GameTableModel getTableModel (String type) {
         return myEditorData.getTableModel(type);
-    }
-
-    @SuppressWarnings("unchecked")
-    public void setActions (GameTableModel gtm) {
-        MasterActions ma = MasterActions.getInstance();
-        ma.setActionList((List<Action>) gtm.getObject());
-        myEditorData.setData(gtm, myActiveStage);
-    }
-
-    // can generalize
-    @JsonIgnore
-    public GameTableModel getMasterStatsTable () {
-        return myEditorData.getTableModel(GridConstants.MASTERSTATS,
-                                          myMasterStats.getStats());
-    }
-
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public void setMasterStats (GameTableModel gtm) {
-        myMasterStats.setStats((HashMap<String, Integer>) gtm.getObject());
-        syncStats();
-    }
-
-    // harder to generalize because teams are in stage
-    @JsonIgnore
-    public GameTableModel getTeamTableModel () {
-        return myEditorData.getTableModel(GridConstants.TEAM,
-                                          myActiveStage.getTeams());
-    }
-
-    // different because team data is in stage
-    @SuppressWarnings("unchecked")
-    public void setTeams (GameTableModel gtm) {
-        List<Team> list = (List<Team>) gtm.getObject();
-        List<String> names = myActiveStage.getTeamNames();
-        List<String> fullList = myActiveStage.getTeamNames();
-
-        // adjusting unit affiliation strings for renamed teams
-        for (Team t : list) {
-            String prevName = fullList.get(t.getLastEditingID());
-            if (!t.getName().equals(prevName)) {
-                myActiveStage.setTeamName(t.getLastEditingID(), t.getName());
-            }
-            names.remove(prevName);
-        }
-
-        // units on deleted teams get their affiliation set to the first team.
-
-        for (String s : names) {
-            myActiveStage.setTeamName(fullList.indexOf(s), list.get(0)
-                    .getName());
-        }
-
-        // replace all the teams with list
-        myActiveStage.setTeams(list);
     }
 
     public void setData (GameTableModel gtm) {
@@ -255,34 +193,23 @@ public class WorldManager extends Manager {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    // TODO: get rid of this
     public List<String> getDialogList (String myType) {
         List<String> ret = new ArrayList<String>();
         switch (myType) {
             case GridConstants.GAMEUNIT:
-                ret = myActiveStage.getTeamNames();
+                ret.addAll(myEditorData.getNames(GridConstants.TEAM));
                 break;
             case GridConstants.GAMEOBJECT:
-                List<GameUnit> list = (List<GameUnit>) myEditorData
-                        .get(GridConstants.GAMEUNIT);
                 ret.add(GridConstants.DEFAULT_PASS_EVERYTHING);
-                for (GameUnit gu : list) {
-                    ret.add(gu.getName());
-                }
+                ret.addAll(myEditorData.getNames(GridConstants.GAMEUNIT));
                 break;
             case GridConstants.ITEM:
-                for (Action a : (List<Action>) myEditorData
-                        .get(GridConstants.ACTION)) {
-                    ret.add(a.getName());
-                }
+                ret.addAll(myEditorData.getNames(GridConstants.ACTION));
                 break;
             case GridConstants.ACTION:
-                for (String s : myMasterStats.getStatNames()) {
-                    ret.add(s);
-                }
-                for (Item i : (List<Item>) myEditorData.get(GridConstants.ITEM)) {
-                    ret.add(i.getName());
-                }
+     //           ret.addAll(myEditorData.getNames(GridConstants.MASTERSTATS));
+                ret.addAll(myEditorData.getNames(GridConstants.ITEM));
             default:
                 break;
         }
