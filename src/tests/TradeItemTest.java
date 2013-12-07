@@ -25,6 +25,7 @@ public class TradeItemTest {
         allyUnit = new GameUnit();
         allyUnit.setAffiliation("player");
         allyUnit.addItem(item);
+        allyUnit.addItem(item);
         
         // Set Up Trade Action
         ta = new TradeAction(allyUnit.getInteractions().get(0).split(" ")[1]);
@@ -32,33 +33,34 @@ public class TradeItemTest {
 
     @Test
     public void testPlayerBeforeTrade () {
-        fail("Not yet implemented");
+        assertTrue("Unit does not have 'item' in its set",!playerUnit.getItems().contains(item));
+        assertEquals(playerUnit.getItemAmount(item.getName()), 0);
+        assertEquals(playerUnit.getItem("item"), null);
     }
     
     @Test
     public void testPlayerAfterTrade () {
-        System.out.println("Player item value: "+playerUnit.combatGetItemValue(item));
-        System.out.println("Ally item value: "+allyUnit.combatGetItemValue(item));
-        
         ta.doAction(playerUnit, allyUnit);
         
-        System.out.println("Player item value: "+playerUnit.combatGetItemValue(item));
-        System.out.println("Ally item value: "+allyUnit.combatGetItemValue(item));
-        
-        System.out.println("Player item set: "+playerUnit.getItems());
-        
-        assertTrue(playerUnit.getItems().contains(item));
+        assertTrue("Unit does have 'item' in its set",playerUnit.getItems().contains(item));
+        assertEquals(playerUnit.getItemAmount(item.getName()), 2);
         assertEquals(playerUnit.getItem("item"), item);
     }
     
     @Test
     public void testAllyBeforeTrade () {
-        fail("Not yet implemented");
+        assertTrue("Unit does have 'item' in its set",allyUnit.getItems().contains(item));
+        assertEquals(allyUnit.getItemAmount(item.getName()), 2);
+        assertEquals(allyUnit.getItem("item"), item);
     }
     
     @Test
     public void testAllyAfterTrade () {
-        fail("Not yet implemented");
+        ta.doAction(playerUnit, allyUnit);
+        
+        assertTrue("Unit does not have 'item' in its set",!allyUnit.getItems().contains(item));
+        assertEquals(allyUnit.getItemAmount(item.getName()), 0);
+        assertEquals(allyUnit.getItem("item"), null);
     }
 
     /**

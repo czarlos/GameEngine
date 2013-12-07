@@ -135,7 +135,7 @@ public class GameUnit extends GameObject {
     }
 
     public int combatGetItemValue (Item item) {
-        return (myItemAmounts.get(item) == null ? 0 : myItemAmounts.get(item));
+        return (myItemAmounts.get(item.getName()) == null ? 0 : myItemAmounts.get(item.getName()));
     }
 
     public void combatSetItemValue (Item item, int itemValue) {
@@ -219,11 +219,9 @@ public class GameUnit extends GameObject {
     @JsonIgnore
     public List<String> getInteractions () {
         if (myItems.isEmpty()) {
-            System.out.println("get interactions null");
             return null;
         }
         List<String> interactions = new ArrayList<>();
-        System.out.println(myItems);
         for (Item item : myItems) {
             interactions.add(GridConstants.TRADE+ " "+item.getName());
         }
