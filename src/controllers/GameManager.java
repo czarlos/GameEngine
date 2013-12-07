@@ -165,7 +165,6 @@ public class GameManager extends Manager {
         List<Action> editorActions = (List<Action>) myEditorData.get(GridConstants.ACTION);
         String[] actionNameSplit = actionName.split(" ");
         if (actionNameSplit[0].equals(GridConstants.TRADE)) {
-            System.out.println(actionNameSplit[1]);
             return new TradeAction(actionNameSplit[1]);
         }
         if (actionNameSplit[0].equals(GridConstants.SHOP)) {
@@ -220,11 +219,16 @@ public class GameManager extends Manager {
             initiator.hasMoved();
         }
         else {
+            
+            System.out.println(initiator.getItems().size());
+            System.out.println("doAction name: "+activeAction.getName());
             GameObject receiver = myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, actionCoordinate);
             if (receiver != null && myActiveStage.getGrid().isActive(GridConstants.TILE, actionCoordinate)) {
                 activeAction.doAction(initiator, receiver);
                 initiator.setActive(false);
             }
+            System.out.println(initiator.getItems().size());
+            
         }
         myActiveStage.getGrid().setAllTilesInactive();
     }

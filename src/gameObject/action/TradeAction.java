@@ -2,6 +2,7 @@ package gameObject.action;
 
 import gameObject.GameObject;
 import gameObject.GameUnit;
+import gameObject.item.Item;
 import gameObject.item.Shop;
 import grid.GridConstants;
 
@@ -12,7 +13,7 @@ public class TradeAction extends Action {
     private Outcomes myReceiverOutcomes;
     
     public TradeAction() {
-        myName = "Trade";
+        super.setName(GridConstants.TRADE);
     }
     
     public TradeAction(String string) {
@@ -22,10 +23,9 @@ public class TradeAction extends Action {
     @Override
     public void doAction (GameUnit initiator, GameObject receiver) {
         GameUnit receiverUnit = (GameUnit) receiver;
-        
-        initiator.combatSetItemValue(myItem, receiverUnit.combatGetItemValue(myItem) + initiator.combatGetItemValue(myItem));
-        receiverUnit.removeAllItem(myItem);
-        
+        Item tradeItem = receiverUnit.getItem(myItem);
+        initiator.combatSetItemValue(tradeItem, receiverUnit.combatGetItemValue(tradeItem) + initiator.combatGetItemValue(tradeItem));
+        receiverUnit.removeAllItem(tradeItem);      
     }
 
     @Override
