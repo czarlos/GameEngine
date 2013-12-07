@@ -24,14 +24,14 @@ public class Chest extends GameObject {
     
     @JsonProperty
     private Map<String, Integer> myItemAmounts;
-    private Set<Item> myItems;
+    private Set<String> myItems;
 
     public Chest () {
         myItems = new HashSet<>();
         myItemAmounts = new HashMap<>();
     }
 
-    public Set<Item> getItems () {
+    public Set<String> getItems () {
         return myItems;
     }
     
@@ -39,7 +39,7 @@ public class Chest extends GameObject {
         return myItemAmounts.get(itemName);
     }
 
-    public void setItems (Set<Item> items) {
+    public void setItems (Set<String> items) {
         myItems = items;
     }
     
@@ -55,12 +55,12 @@ public class Chest extends GameObject {
      * @param itemName The name of the item, not a string
      */
     @Override
-    public void addItem (Item item) {
+    public void addItem (String item) {
         if (myItems.add(item)) {
-            myItemAmounts.put(item.getName(), 1);
+            myItemAmounts.put(item, 1);
         }
         else {
-            myItemAmounts.put(item.getName(), myItemAmounts.get(item.getName()) + 1);
+            myItemAmounts.put(item, myItemAmounts.get(item) + 1);
         }
     }
 
@@ -71,8 +71,8 @@ public class Chest extends GameObject {
         }
         else {
             myItemAmounts.remove(itemName);
-            for (Item item: myItems) {
-                if (item.getName().equals(itemName)) {
+            for (String item: myItems) {
+                if (item.equals(itemName)) {
                     myItems.remove(item);
                 }
             }
@@ -96,8 +96,8 @@ public class Chest extends GameObject {
         List<String> displayData = super.generateDisplayData();
         displayData.add("Inventory:");
         if (!myItems.isEmpty()) {
-            for (Item item: myItems) {            
-                displayData.add("   "+item.getName()+": "+myItemAmounts.get(item.getName()));
+            for (String item: myItems) {            
+                displayData.add("   "+item+": "+myItemAmounts.get(item));
             }
         }
         else {

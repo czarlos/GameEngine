@@ -95,6 +95,11 @@ public class GameUnit extends GameObject {
             }
         }
     }
+    
+    public void removeAllItem(String itemName) {
+        myItems.remove(itemName);
+        myItemAmounts.remove(itemName);
+    }
 
     @Override
     public boolean isPassable (GameUnit unit) {

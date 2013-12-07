@@ -20,6 +20,10 @@ public class TradeAction extends Action {
     @Override
     public void doAction (GameUnit initiator, GameObject receiver) {
         GameUnit receiverUnit = (GameUnit) receiver;
+        
+        initiator.combatSetItemValue(myItem, receiverUnit.combatGetItemValue(myItem) + initiator.combatGetItemValue(myItem));
+        receiverUnit.removeAllItem(myItem);
+        
     }
 
     @Override
