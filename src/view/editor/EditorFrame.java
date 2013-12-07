@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import parser.JSONParser;
+import view.GameStartView;
 import view.GameView;
 import view.player.PlayerView;
 import controller.editor.GridEditorController;
@@ -35,7 +38,7 @@ import dialog.dialogs.TableDialog;
 import dialog.dialogs.tableModels.GameTableModel;
 
 
-public class EditorFrame extends GameView {
+public class EditorFrame extends GameView implements WindowListener {
 
     private static final long serialVersionUID = -8550671173122103688L;
 
@@ -48,7 +51,9 @@ public class EditorFrame extends GameView {
 
     public EditorFrame () {
         super("Omega_Nu Game Editor");
-        mySaveLocation = "saves";
+        mySaveLocation="saves";
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(this);
     }
 
     public EditorFrame (Manager m) {
@@ -57,6 +62,12 @@ public class EditorFrame extends GameView {
         for (String s : m.getStages()) {
             setStage(s, m.getStages().indexOf(s));
         }
+    }
+
+    @Override
+    public void windowClosing (WindowEvent e) {
+        dispose();
+        new GameStartView();
     }
 
     @Override
@@ -268,7 +279,7 @@ public class EditorFrame extends GameView {
                 setStory("Post");
             }
         });
-        
+
         JMenuItem setTeams = new JMenuItem("Configure Teams");
         stageMenu.add(setTeams);
         setTeams.addActionListener(new GamePrefListener(myWorldManager, GridConstants.TEAM));
@@ -282,29 +293,31 @@ public class EditorFrame extends GameView {
                 removeStage();
             }
         });
-        
+
         JMenu gameMenu = new JMenu("Game");
-        
+
         stageMenu.setMnemonic(KeyEvent.VK_S);
         JMenuItem setMaster = new JMenuItem("Set Master Stats");
-        setMaster.addActionListener(new GamePrefListener(myWorldManager, GridConstants.MASTERSTATS));
+        setMaster
+                .addActionListener(new GamePrefListener(myWorldManager, GridConstants.MASTERSTATS));
         gameMenu.add(setMaster);
 
         JMenuItem setActions = new JMenuItem("Add/Remove Actions");
         gameMenu.add(setActions);
         setActions.addActionListener(new GamePrefListener(myWorldManager, GridConstants.ACTION));
-        
-        JMenuItem runGame=new JMenuItem("Run Game");
+
+        JMenuItem runGame = new JMenuItem("Run Game");
         gameMenu.add(runGame);
-        runGame.addActionListener(new ActionListener(){
+        runGame.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                new PlayerView(myWorldManager).setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);;
+                new PlayerView(myWorldManager).setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                ;
             }
-            
+
         });
-        
+
         myMenuBar.add(stageMenu, 1);
         myMenuBar.add(gameMenu, 1);
     }
@@ -398,7 +411,8 @@ public class EditorFrame extends GameView {
             }
 
             myDialog =
-                    new TableDialog(model, new GamePrefDialogListener(myWM, model, myRequest), myWM.getDialogList(myRequest));
+                    new TableDialog(model, new GamePrefDialogListener(myWM, model, myRequest),
+                                    myWM.getDialogList(myRequest));
             myDialog.setVisible(true);
             myDialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         }
@@ -441,5 +455,41 @@ public class EditorFrame extends GameView {
 
     protected void saveGame (String location) {
         myWorldManager.saveGame(location);
+    }
+
+    @Override
+    public void windowOpened (WindowEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void windowClosed (WindowEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void windowIconified (WindowEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void windowDeiconified (WindowEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void windowActivated (WindowEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void windowDeactivated (WindowEvent e) {
+        // TODO Auto-generated method stub
+
     }
 }

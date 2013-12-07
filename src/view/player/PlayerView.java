@@ -4,6 +4,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -15,19 +17,22 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import parser.JSONParser;
+import sun.awt.WindowClosingListener;
 import controllers.GameManager;
 import controllers.WorldManager;
+import view.GameStartView;
 import view.GameView;
 
 
 @SuppressWarnings("serial")
-public class PlayerView extends GameView {
+public class PlayerView extends GameView implements WindowListener{
     private StagePlayerPanel myStagePlayerPanel;
     //public JLayeredPane myLayeredPane;
     protected GameManager myGameManager;
 
     public PlayerView () {
-
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(this);
     }
 
     public PlayerView (WorldManager wm) {
@@ -46,6 +51,14 @@ public class PlayerView extends GameView {
     public PlayerView (GameManager manager) {
         myGameManager = manager;
         mySaveLocation = "gamesInProgress";
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(this);
+    }
+    
+    @Override
+    public void windowClosing(WindowEvent e){
+        new GameStartView();
+        dispose();
     }
 
     @Override
@@ -163,5 +176,35 @@ public class PlayerView extends GameView {
 
     protected void saveGame (String location) {
         myGameManager.saveGame(location);
+    }
+
+    @Override
+    public void windowOpened (WindowEvent e) {
+        
+    }
+
+    @Override
+    public void windowClosed (WindowEvent e) {
+        
+    }
+
+    @Override
+    public void windowIconified (WindowEvent e) {
+        
+    }
+
+    @Override
+    public void windowDeiconified (WindowEvent e) {
+        
+    }
+
+    @Override
+    public void windowActivated (WindowEvent e) {
+        
+    }
+
+    @Override
+    public void windowDeactivated (WindowEvent e) {
+        
     }
 }
