@@ -85,13 +85,11 @@ public class Chest extends GameObject {
     @Override
     @JsonIgnore
     public List<String> getInteractions () {
-        System.out.println("chest getInteractions");
         if (myItems.isEmpty()) {
             return null;
         }
         List<String> actions = new ArrayList<String>();
         actions.add(new ChestAction().getName());
-        System.out.println(actions);
         return actions;
     }
     

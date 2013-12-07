@@ -179,7 +179,6 @@ public class Grid implements Drawable {
      * @return List of Strings of actions
      */
     public List<String> getAllInteractions (Coordinate coordinate) {
-        System.out.println("getAllInteractions");
         List<Coordinate> adjacentCoordinates = getAdjacentCoordinates(coordinate);
         List<String> allInteractions = new ArrayList<>();
         for (Coordinate adjacentCoordinate: adjacentCoordinates) {
