@@ -45,8 +45,8 @@ public class Tile extends GameObject {
     @Override
     public List<String> generateDisplayData () {
         List<String> displayData = super.generateDisplayData();
-        displayData.add("Movement cost: " + myMoveCost);
-        displayData.add("Stat Modifiers: ");
+        displayData.add("<html><b>Movement cost: </b>" + myMoveCost+"</html>");
+        displayData.add("<html><b>Stat Modifiers: </b></html>");
         for (String stat : myStats.getStatNames()) {
             if (!stat.equals("health") && !stat.equals("maxhealth") && !stat.equals("experience")) {
                 displayData.add("    " + stat + ": " + myStats.getStatValue(stat));

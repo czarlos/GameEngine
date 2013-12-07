@@ -1,9 +1,9 @@
 package gameObject.action;
 
 import java.util.Set;
+import gameObject.Chest;
 import gameObject.GameObject;
 import gameObject.GameUnit;
-import gameObject.item.Chest;
 import gameObject.item.Item;
 import grid.GridConstants;
 

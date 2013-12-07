@@ -193,8 +193,8 @@ public class GameUnit extends GameObject {
     @Override
     public List<String> generateDisplayData () {
         List<String> displayData = super.generateDisplayData();
-        displayData.add("Team: " + myTeamName);
-        displayData.add("Stats: ");
+        displayData.add("<html><b>Team: </b>" + myTeamName+"</html>");
+        displayData.add("<html><b>Stats: </b></html>");
         displayData.add("    health: " + getTotalStat("health") + " / " +
                         myStats.getStatValue("maxhealth"));
         for (String stat : myStats.getStatNames()) {
@@ -202,7 +202,7 @@ public class GameUnit extends GameObject {
                 displayData.add("    " + stat + ": " + getTotalStat(stat));
             }
         }
-        displayData.add("Equipment: ");
+        displayData.add("<html><b>Equipment: </b></html>");
         for (Item item : myItems) {
             displayData.add("    " + item.getName() + ": " + getItemAmount(item.getName()));
         }

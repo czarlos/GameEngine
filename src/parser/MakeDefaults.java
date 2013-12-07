@@ -143,9 +143,13 @@ public class MakeDefaults {
         tree.setName("Tree");
         tree.setImagePath("resources/tree.png");
 
-        gameObject.item.Chest chest = new gameObject.item.Chest();
+        gameObject.Chest chest = new gameObject.Chest();
         chest.setName("Chest");
-        chest.setImagePath("resources/chest.png");
+        chest.setImagePath("resources/chest.png");   
+        
+        gameObject.Shop shop = new gameObject.Shop();
+        shop.setName("Shop");
+        shop.setImagePath("resources/shop.png");
 
         gameObject.GameObject stone = new gameObject.GameObject();
         stone.setName("Stone");
@@ -153,6 +157,7 @@ public class MakeDefaults {
 
         list.add(tree);
         list.add(chest);
+        list.add(shop);
         list.add(stone);
 
         p.createJSON("defaults/" + GridConstants.GAMEOBJECT, list);

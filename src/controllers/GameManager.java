@@ -146,7 +146,7 @@ public class GameManager extends Manager {
 
     private void addCoordinateData (GameObject gameObject, Coordinate coordinate) {
         List<String> displayData = gameObject.getDisplayData();
-        displayData.add("Coordinate: " + coordinate.getX() + ", " + coordinate.getY());
+        displayData.add("<html><b>Coordinate: </b>" + coordinate.getX() + ", " + coordinate.getY()+"</html>");
         gameObject.setDisplayData(displayData);
     }
 

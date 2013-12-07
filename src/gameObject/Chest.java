@@ -1,4 +1,4 @@
-package gameObject.item;
+package gameObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,12 +9,12 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import gameObject.GameObject;
 import gameObject.action.ChestAction;
+import gameObject.item.Item;
 
 
 /**
- * Holds a list of items that a unit can retrieve.
+ * Holds a set of items that a unit can retrieve.
  * 
  * @author Kevin, Andy
  * 
@@ -95,7 +95,7 @@ public class Chest extends GameObject {
     @Override
     public List<String> generateDisplayData () {
         List<String> displayData = super.generateDisplayData();
-        displayData.add("Inventory:");
+        displayData.add("<html><b>Inventory:</b><html>");
         if (!myItems.isEmpty()) {
             for (Item item : myItems) {
                 displayData.add("   " + item.getName() + ": " + myItemAmounts.get(item.getName()));
