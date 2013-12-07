@@ -26,6 +26,7 @@ import org.junit.Test;
 public class CombatTest {
     GameUnit playerUnit;
     GameUnit enemyUnit;
+    Item potion;
 
     @BeforeClass
     public static void setUpBeforeClass () throws Exception {
@@ -73,6 +74,9 @@ public class CombatTest {
         // Creates Enemy
         enemyUnit = new GameUnit();
         enemyUnit.setActiveWeapon(sword);
+        
+        // Creates Item 'potion'
+        potion = makeEmptyItem("potion");
     }
 
     @Test
@@ -130,7 +134,6 @@ public class CombatTest {
     public void testPlayerItemDepletingAction () {
         CombatAction action = createItemDepletingAction();
 
-        Item potion = makeEmptyItem("potion");
         enemyUnit.addItem(potion);
         enemyUnit.addItem(potion);
         enemyUnit.addItem(potion);
@@ -142,7 +145,7 @@ public class CombatTest {
         int itemCount = enemyUnit.getItemAmount("potion");
         int expectedItemCount = 3;
 
-        assertEquals("Proper Items Removed", itemCount, expectedItemCount);
+        assertEquals("Proper Items Removed",expectedItemCount, itemCount);
 
     }
 
@@ -225,7 +228,7 @@ public class CombatTest {
         Outcomes defenderOutcomes = new Outcomes();
 
         // removes two potions from opponents item list
-        Outcome d1 = new ItemOutcome("potion", -2, true);
+        Outcome d1 = new ItemOutcome(potion, -2, true);
 
         defenderOutcomes.addOutcome(d1);
 

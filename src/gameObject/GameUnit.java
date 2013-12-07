@@ -135,7 +135,7 @@ public class GameUnit extends GameObject {
     }
 
     public int combatGetItemValue (Item item) {
-        return (myItemAmounts.get(item) == null ? 0 : myItemAmounts.get(item));
+        return (myItemAmounts.get(item.getName()) == null ? 0 : myItemAmounts.get(item.getName()));
     }
 
     public void combatSetItemValue (Item item, int itemValue) {
