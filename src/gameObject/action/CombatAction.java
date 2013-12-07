@@ -50,10 +50,16 @@ public class CombatAction extends Action {
     public void doAction (GameUnit initiator, GameObject receiver) {
         double effectiveness = getNetEffectiveness(initiator,
                                                    (GameUnit) receiver);
-
+        
+        for(Outcome o : myReceiverOutcomes.getOutcomes()) {
+            System.out.println("Outcome - Type:" +o.getClass().toString());
+            System.out.println("Amount: "+o.getAmount());
+        }
+        
         myInitiatorOutcomes.applyOutcomes(initiator, effectiveness);
-
+        System.out.println("Before: "+((GameUnit)receiver).getTotalStat("health"));
         myReceiverOutcomes.applyOutcomes((GameUnit) receiver, effectiveness);
+        System.out.println("After: "+((GameUnit)receiver).getTotalStat("health"));
     }
 
     @Override

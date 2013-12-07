@@ -9,8 +9,6 @@ import grid.GridConstants;
 public class TradeAction extends Action {
 
     private String myItem;
-    private Outcomes myInitiatorOutcomes;
-    private Outcomes myReceiverOutcomes;
     
     public TradeAction() {
         super.setName(GridConstants.TRADE);
@@ -22,10 +20,13 @@ public class TradeAction extends Action {
     
     @Override
     public void doAction (GameUnit initiator, GameObject receiver) {
+        System.out.println("doing shit on " +myItem);
         GameUnit receiverUnit = (GameUnit) receiver;
         Item tradeItem = receiverUnit.getItem(myItem);
-        initiator.combatSetItemValue(tradeItem, receiverUnit.combatGetItemValue(tradeItem) + initiator.combatGetItemValue(tradeItem));
-        receiverUnit.removeAllItem(tradeItem);      
+        System.out.println("before: "+receiverUnit.combatGetItemValue(tradeItem) + initiator.combatGetItemValue(tradeItem));
+        initiator.combatSetItemValue(tradeItem, receiverUnit.combatGetItemValue(tradeItem) + initiator.combatGetItemValue(tradeItem));        
+        receiverUnit.removeAllItem(tradeItem);     
+        System.out.println("after: "+ receiverUnit.combatGetItemValue(tradeItem) + initiator.combatGetItemValue(tradeItem));
     }
 
     @Override
@@ -41,32 +42,13 @@ public class TradeAction extends Action {
                 if (((GameUnit)gameObject).getItemAmount(myItem) != 0) {
                     return true;
                 }
-                return true;
             }
         }
         return false;
     }
     
-    public Outcomes getInitiatorOutcomes () {
-        return myInitiatorOutcomes;
-    }
-
-    public void setInitiatorOutcomes (Outcomes outcomes) {
-        myInitiatorOutcomes = outcomes;
-    }
-
-    public Outcomes getReceiverOutcomes () {
-        return myReceiverOutcomes;
-    }
-
-    public void setReceiverOutcomes (Outcomes outcomes) {
-        myReceiverOutcomes = outcomes;
-    }
-    
     public void init (String itemName) {
         setItem(itemName);
-        myInitiatorOutcomes = new Outcomes();
-        myReceiverOutcomes = new Outcomes();
     }
     
     private void setItem (String itemName) {

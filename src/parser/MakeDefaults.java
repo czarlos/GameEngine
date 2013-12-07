@@ -3,7 +3,9 @@ package parser;
 import gameObject.Stats;
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
+import gameObject.action.Outcome;
 import gameObject.action.Outcomes;
+import gameObject.action.StatOutcome;
 import gameObject.item.Item;
 import grid.GridConstants;
 import java.util.ArrayList;
@@ -33,7 +35,10 @@ public class MakeDefaults {
         defaultCombatAction.setImagePath("resources/weapon.png");
         defaultCombatAction.setActionRange(1);
         defaultCombatAction.setInitiatorOutcomes(new Outcomes());
-        defaultCombatAction.setReceiverOutcomes(new Outcomes());
+        Outcome r1 = new StatOutcome("health", -10, true);
+        Outcomes recvOutcomes = new Outcomes();
+        recvOutcomes.addOutcome(r1);
+        defaultCombatAction.setReceiverOutcomes(recvOutcomes);
         defaultCombatAction.setInitiatorStatWeights(new Stats());
         defaultCombatAction.setReceiverStatWeights(new Stats());
 
