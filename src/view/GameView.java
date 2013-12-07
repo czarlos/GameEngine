@@ -46,7 +46,6 @@ public abstract class GameView extends JFrame {
     }
 
     protected void initializeWindow () {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setJMenuBar(createMenuBar(this));
         myBackground = createBackground();
         add(myBackground);
