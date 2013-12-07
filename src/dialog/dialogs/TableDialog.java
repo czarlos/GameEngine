@@ -199,6 +199,7 @@ public class TableDialog extends JDialog {
         public void actionPerformed (ActionEvent e) {
             if (myTable.getSelectedRow() > -1) {
                 myListenerModel.removeRow(myTable.getSelectedRow());
+                myListenerModel.fireTableDataChanged();
             }
         }
     }
