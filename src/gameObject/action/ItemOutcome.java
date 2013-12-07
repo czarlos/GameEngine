@@ -2,11 +2,10 @@ package gameObject.action;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import gameObject.GameUnit;
-import gameObject.item.Item;
 
 @JsonAutoDetect
 public class ItemOutcome extends Outcome {
-    private Item myItem;
+    private String myItem;
     private int myAmount;
     private boolean isFixed;
     
@@ -14,7 +13,7 @@ public class ItemOutcome extends Outcome {
         
     }
     
-    public ItemOutcome (Item item, int amount, boolean fixed) {
+    public ItemOutcome (String item, int amount, boolean fixed) {
         myItem = item;
         myAmount = amount;
         isFixed = fixed;
@@ -46,11 +45,11 @@ public class ItemOutcome extends Outcome {
         return newAmount;
     }
     
-    public Item getItem() {
+    public String getItem() {
         return myItem;
     }
     
-    public void setItem(Item item) {
+    public void setItem(String item) {
         myItem = item;
     }
 }
