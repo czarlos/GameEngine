@@ -18,7 +18,6 @@ public class StatOutcome extends Outcome {
 
     public void applyOutcome (GameUnit unit, double effectiveness) {
         int newAmount = getNewAmount(unit, effectiveness);
-        System.out.println("statoucome applyoutcome newAmount: " + newAmount);
         newAmount = (newAmount > 0 ? newAmount : 0);
 
         unit.combatSetStatValue(myStatName, newAmount);
@@ -33,9 +32,7 @@ public class StatOutcome extends Outcome {
 
     private int getNewAmount (GameUnit unit, double effectiveness) {
         int newAmount;
-        System.out.println("isFixed: " + isFixed);
         if (isFixed) {
-            System.out.println("getNewamourn myAMountasdfasdf: " + myAmount);
             newAmount = unit.combatGetStatValue(myStatName) + myAmount;
         }
         else {

@@ -231,6 +231,14 @@ public class GameManager extends Manager {
                 myActiveStage.getGrid().isActive(GridConstants.TILE, actionCoordinate)) {
                 activeAction.doAction(initiator, receiver);
                 initiator.setActive(false);
+                if (initiator.getTotalStat("health") == 0) {
+                    myActiveStage.getGrid().removeObject(GridConstants.GAMEOBJECT, unitCoordinate);
+                }
+                if (receiver instanceof GameUnit) {
+                    if (((GameUnit)receiver).getTotalStat("health") == 0) {
+                        myActiveStage.getGrid().removeObject(GridConstants.GAMEOBJECT, actionCoordinate);
+                    }
+                }
             }
 
         }

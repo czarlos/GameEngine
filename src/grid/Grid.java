@@ -272,7 +272,7 @@ public class Grid implements Drawable {
      * @param coordinate Coordinate being checked
      * @return Object removed from position
      */
-    private GameObject removeObject (String type, Coordinate coordinate) {
+    public GameObject removeObject (String type, Coordinate coordinate) {
         GameObject removeObject = getObject(GridConstants.GAMEOBJECT, coordinate);
         myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()] = null;
 

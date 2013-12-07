@@ -63,6 +63,16 @@ public class Chest extends GameObject {
             myItemAmounts.put(item.getName(), myItemAmounts.get(item.getName()) + 1);
         }
     }
+    
+    public Item getItem (String itemName) {
+        if (myItems.isEmpty()) {
+            return null;
+        }
+        for (Item item : myItems) {
+            if (itemName.equals(item.getName())) { return item; }
+        }
+        return null;
+    }
 
     public void removeItem (String itemName) {
         int amount = myItemAmounts.get(itemName);
@@ -77,6 +87,11 @@ public class Chest extends GameObject {
                 }
             }
         }
+    }
+    
+    public void removeAllItems (Item item) {
+        myItems.remove(item);
+        myItemAmounts.remove(item.getName());
     }
 
     public boolean isEmpty () {

@@ -146,6 +146,9 @@ public class GameUnit extends GameObject {
     }
 
     public Item getItem (String itemName) {
+        if (myItems.isEmpty()) {
+            return null;
+        }
         for (Item item : myItems) {
             if (itemName.equals(item.getName())) { return item; }
         }

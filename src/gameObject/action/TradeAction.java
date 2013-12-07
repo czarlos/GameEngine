@@ -7,15 +7,14 @@ import grid.GridConstants;
 
 
 public class TradeAction extends Action {
-
-    private String myItem;
+    protected String myItem;
 
     public TradeAction () {
         super.setName(GridConstants.TRADE);
     }
 
-    public TradeAction (String string) {
-        init(string);
+    public TradeAction (String itemName) {
+        init(itemName);
     }
 
     @Override
@@ -38,11 +37,11 @@ public class TradeAction extends Action {
         return false;
     }
 
-    public void init (String itemName) {
+    protected void init (String itemName) {
         setItem(itemName);
     }
 
-    private void setItem (String itemName) {
+    protected void setItem (String itemName) {
         setName(GridConstants.TRADE + " " + itemName);
         myItem = itemName;
     }

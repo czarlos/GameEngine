@@ -30,7 +30,6 @@ public class ChestAction extends Action {
     public boolean isValid (GameUnit gameUnit, GameObject gameObject) {
         if (gameObject == null) { return false; }
         if (gameObject instanceof Chest) { return !((Chest) gameObject).isEmpty(); }
-        return true;
+        return false;
     }
-
 }

@@ -52,7 +52,7 @@ public class AI {
      */
     public void doAIMove (GameUnit unit, Set<GameUnit> allEnemies) {
         Coordinate other = findClosestOpponent(unit, allEnemies);
-        System.out.println(other.getX() + " x " + other.getY());
+//        System.out.println(other.getX() + " x " + other.getY());
         Tile start =
                 (Tile) myGrid.getObject(GridConstants.TILE,
                                         myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit));

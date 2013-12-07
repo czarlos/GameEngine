@@ -47,10 +47,10 @@ public class PathFinding {
         // grid.getTileCoordinate(start).getY());
         // System.out.println(grid.getTileCoordinate(end).getX() + " " +
         // grid.getTileCoordinate(end).getY());
-        for (Tile t : path) {
-            System.out.println(grid.getObjectCoordinate(GridConstants.TILE, t).getX() + " " +
-                               grid.getObjectCoordinate(GridConstants.TILE, t).getY());
-        }
+//        for (Tile t : path) {
+//            System.out.println(grid.getObjectCoordinate(GridConstants.TILE, t).getX() + " " +
+//                               grid.getObjectCoordinate(GridConstants.TILE, t).getY());
+//        }
 
         Tile newTile;
         if (range > path.size()) {
