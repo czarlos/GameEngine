@@ -194,7 +194,6 @@ public class GameManager extends Manager {
         }
         else if (myActiveActions.get(actionID).getName().equals(GridConstants.WAIT)) {
             myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, unitCoordinate).setActive(false);
-            System.out.println("Wait chosen, isActive: "+myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, unitCoordinate).isActive());
         }
         else {
             myActiveStage.getGrid().beginAction(unitCoordinate, myActiveActions.get(actionID).getActionRange());

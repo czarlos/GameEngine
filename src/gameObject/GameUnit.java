@@ -136,7 +136,6 @@ public class GameUnit extends GameObject {
 
     @Override
     public void setActive (boolean active) {
-        System.out.println("GameUnit setActive: "+active);
         hasMoved = !active;
         isActive = active;
         myImage = isActive ? ImageManager.getHightlightedTileImage(myImagePath)
@@ -150,7 +149,6 @@ public class GameUnit extends GameObject {
     @JsonIgnore
     public List<String> getActions () {
         List<String> actions = new ArrayList<>();
-        System.out.println("GameUnit getActions isActive/hasMoved: "+isActive+"/"+hasMoved);
         if (isActive) {
             if (!hasMoved) { actions.add(GridConstants.MOVE); }
             actions.add(GridConstants.WAIT);
