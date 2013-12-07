@@ -3,6 +3,8 @@ package grid;
 import gameObject.action.Action;
 import gameObject.action.ChestAction;
 import gameObject.action.MoveAction;
+import gameObject.action.ShopAction;
+import gameObject.action.TradeAction;
 import gameObject.action.WaitAction;
 
 
@@ -28,7 +30,8 @@ public class GridConstants {
     public final static String MOVE = "Move";
     public final static String CHEST = "Chest";
     public final static String TRADE = "Trade";
+    public final static String SHOP = "Shop";
     public final static String GETITEM = "Get item";
 
-    public static final Action[] COREACTIONS = { new MoveAction(), new WaitAction(), new ChestAction() };
+    public static final Action[] COREACTIONS = { new MoveAction(), new WaitAction(), new ChestAction()};
 }

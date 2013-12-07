@@ -2,6 +2,7 @@ package gameObject.action;
 
 import gameObject.GameObject;
 import gameObject.GameUnit;
+import gameObject.item.Item;
 import gameObject.item.Shop;
 import grid.GridConstants;
 
@@ -11,9 +12,9 @@ public class TradeAction extends Action {
     private Outcomes myInitiatorOutcomes;
     private Outcomes myReceiverOutcomes;
     
-    public TradeAction(String item) {
-        super.setName(GridConstants.TRADE+ " "+item);
-        myItem = item;
+    public TradeAction(String string) {
+        super.setName(GridConstants.TRADE+ " "+string);
+        myItem = string;
         myInitiatorOutcomes = new Outcomes();
         myReceiverOutcomes = new Outcomes();
     }

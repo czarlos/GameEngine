@@ -173,6 +173,7 @@ public class GameManager extends Manager {
         for (Action action : editorActions) {
             if (action.getName().equals(actionName)) { return action; }
         }
+        
         return null;
     }
 
