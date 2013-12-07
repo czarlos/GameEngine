@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import gameObject.GameUnit;
 import gameObject.Stats;
+import gameObject.action.ChestAction;
 import gameObject.item.Chest;
 import gameObject.item.Item;
 import org.junit.Before;
@@ -39,7 +40,8 @@ public class ChestTest {
     
     @Test
     public void testPlayerAfterChestAction () {
-        chest.getInteraction().doAction(playerUnit, chest);
+        ChestAction ca = new ChestAction();
+        ca.doAction(playerUnit, chest);
         
         assertTrue(playerUnit.getItems().contains(potion));
         assertTrue(playerUnit.getItems().contains(key));
@@ -53,7 +55,8 @@ public class ChestTest {
     
     @Test
     public void testChestAfterChestAction () {
-        chest.getInteraction().doAction(playerUnit, chest);
+        ChestAction ca = new ChestAction();
+        ca.doAction(playerUnit, chest);
         
         assertTrue(!chest.getItemList().contains(potion));
         assertTrue(!chest.getItemList().contains(key));
