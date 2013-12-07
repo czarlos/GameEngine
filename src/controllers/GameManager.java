@@ -8,7 +8,7 @@ import game.AI;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.action.Action;
-import gameObject.action.CombatAction;
+import gameObject.action.TradeAction;
 import grid.Coordinate;
 import grid.GridConstants;
 
@@ -150,26 +150,8 @@ public class GameManager extends Manager {
         gameObject.setDisplayData(displayData);   
     }
 
-    @SuppressWarnings("unchecked")
-    private Action getAction (String actionName) {
-        List<Action> editorActions = (List<Action>) myEditorData.get(GridConstants.ACTION);
-
-        // check first to see if it's one of the core actions so users can't override
-        for (Action action : GridConstants.COREACTIONS) {
-            if (action.getName().equals(actionName)) { return action; }
-        }
-
-        for (Action action : editorActions) {
-            if (action.getName().equals(actionName)) { return action; }
-        }
-        return null;
-    }
-    
     private void setActiveActions (Coordinate coordinate) {
         List<String> myActiveActionNames = getActions(coordinate);
-        // TODO: fix AI action handling (pass in gameManager and then make a method to call to get
-        // action from name
-
         if (myActiveActionNames != null) {
             List<Action> newActiveActions = new ArrayList<>();
 
@@ -179,6 +161,23 @@ public class GameManager extends Manager {
             myActiveActions = newActiveActions;
         }
     }
+    
+    @SuppressWarnings("unchecked")
+    private Action getAction (String actionName) {
+        List<Action> editorActions = (List<Action>) myEditorData.get(GridConstants.ACTION);
+
+        // check first to see if it's one of the core actions so users can't override
+        for (Action action : GridConstants.COREACTIONS) {
+            if (action.getName().split(" ")[0].equals(GridConstants.TRADE)) {
+                return new TradeAction(action.getName().split(" ")[1]);
+            }
+            if (action.getName().equals(actionName)) { return action; }
+        }
+        for (Action action : editorActions) {
+            if (action.getName().equals(actionName)) { return action; }
+        }
+        return null;
+    }
 
     /**
      * Sets the tiles that an action affects to active
@@ -187,18 +186,17 @@ public class GameManager extends Manager {
      * @param actionID int that represents the index of the action in myActiveActions
      */
     public void beginAction (Coordinate unitCoordinate, int actionID) {
+        GameUnit initiator = (GameUnit) myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, unitCoordinate);
         setActiveActions(unitCoordinate);
         myActiveStage.getGrid().setTilesInactive();
         if (myActiveActions.get(actionID).getName().equals(GridConstants.MOVE)) {
             myActiveStage.getGrid().beginMove(unitCoordinate);
         }
-        else if (myActiveActions.get(actionID) instanceof CombatAction) {
-            myActiveStage.getGrid().beginCombatAction(unitCoordinate, myActiveActions.get(actionID).getActionRange());
+        else if (myActiveActions.get(actionID).getName().equals(GridConstants.WAIT)) {
+            myActiveActions.get(actionID).doAction(initiator, null);
         }
         else {
-            GameUnit initiator = (GameUnit) myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, unitCoordinate);
-            myActiveActions.get(actionID).doAction(initiator, null);
-            initiator.setActive(false);
+            myActiveStage.getGrid().beginAction(unitCoordinate, myActiveActions.get(actionID).getActionRange());
         }
     }
 
