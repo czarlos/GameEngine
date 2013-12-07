@@ -171,8 +171,8 @@ public class WorldManager extends Manager {
     public void setPostStory (String poststory) {
         if (poststory.equals(""))
             myActiveStage
-                    .setPreStory("YOU SHOULD HAVE PUT IN A POSTSTORY, WHAT THE FOOK YOU SCUM OF THE EARTH");
-        else myActiveStage.setPreStory(poststory);
+                    .setPostStory("YOU SHOULD HAVE PUT IN A POSTSTORY, WHAT THE FOOK YOU SCUM OF THE EARTH");
+        else myActiveStage.setPostStory(poststory);
     }
 
     /**
