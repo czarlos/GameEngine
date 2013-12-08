@@ -10,6 +10,7 @@ import game.AI2;
 import gameObject.Chest;
 import gameObject.GameObject;
 import gameObject.GameUnit;
+import gameObject.InventoryObject;
 import gameObject.action.Action;
 import gameObject.action.ShopAction;
 import gameObject.action.TradeAction;
@@ -223,7 +224,7 @@ public class GameManager extends Manager {
             myActiveStage.getGrid().removeObject(GridConstants.GAMEOBJECT, unitCoordinate);
         }
         if (receiver instanceof Chest) {
-            if (((Chest) receiver).isEmpty()) {
+            if (((InventoryObject) receiver).isEmpty()) {
                 myActiveStage.getGrid().removeObject(GridConstants.GAMEOBJECT, actionCoordinate);
             }
         }
