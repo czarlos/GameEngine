@@ -24,13 +24,12 @@ public class MakeDefaults {
     private Item defaultItem;
     private CombatAction defaultCombatAction;
     private Stats defaultStats;
-    private String[] defaultStatArray = {"defense", "attack", "experience", "max health", "health"};
-
+    
     public MakeDefaults () {
         p = new JSONParser();
 
         defaultStats = new Stats();
-        for(String s: defaultStatArray){
+        for(String s: GridConstants.DEFAULTSTATARRAY){
             defaultStats.addStat(new Stat(s));
         }
 
@@ -61,7 +60,6 @@ public class MakeDefaults {
     public void makeTiles () throws Exception {
         java.util.ArrayList<grid.Tile> list = new java.util.ArrayList<>();
         List<String> passableList = new ArrayList<>();
-        defaultStats = new Stats();
 
         passableList.add(GridConstants.DEFAULT_PASS_EVERYTHING);
 
@@ -127,6 +125,13 @@ public class MakeDefaults {
         Brush.setStats(defaultStats);
         Brush.setActive(false);
         Brush.setMoveCost(1);
+        
+        grid.Tile Dirt = new grid.Tile();
+        Dirt.setName("Dirt");
+        Dirt.setImagePath("resources/dirt.png");
+        Dirt.setStats(defaultStats);
+        Dirt.setActive(false);
+        Dirt.setMoveCost(1);
 
         list.add(Grass);
         list.add(Grass1);
@@ -137,6 +142,7 @@ public class MakeDefaults {
         list.add(Rock);
         list.add(Stone);
         list.add(Sand);
+        list.add(Dirt);
 
         p.createJSON("defaults/" + GridConstants.TILE, list);
     }
@@ -173,6 +179,12 @@ public class MakeDefaults {
         java.util.ArrayList<gameObject.GameUnit> list =
                 new java.util.ArrayList<gameObject.GameUnit>();
 
+        Stats unitStats = new Stats(defaultStats);
+        unitStats.modExisting("movement", 4);
+        unitStats.modExisting("strength", 2);
+        unitStats.modExisting("health", 15);
+        unitStats.modExisting("attack", 2);
+        
         gameObject.GameUnit hero = new gameObject.GameUnit();
         gameObject.GameUnit goldensun = new gameObject.GameUnit();
         gameObject.GameUnit enemy = new gameObject.GameUnit();
@@ -181,31 +193,31 @@ public class MakeDefaults {
 
         hero.setName("hero");
         hero.setImagePath("resources/hero.png");
-        hero.setStats(defaultStats);
+        hero.setStats(unitStats);
         hero.addItem(defaultItem);
         hero.setAffiliation("player");
 
         goldensun.setName("Golden Sun");
         goldensun.setImagePath("resources/goldensun.png");
-        goldensun.setStats(defaultStats);
+        goldensun.setStats(unitStats);
         goldensun.addItem(defaultItem);
         goldensun.setAffiliation("player");
 
         enemy.setName("Enemy");
         enemy.setImagePath("resources/enemy.png");
-        enemy.setStats(defaultStats);
+        enemy.setStats(unitStats);
         enemy.addItem(defaultItem);
         enemy.setAffiliation("enemy");
 
         charizard.setName("Dragon");
         charizard.setImagePath("resources/charizard.png");
-        charizard.setStats(defaultStats);
+        charizard.setStats(unitStats);
         charizard.addItem(defaultItem);
         charizard.setAffiliation("enemy");
 
         roy.setName("Roy");
         roy.setImagePath("resources/roy.png");
-        roy.setStats(defaultStats);
+        roy.setStats(unitStats);
         roy.addItem(defaultItem);
         roy.setAffiliation("enemy");
 
@@ -266,7 +278,7 @@ public class MakeDefaults {
     
     public void makeStats () {
         List<Stat> list = new ArrayList<Stat>();
-        for(String s: defaultStatArray){
+        for(String s: GridConstants.DEFAULTSTATARRAY){
             list.add(new Stat(s));
         }
 

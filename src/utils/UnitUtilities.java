@@ -18,4 +18,8 @@ public class UnitUtilities {
         return Math.sqrt(Math.pow(pos1.getX() - pos2.getX(), 2)
                          + Math.pow(pos1.getY() - pos2.getY(), 2));
     }
+    
+    public static final int calculateDistance (Coordinate pos1, Coordinate pos2) {
+        return Math.abs(pos1.getX() - pos2.getX()) + Math.abs(pos1.getY() - pos2.getY());
+    }
 }
