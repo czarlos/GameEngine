@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BoxLayout;
@@ -287,11 +288,16 @@ public class EditorFrame extends GameView {
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                JSONParser parser=new JSONParser();
-                new PlayerView(parser.deepClone(myWorldManager,WorldManager.class))
-                        .setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                JSONParser parser = new JSONParser();
+                new PlayerView(parser.deepClone(myWorldManager, WorldManager.class)) {
+                    //Need to override windowClosing to prevent the opening of GameStartView.
+                    //This is desired when running PlayerView from the game editor.
+                    @Override
+                    public void windowClosing (WindowEvent e) {
+                        dispose();
+                    }
+                };
             }
-
         });
 
         myMenuBar.add(stageMenu, 1);
