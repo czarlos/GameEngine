@@ -59,10 +59,4 @@ public class StatsTableModel extends GameTableModel {
         JOptionPane.showMessageDialog(null,
                 "Use Master Stats Editor to remove a stat from all objects.");
     }
-
-    @Override
-    public String getRowType () {
-        return getName();
-    }
-    
 }
