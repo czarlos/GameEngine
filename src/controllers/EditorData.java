@@ -59,7 +59,7 @@ public class EditorData {
     private void loadObjects (String folderName) {
         for (String s : GridConstants.DEFAULTEDITTYPES) {
             List<Customizable> list = new ArrayList<Customizable>();
-            list = myParser.createObject(folderName + "/" + s,
+            list = myParser.createObjectFromFile(folderName + "/" + s,
                                          new ArrayList<Customizable>().getClass());
             myDataMap.put(s, list);
         }

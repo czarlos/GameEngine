@@ -6,7 +6,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BoxLayout;
@@ -45,7 +44,7 @@ public class EditorFrame extends GameView {
     private GridEditorController myGridController;
     protected WorldManager myWorldManager;
     private TableDialog myDialog;
-    protected String mySavesLocation="saves";
+    protected String mySavesLocation = "saves";
 
     public EditorFrame () {
         super("Omega_Nu Game Editor");
@@ -199,7 +198,7 @@ public class EditorFrame extends GameView {
 
     @Override
     protected void loadGame (Manager m) {
-        if(m!=null){
+        if (m != null) {
             setFrame(m);
             setStages(m);
         }
@@ -288,8 +287,9 @@ public class EditorFrame extends GameView {
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                new PlayerView(myWorldManager).setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                ;
+                JSONParser parser=new JSONParser();
+                new PlayerView(parser.deepClone(myWorldManager,WorldManager.class))
+                        .setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
 
         });

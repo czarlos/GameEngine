@@ -233,7 +233,7 @@ public class MakeDefaults {
         wm.addStage(10, 10, 1, "stageOne", 0);
         wm.saveGame("saves");
 
-        p.createObject("saves/test", WorldManager.class);
+        p.createObjectFromFile("saves/test", WorldManager.class);
     }
 
     public void makeTeams () {
