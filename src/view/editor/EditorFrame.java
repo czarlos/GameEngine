@@ -357,6 +357,7 @@ public class EditorFrame extends GameView {
         if (value == JOptionPane.OK_OPTION) {
             String libraryName = (String) libraryNamesMenu.getSelectedItem();
             myWorldManager.loadEditorData(libraryName);
+            myGridController.refreshEditorPanels();
         }
         
     }
