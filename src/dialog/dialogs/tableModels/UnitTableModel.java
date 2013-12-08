@@ -20,7 +20,6 @@ import dialog.Selector;
 public class UnitTableModel extends GameTableModel {
 
     String defaultAffiliation;
-    EditorData myED;
 
     /**
      * Column names: name, Graphic, Affiliation, Stats
