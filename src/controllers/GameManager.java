@@ -82,10 +82,14 @@ public class GameManager extends Manager {
      */
     public void nextTurn () {
 
+        setAllUnitsInactive();
+        
         isTurnCompleted = false;
         myPhaseCount++;
         myActiveStage.setPhaseCount(myPhaseCount);
         myActiveTeam = myPhaseCount % myActiveStage.getNumberOfTeams();
+        
+        setAllUnitsActive();
 
     }
 
