@@ -27,7 +27,7 @@ public class ItemTableModel extends GameTableModel {
     public Object[] getNew () {
         Object[] ret = new Object[myColumnNames.length];
         ret[0] = "New Item";
-        ret[1] = new File("resources/grass.png");
+        ret[1] = new File("resources/amor.png");
         ret[2] = new Stats();
         ret[3] = new ArrayList<Action>();
 

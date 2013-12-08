@@ -95,18 +95,12 @@ public class EditorFrame extends GameView implements WindowListener {
         newGame.setAccelerator(KeyStroke.getKeyStroke("control N"));
         gameMenu.add(newGame);
         JMenuItem loadGame = new JMenuItem("Load Game");
+        loadGame.setAccelerator(KeyStroke.getKeyStroke("control L"));
         gameMenu.add(loadGame);
         JMenuItem saveGame = new JMenuItem("Save Game");
+        saveGame.setAccelerator(KeyStroke.getKeyStroke("control S"));
         gameMenu.add(saveGame);
-        JMenuItem addStage = new JMenuItem("Add Stage");
-        gameMenu.add(addStage);
-        addStage.setAccelerator(KeyStroke.getKeyStroke("control S"));
 
-        addStage.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent event) {
-                addStagePanel();
-            }
-        });
         newGame.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
                 newGame();
@@ -259,7 +253,16 @@ public class EditorFrame extends GameView implements WindowListener {
     private void addGameEditorMenus () {
         JMenu stageMenu = new JMenu("Stage");
         stageMenu.setMnemonic(KeyEvent.VK_S);
+        
+        JMenuItem addStage = new JMenuItem("Add Stage");
+        stageMenu.add(addStage);
+        addStage.setAccelerator(KeyStroke.getKeyStroke("control A"));
 
+        addStage.addActionListener(new ActionListener() {
+            public void actionPerformed (ActionEvent event) {
+                addStagePanel();
+            }
+        });
         JMenuItem prestory = new JMenuItem("Set Pre-Story");
         prestory.setAccelerator(KeyStroke.getKeyStroke("control P"));
         stageMenu.add(prestory);
