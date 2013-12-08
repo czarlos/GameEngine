@@ -1,6 +1,7 @@
 package grid;
 
 import stage.Condition;
+import stage.FalseCondition;
 import stage.ItemCondition;
 import stage.PositionCondition;
 import stage.StatCondition;
@@ -56,10 +57,10 @@ public class GridConstants {
     public static final Outcome[] COREOUTCOMES = { new StatOutcome(), new ItemOutcome() };
 
     public static final String[] DEFAULTSTATARRAY = { "defense", "attack", "movement", "health",
-                                                     "max health" };
+                                                     "maxhealth" };
 
     public static final Condition[] CORECONDITIONS = { new PositionCondition(),
                                                       new ItemCondition(),
                                                       new StatCondition(), new TurnCondition(),
-                                                      new UnitCountCondition() };
+                                                      new UnitCountCondition(), new FalseCondition() };
 }

@@ -78,6 +78,10 @@ public class Item extends Customizable {
         myStats = new Stats(myStats);
     }
 
+    public boolean containsStat (String name) {
+        return myStats.contains(name);
+    }
+
     @Override
     public boolean equals (Object other) {
         if (other instanceof Customizable) {
@@ -90,11 +94,5 @@ public class Item extends Customizable {
     public int hashCode () {
         final int prime = 31;
         return myName.length() * prime;
-    }
-
-    public void syncStatsWithMaster (Map<String, String> nameTranslationMap,
-                                     List<String> removedNames) {
-        // TODO Auto-generated method stub
-
     }
 }

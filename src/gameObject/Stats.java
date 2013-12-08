@@ -43,10 +43,8 @@ public class Stats {
      * Modifies the value of an existing stat. If the stat does not exist, does
      * nothing
      * 
-     * @param statName
-     *        - Name of the stat to modify
-     * @param value
-     *        - Value to modify the stat to
+     * @param statName Name of the stat to modify
+     * @param value Value to modify the stat to
      */
     public void modExisting (String statName, Integer value) {
         int statIndex = getStatNames().indexOf(statName);
@@ -58,14 +56,17 @@ public class Stats {
     /**
      * Removes a stat
      * 
-     * @param statName
-     *        - The name of the stat to remove
+     * @param statName The name of the stat to remove
      */
     public void remove (String statName) {
         int statIndex = getStatNames().indexOf(statName);
         if (statIndex != -1) {
             myStatList.remove(statIndex);
         }
+    }
+
+    public boolean contains (String statName) {
+        return getStatNames().contains(statName);
     }
 
     public void changeName (String oldName, String newName) {
@@ -79,8 +80,7 @@ public class Stats {
     /**
      * Gets the stat value for the given stat name
      * 
-     * @param statName
-     *        - The stat name to get the value for
+     * @param statName The stat name to get the value for
      * @return The value of the stat name passed in
      */
     @JsonIgnore
@@ -116,8 +116,7 @@ public class Stats {
     /**
      * Sets the map of stats
      * 
-     * @param myStatMap
-     *        - The map of stats to set to
+     * @param myStatMap  xzThe map of stats to set to
      */
     public void setStats (List<Stat> newStatList) {
         List<Stat> newStats = new ArrayList<>();

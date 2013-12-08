@@ -23,15 +23,11 @@ public class TurnCondition extends Condition {
 
     @Override
     boolean isFulfilled (Stage stage) {
-        // TODO: when we have something that keeps track of the game/turns, it
-        // needs to be stored
-        // and accessible from Stage
-        return false;
+        return stage.getPhaseCount()/stage.getNumberOfTeams() > myCount;
     }
 
     @Override
     public String toString () {
         return "Turn Condition";
     }
-
 }

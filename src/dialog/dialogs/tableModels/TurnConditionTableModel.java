@@ -1,16 +1,18 @@
 package dialog.dialogs.tableModels;
 
 import javax.swing.JOptionPane;
+import controllers.EditorData;
 import stage.TurnCondition;
 
 
 @SuppressWarnings("serial")
 public class TurnConditionTableModel extends GameTableModel {
 
-    public TurnConditionTableModel () {
+    public TurnConditionTableModel (EditorData ed) {
         String[] names = { "Number of turns to survive" };
         setColumnNames(names);
         myName = "Turn Count Condition";
+        myED = ed;
     }
 
     @Override

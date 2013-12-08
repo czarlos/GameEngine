@@ -5,6 +5,7 @@ import gameObject.Stats;
 import grid.GridConstants;
 import java.util.List;
 import javax.swing.JOptionPane;
+import controllers.EditorData;
 
 
 @SuppressWarnings("serial")
@@ -13,11 +14,12 @@ public class StatTableModel extends GameTableModel {
     /**
      * Column names: Stat, Value
      */
-    public StatTableModel () {
+    public StatTableModel (EditorData ed) {
         super();
         String[] names = { "Stat", "Value" };
         setColumnNames(names);
         myName = GridConstants.STATS;
+        myED = ed;
     }
 
     @Override
@@ -36,7 +38,8 @@ public class StatTableModel extends GameTableModel {
             addNewRow(row);
         }
     }
-
+    
+    @Override
     public Object getObject () {
         Stats ret = new Stats();
         for (Object[] row : myList) {
