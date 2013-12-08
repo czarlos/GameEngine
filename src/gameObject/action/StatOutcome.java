@@ -51,7 +51,13 @@ public class StatOutcome extends Outcome {
 
     @JsonIgnore
     public void setAffectee (Object object) {
-        myStatName = ((Stat) object).getName();
+        // TODO: fix this
+        if(object instanceof Stat){
+            myStatName = ((Stat) object).getName();
+        }
+        else{
+            myStatName = (String) object;
+        }
     }
     
     public String toString () {

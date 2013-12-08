@@ -28,7 +28,7 @@ import stage.WinCondition;
 import dialog.dialogs.tableModels.Selector;
 import dialog.dialogs.tableModels.EnumTableModel;
 import dialog.dialogs.tableModels.GameTableModel;
-import dialog.dialogs.tableModels.MapTableModel;
+import dialog.dialogs.tableModels.ItemsTableModel;
 import dialog.dialogs.tableModels.OutcomesTableModel;
 import dialog.dialogs.tableModels.StatsTableModel;
 import dialog.dialogs.tableModels.WinConditionTableModel;
@@ -124,7 +124,7 @@ public class TableDialog extends JDialog {
                                                                    new WinConditionTableModel()));
         table.setDefaultEditor(Condition.class, new DefaultCellEditor(
                                                                       getConditionComboBox()));
-        table.setDefaultEditor(HashMap.class, new ModelEditor(new MapTableModel()));
+        table.setDefaultEditor(HashMap.class, new ModelEditor(new ItemsTableModel(myModel.getED())));
         table.setDefaultEditor(ArrayList.class,
                                new ModelEditor(new EnumTableModel(myWM.getDialogList(myModel
                                        .getName()))));

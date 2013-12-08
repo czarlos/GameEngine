@@ -2,18 +2,20 @@ package dialog.dialogs.tableModels;
 
 import java.util.HashMap;
 import java.util.Map;
+import controllers.EditorData;
 
 
 @SuppressWarnings("serial")
-public class MapTableModel extends GameTableModel {
+public class ItemsTableModel extends GameTableModel {
 
     /**
      * Column names: Key, Value
      */
-    public MapTableModel () {
-        String[] names = { "Key", "Value" };
+    public ItemsTableModel (EditorData ed) {
+        String[] names = { "Item", "Amount" };
         setColumnNames(names);
-        myName = "Map";
+        myName = "Item";
+        myED = ed;
     }
 
     @Override
