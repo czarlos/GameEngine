@@ -88,11 +88,10 @@ public class PlayerView extends GameView {
     
     public void loadStagePanel(){
         
-        remove(myBackground);
+        if(myGame!=null)
+            remove(myGame);
         myGame = new StagePlayerPanel(myGameManager, this);
-        add(myGame);
-        revalidate();
-        repaint();
+        showGame();
     }
 
     public void showDialog (String story) {

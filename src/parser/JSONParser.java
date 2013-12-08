@@ -101,7 +101,7 @@ public class JSONParser {
      * @param c Class of object to create
      * @return New object
      */
-    public <T> T createObject (String json, Class<T> c) {
+    public <T> T createObjectFromString (String json, Class<T> c) {
 
         try {
             return myMapper.readValue(json, new TypeReference<T>() {
@@ -121,6 +121,6 @@ public class JSONParser {
      * @return Deep cloned object
      */
     public <T> T deepClone(Object toClone, Class<T> c){
-        return createObject(createJSONString(toClone),c);
+        return createObjectFromString(createJSONString(toClone),c);
     }
 }

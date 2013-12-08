@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import team.Team;
 import view.player.PlayerView;
-import game.AI;
 import game.AI2;
 import gameObject.Chest;
 import gameObject.GameObject;
@@ -27,6 +26,7 @@ import grid.GridConstants;
 @JsonAutoDetect
 public class GameManager extends Manager {
     private PlayerView myView;
+    private boolean myGameWon=false;
 
     public GameManager () {
     }
@@ -40,19 +40,13 @@ public class GameManager extends Manager {
     }
 
     public void beginTurn () {
+        if(myGameWon){
+            return;
+        }
         clear();
-        
+
         if (myPhaseCount == 0) {
             myView.showDialog(getPreStory());
-        }
-        if (conditionsMet()) {
-            myView.showDialog(getPostStory());
-            if (!nextStage()) { // final stage
-                // win
-                myView.setTitle(getActiveTeamName() + " won!!");
-                return;
-            }
-            return;
         }
 
         myView.setTitle(getActiveTitle());
@@ -65,13 +59,34 @@ public class GameManager extends Manager {
     }
 
     public void doUntilHumanTurn () {
+        if(myGameWon){
+            return;
+        }
+        if (conditionsMet()) {
+            win();
+            return;
+        }
         nextTurn();
         beginTurn();
         while (!teamIsHuman()) {
             doAITurn();
+            if (conditionsMet()) {
+                win();
+                return;
+            }
+
             nextTurn();
-            beginTurn();
         }
+    }
+
+    public void win () {
+        myView.showDialog(getPostStory());
+        if (!nextStage()) { // final stage
+            // win
+            myView.showDialog(getWinningTeam() + " won!!");
+            myGameWon=true;
+        }
+
     }
 
     /**
@@ -81,16 +96,12 @@ public class GameManager extends Manager {
      * @param currentTeam
      */
     public void nextTurn () {
-
         setAllUnitsInactive();
-        
+
         isTurnCompleted = false;
         myPhaseCount++;
         myActiveStage.setPhaseCount(myPhaseCount);
         myActiveTeam = myPhaseCount % myActiveStage.getNumberOfTeams();
-        
-        setAllUnitsActive();
-
     }
 
     public void setAllUnitsInactive () {
@@ -126,9 +137,10 @@ public class GameManager extends Manager {
     }
 
     public boolean nextStage () {
+        myPhaseCount = 0;
         int index = myStages.indexOf(myActiveStage);
-        if (!(index < myStages.size())) {
-            setActiveStage(index++);
+        if (index < myStages.size() - 1) {
+            setActiveStage(index + 1);
             return true;
         }
         return false;

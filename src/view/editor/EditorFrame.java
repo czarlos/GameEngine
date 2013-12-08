@@ -410,7 +410,7 @@ public class EditorFrame extends GameView {
     }
 
     protected void saveGame () {
-        saveGame(mySaveLocation);
+        saveGame("saves");
     }
 
     protected void saveGame (String location) {
