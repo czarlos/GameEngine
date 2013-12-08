@@ -35,7 +35,7 @@ public class UnitTableModel extends GameTableModel {
         Object[] ret = new Object[myColumnNames.length];
         ret[0] = "New Unit";
         ret[1] = new File("resources/grass.png");
-        ret[2] = new ComboString(myED.getNames(GridConstants.TEAM), defaultAffiliation);
+        ret[2] = new Selector(myED.getNames(GridConstants.TEAM), defaultAffiliation);
         ret[3] = new Stats();
         return ret;
     }
@@ -49,7 +49,7 @@ public class UnitTableModel extends GameTableModel {
             Object[] array = new Object[myColumnNames.length];
             array[0] = gu.getName();
             array[1] = new File(gu.getImagePath());
-            array[2] = new ComboString(myED.getNames(GridConstants.TEAM), gu.getAffiliation());
+            array[2] = new Selector(myED.getNames(GridConstants.TEAM), gu.getAffiliation());
             array[3] = gu.getStats();
             addNewRow(array);
         }
@@ -62,7 +62,7 @@ public class UnitTableModel extends GameTableModel {
             GameUnit gu = new GameUnit();
             gu.setName((String) row[0]);
             gu.setImagePath((String) ((File) row[1]).getPath());
-            gu.setAffiliation(((ComboString) row[2]).toString());
+            gu.setAffiliation((String) ((Selector) row[2]).getValue());
             gu.setStats((Stats) row[3]);
             ret.add(gu);
         }

@@ -8,14 +8,10 @@ import java.util.Map;
 import gameObject.GameUnit;
 import gameObject.MasterStats;
 import gameObject.Stats;
-import gameObject.StatModifier;
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
-import gameObject.action.ItemOutcome;
 import gameObject.action.MasterActions;
-import gameObject.action.Outcome;
 import gameObject.action.Outcomes;
-import gameObject.action.StatOutcome;
 import gameObject.item.Item;
 import gameObject.item.Weapon;
 import org.junit.Before;
@@ -172,10 +168,10 @@ public class CombatTest {
         Outcomes attackerOutcomes = new Outcomes();
         Outcomes defenderOutcomes = new Outcomes();
 
-        Outcome a1 = new StatOutcome("health", -5, true);
-        attackerOutcomes.addOutcome(a1);
-        Outcome d1 = new StatOutcome("health", -10, true);
-        defenderOutcomes.addOutcome(d1);
+    //    Outcome a1 = new StatOutcome("health", -5, true);
+    //    attackerOutcomes.addOutcome(a1);
+    //    Outcome d1 = new StatOutcome("health", -10, true);
+    //    defenderOutcomes.addOutcome(d1);
 
         CombatAction ca = new CombatAction();
         ca.setName("strong");
@@ -205,8 +201,8 @@ public class CombatTest {
         Outcomes attackerOutcomes = new Outcomes();
         Outcomes defenderOutcomes = new Outcomes();
 
-        Outcome d1 = new StatOutcome("health", -4, true);
-        defenderOutcomes.addOutcome(d1);
+    //    Outcome d1 = new StatOutcome("health", -4, true);
+    //    defenderOutcomes.addOutcome(d1);
 
         CombatAction ca = new CombatAction();
         ca.setName("weak");
@@ -227,9 +223,9 @@ public class CombatTest {
         Outcomes defenderOutcomes = new Outcomes();
 
         // removes two potions from opponents item list
-        Outcome d1 = new ItemOutcome(potion, -2, true);
+     //   Outcome d1 = new ItemOutcome(potion, -2, true);
 
-        defenderOutcomes.addOutcome(d1);
+     //   defenderOutcomes.addOutcome(d1);
 
         CombatAction ca = new CombatAction();
         ca.setName("item");

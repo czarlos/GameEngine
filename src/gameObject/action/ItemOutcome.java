@@ -3,19 +3,15 @@ package gameObject.action;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import gameObject.GameUnit;
 import gameObject.item.Item;
+import grid.GridConstants;
 
 
 @JsonAutoDetect
 public class ItemOutcome extends Outcome {
     private Item myItem;
-
+    
     public ItemOutcome () {
-
-    }
-
-    public ItemOutcome (Item item, int amount, boolean fixed) {
-        super(amount, fixed);
-        myItem = item;
+        myType = GridConstants.ITEM;
     }
 
     public void applyOutcome (GameUnit unit, double effectiveness) {
@@ -45,11 +41,15 @@ public class ItemOutcome extends Outcome {
         return newAmount;
     }
 
-    public Item getItem () {
+    public Object getAffectee () {
         return myItem;
     }
 
-    public void setItem (Item item) {
-        myItem = item;
+    public void setAffectee (Object object) {
+        myItem = (Item) object;
+    }
+
+    public String toString () {
+        return "Item Outcome";
     }
 }

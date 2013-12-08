@@ -190,7 +190,7 @@ public class EditorFrame extends GameView implements WindowListener {
                 String image = (String) imageMenu.getSelectedItem();
                 int stageID =
                         myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image),
-                                                stageName);
+                                                stageName, 0);
                 setStage(stageName, stageID);
             }
             catch (NumberFormatException e) {
