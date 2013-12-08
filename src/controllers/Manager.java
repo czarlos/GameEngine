@@ -19,7 +19,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonAutoDetect
 public abstract class Manager {
 
-    @JsonProperty
     protected Stage myActiveStage;
     @JsonProperty
     protected List<Stage> myStages;
@@ -81,9 +80,15 @@ public abstract class Manager {
      * 
      * @param stageID
      */
+    @JsonProperty("activeStage")
     public void setActiveStage (int stageID) {
         if (stageID < myStages.size() & stageID > -1)
             myActiveStage = myStages.get(stageID);
+    }
+    
+    @JsonProperty("activeStage")
+    private int getActiveStage(){
+        return myStages.indexOf(myActiveStage);
     }
 
     /**

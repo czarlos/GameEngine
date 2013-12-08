@@ -35,7 +35,6 @@ public class GridEditorController implements GridMouseListener {
             myWM.place(myWM.getActiveType(), id, c);
         displayInfo(c, currentIndex);
         if (id < 0 && gtm  != null){
-            System.out.println(id);
             TableDialog dialog = new TableDialog(gtm, new ItemDialogListener(gtm, myWM, c), myWM);
             dialog.setVisible(true);
         }
@@ -65,7 +64,7 @@ public class GridEditorController implements GridMouseListener {
         
         @Override
         public void actionPerformed (ActionEvent e) {
-            //TODO: send model and coordinate to worldmanager method to set items
+            myWM.setItemTableModel(myGTM, myCurrentCoordinate);
         }
         
     }
