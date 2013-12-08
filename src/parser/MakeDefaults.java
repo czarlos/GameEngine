@@ -40,7 +40,7 @@ public class MakeDefaults {
         defaultCombatAction.setActionRange(1);
         defaultCombatAction.setInitiatorOutcomes(new Outcomes());
         Outcome r1 = new StatOutcome();
-        r1.setAffectee("health");
+        r1.setAffectee(new Stat("health"));
         r1.setAmount(-10);
         r1.setIsFixed(true);
         Outcomes recvOutcomes = new Outcomes();

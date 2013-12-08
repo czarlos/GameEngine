@@ -1,6 +1,8 @@
 package gameObject.action;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.GameUnit;
 import gameObject.Stat;
 import grid.GridConstants;
@@ -8,6 +10,7 @@ import grid.GridConstants;
 
 @JsonAutoDetect
 public class StatOutcome extends Outcome {
+    @JsonProperty
     private String myStatName;
 
     public StatOutcome () {
@@ -41,10 +44,12 @@ public class StatOutcome extends Outcome {
         return newAmount;
     }
 
+    @JsonIgnore
     public Object getAffectee () {
         return myStatName;
     }
 
+    @JsonIgnore
     public void setAffectee (Object object) {
         myStatName = ((Stat) object).getName();
     }
