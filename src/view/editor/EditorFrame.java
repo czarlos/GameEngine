@@ -6,8 +6,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +26,6 @@ import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import parser.JSONParser;
-import view.GameStartView;
 import view.GameView;
 import view.player.PlayerView;
 import controller.editor.GridEditorController;
@@ -38,7 +35,7 @@ import dialog.dialogs.TableDialog;
 import dialog.dialogs.tableModels.GameTableModel;
 
 
-public class EditorFrame extends GameView implements WindowListener {
+public class EditorFrame extends GameView {
 
     private static final long serialVersionUID = -8550671173122103688L;
 
@@ -48,26 +45,16 @@ public class EditorFrame extends GameView implements WindowListener {
     private GridEditorController myGridController;
     protected WorldManager myWorldManager;
     private TableDialog myDialog;
+    protected String mySavesLocation="saves";
 
     public EditorFrame () {
         super("Omega_Nu Game Editor");
-        mySaveLocation = "saves";
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        addWindowListener(this);
     }
 
     public EditorFrame (Manager m) {
         this();
-        setFrame(m);
-        for (String s : m.getStages()) {
-            setStage(s, m.getStages().indexOf(s));
-        }
-    }
+        loadGame(m);
 
-    @Override
-    public void windowClosing (WindowEvent e) {
-        dispose();
-        new GameStartView();
     }
 
     @Override
@@ -108,7 +95,7 @@ public class EditorFrame extends GameView implements WindowListener {
         });
         loadGame.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
-                loadGame();
+                loadGame(loadGame(mySavesLocation));
             }
         });
         saveGame.addActionListener(new ActionListener() {
@@ -210,29 +197,17 @@ public class EditorFrame extends GameView implements WindowListener {
         }
     }
 
-    protected void loadGame () {
-        JPanel loadPanel = new JPanel();
-        loadPanel.setLayout(new GridLayout(0, 2));
-        JLabel gameNames = new JLabel("Choose Game Name:");
-        JComboBox<String> gameNamesMenu = new JComboBox<>();
-        File savesDir = new File("JSONs/saves");
-        for (File child : savesDir.listFiles()) {
-            gameNamesMenu.addItem(child.getName().split("\\.")[0]);
+    @Override
+    protected void loadGame (Manager m) {
+        if(m!=null){
+            setFrame(m);
+            setStages(m);
         }
-        loadPanel.add(gameNames);
-        loadPanel.add(gameNamesMenu);
+    }
 
-        int value = JOptionPane.showConfirmDialog(this, loadPanel,
-                                                  "Choose Game", JOptionPane.OK_CANCEL_OPTION);
-        if (value == JOptionPane.OK_OPTION) {
-            String gameName = (String) gameNamesMenu.getSelectedItem();
-            JSONParser p = new JSONParser();
-            WorldManager newWM = p.createObject("saves/" + gameName,
-                                                controllers.WorldManager.class);
-            setFrame(newWM);
-            for (String s : newWM.getStages()) {
-                setStage(s, newWM.getStages().indexOf(s));
-            }
+    public void setStages (Manager m) {
+        for (String s : m.getStages()) {
+            setStage(s, m.getStages().indexOf(s));
         }
     }
 
@@ -435,27 +410,4 @@ public class EditorFrame extends GameView implements WindowListener {
         myWorldManager.saveGame(location);
     }
 
-    @Override
-    public void windowOpened (WindowEvent e) {
-    }
-
-    @Override
-    public void windowClosed (WindowEvent e) {
-    }
-
-    @Override
-    public void windowIconified (WindowEvent e) {
-    }
-
-    @Override
-    public void windowDeiconified (WindowEvent e) {
-    }
-
-    @Override
-    public void windowActivated (WindowEvent e) {
-    }
-
-    @Override
-    public void windowDeactivated (WindowEvent e) {
-    }
 }
