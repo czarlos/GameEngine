@@ -81,7 +81,7 @@ public class GameObject extends Customizable implements Drawable {
      */
     public List<String> generateDisplayData () {
         List<String> displayData = new ArrayList<>();
-        displayData.add("<html><b>Name:</b> " + myName + "</htmL>");
+        displayData.add("<b>Name:</b> " + myName);
         setDisplayData(displayData);
         return displayData;
     }
