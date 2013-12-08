@@ -85,6 +85,7 @@ public class AI {
      *        - A list of all of the enemy units
      */
     public void doAIMove (GameUnit unit, Set<GameUnit> allEnemies) {
+
         Coordinate other = findClosestOpponent(unit, allEnemies);
         Tile start =
                 (Tile) myGrid.getObject(GridConstants.TILE,
@@ -99,7 +100,7 @@ public class AI {
                                                   myGrid.getObject(GridConstants.GAMEUNIT, other));
         }
         else {
-            // PathFinding.autoMove(start, end, unit, myGrid);
+            PathFinding.autoMove(start, end, unit, myGrid);
         }
     }
 

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import team.Team;
 import view.player.PlayerView;
+import game.AI;
 import game.AI2;
 import gameObject.Chest;
 import gameObject.GameObject;
@@ -95,7 +96,8 @@ public class GameManager extends Manager {
     }
 
     public void doAITurn () {
-        AI2 ai = new AI2(myActiveStage.getTeam(myActiveTeam), myActiveStage, this);
+//        AI2 ai = new AI2(myActiveStage.getTeam(myActiveTeam), myActiveStage, this);
+        AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage, this);
         ai.doTurn();
     }
 
