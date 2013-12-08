@@ -129,11 +129,11 @@ public class MakeDefaults {
         Brush.setMoveCost(1);
         
         grid.Tile Dirt = new grid.Tile();
-        Brush.setName("Dirt");
-        Brush.setImagePath("resources/dirt.png");
-        Brush.setStats(defaultStats);
-        Brush.setActive(false);
-        Brush.setMoveCost(1);
+        Dirt.setName("Dirt");
+        Dirt.setImagePath("resources/dirt.png");
+        Dirt.setStats(defaultStats);
+        Dirt.setActive(false);
+        Dirt.setMoveCost(1);
 
         list.add(Grass);
         list.add(Grass1);
