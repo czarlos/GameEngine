@@ -1,19 +1,20 @@
 package controllers;
 
-import gameObject.GameUnit;
-import gameObject.MasterStats;
+import gameObject.GameObject;
+import gameObject.InventoryObject;
 import grid.Coordinate;
 import grid.GridConstants;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import stage.Stage;
 import team.Team;
 import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import dialog.dialogs.tableModels.GameTableModel;
+import dialog.dialogs.tableModels.MapTableModel;
 
 
 /**
@@ -24,8 +25,6 @@ import dialog.dialogs.tableModels.GameTableModel;
  */
 @JsonAutoDetect
 public class WorldManager extends Manager {
-    @JsonProperty
-    private MasterStats myMasterStats;
 
     /**
      * Intermediary between views and EditorData and Grid, stores List of Stages
@@ -52,21 +51,37 @@ public class WorldManager extends Manager {
     }
 
     @JsonIgnore
-    public void setActiveObject (int index, String type, int id) {
-        activeEditTypeList.remove(index);
-        activeEditTypeList.add(index, type);
-        activeEditIDList.remove(index);
-        activeEditIDList.add(index, id);
+    public void setActiveObject (String type, int id) {
+        activeEditTypeList.set(myStages.indexOf(myActiveStage), type);
+        activeEditIDList.set(myStages.indexOf(myActiveStage), id);
+    }
+
+    /**
+     * For specific unit/chest items. To get the generic item table model use generic
+     * getTableModel/setDatas
+     */
+    @JsonIgnore
+    public GameTableModel getItemTableModel (Coordinate coordinate) {
+        GameTableModel gtm = new MapTableModel();
+
+        GameObject go = myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, coordinate);
+
+        if (go != null && go instanceof InventoryObject) {
+            Map<String, Integer> items = ((InventoryObject) go).getItemAmounts();
+            gtm.loadObject(items);
+        }
+
+        return gtm;
     }
 
     @JsonIgnore
-    public String getActiveType (int index) {
-        return activeEditTypeList.get(index);
+    public String getActiveType () {
+        return activeEditTypeList.get(myStages.indexOf(myActiveStage));
     }
 
     @JsonIgnore
-    public int getActiveID (int index) {
-        return activeEditIDList.get(index);
+    public int getActiveID () {
+        return activeEditIDList.get(myStages.indexOf(myActiveStage));
     }
 
     /**
@@ -80,35 +95,31 @@ public class WorldManager extends Manager {
      */
 
     @SuppressWarnings("unchecked")
-    public int addStage (int x, int y, int tileID, String name) {
-        myStages.add(new Stage(x, y, tileID, name));
-        setActiveStage(myStages.size() - 1);
-        activeEditTypeList.add("");
-        activeEditIDList.add(-1);
+    public int addStage (int x, int y, int tileID, String name, int index) {
+        myStages.add(index, new Stage(x, y, tileID, name));
+        setActiveStage(index);
+        activeEditTypeList.add(index, "");
+        activeEditIDList.add(index, -1);
         myActiveStage.setTeams((List<Team>) myEditorData
                 .get(GridConstants.TEAM));
-        return myStages.size() - 1;
+        return index;
     }
 
     public void deleteStage (int i) {
         myStages.remove(i);
-        setActiveStage(i - 1);
+
+        setActiveStage(Math.min(i, myStages.size() - 1));
+
         activeEditTypeList.remove(i);
         activeEditIDList.remove(i);
     }
 
     public void setPreStory (String prestory) {
-        if (prestory.equals(""))
-            myActiveStage
-                    .setPreStory("YOU SHOULD HAVE PUT IN A PRESTORY, WHAT THE FUCK YOU SCUMBAG OF THE EARTH");
-        else myActiveStage.setPreStory(prestory);
+        myActiveStage.setPreStory(prestory);
     }
 
     public void setPostStory (String poststory) {
-        if (poststory.equals(""))
-            myActiveStage
-                    .setPostStory("YOU SHOULD HAVE PUT IN A POSTSTORY, WHAT THE FOOK YOU SCUM OF THE EARTH");
-        else myActiveStage.setPostStory(poststory);
+        myActiveStage.setPostStory(poststory);
     }
 
     /**
@@ -122,10 +133,11 @@ public class WorldManager extends Manager {
 
     public void displayRange (Coordinate coordinate) {
         myActiveStage.getGrid().beginMove(coordinate);
+       
     }
 
     public void removeRange () {
-        myActiveStage.getGrid().setTilesInactive();
+        myActiveStage.getGrid().setAllTilesInactive();
     }
 
     /**
@@ -134,12 +146,11 @@ public class WorldManager extends Manager {
      * 
      * @param ID int of ID thing to place
      * @param x Coordinate
-     * @param y
-     *        Coordinate
+     * @param y Coordinate
      */
     public void place (String type, int objectID, Coordinate coordinate) {
         Object object = myEditorData.getObject(type, objectID);
-        myActiveStage.getGrid().placeObject(type, coordinate, object);
+        myActiveStage.getGrid().placeObject(type, coordinate, (Customizable) object);
         myEditorData.refreshObjects(type);
     }
 
@@ -169,31 +180,6 @@ public class WorldManager extends Manager {
         return myList.get(ID).getImage();
     }
 
-    /**
-     * Calls update method for all stats of all placed units and unit
-     * definitions. If there are new stats in the master stats list, adds that
-     * stat to the stats of all placed units and unit definitions. If there is a
-     * stat in the stats list of placed units and unit definitions, but not in
-     * the master stats list, then it removes that stat from all stats lists of
-     * placed units and unit definitions
-     */
-    public void syncStats () {
-        List<?> editorUnitList = myEditorData.get(GridConstants.GAMEUNIT);
-        GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
-
-        for (Object unit : editorUnitList) {
-            ((GameUnit) unit).getStats().syncWithMaster();
-        }
-
-        for (int i = 0; i < placedUnits.length; i++) {
-            for (int j = 0; j < placedUnits[i].length; j++) {
-                if (placedUnits[i][j] != null) {
-                    placedUnits[i][j].getStats().syncWithMaster();
-                }
-            }
-        }
-    }
-
     // TODO: get rid of this
     public List<String> getDialogList (String myType) {
         List<String> ret = new ArrayList<String>();
@@ -209,7 +195,7 @@ public class WorldManager extends Manager {
                 ret.addAll(myEditorData.getNames(GridConstants.ACTION));
                 break;
             case GridConstants.ACTION:
-     //           ret.addAll(myEditorData.getNames(GridConstants.MASTERSTATS));
+                ret.addAll(myEditorData.getNames(GridConstants.MASTERSTATS));
                 ret.addAll(myEditorData.getNames(GridConstants.ITEM));
             default:
                 break;

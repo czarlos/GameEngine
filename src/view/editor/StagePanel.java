@@ -3,6 +3,7 @@ package view.editor;
 import controller.editor.GridEditorController;
 import controllers.WorldManager;
 import view.GridWithSide;
+import view.canvas.GridCanvas;
 
 
 public class StagePanel extends GridWithSide {
@@ -22,10 +23,14 @@ public class StagePanel extends GridWithSide {
 
     private void initStagePanel (WorldManager wm, int stageId) {
 
-        StageSidePanel panel = new StageSidePanel(wm,
-                                                   stageId);
+        StageSidePanel panel = new StageSidePanel(wm);
         addToSideColumn(panel);
-        myController.addStageSidePanel(panel);
+        myController.addStageSidePanel(stageId, panel);
         myGrid.addGridMouseListener(myController);
+
+    }
+
+    public GridCanvas getGridCanvas () {
+        return myGrid;
     }
 }

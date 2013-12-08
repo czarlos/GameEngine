@@ -1,9 +1,12 @@
 package parser;
 
+import gameObject.Stat;
 import gameObject.Stats;
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
+import gameObject.action.Outcome;
 import gameObject.action.Outcomes;
+import gameObject.action.StatOutcome;
 import gameObject.item.Item;
 import grid.GridConstants;
 import java.util.ArrayList;
@@ -21,19 +24,25 @@ public class MakeDefaults {
     private Item defaultItem;
     private CombatAction defaultCombatAction;
     private Stats defaultStats;
+    private String[] defaultStatArray = {"defense", "attack", "experience", "max health", "health"};
 
     public MakeDefaults () {
         p = new JSONParser();
 
         defaultStats = new Stats();
-        defaultStats.syncWithMaster();
+        for(String s: defaultStatArray){
+            defaultStats.addStat(new Stat(s));
+        }
 
         defaultCombatAction = new CombatAction();
         defaultCombatAction.setName("Slash");
         defaultCombatAction.setImagePath("resources/weapon.png");
         defaultCombatAction.setActionRange(1);
         defaultCombatAction.setInitiatorOutcomes(new Outcomes());
-        defaultCombatAction.setReceiverOutcomes(new Outcomes());
+        Outcome r1 = new StatOutcome("health", -10, true);
+        Outcomes recvOutcomes = new Outcomes();
+        recvOutcomes.addOutcome(r1);
+        defaultCombatAction.setReceiverOutcomes(recvOutcomes);
         defaultCombatAction.setInitiatorStatWeights(new Stats());
         defaultCombatAction.setReceiverStatWeights(new Stats());
 
@@ -50,7 +59,6 @@ public class MakeDefaults {
         java.util.ArrayList<grid.Tile> list = new java.util.ArrayList<>();
         List<String> passableList = new ArrayList<>();
         defaultStats = new Stats();
-        defaultStats.syncWithMaster();
 
         passableList.add(GridConstants.DEFAULT_PASS_EVERYTHING);
 
@@ -138,9 +146,13 @@ public class MakeDefaults {
         tree.setName("Tree");
         tree.setImagePath("resources/tree.png");
 
-        gameObject.GameObject chest = new gameObject.GameObject();
+        gameObject.Chest chest = new gameObject.Chest();
         chest.setName("Chest");
-        chest.setImagePath("resources/chest.png");
+        chest.setImagePath("resources/chest.png");   
+        
+        gameObject.Shop shop = new gameObject.Shop();
+        shop.setName("Shop");
+        shop.setImagePath("resources/shop.png");
 
         gameObject.GameObject stone = new gameObject.GameObject();
         stone.setName("Stone");
@@ -148,6 +160,7 @@ public class MakeDefaults {
 
         list.add(tree);
         list.add(chest);
+        list.add(shop);
         list.add(stone);
 
         p.createJSON("defaults/" + GridConstants.GAMEOBJECT, list);
@@ -205,7 +218,7 @@ public class MakeDefaults {
     public void saveAndLoadGame () {
         controllers.WorldManager wm = new controllers.WorldManager();
         wm.setGameName("test");
-        wm.addStage(10, 10, 1, "stageOne");
+        wm.addStage(10, 10, 1, "stageOne", 0);
         wm.saveGame("saves");
 
         p.createObject("saves/test", WorldManager.class);
@@ -249,13 +262,10 @@ public class MakeDefaults {
     }
     
     public void makeStats () {
-        List<String> list = new ArrayList<String>();
-        list.add("movement");
-        list.add("defense");
-        list.add("attack");
-        list.add("experience");
-        list.add("max health");        
-        list.add("health");
+        List<Stat> list = new ArrayList<Stat>();
+        for(String s: defaultStatArray){
+            list.add(new Stat(s));
+        }
 
         p.createJSON("defaults/" + GridConstants.MASTERSTATS, list);
     }

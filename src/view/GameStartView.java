@@ -33,8 +33,9 @@ public class GameStartView extends JFrame {
 
             @Override
             public void actionPerformed (ActionEvent e) {
+
                 new EditorFrame();
-                dispose();
+                dispose();               
             }
 
         });

@@ -1,9 +1,9 @@
 package grid;
 
-import game.ImageManager;
 import gameObject.GameObject;
 import gameObject.Stats;
 import java.util.List;
+import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -12,15 +12,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * 
  * Tile Class. Held by grid. Affects unit stats and movement.
  * 
- * @author Kevin
- * @author Ken
- * @author carlosreyes
+ * @author Kevin, Ken, Carlos
  * 
  */
 @JsonAutoDetect
 public class Tile extends GameObject {
-
-    private boolean isActive;
     private Stats myStats;
     private int myMoveCost;
     private List<Tile> myNeighbors;
@@ -28,13 +24,6 @@ public class Tile extends GameObject {
     private int myLength;
     private int myDistanceToGoal;
     public Tile () {
-        
-    }
-
-    public void setActive (boolean active) {
-        isActive = active;
-        myImage = isActive ? ImageManager.getHightlightedTileImage(myImagePath)
-                          : ImageManager.getImage(myImagePath);
     }
 
     public Stats getStats () {
@@ -43,17 +32,6 @@ public class Tile extends GameObject {
 
     public void setStats (Stats stat) {
         myStats = new Stats(stat);
-    }
-
-    /**
-     * Sets the image path and image for the graphic that is drawn
-     * 
-     * @param imagePath
-     *        - String of image path
-     */
-
-    public boolean isActive () {
-        return isActive;
     }
 
     public int getMoveCost () {
@@ -67,11 +45,11 @@ public class Tile extends GameObject {
     @Override
     public List<String> generateDisplayData () {
         List<String> displayData = super.generateDisplayData();
-        displayData.add("Movement cost: " + myMoveCost);
-        displayData.add("Stat Modifiers: ");
+        displayData.add("<html><b>Movement cost: </b>" + myMoveCost+"</html>");
+        displayData.add("<html><b>Stat Modifiers: </b></html>");
         for (String stat : myStats.getStatNames()) {
             if (!stat.equals("health") && !stat.equals("maxhealth") && !stat.equals("experience")) {
-                displayData.add("    "+stat + ": " + myStats.getStatValue(stat));
+                displayData.add("    " + stat + ": " + myStats.getStatValue(stat));
             }
         }
         setDisplayData(displayData);
@@ -112,5 +90,11 @@ public class Tile extends GameObject {
 
     public void setDistanceToGoal (int distanceToGoal) {
         myDistanceToGoal = distanceToGoal;
+    }
+
+    public void syncStatsWithMaster (Map<String, String> nameTranslationMap,
+                                     List<String> removedNames) {
+        // TODO Auto-generated method stub
+        
     }
 }

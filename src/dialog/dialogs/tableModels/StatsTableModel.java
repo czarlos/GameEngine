@@ -1,9 +1,9 @@
 package dialog.dialogs.tableModels;
 
+import gameObject.Stat;
 import gameObject.Stats;
 import grid.GridConstants;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 
 @SuppressWarnings("serial")
@@ -26,24 +26,23 @@ public class StatsTableModel extends GameTableModel {
 
     public void loadObject (Object stats) {
         Stats s = (Stats) stats;
-        Map<String, Integer> map = s.getStats();
+        List<Stat> list = s.getStats();
         myList.clear();
-        for (String stat : map.keySet()) {
+        for (Stat stat : list) {
             Object[] row = new Object[myColumnNames.length];
-            row[0] = stat;
-            row[1] = map.get(stat);
+            row[0] = stat.getName();
+            row[1] = stat.getValue();
             addNewRow(row);
         }
     }
 
     public Object getObject () {
         Stats ret = new Stats();
-        Map<String, Integer> myMap = new HashMap<String, Integer>();
         for (Object[] row : myList) {
-            myMap.put((String) row[0], (Integer) row[1]);
+            Stat stat = new Stat((String) row[0]);
+            stat.setValue((int) row[1]);
+            ret.addStat(stat);
         }
-
-        ret.setStats(myMap);
         return ret;
     }
 

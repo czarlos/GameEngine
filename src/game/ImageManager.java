@@ -59,7 +59,8 @@ public class ImageManager {
             }
 
             ourImages.put(filePath, img);
-            ourHighlightedImage.put(filePath, ImageUtilities.highlight(highlightedImage, ImageOpCode));
+            ourHighlightedImage.put(filePath,
+                                    ImageUtilities.highlight(highlightedImage, ImageOpCode));
             ourImages.put(filePath, img);
         }
 

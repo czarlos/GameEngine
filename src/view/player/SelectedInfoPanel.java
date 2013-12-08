@@ -24,7 +24,6 @@ public class SelectedInfoPanel extends JTabbedPane {
 
     public SelectedInfoPanel () {
         setPreferredSize(new Dimension(200, 200));
-
     }
 
     public void makeTabs (List<String> actionInfo, List<String> tileInfo,

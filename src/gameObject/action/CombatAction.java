@@ -50,18 +50,18 @@ public class CombatAction extends Action {
     public void doAction (GameUnit initiator, GameObject receiver) {
         double effectiveness = getNetEffectiveness(initiator,
                                                    (GameUnit) receiver);
-
         myInitiatorOutcomes.applyOutcomes(initiator, effectiveness);
-
         myReceiverOutcomes.applyOutcomes((GameUnit) receiver, effectiveness);
     }
 
     @Override
-    public boolean isValidAction (GameUnit initiator, GameObject receiver) {
-        double effectiveness = getNetEffectiveness(initiator,
-                                                   (GameUnit) receiver);
-
-        return myInitiatorOutcomes.checkValid(initiator, effectiveness);
+    public boolean isValid (GameUnit initiator, GameObject receiver) {
+        if (receiver == null) { return false; }
+        if (receiver instanceof GameUnit) {
+            double effectiveness = getNetEffectiveness(initiator, (GameUnit) receiver);
+            return myInitiatorOutcomes.checkValid(initiator, effectiveness);
+        }
+        return false;
     }
 
     public Stats getInitiatorStatWeights () {

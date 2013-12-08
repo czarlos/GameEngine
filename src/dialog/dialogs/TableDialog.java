@@ -128,7 +128,6 @@ public class TableDialog extends JDialog {
                                new ModelEditor(new EnumTableModel(myWM.getDialogList(myModel
                                        .getName()))));
         table.setDefaultEditor(ComboString.class, new ComboBoxEditor());
-
         table.setDefaultRenderer(ComboString.class, new ComboStringRenderer());
 
         table.setDefaultEditor(Integer.class, new IntegerEditor(-25, 50));
@@ -188,6 +187,7 @@ public class TableDialog extends JDialog {
         public void actionPerformed (ActionEvent e) {
             if (myTable.getSelectedRow() > -1) {
                 myListenerModel.removeRow(myTable.getSelectedRow());
+                myListenerModel.fireTableDataChanged();
             }
         }
     }

@@ -1,8 +1,11 @@
 package controllers;
 
 import gameObject.GameUnit;
+import gameObject.Stat;
 import gameObject.action.Action;
+import gameObject.item.Item;
 import grid.GridConstants;
+import grid.Tile;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -93,7 +96,7 @@ public class EditorData {
                 syncActions((List<Object>) gtm.getObject(), activeStage);
                 break;
             case GridConstants.MASTERSTATS:
-                syncStats();
+                syncStats((List<Object>) gtm.getObject(), activeStage);
                 break;
             case GridConstants.TEAM:
                 syncTeams((List<Team>) gtm.getObject(), activeStage);
@@ -121,8 +124,8 @@ public class EditorData {
             removedNames.remove(prevName);
         }
 
-        for (Object unit : editorUnitList) {
-            ((GameUnit) unit).syncActionsWithMaster(nameTranslationMap, removedNames);
+        for (GameUnit unit : editorUnitList) {
+            unit.syncActionsWithMaster(nameTranslationMap, removedNames);
         }
 
         for (int i = 0; i < placedUnits.length; i++) {
@@ -134,9 +137,50 @@ public class EditorData {
         }
     }
 
-    private void syncStats () {
-        // TODO Auto-generated method stub
+    @SuppressWarnings("unchecked")
+    private void syncStats (List<Object> newStats, Stage activeStage) {
+        List<String> fullList = getNames(GridConstants.MASTERSTATS);
+        List<String> removedNames = getNames(GridConstants.MASTERSTATS);
+        List<GameUnit> editorUnitList = (List<GameUnit>) getTableModel("GameUnit").getObject();
+        List<Tile> editorTileList = (List<Tile>) getTableModel("Tile").getObject();
+        List<Item> editorItemList = (List<Item>) getTableModel("Item").getObject();
+        GameUnit[][] placedUnits = activeStage.getGrid().getGameUnits();
+        Tile[][] placedTiles = activeStage.getGrid().getTiles();
+        Map<String, String> nameTranslationMap = new HashMap<>();
 
+        for (Object stat : newStats) {
+            String prevName = fullList.get(((Stat) stat).getLastIndex());
+            if (!((Stat) stat).getName().equals(prevName)) {
+                nameTranslationMap.put(prevName, ((Stat) stat).getName());
+            }
+            removedNames.remove(prevName);
+        }
+
+        for (GameUnit unit : editorUnitList) {
+            unit.syncStatsWithMaster(nameTranslationMap, removedNames);
+        }
+
+        for (int i = 0; i < placedUnits.length; i++) {
+            for (int j = 0; j < placedUnits[i].length; j++) {
+                if (placedUnits[i][j] != null) {
+                    placedUnits[i][j].syncStatsWithMaster(nameTranslationMap, removedNames);
+                }
+            }
+        }
+
+        for (Tile tile : editorTileList) {
+            tile.syncStatsWithMaster(nameTranslationMap, removedNames);
+        }
+
+        for (int i = 0; i < placedTiles.length; i++) {
+            for (int j = 0; j < placedTiles[i].length; j++) {
+                placedTiles[i][j].syncStatsWithMaster(nameTranslationMap, removedNames);
+            }
+        }
+
+        for (Item item : editorItemList) {
+            item.syncStatsWithMaster(nameTranslationMap, removedNames);
+        }
     }
 
     @SuppressWarnings("unchecked")

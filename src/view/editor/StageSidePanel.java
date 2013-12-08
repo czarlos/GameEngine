@@ -10,39 +10,38 @@ import javax.swing.ScrollPaneLayout;
 import view.player.SelectedInfoPanel;
 import controllers.WorldManager;
 
+
 @SuppressWarnings("serial")
 public class StageSidePanel extends JPanel {
 
     private WorldManager myWorldManager;
-    private int myID;
-    private final String[] defaultTypes = GridConstants.DEFAULTTYPES;
+    private final String[] defaultTypes = GridConstants.DEFAULTTABTYPES;
     private SelectedInfoPanel myInfoPanel;
     
-    public StageSidePanel(WorldManager wm, int stageID){
+    public StageSidePanel(WorldManager wm){
         setPreferredSize(new Dimension(300,500));
         myWorldManager = wm;
-        myID = stageID;
         
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        
+
         initSubPanels();
     }
-    
-    public void initSubPanels(){
-        StageEditorPanel panel = new StageEditorPanel(myWorldManager,
-                                                      defaultTypes, myID);
-        add(panel);
-        myInfoPanel = new SelectedInfoEditorPanel();
 
-        //myInfoPanel.setSize(new Dimension(200, 200));
-        
+    public void initSubPanels () {
+        StageEditorPanel panel = new StageEditorPanel(myWorldManager,
+                                                      defaultTypes);
+
+        add(panel);
+        myInfoPanel = new SelectedInfoEditorPanel(myWorldManager);
+
         JScrollPane scroll = new JScrollPane(myInfoPanel);
         scroll.setLayout(new ScrollPaneLayout());
         scroll.setMinimumSize(new Dimension(300,500));
+
         add(scroll);
     }
-    
-    public void displayInformation(Coordinate c){
+
+    public void displayInformation (Coordinate c) {
         myInfoPanel.removeAll();
         myInfoPanel.makeTabs(myWorldManager.getActions(c),
                              myWorldManager.generateInfoList(GridConstants.TILE, c),

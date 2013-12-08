@@ -4,6 +4,11 @@ import javax.swing.JFileChooser;
 import java.awt.event.ActionEvent;
 
 
+/**
+ * 
+ * @author brooksmershon
+ * 
+ */
 @SuppressWarnings("serial")
 public class ImagePathEditor extends GameCellEditor {
 
@@ -19,11 +24,10 @@ public class ImagePathEditor extends GameCellEditor {
     public void actionPerformed (ActionEvent e) {
         int returnVal = fileChooser.showDialog(button, "Choose");
 
-        // check if actual file was chosen
+        // check if a file was chosen
         if (returnVal == 0) {
             current = fileChooser.getSelectedFile();
         }
-
         fireEditingStopped();
     }
 }
