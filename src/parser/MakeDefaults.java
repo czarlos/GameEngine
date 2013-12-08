@@ -292,24 +292,29 @@ public class MakeDefaults {
         Item milk = new Item();
         milk.setName("Milk");
         milk.setImagePath("resources/milk.png");
+        milk.setStats(defaultStats);
         
         Item potion = new Item();
         potion.setName("Potion");
         potion.setImagePath("resources/potion.png");
+        potion.setStats(defaultStats);
         
         Item armor = new Item();
         armor.setName("Armor");
         armor.setImagePath("resources/armor.png");
-
+        armor.setStats(defaultStats);
+        
         Item weapon = new Item();
         weapon.setName("Weapon");
         weapon.setImagePath("resources/weapon.png");
         weapon.addAction(defaultCombatAction.getName());
-
+        weapon.setStats(defaultStats);
+        
         Item helmet = new Item();
         helmet.setName("Helmet");
         helmet.setImagePath("resources/helmet.png");
-
+        helmet.setStats(defaultStats);
+        
         list.add(milk);
         list.add(potion);
         list.add(armor);
