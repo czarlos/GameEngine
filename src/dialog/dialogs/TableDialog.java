@@ -122,13 +122,13 @@ public class TableDialog extends JDialog {
         table.setDefaultRenderer(File.class, new ImageRenderer());
         table.setDefaultEditor(File.class, new ImagePathEditor());
         table.setDefaultEditor(Stats.class, new ModelEditor(
-                                                            new StatTableModel()));
+                                                            new StatTableModel(myModel.getED())));
         table.setDefaultEditor(WinCondition.class, new ModelEditor(
                                                                    new WinConditionTableModel(myModel.getED())));
         table.setDefaultEditor(PositionCondition.class,
                                new ModelEditor(new PositionConditionTableModel(myModel.getED())));
         table.setDefaultEditor(StatCondition.class, new ModelEditor(new StatConditionTableModel(myModel.getED())));
-        table.setDefaultEditor(TurnCondition.class, new ModelEditor(new TurnConditionTableModel()));
+        table.setDefaultEditor(TurnCondition.class, new ModelEditor(new TurnConditionTableModel(myModel.getED())));
         table.setDefaultEditor(ItemCondition.class, new ModelEditor(new ItemConditionTableModel(myModel.getED())));
         table.setDefaultEditor(UnitCountCondition.class,
                                new ModelEditor(new UnitCountConditionTableModel(myModel.getED())));
@@ -138,14 +138,9 @@ public class TableDialog extends JDialog {
         table.setDefaultEditor(Selector.class, new ComboBoxEditor());
         table.setDefaultRenderer(Selector.class, new SelectorRenderer());
 
-        table.setDefaultEditor(Integer.class, new IntegerEditor(-100, 200));
+        table.setDefaultEditor(Integer.class, new IntegerEditor(-1000000, 1000000));
         table.setDefaultEditor(Outcomes.class,
                                new ModelEditor(new OutcomesTableModel(myModel.getED())));
-
-        System.out.println(myModel.getName());
-        
-        System.out.println(new EnumTableModel(myModel.getED()
-                                       .getDialogList(myModel.getName()), myModel.getED()));
         table.setDefaultEditor(ArrayList.class,
                                new ModelEditor(new EnumTableModel(myModel.getED()
                                        .getDialogList(myModel.getName()), myModel.getED())));
