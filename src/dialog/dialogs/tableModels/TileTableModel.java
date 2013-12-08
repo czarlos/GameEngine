@@ -63,7 +63,7 @@ public class TileTableModel extends GameTableModel {
 
     @Override
     public Object[] getNew () {
-        Object[] array = new Object[myColumnNames.length];
+        Object[] array = new Object[myColumnNames.length + 1];
 
         array[0] = "New Tile";
         array[1] = new File("resources/grass.png");

@@ -47,8 +47,9 @@ public class MasterStatsTableModel extends GameTableModel {
 
     @Override
     public Object[] getNew () {
-        Object[] array = new Object[myColumnNames.length];
+        Object[] array = new Object[myColumnNames.length + 1];
         array[0] = "Stat Name";
+        array[1] = -1;
         return array;
     }
 }

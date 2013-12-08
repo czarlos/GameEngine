@@ -27,7 +27,7 @@ public class CombatActionTableModel extends GameTableModel {
 
     @Override
     public Object[] getNew () {
-        Object[] ret = new Object[myColumnNames.length];
+        Object[] ret = new Object[myColumnNames.length + 1];
         ret[0] = "New Action";
         ret[1] = 1;
         ret[2] = new Outcomes();

@@ -33,7 +33,8 @@ public class UnitTableModel extends GameTableModel {
 
     @Override
     public Object[] getNew () {
-        Object[] ret = new Object[myColumnNames.length];
+        Object[] ret = new Object[myColumnNames.length + 1];
+        
         ret[0] = "New Unit";
         ret[1] = new File("resources/grass.png");
         ret[2] = new Selector(myED.getNames(GridConstants.TEAM), defaultAffiliation);

@@ -18,8 +18,14 @@ public class ObjectTableModel extends GameTableModel {
     }
 
     @Override
+    public void removeRow (int index) {
+        if(index > 1)
+            super.removeRow(index);
+    }
+    
+    @Override
     public Object[] getNew () {
-        Object[] ret = new Object[myColumnNames.length];
+        Object[] ret = new Object[myColumnNames.length + 1];
         ret[0] = "New Object";
         ret[1] = new File("resources/grass.png");
         List<String> list = new ArrayList<String>();
