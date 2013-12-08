@@ -3,6 +3,7 @@ package grid;
 import gameObject.GameObject;
 import gameObject.GameObjectConstants;
 import gameObject.GameUnit;
+import gameObject.InventoryObject;
 import gameObject.action.Action;
 import gameObject.item.Item;
 import java.awt.Graphics;
@@ -259,7 +260,9 @@ public class Grid implements Drawable {
         if (type.equals(GridConstants.ITEM)) {
             GameObject gameObject = (GameObject) getObject(GridConstants.GAMEOBJECT, coordinate);
             if (gameObject != null) {
-                gameObject.addItem((Item) placeObject);
+                if (gameObject instanceof InventoryObject) {
+                    ((InventoryObject) gameObject).addItem((Item) placeObject);
+                }
             }
         }
         else {
@@ -312,10 +315,23 @@ public class Grid implements Drawable {
      */
     public void setAllTilesInactive () {
         for (int i = 0; i < myArrays.get(GridConstants.TILE).length; i++) {
-            for (int j = 0; j < myArrays.get(GridConstants.TILE)[i].length; j++) {
-                ((Tile) myArrays.get(GridConstants.TILE)[i][j]).setActive(false);
+            for (int j = 0; j < myArrays.get(GridConstants.TILE)[0].length; j++) {
+                ((Tile) getObject(GridConstants.TILE, new Coordinate(i, j))).setActive(false);
             }
         }
+    }
+    
+    @JsonIgnore
+    public List<Coordinate> getActiveTileCoordinates () {
+        List<Coordinate> activeTiles = new ArrayList<>();       
+        for (int i=0; i < myArrays.get(GridConstants.TILE).length; i++) {
+            for (int j=0; j < myArrays.get(GridConstants.TILE)[0].length; j++) {
+                if (isActive(GridConstants.TILE, new Coordinate(i, j))) {
+                    activeTiles.add(new Coordinate(i, j));
+                }
+            }
+        }
+        return activeTiles;
     }
 
     /**

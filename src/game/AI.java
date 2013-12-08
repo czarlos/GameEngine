@@ -67,7 +67,7 @@ public class AI {
                                                   myGrid.getObject(GridConstants.GAMEUNIT, other));
         }
         else {
-            PathFinding.autoMove(start, end, unit, myGrid);
+//            PathFinding.autoMove(start, end, unit, myGrid);
         }
     }
 
