@@ -8,7 +8,7 @@ import gameObject.action.ChestAction;
 
 
 /**
- * Holds a set of items that a unit can retrieve.
+ * Chest is a neutral object that any player can use. Holds items that a unit can retrieve.
  * 
  * @author Kevin, Andy
  * 
@@ -17,10 +17,6 @@ import gameObject.action.ChestAction;
 public class Chest extends InventoryObject {
 
     public Chest () {
-    }
-
-    public boolean isEmpty () {
-        return myItems.isEmpty();
     }
 
     @Override

@@ -320,6 +320,10 @@ public class Grid implements Drawable {
         }
     }
 
+    /**
+     * Gets all of the currently active tile coordinates on the grid
+     * @return List of Coordinates of active tiles
+     */
     @JsonIgnore
     public List<Coordinate> getActiveTileCoordinates () {
         List<Coordinate> activeTiles = new ArrayList<>();
@@ -334,7 +338,7 @@ public class Grid implements Drawable {
     }
 
     /**
-     * Draws the tiles and objects on the grid
+     * Draws objects on the grid
      * 
      * @param g Graphics for the image
      * @param x int of x coordinate on the grid
@@ -349,6 +353,13 @@ public class Grid implements Drawable {
         drawType(GridConstants.GAMEOBJECT, tileWidth, tileHeight, g);
     }
 
+    /**
+     * Called by draw, draws specific object on grid
+     * @param type String of the type of object being drawn
+     * @param tileWidth int of tile width
+     * @param tileHeight int of tile height
+     * @param g Graphics for the image
+     */
     private void drawType (String type, int tileWidth, int tileHeight, Graphics g) {
         for (int i = 0; i < myArrays.get(type).length; i++) {
             for (int j = 0; j < myArrays.get(type)[i].length; j++) {

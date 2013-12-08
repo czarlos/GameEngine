@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import team.Team;
 import view.player.PlayerView;
+import game.AI;
 import game.AI2;
 import gameObject.Chest;
 import gameObject.GameObject;
@@ -19,7 +20,7 @@ import grid.GridConstants;
 
 /**
  * 
- * @author kevinjian, leevi, whoever else
+ * @author Kevin, Leevi
  * 
  */
 @JsonAutoDetect
@@ -85,6 +86,7 @@ public class GameManager extends Manager {
 
         isTurnCompleted = false;
         myPhaseCount++;
+        myActiveStage.setPhaseCount(myPhaseCount);
         myActiveTeam = myPhaseCount % myActiveStage.getNumberOfTeams();
         String teamName = getActiveTeamName();
         List<GameUnit> units2 = myActiveStage.getTeamUnits(teamName);
@@ -94,8 +96,12 @@ public class GameManager extends Manager {
         }
     }
 
+    /**
+     * Makes a new AI and calls the AI doTurn method to execute AI
+     */
     public void doAITurn () {
-        AI2 ai = new AI2(myActiveStage.getTeam(myActiveTeam), myActiveStage, this);
+//        AI2 ai = new AI2(myActiveStage.getTeam(myActiveTeam), myActiveStage, this);
+        AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage, this);
         ai.doTurn();
     }
 

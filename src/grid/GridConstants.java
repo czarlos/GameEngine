@@ -17,7 +17,11 @@ import gameObject.action.StatOutcome;
 import gameObject.action.TradeAction;
 import gameObject.action.WaitAction;
 
-
+/**
+ * Constants used by Grid and Manager
+ * @author kevinjian
+ *
+ */
 public class GridConstants {
     public final static int TRANSPARENCY = 50;
 
