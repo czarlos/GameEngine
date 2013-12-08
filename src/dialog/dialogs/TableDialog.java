@@ -12,19 +12,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import controllers.WorldManager;
-import stage.Condition;
 import stage.ItemCondition;
 import stage.PositionCondition;
 import stage.StatCondition;
 import stage.TurnCondition;
 import stage.UnitCountCondition;
 import stage.WinCondition;
+import dialog.EnumTableModel;
+import dialog.Selector;
 import dialog.dialogs.tableModels.ItemConditionTableModel;
 import dialog.dialogs.tableModels.PositionConditionTableModel;
 import dialog.dialogs.tableModels.GameTableModel;
@@ -41,8 +40,6 @@ import dialog.editors.IntegerEditor;
 import dialog.editors.ModelEditor;
 import dialog.renderers.SelectorRenderer;
 import dialog.renderers.ImageRenderer;
-import editor.EnumTableModel;
-import editor.Selector;
 
 
 /**
@@ -126,28 +123,28 @@ public class TableDialog extends JDialog {
         table.setDefaultEditor(Stats.class, new ModelEditor(
                                                             new StatTableModel()));
         table.setDefaultEditor(WinCondition.class, new ModelEditor(
-                                                                   new WinConditionTableModel()));
+                                                                   new WinConditionTableModel(myModel.getED())));
         table.setDefaultEditor(PositionCondition.class,
-                               new ModelEditor(new PositionConditionTableModel()));
-        table.setDefaultEditor(StatCondition.class, new ModelEditor(new StatConditionTableModel()));
+                               new ModelEditor(new PositionConditionTableModel(myModel.getED())));
+        table.setDefaultEditor(StatCondition.class, new ModelEditor(new StatConditionTableModel(myModel.getED())));
         table.setDefaultEditor(TurnCondition.class, new ModelEditor(new TurnConditionTableModel()));
-        table.setDefaultEditor(ItemCondition.class, new ModelEditor(new ItemConditionTableModel()));
+        table.setDefaultEditor(ItemCondition.class, new ModelEditor(new ItemConditionTableModel(myModel.getED())));
         table.setDefaultEditor(UnitCountCondition.class,
-                               new ModelEditor(new UnitCountConditionTableModel()));
+                               new ModelEditor(new UnitCountConditionTableModel(myModel.getED())));
 
         table.setDefaultEditor(HashMap.class, new ModelEditor(new ItemsTableModel(myModel.getED())));
 
         table.setDefaultEditor(Selector.class, new ComboBoxEditor());
         table.setDefaultRenderer(Selector.class, new SelectorRenderer());
 
-        table.setDefaultEditor(Integer.class, new IntegerEditor(-25, 50));
+        table.setDefaultEditor(Integer.class, new IntegerEditor(-100, 200));
         table.setDefaultEditor(Outcomes.class,
                                new ModelEditor(new OutcomesTableModel(myModel.getED())));
 
-        // TODO: take out
         table.setDefaultEditor(ArrayList.class,
-                               new ModelEditor(new EnumTableModel(myModel.getED().getDialogList(myModel
-                                       .getName()))));
+                               new ModelEditor(new EnumTableModel(myModel.getED()
+                                       .getDialogList(myModel
+                                               .getName()))));
     }
 
     /**

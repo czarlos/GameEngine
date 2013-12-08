@@ -5,7 +5,7 @@ import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
-import editor.Selector;
+import dialog.Selector;
 
 
 @SuppressWarnings("serial")

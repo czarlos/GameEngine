@@ -1,6 +1,6 @@
 package dialog.dialogs.tableModels;
 
-import editor.Selector;
+import dialog.Selector;
 import grid.GridConstants;
 import java.util.HashMap;
 import java.util.Map;

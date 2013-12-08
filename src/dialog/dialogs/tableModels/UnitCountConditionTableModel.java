@@ -1,15 +1,19 @@
 package dialog.dialogs.tableModels;
 
+import dialog.Selector;
+import grid.GridConstants;
 import javax.swing.JOptionPane;
+import controllers.EditorData;
 import stage.UnitCountCondition;
 
 @SuppressWarnings("serial")
 public class UnitCountConditionTableModel extends GameTableModel {
 
-    public UnitCountConditionTableModel () {
+    public UnitCountConditionTableModel (EditorData ED) {
         String[] names = { "Number of Units", "Affiliation", "Win if count is greater?" };
         setColumnNames(names);
         myName = "Unit Count Condition";
+        myED = ED;
     }
 
     @Override
@@ -19,10 +23,9 @@ public class UnitCountConditionTableModel extends GameTableModel {
         
         Object[] row = new Object[myColumnNames.length];
         row[0] = ucc.getCount();
-        row[1] = ucc.getAffiliation();
+        row[1] = new Selector(myED.getNames(GridConstants.TEAM), ucc.getAffiliation());
         row[2] = ucc.isGreater();
         addNewRow(row);
-
     }
 
     @Override
@@ -30,7 +33,7 @@ public class UnitCountConditionTableModel extends GameTableModel {
         Object[] row = myList.get(0);
         UnitCountCondition uc = new UnitCountCondition();
         uc.setCount((int) row[0]);
-        uc.setAffiliation((String) row[1]);
+        uc.setAffiliation((String) ((Selector) row[1]).getValue());
         uc.setGreater((boolean) row[2]);
         return uc;
     }
@@ -45,5 +48,4 @@ public class UnitCountConditionTableModel extends GameTableModel {
     public void removeRow (int index) {
         JOptionPane.showMessageDialog(null, "Click save to go back and remove win conditions.");
     }
-
 }

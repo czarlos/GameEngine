@@ -35,7 +35,7 @@ public class ModelEditor extends GameCellEditor {
             current = myModel.getObject();
             editorDialog.stopEditing();
             editorDialog.setVisible(false);
-            //stopCellEditing();
+            // stopCellEditing();
             fireEditingStopped();
         }
     }

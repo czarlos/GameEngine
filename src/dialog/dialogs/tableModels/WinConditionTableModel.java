@@ -1,7 +1,8 @@
 package dialog.dialogs.tableModels;
 
 import java.util.Arrays;
-import editor.Selector;
+import controllers.EditorData;
+import dialog.Selector;
 import stage.Condition;
 import stage.WinCondition;
 import grid.GridConstants;
@@ -10,10 +11,11 @@ import grid.GridConstants;
 @SuppressWarnings("serial")
 public class WinConditionTableModel extends GameTableModel {
 
-    public WinConditionTableModel () {
+    public WinConditionTableModel (EditorData ED) {
         String[] names = { "Condition Type", "Edit Data" };
         setColumnNames(names);
         myName = GridConstants.CONDITION;
+        myED = ED;
     }
 
     @Override
@@ -24,7 +26,6 @@ public class WinConditionTableModel extends GameTableModel {
             Object[] row = new Object[myColumnNames.length];
             row[0] = new Selector(Arrays.asList(GridConstants.CORECONDITIONS), c);
             row[1] = c;
-            System.out.println(c.getClass());
             addNewRow(row);
         }
     }
@@ -43,8 +44,6 @@ public class WinConditionTableModel extends GameTableModel {
         myList.get(row)[col] = aValue;
         if (col == 0) {
             Condition c = (Condition) ((Selector) aValue).getValue();
-            System.out.println(aValue.getClass());
-            System.out.println(c.getClass());
             myList.get(row)[1] = c;
         }
 

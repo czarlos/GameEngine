@@ -117,7 +117,7 @@ public class EditorData {
         Map<String, String> nameTranslationMap = new HashMap<>();
 
         for (Object action : newActions) {
-            if(((Action) action).getLastIndex() > -1){
+            if (((Action) action).getLastIndex() > -1) {
                 String prevName = fullList.get(((Action) action).getLastIndex());
                 if (!((Action) action).getName().equals(prevName)) {
                     nameTranslationMap.put(prevName, ((Action) action).getName());
@@ -151,7 +151,7 @@ public class EditorData {
         Map<String, String> nameTranslationMap = new HashMap<>();
 
         for (Object stat : newStats) {
-            if(((Stat) stat).getLastIndex() > -1){
+            if (((Stat) stat).getLastIndex() > -1) {
                 String prevName = fullList.get(((Stat) stat).getLastIndex());
                 if (!((Stat) stat).getName().equals(prevName)) {
                     nameTranslationMap.put(prevName, ((Stat) stat).getName());
@@ -207,7 +207,7 @@ public class EditorData {
 
         // adjusting unit affiliation strings for renamed teams
         for (Team t : list) {
-            if(t.getLastIndex() > -1){
+            if (t.getLastIndex() > -1) {
                 String prevName = fullList.get(t.getLastEditingID());
                 if (!t.getName().equals(prevName)) {
                     activeStage.setTeamName(t.getLastEditingID(), t.getName());

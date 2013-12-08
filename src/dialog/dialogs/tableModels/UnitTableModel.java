@@ -8,7 +8,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import controllers.EditorData;
-import editor.Selector;
+import dialog.Selector;
 
 
 /**

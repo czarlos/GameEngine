@@ -8,7 +8,7 @@ import javax.swing.AbstractCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
-import editor.Selector;
+import dialog.Selector;
 
 
 @SuppressWarnings("serial")

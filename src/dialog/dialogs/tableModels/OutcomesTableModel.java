@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import controllers.EditorData;
-import editor.Selector;
+import dialog.Selector;
 
 
 @SuppressWarnings("serial")
