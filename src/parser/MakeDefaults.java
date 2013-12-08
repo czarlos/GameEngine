@@ -24,13 +24,12 @@ public class MakeDefaults {
     private Item defaultItem;
     private CombatAction defaultCombatAction;
     private Stats defaultStats;
-    private String[] defaultStatArray = {"defense", "attack", "experience", "health"};
-
+    
     public MakeDefaults () {
         p = new JSONParser();
 
         defaultStats = new Stats();
-        for(String s: defaultStatArray){
+        for(String s: GridConstants.DEFAULTSTATARRAY){
             defaultStats.addStat(new Stat(s));
         }
 
@@ -183,7 +182,7 @@ public class MakeDefaults {
         Stats unitStats = new Stats(defaultStats);
         unitStats.modExisting("movement", 4);
         unitStats.modExisting("strength", 2);
-        unitStats.modExisting("health", 10);
+        unitStats.modExisting("health", 15);
         unitStats.modExisting("attack", 2);
         
         gameObject.GameUnit hero = new gameObject.GameUnit();
@@ -194,31 +193,31 @@ public class MakeDefaults {
 
         hero.setName("hero");
         hero.setImagePath("resources/hero.png");
-        hero.setStats(defaultStats);
+        hero.setStats(unitStats);
         hero.addItem(defaultItem);
         hero.setAffiliation("player");
 
         goldensun.setName("Golden Sun");
         goldensun.setImagePath("resources/goldensun.png");
-        goldensun.setStats(defaultStats);
+        goldensun.setStats(unitStats);
         goldensun.addItem(defaultItem);
         goldensun.setAffiliation("player");
 
         enemy.setName("Enemy");
         enemy.setImagePath("resources/enemy.png");
-        enemy.setStats(defaultStats);
+        enemy.setStats(unitStats);
         enemy.addItem(defaultItem);
         enemy.setAffiliation("enemy");
 
         charizard.setName("Dragon");
         charizard.setImagePath("resources/charizard.png");
-        charizard.setStats(defaultStats);
+        charizard.setStats(unitStats);
         charizard.addItem(defaultItem);
         charizard.setAffiliation("enemy");
 
         roy.setName("Roy");
         roy.setImagePath("resources/roy.png");
-        roy.setStats(defaultStats);
+        roy.setStats(unitStats);
         roy.addItem(defaultItem);
         roy.setAffiliation("enemy");
 
@@ -279,7 +278,7 @@ public class MakeDefaults {
     
     public void makeStats () {
         List<Stat> list = new ArrayList<Stat>();
-        for(String s: defaultStatArray){
+        for(String s: GridConstants.DEFAULTSTATARRAY){
             list.add(new Stat(s));
         }
 

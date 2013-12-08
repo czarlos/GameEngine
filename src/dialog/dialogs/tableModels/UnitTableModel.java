@@ -1,6 +1,7 @@
 package dialog.dialogs.tableModels;
 
 import gameObject.GameUnit;
+import gameObject.Stat;
 import gameObject.Stats;
 import grid.GridConstants;
 import java.io.File;
@@ -36,6 +37,14 @@ public class UnitTableModel extends GameTableModel {
         ret[0] = "New Unit";
         ret[1] = new File("resources/grass.png");
         ret[2] = new Selector(myED.getNames(GridConstants.TEAM), defaultAffiliation);
+        Stats stats = new Stats();
+        for(String s: GridConstants.DEFAULTSTATARRAY){
+            stats.addStat(new Stat(s));
+        }
+        stats.modExisting("movement", 4);
+        stats.modExisting("attack", 2);
+        stats.modExisting("defense", 2);
+        stats.modExisting("health", 15);
         ret[3] = new Stats();
         return ret;
     }
