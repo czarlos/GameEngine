@@ -25,17 +25,18 @@ import stage.StatCondition;
 import stage.TurnCondition;
 import stage.UnitCountCondition;
 import stage.WinCondition;
-import dialog.dialogs.tableModels.ComboString;
+import dialog.dialogs.tableModels.Selector;
 import dialog.dialogs.tableModels.EnumTableModel;
 import dialog.dialogs.tableModels.GameTableModel;
 import dialog.dialogs.tableModels.MapTableModel;
 import dialog.dialogs.tableModels.OutcomesTableModel;
 import dialog.dialogs.tableModels.StatsTableModel;
 import dialog.dialogs.tableModels.WinConditionTableModel;
+import dialog.editors.ComboBoxEditor;
 import dialog.editors.ImagePathEditor;
 import dialog.editors.IntegerEditor;
 import dialog.editors.ModelEditor;
-import dialog.renderers.ComboStringRenderer;
+import dialog.renderers.SelectorRenderer;
 import dialog.renderers.ImageRenderer;
 
 
@@ -127,11 +128,11 @@ public class TableDialog extends JDialog {
         table.setDefaultEditor(ArrayList.class,
                                new ModelEditor(new EnumTableModel(myWM.getDialogList(myModel
                                        .getName()))));
-        table.setDefaultEditor(ComboString.class, new ComboBoxEditor());
-        table.setDefaultRenderer(ComboString.class, new ComboStringRenderer());
+        table.setDefaultEditor(Selector.class, new ComboBoxEditor());
+        table.setDefaultRenderer(Selector.class, new SelectorRenderer());
 
         table.setDefaultEditor(Integer.class, new IntegerEditor(-25, 50));
-        table.setDefaultEditor(Outcomes.class, new ModelEditor(new OutcomesTableModel(myWM)));
+        table.setDefaultEditor(Outcomes.class, new ModelEditor(new OutcomesTableModel(myModel.getED())));
     }
 
     /**
