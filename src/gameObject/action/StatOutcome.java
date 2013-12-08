@@ -12,7 +12,8 @@ import grid.GridConstants;
 public class StatOutcome extends Outcome {
     @JsonProperty
     private String myStatName;
-
+    private Stat myStat;
+    
     public StatOutcome () {
         myType = GridConstants.MASTERSTATS;
     }
@@ -46,18 +47,13 @@ public class StatOutcome extends Outcome {
 
     @JsonIgnore
     public Object getAffectee () {
-        return myStatName;
+        return myStat;
     }
 
     @JsonIgnore
     public void setAffectee (Object object) {
-        // TODO: fix this
-        if (object instanceof Stat) {
-            myStatName = ((Stat) object).getName();
-        }
-        else {
-            myStatName = (String) object;
-        }
+        myStat = (Stat) object;
+        myStatName = myStat.getName();
     }
 
     public String toString () {

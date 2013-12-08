@@ -16,22 +16,47 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 @JsonAutoDetect
 public class PositionCondition extends Condition {
 
+    private int myX;
+    private int myY;
+    private String myAffiliation;
+
     public PositionCondition () {
-        super();
-        myData.put("x", "5");
-        myData.put("y", "1");
-        myData.put("team name", "player");
+        myX = 5;
+        myY = 1;
+        myAffiliation = "player";
+    }
+
+    public void setX (int x) {
+        myX = x;
+    }
+
+    public void setY (int y) {
+        myY = y;
+    }
+
+    public void setAffiliation (String affiliation) {
+        myAffiliation = affiliation;
+    }
+
+    public int getX () {
+        return myX;
+    }
+
+    public int getY () {
+        return myY;
+    }
+
+    public String getAffiliation () {
+        return myAffiliation;
     }
 
     @Override
     boolean isFulfilled (Stage stage) {
         GameUnit object =
                 (GameUnit) stage.getGrid().getObject(GridConstants.GAMEUNIT,
-                                                     new Coordinate(Integer.parseInt(myData
-                                                             .get("x")), Integer.parseInt(myData
-                                                             .get("y"))));
+                                                     new Coordinate(myX, myY));
 
-        if (object != null) { return object.getAffiliation().equals(myData.get("team name")); }
+        if (object != null) { return object.getAffiliation().equals(myAffiliation); }
 
         return false;
     }

@@ -1,5 +1,11 @@
 package grid;
 
+import stage.Condition;
+import stage.ItemCondition;
+import stage.PositionCondition;
+import stage.StatCondition;
+import stage.TurnCondition;
+import stage.UnitCountCondition;
 import gameObject.action.Action;
 import gameObject.action.ChestAction;
 import gameObject.action.ItemOutcome;
@@ -45,6 +51,11 @@ public class GridConstants {
                                                 new ShopAction() };
     public static final Outcome[] COREOUTCOMES = { new StatOutcome(), new ItemOutcome() };
 
-    public static final String[] DEFAULTSTATARRAY = { "defense", "attack", "movement", "health", "max health" };
+    public static final String[] DEFAULTSTATARRAY = { "defense", "attack", "movement", "health",
+                                                     "max health" };
 
+    public static final Condition[] CORECONDITIONS = { new PositionCondition(),
+                                                      new ItemCondition(),
+                                                      new StatCondition(), new TurnCondition(),
+                                                      new UnitCountCondition() };
 }

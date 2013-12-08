@@ -5,6 +5,7 @@ import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import editor.Selector;
 
 
 @SuppressWarnings("serial")
@@ -21,7 +22,7 @@ public class SelectorRenderer extends DefaultTableCellRenderer {
                                                              isSelected, hasFocus, row, column);
 
         if (value != null)
-            ((JLabel) cell).setText(value.toString());
+            ((JLabel) cell).setText(((Selector) value).getValue().toString());
         ((JLabel) cell).setHorizontalAlignment(JLabel.CENTER);
 
         if (isSelected)

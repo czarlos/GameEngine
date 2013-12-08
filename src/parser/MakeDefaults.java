@@ -258,8 +258,8 @@ public class MakeDefaults {
         enemyTeam.setIsHuman(false);
 
         WinCondition wcEnemy = new WinCondition();
-        Condition c = new UnitCountCondition();
-        c.addData("affiliation", "player");
+        UnitCountCondition c = new UnitCountCondition();
+        c.setAffiliation("player");
         wcEnemy.addCondition(c);
 
         enemyTeam.setWinCondition(wcEnemy);

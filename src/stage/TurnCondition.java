@@ -7,10 +7,18 @@ package stage;
  * 
  */
 public class TurnCondition extends Condition {
+    private int myCount;
 
     public TurnCondition () {
-        super();
-        myData.put("count", "5");
+        myCount = 5;
+    }
+
+    public void setCount (int count) {
+        myCount = count;
+    }
+
+    public int getCount () {
+        return myCount;
     }
 
     @Override

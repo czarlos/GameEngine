@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 public class ModelEditor extends GameCellEditor {
 
     private GameTableModel myModel;
-    private TableDialog statsEditor;
+    private TableDialog editorDialog;
     private WorldManager myWM;
 
     public ModelEditor (GameTableModel gtm) {
@@ -28,13 +28,14 @@ public class ModelEditor extends GameCellEditor {
     public void actionPerformed (ActionEvent e) {
 
         if (EDIT.equals(e.getActionCommand())) {
-            statsEditor = new TableDialog(myModel, this, myWM);
-            statsEditor.setVisible(true);
+            editorDialog = new TableDialog(myModel, this, myWM);
+            editorDialog.setVisible(true);
         }
         else {
             current = myModel.getObject();
-            statsEditor.setVisible(false);
-            stopCellEditing();
+            editorDialog.stopEditing();
+            editorDialog.setVisible(false);
+            //stopCellEditing();
             fireEditingStopped();
         }
     }
