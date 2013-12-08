@@ -101,6 +101,15 @@ public class EditorData {
     }
 
     @SuppressWarnings("unchecked")
+    public Customizable getObject (String type, String name) {
+        for(Customizable c : (List<Customizable>) myDataMap.get(type)){
+            if(c.getName().equals(name))
+                return c;
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
     public void setData (GameTableModel gtm, Stage activeStage) {
         switch (gtm.getName()) {
             case GridConstants.ACTION:
