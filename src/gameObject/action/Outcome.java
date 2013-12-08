@@ -9,14 +9,10 @@ import gameObject.GameUnit;
 public abstract class Outcome {
     protected int myAmount;
     protected boolean isFixed;
+    protected String myType;
 
     public Outcome () {
 
-    }
-
-    public Outcome (int amount, boolean fixed) {
-        myAmount = amount;
-        isFixed = fixed;
     }
 
     /**
@@ -57,4 +53,13 @@ public abstract class Outcome {
     public void setIsFixed (boolean fixed) {
         isFixed = fixed;
     }
+
+    public String getType () {
+        return myType;
+    }
+
+    public abstract Object getAffectee ();
+
+    public abstract void setAffectee (Object o);
+
 }

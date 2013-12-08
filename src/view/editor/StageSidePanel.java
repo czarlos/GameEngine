@@ -22,6 +22,7 @@ public class StageSidePanel extends JPanel {
         setPreferredSize(new Dimension(300,500));
         myWorldManager = wm;
         
+
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         initSubPanels();

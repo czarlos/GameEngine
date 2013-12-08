@@ -2,18 +2,20 @@ package dialog.dialogs.tableModels;
 
 import java.util.HashMap;
 import java.util.Map;
+import controllers.EditorData;
 
 
 @SuppressWarnings("serial")
-public class MapTableModel extends GameTableModel {
+public class ItemsTableModel extends GameTableModel {
 
     /**
      * Column names: Key, Value
      */
-    public MapTableModel () {
-        String[] names = { "Key", "Value" };
+    public ItemsTableModel (EditorData ed) {
+        String[] names = { "Item", "Amount" };
         setColumnNames(names);
-        myName = "Map";
+        myName = "Item";
+        myED = ed;
     }
 
     @Override
@@ -37,7 +39,14 @@ public class MapTableModel extends GameTableModel {
     public Object getObject () {
         Map myMap = new HashMap<String, Integer>();
         for (Object[] row : myList) {
-            myMap.put(row[0], row[1]);
+            if (myMap.containsKey(row[0])) {
+                myMap.put(row[0], row[1]);
+ //               myMap.put(row[0], myMap.get(row[0]) + row[1]);
+            }
+            else {
+                myMap.put(row[0], row[1]);
+            }
+
         }
 
         return myMap;

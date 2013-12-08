@@ -7,17 +7,17 @@ import view.Customizable;
 public class Stat extends Customizable {
     private int myValue;
 
-    public Stat() {
+    public Stat () {
     }
-    
-    public Stat (String name){
+
+    public Stat (String name) {
         myValue = 0;
         myName = name;
         myImagePath = "resources/grass.png";
         myImage = ImageManager.getImage(myImagePath);
-        
+
     }
-    
+
     @Deprecated
     public Stat (int value) {
         myValue = value;

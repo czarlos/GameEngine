@@ -14,7 +14,7 @@ import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import dialog.dialogs.tableModels.GameTableModel;
-import dialog.dialogs.tableModels.MapTableModel;
+import dialog.dialogs.tableModels.ItemsTableModel;
 
 
 /**
@@ -62,16 +62,26 @@ public class WorldManager extends Manager {
      */
     @JsonIgnore
     public GameTableModel getItemTableModel (Coordinate coordinate) {
-        GameTableModel gtm = new MapTableModel();
+        GameTableModel gtm = new ItemsTableModel(myEditorData);
 
         GameObject go = myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, coordinate);
 
         if (go != null && go instanceof InventoryObject) {
             Map<String, Integer> items = ((InventoryObject) go).getItemAmounts();
             gtm.loadObject(items);
+            return gtm;
         }
 
-        return gtm;
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public void setItemTableModel (GameTableModel gtm, Coordinate coordinate) {
+        InventoryObject io =
+                (InventoryObject) myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT,
+                                                                    coordinate);
+        io.setItemAmounts((Map<String, Integer>) gtm.getObject());
     }
 
     @JsonIgnore
@@ -133,7 +143,7 @@ public class WorldManager extends Manager {
 
     public void displayRange (Coordinate coordinate) {
         myActiveStage.getGrid().beginMove(coordinate);
-       
+
     }
 
     public void removeRange () {

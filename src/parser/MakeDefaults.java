@@ -24,13 +24,12 @@ public class MakeDefaults {
     private Item defaultItem;
     private CombatAction defaultCombatAction;
     private Stats defaultStats;
-    private String[] defaultStatArray = {"defense", "attack", "experience", "max health", "health"};
 
     public MakeDefaults () {
         p = new JSONParser();
 
         defaultStats = new Stats();
-        for(String s: defaultStatArray){
+        for (String s : GridConstants.DEFAULTSTATARRAY) {
             defaultStats.addStat(new Stat(s));
         }
 
@@ -39,7 +38,10 @@ public class MakeDefaults {
         defaultCombatAction.setImagePath("resources/weapon.png");
         defaultCombatAction.setActionRange(1);
         defaultCombatAction.setInitiatorOutcomes(new Outcomes());
-        Outcome r1 = new StatOutcome("health", -10, true);
+        Outcome r1 = new StatOutcome();
+        r1.setAffectee(new Stat("health"));
+        r1.setAmount(-10);
+        r1.setIsFixed(true);
         Outcomes recvOutcomes = new Outcomes();
         recvOutcomes.addOutcome(r1);
         defaultCombatAction.setReceiverOutcomes(recvOutcomes);
@@ -58,7 +60,6 @@ public class MakeDefaults {
     public void makeTiles () throws Exception {
         java.util.ArrayList<grid.Tile> list = new java.util.ArrayList<>();
         List<String> passableList = new ArrayList<>();
-        defaultStats = new Stats();
 
         passableList.add(GridConstants.DEFAULT_PASS_EVERYTHING);
 
@@ -125,6 +126,13 @@ public class MakeDefaults {
         Brush.setActive(false);
         Brush.setMoveCost(1);
 
+        grid.Tile Dirt = new grid.Tile();
+        Dirt.setName("Dirt");
+        Dirt.setImagePath("resources/dirt.png");
+        Dirt.setStats(defaultStats);
+        Dirt.setActive(false);
+        Dirt.setMoveCost(1);
+
         list.add(Grass);
         list.add(Grass1);
         list.add(Brush);
@@ -134,6 +142,7 @@ public class MakeDefaults {
         list.add(Rock);
         list.add(Stone);
         list.add(Sand);
+        list.add(Dirt);
 
         p.createJSON("defaults/" + GridConstants.TILE, list);
     }
@@ -142,25 +151,25 @@ public class MakeDefaults {
         java.util.ArrayList<gameObject.GameObject> list =
                 new java.util.ArrayList<gameObject.GameObject>();
 
-        gameObject.GameObject tree = new gameObject.GameObject();
-        tree.setName("Tree");
-        tree.setImagePath("resources/tree.png");
-
         gameObject.Chest chest = new gameObject.Chest();
         chest.setName("Chest");
-        chest.setImagePath("resources/chest.png");   
-        
+        chest.setImagePath("resources/chest.png");
+
         gameObject.Shop shop = new gameObject.Shop();
         shop.setName("Shop");
         shop.setImagePath("resources/shop.png");
 
+        gameObject.GameObject tree = new gameObject.GameObject();
+        tree.setName("Tree");
+        tree.setImagePath("resources/tree.png");
+        
         gameObject.GameObject stone = new gameObject.GameObject();
         stone.setName("Stone");
         stone.setImagePath("resources/stone1.png");
 
-        list.add(tree);
         list.add(chest);
         list.add(shop);
+        list.add(tree);
         list.add(stone);
 
         p.createJSON("defaults/" + GridConstants.GAMEOBJECT, list);
@@ -170,6 +179,13 @@ public class MakeDefaults {
         java.util.ArrayList<gameObject.GameUnit> list =
                 new java.util.ArrayList<gameObject.GameUnit>();
 
+        Stats unitStats = new Stats(defaultStats);
+        unitStats.modExisting("movement", 4);
+        unitStats.modExisting("strength", 2);
+        unitStats.modExisting("health", 15);
+        unitStats.modExisting("attack", 2);
+        unitStats.modExisting("max health", 15);
+
         gameObject.GameUnit hero = new gameObject.GameUnit();
         gameObject.GameUnit goldensun = new gameObject.GameUnit();
         gameObject.GameUnit enemy = new gameObject.GameUnit();
@@ -178,31 +194,31 @@ public class MakeDefaults {
 
         hero.setName("hero");
         hero.setImagePath("resources/hero.png");
-        hero.setStats(defaultStats);
+        hero.setStats(unitStats);
         hero.addItem(defaultItem);
         hero.setAffiliation("player");
 
         goldensun.setName("Golden Sun");
         goldensun.setImagePath("resources/goldensun.png");
-        goldensun.setStats(defaultStats);
+        goldensun.setStats(unitStats);
         goldensun.addItem(defaultItem);
         goldensun.setAffiliation("player");
 
         enemy.setName("Enemy");
         enemy.setImagePath("resources/enemy.png");
-        enemy.setStats(defaultStats);
+        enemy.setStats(unitStats);
         enemy.addItem(defaultItem);
         enemy.setAffiliation("enemy");
 
         charizard.setName("Dragon");
         charizard.setImagePath("resources/charizard.png");
-        charizard.setStats(defaultStats);
+        charizard.setStats(unitStats);
         charizard.addItem(defaultItem);
         charizard.setAffiliation("enemy");
 
         roy.setName("Roy");
         roy.setImagePath("resources/roy.png");
-        roy.setStats(defaultStats);
+        roy.setStats(unitStats);
         roy.addItem(defaultItem);
         roy.setAffiliation("enemy");
 
@@ -260,29 +276,27 @@ public class MakeDefaults {
 
         p.createJSON("defaults/" + GridConstants.ACTION, list);
     }
-    
+
     public void makeStats () {
         List<Stat> list = new ArrayList<Stat>();
-        for(String s: defaultStatArray){
+        for (String s : GridConstants.DEFAULTSTATARRAY) {
             list.add(new Stat(s));
         }
 
         p.createJSON("defaults/" + GridConstants.MASTERSTATS, list);
     }
-    
+
     public void makeItems () {
         List<Item> list = new ArrayList<Item>();
 
         Item milk = new Item();
         milk.setName("Milk");
         milk.setImagePath("resources/milk.png");
-        milk.setStats(defaultStats);
-
+        
         Item potion = new Item();
         potion.setName("Potion");
         potion.setImagePath("resources/potion.png");
-        potion.setStats(defaultStats);
-
+        
         Item armor = new Item();
         armor.setName("Armor");
         armor.setImagePath("resources/armor.png");
@@ -290,6 +304,7 @@ public class MakeDefaults {
         Item weapon = new Item();
         weapon.setName("Weapon");
         weapon.setImagePath("resources/weapon.png");
+        weapon.addAction(defaultCombatAction.getName());
 
         Item helmet = new Item();
         helmet.setName("Helmet");

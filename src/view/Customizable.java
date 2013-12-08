@@ -48,4 +48,8 @@ public abstract class Customizable {
     public BufferedImage getImage () {
         return myImage;
     }
+
+    public String toString () {
+        return myName;
+    }
 }

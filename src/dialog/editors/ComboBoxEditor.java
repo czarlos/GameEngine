@@ -1,19 +1,27 @@
-package dialog.dialogs;
+package dialog.editors;
 
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.MouseEvent;
+import java.util.EventObject;
+import java.util.List;
 import javax.swing.AbstractCellEditor;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
-import dialog.dialogs.tableModels.ComboString;
+import dialog.dialogs.tableModels.Selector;
 
 
 @SuppressWarnings("serial")
 public class ComboBoxEditor extends AbstractCellEditor implements TableCellEditor {
 
-    JComboBox<ComboString> myComboBox;
+    JComboBox<Selector> myComboBox;
 
     public ComboBoxEditor () {
+
     }
 
     @Override
@@ -27,12 +35,20 @@ public class ComboBoxEditor extends AbstractCellEditor implements TableCellEdito
                                                   boolean isSelected,
                                                   int row,
                                                   int column) {
-        JComboBox<ComboString> comboBox = new JComboBox<ComboString>();
-        for (String s : ((ComboString) value).getValues()) {
-            ComboString newCS = new ComboString(((ComboString) value).getValues(), s);
+        JComboBox<Selector> comboBox = new JComboBox<Selector>();
+        List<?> list = ((Selector) value).getValues();
+        for (Object o : list) {
+            Selector newCS = new Selector(((Selector) value).getValues(), o);
             comboBox.addItem(newCS);
         }
+
         myComboBox = comboBox;
+        myComboBox.addActionListener(new ActionListener() {
+            public void actionPerformed (ActionEvent event) {
+                stopCellEditing();
+                fireEditingStopped();
+            }
+        });
 
         return myComboBox;
     }

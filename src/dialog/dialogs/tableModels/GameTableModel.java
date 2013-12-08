@@ -3,7 +3,7 @@ package dialog.dialogs.tableModels;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import controllers.WorldManager;
+import controllers.EditorData;
 
 
 /**
@@ -16,6 +16,7 @@ import controllers.WorldManager;
 public abstract class GameTableModel extends AbstractTableModel {
 
     protected String myName;
+    protected EditorData myED;
 
     protected final List<Object[]> myList = new ArrayList<Object[]>();
     protected String[] myColumnNames;
@@ -66,6 +67,10 @@ public abstract class GameTableModel extends AbstractTableModel {
 
     public String getName () {
         return myName;
+    }
+
+    public EditorData getED () {
+        return myED;
     }
 
     @Override
