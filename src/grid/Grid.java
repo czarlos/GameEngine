@@ -179,14 +179,14 @@ public class Grid implements Drawable {
     /**
      * Gets a list of valid actions that the unit can perform on the objects around him
      * 
-     * @param coordinate Coordinate where the unit is
+     * @param unitCoordinate Coordinate where the unit is
      * @return List of Strings of actions
      */
-    public List<String> getAllInteractions (Coordinate coordinate) {
-        List<Coordinate> adjacentCoordinates = getAdjacentCoordinates(coordinate);
+    public List<String> getAllInteractions (Coordinate unitCoordinate) {
+        List<Coordinate> adjacentCoordinates = getAdjacentCoordinates(unitCoordinate);
         List<String> allInteractions = new ArrayList<>();
         for (Coordinate adjacentCoordinate : adjacentCoordinates) {
-            List<String> interactions = getInteractions(adjacentCoordinate);
+            List<String> interactions = getInteractions(unitCoordinate, adjacentCoordinate);
             if (interactions != null) {
                 allInteractions.addAll(interactions);
             }
@@ -197,14 +197,23 @@ public class Grid implements Drawable {
     /**
      * Gets an interaction if one exists at the given coordinate
      * 
-     * @param coordinate Coordinate of the location being searched
+     * @param actionCoordinate Coordinate of the location being searched
      * @return Action that can be performed
      */
-    private List<String> getInteractions (Coordinate coordinate) {
-        if (onGrid(coordinate)) {
-            if (getObject(GridConstants.GAMEOBJECT, coordinate) != null) { return ((GameObject) myArrays
-                    .get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()])
-                    .getInteractions(); }
+    private List<String> getInteractions (Coordinate unitCoordinate, Coordinate actionCoordinate) {
+        if (onGrid(actionCoordinate)) {
+            GameUnit initiator = (GameUnit) getObject(GridConstants.GAMEOBJECT, unitCoordinate);
+            GameObject receiver = getObject(GridConstants.GAMEOBJECT, actionCoordinate);
+            if (receiver != null) {
+                if (receiver instanceof GameUnit) {
+                    if (initiator.getAffiliation().equals(((GameUnit) receiver).getAffiliation())) {
+                        return receiver.getInteractions();
+                    }
+                }
+                else {
+                    return receiver.getInteractions();
+                }
+            }
         }
         return null;
     }
