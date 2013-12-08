@@ -69,23 +69,34 @@ public class WorldManager extends Manager {
         if (go != null && go instanceof InventoryObject) {
             Map<String, Integer> items = ((InventoryObject) go).getItemAmounts();
             gtm.loadObject(items);
+            return gtm;
         }
 
-        return gtm;
+        return null;
     }
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
     public void setItemTableModel (GameTableModel gtm, Coordinate coordinate) {
-        InventoryObject io = (InventoryObject) myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, coordinate);
+        InventoryObject io =
+                (InventoryObject) myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT,
+                                                                    coordinate);
         io.setItemAmounts((Map<String, Integer>) gtm.getObject());
     }
 
+    public void saveEditorData (String name){
+        myEditorData.saveData(name);
+    }
+    
+    public void loadEditorData (String name) {
+        myEditorData.loadData(name);
+    }
+    
     @JsonIgnore
     public String getActiveType () {
         return activeEditTypeList.get(myStages.indexOf(myActiveStage));
     }
-    
+
     @JsonIgnore
     public int getActiveID () {
         return activeEditIDList.get(myStages.indexOf(myActiveStage));
@@ -140,7 +151,7 @@ public class WorldManager extends Manager {
 
     public void displayRange (Coordinate coordinate) {
         myActiveStage.getGrid().beginMove(coordinate);
-       
+
     }
 
     public void removeRange () {
@@ -186,27 +197,5 @@ public class WorldManager extends Manager {
 
         return myList.get(ID).getImage();
     }
-
-    // TODO: get rid of this
-    public List<String> getDialogList (String myType) {
-        List<String> ret = new ArrayList<String>();
-        switch (myType) {
-            case GridConstants.GAMEUNIT:
-                ret.addAll(myEditorData.getNames(GridConstants.TEAM));
-                break;
-            case GridConstants.GAMEOBJECT:
-                ret.add(GridConstants.DEFAULT_PASS_EVERYTHING);
-                ret.addAll(myEditorData.getNames(GridConstants.GAMEUNIT));
-                break;
-            case GridConstants.ITEM:
-                ret.addAll(myEditorData.getNames(GridConstants.ACTION));
-                break;
-            case GridConstants.ACTION:
-                ret.addAll(myEditorData.getNames(GridConstants.MASTERSTATS));
-                ret.addAll(myEditorData.getNames(GridConstants.ITEM));
-            default:
-                break;
-        }
-        return ret;
-    }
+    
 }

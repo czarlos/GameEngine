@@ -1,7 +1,6 @@
 package gameObject;
 
 import game.ImageManager;
-import gameObject.item.Item;
 import grid.GridConstants;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import view.Drawable;
 
 
 /**
- * GameObject class. Stuff like trees.
+ * GameObject class. Anything that can be placed on the Grid, including Tiles, Units, Trees come from here.
  * 
  * @author Kevin, Ken
  * 
@@ -28,6 +27,10 @@ public class GameObject extends Customizable implements Drawable {
         myPassableList = new ArrayList<String>();
     }
 
+    /**
+     * Sets the object's isActive, and updates the object's image to reflect its status
+     * @param active boolean to set isActive
+     */
     public void setActive (boolean active) {
         isActive = active;
         myImage = active ? ImageManager.getHightlightedTileImage(myImagePath)
@@ -47,11 +50,10 @@ public class GameObject extends Customizable implements Drawable {
     }
 
     /**
-     * Checks if a unit can pass through the object
+     * Checks if a unit can pass through the object. Returns true if the GameUnit is in the passableList.
      * 
-     * @param unit
-     *        - GameUnit that is moving
-     * @return - boolean of if unit can pass through
+     * @param unit GameUnit that is moving
+     * @return boolean of if unit can pass through
      */
 
     public boolean isPassable (GameUnit unit) {
@@ -81,7 +83,7 @@ public class GameObject extends Customizable implements Drawable {
      */
     public List<String> generateDisplayData () {
         List<String> displayData = new ArrayList<>();
-        displayData.add("<html><b>Name:</b> " + myName+"</htmL>");
+        displayData.add("<b>Name:</b> " + myName);
         setDisplayData(displayData);
         return displayData;
     }

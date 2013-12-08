@@ -1,7 +1,9 @@
-package dialog.dialogs.tableModels;
+package dialog;
 
 import java.util.ArrayList;
 import java.util.List;
+import controllers.EditorData;
+import dialog.dialogs.tableModels.GameTableModel;
 
 
 /**
@@ -14,13 +16,15 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class EnumTableModel extends GameTableModel {
 
-    List<String> myComboList;
-
-    public EnumTableModel (List<String> list) {
+    private List<String> myComboList;
+    private EditorData ED;
+    
+    public EnumTableModel (List<String> list, EditorData ED) {
         String[] names = { "" };
         myName = "List";
         setColumnNames(names);
         myComboList = list;
+        myED = ED;
     }
 
     @Override

@@ -8,12 +8,12 @@ import javax.swing.JOptionPane;
 
 
 @SuppressWarnings("serial")
-public class StatsTableModel extends GameTableModel {
+public class StatTableModel extends GameTableModel {
 
     /**
      * Column names: Stat, Value
      */
-    public StatsTableModel () {
+    public StatTableModel () {
         super();
         String[] names = { "Stat", "Value" };
         setColumnNames(names);
@@ -36,7 +36,8 @@ public class StatsTableModel extends GameTableModel {
             addNewRow(row);
         }
     }
-
+    
+    @Override
     public Object getObject () {
         Stats ret = new Stats();
         for (Object[] row : myList) {
@@ -50,13 +51,13 @@ public class StatsTableModel extends GameTableModel {
     @Override
     public Object[] getNew () {
         JOptionPane.showMessageDialog(null,
-                "Use Master Stats Editor to add a new stat for all objects.");
+                                      "Use Master Stats Editor to add a new stat for all objects.");
         return null;
     }
 
     @Override
     public void removeRow (int index) {
         JOptionPane.showMessageDialog(null,
-                "Use Master Stats Editor to remove a stat from all objects.");
+                                      "Use Master Stats Editor to remove a stat from all objects.");
     }
 }

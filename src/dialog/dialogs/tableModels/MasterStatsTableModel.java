@@ -14,28 +14,34 @@ public class MasterStatsTableModel extends GameTableModel {
      * Column names: Stat
      */
 
-    public MasterStatsTableModel (EditorData myED) {
+    public MasterStatsTableModel (EditorData ED) {
         super();
         String[] names = { "Stat" };
         setColumnNames(names);
         myName = GridConstants.MASTERSTATS;
+        myED = ED;
     }
 
     @SuppressWarnings({ "unchecked" })
     public void loadObject (Object object) {
         List<Stat> list = (List<Stat>) object;
         myList.clear();
-        for(Stat s: list){
-            Object[] row = new Object[myColumnNames.length];
+        for(int i = 0; i < list.size(); i++){
+            Stat s = list.get(i);
+            Object[] row = new Object[myColumnNames.length + 1];
             row[0] = s.getName();
+            row[1] = i;
             addNewRow(row);
         }
     }
-
+    
+    @Override
     public Object getObject () {
         List<Stat> ret = new ArrayList<Stat>();
         for (Object[] row : myList) {
-            ret.add(new Stat((String) row[0]));
+            Stat s = new Stat((String) row[0]);
+            s.setLastIndex((int) row[1]);
+            ret.add(s);
         }
 
         return ret;
@@ -43,8 +49,9 @@ public class MasterStatsTableModel extends GameTableModel {
 
     @Override
     public Object[] getNew () {
-        Object[] array = new Object[myColumnNames.length];
+        Object[] array = new Object[myColumnNames.length + 1];
         array[0] = "Stat Name";
+        array[1] = -1;
         return array;
     }
 }

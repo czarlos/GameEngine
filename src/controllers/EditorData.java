@@ -50,6 +50,17 @@ public class EditorData {
         loadObjects(folderName);
     }
 
+    public void saveData (String name) {
+        myParser.createJSON("userLibraries/" + name, myDataMap);
+    }
+
+    @SuppressWarnings("unchecked")
+    public void loadData (String name) {
+        myDataMap =
+                myParser.createObject("userLibraries/" + name,
+                                      new HashMap<String, List<?>>().getClass());
+    }
+
     /**
      * Load in the objects (eventually JTable data) from the JSONs
      * 
@@ -117,11 +128,13 @@ public class EditorData {
         Map<String, String> nameTranslationMap = new HashMap<>();
 
         for (Object action : newActions) {
-            String prevName = fullList.get(((Action) action).getLastIndex());
-            if (!((Action) action).getName().equals(prevName)) {
-                nameTranslationMap.put(prevName, ((Action) action).getName());
+            if (((Action) action).getLastIndex() > -1) {
+                String prevName = fullList.get(((Action) action).getLastIndex());
+                if (!((Action) action).getName().equals(prevName)) {
+                    nameTranslationMap.put(prevName, ((Action) action).getName());
+                }
+                removedNames.remove(prevName);
             }
-            removedNames.remove(prevName);
         }
 
         for (GameUnit unit : editorUnitList) {
@@ -149,11 +162,13 @@ public class EditorData {
         Map<String, String> nameTranslationMap = new HashMap<>();
 
         for (Object stat : newStats) {
-            String prevName = fullList.get(((Stat) stat).getLastIndex());
-            if (!((Stat) stat).getName().equals(prevName)) {
-                nameTranslationMap.put(prevName, ((Stat) stat).getName());
+            if (((Stat) stat).getLastIndex() > -1) {
+                String prevName = fullList.get(((Stat) stat).getLastIndex());
+                if (!((Stat) stat).getName().equals(prevName)) {
+                    nameTranslationMap.put(prevName, ((Stat) stat).getName());
+                }
+                removedNames.remove(prevName);
             }
-            removedNames.remove(prevName);
         }
 
         for (GameUnit unit : editorUnitList) {
@@ -194,8 +209,8 @@ public class EditorData {
 
         return ret;
     }
-    
- // different because team data is in stage
+
+    // different because team data is in stage
     public void syncTeams (List<Team> newList, Stage activeStage) {
         List<Team> list = newList;
         List<String> names = getNames(GridConstants.TEAM); // edited list
@@ -203,11 +218,13 @@ public class EditorData {
 
         // adjusting unit affiliation strings for renamed teams
         for (Team t : list) {
-            String prevName = fullList.get(t.getLastEditingID());
-            if (!t.getName().equals(prevName)) {
-                activeStage.setTeamName(t.getLastEditingID(), t.getName());
+            if (t.getLastIndex() > -1) {
+                String prevName = fullList.get(t.getLastEditingID());
+                if (!t.getName().equals(prevName)) {
+                    activeStage.setTeamName(t.getLastEditingID(), t.getName());
+                }
+                names.remove(prevName);
             }
-            names.remove(prevName);
         }
 
         // units on deleted teams get their affiliation set to the first team.
@@ -224,5 +241,19 @@ public class EditorData {
         GameTableModel gtm = myTableFactory.makeTableModel(type);
         gtm.loadObject(myDataMap.get(type));
         myDataMap.put(type, (List<?>) gtm.getObject());
+    }
+
+    public List<String> getDialogList (String myType) {
+        List<String> ret = new ArrayList<String>();
+        switch (myType) {
+            case GridConstants.GAMEOBJECT:
+                ret.add(GridConstants.DEFAULT_PASS_EVERYTHING);
+                ret.addAll(getNames(GridConstants.GAMEUNIT));
+                break;
+            case GridConstants.ITEM:
+                ret.addAll(getNames(GridConstants.ACTION));
+                break;
+        }
+        return ret;
     }
 }

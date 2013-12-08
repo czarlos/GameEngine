@@ -10,9 +10,10 @@ import gameObject.action.StatOutcome;
 import gameObject.item.Item;
 import grid.GridConstants;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import controllers.WorldManager;
-import stage.Condition;
 import stage.UnitCountCondition;
 import stage.WinCondition;
 import team.Team;
@@ -24,12 +25,12 @@ public class MakeDefaults {
     private Item defaultItem;
     private CombatAction defaultCombatAction;
     private Stats defaultStats;
-    
+
     public MakeDefaults () {
         p = new JSONParser();
 
         defaultStats = new Stats();
-        for(String s: GridConstants.DEFAULTSTATARRAY){
+        for (String s : GridConstants.DEFAULTSTATARRAY) {
             defaultStats.addStat(new Stat(s));
         }
 
@@ -125,7 +126,7 @@ public class MakeDefaults {
         Brush.setStats(defaultStats);
         Brush.setActive(false);
         Brush.setMoveCost(1);
-        
+
         grid.Tile Dirt = new grid.Tile();
         Dirt.setName("Dirt");
         Dirt.setImagePath("resources/dirt.png");
@@ -151,25 +152,25 @@ public class MakeDefaults {
         java.util.ArrayList<gameObject.GameObject> list =
                 new java.util.ArrayList<gameObject.GameObject>();
 
-        gameObject.GameObject tree = new gameObject.GameObject();
-        tree.setName("Tree");
-        tree.setImagePath("resources/tree.png");
-
         gameObject.Chest chest = new gameObject.Chest();
         chest.setName("Chest");
-        chest.setImagePath("resources/chest.png");   
-        
+        chest.setImagePath("resources/chest.png");
+
         gameObject.Shop shop = new gameObject.Shop();
         shop.setName("Shop");
         shop.setImagePath("resources/shop.png");
+
+        gameObject.GameObject tree = new gameObject.GameObject();
+        tree.setName("Tree");
+        tree.setImagePath("resources/tree.png");
 
         gameObject.GameObject stone = new gameObject.GameObject();
         stone.setName("Stone");
         stone.setImagePath("resources/stone1.png");
 
-        list.add(tree);
         list.add(chest);
         list.add(shop);
+        list.add(tree);
         list.add(stone);
 
         p.createJSON("defaults/" + GridConstants.GAMEOBJECT, list);
@@ -184,6 +185,7 @@ public class MakeDefaults {
         unitStats.modExisting("strength", 2);
         unitStats.modExisting("health", 15);
         unitStats.modExisting("attack", 2);
+        unitStats.modExisting("max health", 15);
         
         gameObject.GameUnit hero = new gameObject.GameUnit();
         gameObject.GameUnit goldensun = new gameObject.GameUnit();
@@ -194,31 +196,26 @@ public class MakeDefaults {
         hero.setName("hero");
         hero.setImagePath("resources/hero.png");
         hero.setStats(unitStats);
-        hero.addItem(defaultItem);
         hero.setAffiliation("player");
 
         goldensun.setName("Golden Sun");
         goldensun.setImagePath("resources/goldensun.png");
         goldensun.setStats(unitStats);
-        goldensun.addItem(defaultItem);
         goldensun.setAffiliation("player");
 
         enemy.setName("Enemy");
         enemy.setImagePath("resources/enemy.png");
         enemy.setStats(unitStats);
-        enemy.addItem(defaultItem);
         enemy.setAffiliation("enemy");
 
         charizard.setName("Dragon");
         charizard.setImagePath("resources/charizard.png");
         charizard.setStats(unitStats);
-        charizard.addItem(defaultItem);
         charizard.setAffiliation("enemy");
-
+        
         roy.setName("Roy");
         roy.setImagePath("resources/roy.png");
         roy.setStats(unitStats);
-        roy.addItem(defaultItem);
         roy.setAffiliation("enemy");
 
         list.add(hero);
@@ -257,8 +254,8 @@ public class MakeDefaults {
         enemyTeam.setIsHuman(false);
 
         WinCondition wcEnemy = new WinCondition();
-        Condition c = new UnitCountCondition();
-        c.addData("affiliation", "player");
+        UnitCountCondition c = new UnitCountCondition();
+        c.setAffiliation("player");
         wcEnemy.addCondition(c);
 
         enemyTeam.setWinCondition(wcEnemy);
@@ -275,16 +272,16 @@ public class MakeDefaults {
 
         p.createJSON("defaults/" + GridConstants.ACTION, list);
     }
-    
+
     public void makeStats () {
         List<Stat> list = new ArrayList<Stat>();
-        for(String s: GridConstants.DEFAULTSTATARRAY){
+        for (String s : GridConstants.DEFAULTSTATARRAY) {
             list.add(new Stat(s));
         }
 
         p.createJSON("defaults/" + GridConstants.MASTERSTATS, list);
     }
-    
+
     public void makeItems () {
         List<Item> list = new ArrayList<Item>();
 
@@ -301,14 +298,18 @@ public class MakeDefaults {
         Item armor = new Item();
         armor.setName("Armor");
         armor.setImagePath("resources/armor.png");
+        armor.setStats(defaultStats);
 
         Item weapon = new Item();
         weapon.setName("Weapon");
         weapon.setImagePath("resources/weapon.png");
+        weapon.addAction(defaultCombatAction.getName());
+        weapon.setStats(defaultStats);
 
         Item helmet = new Item();
         helmet.setName("Helmet");
         helmet.setImagePath("resources/helmet.png");
+        helmet.setStats(defaultStats);
 
         list.add(milk);
         list.add(potion);

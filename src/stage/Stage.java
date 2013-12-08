@@ -31,6 +31,8 @@ public class Stage {
     private String postText;
     private List<Team> myTeams;
     private Team myWinningTeam;
+    
+    private int myPhaseCount;
 
     // only for use by deserializer
     public Stage () {
@@ -160,6 +162,14 @@ public class Stage {
 
     public Team getWinningTeam () {
         return myWinningTeam;
+    }
+
+    public int getPhaseCount () {
+        return myPhaseCount;
+    }
+
+    public void setPhaseCount (int phaseCount) {
+        myPhaseCount = phaseCount;
     }
 
 }

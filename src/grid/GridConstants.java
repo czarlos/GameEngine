@@ -1,5 +1,12 @@
 package grid;
 
+import stage.Condition;
+import stage.FalseCondition;
+import stage.ItemCondition;
+import stage.PositionCondition;
+import stage.StatCondition;
+import stage.TurnCondition;
+import stage.UnitCountCondition;
 import gameObject.action.Action;
 import gameObject.action.ChestAction;
 import gameObject.action.ItemOutcome;
@@ -10,7 +17,11 @@ import gameObject.action.StatOutcome;
 import gameObject.action.TradeAction;
 import gameObject.action.WaitAction;
 
-
+/**
+ * Constants used by Grid and Manager
+ * @author kevinjian
+ *
+ */
 public class GridConstants {
     public final static int TRANSPARENCY = 50;
 
@@ -36,15 +47,20 @@ public class GridConstants {
     public final static String GETITEM = "Get item";
 
     public static final String[] DEFAULTTABTYPES = { TILE, GAMEUNIT, GAMEOBJECT,
-                                                 ITEM };
+                                                    ITEM };
 
     public static final String[] DEFAULTEDITTYPES = { TILE, GAMEUNIT, GAMEOBJECT,
                                                      ITEM, ACTION, TEAM, MASTERSTATS };
     public static final Action[] COREACTIONS = { new MoveAction(), new WaitAction(),
                                                 new ChestAction(), new TradeAction(),
-                                                new ShopAction() };    
-    public static final Outcome[] COREOUTCOMES = { new StatOutcome(), new ItemOutcome()};
-    
-    public static final String[] DEFAULTSTATARRAY = {"defense", "attack", "movement", "health"};
+                                                new ShopAction() };
+    public static final Outcome[] COREOUTCOMES = { new StatOutcome(), new ItemOutcome() };
 
+    public static final String[] DEFAULTSTATARRAY = { "defense", "attack", "movement", "health",
+                                                     "max health" };
+
+    public static final Condition[] CORECONDITIONS = { new PositionCondition(),
+                                                      new ItemCondition(),
+                                                      new StatCondition(), new TurnCondition(),
+                                                      new UnitCountCondition(), new FalseCondition() };
 }

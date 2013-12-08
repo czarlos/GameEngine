@@ -22,29 +22,32 @@ public class TileTableModel extends GameTableModel {
     /**
      * Column names: Name, Graphic, Move Cost, Stats
      */
-    public TileTableModel (EditorData myED) {
+    public TileTableModel (EditorData ED) {
         String[] names = { "Name", "Graphic", "Move Cost", "Stats" };
         myName = GridConstants.TILE;
         setColumnNames(names);
+        myED = ED;
     }
 
     @SuppressWarnings("unchecked")
     public void loadObject (Object object) {
         List<Tile> list = (List<Tile>) object;
-        for (Object tile : list) {
-            Object[] array = new Object[myColumnNames.length];
+        for(int i = 0; i< list.size(); i++){
+            Object[] array = new Object[myColumnNames.length + 1];
 
-            Tile t = (Tile) tile;
+            Tile t = list.get(i);
 
             array[0] = t.getName();
             array[1] = new File(t.getImagePath());
             array[2] = t.getMoveCost();
             array[3] = t.getStats();
+            array[4] = i;
 
-            addNewRow(array);
+            addNewRow(array);           
         }
     }
-
+    
+    @Override
     public List<?> getObject () {
         List<Tile> list = new ArrayList<Tile>();
         for (Object[] row : myList) {
@@ -53,6 +56,7 @@ public class TileTableModel extends GameTableModel {
             t.setImagePath((String) ((File) row[1]).getPath());
             t.setMoveCost((int) row[2]);
             t.setStats((Stats) row[3]);
+            t.setLastIndex((int) row[4]);
             list.add(t);
         }
 
@@ -61,12 +65,13 @@ public class TileTableModel extends GameTableModel {
 
     @Override
     public Object[] getNew () {
-        Object[] array = new Object[myColumnNames.length];
+        Object[] array = new Object[myColumnNames.length + 1];
 
         array[0] = "New Tile";
         array[1] = new File("resources/grass.png");
         array[2] = 1;
         array[3] = new Stats();
+        array[4] = -1;
 
         return array;
     }

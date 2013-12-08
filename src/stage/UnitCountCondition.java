@@ -13,22 +13,44 @@ import java.util.List;
  */
 public class UnitCountCondition extends Condition {
 
+    private int myCount;
+    private String myAffiliation;
+    private boolean isGreater;
+
     public UnitCountCondition () {
-        super();
-        myData.put("count", "0");
-        myData.put("affiliation", "enemy");
-        myData.put("greater?", "false");
+        myCount = 0;
+        myAffiliation = "enemy";
+        isGreater = false;
+    }
+
+    public int getCount () {
+        return myCount;
+    }
+
+    public String getAffiliation () {
+        return myAffiliation;
+    }
+
+    public boolean isGreater () {
+        return isGreater;
+    }
+
+    public void setCount (int count) {
+        this.myCount = count;
+    }
+
+    public void setAffiliation (String affiliation) {
+        this.myAffiliation = affiliation;
+    }
+
+    public void setGreater (boolean isGreater) {
+        this.isGreater = isGreater;
     }
 
     @Override
     boolean isFulfilled (Stage stage) {
-        List<GameUnit> theTeam = stage.getTeamUnits(myData.get("affiliation"));
-        if (Boolean.parseBoolean(myData.get("boolean"))) {
-            return Integer.parseInt(myData.get("count")) < theTeam.size();
-        }
-        else {
-            return Integer.parseInt(myData.get("count")) >= theTeam.size();
-        }
+        List<GameUnit> theTeam = stage.getTeamUnits(myAffiliation);
+        return isGreater != (myCount >= theTeam.size());
     }
 
     @Override

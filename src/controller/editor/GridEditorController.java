@@ -8,9 +8,7 @@ import controllers.WorldManager;
 import dialog.dialogs.TableDialog;
 import dialog.dialogs.tableModels.GameTableModel;
 import grid.Coordinate;
-import grid.GridConstants;
 import view.canvas.GridMouseListener;
-import view.editor.StagePanel;
 import view.editor.StageSidePanel;
 
 
@@ -19,6 +17,7 @@ public class GridEditorController implements GridMouseListener {
     private WorldManager myWM;
     private JTabbedPane myStagePanels;
     private ArrayList<StageSidePanel> myPanelList;
+    private TableDialog myDialog;
 
     public GridEditorController (WorldManager wm, JTabbedPane panel) {
         myWM = wm;
@@ -34,38 +33,40 @@ public class GridEditorController implements GridMouseListener {
         if (id >= 0)
             myWM.place(myWM.getActiveType(), id, c);
         displayInfo(c, currentIndex);
-        if (id < 0 && gtm  != null){
-            TableDialog dialog = new TableDialog(gtm, new ItemDialogListener(gtm, myWM, c), myWM);
-            dialog.setVisible(true);
+        if (id < 0 && gtm != null) {
+            myDialog = new TableDialog(gtm, new ItemDialogListener(gtm, myWM, c), myWM);
+            myDialog.setVisible(true);
         }
-        
+
     }
 
     private void displayInfo (Coordinate c, int index) {
         myPanelList.get(index).displayInformation(c);
-            
+
     }
-    
+
     public void addStageSidePanel (int i, StageSidePanel panel) {
         myPanelList.add(i, panel);
     }
-    
-    class ItemDialogListener implements ActionListener{
-        
+
+    class ItemDialogListener implements ActionListener {
+
         private WorldManager myWM;
         private GameTableModel myGTM;
         private Coordinate myCurrentCoordinate;
-        
-        public ItemDialogListener(GameTableModel gtm, WorldManager wm, Coordinate c){
+
+        public ItemDialogListener (GameTableModel gtm, WorldManager wm, Coordinate c) {
             myGTM = gtm;
             myWM = wm;
             myCurrentCoordinate = c;
         }
-        
+
         @Override
         public void actionPerformed (ActionEvent e) {
-            //TODO: send model and coordinate to worldmanager method to set items
+            myDialog.stopEditing();
+            myDialog.setVisible(false);
+            myWM.setItemTableModel(myGTM, myCurrentCoordinate);
         }
-        
+
     }
 }

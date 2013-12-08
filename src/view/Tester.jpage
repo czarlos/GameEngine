@@ -1,6 +1,0 @@
-
-Canvas myCanvas=new Canvas();
-
-JFrame myFrame=new JFrame(500,700);
-myFrame.add(myCanvas);
-myFrame.show();

@@ -37,11 +37,11 @@ public class TestTileEditor {
         JFrame frame = new JFrame("Unit Editor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-  //      GameTableModel model = new CombatActionTableModel();
+        // GameTableModel model = new CombatActionTableModel();
 
         List<?> tilesReadIn = makeTestLists();
 
-  //      model.loadObject(tilesReadIn);
+        // model.loadObject(tilesReadIn);
 
         Container content = frame.getContentPane();
         // Creates a new container

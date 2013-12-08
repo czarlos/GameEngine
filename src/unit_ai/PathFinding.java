@@ -47,17 +47,17 @@ public class PathFinding {
         // grid.getTileCoordinate(start).getY());
         // System.out.println(grid.getTileCoordinate(end).getX() + " " +
         // grid.getTileCoordinate(end).getY());
-//        for (Tile t : path) {
-//            System.out.println(grid.getObjectCoordinate(GridConstants.TILE, t).getX() + " " +
-//                               grid.getObjectCoordinate(GridConstants.TILE, t).getY());
-//        }
+        // for (Tile t : path) {
+        // System.out.println(grid.getObjectCoordinate(GridConstants.TILE, t).getX() + " " +
+        // grid.getObjectCoordinate(GridConstants.TILE, t).getY());
+        // }
 
         Tile newTile;
         if (range > path.size()) {
             newTile = path.get(path.size() - 1);
         }
         else {
-            newTile = path.get(range - 1);
+            newTile = path.get(path.size() - (range - 1));
         }
 
         for (Tile t : path) {
@@ -123,25 +123,6 @@ public class PathFinding {
             }
 
             visited.add(workingTile);
-
-            // if (workingTile.equals(end)) {
-            // while (!workingTile.equals(start)) {
-            // path.add(workingTile);
-            // workingTile = workingTile.getParent();
-            // }
-            // return path;
-            // }
-            // else {
-            // if (!visited.contains(workingTile)) {
-            // visited.add(workingTile);
-            // for (Tile neighbor : workingTile.getNeighbors()) {
-            // if (!visited.contains(neighbor)) {
-            // neighbor.setParent(workingTile);
-            // queue.add(neighbor);
-            // }
-            // }
-            // }
-            // }
         }
         return path;
 
@@ -162,10 +143,6 @@ public class PathFinding {
         for (int i = 0; i < grid.getTiles().length; i++) {
             for (int j = 0; j < grid.getTiles().length; j++) {
                 tileList.add((Tile) grid.getObject(GridConstants.TILE, new Coordinate(i, j)));
-
-                // if (grid.getTile(new Coordinate(i, j)).isPassable(unit)) {
-                // tileList.add(grid.getTile(new Coordinate(i, j)));
-                // }
             }
         }
         return tileList;

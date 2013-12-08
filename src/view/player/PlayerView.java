@@ -1,39 +1,27 @@
 package view.player;
 
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.io.File;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import parser.JSONParser;
-import view.GameStartView;
 import view.GameView;
 import controllers.GameManager;
 import controllers.Manager;
-import controllers.WorldManager;
 
 
 @SuppressWarnings("serial")
-public class PlayerView extends GameView implements WindowListener{
-    private StagePlayerPanel myStagePlayerPanel;
-    //public JLayeredPane myLayeredPane;
+public class PlayerView extends GameView {
     protected GameManager myGameManager;
 
     public PlayerView () {
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        addWindowListener(this);
+        
     }
 
+<<<<<<< HEAD
     public PlayerView (WorldManager wm) {
         myGameManager = new GameManager(wm);
         myGameManager.setView(this);
@@ -45,20 +33,13 @@ public class PlayerView extends GameView implements WindowListener{
         revalidate();
         repaint();
         doTurn();
+=======
+    public PlayerView (Manager manager) {
+        loadGame(manager);
+>>>>>>> cf3786e0eed233a094b0dc03aeb09a3a2ca57015
     }
 
-    public PlayerView (GameManager manager) {
-        myGameManager = manager;
-        mySaveLocation = "gamesInProgress";
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        addWindowListener(this);
-    }
-    
-    @Override
-    public void windowClosing(WindowEvent e){
-        new GameStartView();
-        dispose();
-    }
+
 
     @Override
     protected JMenuBar createMenuBar (JFrame frame) {
@@ -74,7 +55,7 @@ public class PlayerView extends GameView implements WindowListener{
         // add action listeners
         loadNewGame.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
-                loadGame("saves");
+                loadGame(loadGame("saves"));
             }
         });
 
@@ -83,7 +64,7 @@ public class PlayerView extends GameView implements WindowListener{
         // add action listeners
         loadGame.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
-                loadGame("gamesInProgress");
+                loadGame(loadGame("gamesInProgress"));
             }
         });
 
@@ -102,6 +83,7 @@ public class PlayerView extends GameView implements WindowListener{
         return menuBar;
     }
 
+<<<<<<< HEAD
     protected void loadGame (String folder) {
         if (myStagePlayerPanel != null)
             remove(myStagePlayerPanel);
@@ -134,38 +116,35 @@ public class PlayerView extends GameView implements WindowListener{
         repaint();
         //doTurn();
     }
-
-    public void doTurn () {
-        myGameManager.beginTurn();
-        myGameManager.doUntilHumanTurn();
-        remove(myBackground);
-        myStagePlayerPanel = new StagePlayerPanel(myGameManager, this);
-        add(myStagePlayerPanel);
-        //myLayeredPane.add(myStagePlayerPanel);
-        //myLayeredPane.moveToFront(myStagePlayerPanel);
-        revalidate();
-        repaint();
-    }
+=======
+   @Override
+   protected void loadGame(Manager m){
+       myGameManager = new GameManager(m);
+       myGameManager.setView(this);
+       loadStagePanel();
+       showGame();
+       myGameManager.beginTurn();
+   }
+    
+>>>>>>> cf3786e0eed233a094b0dc03aeb09a3a2ca57015
 
     public void endTurn () {
-        getContentPane().remove(myStagePlayerPanel);
-        getContentPane().add(myBackground); 
+        showBackground();
+        myGameManager.doUntilHumanTurn();
+        loadStagePanel();
+        myGameManager.beginTurn();
+    }
+    
+    public void loadStagePanel(){
+        
+        remove(myBackground);
+        myGame = new StagePlayerPanel(myGameManager, this);
+        add(myGame);
         revalidate();
         repaint();
-        doTurn();
-        
-    }
-
-    public static void main (String[] args) {
-        new PlayerView();
     }
 
     public void showDialog (String story) {
-        //myLayeredPane = new JLayeredPane();
-        remove(myBackground);
-        //myLayeredPane.add(curStory);
-        //myLayeredPane.moveToFront(curStory);
-        //this.add(myLayeredPane);
         JOptionPane.showMessageDialog(this, story);
     }
 
@@ -175,35 +154,5 @@ public class PlayerView extends GameView implements WindowListener{
 
     protected void saveGame (String location) {
         myGameManager.saveGame(location);
-    }
-
-    @Override
-    public void windowOpened (WindowEvent e) {
-        
-    }
-
-    @Override
-    public void windowClosed (WindowEvent e) {
-        
-    }
-
-    @Override
-    public void windowIconified (WindowEvent e) {
-        
-    }
-
-    @Override
-    public void windowDeiconified (WindowEvent e) {
-        
-    }
-
-    @Override
-    public void windowActivated (WindowEvent e) {
-        
-    }
-
-    @Override
-    public void windowDeactivated (WindowEvent e) {
-        
     }
 }
