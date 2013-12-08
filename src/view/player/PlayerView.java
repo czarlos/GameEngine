@@ -24,7 +24,7 @@ import controllers.WorldManager;
 
 
 @SuppressWarnings("serial")
-public class PlayerView extends GameView implements WindowListener {
+public class PlayerView extends GameView  {
     private StagePlayerPanel myStagePlayerPanel;
     // public JLayeredPane myLayeredPane;
     protected GameManager myGameManager;
@@ -132,17 +132,20 @@ public class PlayerView extends GameView implements WindowListener {
         }
         revalidate();
         repaint();
-        doTurn();
+        myGameManager.beginTurn();
+        loadStagePanel();
     }
 
     public void doTurn () {
-        myGameManager.beginTurn();
         myGameManager.doUntilHumanTurn();
+        loadStagePanel();
+    }
+    
+    public void loadStagePanel(){
+        
         remove(myBackground);
         myStagePlayerPanel = new StagePlayerPanel(myGameManager, this);
         add(myStagePlayerPanel);
-        // myLayeredPane.add(myStagePlayerPanel);
-        // myLayeredPane.moveToFront(myStagePlayerPanel);
         revalidate();
         repaint();
     }
@@ -175,35 +178,5 @@ public class PlayerView extends GameView implements WindowListener {
 
     protected void saveGame (String location) {
         myGameManager.saveGame(location);
-    }
-
-    @Override
-    public void windowOpened (WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowClosed (WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowIconified (WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowDeiconified (WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowActivated (WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowDeactivated (WindowEvent e) {
-
     }
 }

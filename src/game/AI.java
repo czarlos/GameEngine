@@ -93,7 +93,7 @@ public class AI {
                                         myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit));
         Tile end = (Tile) myGrid.getObject(GridConstants.TILE, other);
         if (UnitUtilities.calculateLength(myGrid.getObjectCoordinate(GridConstants.TILE, start),
-                                          myGrid.getObjectCoordinate(GridConstants.TILE, end)) == 1) {
+                                          myGrid.getObjectCoordinate(GridConstants.TILE, end)) == unit.getStat("movement")) {
             Random r = new Random();
             int rand = r.nextInt(unit.getActionNames().size());
             String randomAction = unit.getActionNames().get(rand);
@@ -106,6 +106,7 @@ public class AI {
                         .endAction(myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit), other, unit, myGrid
                                 .getObject(GridConstants.GAMEOBJECT, other));
                 myGrid.setAllTilesInactive();
+
         }
         else {
             PathFinding.autoMove(start, end, unit, myGrid);
