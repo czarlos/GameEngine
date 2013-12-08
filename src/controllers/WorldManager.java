@@ -84,6 +84,14 @@ public class WorldManager extends Manager {
         io.setItemAmounts((Map<String, Integer>) gtm.getObject());
     }
 
+    public void saveEditorData (String name){
+        myEditorData.saveData(name);
+    }
+    
+    public void loadEditorData (String name) {
+        myEditorData.loadData(name);
+    }
+    
     @JsonIgnore
     public String getActiveType () {
         return activeEditTypeList.get(myStages.indexOf(myActiveStage));

@@ -50,6 +50,17 @@ public class EditorData {
         loadObjects(folderName);
     }
 
+    public void saveData (String name) {
+        myParser.createJSON("userLibraries/" + name, myDataMap);
+    }
+
+    @SuppressWarnings("unchecked")
+    public void loadData (String name) {
+        myDataMap =
+                myParser.createObject("userLibraries/" + name,
+                                      new HashMap<String, List<?>>().getClass());
+    }
+
     /**
      * Load in the objects (eventually JTable data) from the JSONs
      * 
