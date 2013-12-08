@@ -4,7 +4,6 @@ import gameObject.GameObject;
 import gameObject.Stat;
 import gameObject.Stats;
 import java.util.List;
-import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -51,7 +50,7 @@ public class Tile extends GameObject {
         displayData.add("<b>Stat Modifiers: </b>");
         for (String stat : myStats.getStatNames()) {
             if (!stat.equals("health") && !stat.equals("maxhealth") && !stat.equals("experience")) {
-                displayData.add("    " + stat + ": " + myStats.getStatValue(stat));
+                displayData.add("&nbsp; &nbsp; &nbsp;" + stat + ": " + myStats.getStatValue(stat));
             }
         }
         setDisplayData(displayData);

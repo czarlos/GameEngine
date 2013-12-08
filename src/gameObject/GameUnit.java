@@ -6,7 +6,6 @@ import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -60,6 +59,10 @@ public class GameUnit extends InventoryObject {
         return value;
     }
     
+    /**
+     * Adds the Stats set input with the unit stats and sets it to Total Stats
+     * @param addStats Stats to add
+     */
     public void setTotalStats (Stats addStats) {
         for (Stat stat: addStats.getStats()) {
             myTotalStats.modExisting(stat.getName(), calcTotalStat(stat.getName()) + stat.getValue());
@@ -84,6 +87,7 @@ public class GameUnit extends InventoryObject {
     public void combatSetStatValue (String statName, int statValue) {
         int baseStatDiff = myTotalStats.getStatValue(statName) - myStats.getStatValue(statName);
         myStats.modExisting(statName, statValue - baseStatDiff);
+        myTotalStats.modExisting(statName, statValue);
     }
 
     public int combatGetItemValue (Item item) {
@@ -137,11 +141,11 @@ public class GameUnit extends InventoryObject {
         List<String> displayData = super.generateDisplayData();
         displayData.add("<b>Team: </b>" + myAffiliation);
         displayData.add("<b>Stats: </b>");
-        displayData.add("    health: " + getTotalStat("health") + " / " +
-                        myStats.getStatValue("maxhealth"));
+        displayData.add("&nbsp; &nbsp; &nbsp; health: " + getTotalStat("health") + "/" +
+                        getTotalStat("maxhealth"));
         for (String stat : myTotalStats.getStatNames()) {
             if (!stat.equals("health") && !stat.equals("maxhealth")) {
-                displayData.add("    " + stat + ": " + getTotalStat(stat));
+                displayData.add("&nbsp; &nbsp; &nbsp;" + stat + ": " + getTotalStat(stat));
             }
         }
         setDisplayData(displayData);
@@ -211,6 +215,5 @@ public class GameUnit extends InventoryObject {
 
     public void addStat (Stat stat) {
         myStats.addStat(stat);
-
     }
 }

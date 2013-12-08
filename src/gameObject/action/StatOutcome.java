@@ -21,7 +21,6 @@ public class StatOutcome extends Outcome {
     public void applyOutcome (GameUnit unit, double effectiveness) {
         int newAmount = getNewAmount(unit, effectiveness);
         newAmount = (newAmount > 0 ? newAmount : 0);
-
         unit.combatSetStatValue(myStatName, newAmount);
     }
 
