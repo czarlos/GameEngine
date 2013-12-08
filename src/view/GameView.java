@@ -8,9 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import controllers.GameManager;
-import controllers.Manager;
-import controllers.WorldManager;
 
 
 @SuppressWarnings("serial")
@@ -44,7 +41,6 @@ public abstract class GameView extends JFrame {
     }
 
     protected void initializeWindow () {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setJMenuBar(createMenuBar(this));
         myBackground = createBackground();
         add(myBackground);

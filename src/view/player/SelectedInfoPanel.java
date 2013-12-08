@@ -14,35 +14,34 @@ import controller.editor.GridController;
  * Panel to display tabs that are shown on the side of the player.
  */
 @SuppressWarnings("serial")
-public class SelectedInfoPanel extends JPanel implements Scrollable {
-    protected JTabbedPane myTabs;
+public class SelectedInfoPanel extends JTabbedPane implements Scrollable {
     protected GridController myController;
 
     public SelectedInfoPanel (GridController controller) {
-        myTabs = new JTabbedPane();
         myController = controller;
         setPreferredSize(new Dimension(300, 500));
 
     }
 
-    public void makeTabs (List<String> buttonTab, List<String> tileInfo,
+    public SelectedInfoPanel () {
+        setPreferredSize(new Dimension(200, 200));
+    }
+
+    public void makeTabs (List<String> actionInfo, List<String> tileInfo,
                           List<String> objectInfo) {
 
-        if (buttonTab != null) {
-
-            myTabs.add("Actions", new ActionInfoPanel(buttonTab, myController));
-            ;
+        if (actionInfo != null && !actionInfo.isEmpty()) {
+            add("Actions", makeActionPane(actionInfo));
         }
 
-        if (tileInfo != null) {
-            myTabs.add("Tile", new InfoPanel(tileInfo));
+        if (tileInfo != null && !tileInfo.isEmpty()) {
+            add("Tile", new InfoPanel(tileInfo));
         }
 
-        if (objectInfo != null) {
-            myTabs.add("Object", new InfoPanel(objectInfo));
+        if (objectInfo != null && !objectInfo.isEmpty()) {
+            add("Object", new InfoPanel(objectInfo));
         }
 
-        add(myTabs);
         repaint();
     }
 
@@ -72,5 +71,9 @@ public class SelectedInfoPanel extends JPanel implements Scrollable {
     @Override
     public boolean getScrollableTracksViewportHeight () {
         return false;
+    }
+
+    public JPanel makeActionPane (List<String> actionInfo) {
+        return new ActionInfoPanel(actionInfo, myController);
     }
 }

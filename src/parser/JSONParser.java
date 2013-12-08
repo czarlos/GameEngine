@@ -25,7 +25,6 @@ public class JSONParser {
                 .withCreatorVisibility(Visibility.NONE));
         myMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
                            false);
-        // myMapper.registerModule(new ItemModule());
     }
 
     public void createJSON (String filename, Object object) {

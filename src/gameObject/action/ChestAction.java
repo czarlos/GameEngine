@@ -23,7 +23,7 @@ public class ChestAction extends Action {
                                          initiator.combatGetItemValue(item) +
                                                  chest.getItemAmount(item.getName()));
         }
-        chest.emptyItems();
+        chest.removeAllItems();
     }
 
     @Override

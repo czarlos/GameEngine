@@ -2,10 +2,12 @@ package gameObject.item;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import gameObject.Stat;
 import gameObject.Stats;
 
 
@@ -50,10 +52,22 @@ public class Item extends Customizable {
         }
     }
 
+    public void addStat (Stat newStat) {
+        myStats.addStat(newStat);
+    }
+
+    public void removeStat (String removeStat) {
+        myStats.remove(removeStat);
+    }
+
+    public void changeStatName (String oldName, String newName) {
+        myStats.changeName(oldName, newName);
+
+    }
+
     @JsonIgnore
     public int getStat (String statName) {
-        if (myStats.getStats().containsKey(statName)) { return myStats.getStatValue(statName); }
-        return 0;
+        return myStats.getStatValue(statName);
     }
 
     public Stats getStats () {
@@ -61,7 +75,7 @@ public class Item extends Customizable {
     }
 
     public void setStats (Stats myStats) {
-        this.myStats = new Stats(myStats);
+        myStats = new Stats(myStats);
     }
 
     @Override
@@ -76,5 +90,11 @@ public class Item extends Customizable {
     public int hashCode () {
         final int prime = 31;
         return myName.length() * prime;
+    }
+
+    public void syncStatsWithMaster (Map<String, String> nameTranslationMap,
+                                     List<String> removedNames) {
+        // TODO Auto-generated method stub
+        
     }
 }

@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import team.Team;
 import view.player.PlayerView;
 import game.AI;
@@ -20,12 +22,12 @@ import grid.GridConstants;
  * @author kevinjian, leevi, whoever else
  * 
  */
+@JsonAutoDetect
 public class GameManager extends Manager {
-    private int myPhaseCount;
-    private int myActiveTeam;
-    private List<Action> myActiveActions;
-    private boolean isTurnCompleted;
     private PlayerView myView;
+
+    public GameManager () {
+    }
 
     public GameManager (Manager m) {
         super(m);
@@ -37,6 +39,9 @@ public class GameManager extends Manager {
 
     public void beginTurn () {
         clear();
+        if (myPhaseCount == 0) {
+            myView.showDialog(getPreStory());
+        }
         if (conditionsMet()) {
             myView.showDialog(getPostStory());
             if (!nextStage()) { // final stage
@@ -44,7 +49,6 @@ public class GameManager extends Manager {
                 myView.setTitle(getActiveTeamName() + " won!!");
                 return;
             }
-            myView.showDialog(getPreStory());
             return;
         }
         nextTurn();
@@ -90,10 +94,12 @@ public class GameManager extends Manager {
         }
     }
 
+    @JsonIgnore
     private String getActiveTeamName () {
         return myActiveStage.getTeamNames().get(myActiveTeam);
     }
 
+    @JsonIgnore
     private String getActiveTitle () {
         return getActiveTeamName() + " - " + getActiveStageName() + " - " + myGameName;
     }
@@ -116,39 +122,13 @@ public class GameManager extends Manager {
     }
 
     public void doAITurn () {
-        AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage);
+        // pass in gamemanager to AI because need moveOn command
+        AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage, this);
         ai.doTurn();
     }
 
     public boolean turnCompleted () {
         return isTurnCompleted;
-    }
-
-    /**
-     * Frontend communication
-     */
-
-    /**
-     * Creates a List of Strings that contain data about a coordinate
-     * 
-     * @param type String of type of gameObject being queried
-     * @param coordinate Coordinate containing object being queried
-     * @return List of Strings containing data about coordinate
-     */
-    public List<String> generateInfoList (String type, Coordinate coordinate) {
-        GameObject gameObject = myActiveStage.getGrid().getObject(type, coordinate);
-        if (gameObject != null) {
-            gameObject.generateDisplayData();
-            addCoordinateData(gameObject, coordinate);
-            return gameObject.getDisplayData();
-        }
-        return null;
-    }
-
-    private void addCoordinateData (GameObject gameObject, Coordinate coordinate) {
-        List<String> displayData = gameObject.getDisplayData();
-        displayData.add("<html><b>Coordinate: </b>" + coordinate.getX() + ", " + coordinate.getY()+"</html>");
-        gameObject.setDisplayData(displayData);
     }
 
     private void setActiveActions (Coordinate coordinate) {
@@ -164,7 +144,7 @@ public class GameManager extends Manager {
     }
 
     @SuppressWarnings("unchecked")
-    private Action getAction (String actionName) {
+    public Action getAction (String actionName) {
         List<Action> editorActions = (List<Action>) myEditorData.get(GridConstants.ACTION);
         String[] actionNameSplit = actionName.split(" ");
         if (actionNameSplit[0].equals(GridConstants.TRADE)) { return new TradeAction(
@@ -178,7 +158,6 @@ public class GameManager extends Manager {
         for (Action action : editorActions) {
             if (action.getName().equals(actionName)) { return action; }
         }
-
         return null;
     }
 
@@ -241,8 +220,9 @@ public class GameManager extends Manager {
                     }
                 }
                 if (receiver instanceof GameUnit) {
-                    if (((GameUnit)receiver).getTotalStat("health") == 0) {
-                        myActiveStage.getGrid().removeObject(GridConstants.GAMEOBJECT, actionCoordinate);
+                    if (((GameUnit) receiver).getTotalStat("health") == 0) {
+                        myActiveStage.getGrid().removeObject(GridConstants.GAMEOBJECT,
+                                                             actionCoordinate);
                     }
                 }
             }
@@ -256,20 +236,24 @@ public class GameManager extends Manager {
         myView.removeAll();
     }
 
+    @JsonIgnore
     public String getWinningTeam () {
         Team winningTeam = myActiveStage.getWinningTeam();
         if (winningTeam == null) { return ""; }
         return winningTeam.getName();
     }
 
+    @JsonIgnore
     public String getCurrentTeamName () {
         return myActiveStage.getTeam(myActiveTeam).getName();
     }
 
+    @JsonIgnore
     public String getPreStory () {
         return myActiveStage.getPreStory();
     }
 
+    @JsonIgnore
     public String getPostStory () {
         return myActiveStage.getPostStory();
     }
@@ -277,5 +261,4 @@ public class GameManager extends Manager {
     public boolean didHumanWin () {
         return myActiveStage.getWinningTeam().isHuman();
     }
-
 }

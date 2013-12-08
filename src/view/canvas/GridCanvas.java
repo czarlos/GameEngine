@@ -21,9 +21,9 @@ public class GridCanvas extends Canvas {
 
     private static final long serialVersionUID = -3908147776463294489L;
 
-    public GridCanvas (Manager wm) {
+    public GridCanvas (Manager m) {
         setBorder(BorderFactory.createLineBorder(Color.black));
-        myManager = wm;
+        myManager = m;
         myClickSubscribers = new ArrayList<>();
         addMouseListener(new MouseAdapter() {
             @Override

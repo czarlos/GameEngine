@@ -2,8 +2,11 @@ package grid;
 
 import gameObject.action.Action;
 import gameObject.action.ChestAction;
+import gameObject.action.ItemOutcome;
 import gameObject.action.MoveAction;
+import gameObject.action.Outcome;
 import gameObject.action.ShopAction;
+import gameObject.action.StatOutcome;
 import gameObject.action.TradeAction;
 import gameObject.action.WaitAction;
 
@@ -15,8 +18,6 @@ public class GridConstants {
     public static final String GAMEUNIT = "GameUnit";
     public static final String GAMEOBJECT = "GameObject";
     public static final String ITEM = "Item";
-    public static final String[] DEFAULTTYPES = { TILE, GAMEUNIT, GAMEOBJECT,
-                                                 ITEM };
 
     public static final String STATS = "Stats";
     public static final String MASTERSTATS = "Master Stats";
@@ -34,7 +35,13 @@ public class GridConstants {
     public final static String SHOP = "Shop";
     public final static String GETITEM = "Get item";
 
+    public static final String[] DEFAULTTABTYPES = { TILE, GAMEUNIT, GAMEOBJECT,
+                                                 ITEM };
+
+    public static final String[] DEFAULTEDITTYPES = { TILE, GAMEUNIT, GAMEOBJECT,
+                                                     ITEM, ACTION, TEAM, MASTERSTATS };
     public static final Action[] COREACTIONS = { new MoveAction(), new WaitAction(),
                                                 new ChestAction(), new TradeAction(),
-                                                new ShopAction() };
+                                                new ShopAction() };    
+    public static final Outcome[] COREOUTCOMES = { new StatOutcome(), new ItemOutcome()};
 }

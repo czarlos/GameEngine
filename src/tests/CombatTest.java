@@ -49,13 +49,13 @@ public class CombatTest {
         masterActions.setActionList(myActions);
 
         Stats playerStats = new Stats();
-        playerStats.syncWithMaster();
+    //    playerStats.syncWithMaster();
 
         Stats enemyStats = new Stats();
-        enemyStats.syncWithMaster();
+    //    enemyStats.syncWithMaster();
 
         Stats itemStats = new Stats();
-        itemStats.syncWithMaster();
+    //    itemStats.syncWithMaster();
         itemStats.modExisting("health", 0);
         itemStats.modExisting("defense", 0);
 
@@ -162,12 +162,12 @@ public class CombatTest {
         Map<String, Integer> attackerStatsMap = new HashMap<String, Integer>();
         attackerStatsMap.put("attack", 1);
         Stats attackerStats = new Stats();
-        attackerStats.setStats(attackerStatsMap);
+    //    attackerStats.setStats(attackerStatsMap);
 
         Map<String, Integer> defenderStatsMap = new HashMap<String, Integer>();
         defenderStatsMap.put("defense", 1);
         Stats defenderStats = new Stats();
-        defenderStats.setStats(defenderStatsMap);
+    //    defenderStats.setStats(defenderStatsMap);
 
         Outcomes attackerOutcomes = new Outcomes();
         Outcomes defenderOutcomes = new Outcomes();
@@ -195,12 +195,12 @@ public class CombatTest {
         Map<String, Integer> attackerStatsMap = new HashMap<String, Integer>();
         attackerStatsMap.put("attack", 1);
         Stats attackerStats = new Stats();
-        attackerStats.setStats(attackerStatsMap);
+    //    attackerStats.setStats(attackerStatsMap);
 
         Map<String, Integer> defenderStatsMap = new HashMap<String, Integer>();
         defenderStatsMap.put("defense", 1);
         Stats defenderStats = new Stats();
-        defenderStats.setStats(defenderStatsMap);
+    //    defenderStats.setStats(defenderStatsMap);
 
         Outcomes attackerOutcomes = new Outcomes();
         Outcomes defenderOutcomes = new Outcomes();

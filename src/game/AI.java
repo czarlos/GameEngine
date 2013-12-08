@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
+import controllers.GameManager;
 import stage.Stage;
 import team.Team;
 import unit_ai.PathFinding;
@@ -22,20 +24,20 @@ public class AI {
     private Team myTeam;
     private Grid myGrid;
     private Stage myStage;
+    private GameManager myGM;
 
-    public AI (Team team, Stage stage) {
+    public AI (Team team, Stage stage, GameManager gm) {
         myTeam = team;
         myGrid = stage.getGrid();
         myStage = stage;
+        myGM = gm;
     }
 
     public void doTurn () {
         Set<GameUnit> opponentList = findAllEnemies();
         for (GameUnit unit : myStage.getTeamUnits(myTeam.getName())) {
             PathFinding.addNeighbors(PathFinding.coordinatesToTiles(myGrid, unit), myGrid);
-            // delay?
             doAIMove(unit, opponentList);
-            // Sleep?
         }
     }
 
@@ -52,28 +54,21 @@ public class AI {
      */
     public void doAIMove (GameUnit unit, Set<GameUnit> allEnemies) {
         Coordinate other = findClosestOpponent(unit, allEnemies);
-//        System.out.println(other.getX() + " x " + other.getY());
         Tile start =
                 (Tile) myGrid.getObject(GridConstants.TILE,
                                         myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit));
         Tile end = (Tile) myGrid.getObject(GridConstants.TILE, other);
         if (UnitUtilities.calculateLength(myGrid.getObjectCoordinate(GridConstants.TILE, start),
                                           myGrid.getObjectCoordinate(GridConstants.TILE, end)) == 1) {
-            /*
-             * Random r = new Random();
-             * int rand = r.nextInt(unit.getActions().size());
-             * String randomAction = unit.getActions().get(rand);
-             * String activeWeapon = unit.getActiveWeapon().toString();
-             * // randomAction.doAction(unit, myGrid.getUnit(other));
-             * // unit.attack(myGrid.getUnit(other), activeWeapon, randomAction);
-             */}
-        else {
-            // System.out.println(start + " " + end);
-            PathFinding.autoMove(start, end, unit, myGrid);
-            // System.out.println("unit pos2: " + myGrid.getTile(myGrid.getUnitCoordinate(unit)) +
-            // "\n");
+            Random r = new Random();
+            int rand = r.nextInt(unit.getActions().size());
+            String randomAction = unit.getActions().get(rand);
+            myGM.getAction(randomAction).doAction(unit,
+                                                  myGrid.getObject(GridConstants.GAMEUNIT, other));
         }
-
+        else {
+            PathFinding.autoMove(start, end, unit, myGrid);
+        }
     }
 
     /**
@@ -136,14 +131,6 @@ public class AI {
     }
 
     /**
-     * The AI will move to your unit's positions and attack them.
-     */
-    // public void doAIMove (int aiTeamIndex, int otherTeamIndex) {
-    //
-    // moveToOpponents(aiTeamIndex, otherTeamIndex);
-    // }
-
-    /**
      * Makes a list of units sorted from closest to farthest.
      * 
      * @param unit
@@ -172,5 +159,4 @@ public class AI {
         }
         return priorityUnitList;
     }
-
 }

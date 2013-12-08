@@ -3,7 +3,9 @@ package grid;
 import gameObject.GameObject;
 import gameObject.Stats;
 import java.util.List;
+import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -21,8 +23,6 @@ public class Tile extends GameObject {
     private Tile myParent;
     private int myLength;
     private int myDistanceToGoal;
-    private Coordinate myCoordinate;
-
     public Tile () {
     }
 
@@ -56,23 +56,22 @@ public class Tile extends GameObject {
         return displayData;
     }
 
-    public Tile (List<Tile> neighbors, Coordinate coordinate) {
-        myNeighbors = neighbors;
-        myCoordinate = coordinate;
-    }
-
+    @JsonIgnore
     public List<Tile> getNeighbors () {
         return myNeighbors;
     }
 
+    @JsonIgnore
     public void setNeighbors (List<Tile> neighbors) {
         myNeighbors = neighbors;
     }
 
+    @JsonIgnore
     public Tile getParent () {
         return myParent;
     }
 
+    @JsonIgnore
     public void setParent (Tile parent) {
         myParent = parent;
     }
@@ -93,11 +92,9 @@ public class Tile extends GameObject {
         myDistanceToGoal = distanceToGoal;
     }
 
-    public Coordinate getCoordinate () {
-        return myCoordinate;
-    }
-
-    public void setCoordinate (Coordinate coordinate) {
-        myCoordinate = coordinate;
+    public void syncStatsWithMaster (Map<String, String> nameTranslationMap,
+                                     List<String> removedNames) {
+        // TODO Auto-generated method stub
+        
     }
 }

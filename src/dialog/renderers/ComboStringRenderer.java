@@ -2,9 +2,6 @@ package dialog.renderers;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.io.File;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -22,14 +19,14 @@ public class ComboStringRenderer extends DefaultTableCellRenderer {
                                                     int column) {
         Component cell = super.getTableCellRendererComponent(table, value,
                                                              isSelected, hasFocus, row, column);
+
         if (value != null)
             ((JLabel) cell).setText(value.toString());
         ((JLabel) cell).setHorizontalAlignment(JLabel.CENTER);
 
         if (isSelected)
-            cell.setBackground(Color.blue);
-        else cell.setBackground(Color.LIGHT_GRAY);
+            cell.setBackground(Color.LIGHT_GRAY);
+        else cell.setBackground(null);
         return cell;
     }
-
 }

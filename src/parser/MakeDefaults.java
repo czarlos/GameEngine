@@ -1,5 +1,6 @@
 package parser;
 
+import gameObject.Stat;
 import gameObject.Stats;
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
@@ -23,12 +24,15 @@ public class MakeDefaults {
     private Item defaultItem;
     private CombatAction defaultCombatAction;
     private Stats defaultStats;
+    private String[] defaultStatArray = {"defense", "attack", "experience", "max health", "health"};
 
     public MakeDefaults () {
         p = new JSONParser();
 
         defaultStats = new Stats();
-        defaultStats.syncWithMaster();
+        for(String s: defaultStatArray){
+            defaultStats.addStat(new Stat(s));
+        }
 
         defaultCombatAction = new CombatAction();
         defaultCombatAction.setName("Slash");
@@ -55,7 +59,6 @@ public class MakeDefaults {
         java.util.ArrayList<grid.Tile> list = new java.util.ArrayList<>();
         List<String> passableList = new ArrayList<>();
         defaultStats = new Stats();
-        defaultStats.syncWithMaster();
 
         passableList.add(GridConstants.DEFAULT_PASS_EVERYTHING);
 
@@ -215,7 +218,7 @@ public class MakeDefaults {
     public void saveAndLoadGame () {
         controllers.WorldManager wm = new controllers.WorldManager();
         wm.setGameName("test");
-        wm.addStage(10, 10, 1, "stageOne");
+        wm.addStage(10, 10, 1, "stageOne", 0);
         wm.saveGame("saves");
 
         p.createObject("saves/test", WorldManager.class);
@@ -257,7 +260,16 @@ public class MakeDefaults {
 
         p.createJSON("defaults/" + GridConstants.ACTION, list);
     }
+    
+    public void makeStats () {
+        List<Stat> list = new ArrayList<Stat>();
+        for(String s: defaultStatArray){
+            list.add(new Stat(s));
+        }
 
+        p.createJSON("defaults/" + GridConstants.MASTERSTATS, list);
+    }
+    
     public void makeItems () {
         List<Item> list = new ArrayList<Item>();
 
@@ -304,8 +316,7 @@ public class MakeDefaults {
         maker.makeObjects();
         maker.makeUnits();
         maker.makeItems();
-        // handled differently in editor
-
+        maker.makeStats();
         maker.makeTeams();
         maker.makeActions();
 

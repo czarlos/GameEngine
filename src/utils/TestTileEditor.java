@@ -9,11 +9,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import parser.JSONParser;
-import dialog.dialogs.TableDialog;
 import dialog.dialogs.tableModels.CombatActionTableModel;
 import dialog.dialogs.tableModels.GameTableModel;
 
@@ -39,22 +37,22 @@ public class TestTileEditor {
         JFrame frame = new JFrame("Unit Editor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        GameTableModel model = new CombatActionTableModel();
+  //      GameTableModel model = new CombatActionTableModel();
 
         List<?> tilesReadIn = makeTestLists();
 
-        model.loadObject(tilesReadIn);
+  //      model.loadObject(tilesReadIn);
 
         Container content = frame.getContentPane();
         // Creates a new container
         content.setLayout(new BorderLayout());
 
-        final JDialog tileEditor = new TableDialog(model, null);
+        // final JDialog tileEditor = new TableDialog(model, null);
 
         JButton launchButton = new JButton("TileEditor");
         launchButton.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent e) {
-                tileEditor.setVisible(true);
+                // tileEditor.setVisible(true);
             }
         });
 
