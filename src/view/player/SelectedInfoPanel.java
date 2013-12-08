@@ -22,17 +22,15 @@ public class SelectedInfoPanel extends JTabbedPane implements Scrollable {
         setPreferredSize(new Dimension(300, 500));
 
     }
-    
+
     public SelectedInfoPanel () {
         setPreferredSize(new Dimension(200, 200));
-
     }
 
     public void makeTabs (List<String> actionInfo, List<String> tileInfo,
                           List<String> objectInfo) {
 
         if (actionInfo != null && !actionInfo.isEmpty()) {
-
             add("Actions", makeActionPane(actionInfo));
         }
 

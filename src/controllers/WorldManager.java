@@ -1,17 +1,20 @@
 package controllers;
 
-import gameObject.GameUnit;
+import gameObject.GameObject;
+import gameObject.InventoryObject;
 import grid.Coordinate;
 import grid.GridConstants;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import stage.Stage;
 import team.Team;
 import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import dialog.dialogs.tableModels.GameTableModel;
+import dialog.dialogs.tableModels.MapTableModel;
 
 
 /**
@@ -53,6 +56,24 @@ public class WorldManager extends Manager {
         activeEditIDList.set(myStages.indexOf(myActiveStage), id);
     }
 
+    /**
+     * For specific unit/chest items. To get the generic item table model use generic
+     * getTableModel/setDatas
+     */
+    @JsonIgnore
+    public GameTableModel getItemTableModel (Coordinate coordinate) {
+        GameTableModel gtm = new MapTableModel();
+
+        GameObject go = myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, coordinate);
+
+        if (go != null && go instanceof InventoryObject) {
+            Map<String, Integer> items = ((InventoryObject) go).getItemAmounts();
+            gtm.loadObject(items);
+        }
+
+        return gtm;
+    }
+
     @JsonIgnore
     public String getActiveType () {
         return activeEditTypeList.get(myStages.indexOf(myActiveStage));
@@ -86,7 +107,9 @@ public class WorldManager extends Manager {
 
     public void deleteStage (int i) {
         myStages.remove(i);
-        setActiveStage(i - 1);
+
+        setActiveStage(Math.min(i, myStages.size() - 1));
+
         activeEditTypeList.remove(i);
         activeEditIDList.remove(i);
     }
@@ -157,31 +180,6 @@ public class WorldManager extends Manager {
         return myList.get(ID).getImage();
     }
 
-    /**
-     * Calls update method for all stats of all placed units and unit
-     * definitions. If there are new stats in the master stats list, adds that
-     * stat to the stats of all placed units and unit definitions. If there is a
-     * stat in the stats list of placed units and unit definitions, but not in
-     * the master stats list, then it removes that stat from all stats lists of
-     * placed units and unit definitions
-     */
-    public void syncStats () {
-        List<?> editorUnitList = myEditorData.get(GridConstants.GAMEUNIT);
-        GameUnit[][] placedUnits = myActiveStage.getGrid().getGameUnits();
-
-        for (Object unit : editorUnitList) {
-            ((GameUnit) unit).getStats().syncWithMaster();
-        }
-
-        for (int i = 0; i < placedUnits.length; i++) {
-            for (int j = 0; j < placedUnits[i].length; j++) {
-                if (placedUnits[i][j] != null) {
-                    placedUnits[i][j].getStats().syncWithMaster();
-                }
-            }
-        }
-    }
-
     // TODO: get rid of this
     public List<String> getDialogList (String myType) {
         List<String> ret = new ArrayList<String>();
@@ -197,7 +195,7 @@ public class WorldManager extends Manager {
                 ret.addAll(myEditorData.getNames(GridConstants.ACTION));
                 break;
             case GridConstants.ACTION:
-                // ret.addAll(myEditorData.getNames(GridConstants.MASTERSTATS));
+                ret.addAll(myEditorData.getNames(GridConstants.MASTERSTATS));
                 ret.addAll(myEditorData.getNames(GridConstants.ITEM));
             default:
                 break;

@@ -16,7 +16,6 @@ public class SelectedInfoEditorPanel extends SelectedInfoPanel {
     
     public SelectedInfoEditorPanel (WorldManager wm) {
         super();
-
     }
 
     @Override

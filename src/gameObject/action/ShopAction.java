@@ -37,7 +37,7 @@ public class ShopAction extends TradeAction {
         if (tradeItem != null) {
             initiator.combatSetItemValue(tradeItem, receiverShop.getItemAmount(tradeItem.getName()) +
                                          initiator.combatGetItemValue(tradeItem));
-            receiverShop.removeAllItems(tradeItem);
+            receiverShop.removeAllOfAnItem(tradeItem);
         }
     }
 }

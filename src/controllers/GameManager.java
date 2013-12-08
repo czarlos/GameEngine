@@ -130,30 +130,6 @@ public class GameManager extends Manager {
         return isTurnCompleted;
     }
 
-    /*    *//**
-     * Frontend communication
-     */
-    /*
-
-    *//**
-     * Creates a List of Strings that contain data about a coordinate
-     * 
-     * @param type String of type of gameObject being queried
-     * @param coordinate Coordinate containing object being queried
-     * @return List of Strings containing data about coordinate
-     */
-    /*
-     * public List<String> generateInfoList (String type, Coordinate coordinate) {
-     * GameObject gameObject = myActiveStage.getGrid().getObject(type, coordinate);
-     * if (gameObject != null) {
-     * gameObject.generateDisplayData();
-     * addCoordinateData(gameObject, coordinate);
-     * return gameObject.getDisplayData();
-     * }
-     * return null;
-     * }
-     */
-
     private void setActiveActions (Coordinate coordinate) {
         List<String> myActiveActionNames = getActions(coordinate);
         if (myActiveActionNames != null) {
@@ -181,30 +157,6 @@ public class GameManager extends Manager {
         for (Action action : editorActions) {
             if (action.getName().equals(actionName)) { return action; }
         }
-
-        /*
-         * <<<<<<< HEAD
-         * private List<String> getInteractions (Coordinate coordinate) {
-         * List<String> interactions = new ArrayList<>();
-         * return interactions;
-         * }
-         * 
-         * private void setActiveActions (Coordinate coordinate) {
-         * List<String> myActiveActionNames = getActions(coordinate);
-         * // TODO: fix AI action handling (pass in gameManager and then make a method to call to
-         * get
-         * // action from name
-         * 
-         * if (myActiveActionNames != null) {
-         * List<Action> newActiveActions = new ArrayList<>();
-         * 
-         * for (String action : myActiveActionNames) {
-         * newActiveActions.add(getAction(action));
-         * }
-         * myActiveActions = newActiveActions;
-         * }
-         * =======
-         */
         return null;
     }
 
@@ -254,7 +206,6 @@ public class GameManager extends Manager {
         else {
             GameObject receiver =
                     myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, actionCoordinate);
-
             if (receiver != null &&
                 myActiveStage.getGrid().isActive(GridConstants.TILE, actionCoordinate)) {
                 activeAction.doAction(initiator, receiver);

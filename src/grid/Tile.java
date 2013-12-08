@@ -3,6 +3,7 @@ package grid;
 import gameObject.GameObject;
 import gameObject.Stats;
 import java.util.List;
+import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -89,5 +90,11 @@ public class Tile extends GameObject {
 
     public void setDistanceToGoal (int distanceToGoal) {
         myDistanceToGoal = distanceToGoal;
+    }
+
+    public void syncStatsWithMaster (Map<String, String> nameTranslationMap,
+                                     List<String> removedNames) {
+        // TODO Auto-generated method stub
+        
     }
 }

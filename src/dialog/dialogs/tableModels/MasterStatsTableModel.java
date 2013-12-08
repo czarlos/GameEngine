@@ -3,6 +3,7 @@ package dialog.dialogs.tableModels;
 import java.util.ArrayList;
 import java.util.List;
 import controllers.EditorData;
+import gameObject.Stat;
 import grid.GridConstants;
 
 
@@ -22,19 +23,19 @@ public class MasterStatsTableModel extends GameTableModel {
 
     @SuppressWarnings({ "unchecked" })
     public void loadObject (Object object) {
-        List<String> list = (List<String>) object;
+        List<Stat> list = (List<Stat>) object;
         myList.clear();
-        for(String s: list){
+        for(Stat s: list){
             Object[] row = new Object[myColumnNames.length];
-            row[0] = s;
+            row[0] = s.getName();
             addNewRow(row);
         }
     }
 
     public Object getObject () {
-        List<String> ret = new ArrayList<String>();
+        List<Stat> ret = new ArrayList<Stat>();
         for (Object[] row : myList) {
-            ret.add((String) row[0]);
+            ret.add(new Stat((String) row[0]));
         }
 
         return ret;

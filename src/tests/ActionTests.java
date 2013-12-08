@@ -19,7 +19,7 @@ public class ActionTests {
         Item item = new Item();
         GameUnit defaultUnit = new GameUnit();
 
-        myWorldManager.addStage(15, 15, 0, "Game");
+        myWorldManager.addStage(15, 15, 0, "Game", 0);
         myWorldManager.place(GridConstants.GAMEUNIT, 0, new Coordinate(2, 2));
         defaultUnit = ((Grid) myWorldManager.getGrid()).getGameUnits()[2][2];
 

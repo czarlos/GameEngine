@@ -10,6 +10,7 @@ import javax.swing.ScrollPaneLayout;
 import view.player.SelectedInfoPanel;
 import controllers.WorldManager;
 
+
 @SuppressWarnings("serial")
 public class StageSidePanel extends JPanel {
 
@@ -24,11 +25,11 @@ public class StageSidePanel extends JPanel {
         
         setSize(new Dimension(200,500));
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        
+
         initSubPanels();
     }
-    
-    public void initSubPanels(){
+
+    public void initSubPanels () {
         StageEditorPanel panel = new StageEditorPanel(myWorldManager,
                                                       defaultTypes);
         panel.setSize(new Dimension(200,200));
@@ -36,14 +37,14 @@ public class StageSidePanel extends JPanel {
         myInfoPanel = new SelectedInfoEditorPanel(myWorldManager);
 
         myInfoPanel.setSize(new Dimension(200, 200));
-        
+
         JScrollPane scroll = new JScrollPane(myInfoPanel);
         scroll.setLayout(new ScrollPaneLayout());
-        scroll.setMinimumSize(new Dimension(200,100));
+        scroll.setMinimumSize(new Dimension(200, 100));
         add(scroll);
     }
-    
-    public void displayInformation(Coordinate c){
+
+    public void displayInformation (Coordinate c) {
         myInfoPanel.removeAll();
         myInfoPanel.makeTabs(myWorldManager.getActions(c),
                              myWorldManager.generateInfoList(GridConstants.TILE, c),

@@ -2,8 +2,11 @@ package grid;
 
 import gameObject.action.Action;
 import gameObject.action.ChestAction;
+import gameObject.action.ItemOutcome;
 import gameObject.action.MoveAction;
+import gameObject.action.Outcome;
 import gameObject.action.ShopAction;
+import gameObject.action.StatOutcome;
 import gameObject.action.TradeAction;
 import gameObject.action.WaitAction;
 
@@ -39,5 +42,6 @@ public class GridConstants {
                                                      ITEM, ACTION, TEAM, MASTERSTATS };
     public static final Action[] COREACTIONS = { new MoveAction(), new WaitAction(),
                                                 new ChestAction(), new TradeAction(),
-                                                new ShopAction() };
+                                                new ShopAction() };    
+    public static final Outcome[] COREOUTCOMES = { new StatOutcome(), new ItemOutcome()};
 }

@@ -1,5 +1,6 @@
 package parser;
 
+import gameObject.Stat;
 import gameObject.Stats;
 import gameObject.action.Action;
 import gameObject.action.CombatAction;
@@ -23,12 +24,15 @@ public class MakeDefaults {
     private Item defaultItem;
     private CombatAction defaultCombatAction;
     private Stats defaultStats;
+    private String[] defaultStatArray = {"defense", "attack", "experience", "max health", "health"};
 
     public MakeDefaults () {
         p = new JSONParser();
 
         defaultStats = new Stats();
-        defaultStats.syncWithMaster();
+        for(String s: defaultStatArray){
+            defaultStats.addStat(new Stat(s));
+        }
 
         defaultCombatAction = new CombatAction();
         defaultCombatAction.setName("Slash");
@@ -55,7 +59,6 @@ public class MakeDefaults {
         java.util.ArrayList<grid.Tile> list = new java.util.ArrayList<>();
         List<String> passableList = new ArrayList<>();
         defaultStats = new Stats();
-        defaultStats.syncWithMaster();
 
         passableList.add(GridConstants.DEFAULT_PASS_EVERYTHING);
 
@@ -259,13 +262,10 @@ public class MakeDefaults {
     }
     
     public void makeStats () {
-        List<String> list = new ArrayList<String>();
-        list.add("movement");
-        list.add("defense");
-        list.add("attack");
-        list.add("experience");
-        list.add("max health");        
-        list.add("health");
+        List<Stat> list = new ArrayList<Stat>();
+        for(String s: defaultStatArray){
+            list.add(new Stat(s));
+        }
 
         p.createJSON("defaults/" + GridConstants.MASTERSTATS, list);
     }

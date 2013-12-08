@@ -19,6 +19,7 @@ public class ComboStringRenderer extends DefaultTableCellRenderer {
                                                     int column) {
         Component cell = super.getTableCellRendererComponent(table, value,
                                                              isSelected, hasFocus, row, column);
+
         if (value != null)
             ((JLabel) cell).setText(value.toString());
         ((JLabel) cell).setHorizontalAlignment(JLabel.CENTER);
