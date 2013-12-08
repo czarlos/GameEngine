@@ -127,6 +127,13 @@ public class MakeDefaults {
         Brush.setStats(defaultStats);
         Brush.setActive(false);
         Brush.setMoveCost(1);
+        
+        grid.Tile Dirt = new grid.Tile();
+        Brush.setName("Dirt");
+        Brush.setImagePath("resources/dirt.png");
+        Brush.setStats(defaultStats);
+        Brush.setActive(false);
+        Brush.setMoveCost(1);
 
         list.add(Grass);
         list.add(Grass1);
@@ -137,6 +144,7 @@ public class MakeDefaults {
         list.add(Rock);
         list.add(Stone);
         list.add(Sand);
+        list.add(Dirt);
 
         p.createJSON("defaults/" + GridConstants.TILE, list);
     }
