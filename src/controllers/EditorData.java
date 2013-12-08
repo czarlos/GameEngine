@@ -231,4 +231,18 @@ public class EditorData {
         gtm.loadObject(myDataMap.get(type));
         myDataMap.put(type, (List<?>) gtm.getObject());
     }
+
+    public List<String> getDialogList (String myType) {
+        List<String> ret = new ArrayList<String>();
+        switch (myType) {
+            case GridConstants.GAMEOBJECT:
+                ret.add(GridConstants.DEFAULT_PASS_EVERYTHING);
+                ret.addAll(getNames(GridConstants.GAMEUNIT));
+                break;
+            case GridConstants.ITEM:
+                ret.addAll(getNames(GridConstants.ACTION));
+                break;
+        }
+        return ret;
+    }
 }

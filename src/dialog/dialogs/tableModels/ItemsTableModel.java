@@ -1,5 +1,7 @@
 package dialog.dialogs.tableModels;
 
+import editor.Selector;
+import grid.GridConstants;
 import java.util.HashMap;
 import java.util.Map;
 import controllers.EditorData;
@@ -18,33 +20,27 @@ public class ItemsTableModel extends GameTableModel {
         myED = ed;
     }
 
-    @Override
-    public boolean isCellEditable (int row, int col) {
-        return col > 0;
-    }
-
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings("unchecked")
     public void loadObject (Object object) {
-        Map map = (Map) object;
+        Map<String, Integer> map = (Map<String, Integer>) object;
         myList.clear();
-        for (Object key : map.keySet()) {
+        for (Object item : map.keySet()) {
             Object[] row = new Object[myColumnNames.length];
-            row[0] = key;
-            row[1] = map.get(key);
+            row[0] = new Selector(myED.getNames(GridConstants.ITEM), item);
+            row[1] = map.get(item);
             addNewRow(row);
         }
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     public Object getObject () {
-        Map myMap = new HashMap<String, Integer>();
+        Map<String, Integer> myMap = new HashMap<String, Integer>();
         for (Object[] row : myList) {
-            if (myMap.containsKey(row[0])) {
-                myMap.put(row[0], row[1]);
- //               myMap.put(row[0], myMap.get(row[0]) + row[1]);
+            String key = (String) ((Selector) row[0]).getValue();
+            if (myMap.containsKey(key)) {
+                myMap.put(key, myMap.get(key) + (int) row[1]);
             }
             else {
-                myMap.put(row[0], row[1]);
+                myMap.put(key, (int) row[1]);
             }
 
         }
@@ -55,7 +51,7 @@ public class ItemsTableModel extends GameTableModel {
     @Override
     public Object[] getNew () {
         Object[] array = new Object[myColumnNames.length];
-        array[0] = "key";
+        array[0] = new Selector(myED.getNames(GridConstants.ITEM));
         array[1] = 0;
         return array;
     }

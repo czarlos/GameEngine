@@ -146,7 +146,7 @@ public class TableDialog extends JDialog {
 
         // TODO: take out
         table.setDefaultEditor(ArrayList.class,
-                               new ModelEditor(new EnumTableModel(myWM.getDialogList(myModel
+                               new ModelEditor(new EnumTableModel(myModel.getED().getDialogList(myModel
                                        .getName()))));
     }
 

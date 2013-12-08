@@ -17,10 +17,11 @@ public class ItemTableModel extends GameTableModel {
      * Column names: Name, Graphic, Stats, Actions
      */
 
-    public ItemTableModel (EditorData myED) {
+    public ItemTableModel (EditorData ED) {
         String[] names = { "Name", "Graphic", "Stats", "Actions" };
         myName = GridConstants.ITEM;
         setColumnNames(names);
+        myED = ED;
     }
 
     @Override

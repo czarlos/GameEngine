@@ -38,7 +38,6 @@ public class ComboBoxEditor extends AbstractCellEditor implements TableCellEdito
             comboBox.addItem(newCS);
         }
 
-//        myComboBox.setSelectedItem(((Selector) value).getValue());
         myComboBox = comboBox;
         myComboBox.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
