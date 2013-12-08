@@ -53,7 +53,7 @@ public class StatCondition extends Condition {
         List<GameUnit> theTeam = stage.getTeamUnits(myAffiliation);
         int total = 0;
         for (GameUnit gu : theTeam) {
-            total += gu.getStat(myStatType);
+            total += gu.getTotalStat(myStatType);
         }
         return total > myValue;
     }

@@ -141,7 +141,7 @@ public class GameUnit extends InventoryObject {
                         myStats.getStatValue("maxhealth"));
         for (String stat : myTotalStats.getStatNames()) {
             if (!stat.equals("health") && !stat.equals("maxhealth")) {
-                displayData.add("    " + stat + ": " + calcTotalStat(stat));
+                displayData.add("    " + stat + ": " + getTotalStat(stat));
             }
         }
         setDisplayData(displayData);

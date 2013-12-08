@@ -182,7 +182,6 @@ public class GameManager extends Manager {
         GameUnit initiator =
                 (GameUnit) myActiveStage.getGrid()
                         .getObject(GridConstants.GAMEUNIT, unitCoordinate);
-        initiator.setTotalStats(((Tile) myActiveStage.getGrid().getObject(GridConstants.TILE, unitCoordinate)).getStats());
         setActiveActions(unitCoordinate);
         myActiveStage.getGrid().setAllTilesInactive();
         Action activeAction = myActiveActions.get(actionID);
@@ -210,12 +209,13 @@ public class GameManager extends Manager {
                 (GameUnit) myActiveStage.getGrid()
                         .getObject(GridConstants.GAMEUNIT, unitCoordinate);
         setActiveActions(unitCoordinate);
+        initiator.setTotalStats(((Tile) myActiveStage.getGrid().getObject(GridConstants.TILE, unitCoordinate)).getStats());
         Action activeAction = myActiveActions.get(actionID);
         if (activeAction.getName().equals(GridConstants.MOVE) &&
             myActiveStage.getGrid().isActive(GridConstants.TILE, actionCoordinate)) {
             myActiveStage.getGrid().doMove(unitCoordinate, actionCoordinate);
             initiator.hasMoved();
-
+            initiator.setTotalStats(((Tile) myActiveStage.getGrid().getObject(GridConstants.TILE, unitCoordinate)).getStats());
         }
         else {
             GameObject receiver =
@@ -229,6 +229,7 @@ public class GameManager extends Manager {
                 endAction(unitCoordinate, actionCoordinate, initiator, receiver);
             }
         }
+        initiator.setTotalStats(((Tile) myActiveStage.getGrid().getObject(GridConstants.TILE, unitCoordinate)).getStats());
         myActiveStage.getGrid().setAllTilesInactive();
     }
 

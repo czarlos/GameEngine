@@ -91,6 +91,7 @@ public class AI2 {
                 for (Coordinate activeCoordinate : activeCoordinates) {
                     if (currentAction.isValid(unit, myGrid.getObject(GridConstants.GAMEOBJECT,
                                                                      activeCoordinate))) {
+                        System.out.println("AI actionName: "+currentAction.getName());
                         currentAction.doAction(unit, myGrid.getObject(GridConstants.GAMEOBJECT,
                                                                       activeCoordinate));
                         ((GameManager) myManager)
