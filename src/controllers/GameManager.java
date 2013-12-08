@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import stage.Stage;
 import team.Team;
 import view.player.PlayerView;
 import game.AI;
+import game.AI2;
 import gameObject.Chest;
 import gameObject.GameObject;
 import gameObject.GameUnit;
@@ -93,6 +95,11 @@ public class GameManager extends Manager {
             unit.setActive(true);
         }
     }
+    
+    public void doAITurn () {
+        AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage, this);
+        ai.doTurn();
+    }
 
     @JsonIgnore
     private String getActiveTeamName () {
@@ -103,6 +110,7 @@ public class GameManager extends Manager {
     private String getActiveTitle () {
         return getActiveTeamName() + " - " + getActiveStageName() + " - " + myGameName;
     }
+    
 
     public boolean nextStage () {
         int index = myStages.indexOf(myActiveStage);
@@ -121,13 +129,7 @@ public class GameManager extends Manager {
         return myActiveStage.getTeam(myActiveTeam).isHuman();
     }
 
-    public void doAITurn () {
-        // pass in gamemanager to AI because need moveOn command
-        AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage, this);
-        ai.doTurn();
-    }
-
-    public boolean turnCompleted () {
+    public boolean isTurnCompleted () {
         return isTurnCompleted;
     }
 
@@ -151,7 +153,6 @@ public class GameManager extends Manager {
                                                                                      actionNameSplit[1]); }
         if (actionNameSplit[0].equals(GridConstants.SHOP)) { return new ShopAction(
                                                                                    actionNameSplit[1]); }
-        // check first to see if it's one of the core actions so users can't override
         for (Action action : GridConstants.COREACTIONS) {
             if (action.getName().equals(actionName)) { return action; }
         }

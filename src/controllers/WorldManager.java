@@ -69,9 +69,10 @@ public class WorldManager extends Manager {
         if (go != null && go instanceof InventoryObject) {
             Map<String, Integer> items = ((InventoryObject) go).getItemAmounts();
             gtm.loadObject(items);
+            return gtm;
         }
 
-        return gtm;
+        return null;
     }
 
     @SuppressWarnings("unchecked")

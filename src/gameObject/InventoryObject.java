@@ -47,7 +47,6 @@ public class InventoryObject extends GameObject {
      * 
      * @param itemName The name of the item, not a string
      */
-    @Override
     public void addItem (Item item) {
         if (myItems.add(item)) {
             myItemAmounts.put(item.getName(), 1);
