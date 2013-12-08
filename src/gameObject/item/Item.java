@@ -7,6 +7,7 @@ import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import gameObject.IStats;
 import gameObject.Stat;
 import gameObject.Stats;
 
@@ -21,7 +22,7 @@ import gameObject.Stats;
  * 
  */
 @JsonAutoDetect
-public class Item extends Customizable {
+public class Item extends Customizable implements IStats {
     @JsonProperty
     private List<String> myActions;
     private Stats myStats;
