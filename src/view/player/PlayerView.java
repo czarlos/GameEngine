@@ -41,7 +41,7 @@ public class PlayerView extends GameView implements WindowListener{
         this.remove(myBackground);
         //myLayeredPane = new JLayeredPane();
         this.setTitle(myGameManager.getGameName());
-
+        
         revalidate();
         repaint();
         doTurn();
@@ -132,7 +132,7 @@ public class PlayerView extends GameView implements WindowListener{
         }
         revalidate();
         repaint();
-        doTurn();
+        //doTurn();
     }
 
     public void doTurn () {

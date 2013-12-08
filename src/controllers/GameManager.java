@@ -110,13 +110,12 @@ public class GameManager extends Manager {
     private String getActiveTitle () {
         return getActiveTeamName() + " - " + getActiveStageName() + " - " + myGameName;
     }
-    
 
     public boolean nextStage () {
         int index = myStages.indexOf(myActiveStage);
-        if (!(index < myStages.size())) {
-            setActiveStage(index++);
-            return true;
+        if (index != myStages.size()) { //there is at least one more stage
+            setActiveStage(index+1); //index++ doesn't work here...
+            return true; 
         }
         return false;
     }
