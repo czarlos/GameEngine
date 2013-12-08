@@ -55,6 +55,6 @@ public class ItemsTableModel extends GameTableModel {
 
     @Override
     public String getRowType () {
-        return "Map Object";
+        return getName();
     }
 }
