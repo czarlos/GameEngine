@@ -55,7 +55,6 @@ public class StatCondition extends Condition {
         for (GameUnit gu : theTeam) {
             total += gu.getStat(myStatType);
         }
-
         return total > myValue;
     }
 

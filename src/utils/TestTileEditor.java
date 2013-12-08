@@ -72,6 +72,6 @@ public class TestTileEditor {
 
     private static List<?> makeTestLists () {
         JSONParser p = new JSONParser();
-        return p.createObject("defaults/Action", new ArrayList<Action>().getClass());
+        return p.createObjectFromFile("defaults/Action", new ArrayList<Action>().getClass());
     }
 }

@@ -32,8 +32,6 @@ public abstract class GameView extends JFrame implements WindowListener {
     public GameView () throws HeadlessException {
         super();
         initializeWindow();
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        addWindowListener(this);
     }
 
     public GameView (GraphicsConfiguration gc) {
@@ -58,6 +56,8 @@ public abstract class GameView extends JFrame implements WindowListener {
         pack();
         setSize(800, 600);
         setVisible(true);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(this);
     }
     
     protected void showBackground(){
@@ -82,7 +82,7 @@ public abstract class GameView extends JFrame implements WindowListener {
         if (value == JOptionPane.OK_OPTION) {
             String gameName = loader.getSelected();
             JSONParser p = new JSONParser();
-            return p.createObject(folder + "/" + gameName,
+            return p.createObjectFromFile(folder + "/" + gameName,
                                   controllers.WorldManager.class);
         }
         return null;

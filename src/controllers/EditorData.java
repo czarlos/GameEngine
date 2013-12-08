@@ -70,7 +70,7 @@ public class EditorData {
     private void loadObjects (String folderName) {
         for (String s : GridConstants.DEFAULTEDITTYPES) {
             List<Customizable> list = new ArrayList<Customizable>();
-            list = myParser.createObject(folderName + "/" + s,
+            list = myParser.createObjectFromFile(folderName + "/" + s,
                                          new ArrayList<Customizable>().getClass());
             myDataMap.put(s, list);
         }
@@ -147,13 +147,13 @@ public class EditorData {
         }
 
         for (GameUnit unit : editorUnitList) {
-            unit.syncActionsWithMaster(nameTranslationMap, removedNames);
+            unit.syncStatsWithMaster(nameTranslationMap, removedNames);
         }
 
         for (int i = 0; i < placedUnits.length; i++) {
             for (int j = 0; j < placedUnits[i].length; j++) {
                 if (placedUnits[i][j] != null) {
-                    placedUnits[i][j].syncActionsWithMaster(nameTranslationMap, removedNames);
+                    placedUnits[i][j].syncStatsWithMaster(nameTranslationMap, removedNames);
                 }
             }
         }

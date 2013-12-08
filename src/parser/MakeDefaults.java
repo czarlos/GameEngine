@@ -185,7 +185,7 @@ public class MakeDefaults {
         unitStats.modExisting("strength", 2);
         unitStats.modExisting("health", 15);
         unitStats.modExisting("attack", 2);
-        unitStats.modExisting("max health", 15);
+        unitStats.modExisting("maxhealth", unitStats.getStatValue("health"));
         
         gameObject.GameUnit hero = new gameObject.GameUnit();
         gameObject.GameUnit goldensun = new gameObject.GameUnit();
@@ -233,7 +233,7 @@ public class MakeDefaults {
         wm.addStage(10, 10, 1, "stageOne", 0);
         wm.saveGame("saves");
 
-        p.createObject("saves/test", WorldManager.class);
+        p.createObjectFromFile("saves/test", WorldManager.class);
     }
 
     public void makeTeams () {

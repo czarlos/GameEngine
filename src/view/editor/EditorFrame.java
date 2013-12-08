@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BoxLayout;
@@ -45,7 +46,7 @@ public class EditorFrame extends GameView {
     private GridEditorController myGridController;
     protected WorldManager myWorldManager;
     private TableDialog myDialog;
-    protected String mySavesLocation="saves";
+    protected String mySavesLocation = "saves";
 
     public EditorFrame () {
         super("Omega_Nu Game Editor");
@@ -199,7 +200,7 @@ public class EditorFrame extends GameView {
 
     @Override
     protected void loadGame (Manager m) {
-        if(m!=null){
+        if (m != null) {
             setFrame(m);
             setStages(m);
         }
@@ -290,10 +291,16 @@ public class EditorFrame extends GameView {
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                new PlayerView(myWorldManager).setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                ;
+                JSONParser parser = new JSONParser();
+                new PlayerView(parser.deepClone(myWorldManager, WorldManager.class)) {
+                    //Need to override windowClosing to prevent the opening of GameStartView.
+                    //This is desired when running PlayerView from the game editor.
+                    @Override
+                    public void windowClosing (WindowEvent e) {
+                        dispose();
+                    }
+                };
             }
-
         });
         
         JMenuItem saveLib = new JMenuItem("Save Editor Library");
@@ -468,7 +475,7 @@ public class EditorFrame extends GameView {
     }
 
     protected void saveGame () {
-        saveGame(mySaveLocation);
+        saveGame("saves");
     }
 
     protected void saveGame (String location) {
