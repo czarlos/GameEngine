@@ -2,6 +2,7 @@ package dialog.dialogs;
 
 import gameObject.Stats;
 import gameObject.action.Outcomes;
+import grid.GridConstants;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -141,10 +142,13 @@ public class TableDialog extends JDialog {
         table.setDefaultEditor(Outcomes.class,
                                new ModelEditor(new OutcomesTableModel(myModel.getED())));
 
+        System.out.println(myModel.getName());
+        
+        System.out.println(new EnumTableModel(myModel.getED()
+                                       .getDialogList(myModel.getName()), myModel.getED()));
         table.setDefaultEditor(ArrayList.class,
                                new ModelEditor(new EnumTableModel(myModel.getED()
-                                       .getDialogList(myModel
-                                               .getName()))));
+                                       .getDialogList(myModel.getName()), myModel.getED())));
     }
 
     /**

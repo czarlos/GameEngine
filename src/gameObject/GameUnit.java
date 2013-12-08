@@ -116,8 +116,8 @@ public class GameUnit extends InventoryObject {
     @Override
     public List<String> generateDisplayData () {
         List<String> displayData = super.generateDisplayData();
-        displayData.add("<html><b>Team: </b>" + myAffiliation + "</html>");
-        displayData.add("<html><b>Stats: </b></html>");
+        displayData.add("<b>Team: </b>" + myAffiliation);
+        displayData.add("<b>Stats: </b>");
         displayData.add("    health: " + getTotalStat("health") + " / " +
                         myStats.getStatValue("maxhealth"));
         for (String stat : myStats.getStatNames()) {
