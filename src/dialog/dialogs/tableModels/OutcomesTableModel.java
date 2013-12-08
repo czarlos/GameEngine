@@ -43,7 +43,7 @@ public class OutcomesTableModel extends GameTableModel {
 
         fireTableDataChanged();
     }
-    
+
     @Override
     public void loadObject (Object object) {
         myList.clear();

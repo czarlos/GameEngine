@@ -24,12 +24,12 @@ public class MakeDefaults {
     private Item defaultItem;
     private CombatAction defaultCombatAction;
     private Stats defaultStats;
-    
+
     public MakeDefaults () {
         p = new JSONParser();
 
         defaultStats = new Stats();
-        for(String s: GridConstants.DEFAULTSTATARRAY){
+        for (String s : GridConstants.DEFAULTSTATARRAY) {
             defaultStats.addStat(new Stat(s));
         }
 
@@ -125,7 +125,7 @@ public class MakeDefaults {
         Brush.setStats(defaultStats);
         Brush.setActive(false);
         Brush.setMoveCost(1);
-        
+
         grid.Tile Dirt = new grid.Tile();
         Dirt.setName("Dirt");
         Dirt.setImagePath("resources/dirt.png");
@@ -153,8 +153,8 @@ public class MakeDefaults {
 
         gameObject.Chest chest = new gameObject.Chest();
         chest.setName("Chest");
-        chest.setImagePath("resources/chest.png");   
-        
+        chest.setImagePath("resources/chest.png");
+
         gameObject.Shop shop = new gameObject.Shop();
         shop.setName("Shop");
         shop.setImagePath("resources/shop.png");
@@ -184,7 +184,7 @@ public class MakeDefaults {
         unitStats.modExisting("strength", 2);
         unitStats.modExisting("health", 15);
         unitStats.modExisting("attack", 2);
-        
+
         gameObject.GameUnit hero = new gameObject.GameUnit();
         gameObject.GameUnit goldensun = new gameObject.GameUnit();
         gameObject.GameUnit enemy = new gameObject.GameUnit();
@@ -275,16 +275,16 @@ public class MakeDefaults {
 
         p.createJSON("defaults/" + GridConstants.ACTION, list);
     }
-    
+
     public void makeStats () {
         List<Stat> list = new ArrayList<Stat>();
-        for(String s: GridConstants.DEFAULTSTATARRAY){
+        for (String s : GridConstants.DEFAULTSTATARRAY) {
             list.add(new Stat(s));
         }
 
         p.createJSON("defaults/" + GridConstants.MASTERSTATS, list);
     }
-    
+
     public void makeItems () {
         List<Item> list = new ArrayList<Item>();
 

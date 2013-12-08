@@ -24,9 +24,9 @@ import controllers.WorldManager;
 
 
 @SuppressWarnings("serial")
-public class PlayerView extends GameView implements WindowListener{
+public class PlayerView extends GameView implements WindowListener {
     private StagePlayerPanel myStagePlayerPanel;
-    //public JLayeredPane myLayeredPane;
+    // public JLayeredPane myLayeredPane;
     protected GameManager myGameManager;
 
     public PlayerView () {
@@ -39,7 +39,7 @@ public class PlayerView extends GameView implements WindowListener{
         myGameManager.setView(this);
         super.clearWindow();
         this.remove(myBackground);
-        //myLayeredPane = new JLayeredPane();
+        // myLayeredPane = new JLayeredPane();
         this.setTitle(myGameManager.getGameName());
 
         revalidate();
@@ -53,9 +53,9 @@ public class PlayerView extends GameView implements WindowListener{
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(this);
     }
-    
+
     @Override
-    public void windowClosing(WindowEvent e){
+    public void windowClosing (WindowEvent e) {
         new GameStartView();
         dispose();
     }
@@ -122,7 +122,7 @@ public class PlayerView extends GameView implements WindowListener{
             String game = (String) gameNamesMenu.getSelectedItem();
             JSONParser p = new JSONParser();
             Manager newWM = p.createObject(folder + "/" + game,
-                                                controllers.Manager.class);
+                                           controllers.Manager.class);
             myGameManager = new GameManager(newWM);
             myGameManager.setView(this);
             super.clearWindow();
@@ -141,19 +141,19 @@ public class PlayerView extends GameView implements WindowListener{
         remove(myBackground);
         myStagePlayerPanel = new StagePlayerPanel(myGameManager, this);
         add(myStagePlayerPanel);
-        //myLayeredPane.add(myStagePlayerPanel);
-        //myLayeredPane.moveToFront(myStagePlayerPanel);
+        // myLayeredPane.add(myStagePlayerPanel);
+        // myLayeredPane.moveToFront(myStagePlayerPanel);
         revalidate();
         repaint();
     }
 
     public void endTurn () {
         getContentPane().remove(myStagePlayerPanel);
-        getContentPane().add(myBackground); 
+        getContentPane().add(myBackground);
         revalidate();
         repaint();
         doTurn();
-        
+
     }
 
     public static void main (String[] args) {
@@ -161,11 +161,11 @@ public class PlayerView extends GameView implements WindowListener{
     }
 
     public void showDialog (String story) {
-        //myLayeredPane = new JLayeredPane();
+        // myLayeredPane = new JLayeredPane();
         remove(myBackground);
-        //myLayeredPane.add(curStory);
-        //myLayeredPane.moveToFront(curStory);
-        //this.add(myLayeredPane);
+        // myLayeredPane.add(curStory);
+        // myLayeredPane.moveToFront(curStory);
+        // this.add(myLayeredPane);
         JOptionPane.showMessageDialog(this, story);
     }
 
@@ -179,31 +179,31 @@ public class PlayerView extends GameView implements WindowListener{
 
     @Override
     public void windowOpened (WindowEvent e) {
-        
+
     }
 
     @Override
     public void windowClosed (WindowEvent e) {
-        
+
     }
 
     @Override
     public void windowIconified (WindowEvent e) {
-        
+
     }
 
     @Override
     public void windowDeiconified (WindowEvent e) {
-        
+
     }
 
     @Override
     public void windowActivated (WindowEvent e) {
-        
+
     }
 
     @Override
     public void windowDeactivated (WindowEvent e) {
-        
+
     }
 }

@@ -13,7 +13,7 @@ public class SelectedInfoEditorPanel extends SelectedInfoPanel {
 
     private WorldManager myWorldManager;
     private Coordinate myCoordinate;
-    
+
     public SelectedInfoEditorPanel (WorldManager wm) {
         super();
     }
@@ -22,8 +22,8 @@ public class SelectedInfoEditorPanel extends SelectedInfoPanel {
     public JPanel makeActionPane (List<String> actionInfo) {
         return new InfoPanel(actionInfo);
     }
-    
-    public void setCoordinate (Coordinate c){
+
+    public void setCoordinate (Coordinate c) {
         myCoordinate = c;
     }
 }

@@ -21,14 +21,14 @@ public class ComboBoxEditor extends AbstractCellEditor implements TableCellEdito
     JComboBox<Selector> myComboBox;
 
     public ComboBoxEditor () {
-        
+
     }
 
     @Override
     public Object getCellEditorValue () {
         return myComboBox.getSelectedItem();
     }
-    
+
     @Override
     public Component getTableCellEditorComponent (JTable table,
                                                   Object value,
@@ -41,7 +41,7 @@ public class ComboBoxEditor extends AbstractCellEditor implements TableCellEdito
             Selector newCS = new Selector(((Selector) value).getValues(), o);
             comboBox.addItem(newCS);
         }
-        
+
         myComboBox = comboBox;
         myComboBox.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
@@ -49,7 +49,7 @@ public class ComboBoxEditor extends AbstractCellEditor implements TableCellEdito
                 fireEditingStopped();
             }
         });
-        
+
         return myComboBox;
     }
 

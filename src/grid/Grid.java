@@ -207,9 +207,8 @@ public class Grid implements Drawable {
             GameObject receiver = getObject(GridConstants.GAMEOBJECT, actionCoordinate);
             if (receiver != null) {
                 if (receiver instanceof GameUnit) {
-                    if (initiator.getAffiliation().equals(((GameUnit) receiver).getAffiliation())) {
-                        return receiver.getInteractions();
-                    }
+                    if (initiator.getAffiliation().equals(((GameUnit) receiver).getAffiliation())) { return receiver
+                            .getInteractions(); }
                 }
                 else {
                     return receiver.getInteractions();
@@ -320,12 +319,12 @@ public class Grid implements Drawable {
             }
         }
     }
-    
+
     @JsonIgnore
     public List<Coordinate> getActiveTileCoordinates () {
-        List<Coordinate> activeTiles = new ArrayList<>();       
-        for (int i=0; i < myArrays.get(GridConstants.TILE).length; i++) {
-            for (int j=0; j < myArrays.get(GridConstants.TILE)[0].length; j++) {
+        List<Coordinate> activeTiles = new ArrayList<>();
+        for (int i = 0; i < myArrays.get(GridConstants.TILE).length; i++) {
+            for (int j = 0; j < myArrays.get(GridConstants.TILE)[0].length; j++) {
                 if (isActive(GridConstants.TILE, new Coordinate(i, j))) {
                     activeTiles.add(new Coordinate(i, j));
                 }

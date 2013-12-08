@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import stage.Stage;
 import team.Team;
 import view.player.PlayerView;
 import game.AI;
@@ -95,9 +94,9 @@ public class GameManager extends Manager {
             unit.setActive(true);
         }
     }
-    
+
     public void doAITurn () {
-        AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage, this);
+        AI2 ai = new AI2(myActiveStage.getTeam(myActiveTeam), myActiveStage, this);
         ai.doTurn();
     }
 
@@ -110,7 +109,6 @@ public class GameManager extends Manager {
     private String getActiveTitle () {
         return getActiveTeamName() + " - " + getActiveStageName() + " - " + myGameName;
     }
-    
 
     public boolean nextStage () {
         int index = myStages.indexOf(myActiveStage);
@@ -211,25 +209,31 @@ public class GameManager extends Manager {
             if (receiver != null &&
                 myActiveStage.getGrid().isActive(GridConstants.TILE, actionCoordinate)) {
                 activeAction.doAction(initiator, receiver);
-                initiator.setActive(false);
-                if (initiator.getTotalStat("health") == 0) {
-                    myActiveStage.getGrid().removeObject(GridConstants.GAMEOBJECT, unitCoordinate);
-                }
-                if (receiver instanceof Chest) {
-                    if (((Chest) receiver).isEmpty()) {
-                        myActiveStage.getGrid().removeObject(GridConstants.GAMEOBJECT, actionCoordinate);
-                    }
-                }
-                if (receiver instanceof GameUnit) {
-                    if (((GameUnit) receiver).getTotalStat("health") == 0) {
-                        myActiveStage.getGrid().removeObject(GridConstants.GAMEOBJECT,
-                                                             actionCoordinate);
-                    }
-                }
+                endAction(unitCoordinate, actionCoordinate, initiator, receiver);
             }
-
         }
         myActiveStage.getGrid().setAllTilesInactive();
+    }
+
+    public void endAction (Coordinate unitCoordinate,
+                           Coordinate actionCoordinate,
+                           GameUnit initiator,
+                           GameObject receiver) {
+        initiator.setActive(false);
+        if (initiator.getTotalStat("health") == 0) {
+            myActiveStage.getGrid().removeObject(GridConstants.GAMEOBJECT, unitCoordinate);
+        }
+        if (receiver instanceof Chest) {
+            if (((Chest) receiver).isEmpty()) {
+                myActiveStage.getGrid().removeObject(GridConstants.GAMEOBJECT, actionCoordinate);
+            }
+        }
+        if (receiver instanceof GameUnit) {
+            if (((GameUnit) receiver).getTotalStat("health") == 0) {
+                myActiveStage.getGrid().removeObject(GridConstants.GAMEOBJECT,
+                                                     actionCoordinate);
+            }
+        }
     }
 
     public void endTurn () {

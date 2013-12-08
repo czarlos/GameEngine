@@ -39,7 +39,14 @@ public class ItemsTableModel extends GameTableModel {
     public Object getObject () {
         Map myMap = new HashMap<String, Integer>();
         for (Object[] row : myList) {
-            myMap.put(row[0], row[1]);
+            if (myMap.containsKey(row[0])) {
+                myMap.put(row[0], row[1]);
+ //               myMap.put(row[0], myMap.get(row[0]) + row[1]);
+            }
+            else {
+                myMap.put(row[0], row[1]);
+            }
+
         }
 
         return myMap;

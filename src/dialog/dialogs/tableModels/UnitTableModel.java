@@ -39,7 +39,7 @@ public class UnitTableModel extends GameTableModel {
         ret[1] = new File("resources/grass.png");
         ret[2] = new Selector(myED.getNames(GridConstants.TEAM), defaultAffiliation);
         Stats stats = new Stats();
-        for(String s: GridConstants.DEFAULTSTATARRAY){
+        for (String s : GridConstants.DEFAULTSTATARRAY) {
             stats.addStat(new Stat(s));
         }
         stats.modExisting("movement", 4);
