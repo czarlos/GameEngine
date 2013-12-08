@@ -43,15 +43,6 @@ public class PathFinding {
         int range = unit.getStat("movement");
         List<Tile> path = findPath(start, end, grid);
 
-        // System.out.println(grid.getTileCoordinate(start).getX() + " " +
-        // grid.getTileCoordinate(start).getY());
-        // System.out.println(grid.getTileCoordinate(end).getX() + " " +
-        // grid.getTileCoordinate(end).getY());
-        // for (Tile t : path) {
-        // System.out.println(grid.getObjectCoordinate(GridConstants.TILE, t).getX() + " " +
-        // grid.getObjectCoordinate(GridConstants.TILE, t).getY());
-        // }
-
         Tile newTile;
         if (range > path.size()) {
             newTile = path.get(path.size() - 1);
