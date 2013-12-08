@@ -18,28 +18,11 @@ public class PlayerView extends GameView {
     protected GameManager myGameManager;
 
     public PlayerView () {
-        
     }
 
-<<<<<<< HEAD
-    public PlayerView (WorldManager wm) {
-        myGameManager = new GameManager(wm);
-        myGameManager.setView(this);
-        super.clearWindow();
-        this.remove(myBackground);
-        //myLayeredPane = new JLayeredPane();
-        this.setTitle(myGameManager.getGameName());
-        
-        revalidate();
-        repaint();
-        doTurn();
-=======
     public PlayerView (Manager manager) {
         loadGame(manager);
->>>>>>> cf3786e0eed233a094b0dc03aeb09a3a2ca57015
     }
-
-
 
     @Override
     protected JMenuBar createMenuBar (JFrame frame) {
@@ -83,50 +66,14 @@ public class PlayerView extends GameView {
         return menuBar;
     }
 
-<<<<<<< HEAD
-    protected void loadGame (String folder) {
-        if (myStagePlayerPanel != null)
-            remove(myStagePlayerPanel);
-        JPanel loadPanel = new JPanel();
-        loadPanel.setLayout(new GridLayout(0, 2));
-        JLabel gameNames = new JLabel("Choose Game Name:");
-        JComboBox<String> gameNamesMenu = new JComboBox<>();
-        File savesDir = new File("JSONs/" + folder + "/");
-        for (File child : savesDir.listFiles()) {
-            gameNamesMenu.addItem(child.getName().split("\\.")[0]);
-        }
-        loadPanel.add(gameNames);
-        loadPanel.add(gameNamesMenu);
-
-        int value = JOptionPane.showConfirmDialog(this, loadPanel,
-                                                  "Choose Game", JOptionPane.OK_CANCEL_OPTION);
-        if (value == JOptionPane.OK_OPTION) {
-            String game = (String) gameNamesMenu.getSelectedItem();
-            JSONParser p = new JSONParser();
-            Manager newWM = p.createObject(folder + "/" + game,
-                                                controllers.Manager.class);
-            myGameManager = new GameManager(newWM);
-            myGameManager.setView(this);
-            super.clearWindow();
-            this.remove(myBackground);
-
-            this.setTitle(myGameManager.getGameName());
-        }
-        revalidate();
-        repaint();
-        //doTurn();
+    @Override
+    protected void loadGame (Manager m) {
+        myGameManager = new GameManager(m);
+        myGameManager.setView(this);
+        loadStagePanel();
+        showGame();
+        myGameManager.beginTurn();
     }
-=======
-   @Override
-   protected void loadGame(Manager m){
-       myGameManager = new GameManager(m);
-       myGameManager.setView(this);
-       loadStagePanel();
-       showGame();
-       myGameManager.beginTurn();
-   }
-    
->>>>>>> cf3786e0eed233a094b0dc03aeb09a3a2ca57015
 
     public void endTurn () {
         showBackground();
@@ -134,9 +81,9 @@ public class PlayerView extends GameView {
         loadStagePanel();
         myGameManager.beginTurn();
     }
-    
-    public void loadStagePanel(){
-        
+
+    public void loadStagePanel () {
+
         remove(myBackground);
         myGame = new StagePlayerPanel(myGameManager, this);
         add(myGame);
