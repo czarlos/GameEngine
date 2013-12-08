@@ -36,7 +36,8 @@ public class StatTableModel extends GameTableModel {
             addNewRow(row);
         }
     }
-
+    
+    @Override
     public Object getObject () {
         Stats ret = new Stats();
         for (Object[] row : myList) {
