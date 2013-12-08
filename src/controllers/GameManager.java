@@ -41,7 +41,7 @@ public class GameManager extends Manager {
 
     public void beginTurn () {
         clear();
-        
+
         if (myPhaseCount == 0) {
             myView.showDialog(getPreStory());
         }

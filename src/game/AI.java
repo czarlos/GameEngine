@@ -43,27 +43,34 @@ public class AI {
             doAIMove(unit, opponentList);
         }
     }
-    
+
     /**
      * Removes tiles from the possible tiles in a path that cannot be passed through,
      * thus avoiding all objects that the unit can't walk through.
+     * 
      * @param tileList
      * @param unit
      * @param opponentList
      * @return
      */
-    public List<Tile> removeInvalidTiles(List<Tile> tileList, GameUnit unit, Set<GameUnit> opponentList) {
+    public List<Tile> removeInvalidTiles (List<Tile> tileList,
+                                          GameUnit unit,
+                                          Set<GameUnit> opponentList) {
         List<Tile> removalList = new ArrayList<Tile>();
         for (Tile tile : tileList) {
             Coordinate location = myGrid.getObjectCoordinate(GridConstants.TILE, tile);
-            if (myGrid.getObject(GridConstants.GAMEOBJECT, location) !=null && !myGrid.getObject(GridConstants.GAMEOBJECT, location).equals(unit) && !myGrid.getObject(GridConstants.GAMEOBJECT, location).isPassable(unit) && !opponentList.contains(myGrid.getObject(GridConstants.GAMEOBJECT, location))) {
+            if (myGrid.getObject(GridConstants.GAMEOBJECT, location) != null &&
+                !myGrid.getObject(GridConstants.GAMEOBJECT, location).equals(unit) &&
+                !myGrid.getObject(GridConstants.GAMEOBJECT, location).isPassable(unit) &&
+                !opponentList.contains(myGrid.getObject(GridConstants.GAMEOBJECT, location))) {
                 removalList.add(tile);
             }
         }
-        
-        if(!removalList.isEmpty()){
-            for(Tile t : removalList) {
-                if (myGrid.getObject(GridConstants.GAMEUNIT, myGrid.getObjectCoordinate(GridConstants.TILE, t)) instanceof GameUnit) {
+
+        if (!removalList.isEmpty()) {
+            for (Tile t : removalList) {
+                if (myGrid.getObject(GridConstants.GAMEUNIT,
+                                     myGrid.getObjectCoordinate(GridConstants.TILE, t)) instanceof GameUnit) {
                     continue;
                 }
                 else {
@@ -73,7 +80,7 @@ public class AI {
         }
         return tileList;
     }
-    
+
     /**
      * Sends enemy units to attack your units, uses dijkstra's path finding algorithm
      * from the PathFinding class to find the shortest path and traverses as far
@@ -93,28 +100,33 @@ public class AI {
                 (Tile) myGrid.getObject(GridConstants.TILE,
                                         myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit));
         Tile end = (Tile) myGrid.getObject(GridConstants.TILE, other);
-        
+
         Random r = new Random();
         int rand = r.nextInt(unit.getActionNames().size());
         String randomAction = unit.getActionNames().get(rand);
 
         Action currentAction = ((GameManager) myGM).getAction(randomAction);
-        
-        if (UnitUtilities.calculateLength(myGrid.getObjectCoordinate(GridConstants.TILE, start),
-                                          myGrid.getObjectCoordinate(GridConstants.TILE, end)) <= currentAction.getActionRange()) {
 
-            currentAction.doAction(unit, myGrid.getObject(GridConstants.GAMEOBJECT,
-                                                          other));
-            ((GameManager) myGM)
-                    .endAction(myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit), other,
-                               unit, myGrid
-                                       .getObject(GridConstants.GAMEOBJECT, other));
-            myGrid.setAllTilesInactive();
-            new AnimateAction(unit.getImagePath(), myGrid.getObject(GridConstants.GAMEUNIT, other).getImagePath());
+        if (unit.getStat("movement") > 0) {
+            if (UnitUtilities
+                    .calculateLength(myGrid.getObjectCoordinate(GridConstants.TILE, start),
+                                     myGrid.getObjectCoordinate(GridConstants.TILE, end)) <= currentAction
+                    .getActionRange()) {
 
-        }
-        else {
-            PathFinding.autoMove(start, end, unit, myGrid);
+                currentAction.doAction(unit, myGrid.getObject(GridConstants.GAMEOBJECT,
+                                                              other));
+                ((GameManager) myGM)
+                        .endAction(myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit), other,
+                                   unit, myGrid
+                                           .getObject(GridConstants.GAMEOBJECT, other));
+                myGrid.setAllTilesInactive();
+                new AnimateAction(unit.getImagePath(), myGrid.getObject(GridConstants.GAMEUNIT,
+                                                                        other).getImagePath());
+
+            }
+            else {
+                PathFinding.autoMove(start, end, unit, myGrid);
+            }
         }
     }
 
