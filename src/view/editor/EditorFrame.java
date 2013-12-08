@@ -51,7 +51,7 @@ public class EditorFrame extends GameView implements WindowListener {
 
     public EditorFrame () {
         super("Omega_Nu Game Editor");
-        mySaveLocation="saves";
+        mySaveLocation = "saves";
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(this);
     }
@@ -324,8 +324,8 @@ public class EditorFrame extends GameView implements WindowListener {
 
     protected void setStage (String stageName, int stageID) {
         StagePanel sp =
-                new StagePanel(stageName, myWorldManager, stageID,
-                               myGridController);
+                new StagePanel(myWorldManager,
+                               myGridController, stageID);
         myStagePanelList.add(sp);
         stageTabbedPane.addTab(stageName, sp);
         stageTabbedPane.setSelectedIndex(myStagePanelList.size() - 1);
@@ -350,14 +350,14 @@ public class EditorFrame extends GameView implements WindowListener {
         storyPanel.add(field);
         int value =
                 JOptionPane.showConfirmDialog(this, storyPanel,
-                                              "Enter "+prepost+ "story",
+                                              "Enter " + prepost + "story",
                                               JOptionPane.OK_CANCEL_OPTION,
                                               JOptionPane.PLAIN_MESSAGE);
         if (value == JOptionPane.OK_OPTION) {
             String story = field.getText();
-            if(prepost.equals("Pre"))
+            if (prepost.equals("Pre"))
                 myWorldManager.setPreStory(story);
-            if(prepost.equals("Post"))
+            if (prepost.equals("Post"))
                 myWorldManager.setPostStory(story);
         }
     }

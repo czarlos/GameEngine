@@ -1,6 +1,5 @@
 package view.player;
 
-import grid.Coordinate;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;

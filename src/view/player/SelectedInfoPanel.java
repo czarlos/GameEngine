@@ -1,12 +1,11 @@
 package view.player;
 
 import java.awt.Dimension;
-import java.awt.Rectangle;
 import java.util.List;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.Scrollable;
-import javax.swing.SwingConstants;
+import javax.swing.ScrollPaneLayout;
 import controller.editor.GridController;
 
 
@@ -14,7 +13,7 @@ import controller.editor.GridController;
  * Panel to display tabs that are shown on the side of the player.
  */
 @SuppressWarnings("serial")
-public class SelectedInfoPanel extends JTabbedPane implements Scrollable {
+public class SelectedInfoPanel extends JTabbedPane {
     protected GridController myController;
 
     public SelectedInfoPanel (GridController controller) {
@@ -22,7 +21,7 @@ public class SelectedInfoPanel extends JTabbedPane implements Scrollable {
         setPreferredSize(new Dimension(300, 500));
 
     }
-    
+
     public SelectedInfoPanel () {
         setPreferredSize(new Dimension(200, 200));
 
@@ -32,47 +31,24 @@ public class SelectedInfoPanel extends JTabbedPane implements Scrollable {
                           List<String> objectInfo) {
 
         if (actionInfo != null && !actionInfo.isEmpty()) {
-
-            add("Actions", makeActionPane(actionInfo));
+            JScrollPane pane = new JScrollPane(makeActionPane(actionInfo));
+            pane.setLayout(new ScrollPaneLayout());
+            add("Actions", pane);
         }
 
         if (tileInfo != null && !tileInfo.isEmpty()) {
-            add("Tile", new InfoPanel(tileInfo));
+            JScrollPane pane = new JScrollPane(new InfoPanel(tileInfo));
+            pane.setLayout(new ScrollPaneLayout());
+            add("Tile", pane);
         }
 
         if (objectInfo != null && !objectInfo.isEmpty()) {
-            add("Object", new InfoPanel(objectInfo));
+            JScrollPane pane = new JScrollPane(new InfoPanel(objectInfo));
+            pane.setLayout(new ScrollPaneLayout());
+            add("Object", pane);
         }
 
         repaint();
-    }
-
-    @Override
-    public Dimension getPreferredScrollableViewportSize () {
-        return getPreferredSize();
-    }
-
-    @Override
-    public int getScrollableUnitIncrement (Rectangle visibleRect,
-                                           int orientation, int direction) {
-        return 10;
-    }
-
-    @Override
-    public int getScrollableBlockIncrement (Rectangle visibleRect,
-                                            int orientation, int direction) {
-        return ((orientation == SwingConstants.VERTICAL) ? visibleRect.height
-                                                        : visibleRect.width);
-    }
-
-    @Override
-    public boolean getScrollableTracksViewportWidth () {
-        return true;
-    }
-
-    @Override
-    public boolean getScrollableTracksViewportHeight () {
-        return false;
     }
 
     public JPanel makeActionPane (List<String> actionInfo) {

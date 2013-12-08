@@ -8,17 +8,21 @@ import javax.swing.JLabel;
 
 public class InfoPanel extends ScrollableListPane {
     public InfoPanel (List<String> data) {
-        setPreferredSize(new Dimension(WIDTH, data.size() * DATA_HEIGHT));
+        //xsetSize(new Dimension(WIDTH, data.size() * DATA_HEIGHT));
         populate(data);
     }
 
     @Override
     public void populate (List<String> data) {
         setLayout(new GridLayout(0, 1));
+        StringBuilder info=new StringBuilder();
+        info.append("<html>");
         for (int i = 0; i < data.size(); i++) {
-            String s = data.get(i);
-            JLabel entry = new JLabel(s, JLabel.LEFT);
-            add(entry);
+            info.append("<p width=\"260\">"+data.get(i)+"</p>");
         }
+        info.append("</html>");
+        
+        JLabel entry = new JLabel(info.toString(), JLabel.LEFT);
+        add(entry);
     }
 }
