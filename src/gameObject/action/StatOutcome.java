@@ -10,7 +10,6 @@ import grid.GridConstants;
 
 @JsonAutoDetect
 public class StatOutcome extends Outcome {
-    @JsonProperty
     private String myStatName;
     private Stat myStat;
     
@@ -45,12 +44,10 @@ public class StatOutcome extends Outcome {
         return newAmount;
     }
 
-    @JsonIgnore
     public Object getAffectee () {
         return myStat;
     }
 
-    @JsonIgnore
     public void setAffectee (Object object) {
         myStat = (Stat) object;
         myStatName = myStat.getName();
