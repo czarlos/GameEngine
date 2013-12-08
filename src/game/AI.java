@@ -1,6 +1,7 @@
 package game;
 
 import gameObject.GameUnit;
+import gameObject.action.Action;
 import grid.Coordinate;
 import grid.Grid;
 import grid.GridConstants;
@@ -96,8 +97,15 @@ public class AI {
             Random r = new Random();
             int rand = r.nextInt(unit.getActionNames().size());
             String randomAction = unit.getActionNames().get(rand);
-            myGM.getAction(randomAction).doAction(unit,
-                                                  myGrid.getObject(GridConstants.GAMEUNIT, other));
+            
+            Action currentAction = ((GameManager) myGM).getAction(randomAction);
+                System.out.println("this");
+                currentAction.doAction(unit, myGrid.getObject(GridConstants.GAMEOBJECT,
+                                                              other));
+                ((GameManager) myGM)
+                        .endAction(myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit), other, unit, myGrid
+                                .getObject(GridConstants.GAMEOBJECT, other));
+                myGrid.setAllTilesInactive();
         }
         else {
             PathFinding.autoMove(start, end, unit, myGrid);
