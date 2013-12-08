@@ -46,6 +46,7 @@ public class UnitTableModel extends GameTableModel {
         stats.modExisting("defense", 2);
         stats.modExisting("health", 15);
         ret[3] = new Stats();
+        ret[4] = -1;
         return ret;
     }
 
@@ -54,12 +55,15 @@ public class UnitTableModel extends GameTableModel {
     public void loadObject (Object object) {
         List<GameUnit> list = (List<GameUnit>) object;
         defaultAffiliation = list.get(0).getAffiliation();
-        for (GameUnit gu : list) {
-            Object[] array = new Object[myColumnNames.length];
+        for (int i = 0; i < list.size(); i++){
+            Object[] array = new Object[myColumnNames.length + 1];
+            
+            GameUnit gu = list.get(i);
             array[0] = gu.getName();
             array[1] = new File(gu.getImagePath());
             array[2] = new Selector(myED.getNames(GridConstants.TEAM), gu.getAffiliation());
             array[3] = gu.getStats();
+            array[4] = i;
             addNewRow(array);
         }
     }
@@ -73,6 +77,7 @@ public class UnitTableModel extends GameTableModel {
             gu.setImagePath((String) ((File) row[1]).getPath());
             gu.setAffiliation((String) ((Selector) row[2]).getValue());
             gu.setStats((Stats) row[3]);
+            gu.setLastIndex((int) row[4]);
             ret.add(gu);
         }
         return ret;

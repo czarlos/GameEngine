@@ -31,17 +31,18 @@ public class TileTableModel extends GameTableModel {
     @SuppressWarnings("unchecked")
     public void loadObject (Object object) {
         List<Tile> list = (List<Tile>) object;
-        for (Object tile : list) {
-            Object[] array = new Object[myColumnNames.length];
+        for(int i = 0; i< list.size(); i++){
+            Object[] array = new Object[myColumnNames.length + 1];
 
-            Tile t = (Tile) tile;
+            Tile t = list.get(i);
 
             array[0] = t.getName();
             array[1] = new File(t.getImagePath());
             array[2] = t.getMoveCost();
             array[3] = t.getStats();
+            array[4] = i;
 
-            addNewRow(array);
+            addNewRow(array);           
         }
     }
 
@@ -53,6 +54,7 @@ public class TileTableModel extends GameTableModel {
             t.setImagePath((String) ((File) row[1]).getPath());
             t.setMoveCost((int) row[2]);
             t.setStats((Stats) row[3]);
+            t.setLastIndex((int) row[4]);
             list.add(t);
         }
 
@@ -67,6 +69,7 @@ public class TileTableModel extends GameTableModel {
         array[1] = new File("resources/grass.png");
         array[2] = 1;
         array[3] = new Stats();
+        array[4] = -1;
 
         return array;
     }

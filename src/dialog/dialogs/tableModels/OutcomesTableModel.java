@@ -30,8 +30,7 @@ public class OutcomesTableModel extends GameTableModel {
         ret[1] = new Selector(myED.get(GridConstants.COREOUTCOMES[0].getType()));
         ret[2] = -10;
         ret[3] = false;
-
-        System.out.println(ret[0]);
+        
         return ret;
     }
 

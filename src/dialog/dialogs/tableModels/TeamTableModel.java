@@ -64,7 +64,7 @@ public class TeamTableModel extends GameTableModel {
             ret.add(t);
         }
 
-        // checking to make sure there is always one list.
+        // checking to make sure there is always one team
         if (ret.size() == 0) {
             Team t = new Team();
             t.setName("default");
@@ -87,6 +87,7 @@ public class TeamTableModel extends GameTableModel {
         array[3] = new WinCondition();
         array[4] = 0;
         array[5] = false;
+        array[6] = -1;
 
         return array;
     }

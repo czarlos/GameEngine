@@ -25,6 +25,7 @@ public class ObjectTableModel extends GameTableModel {
         List<String> list = new ArrayList<String>();
         list.add("everything");
         ret[2] = list;
+        ret[3] = -1;
 
         return ret;
     }
@@ -33,11 +34,13 @@ public class ObjectTableModel extends GameTableModel {
     @Override
     public void loadObject (Object object) {
         List<GameObject> list = (List<GameObject>) object;
-        for (GameObject go : list) {
-            Object[] array = new Object[myColumnNames.length];
+        for(int i = 0; i < list.size(); i++){
+            GameObject go = list.get(i);
+            Object[] array = new Object[myColumnNames.length + 1];
             array[0] = go.getName();
             array[1] = new File(go.getImagePath());
             array[2] = go.getPassableList();
+            array[3] = i;
             addNewRow(array);
         }
     }
@@ -51,6 +54,7 @@ public class ObjectTableModel extends GameTableModel {
             go.setName((String) row[0]);
             go.setImagePath((String) ((File) row[1]).getPath());
             go.setPassableList((List<String>) row[2]);
+            go.setLastIndex((int) row[3]);
             ret.add(go);
         }
         return ret;

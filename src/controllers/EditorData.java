@@ -117,11 +117,13 @@ public class EditorData {
         Map<String, String> nameTranslationMap = new HashMap<>();
 
         for (Object action : newActions) {
-            String prevName = fullList.get(((Action) action).getLastIndex());
-            if (!((Action) action).getName().equals(prevName)) {
-                nameTranslationMap.put(prevName, ((Action) action).getName());
+            if(((Action) action).getLastIndex() > -1){
+                String prevName = fullList.get(((Action) action).getLastIndex());
+                if (!((Action) action).getName().equals(prevName)) {
+                    nameTranslationMap.put(prevName, ((Action) action).getName());
+                }
+                removedNames.remove(prevName);
             }
-            removedNames.remove(prevName);
         }
 
         for (GameUnit unit : editorUnitList) {
@@ -149,11 +151,13 @@ public class EditorData {
         Map<String, String> nameTranslationMap = new HashMap<>();
 
         for (Object stat : newStats) {
-            String prevName = fullList.get(((Stat) stat).getLastIndex());
-            if (!((Stat) stat).getName().equals(prevName)) {
-                nameTranslationMap.put(prevName, ((Stat) stat).getName());
+            if(((Stat) stat).getLastIndex() > -1){
+                String prevName = fullList.get(((Stat) stat).getLastIndex());
+                if (!((Stat) stat).getName().equals(prevName)) {
+                    nameTranslationMap.put(prevName, ((Stat) stat).getName());
+                }
+                removedNames.remove(prevName);
             }
-            removedNames.remove(prevName);
         }
 
         for (GameUnit unit : editorUnitList) {
@@ -203,11 +207,13 @@ public class EditorData {
 
         // adjusting unit affiliation strings for renamed teams
         for (Team t : list) {
-            String prevName = fullList.get(t.getLastEditingID());
-            if (!t.getName().equals(prevName)) {
-                activeStage.setTeamName(t.getLastEditingID(), t.getName());
+            if(t.getLastIndex() > -1){
+                String prevName = fullList.get(t.getLastEditingID());
+                if (!t.getName().equals(prevName)) {
+                    activeStage.setTeamName(t.getLastEditingID(), t.getName());
+                }
+                names.remove(prevName);
             }
-            names.remove(prevName);
         }
 
         // units on deleted teams get their affiliation set to the first team.
