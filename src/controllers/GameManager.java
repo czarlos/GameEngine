@@ -17,6 +17,7 @@ import gameObject.action.ShopAction;
 import gameObject.action.TradeAction;
 import grid.Coordinate;
 import grid.GridConstants;
+import grid.Tile;
 
 
 /**
@@ -181,6 +182,7 @@ public class GameManager extends Manager {
         GameUnit initiator =
                 (GameUnit) myActiveStage.getGrid()
                         .getObject(GridConstants.GAMEUNIT, unitCoordinate);
+        initiator.setTotalStats(((Tile) myActiveStage.getGrid().getObject(GridConstants.TILE, unitCoordinate)).getStats());
         setActiveActions(unitCoordinate);
         myActiveStage.getGrid().setAllTilesInactive();
         Action activeAction = myActiveActions.get(actionID);
@@ -213,12 +215,16 @@ public class GameManager extends Manager {
             myActiveStage.getGrid().isActive(GridConstants.TILE, actionCoordinate)) {
             myActiveStage.getGrid().doMove(unitCoordinate, actionCoordinate);
             initiator.hasMoved();
+
         }
         else {
             GameObject receiver =
                     myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, actionCoordinate);
             if (receiver != null &&
-                myActiveStage.getGrid().isActive(GridConstants.TILE, actionCoordinate)) {
+                myActiveStage.getGrid().isActive(GridConstants.TILE, actionCoordinate)) {                
+                if (receiver instanceof GameUnit) {
+                    ((GameUnit) receiver).setTotalStats(((Tile) myActiveStage.getGrid().getObject(GridConstants.TILE, actionCoordinate)).getStats());
+                }
                 activeAction.doAction(initiator, receiver);
                 endAction(unitCoordinate, actionCoordinate, initiator, receiver);
             }
@@ -231,7 +237,7 @@ public class GameManager extends Manager {
                            GameUnit initiator,
                            GameObject receiver) {
         initiator.setActive(false);
-        if (initiator.getTotalStat("health") == 0) {
+        if (initiator.calcTotalStat("health") == 0) {
             myActiveStage.getGrid().removeObject(GridConstants.GAMEOBJECT, unitCoordinate);
         }
         if (receiver instanceof Chest) {
@@ -240,7 +246,7 @@ public class GameManager extends Manager {
             }
         }
         if (receiver instanceof GameUnit) {
-            if (((GameUnit) receiver).getTotalStat("health") == 0) {
+            if (((GameUnit) receiver).calcTotalStat("health") == 0) {
                 myActiveStage.getGrid().removeObject(GridConstants.GAMEOBJECT,
                                                      actionCoordinate);
             }

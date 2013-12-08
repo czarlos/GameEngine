@@ -27,12 +27,12 @@ public class CombatAction extends Action {
         double netStat = 0;
 
         for (String statName : myInitiatorStatWeights.getStatNames()) {
-            offensiveStatSum += initiator.getTotalStat(statName)
+            offensiveStatSum += initiator.calcTotalStat(statName)
                                 * myInitiatorStatWeights.getStatValue(statName);
         }
 
         for (String statName : myReceiverStatWeights.getStatNames()) {
-            defensiveStatSum += receiver.getTotalStat(statName)
+            defensiveStatSum += receiver.calcTotalStat(statName)
                                 * myReceiverStatWeights.getStatValue(statName);
         }
 

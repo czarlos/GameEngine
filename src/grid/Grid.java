@@ -83,7 +83,7 @@ public class Grid implements Drawable {
      */
     public void beginMove (Coordinate coordinate) {
         GameUnit gameUnit = (GameUnit) getObject(GridConstants.GAMEUNIT, coordinate);
-        findMovementRange(coordinate, gameUnit.getTotalStat(GameObjectConstants.MOVEMENT), gameUnit);
+        findMovementRange(coordinate, gameUnit.calcTotalStat(GameObjectConstants.MOVEMENT), gameUnit);
     }
 
     /**
