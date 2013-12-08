@@ -14,7 +14,7 @@ public class FromJSONFactory {
 
     @SuppressWarnings("unchecked")
     public <T> T make (String type, int ID) {
-        ArrayList<T> list = p.createObject("defaults/" + type, ArrayList.class);
+        ArrayList<T> list = p.createObjectFromFile("defaults/" + type, ArrayList.class);
         if (ID < list.size() & ID > -1) { return list.get(ID); }
         System.out.println(type + " ID " + ID + " doesn't exist.");
         return null;
