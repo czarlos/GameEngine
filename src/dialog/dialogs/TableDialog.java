@@ -132,7 +132,8 @@ public class TableDialog extends JDialog {
         table.setDefaultRenderer(Selector.class, new SelectorRenderer());
 
         table.setDefaultEditor(Integer.class, new IntegerEditor(-25, 50));
-        table.setDefaultEditor(Outcomes.class, new ModelEditor(new OutcomesTableModel(myModel.getED())));
+        table.setDefaultEditor(Outcomes.class,
+                               new ModelEditor(new OutcomesTableModel(myModel.getED())));
     }
 
     /**

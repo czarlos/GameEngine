@@ -45,13 +45,13 @@ public class CombatTest {
         masterActions.setActionList(myActions);
 
         Stats playerStats = new Stats();
-    //    playerStats.syncWithMaster();
+        // playerStats.syncWithMaster();
 
         Stats enemyStats = new Stats();
-    //    enemyStats.syncWithMaster();
+        // enemyStats.syncWithMaster();
 
         Stats itemStats = new Stats();
-    //    itemStats.syncWithMaster();
+        // itemStats.syncWithMaster();
         itemStats.modExisting("health", 0);
         itemStats.modExisting("defense", 0);
 
@@ -158,20 +158,20 @@ public class CombatTest {
         Map<String, Integer> attackerStatsMap = new HashMap<String, Integer>();
         attackerStatsMap.put("attack", 1);
         Stats attackerStats = new Stats();
-    //    attackerStats.setStats(attackerStatsMap);
+        // attackerStats.setStats(attackerStatsMap);
 
         Map<String, Integer> defenderStatsMap = new HashMap<String, Integer>();
         defenderStatsMap.put("defense", 1);
         Stats defenderStats = new Stats();
-    //    defenderStats.setStats(defenderStatsMap);
+        // defenderStats.setStats(defenderStatsMap);
 
         Outcomes attackerOutcomes = new Outcomes();
         Outcomes defenderOutcomes = new Outcomes();
 
-    //    Outcome a1 = new StatOutcome("health", -5, true);
-    //    attackerOutcomes.addOutcome(a1);
-    //    Outcome d1 = new StatOutcome("health", -10, true);
-    //    defenderOutcomes.addOutcome(d1);
+        // Outcome a1 = new StatOutcome("health", -5, true);
+        // attackerOutcomes.addOutcome(a1);
+        // Outcome d1 = new StatOutcome("health", -10, true);
+        // defenderOutcomes.addOutcome(d1);
 
         CombatAction ca = new CombatAction();
         ca.setName("strong");
@@ -191,18 +191,18 @@ public class CombatTest {
         Map<String, Integer> attackerStatsMap = new HashMap<String, Integer>();
         attackerStatsMap.put("attack", 1);
         Stats attackerStats = new Stats();
-    //    attackerStats.setStats(attackerStatsMap);
+        // attackerStats.setStats(attackerStatsMap);
 
         Map<String, Integer> defenderStatsMap = new HashMap<String, Integer>();
         defenderStatsMap.put("defense", 1);
         Stats defenderStats = new Stats();
-    //    defenderStats.setStats(defenderStatsMap);
+        // defenderStats.setStats(defenderStatsMap);
 
         Outcomes attackerOutcomes = new Outcomes();
         Outcomes defenderOutcomes = new Outcomes();
 
-    //    Outcome d1 = new StatOutcome("health", -4, true);
-    //    defenderOutcomes.addOutcome(d1);
+        // Outcome d1 = new StatOutcome("health", -4, true);
+        // defenderOutcomes.addOutcome(d1);
 
         CombatAction ca = new CombatAction();
         ca.setName("weak");
@@ -223,9 +223,9 @@ public class CombatTest {
         Outcomes defenderOutcomes = new Outcomes();
 
         // removes two potions from opponents item list
-     //   Outcome d1 = new ItemOutcome(potion, -2, true);
+        // Outcome d1 = new ItemOutcome(potion, -2, true);
 
-     //   defenderOutcomes.addOutcome(d1);
+        // defenderOutcomes.addOutcome(d1);
 
         CombatAction ca = new CombatAction();
         ca.setName("item");

@@ -194,8 +194,8 @@ public class EditorData {
 
         return ret;
     }
-    
- // different because team data is in stage
+
+    // different because team data is in stage
     public void syncTeams (List<Team> newList, Stage activeStage) {
         List<Team> list = newList;
         List<String> names = getNames(GridConstants.TEAM); // edited list

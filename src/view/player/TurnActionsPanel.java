@@ -9,12 +9,13 @@ import javax.swing.JPanel;
 
 /**
  * 
-<<<<<<< HEAD
- *
-=======
+ <<<<<<< HEAD
+ * 
+ * =======
+ * 
  * @author brooksmershon
  * 
->>>>>>> dev
+ *         >>>>>>> dev
  */
 public class TurnActionsPanel extends JPanel {
     public TurnActionsPanel (PlayerView pv) {

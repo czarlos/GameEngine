@@ -28,7 +28,9 @@ public class TradeAction extends Action {
 
     @Override
     public boolean isValid (GameUnit gameUnit, GameObject gameObject) {
-        if (gameObject == null) { return false; }
+        if (gameObject == null) {
+            return false;
+        }
         else if (gameObject instanceof GameUnit) {
             if (gameUnit.getAffiliation().equals(((GameUnit) gameObject).getAffiliation())) {
                 if (((GameUnit) gameObject).getItemAmount(myItem) != 0) { return true; }
