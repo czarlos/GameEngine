@@ -95,7 +95,5 @@ public class Tile extends GameObject {
 
     public void syncStatsWithMaster (Map<String, String> nameTranslationMap,
                                      List<String> removedNames) {
-        // TODO Auto-generated method stub
-
     }
 }

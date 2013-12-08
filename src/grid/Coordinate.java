@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * 
+ * Coordinate class, holds an x and y
  * @author Kevin, Ken
  * 
  */
