@@ -40,6 +40,7 @@ public class GameManager extends Manager {
 
     public void beginTurn () {
         clear();
+        
         if (myPhaseCount == 0) {
             myView.showDialog(getPreStory());
         }
@@ -52,8 +53,9 @@ public class GameManager extends Manager {
             }
             return;
         }
-        nextTurn();
+
         myView.setTitle(getActiveTitle());
+        setAllUnitsActive();
     }
 
     private void clear () {
@@ -62,13 +64,12 @@ public class GameManager extends Manager {
     }
 
     public void doUntilHumanTurn () {
-        int count = 0;
+        nextTurn();
+        beginTurn();
         while (!teamIsHuman()) {
             doAITurn();
+            nextTurn();
             beginTurn();
-            count++;
-            if (count > 10)
-                throw new RuntimeException("Count Max reached.");
         }
     }
 
@@ -79,18 +80,23 @@ public class GameManager extends Manager {
      * @param currentTeam
      */
     public void nextTurn () {
-        List<GameUnit> units = myActiveStage.getTeamUnits(getActiveTeamName());
-        for (GameUnit unit : units) {
-            unit.setActive(false);
-        }
 
         isTurnCompleted = false;
         myPhaseCount++;
         myActiveStage.setPhaseCount(myPhaseCount);
         myActiveTeam = myPhaseCount % myActiveStage.getNumberOfTeams();
-        String teamName = getActiveTeamName();
-        List<GameUnit> units2 = myActiveStage.getTeamUnits(teamName);
 
+    }
+
+    public void setAllUnitsInactive () {
+        List<GameUnit> units = myActiveStage.getTeamUnits(getActiveTeamName());
+        for (GameUnit unit : units) {
+            unit.setActive(false);
+        }
+    }
+
+    public void setAllUnitsActive () {
+        List<GameUnit> units2 = myActiveStage.getTeamUnits(getActiveTeamName());
         for (GameUnit unit : units2) {
             unit.setActive(true);
         }

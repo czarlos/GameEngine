@@ -1,5 +1,4 @@
 package view.player;
-
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;

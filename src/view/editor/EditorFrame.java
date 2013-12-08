@@ -325,8 +325,9 @@ public class EditorFrame extends GameView implements WindowListener {
 
     protected void setStage (String stageName, int stageID) {
         StagePanel sp =
-                new StagePanel(stageName, myWorldManager, stageID,
-                               myGridController);
+
+                new StagePanel(myWorldManager,
+                               myGridController, stageID);
         myStagePanelList.add(stageID, sp);
         sp.setName(stageName);
         stageTabbedPane.add(sp, stageID);
