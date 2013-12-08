@@ -72,4 +72,9 @@ public class CombatActionTableModel extends GameTableModel {
         return list;
     }
 
+    @Override
+    public String getRowType () {
+        return getName();
+    }
+
 }

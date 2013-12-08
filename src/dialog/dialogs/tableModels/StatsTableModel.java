@@ -4,6 +4,7 @@ import gameObject.Stat;
 import gameObject.Stats;
 import grid.GridConstants;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 
 @SuppressWarnings("serial")
@@ -48,13 +49,20 @@ public class StatsTableModel extends GameTableModel {
 
     @Override
     public Object[] getNew () {
-        // TODO: pop up a message telling users to use the master stats editor
-        // to add/remove global stats
+        JOptionPane.showMessageDialog(null,
+                "Use Master Stats Editor to add a new stat for all objects.");
         return null;
     }
 
     @Override
     public void removeRow (int index) {
-        // TODO: same as above;
+        JOptionPane.showMessageDialog(null,
+                "Use Master Stats Editor to remove a stat from all objects.");
     }
+
+    @Override
+    public String getRowType () {
+        return getName();
+    }
+    
 }
