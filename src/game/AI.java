@@ -112,7 +112,10 @@ public class AI {
                     .calculateLength(myGrid.getObjectCoordinate(GridConstants.TILE, start),
                                      myGrid.getObjectCoordinate(GridConstants.TILE, end)) <= currentAction
                     .getActionRange()) {
-
+                
+                new AnimateAction(unit.getImagePath(), myGrid.getObject(GridConstants.GAMEUNIT,
+                                                                        other).getImagePath());
+                
                 currentAction.doAction(unit, myGrid.getObject(GridConstants.GAMEOBJECT,
                                                               other));
                 ((GameManager) myGM)
@@ -120,8 +123,6 @@ public class AI {
                                    unit, myGrid
                                            .getObject(GridConstants.GAMEOBJECT, other));
                 myGrid.setAllTilesInactive();
-                new AnimateAction(unit.getImagePath(), myGrid.getObject(GridConstants.GAMEUNIT,
-                                                                        other).getImagePath());
 
             }
             else {
