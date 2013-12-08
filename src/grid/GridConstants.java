@@ -36,15 +36,15 @@ public class GridConstants {
     public final static String GETITEM = "Get item";
 
     public static final String[] DEFAULTTABTYPES = { TILE, GAMEUNIT, GAMEOBJECT,
-                                                 ITEM };
+                                                    ITEM };
 
     public static final String[] DEFAULTEDITTYPES = { TILE, GAMEUNIT, GAMEOBJECT,
                                                      ITEM, ACTION, TEAM, MASTERSTATS };
     public static final Action[] COREACTIONS = { new MoveAction(), new WaitAction(),
                                                 new ChestAction(), new TradeAction(),
-                                                new ShopAction() };    
-    public static final Outcome[] COREOUTCOMES = { new StatOutcome(), new ItemOutcome()};
-    
-    public static final String[] DEFAULTSTATARRAY = {"defense", "attack", "movement", "health"};
+                                                new ShopAction() };
+    public static final Outcome[] COREOUTCOMES = { new StatOutcome(), new ItemOutcome() };
+
+    public static final String[] DEFAULTSTATARRAY = { "defense", "attack", "movement", "health" };
 
 }

@@ -101,7 +101,7 @@ public class StageEditorPanel extends JTabbedPane {
     public void changeSelected (GameObjectPanel selected) {
         if (selected == selectedPanel) {
             selectedPanel.deSelect();
-            myWorldManager.setActiveObject( "", -1);
+            myWorldManager.setActiveObject("", -1);
             selectedPanel = null;
             return;
         }

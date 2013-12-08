@@ -78,7 +78,9 @@ public class WorldManager extends Manager {
     @SuppressWarnings("unchecked")
     @JsonIgnore
     public void setItemTableModel (GameTableModel gtm, Coordinate coordinate) {
-        InventoryObject io = (InventoryObject) myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, coordinate);
+        InventoryObject io =
+                (InventoryObject) myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT,
+                                                                    coordinate);
         io.setItemAmounts((Map<String, Integer>) gtm.getObject());
     }
 
@@ -86,7 +88,7 @@ public class WorldManager extends Manager {
     public String getActiveType () {
         return activeEditTypeList.get(myStages.indexOf(myActiveStage));
     }
-    
+
     @JsonIgnore
     public int getActiveID () {
         return activeEditIDList.get(myStages.indexOf(myActiveStage));
@@ -141,7 +143,7 @@ public class WorldManager extends Manager {
 
     public void displayRange (Coordinate coordinate) {
         myActiveStage.getGrid().beginMove(coordinate);
-       
+
     }
 
     public void removeRange () {

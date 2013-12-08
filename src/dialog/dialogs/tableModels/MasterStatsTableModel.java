@@ -25,7 +25,7 @@ public class MasterStatsTableModel extends GameTableModel {
     public void loadObject (Object object) {
         List<Stat> list = (List<Stat>) object;
         myList.clear();
-        for(Stat s: list){
+        for (Stat s : list) {
             Object[] row = new Object[myColumnNames.length];
             row[0] = s.getName();
             addNewRow(row);

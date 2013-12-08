@@ -51,7 +51,7 @@ public class EditorFrame extends GameView implements WindowListener {
 
     public EditorFrame () {
         super("Omega_Nu Game Editor");
-        mySaveLocation="saves";
+        mySaveLocation = "saves";
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(this);
     }
@@ -184,7 +184,7 @@ public class EditorFrame extends GameView implements WindowListener {
                 String image = (String) imageMenu.getSelectedItem();
                 int stageID =
                         myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image),
-                                                stageName, stageTabbedPane.getSelectedIndex()+1);
+                                                stageName, stageTabbedPane.getSelectedIndex() + 1);
                 setStage(stageName, stageID);
             }
             catch (NumberFormatException e) {
@@ -253,7 +253,7 @@ public class EditorFrame extends GameView implements WindowListener {
     private void addGameEditorMenus () {
         JMenu stageMenu = new JMenu("Stage");
         stageMenu.setMnemonic(KeyEvent.VK_S);
-        
+
         JMenuItem addStage = new JMenuItem("Add Stage");
         stageMenu.add(addStage);
         addStage.setAccelerator(KeyStroke.getKeyStroke("control A"));
@@ -352,14 +352,14 @@ public class EditorFrame extends GameView implements WindowListener {
         storyPanel.add(field);
         int value =
                 JOptionPane.showConfirmDialog(this, storyPanel,
-                                              "Enter "+prepost+ "story",
+                                              "Enter " + prepost + "story",
                                               JOptionPane.OK_CANCEL_OPTION,
                                               JOptionPane.PLAIN_MESSAGE);
         if (value == JOptionPane.OK_OPTION) {
             String story = field.getText();
-            if(prepost.equals("Pre"))
+            if (prepost.equals("Pre"))
                 myWorldManager.setPreStory(story);
-            if(prepost.equals("Post"))
+            if (prepost.equals("Post"))
                 myWorldManager.setPostStory(story);
         }
     }

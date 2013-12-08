@@ -95,6 +95,6 @@ public class Item extends Customizable {
     public void syncStatsWithMaster (Map<String, String> nameTranslationMap,
                                      List<String> removedNames) {
         // TODO Auto-generated method stub
-        
+
     }
 }
