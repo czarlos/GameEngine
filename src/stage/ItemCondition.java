@@ -12,17 +12,45 @@ import java.util.List;
  */
 public class ItemCondition extends Condition {
 
+    private String myAffiliation;
+    private String myItem;
+    private int myAmount;
+    
     public ItemCondition () {
-        super();
-        myData.put("affiliation", "default");
-        myData.put("item", "milk");
+        myAffiliation = "player";
+        myItem = "milk";
+        myAmount = 0;
+    }
+
+    public String getAffiliation () {
+        return myAffiliation;
+    }
+
+    public String getItem () {
+        return myItem;
+    }
+
+    public int getAmount () {
+        return myAmount;
+    }
+
+    public void setAffiliation (String affiliation) {
+        this.myAffiliation = affiliation;
+    }
+
+    public void setItem (String item) {
+        this.myItem = item;
+    }
+
+    public void setAmount (int amount) {
+        this.myAmount = amount;
     }
 
     @Override
     boolean isFulfilled (Stage stage) {
-        List<GameUnit> theTeam = stage.getTeamUnits(myData.get("affiliation"));
+        List<GameUnit> theTeam = stage.getTeamUnits(myAffiliation);
         for (GameUnit gu : theTeam) {
-            if (gu.getItemAmount(myData.get("item")) > 0) { return true; }
+            if (gu.getItemAmount(myItem) > myAmount) { return true; }
         }
         return false;
     }

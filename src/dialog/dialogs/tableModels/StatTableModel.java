@@ -8,12 +8,12 @@ import javax.swing.JOptionPane;
 
 
 @SuppressWarnings("serial")
-public class StatsTableModel extends GameTableModel {
+public class StatTableModel extends GameTableModel {
 
     /**
      * Column names: Stat, Value
      */
-    public StatsTableModel () {
+    public StatTableModel () {
         super();
         String[] names = { "Stat", "Value" };
         setColumnNames(names);

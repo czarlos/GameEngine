@@ -1,4 +1,4 @@
-package dialog.dialogs.tableModels;
+package dialog;
 
 import java.util.List;
 

@@ -1,7 +1,8 @@
-package dialog.dialogs.tableModels;
+package dialog;
 
 import java.util.ArrayList;
 import java.util.List;
+import dialog.dialogs.tableModels.GameTableModel;
 
 
 /**

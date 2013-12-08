@@ -12,7 +12,6 @@ import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.List;
 import controllers.WorldManager;
-import stage.Condition;
 import stage.UnitCountCondition;
 import stage.WinCondition;
 import team.Team;
@@ -162,7 +161,7 @@ public class MakeDefaults {
         gameObject.GameObject tree = new gameObject.GameObject();
         tree.setName("Tree");
         tree.setImagePath("resources/tree.png");
-        
+
         gameObject.GameObject stone = new gameObject.GameObject();
         stone.setName("Stone");
         stone.setImagePath("resources/stone1.png");
@@ -253,8 +252,8 @@ public class MakeDefaults {
         enemyTeam.setIsHuman(false);
 
         WinCondition wcEnemy = new WinCondition();
-        Condition c = new UnitCountCondition();
-        c.addData("affiliation", "player");
+        UnitCountCondition c = new UnitCountCondition();
+        c.setAffiliation("player");
         wcEnemy.addCondition(c);
 
         enemyTeam.setWinCondition(wcEnemy);
@@ -287,23 +286,28 @@ public class MakeDefaults {
         Item milk = new Item();
         milk.setName("Milk");
         milk.setImagePath("resources/milk.png");
-        
+        milk.setStats(defaultStats);
+
         Item potion = new Item();
         potion.setName("Potion");
         potion.setImagePath("resources/potion.png");
-        
+        potion.setStats(defaultStats);
+
         Item armor = new Item();
         armor.setName("Armor");
         armor.setImagePath("resources/armor.png");
+        armor.setStats(defaultStats);
 
         Item weapon = new Item();
         weapon.setName("Weapon");
         weapon.setImagePath("resources/weapon.png");
         weapon.addAction(defaultCombatAction.getName());
+        weapon.setStats(defaultStats);
 
         Item helmet = new Item();
         helmet.setName("Helmet");
         helmet.setImagePath("resources/helmet.png");
+        helmet.setStats(defaultStats);
 
         list.add(milk);
         list.add(potion);

@@ -11,26 +11,28 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import controllers.WorldManager;
-import stage.Condition;
+import stage.ItemCondition;
 import stage.PositionCondition;
 import stage.StatCondition;
 import stage.TurnCondition;
 import stage.UnitCountCondition;
 import stage.WinCondition;
-import dialog.dialogs.tableModels.Selector;
-import dialog.dialogs.tableModels.EnumTableModel;
+import dialog.EnumTableModel;
+import dialog.Selector;
+import dialog.dialogs.tableModels.ItemConditionTableModel;
+import dialog.dialogs.tableModels.PositionConditionTableModel;
 import dialog.dialogs.tableModels.GameTableModel;
 import dialog.dialogs.tableModels.ItemsTableModel;
 import dialog.dialogs.tableModels.OutcomesTableModel;
-import dialog.dialogs.tableModels.StatsTableModel;
+import dialog.dialogs.tableModels.StatConditionTableModel;
+import dialog.dialogs.tableModels.StatTableModel;
+import dialog.dialogs.tableModels.TurnConditionTableModel;
+import dialog.dialogs.tableModels.UnitCountConditionTableModel;
 import dialog.dialogs.tableModels.WinConditionTableModel;
 import dialog.editors.ComboBoxEditor;
 import dialog.editors.ImagePathEditor;
@@ -49,7 +51,7 @@ import dialog.renderers.ImageRenderer;
 public class TableDialog extends JDialog {
     GameTableModel myModel;
     List<String> myEnumList;
-    JTable myTable;
+    GameJTable myTable;
     WorldManager myWM;
 
     public TableDialog (GameTableModel gtm, ActionListener okListener, WorldManager wm) {
@@ -96,7 +98,7 @@ public class TableDialog extends JDialog {
     private void addTable () {
         setLayout(new BorderLayout());
 
-        myTable = new JTable(myModel);
+        myTable = new GameJTable(myModel);
 
         JScrollPane scrollPane = new JScrollPane(myTable);
 
@@ -115,39 +117,34 @@ public class TableDialog extends JDialog {
      * 
      * @param table
      */
-    public void setDefaultEditorsRenderers (JTable table) {
+    public void setDefaultEditorsRenderers (GameJTable table) {
         table.setDefaultRenderer(File.class, new ImageRenderer());
         table.setDefaultEditor(File.class, new ImagePathEditor());
         table.setDefaultEditor(Stats.class, new ModelEditor(
-                                                            new StatsTableModel()));
+                                                            new StatTableModel()));
         table.setDefaultEditor(WinCondition.class, new ModelEditor(
-                                                                   new WinConditionTableModel()));
-        table.setDefaultEditor(Condition.class, new DefaultCellEditor(
-                                                                      getConditionComboBox()));
+                                                                   new WinConditionTableModel(myModel.getED())));
+        table.setDefaultEditor(PositionCondition.class,
+                               new ModelEditor(new PositionConditionTableModel(myModel.getED())));
+        table.setDefaultEditor(StatCondition.class, new ModelEditor(new StatConditionTableModel(myModel.getED())));
+        table.setDefaultEditor(TurnCondition.class, new ModelEditor(new TurnConditionTableModel()));
+        table.setDefaultEditor(ItemCondition.class, new ModelEditor(new ItemConditionTableModel(myModel.getED())));
+        table.setDefaultEditor(UnitCountCondition.class,
+                               new ModelEditor(new UnitCountConditionTableModel(myModel.getED())));
+
         table.setDefaultEditor(HashMap.class, new ModelEditor(new ItemsTableModel(myModel.getED())));
-        table.setDefaultEditor(ArrayList.class,
-                               new ModelEditor(new EnumTableModel(myWM.getDialogList(myModel
-                                       .getName()))));
+
         table.setDefaultEditor(Selector.class, new ComboBoxEditor());
         table.setDefaultRenderer(Selector.class, new SelectorRenderer());
 
-        table.setDefaultEditor(Integer.class, new IntegerEditor(-25, 50));
+        table.setDefaultEditor(Integer.class, new IntegerEditor(-100, 200));
         table.setDefaultEditor(Outcomes.class,
                                new ModelEditor(new OutcomesTableModel(myModel.getED())));
-    }
 
-    /**
-     * Condition class used to identify appropriate cell editor/render in JTable
-     * 
-     * @return JComboBox<Condition>
-     */
-    public JComboBox<Condition> getConditionComboBox () {
-        JComboBox<Condition> comboBox = new JComboBox<Condition>();
-        comboBox.addItem(new PositionCondition());
-        comboBox.addItem(new StatCondition());
-        comboBox.addItem(new TurnCondition());
-        comboBox.addItem(new UnitCountCondition());
-        return comboBox;
+        table.setDefaultEditor(ArrayList.class,
+                               new ModelEditor(new EnumTableModel(myModel.getED()
+                                       .getDialogList(myModel
+                                               .getName()))));
     }
 
     /**
@@ -157,7 +154,6 @@ public class TableDialog extends JDialog {
      * 
      */
     private class AddNewListener implements ActionListener {
-
         private GameTableModel myListenerModel;
 
         public AddNewListener () {
@@ -178,7 +174,6 @@ public class TableDialog extends JDialog {
      * 
      */
     private class DeleteListener implements ActionListener {
-
         private GameTableModel myListenerModel;
 
         public DeleteListener () {

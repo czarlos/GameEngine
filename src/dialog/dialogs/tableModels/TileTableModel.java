@@ -22,10 +22,11 @@ public class TileTableModel extends GameTableModel {
     /**
      * Column names: Name, Graphic, Move Cost, Stats
      */
-    public TileTableModel (EditorData myED) {
+    public TileTableModel (EditorData ED) {
         String[] names = { "Name", "Graphic", "Move Cost", "Stats" };
         myName = GridConstants.TILE;
         setColumnNames(names);
+        myED = ED;
     }
 
     @SuppressWarnings("unchecked")

@@ -3,16 +3,12 @@ package dialog.editors;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.MouseEvent;
-import java.util.EventObject;
 import java.util.List;
 import javax.swing.AbstractCellEditor;
-import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
-import dialog.dialogs.tableModels.Selector;
+import dialog.Selector;
 
 
 @SuppressWarnings("serial")

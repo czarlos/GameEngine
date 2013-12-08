@@ -16,11 +16,12 @@ public class TeamTableModel extends GameTableModel {
      * Column names: Name, Graphic, Gold, Win Conditions, Conditions needed to Win, Human?
      */
 
-    public TeamTableModel (EditorData myED) {
+    public TeamTableModel (EditorData ED) {
         String[] names = { "Name", "Graphic", "Gold", "Win Conditions",
                           "Conditions needed to win", "Human?" };
         myName = GridConstants.TEAM;
         setColumnNames(names);
+        myED = ED;
     }
 
     @SuppressWarnings("unchecked")

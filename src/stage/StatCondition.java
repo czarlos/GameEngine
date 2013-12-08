@@ -13,19 +13,46 @@ import java.util.List;
  */
 public class StatCondition extends Condition {
 
+    private String myStatType;
+    private int myValue;
+    private String myAffiliation;
+    
     public StatCondition () {
         super();
-        myData.put("statType", "experience");
-        myData.put("value", "100");
-        myData.put("affilation", "default");
+        myStatType = "attack";
+        myValue = 100;
+        myAffiliation = "player";
+    }
+
+    public String getStatType () {
+        return myStatType;
+    }
+
+    public int getValue () {
+        return myValue;
+    }
+
+    public String getAffiliation () {
+        return myAffiliation;
+    }
+
+    public void setStatType (String statType) {
+        this.myStatType = statType;
+    }
+
+    public void setValue (int value) {
+        this.myValue = value;
+    }
+
+    public void setAffiliation (String affiliation) {
+        this.myAffiliation = affiliation;
     }
 
     @Override
     boolean isFulfilled (Stage stage) {
-        List<GameUnit> theTeam = stage.getTeamUnits(myData.get("affiliation"));
+        List<GameUnit> theTeam = stage.getTeamUnits(myAffiliation);
         for (GameUnit gu : theTeam) {
-            if (gu.getStat(myData.get("statType")) > Integer.parseInt(myData
-                    .get("value"))) { return true; }
+            if (gu.getStat(myStatType) > myValue) { return true; }
         }
         return false;
     }
@@ -34,5 +61,4 @@ public class StatCondition extends Condition {
     public String toString () {
         return "Stat Condition";
     }
-
 }

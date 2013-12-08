@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import controllers.EditorData;
+import dialog.Selector;
 
 
 @SuppressWarnings("serial")
@@ -29,7 +30,7 @@ public class OutcomesTableModel extends GameTableModel {
         ret[1] = new Selector(myED.get(GridConstants.COREOUTCOMES[0].getType()));
         ret[2] = -10;
         ret[3] = false;
-        
+
         return ret;
     }
 
@@ -38,7 +39,7 @@ public class OutcomesTableModel extends GameTableModel {
         myList.get(row)[col] = aValue;
         if (col == 0) {
             Outcome o = (Outcome) ((Selector) aValue).getValue();
-            myList.get(row)[1] = new Selector(myED.get(o.getType()));
+            myList.get(row)[1] = new Selector(myED.get(o.getType()), o);
         }
 
         fireTableDataChanged();

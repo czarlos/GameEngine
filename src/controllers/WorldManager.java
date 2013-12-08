@@ -189,27 +189,4 @@ public class WorldManager extends Manager {
 
         return myList.get(ID).getImage();
     }
-
-    // TODO: get rid of this
-    public List<String> getDialogList (String myType) {
-        List<String> ret = new ArrayList<String>();
-        switch (myType) {
-            case GridConstants.GAMEUNIT:
-                ret.addAll(myEditorData.getNames(GridConstants.TEAM));
-                break;
-            case GridConstants.GAMEOBJECT:
-                ret.add(GridConstants.DEFAULT_PASS_EVERYTHING);
-                ret.addAll(myEditorData.getNames(GridConstants.GAMEUNIT));
-                break;
-            case GridConstants.ITEM:
-                ret.addAll(myEditorData.getNames(GridConstants.ACTION));
-                break;
-            case GridConstants.ACTION:
-                ret.addAll(myEditorData.getNames(GridConstants.MASTERSTATS));
-                ret.addAll(myEditorData.getNames(GridConstants.ITEM));
-            default:
-                break;
-        }
-        return ret;
-    }
 }

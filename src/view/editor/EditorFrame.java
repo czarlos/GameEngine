@@ -421,6 +421,7 @@ public class EditorFrame extends GameView implements WindowListener {
 
         @Override
         public void actionPerformed (ActionEvent e) {
+            myDialog.stopEditing();
             myWM.setData(myModel);
             myDialog.setVisible(false);
         }

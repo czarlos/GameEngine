@@ -12,10 +12,11 @@ import grid.GridConstants;
 @SuppressWarnings("serial")
 public class ObjectTableModel extends GameTableModel {
 
-    public ObjectTableModel (EditorData myED) {
+    public ObjectTableModel (EditorData ED) {
         String[] names = { "Name", "Graphic", "Passables" };
         myName = GridConstants.GAMEOBJECT;
         setColumnNames(names);
+        myED = ED;
     }
 
     @Override

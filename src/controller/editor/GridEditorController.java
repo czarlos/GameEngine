@@ -8,9 +8,7 @@ import controllers.WorldManager;
 import dialog.dialogs.TableDialog;
 import dialog.dialogs.tableModels.GameTableModel;
 import grid.Coordinate;
-import grid.GridConstants;
 import view.canvas.GridMouseListener;
-import view.editor.StagePanel;
 import view.editor.StageSidePanel;
 
 
@@ -19,6 +17,7 @@ public class GridEditorController implements GridMouseListener {
     private WorldManager myWM;
     private JTabbedPane myStagePanels;
     private ArrayList<StageSidePanel> myPanelList;
+    private TableDialog myDialog;
 
     public GridEditorController (WorldManager wm, JTabbedPane panel) {
         myWM = wm;
@@ -35,8 +34,8 @@ public class GridEditorController implements GridMouseListener {
             myWM.place(myWM.getActiveType(), id, c);
         displayInfo(c, currentIndex);
         if (id < 0 && gtm != null) {
-            TableDialog dialog = new TableDialog(gtm, new ItemDialogListener(gtm, myWM, c), myWM);
-            dialog.setVisible(true);
+            myDialog = new TableDialog(gtm, new ItemDialogListener(gtm, myWM, c), myWM);
+            myDialog.setVisible(true);
         }
 
     }
@@ -64,6 +63,8 @@ public class GridEditorController implements GridMouseListener {
 
         @Override
         public void actionPerformed (ActionEvent e) {
+            myDialog.stopEditing();
+            myDialog.setVisible(false);
             myWM.setItemTableModel(myGTM, myCurrentCoordinate);
         }
 

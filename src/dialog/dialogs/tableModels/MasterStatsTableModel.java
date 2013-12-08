@@ -14,11 +14,12 @@ public class MasterStatsTableModel extends GameTableModel {
      * Column names: Stat
      */
 
-    public MasterStatsTableModel (EditorData myED) {
+    public MasterStatsTableModel (EditorData ED) {
         super();
         String[] names = { "Stat" };
         setColumnNames(names);
         myName = GridConstants.MASTERSTATS;
+        myED = ED;
     }
 
     @SuppressWarnings({ "unchecked" })
