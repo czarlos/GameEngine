@@ -10,7 +10,9 @@ import gameObject.action.StatOutcome;
 import gameObject.item.Item;
 import grid.GridConstants;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import controllers.WorldManager;
 import stage.Condition;
 import stage.UnitCountCondition;
@@ -185,7 +187,7 @@ public class MakeDefaults {
         unitStats.modExisting("health", 15);
         unitStats.modExisting("attack", 2);
         unitStats.modExisting("max health", 15);
-
+        
         gameObject.GameUnit hero = new gameObject.GameUnit();
         gameObject.GameUnit goldensun = new gameObject.GameUnit();
         gameObject.GameUnit enemy = new gameObject.GameUnit();
@@ -211,7 +213,7 @@ public class MakeDefaults {
         charizard.setImagePath("resources/charizard.png");
         charizard.setStats(unitStats);
         charizard.setAffiliation("enemy");
-
+        
         roy.setName("Roy");
         roy.setImagePath("resources/roy.png");
         roy.setStats(unitStats);
@@ -300,6 +302,7 @@ public class MakeDefaults {
         weapon.setName("Weapon");
         weapon.setImagePath("resources/weapon.png");
         weapon.addAction(defaultCombatAction.getName());
+        weapon.setStats(defaultStats);
 
         Item helmet = new Item();
         helmet.setName("Helmet");
