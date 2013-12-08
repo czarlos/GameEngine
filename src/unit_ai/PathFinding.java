@@ -57,7 +57,7 @@ public class PathFinding {
             newTile = path.get(path.size() - 1);
         }
         else {
-            newTile = path.get(range - 1);
+            newTile = path.get(path.size() - (range - 1));
         }
 
         for (Tile t : path) {

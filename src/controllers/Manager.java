@@ -149,7 +149,7 @@ public abstract class Manager {
      * @return List of Strings that contain the action names
      */
     @JsonIgnore
-    public List<String> getActions (Coordinate coordinate) {
+    public List<String> getActionNames (Coordinate coordinate) {
         GameUnit gameUnit =
                 (GameUnit) myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, coordinate);
         if (gameUnit != null) {
