@@ -19,7 +19,7 @@ public class StageSidePanel extends JPanel {
     private SelectedInfoPanel myInfoPanel;
     
     public StageSidePanel(WorldManager wm){
-        setPreferredSize(new Dimension(300,500));
+        setPreferredSize(new Dimension(225,500));
         myWorldManager = wm;
         
 
@@ -33,11 +33,11 @@ public class StageSidePanel extends JPanel {
                                                       defaultTypes);
 
         add(panel);
-        myInfoPanel = new SelectedInfoEditorPanel(myWorldManager);
+        myInfoPanel = new SelectedInfoEditorPanel();
 
         JScrollPane scroll = new JScrollPane(myInfoPanel);
         scroll.setLayout(new ScrollPaneLayout());
-        scroll.setMinimumSize(new Dimension(300,500));
+        scroll.setMinimumSize(new Dimension(225,200));
 
         add(scroll);
     }
