@@ -8,6 +8,7 @@ import team.Team;
 import view.player.PlayerView;
 import game.AI;
 import game.AI2;
+import game.AnimateAction;
 import gameObject.Chest;
 import gameObject.GameObject;
 import gameObject.GameUnit;
@@ -112,7 +113,7 @@ public class GameManager extends Manager {
      * Makes a new AI and calls the AI doTurn method to execute AI
      */
     public void doAITurn () {
-        AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage, this);
+        AI2 ai = new AI2(myActiveStage.getTeam(myActiveTeam), myActiveStage, this);
         ai.doTurn();
     }
 
@@ -229,6 +230,8 @@ public class GameManager extends Manager {
                 if (receiver instanceof GameUnit) {
                     ((GameUnit) receiver).setTotalStats(((Tile) myActiveStage.getGrid().getObject(GridConstants.TILE, actionCoordinate)).getStats());
                 }
+                new AnimateAction(initiator.getImagePath(), receiver.getImagePath());
+             
                 activeAction.doAction(initiator, receiver);
                 endAction(unitCoordinate, actionCoordinate, initiator, receiver);
             }

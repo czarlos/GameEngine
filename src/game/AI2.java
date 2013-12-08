@@ -55,15 +55,15 @@ public class AI2 {
             
             List<Coordinate> activeCoordinates = myGrid.getActiveTileCoordinates();
             int min =
-                    UnitUtilities.calculateDistance(activeCoordinates.get(0), myGrid
+                    UnitUtilities.calculateDistance(unitCoordinate, myGrid
                             .getObjectCoordinate(GridConstants.GAMEUNIT, opponents.get(0)));
-            Coordinate end = null;
+            Coordinate end = unitCoordinate;
             for (Coordinate activeCoordinate : activeCoordinates) {
                 for (GameUnit opponent : opponents) {
                     int current =
                             UnitUtilities.calculateDistance(activeCoordinate, myGrid
                                     .getObjectCoordinate(GridConstants.GAMEUNIT, opponent));
-                    if (current <= min) {
+                    if (current < min) {
                         min = current;
                         end = activeCoordinate;
                     }
@@ -90,8 +90,9 @@ public class AI2 {
                 List<Coordinate> activeCoordinates = myGrid.getActiveTileCoordinates();
                 for (Coordinate activeCoordinate : activeCoordinates) {
                     if (currentAction.isValid(unit, myGrid.getObject(GridConstants.GAMEOBJECT,
-                                                                     activeCoordinate))) {
-                        System.out.println("AI actionName: "+currentAction.getName());
+                                                                     activeCoordinate))) {                       
+                        new AnimateAction(unit.getImagePath(), myGrid.getObject(GridConstants.GAMEOBJECT,
+                                                                                activeCoordinate).getImagePath());
                         currentAction.doAction(unit, myGrid.getObject(GridConstants.GAMEOBJECT,
                                                                       activeCoordinate));
                         ((GameManager) myManager)
