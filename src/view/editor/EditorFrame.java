@@ -190,7 +190,7 @@ public class EditorFrame extends GameView implements WindowListener {
                 String image = (String) imageMenu.getSelectedItem();
                 int stageID =
                         myWorldManager.addStage(gridWidth, gridHeight, tileNames.indexOf(image),
-                                                stageName, 0);
+                                                stageName, stageTabbedPane.getSelectedIndex()+1);
                 setStage(stageName, stageID);
             }
             catch (NumberFormatException e) {
@@ -324,9 +324,10 @@ public class EditorFrame extends GameView implements WindowListener {
         StagePanel sp =
                 new StagePanel(stageName, myWorldManager, stageID,
                                myGridController);
-        myStagePanelList.add(sp);
-        stageTabbedPane.addTab(stageName, sp);
-        stageTabbedPane.setSelectedIndex(myStagePanelList.size() - 1);
+        myStagePanelList.add(stageID, sp);
+        sp.setName(stageName);
+        stageTabbedPane.add(sp, stageID);
+        stageTabbedPane.setSelectedIndex(stageID);
         stageTabbedPane.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged (ChangeEvent e) {

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import team.Team;
 import view.player.PlayerView;
 import game.AI;
+import gameObject.Chest;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.action.Action;
@@ -212,6 +213,11 @@ public class GameManager extends Manager {
                 initiator.setActive(false);
                 if (initiator.getTotalStat("health") == 0) {
                     myActiveStage.getGrid().removeObject(GridConstants.GAMEOBJECT, unitCoordinate);
+                }
+                if (receiver instanceof Chest) {
+                    if (((Chest) receiver).isEmpty()) {
+                        myActiveStage.getGrid().removeObject(GridConstants.GAMEOBJECT, actionCoordinate);
+                    }
                 }
                 if (receiver instanceof GameUnit) {
                     if (((GameUnit) receiver).getTotalStat("health") == 0) {

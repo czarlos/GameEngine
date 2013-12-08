@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -14,8 +15,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Leevi
  *
  */
+@JsonAutoDetect
 public class InventoryObject extends GameObject {
-    @JsonProperty
     protected Map<String, Integer> myItemAmounts;
     protected Set<Item> myItems;
 
@@ -91,6 +92,10 @@ public class InventoryObject extends GameObject {
     
     public Map<String, Integer> getItemAmounts (){
         return myItemAmounts;
+    }
+    
+    public void setItemAmounts(Map<String, Integer> map) {
+        myItemAmounts = map;
     }
     
     @Override

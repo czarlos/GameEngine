@@ -87,7 +87,7 @@ public class Stats {
     public Integer getStatValue (String statName) {
         int statIndex = getStatNames().indexOf(statName);
         if (statIndex != -1) { return myStatList.get(statIndex).getValue(); }
-        return null;
+        return 0;
     }
 
     /**

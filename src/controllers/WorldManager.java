@@ -51,11 +51,9 @@ public class WorldManager extends Manager {
     }
 
     @JsonIgnore
-    public void setActiveObject (int index, String type, int id) {
-        activeEditTypeList.remove(index);
-        activeEditTypeList.add(index, type);
-        activeEditIDList.remove(index);
-        activeEditIDList.add(index, id);
+    public void setActiveObject (String type, int id) {
+        activeEditTypeList.set(myStages.indexOf(myActiveStage), type);
+        activeEditIDList.set(myStages.indexOf(myActiveStage), id);
     }
 
     /**
@@ -68,7 +66,7 @@ public class WorldManager extends Manager {
 
         GameObject go = myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, coordinate);
 
-        if (go instanceof InventoryObject) {
+        if (go != null && go instanceof InventoryObject) {
             Map<String, Integer> items = ((InventoryObject) go).getItemAmounts();
             gtm.loadObject(items);
         }
@@ -77,13 +75,13 @@ public class WorldManager extends Manager {
     }
 
     @JsonIgnore
-    public String getActiveType (int index) {
-        return activeEditTypeList.get(index);
+    public String getActiveType () {
+        return activeEditTypeList.get(myStages.indexOf(myActiveStage));
     }
 
     @JsonIgnore
-    public int getActiveID (int index) {
-        return activeEditIDList.get(index);
+    public int getActiveID () {
+        return activeEditIDList.get(myStages.indexOf(myActiveStage));
     }
 
     /**
@@ -135,6 +133,7 @@ public class WorldManager extends Manager {
 
     public void displayRange (Coordinate coordinate) {
         myActiveStage.getGrid().beginMove(coordinate);
+       
     }
 
     public void removeRange () {
