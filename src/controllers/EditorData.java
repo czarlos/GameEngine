@@ -138,13 +138,13 @@ public class EditorData {
         }
 
         for (GameUnit unit : editorUnitList) {
-            unit.syncActionsWithMaster(nameTranslationMap, removedNames);
+            unit.syncStatsWithMaster(nameTranslationMap, removedNames);
         }
 
         for (int i = 0; i < placedUnits.length; i++) {
             for (int j = 0; j < placedUnits[i].length; j++) {
                 if (placedUnits[i][j] != null) {
-                    placedUnits[i][j].syncActionsWithMaster(nameTranslationMap, removedNames);
+                    placedUnits[i][j].syncStatsWithMaster(nameTranslationMap, removedNames);
                 }
             }
         }
