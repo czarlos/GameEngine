@@ -16,12 +16,13 @@ public class CombatActionTableModel extends GameTableModel {
      * Rec. Stat Weights
      */
 
-    public CombatActionTableModel (EditorData myED) {
+    public CombatActionTableModel (EditorData ED) {
         String[] names =
         { "Name", "Action Range", "Initiator Outcomes", "Init. Stat Weights",
          "Receiver Outcomes", "Rec. Stat Weights" };
         myName = "Action";
         setColumnNames(names);
+        myED = ED;
     }
 
     @Override
@@ -69,6 +70,11 @@ public class CombatActionTableModel extends GameTableModel {
             list.add(a);
         }
         return list;
+    }
+
+    @Override
+    public String getRowType () {
+        return getName();
     }
 
 }

@@ -39,7 +39,10 @@ public class MakeDefaults {
         defaultCombatAction.setImagePath("resources/weapon.png");
         defaultCombatAction.setActionRange(1);
         defaultCombatAction.setInitiatorOutcomes(new Outcomes());
-        Outcome r1 = new StatOutcome("health", -10, true);
+        Outcome r1 = new StatOutcome();
+        r1.setAffectee(new Stat("health"));
+        r1.setAmount(-10);
+        r1.setIsFixed(true);
         Outcomes recvOutcomes = new Outcomes();
         recvOutcomes.addOutcome(r1);
         defaultCombatAction.setReceiverOutcomes(recvOutcomes);

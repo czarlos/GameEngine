@@ -1,19 +1,20 @@
 package gameObject.action;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.GameUnit;
+import gameObject.Stat;
+import grid.GridConstants;
 
 
 @JsonAutoDetect
 public class StatOutcome extends Outcome {
+    @JsonProperty
     private String myStatName;
 
     public StatOutcome () {
-    }
-
-    public StatOutcome (String statName, int amount, boolean fixed) {
-        super(amount, fixed);
-        myStatName = statName;
+        myType = GridConstants.MASTERSTATS;
     }
 
     public void applyOutcome (GameUnit unit, double effectiveness) {
@@ -43,11 +44,23 @@ public class StatOutcome extends Outcome {
         return newAmount;
     }
 
-    public String getStatName () {
+    @JsonIgnore
+    public Object getAffectee () {
         return myStatName;
     }
 
-    public void setStatName (String statName) {
-        myStatName = statName;
+    @JsonIgnore
+    public void setAffectee (Object object) {
+        // TODO: fix this
+        if(object instanceof Stat){
+            myStatName = ((Stat) object).getName();
+        }
+        else{
+            myStatName = (String) object;
+        }
+    }
+    
+    public String toString () {
+        return "Stat Outcome";
     }
 }

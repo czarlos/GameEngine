@@ -26,7 +26,7 @@ public class EnumTableModel extends GameTableModel {
     @Override
     public Object[] getNew () {
         Object[] ret = new Object[myColumnNames.length];
-        ret[0] = new ComboString(myComboList);
+        ret[0] = new Selector(myComboList);
         return ret;
     }
 
@@ -37,7 +37,7 @@ public class EnumTableModel extends GameTableModel {
         List<String> list = (List<String>) object;
         for (String s : list) {
             Object[] array = new Object[myColumnNames.length];
-            array[0] = new ComboString(myComboList, s);
+            array[0] = new Selector(myComboList, s);
             addNewRow(array);
         }
     }
@@ -46,9 +46,14 @@ public class EnumTableModel extends GameTableModel {
     public Object getObject () {
         List<String> ret = new ArrayList<String>();
         for (Object[] row : myList) {
-            String comboString = ((ComboString) row[0]).toString();
+            String comboString = (String) ((Selector) row[0]).getValue();
             ret.add(comboString);
         }
         return ret;
+    }
+
+    @Override
+    public String getRowType () {
+        return getName();
     }
 }

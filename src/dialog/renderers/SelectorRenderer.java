@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 
 @SuppressWarnings("serial")
-public class ComboStringRenderer extends DefaultTableCellRenderer {
+public class SelectorRenderer extends DefaultTableCellRenderer {
 
     @Override
     public Component getTableCellRendererComponent (JTable table,

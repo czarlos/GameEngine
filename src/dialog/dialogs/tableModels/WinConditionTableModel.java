@@ -59,4 +59,9 @@ public class WinConditionTableModel extends GameTableModel {
         ret[1] = c.getData();
         return ret;
     }
+
+    @Override
+    public String getRowType () {
+        return getName();
+    }
 }

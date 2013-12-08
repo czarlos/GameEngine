@@ -34,6 +34,7 @@ public class ModelEditor extends GameCellEditor {
         else {
             current = myModel.getObject();
             statsEditor.setVisible(false);
+            stopCellEditing();
             fireEditingStopped();
         }
     }
