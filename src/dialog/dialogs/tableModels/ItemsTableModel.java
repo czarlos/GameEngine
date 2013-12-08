@@ -31,7 +31,8 @@ public class ItemsTableModel extends GameTableModel {
             addNewRow(row);
         }
     }
-
+    
+    @Override
     public Object getObject () {
         Map<String, Integer> myMap = new HashMap<String, Integer>();
         for (Object[] row : myList) {

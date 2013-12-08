@@ -6,7 +6,11 @@ import controllers.EditorData;
 import dialog.Selector;
 import stage.ItemCondition;
 
-
+/**
+ * 
+ * @author Leevi, brooksmershon
+ *
+ */
 @SuppressWarnings("serial")
 public class ItemConditionTableModel extends GameTableModel {
 
