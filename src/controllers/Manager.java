@@ -86,8 +86,9 @@ public abstract class Manager {
      */
     @JsonProperty("activeStage")
     public void setActiveStage (int stageID) {
-        if (stageID < myStages.size() & stageID > -1)
+        if (stageID < myStages.size() & stageID > -1){
             myActiveStage = myStages.get(stageID);
+        }
     }
 
     @JsonProperty("activeStage")

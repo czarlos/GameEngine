@@ -37,7 +37,7 @@ public class StageEditorPanel extends JTabbedPane {
         repaint();
     }
 
-    private void drawTabs (String[] types) {
+    public void drawTabs (String[] types) {
         this.removeAll();
         myTabs.clear();
         for (String type : types) {
