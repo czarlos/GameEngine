@@ -1,59 +1,36 @@
 package view.editor;
 
-import grid.GridConstants;
-import java.awt.Dimension;
-import java.awt.GridBagLayout;
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.ScrollPaneLayout;
 import controller.editor.GridEditorController;
 import controllers.WorldManager;
+import view.GridWithSide;
 import view.canvas.GridCanvas;
-import view.editor.StageEditorPanel;
 
 
-public class StagePanel extends JPanel {
+public class StagePanel extends GridWithSide {
 
     /**
      * 
      */
     private static final long serialVersionUID = 1534023398376725167L;
-    private final String[] defaultTypes = GridConstants.DEFAULTTABTYPES;
-    private GridCanvas myCanvas;
-    private WorldManager myWorldManager;
-    private int myID;
     private GridEditorController myController;
 
-    public StagePanel (String stageName, WorldManager wm, int stageID,
-                       GridEditorController gridcontrol) {
-        myID = stageID;
-        myWorldManager = wm;
+    public StagePanel (WorldManager wm,
+                       GridEditorController gridcontrol, int stageId) {
+        super(wm);
         myController = gridcontrol;
-        myCanvas = new GridCanvas(myWorldManager);
-        initStagePanel();
+        initStagePanel(wm, stageId);
     }
 
-    private void initStagePanel () {
-        setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+    private void initStagePanel (WorldManager wm, int stageId) {
 
-        JScrollPane scrollGrid =
-                new JScrollPane(myCanvas,
-                                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollGrid.setLayout(new ScrollPaneLayout());
-        add(scrollGrid);
-        StageSidePanel panel = new StageSidePanel(myWorldManager,
-                                                  defaultTypes);
-        panel.setSize(new Dimension(200, 500));
-        add(panel);
-        myController.addStageSidePanel(myID, panel);
-        repaint();
-        myCanvas.addGridMouseListener(myController);
+        StageSidePanel panel = new StageSidePanel(wm);
+        addToSideColumn(panel);
+        myController.addStageSidePanel(stageId, panel);
+        myGrid.addGridMouseListener(myController);
+
     }
 
     public GridCanvas getGridCanvas () {
-        return myCanvas;
+        return myGrid;
     }
 }
