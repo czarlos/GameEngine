@@ -94,8 +94,8 @@ public class AI {
         if (UnitUtilities.calculateLength(myGrid.getObjectCoordinate(GridConstants.TILE, start),
                                           myGrid.getObjectCoordinate(GridConstants.TILE, end)) == 1) {
             Random r = new Random();
-            int rand = r.nextInt(unit.getActions().size());
-            String randomAction = unit.getActions().get(rand);
+            int rand = r.nextInt(unit.getActionNames().size());
+            String randomAction = unit.getActionNames().get(rand);
             myGM.getAction(randomAction).doAction(unit,
                                                   myGrid.getObject(GridConstants.GAMEUNIT, other));
         }

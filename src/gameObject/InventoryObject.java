@@ -8,13 +8,12 @@ import java.util.Map;
 import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
  * Objects that have an inventory
  * 
- * @author Leevi
+ * @author Leevi, Kevin, Andy
  * 
  */
 @JsonAutoDetect
@@ -65,6 +64,14 @@ public class InventoryObject extends GameObject {
         }
         return null;
     }
+    
+    /**
+     * Returns a boolean of if the inventory of the object is empty
+     * @return boolean of if the inventory is empty
+     */
+    public boolean isEmpty () {
+        return myItems.isEmpty();
+    }
 
     public void removeItem (String itemName) {
         int amount = myItemAmounts.get(itemName);
@@ -80,7 +87,7 @@ public class InventoryObject extends GameObject {
             }
         }
     }
-
+    
     public void removeAllOfAnItem (Item item) {
         myItems.remove(item);
         myItemAmounts.remove(item.getName());

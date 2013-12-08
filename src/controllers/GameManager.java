@@ -20,7 +20,7 @@ import grid.GridConstants;
 
 /**
  * 
- * @author kevinjian, leevi, whoever else
+ * @author Kevin, Leevi
  * 
  */
 @JsonAutoDetect
