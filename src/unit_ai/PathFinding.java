@@ -162,10 +162,6 @@ public class PathFinding {
         for (int i = 0; i < grid.getTiles().length; i++) {
             for (int j = 0; j < grid.getTiles().length; j++) {
                 tileList.add((Tile) grid.getObject(GridConstants.TILE, new Coordinate(i, j)));
-
-                // if (grid.getTile(new Coordinate(i, j)).isPassable(unit)) {
-                // tileList.add(grid.getTile(new Coordinate(i, j)));
-                // }
             }
         }
         return tileList;
