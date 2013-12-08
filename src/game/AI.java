@@ -36,11 +36,43 @@ public class AI {
     public void doTurn () {
         Set<GameUnit> opponentList = findAllEnemies();
         for (GameUnit unit : myStage.getTeamUnits(myTeam.getName())) {
-            PathFinding.addNeighbors(PathFinding.coordinatesToTiles(myGrid, unit), myGrid);
+            List<Tile> tileList = PathFinding.coordinatesToTiles(myGrid, unit);
+            List<Tile> validTiles = removeInvalidTiles(tileList, unit, opponentList);
+            PathFinding.addNeighbors(validTiles, myGrid);
             doAIMove(unit, opponentList);
         }
     }
-
+    
+    /**
+     * Removes tiles from the possible tiles in a path that cannot be passed through,
+     * thus avoiding all objects that the unit can't walk through.
+     * @param tileList
+     * @param unit
+     * @param opponentList
+     * @return
+     */
+    public List<Tile> removeInvalidTiles(List<Tile> tileList, GameUnit unit, Set<GameUnit> opponentList) {
+        List<Tile> removalList = new ArrayList<Tile>();
+        for (Tile tile : tileList) {
+            Coordinate location = myGrid.getObjectCoordinate(GridConstants.TILE, tile);
+            if (myGrid.getObject(GridConstants.GAMEOBJECT, location) !=null && !myGrid.getObject(GridConstants.GAMEOBJECT, location).equals(unit) && !myGrid.getObject(GridConstants.GAMEOBJECT, location).isPassable(unit) && !opponentList.contains(myGrid.getObject(GridConstants.GAMEOBJECT, location))) {
+                removalList.add(tile);
+            }
+        }
+        
+        if(!removalList.isEmpty()){
+            for(Tile t : removalList) {
+                if (myGrid.getObject(GridConstants.GAMEUNIT, myGrid.getObjectCoordinate(GridConstants.TILE, t)) instanceof GameUnit) {
+                    continue;
+                }
+                else {
+                    tileList.remove(t);
+                }
+            }
+        }
+        return tileList;
+    }
+    
     /**
      * Sends enemy units to attack your units, uses the pathfinding algorithm
      * from the PathFinding class to find the shortest path and traverses as far
