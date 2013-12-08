@@ -65,6 +65,10 @@ public class Stats {
         }
     }
 
+    public boolean contains (String statName) {
+        return getStatNames().contains(statName);
+    }
+
     public void changeName (String oldName, String newName) {
         for (Stat stat : myStatList) {
             if (stat.getName().equals(oldName)) {

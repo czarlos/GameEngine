@@ -6,12 +6,14 @@ import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
- * GameUnit is any unit in the game that can be interacted with. They can move, perform actions, have stats, and hold items.
+ * GameUnit is any unit in the game that can be interacted with. They can move, perform actions,
+ * have stats, and hold items.
  * 
  * @author Kevin, Andy, carlosreyes
  * 
@@ -112,7 +114,8 @@ public class GameUnit extends InventoryObject {
 
     /**
      * Gets the list of actions that the GameUnit can perform
-     * @return List of Strings 
+     * 
+     * @return List of Strings
      */
     @JsonIgnore
     public List<String> getActionNames () {
@@ -132,9 +135,9 @@ public class GameUnit extends InventoryObject {
     @Override
     public List<String> generateDisplayData () {
         List<String> displayData = super.generateDisplayData();
-        displayData.add("<html><b>Team: </b>" + myAffiliation + "</html>");
-        displayData.add("<html><b>Stats: </b></html>");
-        displayData.add("    health: " + calcTotalStat("health") + " / " +
+        displayData.add("<b>Team: </b>" + myAffiliation);
+        displayData.add("<b>Stats: </b>");
+        displayData.add("    health: " + getTotalStat("health") + " / " +
                         myStats.getStatValue("maxhealth"));
         for (String stat : myTotalStats.getStatNames()) {
             if (!stat.equals("health") && !stat.equals("maxhealth")) {
@@ -156,21 +159,6 @@ public class GameUnit extends InventoryObject {
 
         return interactions;
     };
-
-    public void syncActionsWithMaster (Map<String, String> nameTranslations,
-                                       List<String> removedActions) {
-        for (Item item : myItems) {
-            for (String removedAction : removedActions) {
-                if (item.getActions().contains(removedAction)) {
-                    item.removeAction(removedAction);
-                }
-            }
-            for (String action : nameTranslations.keySet()) {
-                item.removeAction(action);
-                item.addAction(nameTranslations.get(action));
-            }
-        }
-    }
     
     public void syncStatsWithMaster (Map<String, String> nameTranslationMap,
                                      List<String> removedNames) {
@@ -191,7 +179,16 @@ public class GameUnit extends InventoryObject {
         }
     }
 
+    public void removeStat (String stat) {
+        myStats.remove(stat);
+    }
+
+    public void changeStatName (String oldName, String newName) {
+        myStats.changeName(oldName, newName);
+    }
+
     public void setStats (Stats stats) {
+        stats.modExisting("maxhealth", stats.getStatValue("health"));
         myStats = new Stats(stats);
         myTotalStats = new Stats(stats);
     }
@@ -206,5 +203,14 @@ public class GameUnit extends InventoryObject {
 
     public void setStat (String statName, int statValue) {
         myStats.modExisting(statName, statValue);
+    }
+
+    public boolean containsStat (String name) {
+        return myStats.contains(name);
+    }
+
+    public void addStat (Stat stat) {
+        myStats.addStat(stat);
+
     }
 }
