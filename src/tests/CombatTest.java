@@ -29,50 +29,50 @@ public class CombatTest {
 
     }
 
-    @Before
-    public void setUp () throws Exception {
-
-        MasterStats masterStat = MasterStats.getInstance();
-        masterStat.setStatValue("health", 15);
-        masterStat.setStatValue("attack", 2);
-        masterStat.setStatValue("defense", 1);
-
-        MasterActions masterActions = MasterActions.getInstance();
-        List<Action> myActions = new ArrayList<Action>();
-        myActions.add(createStrongAction());
-        myActions.add(createWeakAction());
-        myActions.add(createItemDepletingAction());
-        masterActions.setActionList(myActions);
-
-        Stats playerStats = new Stats();
-        // playerStats.syncWithMaster();
-
-        Stats enemyStats = new Stats();
-        // enemyStats.syncWithMaster();
-
-        Stats itemStats = new Stats();
-        // itemStats.syncWithMaster();
-        itemStats.modExisting("health", 0);
-        itemStats.modExisting("defense", 0);
-
-        List<CombatAction> action = new ArrayList<CombatAction>();
-        action.add(createStrongAction());
-        action.add(createWeakAction());
-        action.add(createItemDepletingAction());
-
-        Item sword = new Weapon();
-
-        // Creates Player Character
-        playerUnit = new GameUnit();
-        playerUnit.setActiveWeapon(sword);
-
-        // Creates Enemy
-        enemyUnit = new GameUnit();
-        enemyUnit.setActiveWeapon(sword);
-
-        // Creates Item 'potion'
-        potion = makeEmptyItem("potion");
-    }
+//    @Before
+//    public void setUp () throws Exception {
+//
+//        MasterStats masterStat = MasterStats.getInstance();
+//        masterStat.setStatValue("health", 15);
+//        masterStat.setStatValue("attack", 2);
+//        masterStat.setStatValue("defense", 1);
+//
+//        MasterActions masterActions = MasterActions.getInstance();
+//        List<Action> myActions = new ArrayList<Action>();
+//        myActions.add(createStrongAction());
+//        myActions.add(createWeakAction());
+//        myActions.add(createItemDepletingAction());
+//        masterActions.setActionList(myActions);
+//
+//        Stats playerStats = new Stats();
+//        // playerStats.syncWithMaster();
+//
+//        Stats enemyStats = new Stats();
+//        // enemyStats.syncWithMaster();
+//
+//        Stats itemStats = new Stats();
+//        // itemStats.syncWithMaster();
+//        itemStats.modExisting("health", 0);
+//        itemStats.modExisting("defense", 0);
+//
+//        List<CombatAction> action = new ArrayList<CombatAction>();
+//        action.add(createStrongAction());
+//        action.add(createWeakAction());
+//        action.add(createItemDepletingAction());
+//
+//        Item sword = new Weapon();
+//
+//        // Creates Player Character
+//        playerUnit = new GameUnit();
+//        playerUnit.setActiveWeapon(sword);
+//
+//        // Creates Enemy
+//        enemyUnit = new GameUnit();
+//        enemyUnit.setActiveWeapon(sword);
+//
+//        // Creates Item 'potion'
+//        potion = makeEmptyItem("potion");
+//    }
 
     @Test
     public void testPlayerStrongAttackEnemy () {

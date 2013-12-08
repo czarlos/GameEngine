@@ -1,6 +1,7 @@
 package game;
 
 import gameObject.GameUnit;
+import gameObject.action.Action;
 import grid.Coordinate;
 import grid.Grid;
 import grid.GridConstants;
@@ -92,12 +93,24 @@ public class AI {
                                         myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit));
         Tile end = (Tile) myGrid.getObject(GridConstants.TILE, other);
         if (UnitUtilities.calculateLength(myGrid.getObjectCoordinate(GridConstants.TILE, start),
-                                          myGrid.getObjectCoordinate(GridConstants.TILE, end)) == 1) {
+                                          myGrid.getObjectCoordinate(GridConstants.TILE, end)) == unit.getStat("movement")) {
             Random r = new Random();
-            int rand = r.nextInt(unit.getActionNames().size());
+            int rand = r.nextInt(unit.getActionNames().size()-1) + 1;
             String randomAction = unit.getActionNames().get(rand);
-            myGM.getAction(randomAction).doAction(unit,
-                                                  myGrid.getObject(GridConstants.GAMEUNIT, other));
+//            myGM.getAction(randomAction).doAction(unit,
+//                                                  myGrid.getObject(GridConstants.GAMEUNIT, other));
+            Action currentAction = ((GameManager) myGM).getAction(randomAction);
+
+            if (currentAction.isValid(unit, myGrid.getObject(GridConstants.GAMEOBJECT,
+                                                             other))) {
+                currentAction.doAction(unit, myGrid.getObject(GridConstants.GAMEOBJECT,
+                                                              other));
+                ((GameManager) myGM)
+                        .endAction(myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit), other, unit, myGrid
+                                .getObject(GridConstants.GAMEOBJECT, other));
+                myGrid.setAllTilesInactive();
+                return;
+            }
         }
         else {
             PathFinding.autoMove(start, end, unit, myGrid);

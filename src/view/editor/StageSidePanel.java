@@ -44,7 +44,7 @@ public class StageSidePanel extends JPanel {
 
     public void displayInformation (Coordinate c) {
         myInfoPanel.removeAll();
-        myInfoPanel.makeTabs(myWorldManager.getActions(c),
+        myInfoPanel.makeTabs(myWorldManager.getActionNames(c),
                              myWorldManager.generateInfoList(GridConstants.TILE, c),
                              myWorldManager.generateInfoList(GridConstants.GAMEOBJECT, c));
     }
