@@ -76,9 +76,4 @@ public class OutcomesTableModel extends GameTableModel {
 
         return outcomes;
     }
-
-    @Override
-    public String getRowType () {
-        return getName();
-    }
 }

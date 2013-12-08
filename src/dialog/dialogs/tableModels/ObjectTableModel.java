@@ -55,9 +55,4 @@ public class ObjectTableModel extends GameTableModel {
         }
         return ret;
     }
-
-    @Override
-    public String getRowType () {
-        return getName();
-    }
 }
