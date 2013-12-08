@@ -1,9 +1,8 @@
 package view.editor;
 
-import grid.Coordinate;
+import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JPanel;
-import controllers.WorldManager;
 import view.player.InfoPanel;
 import view.player.SelectedInfoPanel;
 
@@ -11,11 +10,10 @@ import view.player.SelectedInfoPanel;
 @SuppressWarnings("serial")
 public class SelectedInfoEditorPanel extends SelectedInfoPanel {
 
-    private WorldManager myWorldManager;
-    private Coordinate myCoordinate;
 
-    public SelectedInfoEditorPanel (WorldManager wm) {
+    public SelectedInfoEditorPanel () {
         super();
+        setMaximumSize(new Dimension(200,200));
     }
 
     @Override
@@ -23,7 +21,4 @@ public class SelectedInfoEditorPanel extends SelectedInfoPanel {
         return new InfoPanel(actionInfo);
     }
 
-    public void setCoordinate (Coordinate c) {
-        myCoordinate = c;
-    }
 }

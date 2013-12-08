@@ -11,20 +11,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
- * Game Unit is any unit in the game that can be interacted with, game units can
- * be stationary or can move, these units can have stats and they can hold
- * items.
+ * GameUnit is any unit in the game that can be interacted with. They can move, perform actions, have stats, and hold items.
  * 
- * @author carlosreyes
+ * @author Kevin, Andy, carlosreyes
  * 
  */
-
 @JsonAutoDetect
 public class GameUnit extends InventoryObject {
 
     private Stats myStats;
-    private String myTeamName;
-    private Item myActiveWeapon;
+    private String myAffiliation;
     private boolean hasMoved;
 
     public GameUnit () {
@@ -33,43 +29,29 @@ public class GameUnit extends InventoryObject {
 
     // should ONLY be called by stage when adding units to a team
     public void setAffiliation (String affiliation) {
-        myTeamName = affiliation;
+        myAffiliation = affiliation;
     }
 
     public String getAffiliation () {
-        return myTeamName;
-    }
-
-    /**
-     * Sets the Game units active weapon to the weapon with a given string name.
-     * 
-     * @param weaponName The string which represents a weapon
-     */
-    public void selectWeapon (String weaponName) {
-        for (Item item : myItems) {
-            if (item.getName().equals(weaponName)) {
-                myActiveWeapon = item;
-            }
-        }
+        return myAffiliation;
     }
 
     @Override
     public boolean isPassable (GameUnit unit) {
-        return unit.getAffiliation().equals(myTeamName);
+        return unit.getAffiliation().equals(myAffiliation);
     }
 
     /**
      * Gets the total stat value for a given stat of a character after all of
-     * the item's stats have been applied. Assuming initializeStats has been
-     * called.
+     * the items' stats have been applied.
      * 
-     * @param stat The stat that we want to see
-     * @return
+     * @param statName String of stat name being queried
+     * @return int of stat value
      */
-    public int getTotalStat (String stat) {
-        int value = myStats.getStatValue(stat);
+    public int getTotalStat (String statName) {
+        int value = myStats.getStatValue(statName);
         for (Item item : myItems) {
-            value += item.getStat(stat);
+            value += item.getStat(statName);
         }
         return value;
     }
@@ -100,14 +82,6 @@ public class GameUnit extends InventoryObject {
         }
     }
 
-    public Item getActiveWeapon () {
-        return myActiveWeapon;
-    }
-
-    public void setActiveWeapon (Item activeItem) {
-        myActiveWeapon = activeItem;
-    }
-
     @Override
     public void setActive (boolean active) {
         hasMoved = !active;
@@ -120,8 +94,12 @@ public class GameUnit extends InventoryObject {
         hasMoved = true;
     }
 
+    /**
+     * Gets the list of actions that the GameUnit can perform
+     * @return List of Strings 
+     */
     @JsonIgnore
-    public List<String> getActions () {
+    public List<String> getActionNames () {
         List<String> actions = new ArrayList<>();
         if (isActive) {
             if (!hasMoved) {
@@ -135,13 +113,10 @@ public class GameUnit extends InventoryObject {
         return actions;
     }
 
-    /**
-     * Generates the List of Strings that the unit will display to the user
-     */
     @Override
     public List<String> generateDisplayData () {
         List<String> displayData = super.generateDisplayData();
-        displayData.add("<html><b>Team: </b>" + myTeamName + "</html>");
+        displayData.add("<html><b>Team: </b>" + myAffiliation + "</html>");
         displayData.add("<html><b>Stats: </b></html>");
         displayData.add("    health: " + getTotalStat("health") + " / " +
                         myStats.getStatValue("maxhealth"));
@@ -180,23 +155,7 @@ public class GameUnit extends InventoryObject {
             }
         }
     }
-
-    public void setStats (Stats stats) {
-        myStats = new Stats(stats);
-    }
-
-    public Stats getStats () {
-        return myStats;
-    }
-
-    public int getStat (String statName) {
-        return myStats.getStatValue(statName);
-    }
-
-    public void setStat (String statName, int statValue) {
-        myStats.modExisting(statName, statValue);
-    }
-
+    
     public void syncStatsWithMaster (Map<String, String> nameTranslationMap,
                                      List<String> removedNames) {
         for (String removedStat : removedNames) {
@@ -212,5 +171,21 @@ public class GameUnit extends InventoryObject {
                 item.changeStatName(oldName, nameTranslationMap.get(oldName));
             }
         }
+    }
+
+    public void setStats (Stats stats) {
+        myStats = new Stats(stats);
+    }
+
+    public Stats getStats () {
+        return myStats;
+    }
+
+    public int getStat (String statName) {
+        return myStats.getStatValue(statName);
+    }
+
+    public void setStat (String statName, int statValue) {
+        myStats.modExisting(statName, statValue);
     }
 }

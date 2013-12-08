@@ -3,11 +3,19 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import parser.JSONParser;
+import view.dialogs.LoadGameDialog;
+import controllers.Manager;
+import controllers.WorldManager;
 
 
 @SuppressWarnings("serial")
@@ -16,13 +24,16 @@ import javax.swing.JPanel;
  * game play environment. This class encapsulates the things both environments
  *
  */
-public abstract class GameView extends JFrame {
-    protected JPanel myBackground;
+public abstract class GameView extends JFrame implements WindowListener {
+    protected JComponent myBackground;
+    protected JComponent myGame;
     protected String mySaveLocation;
 
     public GameView () throws HeadlessException {
         super();
         initializeWindow();
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(this);
     }
 
     public GameView (GraphicsConfiguration gc) {
@@ -48,6 +59,36 @@ public abstract class GameView extends JFrame {
         setSize(800, 600);
         setVisible(true);
     }
+    
+    protected void showBackground(){
+        if(myGame!=null){
+            remove(myGame);
+        }
+        add(myBackground);
+    }
+    
+    protected void showGame(){
+        if(myGame!=null){
+            remove(myBackground);
+            add(myGame);
+        }
+    }
+
+    protected WorldManager loadGame (String folder) {
+        LoadGameDialog loader = new LoadGameDialog(folder);
+
+        int value = JOptionPane.showConfirmDialog(this, loader,
+                                                  "Choose Game", JOptionPane.OK_CANCEL_OPTION);
+        if (value == JOptionPane.OK_OPTION) {
+            String gameName = loader.getSelected();
+            JSONParser p = new JSONParser();
+            return p.createObject(folder + "/" + gameName,
+                                  controllers.WorldManager.class);
+        }
+        return null;
+    }
+    
+    protected abstract void loadGame(Manager m);
 
     protected void clearWindow () {
         setJMenuBar(createMenuBar(this));
@@ -63,6 +104,36 @@ public abstract class GameView extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(label, BorderLayout.CENTER);
         return panel;
+    }
+
+    @Override
+    public void windowClosing (WindowEvent e) {
+        new GameStartView();
+        dispose();
+    }
+
+    @Override
+    public void windowOpened (WindowEvent e) {
+    }
+
+    @Override
+    public void windowClosed (WindowEvent e) {
+    }
+
+    @Override
+    public void windowIconified (WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeiconified (WindowEvent e) {
+    }
+
+    @Override
+    public void windowActivated (WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeactivated (WindowEvent e) {
     }
 
 }

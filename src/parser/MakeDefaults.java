@@ -10,7 +10,9 @@ import gameObject.action.StatOutcome;
 import gameObject.item.Item;
 import grid.GridConstants;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import controllers.WorldManager;
 import stage.UnitCountCondition;
 import stage.WinCondition;
@@ -184,7 +186,7 @@ public class MakeDefaults {
         unitStats.modExisting("health", 15);
         unitStats.modExisting("attack", 2);
         unitStats.modExisting("max health", 15);
-
+        
         gameObject.GameUnit hero = new gameObject.GameUnit();
         gameObject.GameUnit goldensun = new gameObject.GameUnit();
         gameObject.GameUnit enemy = new gameObject.GameUnit();
@@ -194,31 +196,26 @@ public class MakeDefaults {
         hero.setName("hero");
         hero.setImagePath("resources/hero.png");
         hero.setStats(unitStats);
-        hero.addItem(defaultItem);
         hero.setAffiliation("player");
 
         goldensun.setName("Golden Sun");
         goldensun.setImagePath("resources/goldensun.png");
         goldensun.setStats(unitStats);
-        goldensun.addItem(defaultItem);
         goldensun.setAffiliation("player");
 
         enemy.setName("Enemy");
         enemy.setImagePath("resources/enemy.png");
         enemy.setStats(unitStats);
-        enemy.addItem(defaultItem);
         enemy.setAffiliation("enemy");
 
         charizard.setName("Dragon");
         charizard.setImagePath("resources/charizard.png");
         charizard.setStats(unitStats);
-        charizard.addItem(defaultItem);
         charizard.setAffiliation("enemy");
-
+        
         roy.setName("Roy");
         roy.setImagePath("resources/roy.png");
         roy.setStats(unitStats);
-        roy.addItem(defaultItem);
         roy.setAffiliation("enemy");
 
         list.add(hero);

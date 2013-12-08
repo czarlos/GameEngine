@@ -13,7 +13,11 @@ import utils.UnitUtilities;
 import controllers.GameManager;
 import controllers.Manager;
 
-
+/**
+ * Second version of AI. Moves AI designated units towards closest enemies and uses a valid action on the enemy if possible
+ * @author kevinjian
+ *
+ */
 public class AI2 {
 
     private Team myTeam;
@@ -29,21 +33,26 @@ public class AI2 {
     }
 
     /**
-     * Goes through all AI units, makes each one move to the closest enemy
+     * Goes through all AI units, moves them towards enemies and performs actions
      */
     public void doTurn () {
-        List<GameUnit> opponents = findAllEnemies();
+        List<GameUnit> opponents = findAllOpponents();
         List<GameUnit> AIUnits = myStage.getTeamUnits(myTeam.getName());
         if (opponents.isEmpty()) { return; }
         doAIMove(AIUnits, opponents);
         doAIAction(AIUnits);
     }
 
+    /**
+     * Moves the AI units towards opponents
+     * @param AIUnits List of GameUnits of AI units
+     * @param opponents List of GameUnits of opponents
+     */
     private void doAIMove (List<GameUnit> AIUnits, List<GameUnit> opponents) {
         for (GameUnit unit : AIUnits) {
             Coordinate unitCoordinate = myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit);
             myGrid.beginMove(unitCoordinate);
-            ;
+            
             List<Coordinate> activeCoordinates = myGrid.getActiveTileCoordinates();
             int min =
                     UnitUtilities.calculateDistance(activeCoordinates.get(0), myGrid
@@ -66,10 +75,14 @@ public class AI2 {
         }
     }
 
+    /**
+     * Makes the AI units perform actions if possible
+     * @param AIUnits List of GameUnits of AI units
+     */
     private void doAIAction (List<GameUnit> AIUnits) {
         for (GameUnit unit : AIUnits) {
             Coordinate unitCoordinate = myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit);
-            List<String> unitActions = myManager.getActions(unitCoordinate);
+            List<String> unitActions = myManager.getActionNames(unitCoordinate);
             for (String unitAction : unitActions) {
                 Action currentAction = ((GameManager) myManager).getAction(unitAction);
                 myGrid.findActionRange(unitCoordinate, currentAction.getActionRange(),
@@ -92,7 +105,11 @@ public class AI2 {
         }
     }
 
-    private List<GameUnit> findAllEnemies () {
+    /**
+     * Finds all opponents opposing the AI's team
+     * @return List of GameUnits of opponents
+     */
+    private List<GameUnit> findAllOpponents () {
         List<GameUnit> opponents = new ArrayList<>();
         for (Team team : myStage.getTeams()) {
             if (!myTeam.getName().equals(team.getName())) {

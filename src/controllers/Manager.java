@@ -15,7 +15,11 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
+/**
+ * Communicates between backend and frontend
+ * @author Leevi, Chris, Kevin
+ *
+ */
 @JsonAutoDetect
 public abstract class Manager {
 
@@ -33,7 +37,7 @@ public abstract class Manager {
     @JsonProperty
     protected List<Integer> activeEditIDList;
 
-    // GameManager instance variables
+    // Manager instance variables
     protected int myPhaseCount;
     protected int myActiveTeam;
     protected List<Action> myActiveActions;
@@ -62,7 +66,7 @@ public abstract class Manager {
     /**
      * Returns list of stage names
      * 
-     * @return
+     * @return List of Strings of stage names
      */
     @JsonIgnore
     public List<String> getStages () {
@@ -78,7 +82,7 @@ public abstract class Manager {
      * Set which stage to assign "active", this is the stage that all methods
      * will return information about by default.
      * 
-     * @param stageID
+     * @param stageID int of the ID of the stage to be set active
      */
     @JsonProperty("activeStage")
     public void setActiveStage (int stageID) {
@@ -94,7 +98,7 @@ public abstract class Manager {
     /**
      * Set list of stages, used by JSON deserializer
      * 
-     * @param stages
+     * @param stages List of Stages to set
      */
     public void setStages (List<Stage> stages) {
         myStages = stages;
@@ -103,7 +107,7 @@ public abstract class Manager {
     /**
      * Gets the game name
      * 
-     * @return
+     * @return String of the gameName
      */
     public String getGameName () {
         return myGameName;
@@ -145,13 +149,13 @@ public abstract class Manager {
      * @return List of Strings that contain the action names
      */
     @JsonIgnore
-    public List<String> getActions (Coordinate coordinate) {
+    public List<String> getActionNames (Coordinate coordinate) {
         GameUnit gameUnit =
                 (GameUnit) myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, coordinate);
         if (gameUnit != null) {
             if (gameUnit.isActive()) {
                 List<String> actions = new ArrayList<>();
-                actions.addAll(gameUnit.getActions());
+                actions.addAll(gameUnit.getActionNames());
                 actions.addAll(myActiveStage.getGrid().getAllInteractions(coordinate));
                 return actions;
             }
