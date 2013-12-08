@@ -69,6 +69,8 @@ public abstract class GameTableModel extends AbstractTableModel {
     public String getName () {
         return myName;
     }
+    
+    public abstract String getRowType();
 
     public EditorData getED () {
         return myED;

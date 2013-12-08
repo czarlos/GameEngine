@@ -52,4 +52,9 @@ public class ItemsTableModel extends GameTableModel {
         array[1] = 0;
         return array;
     }
+
+    @Override
+    public String getRowType () {
+        return "Map Object";
+    }
 }

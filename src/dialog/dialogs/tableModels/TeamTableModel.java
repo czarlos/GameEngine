@@ -90,4 +90,9 @@ public class TeamTableModel extends GameTableModel {
 
         return array;
     }
+
+    @Override
+    public String getRowType () {
+        return getName();
+    }
 }

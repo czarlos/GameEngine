@@ -70,7 +70,7 @@ public class TableDialog extends JDialog {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
 
-        JButton addNewButton = new JButton("Add New " + myModel.getName());
+        JButton addNewButton = new JButton("Add New " + myModel.getRowType());
 
         JButton delete = new JButton("Delete");
 
