@@ -123,25 +123,6 @@ public class PathFinding {
             }
 
             visited.add(workingTile);
-
-            // if (workingTile.equals(end)) {
-            // while (!workingTile.equals(start)) {
-            // path.add(workingTile);
-            // workingTile = workingTile.getParent();
-            // }
-            // return path;
-            // }
-            // else {
-            // if (!visited.contains(workingTile)) {
-            // visited.add(workingTile);
-            // for (Tile neighbor : workingTile.getNeighbors()) {
-            // if (!visited.contains(neighbor)) {
-            // neighbor.setParent(workingTile);
-            // queue.add(neighbor);
-            // }
-            // }
-            // }
-            // }
         }
         return path;
 

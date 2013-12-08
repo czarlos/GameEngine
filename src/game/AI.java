@@ -85,6 +85,7 @@ public class AI {
      *        - A list of all of the enemy units
      */
     public void doAIMove (GameUnit unit, Set<GameUnit> allEnemies) {
+
         Coordinate other = findClosestOpponent(unit, allEnemies);
         Tile start =
                 (Tile) myGrid.getObject(GridConstants.TILE,
@@ -93,13 +94,13 @@ public class AI {
         if (UnitUtilities.calculateLength(myGrid.getObjectCoordinate(GridConstants.TILE, start),
                                           myGrid.getObjectCoordinate(GridConstants.TILE, end)) == 1) {
             Random r = new Random();
-            int rand = r.nextInt(unit.getActionNames().size());
-            String randomAction = unit.getActionNames().get(rand);
+            int rand = r.nextInt(unit.getActions().size());
+            String randomAction = unit.getActions().get(rand);
             myGM.getAction(randomAction).doAction(unit,
                                                   myGrid.getObject(GridConstants.GAMEUNIT, other));
         }
         else {
-            // PathFinding.autoMove(start, end, unit, myGrid);
+            PathFinding.autoMove(start, end, unit, myGrid);
         }
     }
 
