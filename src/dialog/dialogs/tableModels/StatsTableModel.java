@@ -50,13 +50,13 @@ public class StatsTableModel extends GameTableModel {
     @Override
     public Object[] getNew () {
         JOptionPane.showMessageDialog(null,
-                "Use Master Stats Editor to add a new stat for all objects.");
+                                      "Use Master Stats Editor to add a new stat for all objects.");
         return null;
     }
 
     @Override
     public void removeRow (int index) {
         JOptionPane.showMessageDialog(null,
-                "Use Master Stats Editor to remove a stat from all objects.");
+                                      "Use Master Stats Editor to remove a stat from all objects.");
     }
 }

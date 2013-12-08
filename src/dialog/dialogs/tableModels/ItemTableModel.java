@@ -25,12 +25,13 @@ public class ItemTableModel extends GameTableModel {
 
     @Override
     public Object[] getNew () {
-        Object[] ret = new Object[myColumnNames.length];
+        Object[] ret = new Object[myColumnNames.length + 1];
         ret[0] = "New Item";
         ret[1] = new File("resources/amor.png");
         ret[2] = new Stats();
         ret[3] = new ArrayList<Action>();
-
+        ret[4] = -1;
+        
         return ret;
     }
 
@@ -38,12 +39,14 @@ public class ItemTableModel extends GameTableModel {
     @Override
     public void loadObject (Object object) {
         List<Item> list = (List<Item>) object;
-        for (Item i : list) {
-            Object[] array = new Object[myColumnNames.length];
+        for(int j = 0; j < list.size(); j++){
+            Item i = list.get(j);
+            Object[] array = new Object[myColumnNames.length + 1];
             array[0] = i.getName();
             array[1] = new File(i.getImagePath());
             array[2] = i.getStats();
             array[3] = i.getActions();
+            array[4] = j;
             addNewRow(array);
         }
     }
@@ -58,6 +61,7 @@ public class ItemTableModel extends GameTableModel {
             i.setImagePath((String) ((File) row[1]).getPath());
             i.setStats((Stats) row[2]);
             i.setActions((List<String>) row[3]);
+            i.setLastIndex((int) row[4]);
             ret.add(i);
         }
         return ret;

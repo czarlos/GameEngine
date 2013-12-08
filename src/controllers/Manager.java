@@ -19,7 +19,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonAutoDetect
 public abstract class Manager {
 
-    @JsonProperty
     protected Stage myActiveStage;
     @JsonProperty
     protected List<Stage> myStages;
@@ -39,7 +38,7 @@ public abstract class Manager {
     protected int myActiveTeam;
     protected List<Action> myActiveActions;
     protected boolean isTurnCompleted;
-    
+
     public Manager () {
         myStages = new ArrayList<Stage>();
         myEditorData = new EditorData("defaults");
@@ -81,9 +80,15 @@ public abstract class Manager {
      * 
      * @param stageID
      */
+    @JsonProperty("activeStage")
     public void setActiveStage (int stageID) {
         if (stageID < myStages.size() & stageID > -1)
             myActiveStage = myStages.get(stageID);
+    }
+
+    @JsonProperty("activeStage")
+    private int getActiveStage () {
+        return myStages.indexOf(myActiveStage);
     }
 
     /**
@@ -125,13 +130,13 @@ public abstract class Manager {
         }
         return null;
     }
-    
+
     private void addCoordinateData (GameObject gameObject, Coordinate coordinate) {
         List<String> displayData = gameObject.getDisplayData();
         displayData.add("Coordinate: " + coordinate.getX() + ", " + coordinate.getY());
         gameObject.setDisplayData(displayData);
     }
-    
+
     /**
      * Gets a list of actions that a unit at a coordinate can perform. Null if
      * there is no unit.
@@ -175,7 +180,7 @@ public abstract class Manager {
     }
 
     public void saveGame (String folder) {
-        for(int i=0; i<activeEditTypeList.size(); i++){
+        for (int i = 0; i < activeEditTypeList.size(); i++) {
             activeEditTypeList.set(i, "");
             activeEditIDList.set(i, -1);
         }

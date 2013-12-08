@@ -9,7 +9,7 @@ import grid.GridConstants;
 @JsonAutoDetect
 public class ItemOutcome extends Outcome {
     private Item myItem;
-    
+
     public ItemOutcome () {
         myType = GridConstants.ITEM;
     }

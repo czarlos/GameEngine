@@ -81,7 +81,7 @@ public class GameObject extends Customizable implements Drawable {
      */
     public List<String> generateDisplayData () {
         List<String> displayData = new ArrayList<>();
-        displayData.add("<html><b>Name:</b> " + myName+"</htmL>");
+        displayData.add("<html><b>Name:</b> " + myName + "</htmL>");
         setDisplayData(displayData);
         return displayData;
     }
@@ -101,9 +101,5 @@ public class GameObject extends Customizable implements Drawable {
     @Override
     public void draw (Graphics g, int x, int y, int width, int height) {
         g.drawImage(getImage(), x, y, width, height, null);
-    }
-
-    public void addItem (Item item) {
-        // Does nothing
     }
 }

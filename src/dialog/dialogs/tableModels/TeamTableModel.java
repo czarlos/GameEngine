@@ -64,7 +64,7 @@ public class TeamTableModel extends GameTableModel {
             ret.add(t);
         }
 
-        // checking to make sure there is always one list.
+        // checking to make sure there is always one team
         if (ret.size() == 0) {
             Team t = new Team();
             t.setName("default");
@@ -80,13 +80,15 @@ public class TeamTableModel extends GameTableModel {
 
     @Override
     public Object[] getNew () {
-        Object[] array = new Object[myColumnNames.length];
+        Object[] array = new Object[myColumnNames.length + 1];
+        
         array[0] = "New Team";
         array[1] = new File("resources/skull.png");
         array[2] = 0;
         array[3] = new WinCondition();
         array[4] = 0;
         array[5] = false;
+        array[6] = -1;
 
         return array;
     }

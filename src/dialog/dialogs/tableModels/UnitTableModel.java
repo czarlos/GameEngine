@@ -33,19 +33,22 @@ public class UnitTableModel extends GameTableModel {
 
     @Override
     public Object[] getNew () {
-        Object[] ret = new Object[myColumnNames.length];
+        Object[] ret = new Object[myColumnNames.length + 1];
+        
         ret[0] = "New Unit";
         ret[1] = new File("resources/grass.png");
         ret[2] = new Selector(myED.getNames(GridConstants.TEAM), defaultAffiliation);
         Stats stats = new Stats();
-        for(String s: GridConstants.DEFAULTSTATARRAY){
+        for (String s : GridConstants.DEFAULTSTATARRAY) {
             stats.addStat(new Stat(s));
         }
         stats.modExisting("movement", 4);
         stats.modExisting("attack", 2);
         stats.modExisting("defense", 2);
         stats.modExisting("health", 15);
+        stats.modExisting("max health", 15);
         ret[3] = new Stats();
+        ret[4] = -1;
         return ret;
     }
 
@@ -54,12 +57,15 @@ public class UnitTableModel extends GameTableModel {
     public void loadObject (Object object) {
         List<GameUnit> list = (List<GameUnit>) object;
         defaultAffiliation = list.get(0).getAffiliation();
-        for (GameUnit gu : list) {
-            Object[] array = new Object[myColumnNames.length];
+        for (int i = 0; i < list.size(); i++){
+            Object[] array = new Object[myColumnNames.length + 1];
+            
+            GameUnit gu = list.get(i);
             array[0] = gu.getName();
             array[1] = new File(gu.getImagePath());
             array[2] = new Selector(myED.getNames(GridConstants.TEAM), gu.getAffiliation());
             array[3] = gu.getStats();
+            array[4] = i;
             addNewRow(array);
         }
     }
@@ -73,6 +79,7 @@ public class UnitTableModel extends GameTableModel {
             gu.setImagePath((String) ((File) row[1]).getPath());
             gu.setAffiliation((String) ((Selector) row[2]).getValue());
             gu.setStats((Stats) row[3]);
+            gu.setLastIndex((int) row[4]);
             ret.add(gu);
         }
         return ret;

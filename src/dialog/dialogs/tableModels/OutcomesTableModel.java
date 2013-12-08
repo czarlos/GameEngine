@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import controllers.EditorData;
-import controllers.WorldManager;
 
 
 @SuppressWarnings("serial")
@@ -30,8 +29,7 @@ public class OutcomesTableModel extends GameTableModel {
         ret[1] = new Selector(myED.get(GridConstants.COREOUTCOMES[0].getType()));
         ret[2] = -10;
         ret[3] = false;
-
-        System.out.println(ret[0]);
+        
         return ret;
     }
 
@@ -45,7 +43,7 @@ public class OutcomesTableModel extends GameTableModel {
 
         fireTableDataChanged();
     }
-    
+
     @Override
     public void loadObject (Object object) {
         myList.clear();
