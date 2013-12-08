@@ -86,6 +86,7 @@ public class GameManager extends Manager {
 
         isTurnCompleted = false;
         myPhaseCount++;
+        myActiveStage.setPhaseCount(myPhaseCount);
         myActiveTeam = myPhaseCount % myActiveStage.getNumberOfTeams();
         String teamName = getActiveTeamName();
         List<GameUnit> units2 = myActiveStage.getTeamUnits(teamName);
