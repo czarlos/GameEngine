@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import controllers.EditorData;
 import gameObject.GameObject;
+import gameObject.InventoryObject;
 import grid.GridConstants;
 
 
@@ -19,10 +20,10 @@ public class ObjectTableModel extends GameTableModel {
 
     @Override
     public void removeRow (int index) {
-        if(index > 1)
+        if (index > 1)
             super.removeRow(index);
     }
-    
+
     @Override
     public Object[] getNew () {
         Object[] ret = new Object[myColumnNames.length + 1];
@@ -40,7 +41,7 @@ public class ObjectTableModel extends GameTableModel {
     @Override
     public void loadObject (Object object) {
         List<GameObject> list = (List<GameObject>) object;
-        for(int i = 0; i < list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
             GameObject go = list.get(i);
             Object[] array = new Object[myColumnNames.length + 1];
             array[0] = go.getName();
@@ -55,8 +56,20 @@ public class ObjectTableModel extends GameTableModel {
     @Override
     public Object getObject () {
         List<GameObject> ret = new ArrayList<GameObject>();
-        for (Object[] row : myList) {
+
+        for (int i = 0; i < 2; i++) {
+            Object[] row = myList.get(i);
+            InventoryObject io = new InventoryObject();
+            io.setName((String) row[0]);
+            io.setImagePath((String) ((File) row[1]).getPath());
+            io.setPassableList((List<String>) row[2]);
+            io.setLastIndex((int) row[3]);
+            ret.add(io);
+        }
+        for (int i = 2; i < myList.size(); i++) {
             GameObject go = new GameObject();
+            Object[] row = myList.get(i);
+            
             go.setName((String) row[0]);
             go.setImagePath((String) ((File) row[1]).getPath());
             go.setPassableList((List<String>) row[2]);
