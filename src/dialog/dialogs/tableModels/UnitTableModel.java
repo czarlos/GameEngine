@@ -46,6 +46,7 @@ public class UnitTableModel extends GameTableModel {
         stats.modExisting("attack", 2);
         stats.modExisting("defense", 2);
         stats.modExisting("health", 15);
+        stats.modExisting("max health", 15);
         ret[3] = new Stats();
         ret[4] = -1;
         return ret;

@@ -184,6 +184,7 @@ public class MakeDefaults {
         unitStats.modExisting("strength", 2);
         unitStats.modExisting("health", 15);
         unitStats.modExisting("attack", 2);
+        unitStats.modExisting("max health", 15);
 
         gameObject.GameUnit hero = new gameObject.GameUnit();
         gameObject.GameUnit goldensun = new gameObject.GameUnit();
