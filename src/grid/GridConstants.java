@@ -1,6 +1,7 @@
 package grid;
 
 import stage.Condition;
+import stage.FalseCondition;
 import stage.ItemCondition;
 import stage.PositionCondition;
 import stage.StatCondition;
@@ -61,5 +62,5 @@ public class GridConstants {
     public static final Condition[] CORECONDITIONS = { new PositionCondition(),
                                                       new ItemCondition(),
                                                       new StatCondition(), new TurnCondition(),
-                                                      new UnitCountCondition() };
+                                                      new UnitCountCondition(), new FalseCondition() };
 }

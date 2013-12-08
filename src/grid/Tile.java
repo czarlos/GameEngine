@@ -1,6 +1,7 @@
 package grid;
 
 import gameObject.GameObject;
+import gameObject.Stat;
 import gameObject.Stats;
 import java.util.List;
 import java.util.Map;
@@ -46,8 +47,8 @@ public class Tile extends GameObject {
     @Override
     public List<String> generateDisplayData () {
         List<String> displayData = super.generateDisplayData();
-        displayData.add("<html><b>Movement cost: </b>" + myMoveCost + "</html>");
-        displayData.add("<html><b>Stat Modifiers: </b></html>");
+        displayData.add("<b>Movement cost: </b>" + myMoveCost);
+        displayData.add("<b>Stat Modifiers: </b>");
         for (String stat : myStats.getStatNames()) {
             if (!stat.equals("health") && !stat.equals("maxhealth") && !stat.equals("experience")) {
                 displayData.add("    " + stat + ": " + myStats.getStatValue(stat));
@@ -93,7 +94,20 @@ public class Tile extends GameObject {
         myDistanceToGoal = distanceToGoal;
     }
 
-    public void syncStatsWithMaster (Map<String, String> nameTranslationMap,
-                                     List<String> removedNames) {
+    public void removeStat (String removedStat) {
+        myStats.remove(removedStat);
+    }
+
+    public void changeStatName (String oldName, String newName) {
+        myStats.changeName(oldName, newName);
+
+    }
+
+    public boolean containsStat (String name) {
+        return myStats.contains(name);
+    }
+
+    public void addStat (Stat stat) {
+        myStats.addStat(stat);
     }
 }

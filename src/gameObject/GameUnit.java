@@ -6,12 +6,14 @@ import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
- * GameUnit is any unit in the game that can be interacted with. They can move, perform actions, have stats, and hold items.
+ * GameUnit is any unit in the game that can be interacted with. They can move, perform actions,
+ * have stats, and hold items.
  * 
  * @author Kevin, Andy, carlosreyes
  * 
@@ -96,7 +98,8 @@ public class GameUnit extends InventoryObject {
 
     /**
      * Gets the list of actions that the GameUnit can perform
-     * @return List of Strings 
+     * 
+     * @return List of Strings
      */
     @JsonIgnore
     public List<String> getActionNames () {
@@ -116,8 +119,8 @@ public class GameUnit extends InventoryObject {
     @Override
     public List<String> generateDisplayData () {
         List<String> displayData = super.generateDisplayData();
-        displayData.add("<html><b>Team: </b>" + myAffiliation + "</html>");
-        displayData.add("<html><b>Stats: </b></html>");
+        displayData.add("<b>Team: </b>" + myAffiliation);
+        displayData.add("<b>Stats: </b>");
         displayData.add("    health: " + getTotalStat("health") + " / " +
                         myStats.getStatValue("maxhealth"));
         for (String stat : myStats.getStatNames()) {
@@ -155,22 +158,13 @@ public class GameUnit extends InventoryObject {
             }
         }
     }
-    
-    public void syncStatsWithMaster (Map<String, String> nameTranslationMap,
-                                     List<String> removedNames) {
-        for (String removedStat : removedNames) {
-            myStats.remove(removedStat);
-            for (Item item : myItems) {
-                item.removeStat(removedStat);
-            }
-        }
 
-        for (String oldName : nameTranslationMap.keySet()) {
-            myStats.changeName(oldName, nameTranslationMap.get(oldName));
-            for (Item item : myItems) {
-                item.changeStatName(oldName, nameTranslationMap.get(oldName));
-            }
-        }
+    public void removeStat (String stat) {
+        myStats.remove(stat);
+    }
+
+    public void changeStatName (String oldName, String newName) {
+        myStats.changeName(oldName, newName);
     }
 
     public void setStats (Stats stats) {
@@ -187,5 +181,14 @@ public class GameUnit extends InventoryObject {
 
     public void setStat (String statName, int statValue) {
         myStats.modExisting(statName, statValue);
+    }
+
+    public boolean containsStat (String name) {
+        return myStats.contains(name);
+    }
+
+    public void addStat (Stat stat) {
+        myStats.addStat(stat);
+
     }
 }

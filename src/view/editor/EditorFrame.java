@@ -211,6 +211,8 @@ public class EditorFrame extends GameView {
         }
     }
 
+
+    
     protected void setFrame (Manager m) {
         super.clearWindow();
         myWorldManager = new WorldManager(m);
@@ -293,11 +295,73 @@ public class EditorFrame extends GameView {
             }
 
         });
+        
+        JMenuItem saveLib = new JMenuItem("Save Editor Library");
+        gameMenu.add(saveLib);
+        saveLib.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                saveEditorLibrary(); 
+            }
+            
+        });
+        
+        JMenuItem loadLib = new JMenuItem("Load Editor Library");
+        gameMenu.add(loadLib);
+        loadLib.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                loadEditorLibrary(); 
+            }
+            
+        });
 
         myMenuBar.add(stageMenu, 1);
         myMenuBar.add(gameMenu, 1);
     }
 
+    private void saveEditorLibrary(){
+        JPanel savePanel = new JPanel();
+        JLabel label = new JLabel("File name:");
+        JTextField name = new JTextField(25);
+        savePanel.setLayout(new BoxLayout(savePanel, BoxLayout.LINE_AXIS));
+        savePanel.add(label);
+        savePanel.add(name);
+        int value = JOptionPane.showConfirmDialog(this, savePanel,
+                                                  "Save Library Name", JOptionPane.OK_CANCEL_OPTION);
+        if (value == JOptionPane.OK_OPTION) {
+            String file = name.getText();
+            myWorldManager.saveEditorData(file);
+        }
+
+        
+    }
+    
+    private void loadEditorLibrary(){
+        JPanel loadPanel = new JPanel();
+        loadPanel.setLayout(new GridLayout(0, 2));
+        JLabel choose = new JLabel("Choose Library:");
+        JComboBox<String> libraryNamesMenu = new JComboBox<>();
+        File savesDir = new File("JSONs/userLibraries");
+        for (File child : savesDir.listFiles()) {
+            libraryNamesMenu.addItem(child.getName().split("\\.")[0]);
+        }
+        
+        loadPanel.add(choose);
+        loadPanel.add(libraryNamesMenu);
+
+        int value = JOptionPane.showConfirmDialog(this, loadPanel,
+                                                  "Choose Editor Library", JOptionPane.OK_CANCEL_OPTION);
+        if (value == JOptionPane.OK_OPTION) {
+            String libraryName = (String) libraryNamesMenu.getSelectedItem();
+            myWorldManager.loadEditorData(libraryName);
+            myGridController.refreshEditorPanels();
+        }
+        
+    }
+    
     protected void setStage (String stageName, int stageID) {
         StagePanel sp =
 

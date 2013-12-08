@@ -14,20 +14,36 @@ public class Selector {
 
     private Object myValue;
     private List<?> myValues;
-
+    
+    /**
+     * Construct Selector with default selected value of the first object in values
+     * @param values
+     */
     public Selector (List<?> values) {
         this(values, values.get(0));
     }
-
+    
+    /**
+     * 
+     * @param values options
+     * @param value currently selected
+     */
     public Selector (List<?> values, Object value) {
         myValues = values;
         myValue = value;
     }
-
+    
+    /**
+     * 
+     * @return List<?> values
+     */
     public List<?> getValues () {
         return myValues;
     }
-
+    /**
+     * Get currently selected value
+     * @return Object 
+     */
     public Object getValue () {
         return myValue;
     }

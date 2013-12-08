@@ -46,7 +46,8 @@ public class TileTableModel extends GameTableModel {
             addNewRow(array);           
         }
     }
-
+    
+    @Override
     public List<?> getObject () {
         List<Tile> list = new ArrayList<Tile>();
         for (Object[] row : myList) {

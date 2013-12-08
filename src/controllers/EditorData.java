@@ -50,6 +50,17 @@ public class EditorData {
         loadObjects(folderName);
     }
 
+    public void saveData (String name) {
+        myParser.createJSON("userLibraries/" + name, myDataMap);
+    }
+
+    @SuppressWarnings("unchecked")
+    public void loadData (String name) {
+        myDataMap =
+                myParser.createObject("userLibraries/" + name,
+                                      new HashMap<String, List<?>>().getClass());
+    }
+
     /**
      * Load in the objects (eventually JTable data) from the JSONs
      * 
@@ -150,6 +161,7 @@ public class EditorData {
         Tile[][] placedTiles = activeStage.getGrid().getTiles();
         Map<String, String> nameTranslationMap = new HashMap<>();
 
+        // Find removed
         for (Object stat : newStats) {
             if (((Stat) stat).getLastIndex() > -1) {
                 String prevName = fullList.get(((Stat) stat).getLastIndex());
@@ -160,30 +172,117 @@ public class EditorData {
             }
         }
 
+        // GameUnit definitions
         for (GameUnit unit : editorUnitList) {
-            unit.syncStatsWithMaster(nameTranslationMap, removedNames);
-        }
+            for (String removedStat : removedNames) {
+                unit.removeStat(removedStat);
+                for (Item item : unit.getItems()) {
+                    item.removeStat(removedStat);
+                }
+            }
 
-        for (int i = 0; i < placedUnits.length; i++) {
-            for (int j = 0; j < placedUnits[i].length; j++) {
-                if (placedUnits[i][j] != null) {
-                    placedUnits[i][j].syncStatsWithMaster(nameTranslationMap, removedNames);
+            for (String oldName : nameTranslationMap.keySet()) {
+                unit.changeStatName(oldName, nameTranslationMap.get(oldName));
+                for (Item item : unit.getItems()) {
+                    item.changeStatName(oldName, nameTranslationMap.get(oldName));
+                }
+            }
+
+            for (Object stat : newStats) {
+                if (!unit.containsStat(((Stat) stat).getName())) {
+                    unit.addStat((Stat) stat);
+                }
+                for (Item item : unit.getItems()) {
+                    if (!item.containsStat(((Stat) stat).getName())) {
+                        item.addStat((Stat) stat);
+                    }
                 }
             }
         }
 
-        for (Tile tile : editorTileList) {
-            tile.syncStatsWithMaster(nameTranslationMap, removedNames);
-        }
+        // Placed GameUnit's
+        for (int i = 0; i < placedUnits.length; i++) {
+            for (int j = 0; j < placedUnits[i].length; j++) {
+                if (placedUnits[i][j] != null) {
+                    for (String removedStat : removedNames) {
+                        placedUnits[i][j].removeStat(removedStat);
+                        for (Item item : placedUnits[i][j].getItems()) {
+                            item.removeStat(removedStat);
+                        }
+                    }
 
-        for (int i = 0; i < placedTiles.length; i++) {
-            for (int j = 0; j < placedTiles[i].length; j++) {
-                placedTiles[i][j].syncStatsWithMaster(nameTranslationMap, removedNames);
+                    for (String oldName : nameTranslationMap.keySet()) {
+                        placedUnits[i][j].changeStatName(oldName, nameTranslationMap.get(oldName));
+                        for (Item item : placedUnits[i][j].getItems()) {
+                            item.changeStatName(oldName, nameTranslationMap.get(oldName));
+                        }
+                    }
+
+                    for (Object stat : newStats) {
+                        if (!placedUnits[i][j].containsStat(((Stat) stat).getName())) {
+                            placedUnits[i][j].addStat((Stat) stat);
+                        }
+                        for (Item item : placedUnits[i][j].getItems()) {
+                            if (!item.containsStat(((Stat) stat).getName())) {
+                                item.addStat((Stat) stat);
+                            }
+                        }
+                    }
+                }
             }
         }
 
+        // Tile definitions
+        for (Tile tile : editorTileList) {
+            for (String removedStat : removedNames) {
+                tile.removeStat(removedStat);
+            }
+
+            for (String oldName : nameTranslationMap.keySet()) {
+                tile.changeStatName(oldName, nameTranslationMap.get(oldName));
+            }
+
+            for (Object stat : newStats) {
+                if (!tile.containsStat(((Stat) stat).getName())) {
+                    tile.addStat((Stat) stat);
+                }
+            }
+        }
+
+        // Placed tiles
+        for (int i = 0; i < placedTiles.length; i++) {
+            for (int j = 0; j < placedTiles[i].length; j++) {
+                for (String removedStat : removedNames) {
+                    placedTiles[i][j].removeStat(removedStat);
+                }
+
+                for (String oldName : nameTranslationMap.keySet()) {
+                    placedTiles[i][j].changeStatName(oldName, nameTranslationMap.get(oldName));
+                }
+
+                for (Object stat : newStats) {
+                    if (!placedTiles[i][j].containsStat(((Stat) stat).getName())) {
+                        placedTiles[i][j].addStat((Stat) stat);
+                    }
+                }
+            }
+        }
+
+        // Item definitions
         for (Item item : editorItemList) {
-            item.syncStatsWithMaster(nameTranslationMap, removedNames);
+            for (String removedStat : removedNames) {
+                item.removeStat(removedStat);
+            }
+
+            for (String oldName : nameTranslationMap.keySet()) {
+                item.changeStatName(oldName, nameTranslationMap.get(oldName));
+            }
+
+            for (Object stat : newStats) {
+                if (!item.containsStat(((Stat) stat).getName())) {
+                    item.addStat((Stat) stat);
+                }
+            }
         }
     }
 
