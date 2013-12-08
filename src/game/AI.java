@@ -75,10 +75,11 @@ public class AI {
     }
     
     /**
-     * Sends enemy units to attack your units, uses the pathfinding algorithm
+     * Sends enemy units to attack your units, uses dijkstra's path finding algorithm
      * from the PathFinding class to find the shortest path and traverses as far
      * as the unit can move on that path, when it encounters an enemy unit it
-     * attacks that unit with a randomly chosen attack from its active weapon.
+     * attacks that unit with a randomly chosen attack from a weapon that it contains.
+     * Attacks when it's randomly chosen attack is in range of an enemy.
      * 
      * @param unit
      *        - The game unit which is being moved by the AI
@@ -92,20 +93,24 @@ public class AI {
                 (Tile) myGrid.getObject(GridConstants.TILE,
                                         myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit));
         Tile end = (Tile) myGrid.getObject(GridConstants.TILE, other);
+        
+        Random r = new Random();
+        int rand = r.nextInt(unit.getActionNames().size());
+        String randomAction = unit.getActionNames().get(rand);
+
+        Action currentAction = ((GameManager) myGM).getAction(randomAction);
+        
         if (UnitUtilities.calculateLength(myGrid.getObjectCoordinate(GridConstants.TILE, start),
-                                          myGrid.getObjectCoordinate(GridConstants.TILE, end)) == unit.getStat("movement")) {
-            Random r = new Random();
-            int rand = r.nextInt(unit.getActionNames().size());
-            String randomAction = unit.getActionNames().get(rand);
-            
-            Action currentAction = ((GameManager) myGM).getAction(randomAction);
-                System.out.println("this");
-                currentAction.doAction(unit, myGrid.getObject(GridConstants.GAMEOBJECT,
-                                                              other));
-                ((GameManager) myGM)
-                        .endAction(myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit), other, unit, myGrid
-                                .getObject(GridConstants.GAMEOBJECT, other));
-                myGrid.setAllTilesInactive();
+                                          myGrid.getObjectCoordinate(GridConstants.TILE, end)) <= currentAction.getActionRange()) {
+
+            currentAction.doAction(unit, myGrid.getObject(GridConstants.GAMEOBJECT,
+                                                          other));
+            ((GameManager) myGM)
+                    .endAction(myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit), other,
+                               unit, myGrid
+                                       .getObject(GridConstants.GAMEOBJECT, other));
+            myGrid.setAllTilesInactive();
+            new AnimateAction(unit.getImagePath(), myGrid.getObject(GridConstants.GAMEUNIT, other).getImagePath());
 
         }
         else {

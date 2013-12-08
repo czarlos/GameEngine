@@ -107,7 +107,7 @@ public class GameManager extends Manager {
      * Makes a new AI and calls the AI doTurn method to execute AI
      */
     public void doAITurn () {
-        AI2 ai = new AI2(myActiveStage.getTeam(myActiveTeam), myActiveStage, this);
+        AI ai = new AI(myActiveStage.getTeam(myActiveTeam), myActiveStage, this);
         ai.doTurn();
     }
 
