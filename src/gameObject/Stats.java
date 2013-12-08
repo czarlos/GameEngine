@@ -124,7 +124,7 @@ public class Stats {
         for (Stat stat : newStatList) {
             newStats.add(stat.clone());
         }
-        myStatList = newStats;
+        myStatList = newStatList;
     }
 
     public String toString () {

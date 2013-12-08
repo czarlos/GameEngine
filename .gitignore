@@ -4,6 +4,7 @@ ref: refs/remotes/origin/master
 bin/
 .settings/
 .project
-JSONs/
 .checkstyle
 .gitignore
+JSONs/*
+!JSONs/saves/Farm of the Dead.json

@@ -68,9 +68,4 @@ public class UnitTableModel extends GameTableModel {
         }
         return ret;
     }
-
-    @Override
-    public String getRowType () {
-        return getName();
-    }
 }

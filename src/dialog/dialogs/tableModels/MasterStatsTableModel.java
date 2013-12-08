@@ -47,9 +47,4 @@ public class MasterStatsTableModel extends GameTableModel {
         array[0] = "Stat Name";
         return array;
     }
-
-    @Override
-    public String getRowType () {
-        return getName();
-    }
 }

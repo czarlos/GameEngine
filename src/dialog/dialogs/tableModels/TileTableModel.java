@@ -70,9 +70,4 @@ public class TileTableModel extends GameTableModel {
 
         return array;
     }
-
-    @Override
-    public String getRowType () {
-        return getName();
-    }
 }
