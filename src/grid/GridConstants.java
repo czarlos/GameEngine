@@ -56,8 +56,8 @@ public class GridConstants {
                                                 new ShopAction() };
     public static final Outcome[] COREOUTCOMES = { new StatOutcome(), new ItemOutcome() };
 
-    public static final String[] DEFAULTSTATARRAY = { "health",
-                                                     "maxhealth", "defense", "attack", "movement" };
+    public static final String[] DEFAULTSTATARRAY = { "health", "movement", 
+                                                     "maxhealth", "defense", "attack"};
 
     public static final Condition[] CORECONDITIONS = { new PositionCondition(),
                                                       new ItemCondition(),

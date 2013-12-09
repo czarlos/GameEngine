@@ -28,7 +28,7 @@ import grid.Tile;
 @JsonAutoDetect
 public class GameManager extends Manager {
     private PlayerView myView;
-    private boolean myGameWon=false;
+    private boolean myGameWon = false;
 
     public GameManager () {
     }
@@ -42,9 +42,7 @@ public class GameManager extends Manager {
     }
 
     public void beginTurn () {
-        if(myGameWon){
-            return;
-        }
+        if (myGameWon) { return; }
         clear();
         if (myPhaseCount == 0) {
             myView.showDialog(getPreStory());
@@ -60,9 +58,7 @@ public class GameManager extends Manager {
     }
 
     public void doUntilHumanTurn () {
-        if(myGameWon){
-            return;
-        }
+        if (myGameWon) { return; }
         if (conditionsMet()) {
             win();
             return;
@@ -85,7 +81,7 @@ public class GameManager extends Manager {
         if (!nextStage()) { // final stage
             // win
             myView.showDialog(getWinningTeam() + " won!!");
-            myGameWon=true;
+            myGameWon = true;
         }
 
     }
@@ -98,6 +94,7 @@ public class GameManager extends Manager {
      */
     public void nextTurn () {
         setAllUnitsInactive();
+        myActiveStage.getGrid().setAllTilesInactive();
 
         isTurnCompleted = false;
         myPhaseCount++;
@@ -199,7 +196,9 @@ public class GameManager extends Manager {
         GameUnit initiator =
                 (GameUnit) myActiveStage.getGrid()
                         .getObject(GridConstants.GAMEUNIT, unitCoordinate);
-        initiator.setTotalStats(((Tile) myActiveStage.getGrid().getObject(GridConstants.TILE, unitCoordinate)).getStats());
+        initiator.setTotalStats(((Tile) myActiveStage.getGrid().getObject(GridConstants.TILE,
+                                                                          unitCoordinate))
+                .getStats());
         setActiveActions(unitCoordinate);
         myActiveStage.getGrid().setAllTilesInactive();
         Action activeAction = myActiveActions.get(actionID);
@@ -238,9 +237,10 @@ public class GameManager extends Manager {
             GameObject receiver =
                     myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, actionCoordinate);
             if (receiver != null &&
-                myActiveStage.getGrid().isActive(GridConstants.TILE, actionCoordinate)) {                
+                myActiveStage.getGrid().isActive(GridConstants.TILE, actionCoordinate)) {
                 if (receiver instanceof GameUnit) {
-                    ((GameUnit) receiver).setTotalStats(((Tile) myActiveStage.getGrid().getObject(GridConstants.TILE, actionCoordinate)).getStats());
+                    ((GameUnit) receiver).setTotalStats(((Tile) myActiveStage.getGrid()
+                            .getObject(GridConstants.TILE, actionCoordinate)).getStats());
                 }
                 activeAction.doAction(initiator, receiver);
                 endAction(unitCoordinate, actionCoordinate, initiator, receiver);

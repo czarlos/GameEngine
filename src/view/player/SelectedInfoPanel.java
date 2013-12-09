@@ -35,18 +35,18 @@ public class SelectedInfoPanel extends JTabbedPane {
             add("Actions", pane);
         }
 
-        if (tileInfo != null && !tileInfo.isEmpty()) {
-            JScrollPane pane = new JScrollPane(new InfoPanel(tileInfo));
-            pane.setLayout(new ScrollPaneLayout());
-            add("Tile", pane);
-        }
-
         if (objectInfo != null && !objectInfo.isEmpty()) {
             JScrollPane pane = new JScrollPane(new InfoPanel(objectInfo));
             pane.setLayout(new ScrollPaneLayout());
             add("Object", pane);
         }
 
+        if (tileInfo != null && !tileInfo.isEmpty()) {
+            JScrollPane pane = new JScrollPane(new InfoPanel(tileInfo));
+            pane.setLayout(new ScrollPaneLayout());
+            add("Tile", pane);
+        }
+        
         repaint();
     }
 
