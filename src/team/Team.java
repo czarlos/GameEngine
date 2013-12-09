@@ -25,7 +25,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Team extends Customizable {
     private int myGold;
     private boolean isHuman;
-    private int lastEditingID;
 
     @JsonProperty
     private WinCondition myWinCondition;
@@ -37,7 +36,6 @@ public class Team extends Customizable {
         myGold = 0;
         myName = name;
         myWinCondition = new WinCondition();
-        lastEditingID = 0;
     }
 
     public Team (String teamName, boolean humanity) {
@@ -104,13 +102,5 @@ public class Team extends Customizable {
     @JsonProperty("humanity")
     public void setIsHuman (boolean humanity) {
         isHuman = humanity;
-    }
-
-    public void setEditingID (int ID) {
-        lastEditingID = ID;
-    }
-
-    public int getLastEditingID () {
-        return lastEditingID;
     }
 }

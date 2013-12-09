@@ -300,6 +300,7 @@ public class EditorFrame extends GameView {
         gameMenu.add(runGame);
         runGame.addActionListener(new ActionListener() {
 
+            @SuppressWarnings("serial")
             @Override
             public void actionPerformed (ActionEvent e) {
                 JSONParser parser = new JSONParser();
