@@ -61,7 +61,7 @@ public class TeamTableModel extends GameTableModel {
             wc.setConditionsNeeded((int) row[4]);
             t.setWinCondition(wc);
             t.setIsHuman((boolean) row[5]);
-            t.setEditingID((int) row[6]);
+            t.setLastIndex((int) row[6]);
             ret.add(t);
         }
 
@@ -73,7 +73,7 @@ public class TeamTableModel extends GameTableModel {
             t.setGold(0);
             t.setWinCondition(new WinCondition());
             t.setIsHuman(true);
-            t.setEditingID(0);
+            t.setLastIndex(0);
             ret.add(t);
         }
         return ret;
@@ -84,7 +84,7 @@ public class TeamTableModel extends GameTableModel {
         Object[] array = new Object[myColumnNames.length + 1];
         
         array[0] = "New Team";
-        array[1] = new File("resources/skull.png");
+        array[1] = new File("resources/grass.png");
         array[2] = 0;
         array[3] = new WinCondition();
         array[4] = 0;

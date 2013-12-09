@@ -46,7 +46,6 @@ public class EditorFrame extends GameView {
     private GridEditorController myGridController;
     protected WorldManager myWorldManager;
     private TableDialog myDialog;
-    protected String mySavesLocation = "saves";
 
     public EditorFrame () {
         super("Omega_Nu Game Editor");
@@ -96,7 +95,7 @@ public class EditorFrame extends GameView {
         });
         loadGame.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
-                loadGame(loadGame(mySavesLocation));
+                loadGame(loadGame(DEFAULT_SAVE_LOCATION));
             }
         });
         saveGame.addActionListener(new ActionListener() {
@@ -200,10 +199,10 @@ public class EditorFrame extends GameView {
 
     @Override
     protected void loadGame (Manager m) {
-        if (m != null) {
-            setFrame(m);
-            setStages(m);
-        }
+        if (m == null)
+            return;
+        setFrame(m);
+        setStages(m);
     }
 
     public void setStages (Manager m) {
@@ -274,8 +273,20 @@ public class EditorFrame extends GameView {
         });
 
         JMenu gameMenu = new JMenu("Game");
-
+        
         stageMenu.setMnemonic(KeyEvent.VK_S);
+        
+        JMenuItem rename = new JMenuItem("Rename Game");
+        rename.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                renameGame();
+            }
+            
+        });
+        gameMenu.add(rename);
+        
         JMenuItem setMaster = new JMenuItem("Set Master Stats");
         setMaster
                 .addActionListener(new GamePrefListener(myWorldManager, GridConstants.MASTERSTATS));
@@ -289,12 +300,13 @@ public class EditorFrame extends GameView {
         gameMenu.add(runGame);
         runGame.addActionListener(new ActionListener() {
 
+            @SuppressWarnings("serial")
             @Override
             public void actionPerformed (ActionEvent e) {
                 JSONParser parser = new JSONParser();
                 new PlayerView(parser.deepClone(myWorldManager, WorldManager.class)) {
-                    //Need to override windowClosing to prevent the opening of GameStartView.
-                    //This is desired when running PlayerView from the game editor.
+                    // Need to override windowClosing to prevent the opening of GameStartView.
+                    // This is desired when running PlayerView from the game editor.
                     @Override
                     public void windowClosing (WindowEvent e) {
                         dispose();
@@ -344,6 +356,22 @@ public class EditorFrame extends GameView {
         }
 
         
+    }
+    
+    private void renameGame(){
+        JPanel renamePanel = new JPanel();
+        renamePanel.setLayout(new GridLayout(1, 2));
+        JLabel renameameLabel = new JLabel("New Game Name:");
+        JTextField gameNameTextField = new JTextField(25);
+        renamePanel.add(renameameLabel);
+        renamePanel.add(gameNameTextField);
+        int value = JOptionPane.showConfirmDialog(this, renamePanel,
+                                                  "Rename Game", JOptionPane.OK_CANCEL_OPTION);
+        if (value == JOptionPane.OK_OPTION) {
+            String newName = gameNameTextField.getText();
+            myWorldManager.setGameName(newName);
+            this.setTitle(newName);
+        }
     }
     
     private void loadEditorLibrary(){
@@ -474,12 +502,26 @@ public class EditorFrame extends GameView {
         }
     }
 
+    /**
+     * Saves JSON representing current game to the default save folder.
+     * Automatically sets the current stage to the first one so games will 
+     * always be played from the beginning.
+     */
     protected void saveGame () {
-        saveGame("saves");
+        saveGame(DEFAULT_SAVE_LOCATION);
     }
 
+    /**
+     * Saves JSON representing current game to the specified folder.
+     * Automatically sets the current stage to the first one so games will 
+     * always be played from the beginning.
+     * @param location Folder to save Json file in.
+     */
     protected void saveGame (String location) {
-        myWorldManager.saveGame(location);
+        JSONParser clone=new JSONParser();
+        WorldManager toSave=clone.deepClone(myWorldManager, WorldManager.class);
+        toSave.setActiveStage(0);
+        toSave.saveGame(location);
     }
 
 }

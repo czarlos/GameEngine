@@ -1,6 +1,7 @@
 package grid;
 
 import gameObject.GameObject;
+import gameObject.IStats;
 import gameObject.Stat;
 import gameObject.Stats;
 import java.util.List;
@@ -16,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * 
  */
 @JsonAutoDetect
-public class Tile extends GameObject {
+public class Tile extends GameObject implements IStats {
     private Stats myStats;
     private int myMoveCost;
     private List<Tile> myNeighbors;

@@ -37,12 +37,14 @@ public class MakeDefaults {
         defaultCombatAction.setImagePath("resources/weapon.png");
         defaultCombatAction.setActionRange(1);
         defaultCombatAction.setInitiatorOutcomes(new Outcomes());
+
         Outcome r1 = new StatOutcome();
         r1.setAffectee(new Stat("health"));
         r1.setAmount(-10);
         r1.setIsFixed(true);
         Outcomes recvOutcomes = new Outcomes();
         recvOutcomes.addOutcome(r1);
+
         defaultCombatAction.setReceiverOutcomes(recvOutcomes);
         defaultCombatAction.setInitiatorStatWeights(new Stats());
         defaultCombatAction.setReceiverStatWeights(new Stats());
@@ -184,7 +186,7 @@ public class MakeDefaults {
         unitStats.modExisting("health", 15);
         unitStats.modExisting("attack", 2);
         unitStats.modExisting("maxhealth", unitStats.getStatValue("health"));
-        
+
         gameObject.GameUnit hero = new gameObject.GameUnit();
         gameObject.GameUnit goldensun = new gameObject.GameUnit();
         gameObject.GameUnit enemy = new gameObject.GameUnit();
@@ -210,7 +212,7 @@ public class MakeDefaults {
         charizard.setImagePath("resources/charizard.png");
         charizard.setStats(unitStats);
         charizard.setAffiliation("enemy");
-        
+
         roy.setName("Roy");
         roy.setImagePath("resources/roy.png");
         roy.setStats(unitStats);

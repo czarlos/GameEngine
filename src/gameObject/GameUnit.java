@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * 
  */
 @JsonAutoDetect
-public class GameUnit extends InventoryObject {
+public class GameUnit extends InventoryObject implements IStats {
 
     private Stats myStats;
     private Stats myTotalStats;

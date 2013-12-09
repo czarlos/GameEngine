@@ -37,11 +37,9 @@ public class StageSidePanel extends JPanel {
         add(panel);
         myInfoPanel = new SelectedInfoEditorPanel();
 
-        JScrollPane scroll = new JScrollPane(myInfoPanel);
-        scroll.setLayout(new ScrollPaneLayout());
-        scroll.setMinimumSize(new Dimension(225,200));
+        myInfoPanel.setMinimumSize(new Dimension(225,200));
 
-        add(scroll);
+        add(myInfoPanel);
     }
 
     public void displayInformation (Coordinate c) {

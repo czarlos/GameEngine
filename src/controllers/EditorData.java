@@ -1,11 +1,11 @@
 package controllers;
 
 import gameObject.GameUnit;
+import gameObject.IStats;
 import gameObject.Stat;
 import gameObject.action.Action;
 import gameObject.item.Item;
 import grid.GridConstants;
-import grid.Tile;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,7 +57,7 @@ public class EditorData {
     @SuppressWarnings("unchecked")
     public void loadData (String name) {
         myDataMap =
-                myParser.createObject("userLibraries/" + name,
+                myParser.createObjectFromFile("userLibraries/" + name,
                                       new HashMap<String, List<?>>().getClass());
     }
 
@@ -71,11 +71,9 @@ public class EditorData {
         for (String s : GridConstants.DEFAULTEDITTYPES) {
             List<Customizable> list = new ArrayList<Customizable>();
             list = myParser.createObjectFromFile(folderName + "/" + s,
-                                         new ArrayList<Customizable>().getClass());
+                                                 new ArrayList<Customizable>().getClass());
             myDataMap.put(s, list);
         }
-        // need to generalize this for all data types. tile, gameobject,
-        // gameunit, item, team, action
     }
 
     /**
@@ -101,7 +99,18 @@ public class EditorData {
     }
 
     @SuppressWarnings("unchecked")
+    public Customizable getObject (String type, String name) {
+        for (Customizable c : (List<Customizable>) myDataMap.get(type)) {
+            if (c.getName().equals(name))
+                return c;
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
     public void setData (GameTableModel gtm, Stage activeStage) {
+        // need to do this for all data types. tile, gameobject,
+        // gameunit, item, team, action
         switch (gtm.getName()) {
             case GridConstants.ACTION:
                 syncActions((List<Object>) gtm.getObject(), activeStage);
@@ -116,14 +125,16 @@ public class EditorData {
                 break;
         }
 
-        myDataMap.put(gtm.getName(), (List<?>) gtm.getObject());
+        if(gtm.getName() != GridConstants.TEAM){
+            myDataMap.put(gtm.getName(), (List<?>) gtm.getObject());
+        }
     }
 
     @SuppressWarnings("unchecked")
     private void syncActions (List<Object> newActions, Stage activeStage) {
         List<String> fullList = getNames(GridConstants.ACTION);
         List<String> removedNames = getNames(GridConstants.ACTION);
-        List<GameUnit> editorUnitList = (List<GameUnit>) getTableModel("GameUnit").getObject();
+        List<GameUnit> editorUnitList = (List<GameUnit>) get(GridConstants.GAMEUNIT);
         GameUnit[][] placedUnits = activeStage.getGrid().getGameUnits();
         Map<String, String> nameTranslationMap = new HashMap<>();
 
@@ -154,14 +165,12 @@ public class EditorData {
     private void syncStats (List<Object> newStats, Stage activeStage) {
         List<String> fullList = getNames(GridConstants.MASTERSTATS);
         List<String> removedNames = getNames(GridConstants.MASTERSTATS);
-        List<GameUnit> editorUnitList = (List<GameUnit>) getTableModel("GameUnit").getObject();
-        List<Tile> editorTileList = (List<Tile>) getTableModel("Tile").getObject();
-        List<Item> editorItemList = (List<Item>) getTableModel("Item").getObject();
-        GameUnit[][] placedUnits = activeStage.getGrid().getGameUnits();
-        Tile[][] placedTiles = activeStage.getGrid().getTiles();
+        List<IStats> editorUnitList = (List<IStats>) get(GridConstants.GAMEUNIT);
+        IStats[][] placedUnits = activeStage.getGrid().getGameUnits();
+        IStats[][] placedTiles = activeStage.getGrid().getTiles();
         Map<String, String> nameTranslationMap = new HashMap<>();
+        List<IStats> objectEditList = new ArrayList<>();
 
-        // Find removed
         for (Object stat : newStats) {
             if (((Stat) stat).getLastIndex() > -1) {
                 String prevName = fullList.get(((Stat) stat).getLastIndex());
@@ -172,115 +181,36 @@ public class EditorData {
             }
         }
 
-        // GameUnit definitions
-        for (GameUnit unit : editorUnitList) {
-            for (String removedStat : removedNames) {
-                unit.removeStat(removedStat);
-                for (Item item : unit.getItems()) {
-                    item.removeStat(removedStat);
-                }
-            }
-
-            for (String oldName : nameTranslationMap.keySet()) {
-                unit.changeStatName(oldName, nameTranslationMap.get(oldName));
-                for (Item item : unit.getItems()) {
-                    item.changeStatName(oldName, nameTranslationMap.get(oldName));
-                }
-            }
-
-            for (Object stat : newStats) {
-                if (!unit.containsStat(((Stat) stat).getName())) {
-                    unit.addStat((Stat) stat);
-                }
-                for (Item item : unit.getItems()) {
-                    if (!item.containsStat(((Stat) stat).getName())) {
-                        item.addStat((Stat) stat);
-                    }
-                }
-            }
+        for (IStats unit : editorUnitList) {
+            objectEditList.addAll(((GameUnit) unit).getItems());
         }
 
-        // Placed GameUnit's
         for (int i = 0; i < placedUnits.length; i++) {
             for (int j = 0; j < placedUnits[i].length; j++) {
+                objectEditList.add(placedTiles[i][j]);
                 if (placedUnits[i][j] != null) {
-                    for (String removedStat : removedNames) {
-                        placedUnits[i][j].removeStat(removedStat);
-                        for (Item item : placedUnits[i][j].getItems()) {
-                            item.removeStat(removedStat);
-                        }
-                    }
-
-                    for (String oldName : nameTranslationMap.keySet()) {
-                        placedUnits[i][j].changeStatName(oldName, nameTranslationMap.get(oldName));
-                        for (Item item : placedUnits[i][j].getItems()) {
-                            item.changeStatName(oldName, nameTranslationMap.get(oldName));
-                        }
-                    }
-
-                    for (Object stat : newStats) {
-                        if (!placedUnits[i][j].containsStat(((Stat) stat).getName())) {
-                            placedUnits[i][j].addStat((Stat) stat);
-                        }
-                        for (Item item : placedUnits[i][j].getItems()) {
-                            if (!item.containsStat(((Stat) stat).getName())) {
-                                item.addStat((Stat) stat);
-                            }
-                        }
+                    objectEditList.add(placedUnits[i][j]);
+                    for (Item item : ((GameUnit) placedUnits[i][j]).getItems()) {
+                        objectEditList.add(item);
                     }
                 }
             }
         }
 
-        // Tile definitions
-        for (Tile tile : editorTileList) {
+        objectEditList.addAll(editorUnitList);
+        objectEditList.addAll((List<IStats>) get(GridConstants.TILE));
+        objectEditList.addAll((List<IStats>) get(GridConstants.ITEM));
+
+        for (IStats object : objectEditList) {
             for (String removedStat : removedNames) {
-                tile.removeStat(removedStat);
+                object.removeStat(removedStat);
             }
-
             for (String oldName : nameTranslationMap.keySet()) {
-                tile.changeStatName(oldName, nameTranslationMap.get(oldName));
+                object.changeStatName(oldName, nameTranslationMap.get(oldName));
             }
-
             for (Object stat : newStats) {
-                if (!tile.containsStat(((Stat) stat).getName())) {
-                    tile.addStat((Stat) stat);
-                }
-            }
-        }
-
-        // Placed tiles
-        for (int i = 0; i < placedTiles.length; i++) {
-            for (int j = 0; j < placedTiles[i].length; j++) {
-                for (String removedStat : removedNames) {
-                    placedTiles[i][j].removeStat(removedStat);
-                }
-
-                for (String oldName : nameTranslationMap.keySet()) {
-                    placedTiles[i][j].changeStatName(oldName, nameTranslationMap.get(oldName));
-                }
-
-                for (Object stat : newStats) {
-                    if (!placedTiles[i][j].containsStat(((Stat) stat).getName())) {
-                        placedTiles[i][j].addStat((Stat) stat);
-                    }
-                }
-            }
-        }
-
-        // Item definitions
-        for (Item item : editorItemList) {
-            for (String removedStat : removedNames) {
-                item.removeStat(removedStat);
-            }
-
-            for (String oldName : nameTranslationMap.keySet()) {
-                item.changeStatName(oldName, nameTranslationMap.get(oldName));
-            }
-
-            for (Object stat : newStats) {
-                if (!item.containsStat(((Stat) stat).getName())) {
-                    item.addStat((Stat) stat);
+                if (!object.containsStat(((Stat) stat).getName())) {
+                    object.addStat((Stat) stat);
                 }
             }
         }
@@ -307,9 +237,9 @@ public class EditorData {
         // adjusting unit affiliation strings for renamed teams
         for (Team t : list) {
             if (t.getLastIndex() > -1) {
-                String prevName = fullList.get(t.getLastEditingID());
+                String prevName = fullList.get(t.getLastIndex());
                 if (!t.getName().equals(prevName)) {
-                    activeStage.setTeamName(t.getLastEditingID(), t.getName());
+                    activeStage.setTeamName(t.getLastIndex(), t.getName());
                 }
                 names.remove(prevName);
             }

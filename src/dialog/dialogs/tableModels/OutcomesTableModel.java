@@ -52,7 +52,7 @@ public class OutcomesTableModel extends GameTableModel {
         List<Outcome> list = outcomes.getOutcomes();
         for (Outcome o : list) {
             Object[] array = new Object[myColumnNames.length];
-            array[0] = new Selector(Arrays.asList(GridConstants.COREOUTCOMES));
+            array[0] = new Selector(Arrays.asList(GridConstants.COREOUTCOMES), o);
             array[1] = new Selector(myED.get(o.getType()), o.getAffectee());
             array[2] = o.getAmount();
             array[3] = o.isFixed();
