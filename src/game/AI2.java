@@ -91,6 +91,8 @@ public class AI2 {
                 for (Coordinate activeCoordinate : activeCoordinates) {
                     if (currentAction.isValid(unit, myGrid.getObject(GridConstants.GAMEOBJECT,
                                                                      activeCoordinate))) {
+                        new AnimateAction(unit.getImagePath(), myGrid.getObject(GridConstants.GAMEOBJECT,
+                                                                                activeCoordinate).getImagePath());
                         currentAction.doAction(unit, myGrid.getObject(GridConstants.GAMEOBJECT,
                                                                       activeCoordinate));
                         ((GameManager) myManager)
