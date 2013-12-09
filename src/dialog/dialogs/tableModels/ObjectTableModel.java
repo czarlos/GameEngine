@@ -31,7 +31,7 @@ public class ObjectTableModel extends GameTableModel {
         ret[0] = "New Object";
         ret[1] = new File("resources/grass.png");
         List<String> list = new ArrayList<String>();
-        list.add("everything");
+        list.add(GridConstants.DEFAULT_PASS_EVERYTHING);
         ret[2] = list;
         ret[3] = -1;
 

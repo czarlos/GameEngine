@@ -1,4 +1,4 @@
-package dialog.dialogs;
+package dialog;
 
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;

@@ -259,6 +259,7 @@ public class EditorData {
         List<String> ret = new ArrayList<String>();
         switch (myType) {
             case GridConstants.GAMEOBJECT:
+            case GridConstants.TILE:
                 ret.add(GridConstants.DEFAULT_PASS_EVERYTHING);
                 ret.addAll(getNames(GridConstants.GAMEUNIT));
                 break;
