@@ -114,8 +114,7 @@ public class AI {
                     .getActionRange()) {
                 
                 new AnimateAction(unit.getImagePath(), myGrid.getObject(GridConstants.GAMEUNIT,
-                                                                        other).getImagePath());
-                
+                                                                        other).getImagePath());                
                 currentAction.doAction(unit, myGrid.getObject(GridConstants.GAMEOBJECT,
                                                               other));
                 ((GameManager) myGM)

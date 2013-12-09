@@ -12,7 +12,6 @@ public abstract class Outcome {
     protected String myType;
 
     public Outcome () {
-
     }
 
     /**
@@ -20,10 +19,8 @@ public abstract class Outcome {
      * amount. These outcomes are affected by stat differences between units
      * (effectiveness).
      * 
-     * @param unit
-     *        - GameUnit where values are being edited
-     * @param effectiveness
-     *        - A measurement of how much of an outcome should occur
+     * @param unit GameUnit where values are being edited
+     * @param effectiveness A measurement of how much of an outcome should occur
      */
     public abstract void applyOutcome (GameUnit unit, double effectiveness);
 
