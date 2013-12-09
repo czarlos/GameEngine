@@ -78,8 +78,8 @@ public class PathFinding {
         List<Tile> path = new ArrayList<Tile>();
         Map<Tile, Integer> weights = new HashMap<Tile, Integer>();
 
-        for (int i = 0; i < grid.getTiles().length; i++) {
-            for (int j = 0; j < grid.getTiles().length; j++) {
+        for (int i = 0; i < grid.getWidth(); i++) {
+            for (int j = 0; j < grid.getHeight(); j++) {
                 weights.put((Tile) grid.getObject(GridConstants.TILE, new Coordinate(i, j)),
                             Integer.MAX_VALUE);
             }
@@ -131,8 +131,8 @@ public class PathFinding {
      */
     public static List<Tile> coordinatesToTiles (Grid grid, GameUnit unit) {
         List<Tile> tileList = new ArrayList<Tile>();
-        for (int i = 0; i < grid.getTiles().length; i++) {
-            for (int j = 0; j < grid.getTiles().length; j++) {
+        for (int i = 0; i < grid.getObjects(GridConstants.TILE).length; i++) {
+            for (int j = 0; j < grid.getObjects(GridConstants.TILE).length; j++) {
                 tileList.add((Tile) grid.getObject(GridConstants.TILE, new Coordinate(i, j)));
             }
         }

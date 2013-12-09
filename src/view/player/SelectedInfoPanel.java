@@ -19,7 +19,6 @@ public class SelectedInfoPanel extends JTabbedPane {
     public SelectedInfoPanel (GridController controller) {
         myController = controller;
         setPreferredSize(new Dimension(300, 500));
-
     }
 
     public SelectedInfoPanel () {
@@ -46,7 +45,7 @@ public class SelectedInfoPanel extends JTabbedPane {
             pane.setLayout(new ScrollPaneLayout());
             add("Tile", pane);
         }
-        
+
         repaint();
     }
 
