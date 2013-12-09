@@ -92,7 +92,6 @@ public class AI2 {
                                    currentAction);
             List<Coordinate> activeCoordinates = myGrid.getActiveTileCoordinates();
             for (Coordinate activeCoordinate : activeCoordinates) {
-                System.out.println(activeCoordinate.getX()+" "+activeCoordinate.getY());
                 GameObject receiver = myGrid.getObject(GridConstants.GAMEOBJECT, activeCoordinate);
                 if (currentAction.isValid(unit, receiver)) {                                               
                     if (receiver instanceof GameUnit) {
@@ -100,7 +99,6 @@ public class AI2 {
                     }
                     new AnimateAction(unit.getImagePath(), myGrid.getObject(GridConstants.GAMEOBJECT,
                                                                             activeCoordinate).getImagePath());
-                    System.out.println(unit.getName());
                     currentAction.doAction(unit, receiver);                        
                     ((GameManager) myManager)
                             .endAction(unitCoordinate, activeCoordinate, unit, myGrid
