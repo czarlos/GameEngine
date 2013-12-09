@@ -58,21 +58,23 @@ public class GameUnit extends InventoryObject {
         }
         return value;
     }
-    
+
     /**
      * Adds the Stats set input with the unit stats and sets it to Total Stats
+     * 
      * @param addStats Stats to add
      */
     public void setTotalStats (Stats addStats) {
-        for (Stat stat: addStats.getStats()) {
-            myTotalStats.modExisting(stat.getName(), calcTotalStat(stat.getName()) + stat.getValue());
-        }
+        for (Stat stat : addStats.getStats()) {
+            myTotalStats.modExisting(stat.getName(),
+                                     calcTotalStat(stat.getName()) + stat.getValue());
+        }        
     }
-    
+
     public int getTotalStat (String statName) {
         return myTotalStats.getStatValue(statName);
     }
-    
+
     public Stats getTotalStats () {
         return myTotalStats;
     }
@@ -137,7 +139,7 @@ public class GameUnit extends InventoryObject {
     }
 
     @Override
-    public List<String> generateDisplayData () {
+    public List<String> generateDisplayData () {        
         List<String> displayData = super.generateDisplayData();
         displayData.add("<b>Team: </b>" + myAffiliation);
         displayData.add("<b>Stats: </b>");
@@ -163,7 +165,7 @@ public class GameUnit extends InventoryObject {
 
         return interactions;
     };
-    
+
     public void syncStatsWithMaster (Map<String, String> nameTranslationMap,
                                      List<String> removedNames) {
         for (String removedStat : removedNames) {
@@ -191,12 +193,6 @@ public class GameUnit extends InventoryObject {
         myStats.changeName(oldName, newName);
     }
 
-    public void setStats (Stats stats) {
-        stats.modExisting("maxhealth", stats.getStatValue("health"));
-        myStats = new Stats(stats);
-        myTotalStats = new Stats(stats);
-    }
-
     public Stats getStats () {
         return myStats;
     }
@@ -205,8 +201,10 @@ public class GameUnit extends InventoryObject {
         return myStats.getStatValue(statName);
     }
 
-    public void setStat (String statName, int statValue) {
-        myStats.modExisting(statName, statValue);
+    public void setStats (Stats stats) {
+        stats.modExisting("maxhealth", stats.getStatValue("health"));
+        myStats = new Stats(stats);
+        myTotalStats = new Stats(stats);
     }
 
     public boolean containsStat (String name) {
@@ -215,5 +213,38 @@ public class GameUnit extends InventoryObject {
 
     public void addStat (Stat stat) {
         myStats.addStat(stat);
+    }
+
+    @Override
+    public int hashCode () {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (hasMoved ? 1231 : 1237);
+        result = prime * result + ((myAffiliation == null) ? 0 : myAffiliation.hashCode());
+        result = prime * result + ((myStats == null) ? 0 : myStats.hashCode());
+        result = prime * result + ((myTotalStats == null) ? 0 : myTotalStats.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals (Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+        GameUnit other = (GameUnit) obj;
+        if (hasMoved != other.hasMoved) return false;
+        if (myAffiliation == null) {
+            if (other.myAffiliation != null) return false;
+        }
+        else if (!myAffiliation.equals(other.myAffiliation)) return false;
+        if (myStats == null) {
+            if (other.myStats != null) return false;
+        }
+        else if (!myStats.equals(other.myStats)) return false;
+        if (myTotalStats == null) {
+            if (other.myTotalStats != null) return false;
+        }
+        else if (!myTotalStats.equals(other.myTotalStats)) return false;
+        return true;
     }
 }

@@ -2,14 +2,8 @@ package utils;
 
 import grid.GridConstants;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.awt.image.RescaleOp;
 import java.awt.*;
-import java.io.IOException;
-import java.net.URL;
-import javax.imageio.ImageIO;
-import javax.swing.*;
 
 
 public class ImageUtilities {
@@ -71,6 +65,15 @@ public class ImageUtilities {
 
         }
         return image;
+    }
+    
+    public static BufferedImage getScaledImage(Image source, int width, int height){
+        BufferedImage scaledImage = new BufferedImage(width, height, BufferedImage.TRANSLUCENT);
+        Graphics2D graphic = scaledImage.createGraphics();
+        graphic.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        graphic.drawImage(source, 0, 0, width, height, null);
+        graphic.dispose();
+        return scaledImage;
     }
 
 }

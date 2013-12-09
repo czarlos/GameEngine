@@ -93,8 +93,8 @@ public class Grid implements Drawable {
      * @param newCoordinate Coordinate that unit is moving to
      * 
      */
-    public void doMove (Coordinate oldCoordinate, Coordinate newCoordinate) {
-        GameObject gameUnit = removeObject(GridConstants.GAMEUNIT, oldCoordinate);
+    public void doMove (Coordinate oldCoordinate, Coordinate newCoordinate) {        
+        GameUnit gameUnit = (GameUnit) removeObject(GridConstants.GAMEUNIT, oldCoordinate);        
         placeObject(GridConstants.GAMEUNIT, newCoordinate, gameUnit);
     }
 
@@ -266,7 +266,7 @@ public class Grid implements Drawable {
         }
         else {
             myArrays.get(type)[coordinate.getX()][coordinate.getY()] = placeObject;
-            if (type.equals(GridConstants.GAMEUNIT)) {
+            if (type.equals(GridConstants.GAMEUNIT)) {                               
                 myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()] =
                         placeObject;
             }
@@ -284,12 +284,11 @@ public class Grid implements Drawable {
      * @return Object removed from position
      */
     public GameObject removeObject (String type, Coordinate coordinate) {
-        GameObject removeObject = getObject(GridConstants.GAMEOBJECT, coordinate);
-        myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()] = null;
+        GameObject removeObject = getObject(type, coordinate);
+        myArrays.get(type)[coordinate.getX()][coordinate.getY()] = null;
 
-        if (removeObject instanceof GameUnit) {
-            removeObject = getObject(GridConstants.GAMEUNIT, coordinate);
-            myArrays.get(GridConstants.GAMEUNIT)[coordinate.getX()][coordinate.getY()] = null;
+        if (type.equals(GridConstants.GAMEUNIT)) {            
+            myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()] = null;
         }
         return removeObject;
     }
