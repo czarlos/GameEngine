@@ -43,7 +43,9 @@ public class AI2 {
         List<GameUnit> AIUnits = myStage.getTeamUnits(myTeam.getName());
         if (opponents.isEmpty()) { return; }        
         doAIMove(AIUnits, opponents);
-        doAIAction(AIUnits);
+        for (GameUnit AIUnit : AIUnits) {
+            doAIAction(AIUnit);
+        }
     }
 
     /**
@@ -53,29 +55,27 @@ public class AI2 {
      */
     private void doAIMove (List<GameUnit> AIUnits, List<GameUnit> opponents) {
         for (GameUnit unit : AIUnits) {            
-            Coordinate start = myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit);      
-            System.out.println(start.getX()+" "+start.getY());
-            System.out.println(myGrid.getObjectCoordinate(GridConstants.GAMEOBJECT, unit));
-//            myGrid.beginMove(start);
-//            List<Coordinate> activeCoordinates = myGrid.getActiveTileCoordinates();
-//            int min =
-//                    UnitUtilities.calculateDistance(start, myGrid
-//                            .getObjectCoordinate(GridConstants.GAMEUNIT, opponents.get(0)));
-//            Coordinate end = start;
-//            for (Coordinate activeCoordinate : activeCoordinates) {
-//                for (GameUnit opponent : opponents) {
-//                    int current =
-//                            UnitUtilities.calculateDistance(activeCoordinate, myGrid
-//                                    .getObjectCoordinate(GridConstants.GAMEUNIT, opponent));
-//                    if (current < min) {
-//                        min = current;
-//                        end = activeCoordinate;
-//                    }
-//                }
-//            }
-//            myGrid.doMove(start, end);
-//            unit.setTotalStats(((Tile) myGrid.getObject(GridConstants.TILE, end)).getStats());
-//            myGrid.setAllTilesInactive();
+            Coordinate start = myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit);
+            myGrid.beginMove(start);
+            List<Coordinate> activeCoordinates = myGrid.getActiveTileCoordinates();
+            int min =
+                    UnitUtilities.calculateDistance(start, myGrid
+                            .getObjectCoordinate(GridConstants.GAMEUNIT, opponents.get(0)));
+            Coordinate end = start;
+            for (Coordinate activeCoordinate : activeCoordinates) {
+                for (GameUnit opponent : opponents) {
+                    int current =
+                            UnitUtilities.calculateDistance(activeCoordinate, myGrid
+                                    .getObjectCoordinate(GridConstants.GAMEUNIT, opponent));
+                    if (current < min) {
+                        min = current;
+                        end = activeCoordinate;
+                    }
+                }
+            }
+            myGrid.doMove(start, end);
+            unit.setTotalStats(((Tile) myGrid.getObject(GridConstants.TILE, end)).getStats());
+            myGrid.setAllTilesInactive();
         }
     }
 
@@ -83,31 +83,33 @@ public class AI2 {
      * Makes the AI units perform actions if possible
      * @param AIUnits List of GameUnits of AI units
      */
-    private void doAIAction (List<GameUnit> AIUnits) {
-        for (GameUnit unit : AIUnits) {
-            Coordinate unitCoordinate = myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit);
-            List<String> unitActions = myManager.getActionNames(unitCoordinate);
-            for (String unitAction : unitActions) {
-                Action currentAction = ((GameManager) myManager).getAction(unitAction);
-                myGrid.findActionRange(unitCoordinate, currentAction.getActionRange(),
-                                       currentAction);
-                List<Coordinate> activeCoordinates = myGrid.getActiveTileCoordinates();
-                for (Coordinate activeCoordinate : activeCoordinates) {
-                    if (currentAction.isValid(unit, myGrid.getObject(GridConstants.GAMEOBJECT,
-                                                                     activeCoordinate))) {                       
-                        new AnimateAction(unit.getImagePath(), myGrid.getObject(GridConstants.GAMEOBJECT,
-                                                                                activeCoordinate).getImagePath());
-                        currentAction.doAction(unit, myGrid.getObject(GridConstants.GAMEOBJECT,
-                                                                      activeCoordinate));                        
-                        ((GameManager) myManager)
-                                .endAction(unitCoordinate, activeCoordinate, unit, myGrid
-                                        .getObject(GridConstants.GAMEOBJECT, activeCoordinate));
-                        myGrid.setAllTilesInactive();
-                        return;
+    private void doAIAction (GameUnit unit) {
+        Coordinate unitCoordinate = myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit);
+        List<String> unitActions = myManager.getActionNames(unitCoordinate);
+        for (String unitAction : unitActions) {
+            Action currentAction = ((GameManager) myManager).getAction(unitAction);
+            myGrid.findActionRange(unitCoordinate, currentAction.getActionRange(),
+                                   currentAction);
+            List<Coordinate> activeCoordinates = myGrid.getActiveTileCoordinates();
+            for (Coordinate activeCoordinate : activeCoordinates) {
+                System.out.println(activeCoordinate.getX()+" "+activeCoordinate.getY());
+                GameObject receiver = myGrid.getObject(GridConstants.GAMEOBJECT, activeCoordinate);
+                if (currentAction.isValid(unit, receiver)) {                                               
+                    if (receiver instanceof GameUnit) {
+                        receiver = myGrid.getObject(GridConstants.GAMEUNIT, activeCoordinate);
                     }
+                    new AnimateAction(unit.getImagePath(), myGrid.getObject(GridConstants.GAMEOBJECT,
+                                                                            activeCoordinate).getImagePath());
+                    System.out.println(unit.getName());
+                    currentAction.doAction(unit, receiver);                        
+                    ((GameManager) myManager)
+                            .endAction(unitCoordinate, activeCoordinate, unit, myGrid
+                                    .getObject(GridConstants.GAMEOBJECT, activeCoordinate));
+                    myGrid.setAllTilesInactive();
+                    return;
                 }
-                myGrid.setAllTilesInactive();
             }
+            myGrid.setAllTilesInactive();
         }
     }
 

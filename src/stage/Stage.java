@@ -122,9 +122,6 @@ public class Stage {
                 }
             }
         }
-
-        ret = new ArrayList<GameUnit>(new HashSet<GameUnit>(ret));
-
         return ret;
     }
 

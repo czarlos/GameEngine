@@ -131,6 +131,7 @@ public abstract class Manager {
         GameObject gameObject = myActiveStage.getGrid().getObject(type, coordinate);
         if (gameObject != null) {
             if (gameObject instanceof GameUnit) {
+                gameObject = myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, coordinate);
                 ((GameUnit) gameObject).setTotalStats(((Tile) myActiveStage.getGrid().getObject(GridConstants.TILE, coordinate)).getStats());                
             }            
             gameObject.generateDisplayData();

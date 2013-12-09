@@ -94,7 +94,7 @@ public class Grid implements Drawable {
      * 
      */
     public void doMove (Coordinate oldCoordinate, Coordinate newCoordinate) {        
-        GameUnit gameUnit = (GameUnit) removeObject(GridConstants.GAMEOBJECT, oldCoordinate);        
+        GameUnit gameUnit = (GameUnit) removeObject(oldCoordinate);        
         placeObject(GridConstants.GAMEUNIT, newCoordinate, gameUnit);
     }
 
@@ -257,9 +257,12 @@ public class Grid implements Drawable {
      */
     public void placeObject (String type, Coordinate coordinate, Customizable placeObject) {
         if (type.equals(GridConstants.ITEM)) {
-            GameObject gameObject = (GameObject) getObject(GridConstants.GAMEOBJECT, coordinate);
+            GameObject gameObject = getObject(GridConstants.GAMEOBJECT, coordinate);
             if (gameObject != null) {
                 if (gameObject instanceof InventoryObject) {
+                    if (gameObject instanceof GameUnit) {
+                        gameObject = getObject(GridConstants.GAMEUNIT, coordinate); 
+                    }
                     ((InventoryObject) gameObject).addItem((Item) placeObject);
                 }
             }
@@ -271,21 +274,20 @@ public class Grid implements Drawable {
                         placeObject;
             }
             if (type.equals(GridConstants.TILE)) {
-                removeObject(GridConstants.GAMEOBJECT, coordinate);
+                removeObject(coordinate);
             }
         }
     }
 
     /**
      * Sets position in myObjects map to null
-     * 
-     * @param type String of type of object being removed
      * @param coordinate Coordinate being checked
+     * 
      * @return Object removed from position
      */
-    public GameObject removeObject (String type, Coordinate coordinate) {
-        GameObject removeObject = getObject(type, coordinate);
-        myArrays.get(type)[coordinate.getX()][coordinate.getY()] = null;
+    public GameObject removeObject (Coordinate coordinate) {
+        GameObject removeObject = getObject(GridConstants.GAMEOBJECT, coordinate);
+        myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()] = null;
 
         if (removeObject instanceof GameUnit) { 
             removeObject = getObject(GridConstants.GAMEUNIT, coordinate);
@@ -363,8 +365,11 @@ public class Grid implements Drawable {
     private void drawType (String type, int tileWidth, int tileHeight, Graphics g) {
         for (int i = 0; i < myArrays.get(type).length; i++) {
             for (int j = 0; j < myArrays.get(type)[i].length; j++) {
-                GameObject gameObject = (GameObject) myArrays.get(type)[i][j];
+                GameObject gameObject = getObject(type, new Coordinate(i,j));
                 if (gameObject != null) {
+                    if (gameObject instanceof GameUnit) {
+                        gameObject = getObject(GridConstants.GAMEUNIT, new Coordinate(i, j));
+                    }
                     gameObject.draw(g, i * tileWidth, j * tileHeight, tileWidth, tileHeight);
                 }
             }
