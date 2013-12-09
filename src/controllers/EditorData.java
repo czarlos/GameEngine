@@ -2,6 +2,7 @@ package controllers;
 
 import gameObject.GameUnit;
 import gameObject.IStats;
+import gameObject.InventoryObject;
 import gameObject.Stat;
 import gameObject.action.Action;
 import gameObject.item.Item;
@@ -122,7 +123,7 @@ public class EditorData {
     public void setData (GameTableModel gtm, Stage activeStage) {
         switch (gtm.getName()) {
             case GridConstants.ACTION:
-                // syncActions((List<Object>) gtm.getObject(), activeStage);
+                syncActions((List<Object>) gtm.getObject(), activeStage);
                 break;
             case GridConstants.MASTERSTATS:
                 syncStats((List<Object>) gtm.getObject(), activeStage);
@@ -235,8 +236,10 @@ public class EditorData {
         List<String> fullList = getNames(GridConstants.ACTION);
         List<String> removedActions = getNames(GridConstants.ACTION);
         List<GameUnit> editorUnitList = (List<GameUnit>) get(GridConstants.GAMEUNIT);
-        List<Item> fullItemList = (List<Item>) get(GridConstants.ITEM);
+        List<Item> editorItemList = (List<Item>) get(GridConstants.ITEM);
+
         Map<String, String> nameTranslationMap = new HashMap<>();
+        List<Item> itemEditList = new ArrayList<>();
 
         for (Object action : newActions) {
             if (((Action) action).getLastIndex() > -1) {
@@ -249,14 +252,21 @@ public class EditorData {
         }
 
         for (GameUnit unit : editorUnitList) {
-            fullItemList.addAll(unit.getItems());
+            itemEditList.addAll(unit.getItems());
+        }
+        for (Customizable unit : (Collection<? extends Customizable>) activeStage.getGrid()
+                .getCustomizables(GridConstants.GAMEUNIT)) {
+            itemEditList.addAll(((GameUnit) unit).getItems());
         }
 
-        for (Item item : fullItemList) {
+        itemEditList.addAll(editorItemList);
+
+        for (Item item : itemEditList) {
             for (String removedAction : removedActions) {
-                if (item.getActions().contains(removedAction)) {
-                    item.removeAction(removedAction);
-                }
+                item.removeAction(removedAction);
+            }
+            for (String oldName : nameTranslationMap.keySet()) {
+                item.changeActionName(oldName, nameTranslationMap.get(oldName));
             }
         }
     }
