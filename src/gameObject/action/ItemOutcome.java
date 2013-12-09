@@ -23,10 +23,9 @@ public class ItemOutcome extends Outcome {
     }
 
     public boolean checkValidOutcome (GameUnit unit, double effectiveness) {
-        int oldAmount = unit.combatGetItemValue(myItem);
         int newAmount = getNewAmount(unit, effectiveness);
 
-        return !(oldAmount - newAmount < 0);
+        return !(newAmount < 0);
     }
 
     private int getNewAmount (GameUnit unit, double effectiveness) {
