@@ -4,13 +4,12 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.JPanel;
 
+/**
+ * 
+ */
 
+@SuppressWarnings("serial")
 public class ImagePanel extends JPanel {
-
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -454482073329781273L;
 
     Image myImage;
 

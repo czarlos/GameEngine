@@ -1,11 +1,9 @@
 package controllers;
 
-import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.IStats;
 import gameObject.Stat;
 import gameObject.action.Action;
-import gameObject.item.Item;
 import grid.GridConstants;
 import grid.Tile;
 import java.util.ArrayList;
@@ -122,7 +120,7 @@ public class EditorData {
     public void setData (GameTableModel gtm, Stage activeStage) {
         switch (gtm.getName()) {
             case GridConstants.ACTION:
-            //    syncActions((List<Object>) gtm.getObject(), activeStage);
+                // syncActions((List<Object>) gtm.getObject(), activeStage);
                 break;
             case GridConstants.MASTERSTATS:
                 syncStats((List<Object>) gtm.getObject(), activeStage);
@@ -194,6 +192,7 @@ public class EditorData {
         return ret;
     }
 
+    @SuppressWarnings("unchecked")
     public void syncTiles (List<Tile> newList, Stage activeStage) {
         List<Tile> fullList = (List<Tile>) get(GridConstants.TILE);
         List<Tile> removed = new ArrayList<Tile>((List<Tile>) get(GridConstants.TILE));
@@ -225,7 +224,6 @@ public class EditorData {
         }
     }
 
-
     @SuppressWarnings("unchecked")
     private void syncActions (List<Object> newActions, Stage activeStage) {
         List<String> fullList = getNames(GridConstants.ACTION);
@@ -247,11 +245,11 @@ public class EditorData {
             unit.syncStatsWithMaster(nameTranslationMap, removedNames);
         }
     }
-    
+
     // different because team data is in stage
     public void syncTeams (List<Team> newList, Stage activeStage) {
         List<Team> fullList = activeStage.getTeams(); // reference list
-        List<Team> removed = new ArrayList(activeStage.getTeams());
+        List<Team> removed = new ArrayList<Team>(activeStage.getTeams());
         // adjusting unit affiliation strings for renamed teams
         for (Team t : newList) {
             if (t.getLastIndex() > -1) {

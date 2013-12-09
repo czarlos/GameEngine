@@ -1,4 +1,5 @@
-package view.editor;
+package unused;
+/*package view.editor;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -47,3 +48,4 @@ public class EditorTableFrame extends JFrame implements WindowListener {
     }
 
 }
+*/

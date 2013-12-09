@@ -5,13 +5,14 @@ import grid.GridConstants;
 import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneLayout;
 import view.player.SelectedInfoPanel;
 import controller.editor.GridEditorController;
 import controllers.WorldManager;
 
-
+/**
+ * Displays object info panels
+ *
+ */
 @SuppressWarnings("serial")
 public class StageSidePanel extends JPanel {
 
@@ -19,9 +20,9 @@ public class StageSidePanel extends JPanel {
     private final String[] defaultTypes = GridConstants.DEFAULTTABTYPES;
     private SelectedInfoPanel myInfoPanel;
     private GridEditorController myController;
-    
-    public StageSidePanel(WorldManager wm, GridEditorController controller){
-        setPreferredSize(new Dimension(225,500));
+
+    public StageSidePanel (WorldManager wm, GridEditorController controller) {
+        setPreferredSize(new Dimension(225, 500));
         myWorldManager = wm;
         myController = controller;
 
@@ -37,7 +38,7 @@ public class StageSidePanel extends JPanel {
         add(panel);
         myInfoPanel = new SelectedInfoEditorPanel();
 
-        myInfoPanel.setMinimumSize(new Dimension(225,200));
+        myInfoPanel.setMinimumSize(new Dimension(225, 200));
 
         add(myInfoPanel);
     }

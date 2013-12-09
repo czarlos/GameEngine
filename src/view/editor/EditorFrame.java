@@ -36,9 +36,8 @@ import dialog.dialogs.TableDialog;
 import dialog.dialogs.tableModels.GameTableModel;
 
 
+@SuppressWarnings("serial")
 public class EditorFrame extends GameView {
-
-    private static final long serialVersionUID = -8550671173122103688L;
 
     private ArrayList<StagePanel> myStagePanelList;
     private JMenuBar myMenuBar;
@@ -211,8 +210,6 @@ public class EditorFrame extends GameView {
         }
     }
 
-
-    
     protected void setFrame (Manager m) {
         super.clearWindow();
         myWorldManager = new WorldManager(m);
@@ -273,20 +270,20 @@ public class EditorFrame extends GameView {
         });
 
         JMenu gameMenu = new JMenu("Game");
-        
+
         stageMenu.setMnemonic(KeyEvent.VK_S);
-        
+
         JMenuItem rename = new JMenuItem("Rename Game");
-        rename.addActionListener(new ActionListener(){
+        rename.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed (ActionEvent e) {
                 renameGame();
             }
-            
+
         });
         gameMenu.add(rename);
-        
+
         JMenuItem setMaster = new JMenuItem("Set Master Stats");
         setMaster
                 .addActionListener(new GamePrefListener(myWorldManager, GridConstants.MASTERSTATS));
@@ -300,7 +297,6 @@ public class EditorFrame extends GameView {
         gameMenu.add(runGame);
         runGame.addActionListener(new ActionListener() {
 
-            @SuppressWarnings("serial")
             @Override
             public void actionPerformed (ActionEvent e) {
                 JSONParser parser = new JSONParser();
@@ -314,51 +310,51 @@ public class EditorFrame extends GameView {
                 };
             }
         });
-        
+
         JMenuItem saveLib = new JMenuItem("Save Editor Library");
         gameMenu.add(saveLib);
-        saveLib.addActionListener(new ActionListener(){
+        saveLib.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                saveEditorLibrary(); 
+                saveEditorLibrary();
             }
-            
+
         });
-        
+
         JMenuItem loadLib = new JMenuItem("Load Editor Library");
         gameMenu.add(loadLib);
-        loadLib.addActionListener(new ActionListener(){
+        loadLib.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                loadEditorLibrary(); 
+                loadEditorLibrary();
             }
-            
+
         });
 
         myMenuBar.add(stageMenu, 1);
         myMenuBar.add(gameMenu, 1);
     }
 
-    private void saveEditorLibrary(){
+    private void saveEditorLibrary () {
         JPanel savePanel = new JPanel();
         JLabel label = new JLabel("File name:");
         JTextField name = new JTextField(25);
         savePanel.setLayout(new BoxLayout(savePanel, BoxLayout.LINE_AXIS));
         savePanel.add(label);
         savePanel.add(name);
-        int value = JOptionPane.showConfirmDialog(this, savePanel,
-                                                  "Save Library Name", JOptionPane.OK_CANCEL_OPTION);
+        int value =
+                JOptionPane.showConfirmDialog(this, savePanel,
+                                              "Save Library Name", JOptionPane.OK_CANCEL_OPTION);
         if (value == JOptionPane.OK_OPTION) {
             String file = name.getText();
             myWorldManager.saveEditorData(file);
         }
 
-        
     }
-    
-    private void renameGame(){
+
+    private void renameGame () {
         JPanel renamePanel = new JPanel();
         renamePanel.setLayout(new GridLayout(1, 2));
         JLabel renameameLabel = new JLabel("New Game Name:");
@@ -373,8 +369,8 @@ public class EditorFrame extends GameView {
             this.setTitle(newName);
         }
     }
-    
-    private void loadEditorLibrary(){
+
+    private void loadEditorLibrary () {
         JPanel loadPanel = new JPanel();
         loadPanel.setLayout(new GridLayout(0, 2));
         JLabel choose = new JLabel("Choose Library:");
@@ -383,20 +379,22 @@ public class EditorFrame extends GameView {
         for (File child : savesDir.listFiles()) {
             libraryNamesMenu.addItem(child.getName().split("\\.")[0]);
         }
-        
+
         loadPanel.add(choose);
         loadPanel.add(libraryNamesMenu);
 
-        int value = JOptionPane.showConfirmDialog(this, loadPanel,
-                                                  "Choose Editor Library", JOptionPane.OK_CANCEL_OPTION);
+        int value =
+                JOptionPane
+                        .showConfirmDialog(this, loadPanel,
+                                           "Choose Editor Library", JOptionPane.OK_CANCEL_OPTION);
         if (value == JOptionPane.OK_OPTION) {
             String libraryName = (String) libraryNamesMenu.getSelectedItem();
             myWorldManager.loadEditorData(libraryName);
             myGridController.refreshEditorPanels();
         }
-        
+
     }
-    
+
     protected void setStage (String stageName, int stageID) {
         StagePanel sp =
 
@@ -504,7 +502,7 @@ public class EditorFrame extends GameView {
 
     /**
      * Saves JSON representing current game to the default save folder.
-     * Automatically sets the current stage to the first one so games will 
+     * Automatically sets the current stage to the first one so games will
      * always be played from the beginning.
      */
     protected void saveGame () {
@@ -513,15 +511,15 @@ public class EditorFrame extends GameView {
 
     /**
      * Saves JSON representing current game to the specified folder.
-     * Automatically sets the current stage to the first one so games will 
+     * Automatically sets the current stage to the first one so games will
      * always be played from the beginning.
+     * 
      * @param location Folder to save Json file in.
      */
     protected void saveGame (String location) {
-        JSONParser clone=new JSONParser();
-        WorldManager toSave=clone.deepClone(myWorldManager, WorldManager.class);
+        JSONParser clone = new JSONParser();
+        WorldManager toSave = clone.deepClone(myWorldManager, WorldManager.class);
         toSave.setActiveStage(0);
         toSave.saveGame(location);
     }
-
 }

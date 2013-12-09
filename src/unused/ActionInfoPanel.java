@@ -1,4 +1,5 @@
-package view.editor;
+package unused;
+/*package view.editor;
 
 import grid.Coordinate;
 import java.awt.event.ActionEvent;
@@ -9,6 +10,7 @@ import controllers.WorldManager;
 import view.player.InfoPanel;
 
 
+@SuppressWarnings("serial")
 public class ActionInfoPanel extends InfoPanel {
 
     private WorldManager myWorldManager;
@@ -54,3 +56,4 @@ public class ActionInfoPanel extends InfoPanel {
 
     }
 }
+*/
