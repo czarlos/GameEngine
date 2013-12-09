@@ -20,6 +20,10 @@ import dialog.dialogs.TableDialog;
 import dialog.dialogs.tableModels.GameTableModel;
 
 
+/**
+ * 
+ *
+ */
 public class StageEditorPanel extends JTabbedPane {
 
     private static final long serialVersionUID = 2009073373970060149L;
@@ -160,6 +164,5 @@ public class StageEditorPanel extends JTabbedPane {
             myPanel.refreshTab(myType);
             myTableDialog.setVisible(false);
         }
-
     }
 }

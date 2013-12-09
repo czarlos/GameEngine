@@ -11,12 +11,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
+/**
+ * 
+ */
+
+@SuppressWarnings("serial")
 public class GameObjectPanel extends JPanel implements MouseListener {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -5509317241029064960L;
     private String myType;
     private String myName;
     private Image myImage;
@@ -46,7 +47,6 @@ public class GameObjectPanel extends JPanel implements MouseListener {
     }
 
     public String getType () {
-
         return myType;
     }
 

@@ -5,13 +5,12 @@ import controllers.WorldManager;
 import view.GridWithSide;
 import view.canvas.GridCanvas;
 
-
+/**
+ * 
+ */
+@SuppressWarnings("serial")
 public class StagePanel extends GridWithSide {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1534023398376725167L;
     private GridEditorController myController;
 
     public StagePanel (WorldManager wm,
