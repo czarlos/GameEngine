@@ -4,7 +4,6 @@ import gameObject.action.Action;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import grid.Coordinate;
-import grid.Grid;
 import grid.GridConstants;
 import grid.Tile;
 import java.awt.Dimension;

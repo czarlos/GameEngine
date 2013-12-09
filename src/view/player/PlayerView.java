@@ -114,8 +114,13 @@ public class PlayerView extends GameView {
     public void endTurn () {
         showBackground();
         myGameManager.doUntilHumanTurn();
-        loadStagePanel();
         myGameManager.beginTurn();
+        loadStagePanel();
+    }
+    
+    public void gameOver(){
+        dispose();
+        new PlayerView();
     }
 
     public void loadStagePanel () {
