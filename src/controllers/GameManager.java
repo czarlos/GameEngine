@@ -82,10 +82,10 @@ public class GameManager extends Manager {
 
     public void humanWin () {
         myView.showDialog(getPostStory());
-        myView.showDialog(getWinningTeam() + " won!!");
+        myView.showDialog(getWinningTeam() + " won this stage!");
         if (!nextStage()) {
             myGameOver=true;
-            myView.showDialog("Game over: No more stages.");
+            myView.showDialog("Congratulations!You have completed the game!");
             myView.gameOver();
         }
     }
