@@ -4,9 +4,11 @@ import gameObject.GameUnit;
 import gameObject.IStats;
 import gameObject.Stat;
 import gameObject.action.Action;
+import gameObject.item.Item;
 import grid.GridConstants;
 import grid.Tile;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -164,6 +166,10 @@ public class EditorData {
         objectEditList.addAll(editorUnitList);
         objectEditList.addAll((List<IStats>) get(GridConstants.TILE));
         objectEditList.addAll((List<IStats>) get(GridConstants.ITEM));
+        objectEditList.addAll((Collection<? extends IStats>) activeStage.getGrid()
+                .getCustomizables(GridConstants.GAMEUNIT));
+        objectEditList.addAll((Collection<? extends IStats>) activeStage.getGrid()
+                .getCustomizables(GridConstants.TILE));
 
         for (IStats object : objectEditList) {
             for (String removedStat : removedNames) {
@@ -227,8 +233,9 @@ public class EditorData {
     @SuppressWarnings("unchecked")
     private void syncActions (List<Object> newActions, Stage activeStage) {
         List<String> fullList = getNames(GridConstants.ACTION);
-        List<String> removedNames = new ArrayList<String>(getNames(GridConstants.ACTION));
+        List<String> removedActions = getNames(GridConstants.ACTION);
         List<GameUnit> editorUnitList = (List<GameUnit>) get(GridConstants.GAMEUNIT);
+        List<Item> fullItemList = (List<Item>) get(GridConstants.ITEM);
         Map<String, String> nameTranslationMap = new HashMap<>();
 
         for (Object action : newActions) {
@@ -237,12 +244,20 @@ public class EditorData {
                 if (!((Action) action).getName().equals(prevName)) {
                     nameTranslationMap.put(prevName, ((Action) action).getName());
                 }
-                removedNames.remove(prevName);
+                removedActions.remove(prevName);
             }
         }
 
         for (GameUnit unit : editorUnitList) {
-            unit.syncStatsWithMaster(nameTranslationMap, removedNames);
+            fullItemList.addAll(unit.getItems());
+        }
+
+        for (Item item : fullItemList) {
+            for (String removedAction : removedActions) {
+                if (item.getActions().contains(removedAction)) {
+                    item.removeAction(removedAction);
+                }
+            }
         }
     }
 

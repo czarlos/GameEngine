@@ -68,7 +68,7 @@ public class GameUnit extends InventoryObject implements IStats {
         for (Stat stat : addStats.getStats()) {
             myTotalStats.modExisting(stat.getName(),
                                      calcTotalStat(stat.getName()) + stat.getValue());
-        }        
+        }
     }
 
     public int getTotalStat (String statName) {
@@ -139,7 +139,7 @@ public class GameUnit extends InventoryObject implements IStats {
     }
 
     @Override
-    public List<String> generateDisplayData () {        
+    public List<String> generateDisplayData () {
         List<String> displayData = super.generateDisplayData();
         displayData.add("<b>Team: </b>" + myAffiliation);
         displayData.add("<b>Stats: </b>");
@@ -166,31 +166,14 @@ public class GameUnit extends InventoryObject implements IStats {
         return interactions;
     };
 
-    public void syncStatsWithMaster (Map<String, String> nameTranslationMap,
-                                     List<String> removedNames) {
-        for (String removedStat : removedNames) {
-            myStats.remove(removedStat);
-            myTotalStats.remove(removedStat);
-            for (Item item : myItems) {
-                item.removeStat(removedStat);
-            }
-        }
-
-        for (String oldName : nameTranslationMap.keySet()) {
-            myStats.changeName(oldName, nameTranslationMap.get(oldName));
-            myTotalStats.changeName(oldName, nameTranslationMap.get(oldName));
-            for (Item item : myItems) {
-                item.changeStatName(oldName, nameTranslationMap.get(oldName));
-            }
-        }
-    }
-
     public void removeStat (String stat) {
         myStats.remove(stat);
+        myTotalStats.remove(stat);
     }
 
     public void changeStatName (String oldName, String newName) {
         myStats.changeName(oldName, newName);
+        myTotalStats.changeName(oldName, newName);
     }
 
     public Stats getStats () {
@@ -213,6 +196,7 @@ public class GameUnit extends InventoryObject implements IStats {
 
     public void addStat (Stat stat) {
         myStats.addStat(stat);
+        myTotalStats.addStat(stat);
     }
 
     @Override
