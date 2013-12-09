@@ -84,7 +84,7 @@ public class TeamTableModel extends GameTableModel {
         Object[] array = new Object[myColumnNames.length + 1];
         
         array[0] = "New Team";
-        array[1] = new File("resources/skull.png");
+        array[1] = new File("resources/grass.png");
         array[2] = 0;
         array[3] = new WinCondition();
         array[4] = 0;

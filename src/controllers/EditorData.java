@@ -2,14 +2,11 @@ package controllers;
 
 import gameObject.GameUnit;
 import gameObject.IStats;
-import gameObject.InventoryObject;
 import gameObject.Stat;
 import gameObject.action.Action;
 import gameObject.item.Item;
 import grid.GridConstants;
-import grid.Tile;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +57,7 @@ public class EditorData {
     @SuppressWarnings("unchecked")
     public void loadData (String name) {
         myDataMap =
-                myParser.createObject("userLibraries/" + name,
+                myParser.createObjectFromFile("userLibraries/" + name,
                                       new HashMap<String, List<?>>().getClass());
     }
 
@@ -74,11 +71,9 @@ public class EditorData {
         for (String s : GridConstants.DEFAULTEDITTYPES) {
             List<Customizable> list = new ArrayList<Customizable>();
             list = myParser.createObjectFromFile(folderName + "/" + s,
-                                         new ArrayList<Customizable>().getClass());
+                                                 new ArrayList<Customizable>().getClass());
             myDataMap.put(s, list);
         }
-        // need to generalize this for all data types. tile, gameobject,
-        // gameunit, item, team, action
     }
 
     /**
@@ -105,8 +100,8 @@ public class EditorData {
 
     @SuppressWarnings("unchecked")
     public Customizable getObject (String type, String name) {
-        for(Customizable c : (List<Customizable>) myDataMap.get(type)){
-            if(c.getName().equals(name))
+        for (Customizable c : (List<Customizable>) myDataMap.get(type)) {
+            if (c.getName().equals(name))
                 return c;
         }
         return null;
@@ -166,7 +161,7 @@ public class EditorData {
     private void syncStats (List<Object> newStats, Stage activeStage) {
         List<String> fullList = getNames(GridConstants.MASTERSTATS);
         List<String> removedNames = getNames(GridConstants.MASTERSTATS);
-        List<IStats> editorUnitList = (List<IStats>) getTableModel("GameUnit").getObject();
+        List<IStats> editorUnitList = (List<IStats>) get(GridConstants.GAMEUNIT);
         IStats[][] placedUnits = activeStage.getGrid().getGameUnits();
         IStats[][] placedTiles = activeStage.getGrid().getTiles();
         Map<String, String> nameTranslationMap = new HashMap<>();
@@ -183,9 +178,7 @@ public class EditorData {
         }
 
         for (IStats unit : editorUnitList) {
-            for (Item item : ((GameUnit) unit).getItems()) {
-                objectEditList.add(item);
-            }
+            objectEditList.addAll(((GameUnit) unit).getItems());
         }
 
         for (int i = 0; i < placedUnits.length; i++) {
@@ -201,8 +194,8 @@ public class EditorData {
         }
 
         objectEditList.addAll(editorUnitList);
-        objectEditList.addAll((List<IStats>) getTableModel("Tile").getObject());
-        objectEditList.addAll((List<IStats>) getTableModel("Item").getObject());
+        objectEditList.addAll((List<IStats>) get(GridConstants.TILE));
+        objectEditList.addAll((List<IStats>) get(GridConstants.ITEM));
 
         for (IStats object : objectEditList) {
             for (String removedStat : removedNames) {
@@ -265,6 +258,9 @@ public class EditorData {
     }
 
     public List<String> getDialogList (String myType) {
+
+        // need to generalize this for all data types. tile, gameobject,
+        // gameunit, item, team, action
         List<String> ret = new ArrayList<String>();
         switch (myType) {
             case GridConstants.GAMEOBJECT:
