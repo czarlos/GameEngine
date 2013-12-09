@@ -112,11 +112,11 @@ public class InventoryObject extends GameObject {
         displayData.add("<b>Inventory:</b>");
         if (!myItems.isEmpty()) {
             for (Item item : myItems) {
-                displayData.add("   " + item.getName() + ": " + myItemAmounts.get(item.getName()));
+                displayData.add("&nbsp; &nbsp; &nbsp;" + item.getName() + ": " + myItemAmounts.get(item.getName()));
             }
         }
         else {
-            displayData.add("    Nothing");
+            displayData.add("&nbsp; &nbsp; &nbsp; Nothing");
         }
         return displayData;
     }
