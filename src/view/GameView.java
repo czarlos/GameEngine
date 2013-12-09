@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 import parser.JSONParser;
 import view.dialogs.LoadGameDialog;
 import controllers.Manager;
-import controllers.WorldManager;
 
 
 @SuppressWarnings("serial")
@@ -27,7 +26,7 @@ import controllers.WorldManager;
 public abstract class GameView extends JFrame implements WindowListener {
     protected JComponent myBackground;
     protected JComponent myGame;
-    protected String mySaveLocation;
+    protected static final String DEFAULT_SAVE_LOCATION="saves";
 
     public GameView () throws HeadlessException {
         super();
@@ -78,7 +77,7 @@ public abstract class GameView extends JFrame implements WindowListener {
         repaint();
     }
 
-    protected WorldManager loadGame (String folder) {
+    protected Manager loadGame (String folder) {
         LoadGameDialog loader = new LoadGameDialog(folder);
 
         int value = JOptionPane.showConfirmDialog(this, loader,

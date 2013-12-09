@@ -19,6 +19,7 @@ import controllers.Manager;
 @SuppressWarnings("serial")
 public class PlayerView extends GameView {
     protected GameManager myGameManager;
+    protected static final String DEFAULT_GAME_IN_PROGRESS_SAVE_LOCATION="gamesInProgress";
 
     public PlayerView () {
 
@@ -51,7 +52,7 @@ public class PlayerView extends GameView {
         // add action listeners
         loadGame.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
-                loadGame(loadGame("gamesInProgress"));
+                loadGame(loadGame(DEFAULT_GAME_IN_PROGRESS_SAVE_LOCATION));
             }
         });
 
@@ -60,9 +61,8 @@ public class PlayerView extends GameView {
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                saveGame("gamesInProgress");
+                saveGame(DEFAULT_GAME_IN_PROGRESS_SAVE_LOCATION);
             }
-
         });
 
         fileMenu.add(saveGame);
@@ -125,10 +125,6 @@ public class PlayerView extends GameView {
 
     public void showDialog (String story) {
         JOptionPane.showMessageDialog(this, story);
-    }
-
-    protected void saveGame () {
-        saveGame("saves");
     }
 
     protected void saveGame (String location) {
