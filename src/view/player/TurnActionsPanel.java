@@ -8,10 +8,13 @@ import javax.swing.JPanel;
 
 
 /**
+ * Panel responsible for the "End Turn" button
+ * Calls PlayerView.endTurn() when clicked
  * 
  * @author brooksmershon
  * 
  */
+@SuppressWarnings("serial")
 public class TurnActionsPanel extends JPanel {
     public TurnActionsPanel (PlayerView pv) {
         setLayout(new BorderLayout());
@@ -27,7 +30,6 @@ public class TurnActionsPanel extends JPanel {
 
             public ActionListener init (PlayerView panel) {
                 myPanel = panel;
-
                 return this;
             }
         }.init(pv));

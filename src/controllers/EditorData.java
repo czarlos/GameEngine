@@ -118,16 +118,10 @@ public class EditorData {
             case GridConstants.MASTERSTATS:
                 syncStats((List<Object>) gtm.getObject(), activeStage);
                 break;
-            case GridConstants.TEAM:
-                syncTeams((List<Team>) gtm.getObject(), activeStage);
-                break;
             default:
                 break;
         }
-
-        if(gtm.getName() != GridConstants.TEAM){
             myDataMap.put(gtm.getName(), (List<?>) gtm.getObject());
-        }
     }
 
     @SuppressWarnings("unchecked")

@@ -50,18 +50,29 @@ public class WorldManager extends Manager {
     }
 
     /**
-     * Teams are stage specific
+     * Teams are stage specific and so have to be different
      * @param gtm
      */
     public void setData (GameTableModel gtm) {
-        if(gtm.getName() != GridConstants.TEAM) {
-            for(Stage s: myStages){
-                myEditorData.setData(gtm, s);
-            }
+        for(Stage s: myStages){
+            myEditorData.setData(gtm, s);
         }
-        else {
-            myEditorData.setData(gtm, myActiveStage);
-        }
+    }
+    
+    /**
+     * Teams are stage specific
+     */
+    
+    public GameTableModel getTeamTableModel (){
+        GameTableModel gtm = myEditorData.getTableModel(GridConstants.TEAM);
+        gtm.loadObject(myActiveStage.getTeams());
+        
+        return gtm;
+    }
+    
+    @SuppressWarnings("unchecked")
+    public void setTeamData (GameTableModel gtm) {
+        myEditorData.syncTeams((List<Team>) gtm.getObject(), myActiveStage);
     }
 
     @JsonIgnore
