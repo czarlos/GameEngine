@@ -128,10 +128,10 @@ public class EditorData {
                 syncStats((List<Object>) gtm.getObject(), activeStage);
                 break;
             case GridConstants.TILE:
-                syncTiles((List<Tile>) gtm.getObject(), activeStage);
-                break;
             case GridConstants.GAMEOBJECT:
             case GridConstants.GAMEUNIT:
+                syncObjects((List<Customizable>) gtm.getObject(), activeStage, gtm.getName());
+                break;
             case GridConstants.ITEM:
                 break;
             default:
@@ -199,31 +199,31 @@ public class EditorData {
     }
 
     @SuppressWarnings("unchecked")
-    public void syncTiles (List<Tile> newList, Stage activeStage) {
-        List<Tile> fullList = (List<Tile>) get(GridConstants.TILE);
-        List<Tile> removed = new ArrayList<Tile>((List<Tile>) get(GridConstants.TILE));
-        Tile[][] tiles = activeStage.getGrid().getTiles();
+    public void syncObjects (List<Customizable> newList, Stage activeStage, String type) {
+        List<Customizable> fullList = (List<Customizable>) get(type);
+        List<Customizable> removed = new ArrayList<Customizable>((List<Customizable>) get(type));
+        Customizable[][] objects = activeStage.getGrid().getArray(type);
         // replace all the tiles with the same ID
-        for (Tile t : newList) {
-            if (t.getLastIndex() > -1) {
-                Tile prevTile = fullList.get(t.getLastIndex());
-                for (int i = 0; i < tiles.length; i++) {
-                    for (int j = 0; j < tiles[0].length; j++) {
-                        if (tiles[i][j].getName().equals(prevTile.getName())) {
-                            tiles[i][j] = t;
+        for (Customizable c : newList) {
+            if (c.getLastIndex() > -1) {
+                Customizable prevObject = fullList.get(c.getLastIndex());
+                for (int i = 0; i < objects.length; i++) {
+                    for (int j = 0; j < objects[0].length; j++) {
+                        if (objects[i][j] != null && objects[i][j].getName().equals(prevObject.getName())) {
+                            objects[i][j] = c;
                         }
                     }
                 }
-                removed.remove(prevTile);
+                removed.remove(prevObject);
             }
         }
 
         // if removed, set Tile to default
-        for (Tile t : removed) {
-            for (int i = 0; i < tiles.length; i++) {
-                for (int j = 0; j < tiles[0].length; j++) {
-                    if (t.getName().equals(tiles[i][j].getName())) {
-                        tiles[i][j] = fullList.get(0);
+        for (Customizable c : removed) {
+            for (int i = 0; i < objects.length; i++) {
+                for (int j = 0; j < objects[0].length; j++) {
+                    if (c.getName().equals(objects[i][j].getName())) {
+                        objects[i][j] = fullList.get(0);
                     }
                 }
             }

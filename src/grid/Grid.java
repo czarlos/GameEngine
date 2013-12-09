@@ -379,7 +379,7 @@ public class Grid implements Drawable {
         }
     }
 
-    public List<Customizable> getCustomizables (String type) {
+    public List<?> getCustomizables (String type) {
         Object[][] customizableArray = myArrays.get(type);
         List<Customizable> customizableList = new ArrayList<>();
 
@@ -400,8 +400,8 @@ public class Grid implements Drawable {
     }
 
     @JsonIgnore
-    public Tile[][] getTiles () {
-        return (Tile[][]) myArrays.get(GridConstants.TILE);
+    public Customizable[][] getArray (String type) {
+        return (Customizable[][]) myArrays.get(type);
     }
 
     public void setTiles (Tile[][] tiles) {
