@@ -9,10 +9,11 @@ import controller.editor.GridController;
 import controllers.GameManager;
 import view.GridWithSide;
 
+
 /**
  * TODO: Add documentation to this.
  * 
- *
+ * 
  */
 @SuppressWarnings("serial")
 public class StagePlayerPanel extends GridWithSide {
@@ -60,8 +61,7 @@ public class StagePlayerPanel extends GridWithSide {
 
         myInfoPanel.makeTabs(myManager.getActionNames(c),
                              myManager.generateInfoList(GridConstants.TILE, c),
-                             myManager.generateInfoList(GridConstants.GAMEOBJECT, c),
-                             myManager.generateInfoList(GridConstants.GAMEUNIT, c));
+                             myManager.generateInfoList(GridConstants.GAMEOBJECT, c));
         if (mySidePanel != null) {
             remove(mySidePanel);
         }

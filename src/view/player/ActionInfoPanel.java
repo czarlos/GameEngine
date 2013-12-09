@@ -42,7 +42,6 @@ public class ActionInfoPanel extends ScrollableListPane {
             button.addActionListener(new ActionListener() {
 
                 int myActionId;
-            //    private JPanel myPanel;
 
                 @Override
                 public void actionPerformed (ActionEvent e) {
@@ -55,7 +54,6 @@ public class ActionInfoPanel extends ScrollableListPane {
 
                 public ActionListener init (int id, JPanel panel) {
                     myActionId = id;
-           //         myPanel = panel;
                     return this;
                 }
 

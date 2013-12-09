@@ -249,17 +249,17 @@ public class GameManager extends Manager {
     public void endAction (Coordinate unitCoordinate, Coordinate actionCoordinate, GameUnit initiator, GameObject receiver) {
         initiator.setActive(false);
         if (initiator.getTotalStat("health") == 0) {
-            myActiveStage.getGrid().removeObject(GridConstants.GAMEUNIT, unitCoordinate);
+            myActiveStage.getGrid().removeObject(unitCoordinate);
         }
         if (receiver instanceof Chest) {
             if (((InventoryObject) receiver).isEmpty()) {
-                myActiveStage.getGrid().removeObject(GridConstants.GAMEOBJECT, actionCoordinate);
+                myActiveStage.getGrid().removeObject(actionCoordinate);
             }
         }
         if (receiver instanceof GameUnit) {
             receiver = myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, actionCoordinate);
             if (((GameUnit) receiver).getTotalStat("health") == 0) {
-                myActiveStage.getGrid().removeObject(GridConstants.GAMEUNIT, actionCoordinate);
+                myActiveStage.getGrid().removeObject(actionCoordinate);
             }
         }
     }

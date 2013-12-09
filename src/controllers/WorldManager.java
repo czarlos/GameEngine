@@ -91,9 +91,9 @@ public class WorldManager extends Manager {
     public GameTableModel getItemTableModel (Coordinate coordinate) {
         GameTableModel gtm = new ItemsTableModel(myEditorData);
 
-        GameObject go = getInventoryObject(coordinate);
+        GameObject go = myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, coordinate);
 
-        if (go != null) {
+        if (go != null && go instanceof InventoryObject) {
             Map<String, Integer> items = ((InventoryObject) go).getItemAmounts();
             gtm.loadObject(items);
             return gtm;
@@ -109,21 +109,20 @@ public class WorldManager extends Manager {
                 (InventoryObject) myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT,
                                                                     coordinate);
         io.setItemAmounts((Map<String, Integer>) gtm.getObject());
-
+        
         Set<Item> set = new HashSet<Item>();
-        for (String s : ((Map<String, Integer>) gtm.getObject()).keySet()) {
+        for(String s: ((Map<String, Integer>) gtm.getObject()).keySet()){
             set.add((Item) myEditorData.getObject(GridConstants.ITEM, s));
         }
         io.setItems(set);
     }
-
+    
     public void saveEditorData (String name) {
         myEditorData.saveData(name);
     }
 
     public void loadEditorData (String name) {
         myEditorData.loadData(name);
-        updateEditorData();
     }
 
     @JsonIgnore
@@ -202,40 +201,8 @@ public class WorldManager extends Manager {
      */
     public void place (String type, int objectID, Coordinate coordinate) {
         Object object = myEditorData.getObject(type, objectID);
-        if (type.equals(GridConstants.ITEM)) {
-            GameObject go = getInventoryObject(coordinate);
-
-            if (go != null) {
-                ((InventoryObject) go).addItem((Item) object);
-            }
-        }
-        else {
-            myActiveStage.getGrid().placeObject(type, coordinate, objectID);
-        }
-
+        myActiveStage.getGrid().placeObject(type, coordinate, (Customizable) object);
         myEditorData.refreshObjects(type);
-    }
-
-    /**
-     * Get any inventory objects located at a coordinate. Makes good use of Murphy's Operator
-     * 
-     * @param Coordinate of the GameObject
-     * @return The object located at the coordinate if it's an Inventory Object, otherwise null
-     */
-    private GameObject getInventoryObject (Coordinate coordinate) {
-
-        GameObject go =
-                (((myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, coordinate) != null)) ? myActiveStage
-                                                                                                          .getGrid()
-                                                                                                          .getObject(GridConstants.GAMEUNIT,
-                                                                                                                     coordinate)
-                                                                                                  : myActiveStage
-                                                                                                          .getGrid()
-                                                                                                          .getObject(GridConstants.GAMEOBJECT,
-                                                                                                                     coordinate));
-        if (go instanceof InventoryObject)
-            return go;
-        return null;
     }
 
     /**

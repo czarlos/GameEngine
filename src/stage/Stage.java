@@ -114,12 +114,11 @@ public class Stage {
     }
 
     public List<GameUnit> getTeamUnits (String teamName) {
-        GameObject[][] units = (GameObject[][]) myGrid.getObjects(GridConstants.GAMEUNIT);
+        GameUnit[][] units = myGrid.getGameUnits();
         List<GameUnit> ret = new ArrayList<GameUnit>();
 
         for (int i = 0; i < units.length; i++) {
-            for (GameObject go : units[i]) {
-                GameUnit gu = (GameUnit) go;
+            for (GameUnit gu : units[i]) {
                 if (gu != null && teamName.equals(gu.getAffiliation())) {
                     ret.add(gu);
                 }

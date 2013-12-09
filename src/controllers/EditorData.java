@@ -109,6 +109,15 @@ public class EditorData {
     }
 
     @SuppressWarnings("unchecked")
+    public int getObjectID (String type, String name) {
+        for (Customizable c : (List<Customizable>) myDataMap.get(type)) {
+            if (c.getName().equals(name))
+                return myDataMap.get(type).indexOf(c);
+        }
+        return 0;
+    }
+    
+    @SuppressWarnings("unchecked")
     public void setData (GameTableModel gtm, Stage activeStage) {
         switch (gtm.getName()) {
             case GridConstants.ACTION:
@@ -118,11 +127,10 @@ public class EditorData {
                 syncStats((List<Object>) gtm.getObject(), activeStage);
                 break;
             case GridConstants.TILE:
+                break;
             case GridConstants.GAMEOBJECT:
             case GridConstants.GAMEUNIT:
-                activeStage.getGrid().setList(gtm.getName(), (List<GameObject>) gtm.getObject());
             case GridConstants.ITEM:
-                // TODO: WRITE THIS.
                 break;
             default:
                 break;

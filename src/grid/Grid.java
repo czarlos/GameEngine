@@ -3,15 +3,16 @@ package grid;
 import gameObject.GameObject;
 import gameObject.GameObjectConstants;
 import gameObject.GameUnit;
+import gameObject.InventoryObject;
 import gameObject.action.Action;
+import gameObject.item.Item;
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import parser.JSONParser;
 import grid.Coordinate;
+import view.Customizable;
 import view.Drawable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -21,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Grid class. Holds all tiles and objects, calculates movement, actions
  * 
- * @author Kevin, Ken, Leevi
+ * @author Kevin, Ken
  * 
  */
 @JsonAutoDetect
@@ -31,20 +32,18 @@ public class Grid implements Drawable {
     @JsonProperty
     private int myHeight;
 
-    // for editing synchronization
-    public static final String[] MYTYPES = {GridConstants.TILE, GridConstants.GAMEOBJECT, GridConstants.GAMEUNIT};
+    @JsonProperty
+    private Map<String, Object[][]> myArrays;
+    private FromJSONFactory myFactory;
+
     protected static final int TILE_WIDTH = 35;
     protected static final int TILE_HEIGHT = 35;
-    
-    @JsonProperty
-    private Map<String, Integer[][]> myArrays;
-    @JsonProperty
-    private Map<String, List<GameObject>> myLists;
 
     /**
      * Creates a grid with the width and height set Only for use by deserializer
      */
     public Grid () {
+        myFactory = new FromJSONFactory();
     }
 
     /**
@@ -57,28 +56,23 @@ public class Grid implements Drawable {
     public Grid (int width, int height, int tileID) {
         myWidth = width;
         myHeight = height;
-        myArrays = new HashMap<String, Integer[][]>();
-        myLists = new HashMap<String, List<GameObject>>();
-        init(tileID);
+        myArrays = new HashMap<String, Object[][]>();
+        myArrays.put(GridConstants.TILE, new Tile[width][height]);
+        myArrays.put(GridConstants.GAMEOBJECT, new GameObject[width][height]);
+        myArrays.put(GridConstants.GAMEUNIT, new GameUnit[width][height]);
+        myFactory = new FromJSONFactory();
+        initTiles(tileID);
     }
 
     /**
      * Creates default tiles for grid
      */
-    @SuppressWarnings("unchecked")
-    private void init (int tileID) {
-        JSONParser p = new JSONParser();
-
-        for(String s: MYTYPES){
-            myArrays.put(s, new Integer[myWidth][myHeight]);
-            List<GameObject> list = (List<GameObject>) p.createObjectFromFile("defaults/" + s,
-                                                                             new ArrayList<GameObject>().getClass());
-            myLists.put(s, list);
-        }
-        
+    private void initTiles (int tileID) {
         for (int i = 0; i < myWidth; i++) {
-            Arrays.fill(myArrays.get(GridConstants.TILE)[i], tileID);
-        }    
+            for (int j = 0; j < myHeight; j++) {
+                myArrays.get(GridConstants.TILE)[i][j] = (Tile) myFactory.make("Tile", tileID);
+            }
+        }
     }
 
     /**
@@ -89,8 +83,7 @@ public class Grid implements Drawable {
      */
     public void beginMove (Coordinate coordinate) {
         GameUnit gameUnit = (GameUnit) getObject(GridConstants.GAMEUNIT, coordinate);
-        findMovementRange(coordinate, gameUnit.calcTotalStat(GameObjectConstants.MOVEMENT),
-                          gameUnit);
+        findMovementRange(coordinate, gameUnit.calcTotalStat(GameObjectConstants.MOVEMENT), gameUnit);
     }
 
     /**
@@ -100,8 +93,8 @@ public class Grid implements Drawable {
      * @param newCoordinate Coordinate that unit is moving to
      * 
      */
-    public void doMove (Coordinate oldCoordinate, Coordinate newCoordinate) {
-        int gameUnit = removeObject(GridConstants.GAMEUNIT, oldCoordinate);
+    public void doMove (Coordinate oldCoordinate, Coordinate newCoordinate) {        
+        GameUnit gameUnit = (GameUnit) removeObject(oldCoordinate);        
         placeObject(GridConstants.GAMEUNIT, newCoordinate, gameUnit);
     }
 
@@ -119,20 +112,22 @@ public class Grid implements Drawable {
         for (Coordinate adjacentCoordinate : adjacentCoordinates) {
             if (onGrid(adjacentCoordinate)) {
                 Tile currentTile = (Tile) getObject(GridConstants.TILE, adjacentCoordinate);
-                int newRange = range - currentTile.getMoveCost();
-                if (newRange >= 0 && currentTile.isPassable(gameUnit)) {
-                    GameObject currentObject =
-                            getObject(GridConstants.GAMEOBJECT, adjacentCoordinate);
-                    if (currentObject != null) {
-                        if (currentObject.isPassable(gameUnit)) {
+//                System.out.println("tile: "+currentTile.getName());
+//                System.out.println("  passable: "+currentTile.isPassable(gameUnit));
+                    int newRange = range - currentTile.getMoveCost();
+                    if (newRange >= 0 && currentTile.isPassable(gameUnit)) {
+                        GameObject currentObject =
+                                getObject(GridConstants.GAMEOBJECT, adjacentCoordinate);
+                        if (currentObject != null) {
+                            if (currentObject.isPassable(gameUnit)) {
+                                findMovementRange(adjacentCoordinate, newRange, gameUnit);
+                            }
+                        }
+                        else {
+                            currentTile.setActive(true);
                             findMovementRange(adjacentCoordinate, newRange, gameUnit);
                         }
-                    }
-                    else {
-                        currentTile.setActive(true);
-                        findMovementRange(adjacentCoordinate, newRange, gameUnit);
-                    }
-                }
+                    }                          
             }
         }
     }
@@ -231,16 +226,9 @@ public class Grid implements Drawable {
      * @return GameObject at coordinate
      */
     public GameObject getObject (String type, Coordinate coordinate) {
-        if(myArrays.get(type)[coordinate.getX()][coordinate.getY()] != null){
-            return myLists.get(type).get((int) myArrays.get(type)[coordinate.getX()][coordinate.getY()]);   
-        }
-        return null;
+        return (GameObject) myArrays.get(type)[coordinate.getX()][coordinate.getY()];
     }
 
-    public void setList(String type, List<GameObject> list){
-        myLists.put(type, list);
-    }
-    
     /**
      * Gets the coordinate for a given gameObject
      * 
@@ -268,26 +256,45 @@ public class Grid implements Drawable {
      * @param coordinate Coordinate of where the object is being placed
      * @param placeObject Customizable of object being placed
      */
-    public void placeObject (String type, Coordinate coordinate, int placeObject) {
-        removeObject(GridConstants.GAMEUNIT, coordinate);
-        removeObject(GridConstants.GAMEOBJECT, coordinate);
-        myArrays.get(type)[coordinate.getX()][coordinate.getY()] = placeObject;
+    public void placeObject (String type, Coordinate coordinate, Customizable placeObject) {
+        if (type.equals(GridConstants.ITEM)) {
+            GameObject gameObject = getObject(GridConstants.GAMEOBJECT, coordinate);
+            if (gameObject != null) {
+                if (gameObject instanceof InventoryObject) {
+                    if (gameObject instanceof GameUnit) {
+                        gameObject = getObject(GridConstants.GAMEUNIT, coordinate); 
+                    }
+                    ((InventoryObject) gameObject).addItem((Item) placeObject);
+                }
+            }
+        }
+        else {
+            myArrays.get(type)[coordinate.getX()][coordinate.getY()] = placeObject;
+            if (type.equals(GridConstants.GAMEUNIT)) {                               
+                myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()] =
+                        placeObject;
+            }
+            if (type.equals(GridConstants.TILE)) {
+                removeObject(coordinate);
+            }
+        }
     }
 
     /**
      * Sets position in myObjects map to null
-     * 
      * @param coordinate Coordinate being checked
      * 
      * @return Object removed from position
      */
-    public int removeObject (String type, Coordinate coordinate) {
-        int ret = 0;
-        if(myArrays.get(type)[coordinate.getX()][coordinate.getY()] != null){
-            ret = myArrays.get(type)[coordinate.getX()][coordinate.getY()];
-            myArrays.get(type)[coordinate.getX()][coordinate.getY()] = null; 
+    public GameObject removeObject (Coordinate coordinate) {
+        GameObject removeObject = getObject(GridConstants.GAMEOBJECT, coordinate);
+        myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()] = null;
+
+        if (removeObject instanceof GameUnit) { 
+            removeObject = getObject(GridConstants.GAMEUNIT, coordinate);
+            myArrays.get(GridConstants.GAMEUNIT)[coordinate.getX()][coordinate.getY()] = null;
         }
-        return ret;
+        return removeObject;
     }
 
     /**
@@ -318,7 +325,6 @@ public class Grid implements Drawable {
 
     /**
      * Gets all of the currently active tile coordinates on the grid
-     * 
      * @return List of Coordinates of active tiles
      */
     @JsonIgnore
@@ -348,12 +354,10 @@ public class Grid implements Drawable {
         int tileHeight = height / myHeight;
         drawType(GridConstants.TILE, tileWidth, tileHeight, g);
         drawType(GridConstants.GAMEOBJECT, tileWidth, tileHeight, g);
-        drawType(GridConstants.GAMEUNIT, tileWidth, tileHeight, g);
     }
 
     /**
      * Called by draw, draws specific object on grid
-     * 
      * @param type String of the type of object being drawn
      * @param tileWidth int of tile width
      * @param tileHeight int of tile height
@@ -362,8 +366,11 @@ public class Grid implements Drawable {
     private void drawType (String type, int tileWidth, int tileHeight, Graphics g) {
         for (int i = 0; i < myArrays.get(type).length; i++) {
             for (int j = 0; j < myArrays.get(type)[i].length; j++) {
-                GameObject gameObject = getObject(type, new Coordinate(i, j));
+                GameObject gameObject = getObject(type, new Coordinate(i,j));
                 if (gameObject != null) {
+                    if (gameObject instanceof GameUnit) {
+                        gameObject = getObject(GridConstants.GAMEUNIT, new Coordinate(i, j));
+                    }
                     gameObject.draw(g, i * tileWidth, j * tileHeight, tileWidth, tileHeight);
                 }
             }
@@ -371,20 +378,21 @@ public class Grid implements Drawable {
     }
 
     @JsonIgnore
-    public GameObject[][] getObjects (String type) {
-        GameObject[][] ret = new GameObject[myWidth][myHeight];
-        for(int i = 0; i < myWidth; i++){
-            for(int j = 0; j < myHeight; j++){
-                if(myArrays.get(type)[i][j] != null){
-                    int index = myArrays.get(type)[i][j];
-                    ret[i][j] = (GameObject) myLists.get(type).get(index);
-                }
-            }
-        }
-        return ret;
+    public GameUnit[][] getGameUnits () {
+        return (GameUnit[][]) myArrays.get(GridConstants.GAMEUNIT);
+    }
+
+    @JsonIgnore
+    public Tile[][] getTiles () {
+        return (Tile[][]) myArrays.get(GridConstants.TILE);
+    }
+
+    public void setTiles (Tile[][] tiles) {
+        myArrays.put(GridConstants.TILE, tiles);
     }
 
     public Coordinate getCoordinate (double fracX, double fracY) {
+
         int gridX = (int) (fracX * myWidth);
         int gridY = (int) (fracY * myHeight);
 

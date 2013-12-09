@@ -131,8 +131,8 @@ public class PathFinding {
      */
     public static List<Tile> coordinatesToTiles (Grid grid, GameUnit unit) {
         List<Tile> tileList = new ArrayList<Tile>();
-        for (int i = 0; i < grid.getObjects(GridConstants.TILE).length; i++) {
-            for (int j = 0; j < grid.getObjects(GridConstants.TILE).length; j++) {
+        for (int i = 0; i < grid.getTiles().length; i++) {
+            for (int j = 0; j < grid.getTiles().length; j++) {
                 tileList.add((Tile) grid.getObject(GridConstants.TILE, new Coordinate(i, j)));
             }
         }
