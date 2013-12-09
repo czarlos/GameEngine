@@ -112,8 +112,6 @@ public class Grid implements Drawable {
         for (Coordinate adjacentCoordinate : adjacentCoordinates) {
             if (onGrid(adjacentCoordinate)) {
                 Tile currentTile = (Tile) getObject(GridConstants.TILE, adjacentCoordinate);
-//                System.out.println("tile: "+currentTile.getName());
-//                System.out.println("  passable: "+currentTile.isPassable(gameUnit));
                     int newRange = range - currentTile.getMoveCost();
                     if (newRange >= 0 && currentTile.isPassable(gameUnit)) {
                         GameObject currentObject =
