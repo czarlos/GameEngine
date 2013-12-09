@@ -83,7 +83,8 @@ public class Grid implements Drawable {
      */
     public void beginMove (Coordinate coordinate) {
         GameUnit gameUnit = (GameUnit) getObject(GridConstants.GAMEUNIT, coordinate);
-        findMovementRange(coordinate, gameUnit.calcTotalStat(GameObjectConstants.MOVEMENT), gameUnit);
+        findMovementRange(coordinate, gameUnit.calcTotalStat(GameObjectConstants.MOVEMENT),
+                          gameUnit);
     }
 
     /**
@@ -93,8 +94,8 @@ public class Grid implements Drawable {
      * @param newCoordinate Coordinate that unit is moving to
      * 
      */
-    public void doMove (Coordinate oldCoordinate, Coordinate newCoordinate) {        
-        GameUnit gameUnit = (GameUnit) removeObject(oldCoordinate);        
+    public void doMove (Coordinate oldCoordinate, Coordinate newCoordinate) {
+        GameUnit gameUnit = (GameUnit) removeObject(oldCoordinate);
         placeObject(GridConstants.GAMEUNIT, newCoordinate, gameUnit);
     }
 
@@ -111,21 +112,45 @@ public class Grid implements Drawable {
 
         for (Coordinate adjacentCoordinate : adjacentCoordinates) {
             if (onGrid(adjacentCoordinate)) {
-                Tile currentTile = (Tile) getObject(GridConstants.TILE, adjacentCoordinate);                
-                    int newRange = range - currentTile.getMoveCost();
-                    if (newRange >= 0 && currentTile.isPassable(gameUnit)) {
-                        GameObject currentObject =
-                                getObject(GridConstants.GAMEOBJECT, adjacentCoordinate);
-                        if (currentObject != null) {
-                            if (currentObject.isPassable(gameUnit)) {
-                                findMovementRange(adjacentCoordinate, newRange, gameUnit);
-                            }
-                        }
-                        else {
-                            currentTile.setActive(true);
+                Tile currentTile = (Tile) getObject(GridConstants.TILE, adjacentCoordinate);
+                int newRange = range - currentTile.getMoveCost();
+                if (newRange >= 0 && currentTile.isPassable(gameUnit)) {
+                    GameObject currentObject =
+                            getObject(GridConstants.GAMEOBJECT, adjacentCoordinate);
+                    if (currentObject != null) {
+                        if (currentObject.isPassable(gameUnit)) {
                             findMovementRange(adjacentCoordinate, newRange, gameUnit);
                         }
-                    }                          
+                    }
+                    else {
+                        currentTile.setActive(true);
+                        findMovementRange(adjacentCoordinate, newRange, gameUnit);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Initiates the action process
+     * 
+     * @param objectCoordinate Coordinate where the action originates
+     * @param gameUnit GameUnit that is doing the action
+     * @param combatAction CombatAction that is being used
+     */
+    public void findActionRange (Coordinate coordinate, int range, Action action) {
+        List<Coordinate> adjacentCoordinates = getAdjacentCoordinates(coordinate);
+
+        for (Coordinate adjacentCoordinate : adjacentCoordinates) {
+            if (onGrid(adjacentCoordinate)) {
+                Tile currentTile = (Tile) getObject(GridConstants.TILE, adjacentCoordinate);
+                int newRange = range - 1;
+                if (newRange >= 0) {
+                    currentTile.setActive(action
+                            .isValid((GameUnit) getObject(GridConstants.GAMEUNIT, coordinate),
+                                     getObject(GridConstants.GAMEOBJECT, adjacentCoordinate)));
+                    findActionRange(adjacentCoordinate, newRange, action);
+                }
             }
         }
     }
@@ -150,30 +175,6 @@ public class Grid implements Drawable {
      */
     public boolean isActive (String type, Coordinate coordinate) {
         return getObject(type, coordinate).isActive();
-    }
-
-    /**
-     * Initiates the action process
-     * 
-     * @param objectCoordinate Coordinate where the action originates
-     * @param gameUnit GameUnit that is doing the action
-     * @param combatAction CombatAction that is being used
-     */
-    public void findActionRange (Coordinate coordinate, int range, Action action) {
-        List<Coordinate> adjacentCoordinates = getAdjacentCoordinates(coordinate);
-
-        for (Coordinate adjacentCoordinate : adjacentCoordinates) {
-            if (onGrid(adjacentCoordinate)) {
-                Tile currentTile = (Tile) getObject(GridConstants.TILE, adjacentCoordinate);
-                int newRange = range - 1;
-                if (newRange >= 0 &&
-                    action.isValid((GameUnit) getObject(GridConstants.GAMEUNIT, coordinate),
-                                   getObject(GridConstants.GAMEOBJECT, adjacentCoordinate))) {
-                    currentTile.setActive(true);
-                    findActionRange(adjacentCoordinate, newRange, action);
-                }
-            }
-        }
     }
 
     /**
@@ -260,7 +261,7 @@ public class Grid implements Drawable {
             if (gameObject != null) {
                 if (gameObject instanceof InventoryObject) {
                     if (gameObject instanceof GameUnit) {
-                        gameObject = getObject(GridConstants.GAMEUNIT, coordinate); 
+                        gameObject = getObject(GridConstants.GAMEUNIT, coordinate);
                     }
                     ((InventoryObject) gameObject).addItem((Item) placeObject);
                 }
@@ -268,7 +269,7 @@ public class Grid implements Drawable {
         }
         else {
             myArrays.get(type)[coordinate.getX()][coordinate.getY()] = placeObject;
-            if (type.equals(GridConstants.GAMEUNIT)) {                               
+            if (type.equals(GridConstants.GAMEUNIT)) {
                 myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()] =
                         placeObject;
             }
@@ -280,6 +281,7 @@ public class Grid implements Drawable {
 
     /**
      * Sets position in myObjects map to null
+     * 
      * @param coordinate Coordinate being checked
      * 
      * @return Object removed from position
@@ -288,7 +290,7 @@ public class Grid implements Drawable {
         GameObject removeObject = getObject(GridConstants.GAMEOBJECT, coordinate);
         myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()] = null;
 
-        if (removeObject instanceof GameUnit) { 
+        if (removeObject instanceof GameUnit) {
             removeObject = getObject(GridConstants.GAMEUNIT, coordinate);
             myArrays.get(GridConstants.GAMEUNIT)[coordinate.getX()][coordinate.getY()] = null;
         }
@@ -323,6 +325,7 @@ public class Grid implements Drawable {
 
     /**
      * Gets all of the currently active tile coordinates on the grid
+     * 
      * @return List of Coordinates of active tiles
      */
     @JsonIgnore
@@ -356,6 +359,7 @@ public class Grid implements Drawable {
 
     /**
      * Called by draw, draws specific object on grid
+     * 
      * @param type String of the type of object being drawn
      * @param tileWidth int of tile width
      * @param tileHeight int of tile height
@@ -364,7 +368,7 @@ public class Grid implements Drawable {
     private void drawType (String type, int tileWidth, int tileHeight, Graphics g) {
         for (int i = 0; i < myArrays.get(type).length; i++) {
             for (int j = 0; j < myArrays.get(type)[i].length; j++) {
-                GameObject gameObject = getObject(type, new Coordinate(i,j));
+                GameObject gameObject = getObject(type, new Coordinate(i, j));
                 if (gameObject != null) {
                     if (gameObject instanceof GameUnit) {
                         gameObject = getObject(GridConstants.GAMEUNIT, new Coordinate(i, j));
