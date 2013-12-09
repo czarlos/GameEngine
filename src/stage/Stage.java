@@ -2,6 +2,7 @@ package stage;
 
 import gameObject.GameUnit;
 import grid.Grid;
+import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -112,7 +113,7 @@ public class Stage {
     }
 
     public List<GameUnit> getTeamUnits (String teamName) {
-        GameUnit[][] units = myGrid.getGameUnits();
+        GameUnit[][] units = (GameUnit[][]) myGrid.getObjects(GridConstants.GAMEUNIT);
         List<GameUnit> ret = new ArrayList<GameUnit>();
 
         for (int i = 0; i < units.length; i++) {
@@ -122,9 +123,6 @@ public class Stage {
                 }
             }
         }
-
-        ret = new ArrayList<GameUnit>(new HashSet<GameUnit>(ret));
-
         return ret;
     }
 

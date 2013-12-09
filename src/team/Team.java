@@ -1,6 +1,5 @@
 package team;
 
-import gameObject.UnitFactory;
 import java.util.ArrayList;
 import java.util.List;
 import stage.Condition;
@@ -66,24 +65,6 @@ public class Team extends Customizable {
     // should ONLY be called by JSON deserializer and Stage
     public void setName (String name) {
         myName = name;
-    }
-
-    /**
-     * Gets a list of the factories that the team has in its game units.
-     * 
-     * @return
-     */
-    @JsonIgnore
-    public List<UnitFactory> getFactories () {
-        List<UnitFactory> factoryList = new ArrayList<UnitFactory>();
-        /*
-         * for (GameObject obj : myGameUnits) {
-         * if (obj instanceof UnitFactory) {
-         * factoryList.add((UnitFactory) obj);
-         * }
-         * }
-         */
-        return factoryList;
     }
 
     public int getGold () {

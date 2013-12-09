@@ -38,11 +38,7 @@ public class CombatAction extends Action {
 
         // Creates a normalized output based on max possible difference in favor
         // of attacker
-        netStat =
-                ((offensiveStatSum - defensiveStatSum) >= 0 ? (offensiveStatSum - defensiveStatSum)
-                                                           : 0)
-                        / (offensiveStatSum);
-
+        netStat = ((offensiveStatSum - defensiveStatSum) >= 0 ? (offensiveStatSum - defensiveStatSum)  : 0) / (offensiveStatSum);
         return netStat;
     }
 

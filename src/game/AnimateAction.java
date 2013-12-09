@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.image.*;
 import java.awt.event.*;
 import javax.imageio.*;
+import utils.ImageUtilities;
 import java.io.*;
 
 
@@ -21,6 +22,7 @@ public class AnimateAction {
         new AnimateAction(myEnemyPath, myEnemyPath);
     }
 
+    static int myImageSize = 40;
     static String myUnitPath;
     static String myEnemyPath;
 
@@ -53,7 +55,9 @@ public class AnimateAction {
         public AnimationPane (final JFrame frame, String unitPath, String enemyPath) {
             try {
                 unit = ImageIO.read(new File(unitPath));
+                unit = ImageUtilities.getScaledImage(unit, myImageSize, myImageSize);
                 enemy = ImageIO.read(new File(enemyPath));
+                enemy = ImageUtilities.getScaledImage(enemy, myImageSize, myImageSize);
                 Timer timer = new Timer(5, new ActionListener() {
                     @Override
                     public void actionPerformed (ActionEvent e) {

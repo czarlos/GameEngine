@@ -23,7 +23,7 @@ public class TileTableModel extends GameTableModel {
      * Column names: Name, Graphic, Move Cost, Stats
      */
     public TileTableModel (EditorData ED) {
-        String[] names = { "Name", "Graphic", "Move Cost", "Stats" };
+        String[] names = { "Name", "Graphic", "Move Cost", "Stats", "Passables" };
         myName = GridConstants.TILE;
         setColumnNames(names);
         myED = ED;
@@ -41,12 +41,14 @@ public class TileTableModel extends GameTableModel {
             array[1] = new File(t.getImagePath());
             array[2] = t.getMoveCost();
             array[3] = t.getStats();
-            array[4] = i;
+            array[4] = t.getPassableList();
+            array[5] = i;
 
             addNewRow(array);           
         }
     }
     
+    @SuppressWarnings("unchecked")
     @Override
     public List<?> getObject () {
         List<Tile> list = new ArrayList<Tile>();
@@ -56,7 +58,8 @@ public class TileTableModel extends GameTableModel {
             t.setImagePath((String) ((File) row[1]).getPath());
             t.setMoveCost((int) row[2]);
             t.setStats((Stats) row[3]);
-            t.setLastIndex((int) row[4]);
+            t.setPassableList((List<String>) row[4]);
+            t.setLastIndex((int) row[5]);
             list.add(t);
         }
 
@@ -71,7 +74,10 @@ public class TileTableModel extends GameTableModel {
         array[1] = new File("resources/grass.png");
         array[2] = 1;
         array[3] = new Stats();
-        array[4] = -1;
+        List<String> list = new ArrayList<String>();
+        list.add(GridConstants.DEFAULT_PASS_EVERYTHING);
+        array[4] = list;
+        array[5] = -1;
 
         return array;
     }

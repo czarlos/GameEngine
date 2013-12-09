@@ -1,6 +1,7 @@
 package controllers;
 
 import gameObject.GameObject;
+import gameObject.GameUnit;
 import gameObject.InventoryObject;
 import gameObject.item.Item;
 import grid.Coordinate;
@@ -50,18 +51,30 @@ public class WorldManager extends Manager {
     }
 
     /**
-     * Teams are stage specific
+     * Teams are stage specific and so have to be different
      * @param gtm
      */
     public void setData (GameTableModel gtm) {
-        if(gtm.getName() != GridConstants.TEAM) {
-            for(Stage s: myStages){
-                myEditorData.setData(gtm, s);
-            }
+        for(Stage s: myStages){
+            myEditorData.setData(gtm, s);
         }
-        else {
-            myEditorData.setData(gtm, myActiveStage);
-        }
+    }
+    
+    /**
+     * Teams are stage specific
+     */
+    @JsonIgnore
+    public GameTableModel getTeamTableModel (){
+        GameTableModel gtm = myEditorData.getTableModel(GridConstants.TEAM);
+        gtm.loadObject(myActiveStage.getTeams());
+        
+        return gtm;
+    }
+    
+    @JsonIgnore
+    @SuppressWarnings("unchecked")
+    public void setTeamData (GameTableModel gtm) {
+        myEditorData.syncTeams((List<Team>) gtm.getObject(), myActiveStage);
     }
 
     @JsonIgnore
@@ -188,7 +201,22 @@ public class WorldManager extends Manager {
      */
     public void place (String type, int objectID, Coordinate coordinate) {
         Object object = myEditorData.getObject(type, objectID);
-        myActiveStage.getGrid().placeObject(type, coordinate, (Customizable) object);
+        if(type.equals(GridConstants.ITEM)){
+            GameObject a = myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, coordinate);
+            GameObject b = myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, coordinate);
+            if(a instanceof InventoryObject || b instanceof InventoryObject){
+                if(a != null){
+                    ((InventoryObject) a).addItem((Item) object); 
+                }
+                else{
+                    ((InventoryObject) b).addItem((Item) object); 
+                }
+            }
+        }
+        else{
+            myActiveStage.getGrid().placeObject(type, coordinate, objectID);    
+        }
+        
         myEditorData.refreshObjects(type);
     }
 

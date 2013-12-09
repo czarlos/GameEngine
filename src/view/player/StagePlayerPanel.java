@@ -9,7 +9,11 @@ import controller.editor.GridController;
 import controllers.GameManager;
 import view.GridWithSide;
 
-
+/**
+ * TODO: Add documentation to this.
+ * 
+ *
+ */
 @SuppressWarnings("serial")
 public class StagePlayerPanel extends GridWithSide {
     private JScrollPane mySidePanel;

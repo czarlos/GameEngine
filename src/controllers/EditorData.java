@@ -1,5 +1,6 @@
 package controllers;
 
+import gameObject.GameObject;
 import gameObject.GameUnit;
 import gameObject.IStats;
 import gameObject.Stat;
@@ -109,8 +110,6 @@ public class EditorData {
 
     @SuppressWarnings("unchecked")
     public void setData (GameTableModel gtm, Stage activeStage) {
-        // need to do this for all data types. tile, gameobject,
-        // gameunit, item, team, action
         switch (gtm.getName()) {
             case GridConstants.ACTION:
                 syncActions((List<Object>) gtm.getObject(), activeStage);
@@ -118,16 +117,17 @@ public class EditorData {
             case GridConstants.MASTERSTATS:
                 syncStats((List<Object>) gtm.getObject(), activeStage);
                 break;
-            case GridConstants.TEAM:
-                syncTeams((List<Team>) gtm.getObject(), activeStage);
+            case GridConstants.TILE:
+            case GridConstants.GAMEOBJECT:
+            case GridConstants.GAMEUNIT:
+                activeStage.getGrid().setList(gtm.getName(), (List<GameObject>) gtm.getObject());
+            case GridConstants.ITEM:
+                // TODO: WRITE THIS.
                 break;
             default:
                 break;
         }
-
-        if(gtm.getName() != GridConstants.TEAM){
             myDataMap.put(gtm.getName(), (List<?>) gtm.getObject());
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -135,7 +135,6 @@ public class EditorData {
         List<String> fullList = getNames(GridConstants.ACTION);
         List<String> removedNames = getNames(GridConstants.ACTION);
         List<GameUnit> editorUnitList = (List<GameUnit>) get(GridConstants.GAMEUNIT);
-        GameUnit[][] placedUnits = activeStage.getGrid().getGameUnits();
         Map<String, String> nameTranslationMap = new HashMap<>();
 
         for (Object action : newActions) {
@@ -151,14 +150,6 @@ public class EditorData {
         for (GameUnit unit : editorUnitList) {
             unit.syncStatsWithMaster(nameTranslationMap, removedNames);
         }
-
-        for (int i = 0; i < placedUnits.length; i++) {
-            for (int j = 0; j < placedUnits[i].length; j++) {
-                if (placedUnits[i][j] != null) {
-                    placedUnits[i][j].syncStatsWithMaster(nameTranslationMap, removedNames);
-                }
-            }
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -166,8 +157,7 @@ public class EditorData {
         List<String> fullList = getNames(GridConstants.MASTERSTATS);
         List<String> removedNames = getNames(GridConstants.MASTERSTATS);
         List<IStats> editorUnitList = (List<IStats>) get(GridConstants.GAMEUNIT);
-        IStats[][] placedUnits = activeStage.getGrid().getGameUnits();
-        IStats[][] placedTiles = activeStage.getGrid().getTiles();
+        
         Map<String, String> nameTranslationMap = new HashMap<>();
         List<IStats> objectEditList = new ArrayList<>();
 
@@ -183,18 +173,6 @@ public class EditorData {
 
         for (IStats unit : editorUnitList) {
             objectEditList.addAll(((GameUnit) unit).getItems());
-        }
-
-        for (int i = 0; i < placedUnits.length; i++) {
-            for (int j = 0; j < placedUnits[i].length; j++) {
-                objectEditList.add(placedTiles[i][j]);
-                if (placedUnits[i][j] != null) {
-                    objectEditList.add(placedUnits[i][j]);
-                    for (Item item : ((GameUnit) placedUnits[i][j]).getItems()) {
-                        objectEditList.add(item);
-                    }
-                }
-            }
         }
 
         objectEditList.addAll(editorUnitList);
@@ -265,6 +243,7 @@ public class EditorData {
         List<String> ret = new ArrayList<String>();
         switch (myType) {
             case GridConstants.GAMEOBJECT:
+            case GridConstants.TILE:
                 ret.add(GridConstants.DEFAULT_PASS_EVERYTHING);
                 ret.addAll(getNames(GridConstants.GAMEUNIT));
                 break;

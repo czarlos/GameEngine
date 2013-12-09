@@ -19,7 +19,7 @@ import controllers.Manager;
 @SuppressWarnings("serial")
 public class PlayerView extends GameView {
     protected GameManager myGameManager;
-    protected static final String DEFAULT_GAME_IN_PROGRESS_SAVE_LOCATION="gamesInProgress";
+    protected static final String DEFAULT_GAME_IN_PROGRESS_SAVE_LOCATION = "gamesInProgress";
 
     public PlayerView () {
     }
@@ -65,31 +65,31 @@ public class PlayerView extends GameView {
         });
 
         fileMenu.add(saveGame);
-        
-        JMenu editMenu=new JMenu("Edit");
+
+        JMenu editMenu = new JMenu("Edit");
         menuBar.add(editMenu);
-        JMenuItem loadInEdit=new JMenuItem("Load Game in Editor");
-        loadInEdit.addActionListener(new ActionListener(){
-            
+        JMenuItem loadInEdit = new JMenuItem("Load Game in Editor");
+        loadInEdit.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed (ActionEvent e) {
-                new EditorFrame(myGameManager){
+                new EditorFrame(myGameManager) {
                     private JComponent myGamePanelToRefresh;
-                    
+
                     @Override
-                    public void windowClosing(WindowEvent e){
+                    public void windowClosing (WindowEvent e) {
                         dispose();
                         myGamePanelToRefresh.repaint();
                     }
-                    
-                    public EditorFrame init(JComponent toRefresh){
-                        myGamePanelToRefresh=toRefresh;
+
+                    public EditorFrame init (JComponent toRefresh) {
+                        myGamePanelToRefresh = toRefresh;
                         return this;
                     }
                 }.init(myGame);
-                
+
             }
-            
+
         });
         editMenu.add(loadInEdit);
 
