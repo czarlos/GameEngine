@@ -383,18 +383,12 @@ public class Grid implements Drawable {
         Object[][] customizableArray = myArrays.get(type);
         List<Customizable> customizableList = new ArrayList<>();
 
-        System.out.println("Type: " + type);
-
         for (int i = 0; i < customizableArray.length; i++) {
             for (int j = 0; j < customizableArray[i].length; j++) {
                 if (customizableArray[i][j] != null) {
                     customizableList.add((Customizable) customizableArray[i][j]);
                 }
             }
-        }
-
-        for (Customizable item : customizableList) {
-            System.out.println(item.getName());
         }
 
         return customizableList;
