@@ -91,6 +91,7 @@ public class AI2 {
     private void doAIAction (GameUnit unit) {
         Coordinate unitCoordinate = myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit);
         List<String> unitActions = myManager.getActionNames(unitCoordinate);
+        if (unitActions == null ) return;
         for (String unitAction : unitActions) {
             Action currentAction = ((GameManager) myManager).getAction(unitAction);
             myGrid.findActionRange(unitCoordinate, currentAction.getActionRange(),
