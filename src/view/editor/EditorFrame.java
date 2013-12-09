@@ -46,7 +46,6 @@ public class EditorFrame extends GameView {
     private GridEditorController myGridController;
     protected WorldManager myWorldManager;
     private TableDialog myDialog;
-    protected String mySavesLocation = "saves";
 
     public EditorFrame () {
         super("Omega_Nu Game Editor");
@@ -96,7 +95,7 @@ public class EditorFrame extends GameView {
         });
         loadGame.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
-                loadGame(loadGame(mySavesLocation));
+                loadGame(loadGame(DEFAULT_SAVE_LOCATION));
             }
         });
         saveGame.addActionListener(new ActionListener() {
@@ -474,12 +473,26 @@ public class EditorFrame extends GameView {
         }
     }
 
+    /**
+     * Saves JSON representing current game to the default save folder.
+     * Automatically sets the current stage to the first one so games will 
+     * always be played from the beginning.
+     */
     protected void saveGame () {
-        saveGame("saves");
+        saveGame(DEFAULT_SAVE_LOCATION);
     }
 
+    /**
+     * Saves JSON representing current game to the specified folder.
+     * Automatically sets the current stage to the first one so games will 
+     * always be played from the beginning.
+     * @param location Folder to save Json file in.
+     */
     protected void saveGame (String location) {
-        myWorldManager.saveGame(location);
+        JSONParser clone=new JSONParser();
+        WorldManager toSave=clone.deepClone(myWorldManager, WorldManager.class);
+        toSave.setActiveStage(0);
+        toSave.saveGame(location);
     }
 
 }
