@@ -65,6 +65,8 @@ public abstract class GameView extends JFrame implements WindowListener {
             remove(myGame);
         }
         add(myBackground);
+        revalidate();
+        repaint();
     }
     
     protected void showGame(){
@@ -72,6 +74,8 @@ public abstract class GameView extends JFrame implements WindowListener {
             remove(myBackground);
             add(myGame);
         }
+        revalidate();
+        repaint();
     }
 
     protected WorldManager loadGame (String folder) {
