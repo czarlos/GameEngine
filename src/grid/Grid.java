@@ -31,7 +31,8 @@ public class Grid implements Drawable {
     @JsonProperty
     private int myHeight;
 
-    private static final String[] MYTYPES = {GridConstants.TILE, GridConstants.GAMEOBJECT, GridConstants.GAMEUNIT};
+    // for editing synchronization
+    public static final String[] MYTYPES = {GridConstants.TILE, GridConstants.GAMEOBJECT, GridConstants.GAMEUNIT};
     protected static final int TILE_WIDTH = 35;
     protected static final int TILE_HEIGHT = 35;
     
@@ -39,7 +40,6 @@ public class Grid implements Drawable {
     private Map<String, Integer[][]> myArrays;
     @JsonProperty
     private Map<String, List<GameObject>> myLists;
-
 
     /**
      * Creates a grid with the width and height set Only for use by deserializer

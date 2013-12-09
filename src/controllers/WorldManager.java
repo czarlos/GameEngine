@@ -123,6 +123,7 @@ public class WorldManager extends Manager {
 
     public void loadEditorData (String name) {
         myEditorData.loadData(name);
+        updateEditorData();
     }
 
     @JsonIgnore

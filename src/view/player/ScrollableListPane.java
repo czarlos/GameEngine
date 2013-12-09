@@ -10,7 +10,7 @@ import javax.swing.SwingConstants;
 
 
 /**
- * A scrollable pane for info panels to extend
+ * A scrollable pane for game info panels to extend
  */
 
 @SuppressWarnings("serial")

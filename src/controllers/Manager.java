@@ -4,6 +4,7 @@ import gameObject.action.Action;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import grid.Coordinate;
+import grid.Grid;
 import grid.GridConstants;
 import grid.Tile;
 import java.awt.Dimension;
@@ -60,8 +61,19 @@ public abstract class Manager {
         activeEditIDList = m.activeEditIDList;
         myPhaseCount = m.myPhaseCount;
         myActiveTeam = m.myActiveTeam;
+        updateEditorData();
     }
 
+    @SuppressWarnings("unchecked")
+    protected void updateEditorData () {
+        for(Stage s: myStages){
+            s.getGrid();
+            for(String type: Grid.MYTYPES){
+                s.getGrid().setList(type, (List<GameObject>) myEditorData.get(type));
+            }
+        }
+    }
+    
     public void setGameName (String gameName) {
         myGameName = gameName;
     }

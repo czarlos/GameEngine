@@ -12,6 +12,7 @@ import controller.editor.GridController;
 /**
  * Panel to display tabs that are shown on the side of the player.
  */
+
 @SuppressWarnings("serial")
 public class SelectedInfoPanel extends JTabbedPane {
     protected GridController myController;
