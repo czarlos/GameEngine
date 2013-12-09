@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import team.Team;
 import view.player.PlayerView;
+import game.AI;
 import game.AI2;
 import gameObject.Chest;
 import gameObject.GameObject;
