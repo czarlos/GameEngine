@@ -7,6 +7,7 @@ import gameObject.Stat;
 import gameObject.action.Action;
 import gameObject.item.Item;
 import grid.GridConstants;
+import grid.Tile;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -59,7 +60,7 @@ public class EditorData {
     public void loadData (String name) {
         myDataMap =
                 myParser.createObjectFromFile("userLibraries/" + name,
-                                      new HashMap<String, List<?>>().getClass());
+                                              new HashMap<String, List<?>>().getClass());
     }
 
     /**
@@ -116,7 +117,7 @@ public class EditorData {
         }
         return 0;
     }
-    
+
     @SuppressWarnings("unchecked")
     public void setData (GameTableModel gtm, Stage activeStage) {
         switch (gtm.getName()) {
@@ -127,6 +128,7 @@ public class EditorData {
                 syncStats((List<Object>) gtm.getObject(), activeStage);
                 break;
             case GridConstants.TILE:
+                syncTiles((List<Tile>) gtm.getObject(), activeStage);
                 break;
             case GridConstants.GAMEOBJECT:
             case GridConstants.GAMEUNIT:
@@ -135,7 +137,7 @@ public class EditorData {
             default:
                 break;
         }
-            myDataMap.put(gtm.getName(), (List<?>) gtm.getObject());
+        myDataMap.put(gtm.getName(), (List<?>) gtm.getObject());
     }
 
     @SuppressWarnings("unchecked")
@@ -165,7 +167,7 @@ public class EditorData {
         List<String> fullList = getNames(GridConstants.MASTERSTATS);
         List<String> removedNames = getNames(GridConstants.MASTERSTATS);
         List<IStats> editorUnitList = (List<IStats>) get(GridConstants.GAMEUNIT);
-        
+
         Map<String, String> nameTranslationMap = new HashMap<>();
         List<IStats> objectEditList = new ArrayList<>();
 
@@ -212,6 +214,39 @@ public class EditorData {
         }
 
         return ret;
+    }
+
+    public void syncTiles (List<Tile> newList, Stage activeStage) {
+        List<Tile> fullList = (List<Tile>) get(GridConstants.TILE);
+        List<Tile> removed = new ArrayList<Tile>((List<Tile>) get(GridConstants.TILE));
+        Tile[][] tiles = activeStage.getGrid().getTiles();
+        // replace all the tiles with the same ID
+        for (Tile t : newList) {
+            if (t.getLastIndex() > -1) {
+                Tile prevTile = fullList.get(t.getLastIndex());
+                for (int i = 0; i < tiles.length; i++) {
+                    for (int j = 0; j < tiles[0].length; j++) {
+                        if (tiles[i][j].getName().equals(prevTile.getName())) {
+                            tiles[i][j] = t;
+                        }
+                    }
+
+                }
+                removed.remove(prevTile);
+            }
+        }
+
+        // if removed, set Tile to default
+        for (Tile t : removed) {
+            for (int i = 0; i < tiles.length; i++) {
+                for (int j = 0; j < tiles[0].length; j++) {
+                    if (t.getName().equals(tiles[i][j].getName())) {
+                        tiles[i][j] = fullList.get(0);
+                    }
+                }
+
+            }
+        }
     }
 
     // different because team data is in stage
