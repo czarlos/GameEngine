@@ -46,7 +46,7 @@ public class GameStartView extends JFrame {
     }
 
     protected void initializeWindow () {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
         setSize(800, 600);
         setVisible(true);

@@ -4,7 +4,6 @@ import gameObject.action.Action;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import grid.Coordinate;
-import grid.Grid;
 import grid.GridConstants;
 import grid.Tile;
 import java.awt.Dimension;
@@ -105,6 +104,7 @@ public abstract class Manager {
      * 
      * @param stages List of Stages to set
      */
+    @JsonIgnore
     public void setStages (List<Stage> stages) {
         myStages = stages;
     }

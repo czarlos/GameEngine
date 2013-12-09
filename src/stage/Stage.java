@@ -31,6 +31,7 @@ public class Stage {
     private String myName;
     private String preText;
     private String postText;
+    @JsonProperty
     private List<Team> myTeams;
     private Team myWinningTeam;
     
@@ -62,16 +63,19 @@ public class Stage {
         return false;
     }
 
+    @JsonIgnore
     public Team getTeam (int teamID) {
         if (teamID < myTeams.size()) { return myTeams.get(teamID); }
         return null;
     }
 
     // for use by editor
+    @JsonIgnore
     public List<Team> getTeams () {
         return myTeams;
     }
 
+    @JsonIgnore
     public void setTeams (List<Team> teams) {
         myTeams = teams;
     }
