@@ -94,7 +94,7 @@ public class Grid implements Drawable {
      * 
      */
     public void doMove (Coordinate oldCoordinate, Coordinate newCoordinate) {        
-        GameUnit gameUnit = (GameUnit) removeObject(GridConstants.GAMEUNIT, oldCoordinate);        
+        GameUnit gameUnit = (GameUnit) removeObject(GridConstants.GAMEOBJECT, oldCoordinate);        
         placeObject(GridConstants.GAMEUNIT, newCoordinate, gameUnit);
     }
 
@@ -271,7 +271,7 @@ public class Grid implements Drawable {
                         placeObject;
             }
             if (type.equals(GridConstants.TILE)) {
-                removeObject(type, coordinate);
+                removeObject(GridConstants.GAMEOBJECT, coordinate);
             }
         }
     }
@@ -287,8 +287,9 @@ public class Grid implements Drawable {
         GameObject removeObject = getObject(type, coordinate);
         myArrays.get(type)[coordinate.getX()][coordinate.getY()] = null;
 
-        if (type.equals(GridConstants.GAMEUNIT)) {            
-            myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()] = null;
+        if (removeObject instanceof GameUnit) { 
+            removeObject = getObject(GridConstants.GAMEUNIT, coordinate);
+            myArrays.get(GridConstants.GAMEUNIT)[coordinate.getX()][coordinate.getY()] = null;
         }
         return removeObject;
     }
