@@ -70,6 +70,7 @@ public class MakeDefaults {
         Grass.setStats(defaultStats);
         Grass.setActive(false);
         Grass.setMoveCost(1);
+        Grass.setPassableList(passableList);        
 
         grid.Tile Grass1 = new grid.Tile();
         Grass1.setName("Short Grass");
@@ -77,6 +78,7 @@ public class MakeDefaults {
         Grass1.setStats(defaultStats);
         Grass1.setActive(false);
         Grass1.setMoveCost(1);
+        Grass1.setPassableList(passableList);
 
         grid.Tile Water = new grid.Tile();
         Water.setName("Water");
