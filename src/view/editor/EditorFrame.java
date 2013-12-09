@@ -273,8 +273,20 @@ public class EditorFrame extends GameView {
         });
 
         JMenu gameMenu = new JMenu("Game");
-
+        
         stageMenu.setMnemonic(KeyEvent.VK_S);
+        
+        JMenuItem rename = new JMenuItem("Rename Game");
+        rename.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                renameGame();
+            }
+            
+        });
+        gameMenu.add(rename);
+        
         JMenuItem setMaster = new JMenuItem("Set Master Stats");
         setMaster
                 .addActionListener(new GamePrefListener(myWorldManager, GridConstants.MASTERSTATS));
@@ -343,6 +355,22 @@ public class EditorFrame extends GameView {
         }
 
         
+    }
+    
+    private void renameGame(){
+        JPanel renamePanel = new JPanel();
+        renamePanel.setLayout(new GridLayout(1, 2));
+        JLabel renameameLabel = new JLabel("New Game Name:");
+        JTextField gameNameTextField = new JTextField(25);
+        renamePanel.add(renameameLabel);
+        renamePanel.add(gameNameTextField);
+        int value = JOptionPane.showConfirmDialog(this, renamePanel,
+                                                  "Rename Game", JOptionPane.OK_CANCEL_OPTION);
+        if (value == JOptionPane.OK_OPTION) {
+            String newName = gameNameTextField.getText();
+            myWorldManager.setGameName(newName);
+            this.setTitle(newName);
+        }
     }
     
     private void loadEditorLibrary(){
