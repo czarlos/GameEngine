@@ -46,10 +46,9 @@ public class Item extends Customizable implements IStats {
     }
 
     public void removeAction (String action) {
-        for (int i = 0; i < myActions.size(); i++) {
-            if (myActions.get(i).equals(action)) {
-                myActions.remove(i);
-            }
+        int removeIndex = myActions.indexOf(action);
+        if (removeIndex > -1) {
+            myActions.remove(removeIndex);
         }
     }
 
@@ -63,7 +62,6 @@ public class Item extends Customizable implements IStats {
 
     public void changeStatName (String oldName, String newName) {
         myStats.changeName(oldName, newName);
-
     }
 
     @JsonIgnore
@@ -95,5 +93,15 @@ public class Item extends Customizable implements IStats {
     public int hashCode () {
         final int prime = 31;
         return myName.length() * prime;
+    }
+
+    public boolean containsAction (String action) {
+        return myActions.contains(action);
+    }
+
+    public void changeActionName (String oldName, String newName) {
+        if (myActions.remove(oldName)) {
+            myActions.add(newName);
+        }
     }
 }
