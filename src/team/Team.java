@@ -1,6 +1,5 @@
 package team;
 
-import gameObject.UnitFactory;
 import java.util.ArrayList;
 import java.util.List;
 import stage.Condition;
@@ -25,7 +24,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Team extends Customizable {
     private int myGold;
     private boolean isHuman;
-    private int lastEditingID;
 
     @JsonProperty
     private WinCondition myWinCondition;
@@ -37,7 +35,6 @@ public class Team extends Customizable {
         myGold = 0;
         myName = name;
         myWinCondition = new WinCondition();
-        lastEditingID = 0;
     }
 
     public Team (String teamName, boolean humanity) {
@@ -70,24 +67,6 @@ public class Team extends Customizable {
         myName = name;
     }
 
-    /**
-     * Gets a list of the factories that the team has in its game units.
-     * 
-     * @return
-     */
-    @JsonIgnore
-    public List<UnitFactory> getFactories () {
-        List<UnitFactory> factoryList = new ArrayList<UnitFactory>();
-        /*
-         * for (GameObject obj : myGameUnits) {
-         * if (obj instanceof UnitFactory) {
-         * factoryList.add((UnitFactory) obj);
-         * }
-         * }
-         */
-        return factoryList;
-    }
-
     public int getGold () {
         return myGold;
     }
@@ -104,13 +83,5 @@ public class Team extends Customizable {
     @JsonProperty("humanity")
     public void setIsHuman (boolean humanity) {
         isHuman = humanity;
-    }
-
-    public void setEditingID (int ID) {
-        lastEditingID = ID;
-    }
-
-    public int getLastEditingID () {
-        return lastEditingID;
     }
 }

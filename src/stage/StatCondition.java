@@ -5,7 +5,7 @@ import java.util.List;
 
 
 /**
- * Returns true if a unit of a certain "affiliation" has achieved a stat of
+ * Returns true if the unit of a certain "affiliation" has achieved a cumulative stat of
  * "statType" higher than "value"
  * 
  * @author Leevi
@@ -51,10 +51,11 @@ public class StatCondition extends Condition {
     @Override
     boolean isFulfilled (Stage stage) {
         List<GameUnit> theTeam = stage.getTeamUnits(myAffiliation);
+        int total = 0;
         for (GameUnit gu : theTeam) {
-            if (gu.getStat(myStatType) > myValue) { return true; }
+            total += gu.getTotalStat(myStatType);
         }
-        return false;
+        return total > myValue;
     }
 
     @Override

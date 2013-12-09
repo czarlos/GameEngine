@@ -7,6 +7,7 @@ import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import gameObject.IStats;
 import gameObject.Stat;
 import gameObject.Stats;
 
@@ -21,7 +22,7 @@ import gameObject.Stats;
  * 
  */
 @JsonAutoDetect
-public class Item extends Customizable {
+public class Item extends Customizable implements IStats {
     @JsonProperty
     private List<String> myActions;
     private Stats myStats;
@@ -78,6 +79,10 @@ public class Item extends Customizable {
         myStats = new Stats(myStats);
     }
 
+    public boolean containsStat (String name) {
+        return myStats.contains(name);
+    }
+
     @Override
     public boolean equals (Object other) {
         if (other instanceof Customizable) {
@@ -90,11 +95,5 @@ public class Item extends Customizable {
     public int hashCode () {
         final int prime = 31;
         return myName.length() * prime;
-    }
-
-    public void syncStatsWithMaster (Map<String, String> nameTranslationMap,
-                                     List<String> removedNames) {
-        // TODO Auto-generated method stub
-
     }
 }

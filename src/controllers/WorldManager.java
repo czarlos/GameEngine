@@ -2,12 +2,15 @@ package controllers;
 
 import gameObject.GameObject;
 import gameObject.InventoryObject;
+import gameObject.item.Item;
 import grid.Coordinate;
 import grid.GridConstants;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import stage.Stage;
 import team.Team;
 import view.Customizable;
@@ -46,8 +49,32 @@ public class WorldManager extends Manager {
         return myEditorData.getTableModel(type);
     }
 
+    /**
+     * Teams are stage specific and so have to be different
+     * 
+     * @param gtm
+     */
     public void setData (GameTableModel gtm) {
-        myEditorData.setData(gtm, myActiveStage);
+        for (Stage s : myStages) {
+            myEditorData.setData(gtm, s);
+        }
+    }
+
+    /**
+     * Teams are stage specific
+     */
+    @JsonIgnore
+    public GameTableModel getTeamTableModel () {
+        GameTableModel gtm = myEditorData.getTableModel(GridConstants.TEAM);
+        gtm.loadObject(myActiveStage.getTeams());
+
+        return gtm;
+    }
+
+    @JsonIgnore
+    @SuppressWarnings("unchecked")
+    public void setTeamData (GameTableModel gtm) {
+        myEditorData.syncTeams((List<Team>) gtm.getObject(), myActiveStage);
     }
 
     @JsonIgnore
@@ -82,6 +109,20 @@ public class WorldManager extends Manager {
                 (InventoryObject) myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT,
                                                                     coordinate);
         io.setItemAmounts((Map<String, Integer>) gtm.getObject());
+        
+        Set<Item> set = new HashSet<Item>();
+        for(String s: ((Map<String, Integer>) gtm.getObject()).keySet()){
+            set.add((Item) myEditorData.getObject(GridConstants.ITEM, s));
+        }
+        io.setItems(set);
+    }
+    
+    public void saveEditorData (String name) {
+        myEditorData.saveData(name);
+    }
+
+    public void loadEditorData (String name) {
+        myEditorData.loadData(name);
     }
 
     @JsonIgnore
@@ -189,5 +230,5 @@ public class WorldManager extends Manager {
 
         return myList.get(ID).getImage();
     }
-    
+
 }

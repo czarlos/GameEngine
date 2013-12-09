@@ -27,22 +27,18 @@ public class CombatAction extends Action {
         double netStat = 0;
 
         for (String statName : myInitiatorStatWeights.getStatNames()) {
-            offensiveStatSum += initiator.getTotalStat(statName)
+            offensiveStatSum += initiator.calcTotalStat(statName)
                                 * myInitiatorStatWeights.getStatValue(statName);
         }
 
         for (String statName : myReceiverStatWeights.getStatNames()) {
-            defensiveStatSum += receiver.getTotalStat(statName)
+            defensiveStatSum += receiver.calcTotalStat(statName)
                                 * myReceiverStatWeights.getStatValue(statName);
         }
 
         // Creates a normalized output based on max possible difference in favor
         // of attacker
-        netStat =
-                ((offensiveStatSum - defensiveStatSum) >= 0 ? (offensiveStatSum - defensiveStatSum)
-                                                           : 0)
-                        / (offensiveStatSum);
-
+        netStat = ((offensiveStatSum - defensiveStatSum) >= 0 ? (offensiveStatSum - defensiveStatSum)  : 0) / (offensiveStatSum);
         return netStat;
     }
 

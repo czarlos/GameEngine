@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneLayout;
 import view.player.SelectedInfoPanel;
+import controller.editor.GridEditorController;
 import controllers.WorldManager;
 
 
@@ -17,11 +18,12 @@ public class StageSidePanel extends JPanel {
     private WorldManager myWorldManager;
     private final String[] defaultTypes = GridConstants.DEFAULTTABTYPES;
     private SelectedInfoPanel myInfoPanel;
+    private GridEditorController myController;
     
-    public StageSidePanel(WorldManager wm){
+    public StageSidePanel(WorldManager wm, GridEditorController controller){
         setPreferredSize(new Dimension(225,500));
         myWorldManager = wm;
-        
+        myController = controller;
 
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
@@ -31,19 +33,16 @@ public class StageSidePanel extends JPanel {
     public void initSubPanels () {
         StageEditorPanel panel = new StageEditorPanel(myWorldManager,
                                                       defaultTypes);
-
+        myController.addEditorPanel(panel);
         add(panel);
         myInfoPanel = new SelectedInfoEditorPanel();
 
-        JScrollPane scroll = new JScrollPane(myInfoPanel);
-        scroll.setLayout(new ScrollPaneLayout());
-        scroll.setMinimumSize(new Dimension(225,200));
+        myInfoPanel.setMinimumSize(new Dimension(225,200));
 
-        add(scroll);
+        add(myInfoPanel);
     }
 
     public void displayInformation (Coordinate c) {
-        myInfoPanel.removeAll();
         myInfoPanel.makeTabs(myWorldManager.getActionNames(c),
                              myWorldManager.generateInfoList(GridConstants.TILE, c),
                              myWorldManager.generateInfoList(GridConstants.GAMEOBJECT, c));

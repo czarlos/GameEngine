@@ -11,7 +11,7 @@ import controllers.EditorData;
 public class ItemsTableModel extends GameTableModel {
 
     /**
-     * Column names: Key, Value
+     * Column names: Item, Amount
      */
     public ItemsTableModel (EditorData ed) {
         String[] names = { "Item", "Amount" };
@@ -31,7 +31,8 @@ public class ItemsTableModel extends GameTableModel {
             addNewRow(row);
         }
     }
-
+    
+    @Override
     public Object getObject () {
         Map<String, Integer> myMap = new HashMap<String, Integer>();
         for (Object[] row : myList) {
@@ -42,7 +43,6 @@ public class ItemsTableModel extends GameTableModel {
             else {
                 myMap.put(key, (int) row[1]);
             }
-
         }
 
         return myMap;

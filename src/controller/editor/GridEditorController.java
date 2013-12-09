@@ -8,7 +8,9 @@ import controllers.WorldManager;
 import dialog.dialogs.TableDialog;
 import dialog.dialogs.tableModels.GameTableModel;
 import grid.Coordinate;
+import grid.GridConstants;
 import view.canvas.GridMouseListener;
+import view.editor.StageEditorPanel;
 import view.editor.StageSidePanel;
 
 
@@ -17,12 +19,14 @@ public class GridEditorController implements GridMouseListener {
     private WorldManager myWM;
     private JTabbedPane myStagePanels;
     private ArrayList<StageSidePanel> myPanelList;
+    private ArrayList<StageEditorPanel> myEditorPanelList;
     private TableDialog myDialog;
 
     public GridEditorController (WorldManager wm, JTabbedPane panel) {
         myWM = wm;
         myStagePanels = panel;
         myPanelList = new ArrayList<StageSidePanel>();
+        myEditorPanelList = new ArrayList<StageEditorPanel>();
     }
 
     @Override
@@ -44,9 +48,19 @@ public class GridEditorController implements GridMouseListener {
         myPanelList.get(index).displayInformation(c);
 
     }
+    
+    public void refreshEditorPanels(){
+        for(StageEditorPanel p:myEditorPanelList){
+            p.drawTabs(GridConstants.DEFAULTTABTYPES);
+        }
+    }
 
     public void addStageSidePanel (int i, StageSidePanel panel) {
         myPanelList.add(i, panel);
+    }
+    
+    public void addEditorPanel (StageEditorPanel panel){
+        myEditorPanelList.add(panel);
     }
 
     class ItemDialogListener implements ActionListener {

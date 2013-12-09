@@ -1,4 +1,4 @@
-package view.player;
+package unused;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +8,7 @@ import controller.editor.GridController;
 import controller.editor.NClickAction;
 
 
+@SuppressWarnings("serial")
 public class PlayerControlPanel extends JPanel {
     private GridController myGridController;
 

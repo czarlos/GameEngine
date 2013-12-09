@@ -23,7 +23,7 @@ public class StagePanel extends GridWithSide {
 
     private void initStagePanel (WorldManager wm, int stageId) {
 
-        StageSidePanel panel = new StageSidePanel(wm);
+        StageSidePanel panel = new StageSidePanel(wm, myController);
         addToSideColumn(panel);
         myController.addStageSidePanel(stageId, panel);
         myGrid.addGridMouseListener(myController);

@@ -109,14 +109,14 @@ public class InventoryObject extends GameObject {
     @Override
     public List<String> generateDisplayData () {
         List<String> displayData = super.generateDisplayData();
-        displayData.add("<html><b>Inventory:</b><html>");
+        displayData.add("<b>Inventory:</b>");
         if (!myItems.isEmpty()) {
             for (Item item : myItems) {
-                displayData.add("   " + item.getName() + ": " + myItemAmounts.get(item.getName()));
+                displayData.add("&nbsp; &nbsp; &nbsp;" + item.getName() + ": " + myItemAmounts.get(item.getName()));
             }
         }
         else {
-            displayData.add("    Nothing");
+            displayData.add("&nbsp; &nbsp; &nbsp; Nothing");
         }
         return displayData;
     }

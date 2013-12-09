@@ -10,6 +10,11 @@ import controllers.GameManager;
 import view.GridWithSide;
 
 
+/**
+ * TODO: Add documentation to this.
+ * 
+ * 
+ */
 @SuppressWarnings("serial")
 public class StagePlayerPanel extends GridWithSide {
     private JScrollPane mySidePanel;
@@ -54,7 +59,6 @@ public class StagePlayerPanel extends GridWithSide {
 
     public void updatedSelectedInfoPanel (Coordinate c) {
 
-        myInfoPanel.removeAll();
         myInfoPanel.makeTabs(myManager.getActionNames(c),
                              myManager.generateInfoList(GridConstants.TILE, c),
                              myManager.generateInfoList(GridConstants.GAMEOBJECT, c));

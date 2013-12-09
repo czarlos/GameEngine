@@ -9,7 +9,12 @@ import javax.swing.Scrollable;
 import javax.swing.SwingConstants;
 
 
-public abstract class ScrollableListPane extends JPanel implements Scrollable{
+/**
+ * A scrollable pane for game info panels to extend
+ */
+
+@SuppressWarnings("serial")
+public abstract class ScrollableListPane extends JPanel implements Scrollable {
 
     protected final int DATA_HEIGHT = 30;
     protected final int WIDTH = 300;
@@ -35,7 +40,7 @@ public abstract class ScrollableListPane extends JPanel implements Scrollable{
     public ScrollableListPane (LayoutManager layout, boolean isDoubleBuffered) {
         super(layout, isDoubleBuffered);
     }
-    
+
     @Override
     public Dimension getPreferredScrollableViewportSize () {
         return getPreferredSize();
@@ -63,5 +68,4 @@ public abstract class ScrollableListPane extends JPanel implements Scrollable{
     public boolean getScrollableTracksViewportHeight () {
         return false;
     }
-
 }

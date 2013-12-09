@@ -4,7 +4,9 @@ import gameObject.action.Action;
 import gameObject.GameObject;
 import gameObject.GameUnit;
 import grid.Coordinate;
+import grid.Grid;
 import grid.GridConstants;
+import grid.Tile;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +39,10 @@ public abstract class Manager {
     @JsonProperty
     protected List<Integer> activeEditIDList;
 
-    // Manager instance variables
+    // GameManager instance variables
+    @JsonProperty
     protected int myPhaseCount;
+    @JsonProperty
     protected int myActiveTeam;
     protected List<Action> myActiveActions;
     protected boolean isTurnCompleted;
@@ -58,7 +62,7 @@ public abstract class Manager {
         myPhaseCount = m.myPhaseCount;
         myActiveTeam = m.myActiveTeam;
     }
-
+    
     public void setGameName (String gameName) {
         myGameName = gameName;
     }
@@ -86,12 +90,13 @@ public abstract class Manager {
      */
     @JsonProperty("activeStage")
     public void setActiveStage (int stageID) {
-        if (stageID < myStages.size() & stageID > -1)
+        if (stageID < myStages.size() & stageID > -1){
             myActiveStage = myStages.get(stageID);
+        }
     }
 
     @JsonProperty("activeStage")
-    private int getActiveStage () {
+    public int getActiveStage () {
         return myStages.indexOf(myActiveStage);
     }
 
@@ -128,6 +133,10 @@ public abstract class Manager {
     public List<String> generateInfoList (String type, Coordinate coordinate) {
         GameObject gameObject = myActiveStage.getGrid().getObject(type, coordinate);
         if (gameObject != null) {
+            if (gameObject instanceof GameUnit) {
+                gameObject = myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, coordinate);
+                ((GameUnit) gameObject).setTotalStats(((Tile) myActiveStage.getGrid().getObject(GridConstants.TILE, coordinate)).getStats());                
+            }            
             gameObject.generateDisplayData();
             addCoordinateData(gameObject, coordinate);
             return gameObject.getDisplayData();

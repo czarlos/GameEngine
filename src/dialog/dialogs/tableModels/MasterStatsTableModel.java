@@ -22,6 +22,11 @@ public class MasterStatsTableModel extends GameTableModel {
         myED = ED;
     }
 
+    @Override
+    public boolean isCellEditable (int row, int column) {
+        return row > 1;
+    }
+    
     @SuppressWarnings({ "unchecked" })
     public void loadObject (Object object) {
         List<Stat> list = (List<Stat>) object;
@@ -34,7 +39,8 @@ public class MasterStatsTableModel extends GameTableModel {
             addNewRow(row);
         }
     }
-
+    
+    @Override
     public Object getObject () {
         List<Stat> ret = new ArrayList<Stat>();
         for (Object[] row : myList) {

@@ -1,4 +1,5 @@
 package view.player;
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -12,6 +13,13 @@ import controller.editor.GridController;
 import controller.editor.NClickAction;
 
 
+/**
+ * Scrollable panel for displaying unit's action info
+ * 
+ * @author Patrick Schutz
+ * 
+ */
+@SuppressWarnings("serial")
 public class ActionInfoPanel extends ScrollableListPane {
 
     protected GridController myController;
@@ -19,7 +27,6 @@ public class ActionInfoPanel extends ScrollableListPane {
     public ActionInfoPanel (List<String> actions, GridController controller) {
         super(actions);
         myController = controller;
-
     }
 
     @Override
@@ -35,7 +42,6 @@ public class ActionInfoPanel extends ScrollableListPane {
             button.addActionListener(new ActionListener() {
 
                 int myActionId;
-                private JPanel myPanel;
 
                 @Override
                 public void actionPerformed (ActionEvent e) {
@@ -48,7 +54,6 @@ public class ActionInfoPanel extends ScrollableListPane {
 
                 public ActionListener init (int id, JPanel panel) {
                     myActionId = id;
-                    myPanel = panel;
                     return this;
                 }
 
@@ -58,5 +63,4 @@ public class ActionInfoPanel extends ScrollableListPane {
         }
         add(buttons);
     }
-
 }

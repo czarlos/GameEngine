@@ -43,21 +43,12 @@ public class PathFinding {
         int range = unit.getStat("movement");
         List<Tile> path = findPath(start, end, grid);
 
-        // System.out.println(grid.getTileCoordinate(start).getX() + " " +
-        // grid.getTileCoordinate(start).getY());
-        // System.out.println(grid.getTileCoordinate(end).getX() + " " +
-        // grid.getTileCoordinate(end).getY());
-        // for (Tile t : path) {
-        // System.out.println(grid.getObjectCoordinate(GridConstants.TILE, t).getX() + " " +
-        // grid.getObjectCoordinate(GridConstants.TILE, t).getY());
-        // }
-
         Tile newTile;
         if (range > path.size()) {
             newTile = path.get(path.size() - 1);
         }
         else {
-            newTile = path.get(path.size() - (range - 1));
+            newTile = path.get(path.size() - (range - 1)/start.getMoveCost());
         }
 
         for (Tile t : path) {
@@ -87,8 +78,8 @@ public class PathFinding {
         List<Tile> path = new ArrayList<Tile>();
         Map<Tile, Integer> weights = new HashMap<Tile, Integer>();
 
-        for (int i = 0; i < grid.getTiles().length; i++) {
-            for (int j = 0; j < grid.getTiles().length; j++) {
+        for (int i = 0; i < grid.getWidth(); i++) {
+            for (int j = 0; j < grid.getHeight(); j++) {
                 weights.put((Tile) grid.getObject(GridConstants.TILE, new Coordinate(i, j)),
                             Integer.MAX_VALUE);
             }

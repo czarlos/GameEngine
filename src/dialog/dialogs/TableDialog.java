@@ -2,6 +2,7 @@ package dialog.dialogs;
 
 import gameObject.Stats;
 import gameObject.action.Outcomes;
+import grid.GridConstants;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -22,8 +23,9 @@ import stage.StatCondition;
 import stage.TurnCondition;
 import stage.UnitCountCondition;
 import stage.WinCondition;
-import dialog.EnumTableModel;
+import dialog.GameJTable;
 import dialog.Selector;
+import dialog.dialogs.tableModels.EnumTableModel;
 import dialog.dialogs.tableModels.ItemConditionTableModel;
 import dialog.dialogs.tableModels.PositionConditionTableModel;
 import dialog.dialogs.tableModels.GameTableModel;
@@ -121,13 +123,13 @@ public class TableDialog extends JDialog {
         table.setDefaultRenderer(File.class, new ImageRenderer());
         table.setDefaultEditor(File.class, new ImagePathEditor());
         table.setDefaultEditor(Stats.class, new ModelEditor(
-                                                            new StatTableModel()));
+                                                            new StatTableModel(myModel.getED())));
         table.setDefaultEditor(WinCondition.class, new ModelEditor(
                                                                    new WinConditionTableModel(myModel.getED())));
         table.setDefaultEditor(PositionCondition.class,
                                new ModelEditor(new PositionConditionTableModel(myModel.getED())));
         table.setDefaultEditor(StatCondition.class, new ModelEditor(new StatConditionTableModel(myModel.getED())));
-        table.setDefaultEditor(TurnCondition.class, new ModelEditor(new TurnConditionTableModel()));
+        table.setDefaultEditor(TurnCondition.class, new ModelEditor(new TurnConditionTableModel(myModel.getED())));
         table.setDefaultEditor(ItemCondition.class, new ModelEditor(new ItemConditionTableModel(myModel.getED())));
         table.setDefaultEditor(UnitCountCondition.class,
                                new ModelEditor(new UnitCountConditionTableModel(myModel.getED())));
@@ -137,14 +139,12 @@ public class TableDialog extends JDialog {
         table.setDefaultEditor(Selector.class, new ComboBoxEditor());
         table.setDefaultRenderer(Selector.class, new SelectorRenderer());
 
-        table.setDefaultEditor(Integer.class, new IntegerEditor(-100, 200));
+        table.setDefaultEditor(Integer.class, new IntegerEditor(-1000000, 1000000));
         table.setDefaultEditor(Outcomes.class,
                                new ModelEditor(new OutcomesTableModel(myModel.getED())));
-
         table.setDefaultEditor(ArrayList.class,
                                new ModelEditor(new EnumTableModel(myModel.getED()
-                                       .getDialogList(myModel
-                                               .getName()))));
+                                       .getDialogList(myModel.getName()), myModel.getED())));
     }
 
     /**

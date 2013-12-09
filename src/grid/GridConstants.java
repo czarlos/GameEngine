@@ -1,6 +1,7 @@
 package grid;
 
 import stage.Condition;
+import stage.FalseCondition;
 import stage.ItemCondition;
 import stage.PositionCondition;
 import stage.StatCondition;
@@ -55,11 +56,11 @@ public class GridConstants {
                                                 new ShopAction() };
     public static final Outcome[] COREOUTCOMES = { new StatOutcome(), new ItemOutcome() };
 
-    public static final String[] DEFAULTSTATARRAY = { "defense", "attack", "movement", "health",
-                                                     "max health" };
+    public static final String[] DEFAULTSTATARRAY = { "health", "movement", 
+                                                     "maxhealth", "defense", "attack"};
 
     public static final Condition[] CORECONDITIONS = { new PositionCondition(),
                                                       new ItemCondition(),
                                                       new StatCondition(), new TurnCondition(),
-                                                      new UnitCountCondition() };
+                                                      new UnitCountCondition(), new FalseCondition() };
 }

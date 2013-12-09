@@ -10,9 +10,7 @@ import gameObject.action.StatOutcome;
 import gameObject.item.Item;
 import grid.GridConstants;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import controllers.WorldManager;
 import stage.UnitCountCondition;
 import stage.WinCondition;
@@ -39,12 +37,14 @@ public class MakeDefaults {
         defaultCombatAction.setImagePath("resources/weapon.png");
         defaultCombatAction.setActionRange(1);
         defaultCombatAction.setInitiatorOutcomes(new Outcomes());
+
         Outcome r1 = new StatOutcome();
         r1.setAffectee(new Stat("health"));
         r1.setAmount(-10);
         r1.setIsFixed(true);
         Outcomes recvOutcomes = new Outcomes();
         recvOutcomes.addOutcome(r1);
+
         defaultCombatAction.setReceiverOutcomes(recvOutcomes);
         defaultCombatAction.setInitiatorStatWeights(new Stats());
         defaultCombatAction.setReceiverStatWeights(new Stats());
@@ -70,6 +70,7 @@ public class MakeDefaults {
         Grass.setStats(defaultStats);
         Grass.setActive(false);
         Grass.setMoveCost(1);
+        Grass.setPassableList(passableList);        
 
         grid.Tile Grass1 = new grid.Tile();
         Grass1.setName("Short Grass");
@@ -77,6 +78,7 @@ public class MakeDefaults {
         Grass1.setStats(defaultStats);
         Grass1.setActive(false);
         Grass1.setMoveCost(1);
+        Grass1.setPassableList(passableList);
 
         grid.Tile Water = new grid.Tile();
         Water.setName("Water");
@@ -185,8 +187,8 @@ public class MakeDefaults {
         unitStats.modExisting("strength", 2);
         unitStats.modExisting("health", 15);
         unitStats.modExisting("attack", 2);
-        unitStats.modExisting("max health", 15);
-        
+        unitStats.modExisting("maxhealth", unitStats.getStatValue("health"));
+
         gameObject.GameUnit hero = new gameObject.GameUnit();
         gameObject.GameUnit goldensun = new gameObject.GameUnit();
         gameObject.GameUnit enemy = new gameObject.GameUnit();
@@ -212,7 +214,7 @@ public class MakeDefaults {
         charizard.setImagePath("resources/charizard.png");
         charizard.setStats(unitStats);
         charizard.setAffiliation("enemy");
-        
+
         roy.setName("Roy");
         roy.setImagePath("resources/roy.png");
         roy.setStats(unitStats);
