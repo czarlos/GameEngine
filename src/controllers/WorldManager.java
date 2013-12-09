@@ -46,6 +46,7 @@ public class WorldManager extends Manager {
 
     @JsonIgnore
     public GameTableModel getTableModel (String type) {
+        if (type.equals(GridConstants.TEAM)) { return getTeamTableModel(); }
         return myEditorData.getTableModel(type);
     }
 
@@ -55,8 +56,13 @@ public class WorldManager extends Manager {
      * @param gtm
      */
     public void setData (GameTableModel gtm) {
-        for (Stage s : myStages) {
-            myEditorData.setData(gtm, s);
+        if (gtm.getName().equals(GridConstants.TEAM)) {
+            setTeamData(gtm);
+        }
+        else {
+            for (Stage s : myStages) {
+                myEditorData.setData(gtm, s);
+            }
         }
     }
 
@@ -75,6 +81,7 @@ public class WorldManager extends Manager {
     @SuppressWarnings("unchecked")
     public void setTeamData (GameTableModel gtm) {
         myEditorData.syncTeams((List<Team>) gtm.getObject(), myActiveStage);
+        myActiveStage.setTeams((List<Team>) gtm.getObject());
     }
 
     @JsonIgnore
@@ -109,14 +116,14 @@ public class WorldManager extends Manager {
                 (InventoryObject) myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT,
                                                                     coordinate);
         io.setItemAmounts((Map<String, Integer>) gtm.getObject());
-        
+
         Set<Item> set = new HashSet<Item>();
-        for(String s: ((Map<String, Integer>) gtm.getObject()).keySet()){
+        for (String s : ((Map<String, Integer>) gtm.getObject()).keySet()) {
             set.add((Item) myEditorData.getObject(GridConstants.ITEM, s));
         }
         io.setItems(set);
     }
-    
+
     public void saveEditorData (String name) {
         myEditorData.saveData(name);
     }

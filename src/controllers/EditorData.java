@@ -230,7 +230,6 @@ public class EditorData {
                             tiles[i][j] = t;
                         }
                     }
-
                 }
                 removed.remove(prevTile);
             }
@@ -244,7 +243,6 @@ public class EditorData {
                         tiles[i][j] = fullList.get(0);
                     }
                 }
-
             }
         }
     }
@@ -252,28 +250,24 @@ public class EditorData {
     // different because team data is in stage
     public void syncTeams (List<Team> newList, Stage activeStage) {
         List<Team> list = newList;
-        List<String> names = getNames(GridConstants.TEAM); // edited list
-        List<String> fullList = getNames(GridConstants.TEAM); // reference list
+        List<Team> fullList = activeStage.getTeams(); // reference list
 
         // adjusting unit affiliation strings for renamed teams
         for (Team t : list) {
             if (t.getLastIndex() > -1) {
-                String prevName = fullList.get(t.getLastIndex());
-                if (!t.getName().equals(prevName)) {
+                Team prevTeam = fullList.get(t.getLastIndex());
+                if (!t.getName().equals(prevTeam.getName())) {
                     activeStage.setTeamName(t.getLastIndex(), t.getName());
                 }
-                names.remove(prevName);
             }
+            // remove thing from newList
         }
 
         // units on deleted teams get their affiliation set to the first team.
-        for (String s : names) {
-            activeStage.setTeamName(fullList.indexOf(s), list.get(0)
-                    .getName());
-        }
-
-        // replace all the teams with list in activeStage... TODO: remove
-        activeStage.setTeams(list);
+     //   for (Team t : newList) {
+     //       activeStage.setTeamName(fullList.indexOf(t), list.get(0)
+     //               .getName());
+     //   }
     }
 
     public void refreshObjects (String type) {

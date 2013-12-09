@@ -105,6 +105,7 @@ public abstract class Manager {
      * 
      * @param stages List of Stages to set
      */
+    @JsonIgnore
     public void setStages (List<Stage> stages) {
         myStages = stages;
     }
