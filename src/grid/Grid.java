@@ -132,6 +132,30 @@ public class Grid implements Drawable {
     }
 
     /**
+     * Initiates the action process
+     * 
+     * @param objectCoordinate Coordinate where the action originates
+     * @param gameUnit GameUnit that is doing the action
+     * @param combatAction CombatAction that is being used
+     */
+    public void findActionRange (Coordinate coordinate, int range, Action action) {
+        List<Coordinate> adjacentCoordinates = getAdjacentCoordinates(coordinate);
+
+        for (Coordinate adjacentCoordinate : adjacentCoordinates) {
+            if (onGrid(adjacentCoordinate)) {
+                Tile currentTile = (Tile) getObject(GridConstants.TILE, adjacentCoordinate);
+                int newRange = range - 1;
+                if (newRange >= 0) {
+                    currentTile.setActive(action
+                            .isValid((GameUnit) getObject(GridConstants.GAMEUNIT, coordinate),
+                                     getObject(GridConstants.GAMEOBJECT, adjacentCoordinate)));
+                    findActionRange(adjacentCoordinate, newRange, action);
+                }
+            }
+        }
+    }
+
+    /**
      * Checks if the input coordinate is on the grid
      * 
      * @param coordinate Coordinate being checked
@@ -151,30 +175,6 @@ public class Grid implements Drawable {
      */
     public boolean isActive (String type, Coordinate coordinate) {
         return getObject(type, coordinate).isActive();
-    }
-
-    /**
-     * Initiates the action process
-     * 
-     * @param objectCoordinate Coordinate where the action originates
-     * @param gameUnit GameUnit that is doing the action
-     * @param combatAction CombatAction that is being used
-     */
-    public void findActionRange (Coordinate coordinate, int range, Action action) {
-        List<Coordinate> adjacentCoordinates = getAdjacentCoordinates(coordinate);
-
-        for (Coordinate adjacentCoordinate : adjacentCoordinates) {
-            if (onGrid(adjacentCoordinate)) {
-                Tile currentTile = (Tile) getObject(GridConstants.TILE, adjacentCoordinate);
-                int newRange = range - 1;
-                if (newRange >= 0 &&
-                    action.isValid((GameUnit) getObject(GridConstants.GAMEUNIT, coordinate),
-                                   getObject(GridConstants.GAMEOBJECT, adjacentCoordinate))) {
-                    currentTile.setActive(true);
-                    findActionRange(adjacentCoordinate, newRange, action);
-                }
-            }
-        }
     }
 
     /**

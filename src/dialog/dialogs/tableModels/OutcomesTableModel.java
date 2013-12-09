@@ -39,7 +39,7 @@ public class OutcomesTableModel extends GameTableModel {
         myList.get(row)[col] = aValue;
         if (col == 0) {
             Outcome o = (Outcome) ((Selector) aValue).getValue();
-            myList.get(row)[1] = new Selector(myED.get(o.getType()), o);
+            myList.get(row)[1] = new Selector(myED.get(o.getType()));
         }
 
         fireTableDataChanged();

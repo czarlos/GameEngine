@@ -274,7 +274,6 @@ public class EditorData {
                 }
                 removed.remove(prevTeam);
             }
-            // remove thing from newList
         }
 
         // units on deleted teams get their affiliation set to the first team.
