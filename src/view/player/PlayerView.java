@@ -18,14 +18,12 @@ public class PlayerView extends GameView {
     protected GameManager myGameManager;
 
     public PlayerView () {
-        
+
     }
 
     public PlayerView (Manager manager) {
         loadGame(manager);
     }
-
-
 
     @Override
     protected JMenuBar createMenuBar (JFrame frame) {
@@ -69,15 +67,16 @@ public class PlayerView extends GameView {
         return menuBar;
     }
 
-   @Override
-   protected void loadGame(Manager m){
-       myGameManager = new GameManager(m);
-       myGameManager.setView(this);
-       loadStagePanel();
-       showGame();
-       myGameManager.beginTurn();
-   }
-    
+    @Override
+    protected void loadGame (Manager m) {
+        if (m == null)
+            return;
+        myGameManager = new GameManager(m);
+        myGameManager.setView(this);
+        loadStagePanel();
+        showGame();
+        myGameManager.beginTurn();
+    }
 
     public void endTurn () {
         showBackground();
@@ -85,10 +84,10 @@ public class PlayerView extends GameView {
         loadStagePanel();
         myGameManager.beginTurn();
     }
-    
-    public void loadStagePanel(){
-        
-        if(myGame!=null)
+
+    public void loadStagePanel () {
+
+        if (myGame != null)
             remove(myGame);
         myGame = new StagePlayerPanel(myGameManager, this);
         showGame();

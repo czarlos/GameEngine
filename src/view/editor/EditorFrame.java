@@ -199,10 +199,10 @@ public class EditorFrame extends GameView {
 
     @Override
     protected void loadGame (Manager m) {
-        if (m != null) {
-            setFrame(m);
-            setStages(m);
-        }
+        if (m == null)
+            return;
+        setFrame(m);
+        setStages(m);
     }
 
     public void setStages (Manager m) {
@@ -290,8 +290,8 @@ public class EditorFrame extends GameView {
             public void actionPerformed (ActionEvent e) {
                 JSONParser parser = new JSONParser();
                 new PlayerView(parser.deepClone(myWorldManager, WorldManager.class)) {
-                    //Need to override windowClosing to prevent the opening of GameStartView.
-                    //This is desired when running PlayerView from the game editor.
+                    // Need to override windowClosing to prevent the opening of GameStartView.
+                    // This is desired when running PlayerView from the game editor.
                     @Override
                     public void windowClosing (WindowEvent e) {
                         dispose();
