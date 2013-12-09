@@ -62,7 +62,7 @@ public class WorldManager extends Manager {
     /**
      * Teams are stage specific
      */
-    
+    @JsonIgnore
     public GameTableModel getTeamTableModel (){
         GameTableModel gtm = myEditorData.getTableModel(GridConstants.TEAM);
         gtm.loadObject(myActiveStage.getTeams());
@@ -70,6 +70,7 @@ public class WorldManager extends Manager {
         return gtm;
     }
     
+    @JsonIgnore
     @SuppressWarnings("unchecked")
     public void setTeamData (GameTableModel gtm) {
         myEditorData.syncTeams((List<Team>) gtm.getObject(), myActiveStage);
