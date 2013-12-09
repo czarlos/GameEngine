@@ -1,5 +1,6 @@
 package stage;
 
+import gameObject.GameObject;
 import gameObject.GameUnit;
 import grid.Grid;
 import grid.GridConstants;
@@ -113,11 +114,12 @@ public class Stage {
     }
 
     public List<GameUnit> getTeamUnits (String teamName) {
-        GameUnit[][] units = (GameUnit[][]) myGrid.getObjects(GridConstants.GAMEUNIT);
+        GameObject[][] units = (GameObject[][]) myGrid.getObjects(GridConstants.GAMEUNIT);
         List<GameUnit> ret = new ArrayList<GameUnit>();
 
         for (int i = 0; i < units.length; i++) {
-            for (GameUnit gu : units[i]) {
+            for (GameObject go : units[i]) {
+                GameUnit gu = (GameUnit) go;
                 if (gu != null && teamName.equals(gu.getAffiliation())) {
                     ret.add(gu);
                 }

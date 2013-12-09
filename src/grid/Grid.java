@@ -269,15 +269,9 @@ public class Grid implements Drawable {
      * @param placeObject Customizable of object being placed
      */
     public void placeObject (String type, Coordinate coordinate, int placeObject) {
+        removeObject(GridConstants.GAMEUNIT, coordinate);
+        removeObject(GridConstants.GAMEOBJECT, coordinate);
         myArrays.get(type)[coordinate.getX()][coordinate.getY()] = placeObject;
-        if (type.equals(GridConstants.GAMEUNIT)) {
-            myArrays.get(GridConstants.GAMEOBJECT)[coordinate.getX()][coordinate.getY()] =
-                    placeObject;
-        }
-        if (type.equals(GridConstants.TILE)) {
-            removeObject(GridConstants.GAMEUNIT, coordinate);
-            removeObject(GridConstants.GAMEOBJECT, coordinate);
-        }
     }
 
     /**
