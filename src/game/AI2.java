@@ -101,6 +101,9 @@ public class AI2 {
                 if (currentAction.isValid(unit, receiver)) {
                     if (receiver instanceof GameUnit) {
                         receiver = myGrid.getObject(GridConstants.GAMEUNIT, activeCoordinate);
+                        if (unit.getAffiliation().equals(((GameUnit) receiver).getAffiliation())) {
+                            continue;
+                        }
                     }
                     new AnimateAction(unit.getImagePath(), myGrid
                             .getObject(GridConstants.GAMEOBJECT,
