@@ -47,6 +47,7 @@ public abstract class GameView extends JFrame implements WindowListener {
         super(title, gc);
         initializeWindow();
     }
+    
 
     protected void initializeWindow () {
         setJMenuBar(createMenuBar(this));
@@ -59,7 +60,7 @@ public abstract class GameView extends JFrame implements WindowListener {
         addWindowListener(this);
     }
     
-    protected void showBackground(){
+    public void showBackground(){
         if(myGame!=null){
             remove(myGame);
         }
@@ -68,7 +69,7 @@ public abstract class GameView extends JFrame implements WindowListener {
         repaint();
     }
     
-    protected void showGame(){
+    public void showGame(){
         if(myGame!=null){
             remove(myBackground);
             add(myGame);

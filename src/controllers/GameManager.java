@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import team.Team;
 import view.player.PlayerView;
-import game.AI;
 import game.AI2;
 import game.AnimateAction;
 import gameObject.Chest;
@@ -16,7 +15,6 @@ import gameObject.InventoryObject;
 import gameObject.action.Action;
 import gameObject.action.ShopAction;
 import gameObject.action.TradeAction;
-import gameObject.action.WaitAction;
 import grid.Coordinate;
 import grid.GridConstants;
 import grid.Tile;
@@ -30,7 +28,7 @@ import grid.Tile;
 @JsonAutoDetect
 public class GameManager extends Manager {
     private PlayerView myView;
-    private boolean myGameWon = false;
+    private boolean myGameOver=false;
 
     public GameManager () {
     }
@@ -44,9 +42,11 @@ public class GameManager extends Manager {
     }
 
     public void beginTurn () {
-        if (myGameWon) { return; }
+        if(myGameOver){
+            return;
+        }
         clear();
-        if (myPhaseCount == 0) {                        
+        if (myPhaseCount == 0) {
             myView.showDialog(getPreStory());
         }
 
@@ -60,17 +60,19 @@ public class GameManager extends Manager {
     }
 
     public void doUntilHumanTurn () {
-        if (myGameWon) { return; }
         if (conditionsMet()) {
-            win();
+            humanWin();
+            return;
+        }
+        if(myGameOver){
             return;
         }
         nextTurn();
         beginTurn();
-        while (!teamIsHuman()) {           
+        while (!teamIsHuman()) {
             doAITurn();
             if (conditionsMet()) {
-                win();
+                humanLoss();
                 return;
             }
 
@@ -78,15 +80,23 @@ public class GameManager extends Manager {
         }
     }
 
-    public void win () {
+    public void humanWin () {
         myView.showDialog(getPostStory());
-        if (!nextStage()) { // final stage
-            // win
-            myView.showDialog(getWinningTeam() + " won!!");
-            myGameWon = true;
+        myView.showDialog(getWinningTeam() + " won!!");
+        if (!nextStage()) {
+            myGameOver=true;
+            myView.showDialog("Game over: No more stages.");
+            myView.gameOver();
         }
-
     }
+
+    public void humanLoss () {
+        myGameOver=true;
+        myView.showDialog("Game Over: AI Won...");
+        myView.gameOver();
+    }
+    
+    
 
     /**
      * Loops through all of the game units in the current team (whose turn it
@@ -197,7 +207,7 @@ public class GameManager extends Manager {
     public void beginAction (Coordinate unitCoordinate, int actionID) {
         GameUnit initiator =
                 (GameUnit) myActiveStage.getGrid()
-                        .getObject(GridConstants.GAMEUNIT, unitCoordinate);        
+                        .getObject(GridConstants.GAMEUNIT, unitCoordinate);
         setActiveActions(unitCoordinate);
         myActiveStage.getGrid().setAllTilesInactive();
         Action activeAction = myActiveActions.get(actionID);
@@ -223,43 +233,51 @@ public class GameManager extends Manager {
     public void doAction (Coordinate unitCoordinate, Coordinate actionCoordinate, int actionID) {
         GameUnit initiator =
                 (GameUnit) myActiveStage.getGrid()
-                        .getObject(GridConstants.GAMEUNIT, unitCoordinate);         
-        setActiveActions(unitCoordinate);    
-        Action activeAction = myActiveActions.get(actionID);        
+                        .getObject(GridConstants.GAMEUNIT, unitCoordinate);
+        setActiveActions(unitCoordinate);
+        Action activeAction = myActiveActions.get(actionID);
         if (activeAction.getName().equals(GridConstants.MOVE) &&
             myActiveStage.getGrid().isActive(GridConstants.TILE, actionCoordinate)) {
             myActiveStage.getGrid().doMove(unitCoordinate, actionCoordinate);
             initiator.hasMoved();
-            initiator.setTotalStats(((Tile) myActiveStage.getGrid().getObject(GridConstants.TILE, unitCoordinate)).getStats());
+            initiator.setTotalStats(((Tile) myActiveStage.getGrid().getObject(GridConstants.TILE,
+                                                                              unitCoordinate))
+                    .getStats());
         }
         else {
-            GameObject receiver = myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, actionCoordinate);
+            GameObject receiver =
+                    myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, actionCoordinate);
             if (receiver instanceof GameUnit) {
-                receiver = myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, actionCoordinate);
+                receiver =
+                        myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, actionCoordinate);
             }
-            if (receiver != null && myActiveStage.getGrid().isActive(GridConstants.TILE, actionCoordinate)) {                                
-                new AnimateAction(initiator.getImagePath(), receiver.getImagePath());             
-                activeAction.doAction(initiator, receiver);                
+            if (receiver != null &&
+                myActiveStage.getGrid().isActive(GridConstants.TILE, actionCoordinate)) {
+                new AnimateAction(initiator.getImagePath(), receiver.getImagePath());
+                activeAction.doAction(initiator, receiver);
                 endAction(unitCoordinate, actionCoordinate, initiator, receiver);
             }
-        }        
+        }
         myActiveStage.getGrid().setAllTilesInactive();
     }
 
-    public void endAction (Coordinate unitCoordinate, Coordinate actionCoordinate, GameUnit initiator, GameObject receiver) {
+    public void endAction (Coordinate unitCoordinate,
+                           Coordinate actionCoordinate,
+                           GameUnit initiator,
+                           GameObject receiver) {
         initiator.setActive(false);
         if (initiator.getTotalStat("health") == 0) {
-            myActiveStage.getGrid().removeObject(GridConstants.GAMEUNIT, unitCoordinate);
+            myActiveStage.getGrid().removeObject(unitCoordinate);
         }
         if (receiver instanceof Chest) {
             if (((InventoryObject) receiver).isEmpty()) {
-                myActiveStage.getGrid().removeObject(GridConstants.GAMEOBJECT, actionCoordinate);
+                myActiveStage.getGrid().removeObject(actionCoordinate);
             }
         }
         if (receiver instanceof GameUnit) {
             receiver = myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, actionCoordinate);
             if (((GameUnit) receiver).getTotalStat("health") == 0) {
-                myActiveStage.getGrid().removeObject(GridConstants.GAMEUNIT, actionCoordinate);
+                myActiveStage.getGrid().removeObject(actionCoordinate);
             }
         }
     }
