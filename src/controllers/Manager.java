@@ -37,8 +37,10 @@ public abstract class Manager {
     @JsonProperty
     protected List<Integer> activeEditIDList;
 
-    // Manager instance variables
+    // GameManager instance variables
+    @JsonProperty
     protected int myPhaseCount;
+    @JsonProperty
     protected int myActiveTeam;
     protected List<Action> myActiveActions;
     protected boolean isTurnCompleted;

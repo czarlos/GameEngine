@@ -109,6 +109,8 @@ public class EditorData {
 
     @SuppressWarnings("unchecked")
     public void setData (GameTableModel gtm, Stage activeStage) {
+        // need to do this for all data types. tile, gameobject,
+        // gameunit, item, team, action
         switch (gtm.getName()) {
             case GridConstants.ACTION:
                 syncActions((List<Object>) gtm.getObject(), activeStage);
@@ -132,7 +134,7 @@ public class EditorData {
     private void syncActions (List<Object> newActions, Stage activeStage) {
         List<String> fullList = getNames(GridConstants.ACTION);
         List<String> removedNames = getNames(GridConstants.ACTION);
-        List<GameUnit> editorUnitList = (List<GameUnit>) getTableModel("GameUnit").getObject();
+        List<GameUnit> editorUnitList = (List<GameUnit>) get(GridConstants.GAMEUNIT);
         GameUnit[][] placedUnits = activeStage.getGrid().getGameUnits();
         Map<String, String> nameTranslationMap = new HashMap<>();
 
@@ -235,9 +237,9 @@ public class EditorData {
         // adjusting unit affiliation strings for renamed teams
         for (Team t : list) {
             if (t.getLastIndex() > -1) {
-                String prevName = fullList.get(t.getLastEditingID());
+                String prevName = fullList.get(t.getLastIndex());
                 if (!t.getName().equals(prevName)) {
-                    activeStage.setTeamName(t.getLastEditingID(), t.getName());
+                    activeStage.setTeamName(t.getLastIndex(), t.getName());
                 }
                 names.remove(prevName);
             }
@@ -260,9 +262,6 @@ public class EditorData {
     }
 
     public List<String> getDialogList (String myType) {
-
-        // need to generalize this for all data types. tile, gameobject,
-        // gameunit, item, team, action
         List<String> ret = new ArrayList<String>();
         switch (myType) {
             case GridConstants.GAMEOBJECT:

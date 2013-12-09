@@ -5,12 +5,8 @@ import java.awt.event.WindowListener;
 import javax.swing.JFrame;
 
 
+@SuppressWarnings("serial")
 public class EditorTableFrame extends JFrame implements WindowListener {
-
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 7225370093723510786L;
 
     private StageEditorPanel myParent;
     private String myType;
