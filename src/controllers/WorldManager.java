@@ -49,8 +49,19 @@ public class WorldManager extends Manager {
         return myEditorData.getTableModel(type);
     }
 
+    /**
+     * Teams are stage specific
+     * @param gtm
+     */
     public void setData (GameTableModel gtm) {
-        myEditorData.setData(gtm, myActiveStage);
+        if(gtm.getName() != GridConstants.TEAM) {
+            for(Stage s: myStages){
+                myEditorData.setData(gtm, s);
+            }
+        }
+        else {
+            myEditorData.setData(gtm, myActiveStage);
+        }
     }
 
     @JsonIgnore

@@ -1,8 +1,6 @@
 package gameObject.action;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import gameObject.GameUnit;
 import gameObject.Stat;
 import grid.GridConstants;

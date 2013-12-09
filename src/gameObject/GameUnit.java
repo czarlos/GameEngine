@@ -6,7 +6,6 @@ import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -59,17 +58,18 @@ public class GameUnit extends InventoryObject implements IStats {
         }
         return value;
     }
-    
+
     public void setTotalStats (Stats addStats) {
-        for (Stat stat: addStats.getStats()) {
-            myTotalStats.modExisting(stat.getName(), calcTotalStat(stat.getName()) + stat.getValue());
+        for (Stat stat : addStats.getStats()) {
+            myTotalStats.modExisting(stat.getName(),
+                                     calcTotalStat(stat.getName()) + stat.getValue());
         }
     }
-    
+
     public int getTotalStat (String statName) {
         return myTotalStats.getStatValue(statName);
     }
-    
+
     public Stats getTotalStats () {
         return myTotalStats;
     }
@@ -159,7 +159,7 @@ public class GameUnit extends InventoryObject implements IStats {
 
         return interactions;
     };
-    
+
     public void syncStatsWithMaster (Map<String, String> nameTranslationMap,
                                      List<String> removedNames) {
         for (String removedStat : removedNames) {

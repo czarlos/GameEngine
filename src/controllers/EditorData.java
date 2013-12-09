@@ -123,7 +123,9 @@ public class EditorData {
                 break;
         }
 
-        myDataMap.put(gtm.getName(), (List<?>) gtm.getObject());
+        if(gtm.getName() != GridConstants.TEAM){
+            myDataMap.put(gtm.getName(), (List<?>) gtm.getObject());
+        }
     }
 
     @SuppressWarnings("unchecked")

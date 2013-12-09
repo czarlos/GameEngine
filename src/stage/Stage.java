@@ -43,7 +43,7 @@ public class Stage {
         myName = name;
         myTeams = new ArrayList<Team>();
         preText = "Once upon a time...";
-        postText = "Somebody won!";
+        postText = "Thus the journey ends!";
     }
 
     /*
@@ -152,8 +152,7 @@ public class Stage {
             if (t.hasWon(this)) {
                 myWinningTeam = t;
                 // teams with lower IDs have a slight disadvantage here but
-                // that's offset by the
-                // fact that their turn comes up later.
+                // that's offset by the fact that their turn comes up later.
             }
         }
 
