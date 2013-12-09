@@ -1,7 +1,6 @@
 package controllers;
 
 import gameObject.GameObject;
-import gameObject.GameUnit;
 import gameObject.InventoryObject;
 import gameObject.item.Item;
 import grid.Coordinate;
@@ -91,9 +90,9 @@ public class WorldManager extends Manager {
     public GameTableModel getItemTableModel (Coordinate coordinate) {
         GameTableModel gtm = new ItemsTableModel(myEditorData);
 
-        GameObject go = myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, coordinate);
-
-        if (go != null && go instanceof InventoryObject) {
+        GameObject go = getInventoryObject(coordinate);
+        
+        if (go != null) {
             Map<String, Integer> items = ((InventoryObject) go).getItemAmounts();
             gtm.loadObject(items);
             return gtm;
@@ -202,15 +201,10 @@ public class WorldManager extends Manager {
     public void place (String type, int objectID, Coordinate coordinate) {
         Object object = myEditorData.getObject(type, objectID);
         if(type.equals(GridConstants.ITEM)){
-            GameObject a = myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, coordinate);
-            GameObject b = myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, coordinate);
-            if(a instanceof InventoryObject || b instanceof InventoryObject){
-                if(a != null){
-                    ((InventoryObject) a).addItem((Item) object); 
-                }
-                else{
-                    ((InventoryObject) b).addItem((Item) object); 
-                }
+            GameObject go = getInventoryObject(coordinate);
+            
+            if(go != null){
+                ((InventoryObject) go).addItem((Item) object);                 
             }
         }
         else{
@@ -218,6 +212,14 @@ public class WorldManager extends Manager {
         }
         
         myEditorData.refreshObjects(type);
+    }
+
+    private GameObject getInventoryObject (Coordinate coordinate) {
+        GameObject a = myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, coordinate);
+        GameObject b = myActiveStage.getGrid().getObject(GridConstants.GAMEOBJECT, coordinate);
+        if(a instanceof InventoryObject)
+            return a;
+        return b;
     }
 
     /**

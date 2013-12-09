@@ -58,10 +58,10 @@ public class StagePlayerPanel extends GridWithSide {
 
     public void updatedSelectedInfoPanel (Coordinate c) {
 
-        myInfoPanel.removeAll();
         myInfoPanel.makeTabs(myManager.getActionNames(c),
                              myManager.generateInfoList(GridConstants.TILE, c),
-                             myManager.generateInfoList(GridConstants.GAMEOBJECT, c));
+                             myManager.generateInfoList(GridConstants.GAMEOBJECT, c),
+                             myManager.generateInfoList(GridConstants.GAMEUNIT, c));
         if (mySidePanel != null) {
             remove(mySidePanel);
         }

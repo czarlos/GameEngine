@@ -16,6 +16,12 @@ import controllers.GameManager;
 import controllers.Manager;
 
 
+/**
+ * The main view for playing the game
+ * 
+ * @author Patrick Schutz
+ * 
+ */
 @SuppressWarnings("serial")
 public class PlayerView extends GameView {
     protected GameManager myGameManager;
@@ -87,9 +93,7 @@ public class PlayerView extends GameView {
                         return this;
                     }
                 }.init(myGame);
-
             }
-
         });
         editMenu.add(loadInEdit);
 

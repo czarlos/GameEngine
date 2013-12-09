@@ -26,8 +26,10 @@ public class SelectedInfoPanel extends JTabbedPane {
     }
 
     public void makeTabs (List<String> actionInfo, List<String> tileInfo,
-                          List<String> objectInfo) {
+                          List<String> objectInfo, List<String> unitInfo) {
 
+        this.removeAll();
+        
         if (actionInfo != null && !actionInfo.isEmpty()) {
             JScrollPane pane = new JScrollPane(makeActionPane(actionInfo));
             pane.setLayout(new ScrollPaneLayout());
@@ -38,6 +40,13 @@ public class SelectedInfoPanel extends JTabbedPane {
             JScrollPane pane = new JScrollPane(new InfoPanel(objectInfo));
             pane.setLayout(new ScrollPaneLayout());
             add("Object", pane);
+        }
+        
+
+        if (unitInfo != null && !unitInfo.isEmpty()) {
+            JScrollPane pane = new JScrollPane(new InfoPanel(unitInfo));
+            pane.setLayout(new ScrollPaneLayout());
+            add("Unit", pane);
         }
 
         if (tileInfo != null && !tileInfo.isEmpty()) {
