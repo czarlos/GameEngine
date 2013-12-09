@@ -15,10 +15,13 @@ import utils.UnitUtilities;
 import controllers.GameManager;
 import controllers.Manager;
 
+
 /**
- * Second version of AI. Moves AI designated units towards closest enemies and uses a valid action on the enemy if possible
+ * Second version of AI. Moves AI designated units towards closest enemies and uses a valid action
+ * on the enemy if possible
+ * 
  * @author kevinjian
- *
+ * 
  */
 public class AI2 {
 
@@ -31,7 +34,7 @@ public class AI2 {
         myTeam = team;
         myManager = manager;
         myGrid = stage.getGrid();
-      
+
         myStage = stage;
     }
 
@@ -41,7 +44,7 @@ public class AI2 {
     public void doTurn () {
         List<GameUnit> opponents = findAllOpponents();
         List<GameUnit> AIUnits = myStage.getTeamUnits(myTeam.getName());
-        if (opponents.isEmpty()) { return; }        
+        if (opponents.isEmpty()) { return; }
         doAIMove(AIUnits, opponents);
         for (GameUnit AIUnit : AIUnits) {
             doAIAction(AIUnit);
@@ -50,11 +53,12 @@ public class AI2 {
 
     /**
      * Moves the AI units towards opponents
+     * 
      * @param AIUnits List of GameUnits of AI units
      * @param opponents List of GameUnits of opponents
      */
     private void doAIMove (List<GameUnit> AIUnits, List<GameUnit> opponents) {
-        for (GameUnit unit : AIUnits) {            
+        for (GameUnit unit : AIUnits) {
             Coordinate start = myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit);
             myGrid.beginMove(start);
             List<Coordinate> activeCoordinates = myGrid.getActiveTileCoordinates();
@@ -81,6 +85,7 @@ public class AI2 {
 
     /**
      * Makes the AI units perform actions if possible
+     * 
      * @param AIUnits List of GameUnits of AI units
      */
     private void doAIAction (GameUnit unit) {
@@ -93,13 +98,14 @@ public class AI2 {
             List<Coordinate> activeCoordinates = myGrid.getActiveTileCoordinates();
             for (Coordinate activeCoordinate : activeCoordinates) {
                 GameObject receiver = myGrid.getObject(GridConstants.GAMEOBJECT, activeCoordinate);
-                if (currentAction.isValid(unit, receiver)) {                                               
+                if (currentAction.isValid(unit, receiver)) {
                     if (receiver instanceof GameUnit) {
                         receiver = myGrid.getObject(GridConstants.GAMEUNIT, activeCoordinate);
                     }
-                    new AnimateAction(unit.getImagePath(), myGrid.getObject(GridConstants.GAMEOBJECT,
-                                                                            activeCoordinate).getImagePath());
-                    currentAction.doAction(unit, receiver);                        
+                    new AnimateAction(unit.getImagePath(), myGrid
+                            .getObject(GridConstants.GAMEOBJECT,
+                                       activeCoordinate).getImagePath());
+                    currentAction.doAction(unit, receiver);
                     ((GameManager) myManager)
                             .endAction(unitCoordinate, activeCoordinate, unit, myGrid
                                     .getObject(GridConstants.GAMEOBJECT, activeCoordinate));
@@ -113,6 +119,7 @@ public class AI2 {
 
     /**
      * Finds all opponents opposing the AI's team
+     * 
      * @return List of GameUnits of opponents
      */
     private List<GameUnit> findAllOpponents () {
