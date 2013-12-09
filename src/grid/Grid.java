@@ -103,30 +103,31 @@ public class Grid implements Drawable {
      * 
      * @param coordinate Coordinate of the current position of the GameObject
      * @param range int of range that the GameObject can move
-     * @param gameObject GameObject that we are finding the range of
+     * @param gameUnit GameObject that we are finding the range of
      * 
      */
-    private void findMovementRange (Coordinate coordinate, int range, GameUnit gameObject) {
+    private void findMovementRange (Coordinate coordinate, int range, GameUnit gameUnit) {
         List<Coordinate> adjacentCoordinates = getAdjacentCoordinates(coordinate);
 
         for (Coordinate adjacentCoordinate : adjacentCoordinates) {
             if (onGrid(adjacentCoordinate)) {
                 Tile currentTile = (Tile) getObject(GridConstants.TILE, adjacentCoordinate);
-                int newRange = range - currentTile.getMoveCost();
-
-                if (newRange >= 0) {
-                    GameObject currentObject =
-                            getObject(GridConstants.GAMEOBJECT, adjacentCoordinate);
-                    if (currentObject != null) {
-                        if (currentObject.isPassable(gameObject)) {
-                            findMovementRange(adjacentCoordinate, newRange, gameObject);
+//                System.out.println("tile: "+currentTile.getName());
+//                System.out.println("  passable: "+currentTile.isPassable(gameUnit));
+                    int newRange = range - currentTile.getMoveCost();
+                    if (newRange >= 0 && currentTile.isPassable(gameUnit)) {
+                        GameObject currentObject =
+                                getObject(GridConstants.GAMEOBJECT, adjacentCoordinate);
+                        if (currentObject != null) {
+                            if (currentObject.isPassable(gameUnit)) {
+                                findMovementRange(adjacentCoordinate, newRange, gameUnit);
+                            }
                         }
-                    }
-                    else {
-                        currentTile.setActive(true);
-                        findMovementRange(adjacentCoordinate, newRange, gameObject);
-                    }
-                }
+                        else {
+                            currentTile.setActive(true);
+                            findMovementRange(adjacentCoordinate, newRange, gameUnit);
+                        }
+                    }                          
             }
         }
     }
