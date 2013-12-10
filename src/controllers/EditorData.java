@@ -127,10 +127,11 @@ public class EditorData {
                 syncStats((List<Object>) gtm.getObject(), activeStage);
                 break;
             case GridConstants.TILE:
-            case GridConstants.GAMEOBJECT:
-            case GridConstants.GAMEUNIT:
                 syncObjects((List<Customizable>) gtm.getObject(), activeStage, gtm.getName());
                 break;
+
+            case GridConstants.GAMEOBJECT:
+            case GridConstants.GAMEUNIT:
             case GridConstants.ITEM:
                 break;
             default:
