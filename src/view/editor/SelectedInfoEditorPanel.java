@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import view.player.InfoPanel;
 import view.player.SelectedInfoPanel;
 
+
 /**
  * 
  *
@@ -15,7 +16,7 @@ public class SelectedInfoEditorPanel extends SelectedInfoPanel {
 
     public SelectedInfoEditorPanel () {
         super();
-        setMaximumSize(new Dimension(200,200));
+        setMaximumSize(new Dimension(200, 200));
     }
 
     @Override

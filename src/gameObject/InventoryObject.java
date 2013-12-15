@@ -1,6 +1,5 @@
 package gameObject;
 
-import gameObject.item.Item;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -64,9 +63,10 @@ public class InventoryObject extends GameObject {
         }
         return null;
     }
-    
+
     /**
      * Returns a boolean of if the inventory of the object is empty
+     * 
      * @return boolean of if the inventory is empty
      */
     public boolean isEmpty () {
@@ -87,7 +87,7 @@ public class InventoryObject extends GameObject {
             }
         }
     }
-    
+
     public void removeAllOfAnItem (Item item) {
         myItems.remove(item);
         myItemAmounts.remove(item.getName());
@@ -112,7 +112,8 @@ public class InventoryObject extends GameObject {
         displayData.add("<b>Inventory:</b>");
         if (!myItems.isEmpty()) {
             for (Item item : myItems) {
-                displayData.add("&nbsp; &nbsp; &nbsp;" + item.getName() + ": " + myItemAmounts.get(item.getName()));
+                displayData.add("&nbsp; &nbsp; &nbsp;" + item.getName() + ": " +
+                                myItemAmounts.get(item.getName()));
             }
         }
         else {

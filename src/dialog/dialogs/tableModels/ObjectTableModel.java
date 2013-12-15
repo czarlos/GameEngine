@@ -9,6 +9,12 @@ import gameObject.InventoryObject;
 import grid.GridConstants;
 
 
+/**
+ * Allows users to edit editor game objects
+ * 
+ * @author Leevi
+ * 
+ */
 @SuppressWarnings("serial")
 public class ObjectTableModel extends GameTableModel {
 
@@ -70,7 +76,7 @@ public class ObjectTableModel extends GameTableModel {
         for (int i = 2; i < myList.size(); i++) {
             GameObject go = new GameObject();
             Object[] row = myList.get(i);
-            
+
             go.setName((String) row[0]);
             go.setImagePath((String) ((File) row[1]).getPath());
             go.setPassableList((List<String>) row[2]);

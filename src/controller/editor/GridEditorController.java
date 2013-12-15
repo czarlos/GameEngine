@@ -38,7 +38,7 @@ public class GridEditorController implements GridMouseListener {
             myWM.place(myWM.getActiveType(), id, c);
         displayInfo(c, currentIndex);
         if (id < 0 && gtm != null) {
-            myDialog = new TableDialog(gtm, new ItemDialogListener(gtm, myWM, c), myWM);
+            myDialog = new TableDialog(gtm, new ItemDialogListener(gtm, myWM, c));
             myDialog.setVisible(true);
         }
 
@@ -48,9 +48,9 @@ public class GridEditorController implements GridMouseListener {
         myPanelList.get(index).displayInformation(c);
 
     }
-    
-    public void refreshEditorPanels(){
-        for(StageEditorPanel p:myEditorPanelList){
+
+    public void refreshEditorPanels () {
+        for (StageEditorPanel p : myEditorPanelList) {
             p.drawTabs(GridConstants.DEFAULTTABTYPES);
         }
     }
@@ -58,8 +58,8 @@ public class GridEditorController implements GridMouseListener {
     public void addStageSidePanel (int i, StageSidePanel panel) {
         myPanelList.add(i, panel);
     }
-    
-    public void addEditorPanel (StageEditorPanel panel){
+
+    public void addEditorPanel (StageEditorPanel panel) {
         myEditorPanelList.add(panel);
     }
 
@@ -81,6 +81,5 @@ public class GridEditorController implements GridMouseListener {
             myDialog.setVisible(false);
             myWM.setItemTableModel(myGTM, myCurrentCoordinate);
         }
-
     }
 }

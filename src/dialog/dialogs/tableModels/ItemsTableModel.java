@@ -7,12 +7,15 @@ import java.util.Map;
 import controllers.EditorData;
 
 
+/**
+ * Allows users to edit a specific InventoryObject's items
+ * 
+ * @author Leevi
+ * 
+ */
 @SuppressWarnings("serial")
 public class ItemsTableModel extends GameTableModel {
 
-    /**
-     * Column names: Item, Amount
-     */
     public ItemsTableModel (EditorData ed) {
         String[] names = { "Item", "Amount" };
         setColumnNames(names);
@@ -31,7 +34,7 @@ public class ItemsTableModel extends GameTableModel {
             addNewRow(row);
         }
     }
-    
+
     @Override
     public Object getObject () {
         Map<String, Integer> myMap = new HashMap<String, Integer>();

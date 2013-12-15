@@ -8,12 +8,15 @@ import javax.swing.JOptionPane;
 import controllers.EditorData;
 
 
+/**
+ * Allows users to edit individual stat values for items and units
+ * (but not names)
+ * 
+ * @author Leevi
+ * 
+ */
 @SuppressWarnings("serial")
 public class StatTableModel extends GameTableModel {
-
-    /**
-     * Column names: Stat, Value
-     */
     public StatTableModel (EditorData ed) {
         super();
         String[] names = { "Stat", "Value" };
@@ -38,7 +41,7 @@ public class StatTableModel extends GameTableModel {
             addNewRow(row);
         }
     }
-    
+
     @Override
     public Object getObject () {
         Stats ret = new Stats();

@@ -31,8 +31,6 @@ public class Stats {
         for (Stat stat : newStats.getStats()) {
             myStatList.add(stat.clone());
         }
-
-        // syncWithMaster();
     }
 
     public void addStat (Stat newStat) {

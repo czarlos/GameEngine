@@ -17,8 +17,9 @@ public class PathfindingTests {
     /**
      * Initializes grid for use in the unit tests
      */
+    // need to use WM
     public void initializeGrid () {
-        grid = new Grid(10, 10, 1);
+        // grid = new Grid(10, 10, 1);
     }
 
     @Test
@@ -62,9 +63,6 @@ public class PathfindingTests {
 
     @Test
     public void testPathFind () {
-
-        Grid grid = new Grid(6, 6, 0);
-
         GameUnit unit = new GameUnit();
 
         List<Tile> tileGrid = PathFinding.coordinatesToTiles(grid, unit);
@@ -77,7 +75,6 @@ public class PathfindingTests {
 
     @Test
     public void testAutoMove () {
-        Grid grid = new Grid(6, 6, 0);
 
         GameUnit unit = new GameUnit();
 

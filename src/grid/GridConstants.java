@@ -17,10 +17,12 @@ import gameObject.action.StatOutcome;
 import gameObject.action.TradeAction;
 import gameObject.action.WaitAction;
 
+
 /**
  * Constants used by Grid and Manager
+ * 
  * @author kevinjian
- *
+ * 
  */
 public class GridConstants {
     public final static int TRANSPARENCY = 50;
@@ -35,10 +37,11 @@ public class GridConstants {
     public static final String TEAM = "Team";
     public static final String CONDITION = "Condition";
     public static final String ACTION = "Action";
-    public static final int ACTIONRANGE = 1;
 
     public final static String DEFAULT_PASS_EVERYTHING = "everything";
+    public final static String DEFAULTSAVELOCATION = "saves";
 
+    public final static String MOVEMENT = "movement";
     public final static String WAIT = "Wait";
     public final static String MOVE = "Move";
     public final static String CHEST = "Chest";
@@ -56,11 +59,12 @@ public class GridConstants {
                                                 new ShopAction() };
     public static final Outcome[] COREOUTCOMES = { new StatOutcome(), new ItemOutcome() };
 
-    public static final String[] DEFAULTSTATARRAY = { "health", "movement", 
-                                                     "maxhealth", "defense", "attack"};
+    public static final String[] DEFAULTSTATARRAY = { "health", "movement",
+                                                     "maxhealth", "defense", "attack" };
 
     public static final Condition[] CORECONDITIONS = { new PositionCondition(),
                                                       new ItemCondition(),
                                                       new StatCondition(), new TurnCondition(),
-                                                      new UnitCountCondition(), new FalseCondition() };
+                                                      new UnitCountCondition(),
+                                                      new FalseCondition() };
 }

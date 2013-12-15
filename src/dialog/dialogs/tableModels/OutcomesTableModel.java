@@ -10,12 +10,15 @@ import controllers.EditorData;
 import dialog.Selector;
 
 
+/**
+ * Allows users to edit Outcomes that are applied to actions
+ * 
+ * @author Leevi
+ * 
+ */
 @SuppressWarnings("serial")
 public class OutcomesTableModel extends GameTableModel {
 
-    /**
-     * Column names: Affectee, Amount, Fixed?
-     */
     public OutcomesTableModel (EditorData ED) {
         String[] names = { "Type", "Affectee", "Amount", "Fixed?" };
         myName = "Outcome";

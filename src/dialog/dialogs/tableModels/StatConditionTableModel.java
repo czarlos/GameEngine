@@ -7,6 +7,13 @@ import dialog.Selector;
 import stage.StatCondition;
 
 
+/**
+ * Allows users to edit win conditions that require a team to have
+ * cumulative totals of some stat
+ * 
+ * @author Leevi
+ * 
+ */
 @SuppressWarnings("serial")
 public class StatConditionTableModel extends GameTableModel {
 

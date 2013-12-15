@@ -10,7 +10,7 @@ public class TurnCondition extends Condition {
     private int myCount;
 
     public TurnCondition () {
-        myCount = 5;
+        myCount = 3;
     }
 
     public void setCount (int count) {
@@ -23,7 +23,7 @@ public class TurnCondition extends Condition {
 
     @Override
     boolean isFulfilled (Stage stage) {
-        return stage.getPhaseCount()/stage.getNumberOfTeams() > myCount;
+        return stage.getPhaseCount() / stage.getNumberOfTeams() >= myCount;
     }
 
     @Override

@@ -1,15 +1,9 @@
-package gameObject.item;
+package gameObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import gameObject.IStats;
-import gameObject.Stat;
-import gameObject.Stats;
 
 
 /**
@@ -23,7 +17,6 @@ import gameObject.Stats;
  */
 @JsonAutoDetect
 public class Item extends Customizable implements IStats {
-    @JsonProperty
     private List<String> myActions;
     private Stats myStats;
 
@@ -41,6 +34,7 @@ public class Item extends Customizable implements IStats {
     }
 
     @JsonIgnore
+    @Deprecated
     public void addAction (String action) {
         myActions.add(action);
     }
@@ -79,24 +73,6 @@ public class Item extends Customizable implements IStats {
 
     public boolean containsStat (String name) {
         return myStats.contains(name);
-    }
-
-    @Override
-    public boolean equals (Object other) {
-        if (other instanceof Customizable) {
-            return this.getName().equals(((Customizable) other).getName());
-        }
-        else return false;
-    }
-
-    @Override
-    public int hashCode () {
-        final int prime = 31;
-        return myName.length() * prime;
-    }
-
-    public boolean containsAction (String action) {
-        return myActions.contains(action);
     }
 
     public void changeActionName (String oldName, String newName) {

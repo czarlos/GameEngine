@@ -4,11 +4,12 @@ import java.awt.GridLayout;
 import java.util.List;
 import javax.swing.JLabel;
 
+
 /**
- * Scrollable panel for displaying GameObject info 
+ * Scrollable panel for displaying GameObject info
  * 
  * @author Patrick Schutz
- *
+ * 
  */
 @SuppressWarnings("serial")
 public class InfoPanel extends ScrollableListPane {

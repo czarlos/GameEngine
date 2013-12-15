@@ -51,5 +51,4 @@ public class GridController implements GridMouseListener {
     public Coordinate getCurrentCoordinate () {
         return mySelectedCoordinate;
     }
-
 }

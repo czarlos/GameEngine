@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Returns true if the unit of a certain "affiliation" has achieved a cumulative stat of
- * "statType" higher than "value"
+ * "StatType" higher than "value"
  * 
  * @author Leevi
  * 
@@ -16,7 +16,7 @@ public class StatCondition extends Condition {
     private String myStatType;
     private int myValue;
     private String myAffiliation;
-    
+
     public StatCondition () {
         super();
         myStatType = "attack";

@@ -3,7 +3,6 @@ package stage;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
@@ -16,10 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonAutoDetect
 public class WinCondition {
-    @JsonProperty
     private int conditionsNeeded;
-
-    @JsonProperty
     private List<Condition> myConditions;
 
     public WinCondition () {
@@ -47,8 +43,6 @@ public class WinCondition {
         myConditions = conditions;
     }
 
-    // TODO: currently no conditions = auto-win, but maybe we should make it
-    // never-win
     public boolean isFulfilled (Stage stage) {
         int count = 0;
         for (Condition c : myConditions) {

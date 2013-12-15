@@ -10,6 +10,7 @@ import controllers.EditorData;
 
 
 /**
+ * Allows users to edit editor tiles
  * 
  * @author brooksmershon
  * @author Leevi
@@ -19,9 +20,6 @@ import controllers.EditorData;
 @SuppressWarnings("serial")
 public class TileTableModel extends GameTableModel {
 
-    /**
-     * Column names: Name, Graphic, Move Cost, Stats
-     */
     public TileTableModel (EditorData ED) {
         String[] names = { "Name", "Graphic", "Move Cost", "Stats", "Passables" };
         myName = GridConstants.TILE;
@@ -32,7 +30,7 @@ public class TileTableModel extends GameTableModel {
     @SuppressWarnings("unchecked")
     public void loadObject (Object object) {
         List<Tile> list = (List<Tile>) object;
-        for(int i = 0; i< list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
             Object[] array = new Object[myColumnNames.length + 1];
 
             Tile t = list.get(i);
@@ -44,10 +42,10 @@ public class TileTableModel extends GameTableModel {
             array[4] = t.getPassableList();
             array[5] = i;
 
-            addNewRow(array);           
+            addNewRow(array);
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     @Override
     public List<?> getObject () {

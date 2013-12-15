@@ -2,8 +2,8 @@ package gameObject.action;
 
 import gameObject.GameObject;
 import gameObject.GameUnit;
+import gameObject.Item;
 import gameObject.Shop;
-import gameObject.item.Item;
 import grid.GridConstants;
 
 

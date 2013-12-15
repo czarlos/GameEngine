@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 
 
 /**
+ * Pulls up a FileChooser that allows you to select a new file path for an image
  * 
  * @author brooksmershon
  * 

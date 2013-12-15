@@ -9,9 +9,10 @@ import view.player.SelectedInfoPanel;
 import controller.editor.GridEditorController;
 import controllers.WorldManager;
 
+
 /**
  * Displays object info panels
- *
+ * 
  */
 @SuppressWarnings("serial")
 public class StageSidePanel extends JPanel {

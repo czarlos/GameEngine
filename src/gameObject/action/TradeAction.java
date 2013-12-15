@@ -2,7 +2,7 @@ package gameObject.action;
 
 import gameObject.GameObject;
 import gameObject.GameUnit;
-import gameObject.item.Item;
+import gameObject.Item;
 import grid.GridConstants;
 
 

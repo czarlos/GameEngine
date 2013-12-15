@@ -7,17 +7,18 @@ import dialog.Selector;
 
 
 /**
- * Takes an list of strings and an enum and displays those strings as editable
- * enums.
+ * Takes an list of strings and displays those strings as an editable ComboBox
+ * Use Selectors when possible
  * 
  * @author Leevi
  * 
  */
 @SuppressWarnings("serial")
+@Deprecated
 public class EnumTableModel extends GameTableModel {
 
     private List<String> myComboList;
-    
+
     public EnumTableModel (List<String> list, EditorData ED) {
         String[] names = { "" };
         myName = "List Item";

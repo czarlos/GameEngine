@@ -6,10 +6,12 @@ import controllers.EditorData;
 import dialog.Selector;
 import stage.ItemCondition;
 
+
 /**
+ * Allows users to edit win conditions that require item amounts
  * 
  * @author Leevi, brooksmershon
- *
+ * 
  */
 @SuppressWarnings("serial")
 public class ItemConditionTableModel extends GameTableModel {

@@ -85,7 +85,7 @@ public class StageEditorPanel extends JTabbedPane {
         sg.addComponent(editType);
         pg.addComponent(editType);
 
-        List<String> tileNames = myWorldManager.get(type);
+        List<String> tileNames = myWorldManager.getNames(type);
         for (int n = 0; n < tileNames.size(); n++) {
             GameObjectPanel gop =
                     new GameObjectPanel(type,
@@ -114,7 +114,7 @@ public class StageEditorPanel extends JTabbedPane {
         selectedPanel = selected;
         myWorldManager.setActiveObject(
                                        selected.getType(),
-                                       myWorldManager.get(selected.getType())
+                                       myWorldManager.getNames(selected.getType())
                                                .indexOf(
                                                         selected.getName()));
     }
@@ -136,7 +136,7 @@ public class StageEditorPanel extends JTabbedPane {
             GameTableModel gtm = myWM.getTableModel(myType);
             myTableDialog =
                     new TableDialog(gtm, new DialogListener(myWM, gtm,
-                                                            myPanel, myType), myWM);
+                                                            myPanel, myType));
             myTableDialog.setVisible(true);
             myTableDialog
                     .setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);

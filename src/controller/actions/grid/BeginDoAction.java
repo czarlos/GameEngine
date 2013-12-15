@@ -13,7 +13,6 @@ public class BeginDoAction extends AbstractGridCommand {
                           List<Coordinate> selectedCoordinates) {
         super(selectedCoordinates, manager);
         myActionId = actionId;
-
     }
 
     @Override
@@ -24,5 +23,4 @@ public class BeginDoAction extends AbstractGridCommand {
     public void execute () {
         myManager.beginAction(mySelectedCoordinates.get(0), myActionId);
     }
-
 }

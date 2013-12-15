@@ -8,13 +8,14 @@ import java.util.List;
 import controllers.EditorData;
 
 
+/**
+ * Allows users to edit CombatActions
+ * 
+ * @author Leevi
+ * 
+ */
 @SuppressWarnings("serial")
 public class CombatActionTableModel extends GameTableModel {
-
-    /**
-     * column names: Name, Action Range, Initiator Outcomes, Init. Stat Weights, Receiver Outcomes,
-     * Rec. Stat Weights
-     */
 
     public CombatActionTableModel (EditorData ED) {
         String[] names =
@@ -43,7 +44,7 @@ public class CombatActionTableModel extends GameTableModel {
     public void loadObject (Object object) {
         myList.clear();
         List<CombatAction> list = (List<CombatAction>) object;
-        for (int i = 0; i < list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
             CombatAction a = list.get(i);
             Object[] array = new Object[myColumnNames.length + 1];
             array[0] = a.getName();

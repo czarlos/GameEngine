@@ -1,4 +1,7 @@
-package gameObject;
+package unused;
+
+import gameObject.GameObject;
+
 
 public class ToggleableObject extends GameObject {
     GameObject myNextState;

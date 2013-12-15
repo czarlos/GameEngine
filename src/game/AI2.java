@@ -10,7 +10,7 @@ import grid.Grid;
 import grid.GridConstants;
 import grid.Tile;
 import stage.Stage;
-import team.Team;
+import stage.Team;
 import utils.UnitUtilities;
 import controllers.GameManager;
 import controllers.Manager;
@@ -91,7 +91,7 @@ public class AI2 {
     private void doAIAction (GameUnit unit) {
         Coordinate unitCoordinate = myGrid.getObjectCoordinate(GridConstants.GAMEUNIT, unit);
         List<String> unitActions = myManager.getActionNames(unitCoordinate);
-        if (unitActions == null ) return;
+        if (unitActions == null) return;
         for (String unitAction : unitActions) {
             Action currentAction = ((GameManager) myManager).getAction(unitAction);
             myGrid.findActionRange(unitCoordinate, currentAction.getActionRange(),

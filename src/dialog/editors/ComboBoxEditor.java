@@ -11,6 +11,13 @@ import javax.swing.table.TableCellEditor;
 import dialog.Selector;
 
 
+/**
+ * Allows users to edit the value of a Selector class by providing a ComboBox of Selectors
+ * (which to users appear as strings)
+ * 
+ * @author Leevi
+ * 
+ */
 @SuppressWarnings("serial")
 public class ComboBoxEditor extends AbstractCellEditor implements TableCellEditor {
 

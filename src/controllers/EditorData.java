@@ -1,10 +1,11 @@
 package controllers;
 
+import gameObject.Customizable;
 import gameObject.GameUnit;
 import gameObject.IStats;
+import gameObject.Item;
 import gameObject.Stat;
 import gameObject.action.Action;
-import gameObject.item.Item;
 import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,11 +17,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import dialog.dialogs.tableModels.GameTableModel;
 import parser.JSONParser;
 import stage.Stage;
-import team.Team;
-import view.Customizable;
+import stage.Team;
 
 
 /**
+ * Stores the editor data master lists, creates GameTableModels for editing and
+ * deals with data shifts when table models are passed back
  * 
  * @author Leevi Gray
  * @author Ken McAndrews
@@ -33,28 +35,27 @@ public class EditorData {
     private JSONParser myParser;
     private TableFactory myTableFactory;
 
-    // Only for use by deserializer
     public EditorData () {
         myParser = new JSONParser();
         myTableFactory = new TableFactory(this);
+        myDataMap = new HashMap<String, List<?>>();
+        loadDefaultObjects();
     }
 
     /**
-     * Loads the data located in JSONs/folderName
+     * Saves current "library" of data in the editor to userLibraries/NAME
      * 
-     * @param folderName
+     * @param name
      */
-    public EditorData (String folderName) {
-        myParser = new JSONParser();
-        myTableFactory = new TableFactory(this);
-        myDataMap = new HashMap<String, List<?>>();
-        loadObjects(folderName);
-    }
-
     public void saveData (String name) {
         myParser.createJSON("userLibraries/" + name, myDataMap);
     }
 
+    /**
+     * Loads a "library" of data located in userLibraries/NAME
+     * 
+     * @param name
+     */
     @SuppressWarnings("unchecked")
     public void loadData (String name) {
         myDataMap =
@@ -63,15 +64,15 @@ public class EditorData {
     }
 
     /**
-     * Load in the objects (eventually JTable data) from the JSONs
+     * Load in default objects
      * 
      * @param folderName
      */
     @SuppressWarnings("unchecked")
-    private void loadObjects (String folderName) {
+    private void loadDefaultObjects () {
         for (String s : GridConstants.DEFAULTEDITTYPES) {
             List<Customizable> list = new ArrayList<Customizable>();
-            list = myParser.createObjectFromFile(folderName + "/" + s,
+            list = myParser.createObjectFromFile("defaults/" + s,
                                                  new ArrayList<Customizable>().getClass());
             myDataMap.put(s, list);
         }
@@ -89,16 +90,19 @@ public class EditorData {
         return myDataMap.get(type);
     }
 
-    public Customizable getObject (String type, int ID) {
-        return (Customizable) myDataMap.get(type).get(ID);
-    }
-
     public GameTableModel getTableModel (String type) {
         GameTableModel gtm = myTableFactory.makeTableModel(type);
         gtm.loadObject(myDataMap.get(type));
         return gtm;
     }
 
+    /**
+     * Returns an object of type TYPE and string NAME
+     * 
+     * @param type Type of object
+     * @param name Name of object
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public Customizable getObject (String type, String name) {
         for (Customizable c : (List<Customizable>) myDataMap.get(type)) {
@@ -108,17 +112,64 @@ public class EditorData {
         return null;
     }
 
+    /**
+     * Returns list of names of objects in master data maps
+     * 
+     * @param className
+     * @return
+     */
     @SuppressWarnings("unchecked")
-    public int getObjectID (String type, String name) {
-        for (Customizable c : (List<Customizable>) myDataMap.get(type)) {
-            if (c.getName().equals(name))
-                return myDataMap.get(type).indexOf(c);
+    public List<String> getNames (String className) {
+        List<String> ret = new ArrayList<String>();
+        List<Customizable> myList = (List<Customizable>) myDataMap.get(className);
+
+        for (Customizable d : myList) {
+            ret.add(d.getName());
         }
-        return 0;
+
+        return ret;
     }
 
+    /**
+     * Refreshes instances of objects in table model so that different instances are placed on the
+     * grid
+     * 
+     * @param type Type of objects that need to be refreshed
+     */
+    public void refreshObjects (String type) {
+        GameTableModel gtm = myTableFactory.makeTableModel(type);
+        gtm.loadObject(myDataMap.get(type));
+        myDataMap.put(type, (List<?>) gtm.getObject());
+    }
+
+    @Deprecated
+    // TODO: use myED/Selector combination instead
+    public List<String> getDialogList (String myType) {
+        List<String> ret = new ArrayList<String>();
+        switch (myType) {
+            case GridConstants.GAMEOBJECT:
+            case GridConstants.TILE:
+                ret.add(GridConstants.DEFAULT_PASS_EVERYTHING);
+                ret.addAll(getNames(GridConstants.GAMEUNIT));
+                break;
+            case GridConstants.ITEM:
+                ret.addAll(getNames(GridConstants.ACTION));
+                break;
+        }
+        return ret;
+    }
+
+    /**
+     * Syncs data when table models are saved. Needs to be refactored to keep class uniqueness
+     * and more generically update all grid items. After syncing is done, updates master editor
+     * data.
+     * 
+     * @param gtm
+     * @param activeStage
+     */
     @SuppressWarnings("unchecked")
     public void setData (GameTableModel gtm, Stage activeStage) {
+        // TODO: refactor
         switch (gtm.getName()) {
             case GridConstants.ACTION:
                 syncActions((List<Object>) gtm.getObject(), activeStage);
@@ -127,7 +178,7 @@ public class EditorData {
                 syncStats((List<Object>) gtm.getObject(), activeStage);
                 break;
             case GridConstants.TILE:
-                syncObjects((List<Customizable>) gtm.getObject(), activeStage, gtm.getName());
+                // syncObjects((List<Customizable>) gtm.getObject(), activeStage, gtm.getName());
                 break;
 
             case GridConstants.GAMEOBJECT:
@@ -187,18 +238,6 @@ public class EditorData {
     }
 
     @SuppressWarnings("unchecked")
-    public List<String> getNames (String className) {
-        List<String> ret = new ArrayList<String>();
-        List<Customizable> myList = (List<Customizable>) myDataMap.get(className);
-
-        for (Customizable d : myList) {
-            ret.add(d.getName());
-        }
-
-        return ret;
-    }
-
-    @SuppressWarnings("unchecked")
     public void syncObjects (List<Customizable> newList, Stage activeStage, String type) {
         List<Customizable> fullList = (List<Customizable>) get(type);
         List<Customizable> removed = new ArrayList<Customizable>((List<Customizable>) get(type));
@@ -209,7 +248,8 @@ public class EditorData {
                 Customizable prevObject = fullList.get(c.getLastIndex());
                 for (int i = 0; i < objects.length; i++) {
                     for (int j = 0; j < objects[0].length; j++) {
-                        if (objects[i][j] != null && objects[i][j].getName().equals(prevObject.getName())) {
+                        if (objects[i][j] != null &&
+                            objects[i][j].getName().equals(prevObject.getName())) {
                             objects[i][j] = c;
                         }
                     }
@@ -290,26 +330,5 @@ public class EditorData {
             activeStage.setTeamName(fullList.indexOf(t), newList.get(0)
                     .getName());
         }
-    }
-
-    public void refreshObjects (String type) {
-        GameTableModel gtm = myTableFactory.makeTableModel(type);
-        gtm.loadObject(myDataMap.get(type));
-        myDataMap.put(type, (List<?>) gtm.getObject());
-    }
-
-    public List<String> getDialogList (String myType) {
-        List<String> ret = new ArrayList<String>();
-        switch (myType) {
-            case GridConstants.GAMEOBJECT:
-            case GridConstants.TILE:
-                ret.add(GridConstants.DEFAULT_PASS_EVERYTHING);
-                ret.addAll(getNames(GridConstants.GAMEUNIT));
-                break;
-            case GridConstants.ITEM:
-                ret.addAll(getNames(GridConstants.ACTION));
-                break;
-        }
-        return ret;
     }
 }

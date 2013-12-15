@@ -24,5 +24,4 @@ public class DoAction extends AbstractGridCommand {
         myManager.doAction(mySelectedCoordinates.get(0),
                            mySelectedCoordinates.get(1), myActionId);
     }
-
 }

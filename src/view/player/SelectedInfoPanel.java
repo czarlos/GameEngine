@@ -30,7 +30,7 @@ public class SelectedInfoPanel extends JTabbedPane {
                           List<String> objectInfo) {
 
         this.removeAll();
-        
+
         if (actionInfo != null && !actionInfo.isEmpty()) {
             JScrollPane pane = new JScrollPane(makeActionPane(actionInfo));
             pane.setLayout(new ScrollPaneLayout());

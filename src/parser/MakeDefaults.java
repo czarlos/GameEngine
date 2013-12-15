@@ -1,5 +1,6 @@
 package parser;
 
+import gameObject.Item;
 import gameObject.Stat;
 import gameObject.Stats;
 import gameObject.action.Action;
@@ -7,14 +8,13 @@ import gameObject.action.CombatAction;
 import gameObject.action.Outcome;
 import gameObject.action.Outcomes;
 import gameObject.action.StatOutcome;
-import gameObject.item.Item;
 import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.List;
 import controllers.WorldManager;
+import stage.Team;
 import stage.UnitCountCondition;
 import stage.WinCondition;
-import team.Team;
 
 
 public class MakeDefaults {
@@ -70,7 +70,7 @@ public class MakeDefaults {
         Grass.setStats(defaultStats);
         Grass.setActive(false);
         Grass.setMoveCost(1);
-        Grass.setPassableList(passableList);        
+        Grass.setPassableList(passableList);
 
         grid.Tile Grass1 = new grid.Tile();
         Grass1.setName("Short Grass");
@@ -233,9 +233,9 @@ public class MakeDefaults {
         controllers.WorldManager wm = new controllers.WorldManager();
         wm.setGameName("test");
         wm.addStage(10, 10, 1, "stageOne", 0);
-        wm.saveGame("saves");
+        wm.saveGame(GridConstants.DEFAULTSAVELOCATION);
 
-        p.createObjectFromFile("saves/test", WorldManager.class);
+        p.createObjectFromFile(GridConstants.DEFAULTSAVELOCATION + "/test", WorldManager.class);
     }
 
     public void makeTeams () {
@@ -305,7 +305,9 @@ public class MakeDefaults {
         Item weapon = new Item();
         weapon.setName("Weapon");
         weapon.setImagePath("resources/weapon.png");
-        weapon.addAction(defaultCombatAction.getName());
+        List<String> actions = new ArrayList<String>();
+        actions.add(defaultCombatAction.getName());
+        weapon.setActions(actions);
         weapon.setStats(defaultStats);
 
         Item helmet = new Item();
@@ -340,5 +342,4 @@ public class MakeDefaults {
 
         maker.saveAndLoadGame();
     }
-
 }

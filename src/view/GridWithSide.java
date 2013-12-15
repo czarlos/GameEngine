@@ -7,6 +7,7 @@ import controllers.Manager;
 import view.canvas.GridCanvas;
 
 
+@SuppressWarnings("serial")
 public class GridWithSide extends TwoColumnPanel {
     protected GridCanvas myGrid;
 

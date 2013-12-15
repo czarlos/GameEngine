@@ -7,12 +7,14 @@ import gameObject.Stat;
 import grid.GridConstants;
 
 
+/**
+ * Allows users to edit the Master Stat list for the game
+ * 
+ * @author Leevi
+ * 
+ */
 @SuppressWarnings("serial")
 public class MasterStatsTableModel extends GameTableModel {
-
-    /**
-     * Column names: Stat
-     */
 
     public MasterStatsTableModel (EditorData ED) {
         super();
@@ -26,12 +28,12 @@ public class MasterStatsTableModel extends GameTableModel {
     public boolean isCellEditable (int row, int column) {
         return row > 1;
     }
-    
+
     @SuppressWarnings({ "unchecked" })
     public void loadObject (Object object) {
         List<Stat> list = (List<Stat>) object;
         myList.clear();
-        for(int i = 0; i < list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
             Stat s = list.get(i);
             Object[] row = new Object[myColumnNames.length + 1];
             row[0] = s.getName();
@@ -39,7 +41,7 @@ public class MasterStatsTableModel extends GameTableModel {
             addNewRow(row);
         }
     }
-    
+
     @Override
     public Object getObject () {
         List<Stat> ret = new ArrayList<Stat>();

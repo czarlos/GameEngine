@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.Set;
 import gameObject.Chest;
 import gameObject.GameUnit;
+import gameObject.Item;
 import gameObject.Stats;
 import gameObject.action.ChestAction;
-import gameObject.item.Item;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,13 +1,7 @@
-package team;
+package stage;
 
-import java.util.ArrayList;
-import java.util.List;
-import stage.Condition;
-import stage.Stage;
-import stage.WinCondition;
-import view.Customizable;
+import gameObject.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -24,22 +18,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Team extends Customizable {
     private int myGold;
     private boolean isHuman;
-
-    @JsonProperty
     private WinCondition myWinCondition;
 
     public Team () {
-    }
-
-    public Team (String name) {
-        myGold = 0;
-        myName = name;
-        myWinCondition = new WinCondition();
-    }
-
-    public Team (String teamName, boolean humanity) {
-        this(teamName);
-        setIsHuman(humanity);
     }
 
     public void setWinCondition (WinCondition wc) {
@@ -50,10 +31,6 @@ public class Team extends Customizable {
         return myWinCondition;
     }
 
-    public void addCondition (Condition c) {
-        myWinCondition.addCondition(c);
-    }
-
     public boolean hasWon (Stage stage) {
         return myWinCondition.isFulfilled(stage);
     }
@@ -62,7 +39,6 @@ public class Team extends Customizable {
         return myName;
     }
 
-    // should ONLY be called by JSON deserializer and Stage
     public void setName (String name) {
         myName = name;
     }

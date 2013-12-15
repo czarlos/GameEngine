@@ -21,6 +21,7 @@ public class UnitUtilities {
 
     /**
      * Gets the Manhattan distance between two coordinates
+     * 
      * @param pos1 Coordinate of the first position
      * @param pos2 Coordinate of the second position
      * @return int of the Manhattan distance

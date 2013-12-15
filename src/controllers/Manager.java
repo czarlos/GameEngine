@@ -16,10 +16,12 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 /**
- * Communicates between backend and frontend
+ * Communicates between backend and frontend. Stores entirety of game info.
+ * 
  * @author Leevi, Chris, Kevin
- *
+ * 
  */
 @JsonAutoDetect
 public abstract class Manager {
@@ -44,11 +46,10 @@ public abstract class Manager {
     @JsonProperty
     protected int myActiveTeam;
     protected List<Action> myActiveActions;
-    protected boolean isTurnCompleted;
 
     public Manager () {
         myStages = new ArrayList<Stage>();
-        myEditorData = new EditorData("defaults");
+        myEditorData = new EditorData();
     }
 
     public Manager (Manager m) {
@@ -61,9 +62,18 @@ public abstract class Manager {
         myPhaseCount = m.myPhaseCount;
         myActiveTeam = m.myActiveTeam;
     }
-    
+
     public void setGameName (String gameName) {
         myGameName = gameName;
+    }
+
+    /**
+     * Gets the game name
+     * 
+     * @return String of the gameName
+     */
+    public String getGameName () {
+        return myGameName;
     }
 
     /**
@@ -72,31 +82,13 @@ public abstract class Manager {
      * @return List of Strings of stage names
      */
     @JsonIgnore
-    public List<String> getStages () {
+    public List<String> getStageNames () {
         List<String> ret = new ArrayList<String>();
         for (Stage s : myStages) {
             ret.add(s.getName());
         }
 
         return ret;
-    }
-
-    /**
-     * Set which stage to assign "active", this is the stage that all methods
-     * will return information about by default.
-     * 
-     * @param stageID int of the ID of the stage to be set active
-     */
-    @JsonProperty("activeStage")
-    public void setActiveStage (int stageID) {
-        if (stageID < myStages.size() & stageID > -1){
-            myActiveStage = myStages.get(stageID);
-        }
-    }
-
-    @JsonProperty("activeStage")
-    public int getActiveStage () {
-        return myStages.indexOf(myActiveStage);
     }
 
     /**
@@ -110,17 +102,21 @@ public abstract class Manager {
     }
 
     /**
-     * Gets the game name
+     * Set which stage to assign "active", this is the stage that all methods
+     * will return information about by default.
      * 
-     * @return String of the gameName
+     * @param stageID int of the ID of the stage to be set active
      */
-    public String getGameName () {
-        return myGameName;
+    @JsonProperty("activeStage")
+    public void setActiveStage (int stageID) {
+        if (stageID < myStages.size() & stageID > -1) {
+            myActiveStage = myStages.get(stageID);
+        }
     }
 
-    @JsonIgnore
-    protected String getActiveStageName () {
-        return myActiveStage.getName();
+    @JsonProperty("activeStage")
+    public int getActiveStage () {
+        return myStages.indexOf(myActiveStage);
     }
 
     /**
@@ -135,8 +131,9 @@ public abstract class Manager {
         if (gameObject != null) {
             if (gameObject instanceof GameUnit) {
                 gameObject = myActiveStage.getGrid().getObject(GridConstants.GAMEUNIT, coordinate);
-                ((GameUnit) gameObject).setTotalStats(((Tile) myActiveStage.getGrid().getObject(GridConstants.TILE, coordinate)).getStats());                
-            }            
+                ((GameUnit) gameObject).setTotalStats(((Tile) myActiveStage.getGrid()
+                        .getObject(GridConstants.TILE, coordinate)).getStats());
+            }
             gameObject.generateDisplayData();
             addCoordinateData(gameObject, coordinate);
             return gameObject.getDisplayData();

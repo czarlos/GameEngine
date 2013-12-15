@@ -10,6 +10,7 @@ import view.editor.EditorFrame;
 import view.player.PlayerView;
 
 
+@SuppressWarnings("serial")
 public class GameStartView extends JFrame {
     public GameStartView () {
         setLayout(new GridLayout(0, 1));

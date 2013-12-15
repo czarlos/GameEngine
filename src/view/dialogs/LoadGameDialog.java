@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
+@SuppressWarnings("serial")
 public class LoadGameDialog extends JPanel {
     protected JComboBox<String> myOptions;
 
@@ -14,15 +15,15 @@ public class LoadGameDialog extends JPanel {
         setLayout(new GridLayout(0, 2));
         JLabel gameNames = new JLabel("Choose Game Name:");
         myOptions = new JComboBox<>();
-        File savesDir = new File("JSONs/"+folder);
+        File savesDir = new File("JSONs/" + folder);
         for (File child : savesDir.listFiles()) {
             myOptions.addItem(child.getName().split("\\.")[0]);
         }
         add(gameNames);
         add(myOptions);
     }
-    
-    public String getSelected(){
+
+    public String getSelected () {
         return (String) myOptions.getSelectedItem();
     }
 

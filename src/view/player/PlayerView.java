@@ -1,5 +1,6 @@
 package view.player;
 
+import grid.GridConstants;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -48,7 +49,7 @@ public class PlayerView extends GameView {
         // add action listeners
         loadNewGame.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
-                loadGame(loadGame("saves"));
+                loadGame(loadGame(GridConstants.DEFAULTSAVELOCATION));
             }
         });
 
@@ -117,8 +118,8 @@ public class PlayerView extends GameView {
         myGameManager.beginTurn();
         loadStagePanel();
     }
-    
-    public void gameOver(){
+
+    public void gameOver () {
         dispose();
         new PlayerView();
     }

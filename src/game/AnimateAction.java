@@ -45,6 +45,7 @@ public class AnimateAction {
         });
     }
 
+    @SuppressWarnings("serial")
     public class AnimationPane extends JPanel {
 
         private BufferedImage unit;
