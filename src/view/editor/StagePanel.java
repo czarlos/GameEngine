@@ -6,13 +6,20 @@ import view.GridWithSide;
 import view.canvas.GridCanvas;
 
 /**
- * 
+ * JPanel to represent a stage. Shows grid for a stage and editing options
+ * for that stage.
  */
 @SuppressWarnings("serial")
 public class StagePanel extends GridWithSide {
 
     private GridEditorController myController;
 
+    /**
+     * Create new stage panel for a specified stage
+     * @param wm WordManager containing stage data
+     * @param gridcontrol GridEditorController to be used for this StagePanel
+     * @param stageId Id of stage to make StagePanel for
+     */
     public StagePanel (WorldManager wm,
                        GridEditorController gridcontrol, int stageId) {
         super(wm);

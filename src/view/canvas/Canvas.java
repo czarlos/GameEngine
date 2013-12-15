@@ -7,15 +7,23 @@ import java.awt.Rectangle;
 import javax.swing.JPanel;
 import javax.swing.Scrollable;
 
-
+/**
+ * A Canvas is a JPanel that is scrollable and exposes paintComponent 
+ * functionality so the pain can be painted to directly using a Graphics object.
+ *
+ */
 public class Canvas extends JPanel implements Scrollable {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 5035575821683474890L;
 
+    /**
+     * X Position to start drawing from.
+     */
     protected static final int STARTING_X = 0;
+    
+    /**
+     * Y Position to start drawing from.
+     */
     protected static final int STARTING_Y = 0;
 
     public Canvas () {
@@ -45,36 +53,39 @@ public class Canvas extends JPanel implements Scrollable {
         super.paintComponent(g);
     }
 
+    @Override
     public int getHeight () {
         return getSize().height;
     }
 
+    @Override
     public int getWidth () {
         return getSize().width;
     }
-
-    public Dimension getPreferredScrollableSize () {
+    
+    @Override
+    public Dimension getPreferredScrollableViewportSize () {
         return new Dimension(500, 500);
     }
 
-    public Dimension getPreferredScrollableViewportSize () {
-        return getPreferredScrollableSize();
-    }
-
+    @Override
     public int getScrollableUnitIncrement (Rectangle visibleRect,
                                            int orientation, int direction) {
         return 1;
     }
 
+    @Override
     public int getScrollableBlockIncrement (Rectangle visibleRect,
                                             int orientation, int direction) {
         return 1;
     }
 
+    @Override
     public boolean getScrollableTracksViewportWidth () {
         return false;
     }
 
+    @Override
     public boolean getScrollableTracksViewportHeight () {
         return false;
     }

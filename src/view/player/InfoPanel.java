@@ -5,10 +5,8 @@ import java.util.List;
 import javax.swing.JLabel;
 
 /**
- * Scrollable panel for displaying GameObject info 
+ * Scrollable panel for displaying GameObject info as strings.
  * 
- * @author Patrick Schutz
- *
  */
 @SuppressWarnings("serial")
 public class InfoPanel extends ScrollableListPane {
@@ -16,6 +14,9 @@ public class InfoPanel extends ScrollableListPane {
         populate(data);
     }
 
+    /**
+     * Override of populate method to display data as strings in a pane.
+     */
     @Override
     public void populate (List<String> data) {
         setLayout(new GridLayout(0, 1));

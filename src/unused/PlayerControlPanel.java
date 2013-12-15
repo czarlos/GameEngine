@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import controller.editor.GridController;
-import controller.editor.NClickAction;
+import controller.player.GridController;
+import controller.player.NClickAction;
 
 
 @SuppressWarnings("serial")

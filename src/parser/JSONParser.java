@@ -39,12 +39,14 @@ public class JSONParser {
      * 
      * @param filename Path to file to save JSON
      * @param object Object to serialize to JSON
+     * @throws IOException 
      */
     public void createJSON (String filename, Object object) {
+        File output = new File("JSONs/" + filename + ".json");
+        output.getParentFile().mkdirs();
+        
         try {
-            myMapper.writerWithDefaultPrettyPrinter().writeValue(
-                                                                 new File("JSONs/" + filename +
-                                                                          ".json"), object);
+            myMapper.writerWithDefaultPrettyPrinter().writeValue(output, object);
         }
         catch (JsonGenerationException e) {
             e.printStackTrace();
@@ -65,6 +67,7 @@ public class JSONParser {
      * @return New object
      */
     public <T> T createObjectFromFile (String filename, Class<T> c) {
+
         try {
             return myMapper.readValue(new File("JSONs/" + filename + ".json"),
                                       new TypeReference<T>() {

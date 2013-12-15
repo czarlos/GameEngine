@@ -10,7 +10,7 @@ import javax.swing.SwingConstants;
 
 
 /**
- * A scrollable pane for game info panels to extend
+ * A scrollable pane for game info panels to extend.
  */
 
 @SuppressWarnings("serial")
@@ -31,6 +31,12 @@ public abstract class ScrollableListPane extends JPanel implements Scrollable {
         super(layout);
     }
 
+    /**
+     * Method to populate pane with some representation of 
+     * data.
+     * @param data List of strings to be represented by 
+     * this pane.
+     */
     public abstract void populate (List<String> data);
 
     public ScrollableListPane (boolean isDoubleBuffered) {
