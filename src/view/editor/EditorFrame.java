@@ -94,7 +94,7 @@ public class EditorFrame extends GameView {
         });
         loadGame.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
-                loadGame(loadGame(DEFAULT_SAVE_LOCATION));
+                loadGame(loadGame(GridConstants.DEFAULTSAVELOCATION));
             }
         });
         saveGame.addActionListener(new ActionListener() {
@@ -144,7 +144,7 @@ public class EditorFrame extends GameView {
         JTextField yTextField = new JTextField(6);
         JLabel imageLabel = new JLabel("Default Tile");
         JComboBox<String> imageMenu = new JComboBox<>();
-        List<String> tileNames = myWorldManager.get("Tile");
+        List<String> tileNames = myWorldManager.getNames("Tile");
         for (String s : tileNames) {
             imageMenu.addItem(s);
         }
@@ -205,8 +205,8 @@ public class EditorFrame extends GameView {
     }
 
     public void setStages (Manager m) {
-        for (String s : m.getStages()) {
-            setStage(s, m.getStages().indexOf(s));
+        for (String s : m.getStageNames()) {
+            setStage(s, m.getStageNames().indexOf(s));
         }
     }
 
@@ -476,7 +476,7 @@ public class EditorFrame extends GameView {
             model = myWM.getTableModel(myRequest);
 
             myDialog =
-                    new TableDialog(model, new GamePrefDialogListener(myWM, model), myWM);
+                    new TableDialog(model, new GamePrefDialogListener(myWM, model));
             myDialog.setVisible(true);
             myDialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         }
@@ -506,7 +506,7 @@ public class EditorFrame extends GameView {
      * always be played from the beginning.
      */
     protected void saveGame () {
-        saveGame(DEFAULT_SAVE_LOCATION);
+        saveGame(GridConstants.DEFAULTSAVELOCATION);
     }
 
     /**

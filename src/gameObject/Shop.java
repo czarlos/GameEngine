@@ -1,15 +1,16 @@
 package gameObject;
 
-import gameObject.item.Item;
 import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 /**
  * Shop is a neutral object that anyone can interact with. Holds items that a player or AI can take.
+ * 
  * @author kevinjian
- *
+ * 
  */
 public class Shop extends Chest {
 

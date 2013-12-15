@@ -1,18 +1,17 @@
 package grid;
 
+import gameObject.Customizable;
 import gameObject.GameObject;
-import gameObject.GameObjectConstants;
 import gameObject.GameUnit;
 import gameObject.InventoryObject;
+import gameObject.Item;
 import gameObject.action.Action;
-import gameObject.item.Item;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import grid.Coordinate;
-import view.Customizable;
 import view.Drawable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -31,19 +30,13 @@ public class Grid implements Drawable {
     private int myWidth;
     @JsonProperty
     private int myHeight;
-
     @JsonProperty
     private Map<String, Object[][]> myArrays;
-    private FromJSONFactory myFactory;
-
-    protected static final int TILE_WIDTH = 35;
-    protected static final int TILE_HEIGHT = 35;
 
     /**
      * Creates a grid with the width and height set Only for use by deserializer
      */
     public Grid () {
-        myFactory = new FromJSONFactory();
     }
 
     /**
@@ -53,26 +46,13 @@ public class Grid implements Drawable {
      * @param height int of rows of grid
      * @param tileID int that defines the tile type
      */
-    public Grid (int width, int height, int tileID) {
+    public Grid (int width, int height) {
         myWidth = width;
         myHeight = height;
         myArrays = new HashMap<String, Object[][]>();
         myArrays.put(GridConstants.TILE, new Tile[width][height]);
         myArrays.put(GridConstants.GAMEOBJECT, new GameObject[width][height]);
         myArrays.put(GridConstants.GAMEUNIT, new GameUnit[width][height]);
-        myFactory = new FromJSONFactory();
-        initTiles(tileID);
-    }
-
-    /**
-     * Creates default tiles for grid
-     */
-    private void initTiles (int tileID) {
-        for (int i = 0; i < myWidth; i++) {
-            for (int j = 0; j < myHeight; j++) {
-                myArrays.get(GridConstants.TILE)[i][j] = (Tile) myFactory.make("Tile", tileID);
-            }
-        }
     }
 
     /**
@@ -83,7 +63,7 @@ public class Grid implements Drawable {
      */
     public void beginMove (Coordinate coordinate) {
         GameUnit gameUnit = (GameUnit) getObject(GridConstants.GAMEUNIT, coordinate);
-        findMovementRange(coordinate, gameUnit.calcTotalStat(GameObjectConstants.MOVEMENT),
+        findMovementRange(coordinate, gameUnit.calcTotalStat(GridConstants.MOVEMENT),
                           gameUnit);
     }
 
@@ -379,7 +359,7 @@ public class Grid implements Drawable {
         }
     }
 
-    public List<Customizable> getCustomizables (String type) {
+    public List<?> getCustomizables (String type) {
         Object[][] customizableArray = myArrays.get(type);
         List<Customizable> customizableList = new ArrayList<>();
 
@@ -395,40 +375,25 @@ public class Grid implements Drawable {
     }
 
     @JsonIgnore
-    public GameUnit[][] getGameUnits () {
-        return (GameUnit[][]) myArrays.get(GridConstants.GAMEUNIT);
+    public Customizable[][] getArray (String type) {
+        return (Customizable[][]) myArrays.get(type);
     }
 
     @JsonIgnore
-    public Tile[][] getTiles () {
-        return (Tile[][]) myArrays.get(GridConstants.TILE);
-    }
-
-    public void setTiles (Tile[][] tiles) {
-        myArrays.put(GridConstants.TILE, tiles);
-    }
-
     public Coordinate getCoordinate (double fracX, double fracY) {
-
         int gridX = (int) (fracX * myWidth);
         int gridY = (int) (fracY * myHeight);
 
         return new Coordinate(gridX, gridY);
     }
 
+    @JsonIgnore
     public double getWidth () {
         return myWidth;
     }
 
-    public void setWidth (int width) {
-        myWidth = width;
-    }
-
+    @JsonIgnore
     public double getHeight () {
         return myHeight;
-    }
-
-    public void setHeight (int height) {
-        myHeight = height;
     }
 }

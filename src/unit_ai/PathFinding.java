@@ -48,7 +48,7 @@ public class PathFinding {
             newTile = path.get(path.size() - 1);
         }
         else {
-            newTile = path.get(path.size() - (range - 1)/start.getMoveCost());
+            newTile = path.get(path.size() - (range - 1) / start.getMoveCost());
         }
 
         for (Tile t : path) {
@@ -131,8 +131,8 @@ public class PathFinding {
      */
     public static List<Tile> coordinatesToTiles (Grid grid, GameUnit unit) {
         List<Tile> tileList = new ArrayList<Tile>();
-        for (int i = 0; i < grid.getTiles().length; i++) {
-            for (int j = 0; j < grid.getTiles().length; j++) {
+        for (int i = 0; i < grid.getArray(GridConstants.TILE).length; i++) {
+            for (int j = 0; j < grid.getArray(GridConstants.TILE).length; j++) {
                 tileList.add((Tile) grid.getObject(GridConstants.TILE, new Coordinate(i, j)));
             }
         }

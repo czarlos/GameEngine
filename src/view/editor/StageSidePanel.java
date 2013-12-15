@@ -9,6 +9,7 @@ import view.player.SelectedInfoPanel;
 import controller.editor.GridEditorController;
 import controllers.WorldManager;
 
+
 /**
  * Displays object info panels and editor panel for a stage.
  *

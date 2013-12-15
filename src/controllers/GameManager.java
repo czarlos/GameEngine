@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import team.Team;
+import stage.Team;
 import view.player.PlayerView;
 import game.AI2;
 import game.AnimateAction;
@@ -21,6 +21,7 @@ import grid.Tile;
 
 
 /**
+ * The interface between the game playing frontend and the backend
  * 
  * @author Kevin, Leevi
  * 
@@ -28,7 +29,7 @@ import grid.Tile;
 @JsonAutoDetect
 public class GameManager extends Manager {
     private PlayerView myView;
-    private boolean myGameOver=false;
+    private boolean myGameOver = false;
 
     public GameManager () {
     }
@@ -46,9 +47,7 @@ public class GameManager extends Manager {
      * Called by the GUI to set engine up for human input.
      */
     public void beginTurn () {
-        if(myGameOver){
-            return;
-        }
+        if (myGameOver) { return; }
         clear();
         if (myPhaseCount == 0) {
             myView.showDialog(getPreStory());
@@ -60,7 +59,6 @@ public class GameManager extends Manager {
 
     private void clear () {
         myActiveActions = new ArrayList<Action>();
-        isTurnCompleted = false;
     }
 
     public void doUntilHumanTurn () {
@@ -68,9 +66,7 @@ public class GameManager extends Manager {
             humanWin();
             return;
         }
-        if(myGameOver){
-            return;
-        }
+        if (myGameOver) { return; }
         nextTurn();
         beginTurn();
         while (!teamIsHuman()) {
@@ -89,7 +85,7 @@ public class GameManager extends Manager {
         myView.showDialog(getPostStory());
         myView.showDialog(getWinningTeam() + " won this stage!");
         if (!nextStage()) {
-            myGameOver=true;
+            myGameOver = true;
             myView.showDialog("Congratulations!You have completed the game!");
             myView.gameOver();
         }
@@ -97,11 +93,10 @@ public class GameManager extends Manager {
 
     protected void humanLoss () {
         myGameOver=true;
+
         myView.showDialog("Game Over: AI Won...");
         myView.gameOver();
     }
-    
-    
 
     /**
      * Loops through all of the game units in the current team (whose turn it
@@ -114,7 +109,6 @@ public class GameManager extends Manager {
         setAllUnitsInactive();
         myActiveStage.getGrid().setAllTilesInactive();
 
-        isTurnCompleted = false;
         myPhaseCount++;
         myActiveStage.setPhaseCount(myPhaseCount);
         myActiveTeam = myPhaseCount % myActiveStage.getNumberOfTeams();
@@ -144,12 +138,12 @@ public class GameManager extends Manager {
 
     @JsonIgnore
     private String getActiveTeamName () {
-        return myActiveStage.getTeamNames().get(myActiveTeam);
+        return myActiveStage.getTeam(myActiveTeam).getName();
     }
 
     @JsonIgnore
     private String getActiveTitle () {
-        return getActiveTeamName() + " - " + getActiveStageName() + " - " + myGameName;
+        return getActiveTeamName() + " - " + myActiveStage.getName() + " - " + myGameName;
     }
 
     
@@ -170,10 +164,6 @@ public class GameManager extends Manager {
 
     public boolean teamIsHuman () {
         return myActiveStage.getTeam(myActiveTeam).isHuman();
-    }
-
-    public boolean isTurnCompleted () {
-        return isTurnCompleted;
     }
 
     private void setActiveActions (Coordinate coordinate) {
@@ -289,21 +279,11 @@ public class GameManager extends Manager {
         }
     }
 
-    public void endTurn () {
-        isTurnCompleted = true;
-        myView.removeAll();
-    }
-
     @JsonIgnore
     public String getWinningTeam () {
         Team winningTeam = myActiveStage.getWinningTeam();
         if (winningTeam == null) { return ""; }
         return winningTeam.getName();
-    }
-
-    @JsonIgnore
-    public String getCurrentTeamName () {
-        return myActiveStage.getTeam(myActiveTeam).getName();
     }
 
     @JsonIgnore

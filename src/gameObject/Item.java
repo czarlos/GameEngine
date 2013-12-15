@@ -1,15 +1,9 @@
-package gameObject.item;
+package gameObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import gameObject.IStats;
-import gameObject.Stat;
-import gameObject.Stats;
 
 
 /**
@@ -23,7 +17,6 @@ import gameObject.Stats;
  */
 @JsonAutoDetect
 public class Item extends Customizable implements IStats {
-    @JsonProperty
     private List<String> myActions;
     private Stats myStats;
 
@@ -41,15 +34,15 @@ public class Item extends Customizable implements IStats {
     }
 
     @JsonIgnore
+    @Deprecated
     public void addAction (String action) {
         myActions.add(action);
     }
 
     public void removeAction (String action) {
-        for (int i = 0; i < myActions.size(); i++) {
-            if (myActions.get(i).equals(action)) {
-                myActions.remove(i);
-            }
+        int removeIndex = myActions.indexOf(action);
+        if (removeIndex > -1) {
+            myActions.remove(removeIndex);
         }
     }
 
@@ -63,7 +56,6 @@ public class Item extends Customizable implements IStats {
 
     public void changeStatName (String oldName, String newName) {
         myStats.changeName(oldName, newName);
-
     }
 
     @JsonIgnore
@@ -83,17 +75,9 @@ public class Item extends Customizable implements IStats {
         return myStats.contains(name);
     }
 
-    @Override
-    public boolean equals (Object other) {
-        if (other instanceof Customizable) {
-            return this.getName().equals(((Customizable) other).getName());
+    public void changeActionName (String oldName, String newName) {
+        if (myActions.remove(oldName)) {
+            myActions.add(newName);
         }
-        else return false;
-    }
-
-    @Override
-    public int hashCode () {
-        final int prime = 31;
-        return myName.length() * prime;
     }
 }

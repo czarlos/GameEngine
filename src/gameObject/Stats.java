@@ -31,8 +31,6 @@ public class Stats {
         for (Stat stat : newStats.getStats()) {
             myStatList.add(stat.clone());
         }
-
-        // syncWithMaster();
     }
 
     public void addStat (Stat newStat) {
@@ -116,7 +114,7 @@ public class Stats {
     /**
      * Sets the map of stats
      * 
-     * @param myStatMap  xzThe map of stats to set to
+     * @param myStatMap xzThe map of stats to set to
      */
     public void setStats (List<Stat> newStatList) {
         List<Stat> newStats = new ArrayList<>();

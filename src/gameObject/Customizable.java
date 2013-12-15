@@ -1,4 +1,4 @@
-package view;
+package gameObject;
 
 import game.ImageManager;
 import java.awt.image.BufferedImage;
@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+/**
+ * Any core objects that can be edited by the user with tables.
+ * 
+ * @author Leevi
+ * 
+ */
 @JsonAutoDetect
 public abstract class Customizable {
     protected String myName;

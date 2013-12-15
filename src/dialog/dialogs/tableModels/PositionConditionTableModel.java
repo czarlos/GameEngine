@@ -7,6 +7,12 @@ import dialog.Selector;
 import stage.PositionCondition;
 
 
+/**
+ * Allows users to edit win conditions that require units to be at a certain position
+ * 
+ * @author Leevi
+ * 
+ */
 @SuppressWarnings("serial")
 public class PositionConditionTableModel extends GameTableModel {
 
@@ -21,7 +27,7 @@ public class PositionConditionTableModel extends GameTableModel {
     public void loadObject (Object object) {
         myList.clear();
         PositionCondition pc = (PositionCondition) object;
-        
+
         Object[] row = new Object[myColumnNames.length];
         row[0] = pc.getX();
         row[1] = pc.getY();

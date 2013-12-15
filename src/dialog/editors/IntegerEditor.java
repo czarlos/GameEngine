@@ -31,10 +31,6 @@
 
 package dialog.editors;
 
-/*
- * IntegerEditor is used by TableFTFEditDemo.java.
- */
-
 import javax.swing.AbstractAction;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JFormattedTextField;

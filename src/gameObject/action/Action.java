@@ -1,10 +1,9 @@
 package gameObject.action;
 
-import view.Customizable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import gameObject.Customizable;
 import gameObject.GameObject;
 import gameObject.GameUnit;
-import grid.GridConstants;
 
 
 @JsonAutoDetect
@@ -12,7 +11,7 @@ public abstract class Action extends Customizable {
     protected int myActionRange;
 
     public Action () {
-        myActionRange = GridConstants.ACTIONRANGE;
+        myActionRange = 1;
     }
 
     public void setActionRange (int actionRange) {

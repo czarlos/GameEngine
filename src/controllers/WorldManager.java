@@ -1,8 +1,9 @@
 package controllers;
 
+import gameObject.Customizable;
 import gameObject.GameObject;
 import gameObject.InventoryObject;
-import gameObject.item.Item;
+import gameObject.Item;
 import grid.Coordinate;
 import grid.GridConstants;
 import java.awt.Image;
@@ -12,8 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import stage.Stage;
-import team.Team;
-import view.Customizable;
+import stage.Team;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import dialog.dialogs.tableModels.GameTableModel;
@@ -21,6 +21,7 @@ import dialog.dialogs.tableModels.ItemsTableModel;
 
 
 /**
+ * Interface between the Editor GUI and the backend.
  * 
  * @author Leevi
  * @author Ken McAndrews
@@ -29,11 +30,6 @@ import dialog.dialogs.tableModels.ItemsTableModel;
 @JsonAutoDetect
 public class WorldManager extends Manager {
 
-    /**
-     * Intermediary between views and EditorData and Grid, stores List of Stages
-     * 
-     * @param gameName
-     */
     public WorldManager () {
         super();
         activeEditTypeList = new ArrayList<String>();
@@ -67,7 +63,7 @@ public class WorldManager extends Manager {
     }
 
     /**
-     * Teams are stage specific
+     * Populates a team editing table model with data from the current active stage
      */
     @JsonIgnore
     public GameTableModel getTeamTableModel () {
@@ -77,6 +73,11 @@ public class WorldManager extends Manager {
         return gtm;
     }
 
+    /**
+     * Sets the current stage's team data to the modified team data
+     * 
+     * @param gtm
+     */
     @JsonIgnore
     @SuppressWarnings("unchecked")
     public void setTeamData (GameTableModel gtm) {
@@ -84,6 +85,12 @@ public class WorldManager extends Manager {
         myActiveStage.setTeams((List<Team>) gtm.getObject());
     }
 
+    /**
+     * Sets the currently "selected" object in the editor.
+     * 
+     * @param type
+     * @param id
+     */
     @JsonIgnore
     public void setActiveObject (String type, int id) {
         activeEditTypeList.set(myStages.indexOf(myActiveStage), type);
@@ -91,8 +98,7 @@ public class WorldManager extends Manager {
     }
 
     /**
-     * For specific unit/chest items. To get the generic item table model use generic
-     * getTableModel/setDatas
+     * For specific InventoryObject's items, not the editor item table model
      */
     @JsonIgnore
     public GameTableModel getItemTableModel (Coordinate coordinate) {
@@ -109,6 +115,12 @@ public class WorldManager extends Manager {
         return null;
     }
 
+    /**
+     * For setting an individual InventoryObject's inventory
+     * 
+     * @param gtm
+     * @param coordinate
+     */
     @SuppressWarnings("unchecked")
     @JsonIgnore
     public void setItemTableModel (GameTableModel gtm, Coordinate coordinate) {
@@ -124,19 +136,39 @@ public class WorldManager extends Manager {
         io.setItems(set);
     }
 
+    /**
+     * Save a "library" of data
+     * 
+     * @param name
+     */
     public void saveEditorData (String name) {
         myEditorData.saveData(name);
     }
 
+    /**
+     * Load a "library" of data
+     * 
+     * @param name
+     */
     public void loadEditorData (String name) {
         myEditorData.loadData(name);
     }
 
+    /**
+     * Returns the name of the selected object's type
+     * 
+     * @return type
+     */
     @JsonIgnore
     public String getActiveType () {
         return activeEditTypeList.get(myStages.indexOf(myActiveStage));
     }
 
+    /**
+     * Returns the ID of the selected object
+     * 
+     * @return ID
+     */
     @JsonIgnore
     public int getActiveID () {
         return activeEditIDList.get(myStages.indexOf(myActiveStage));
@@ -154,15 +186,36 @@ public class WorldManager extends Manager {
 
     @SuppressWarnings("unchecked")
     public int addStage (int x, int y, int tileID, String name, int index) {
-        myStages.add(index, new Stage(x, y, tileID, name));
+        myStages.add(index, new Stage(x, y, name));
         setActiveStage(index);
         activeEditTypeList.add(index, "");
         activeEditIDList.add(index, -1);
         myActiveStage.setTeams((List<Team>) myEditorData
                 .get(GridConstants.TEAM));
+        placeDefaultTiles(x, y, tileID);
         return index;
     }
 
+    /**
+     * Helper method to fill grid with default tiles
+     * 
+     * @param x
+     * @param y
+     * @param tileID
+     */
+    private void placeDefaultTiles (int x, int y, int tileID) {
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
+                place(GridConstants.TILE, tileID, new Coordinate(i, j));
+            }
+        }
+    }
+
+    /**
+     * Remove a stage from the game
+     * 
+     * @param i index of the stage to remove
+     */
     public void deleteStage (int i) {
         myStages.remove(i);
 
@@ -172,16 +225,26 @@ public class WorldManager extends Manager {
         activeEditIDList.remove(i);
     }
 
+    /**
+     * Sets the active stage's prestory
+     * 
+     * @param prestory
+     */
     public void setPreStory (String prestory) {
         myActiveStage.setPreStory(prestory);
     }
 
+    /**
+     * Sets the active stage's poststory
+     * 
+     * @param poststory
+     */
     public void setPostStory (String poststory) {
         myActiveStage.setPostStory(poststory);
     }
 
     /**
-     * Set the name of the game
+     * Sets the name of the game
      * 
      * @param gameName
      */
@@ -189,42 +252,31 @@ public class WorldManager extends Manager {
         myGameName = gameName;
     }
 
-    public void displayRange (Coordinate coordinate) {
-        myActiveStage.getGrid().beginMove(coordinate);
-
-    }
-
-    public void removeRange () {
-        myActiveStage.getGrid().setAllTilesInactive();
-    }
-
     /**
-     * Placing (previously created) things on the board. These will be replaced
-     * by table editing stuff
+     * Place a (previously created) customizable on the board.
      * 
      * @param ID int of ID thing to place
      * @param x Coordinate
      * @param y Coordinate
      */
     public void place (String type, int objectID, Coordinate coordinate) {
-        Object object = myEditorData.getObject(type, objectID);
+        Object object = myEditorData.get(type).get(objectID);
         myActiveStage.getGrid().placeObject(type, coordinate, (Customizable) object);
         myEditorData.refreshObjects(type);
     }
 
     /**
-     * Gives access to certain names of customizables. Valid parameters are
-     * "GameUnit", "GameObject", "Tile", "Condition"
+     * Returns a list of all editor object names for a type of customizable.
      * 
      * @param className
      * @return List of names of customizable objects of that classname
      */
-    public List<String> get (String className) {
+    public List<String> getNames (String className) {
         return myEditorData.getNames(className);
     }
 
     /**
-     * Get the image for the specific type of object located at ID
+     * Returns the image for the specific type of object located at ID
      * 
      * @param className
      * @param ID
@@ -237,5 +289,4 @@ public class WorldManager extends Manager {
 
         return myList.get(ID).getImage();
     }
-
 }

@@ -10,7 +10,7 @@ import grid.GridConstants;
 public class StatOutcome extends Outcome {
     private String myStatName;
     private Stat myStat;
-    
+
     public StatOutcome () {
         myType = GridConstants.MASTERSTATS;
     }

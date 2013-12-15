@@ -8,6 +8,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import dialog.Selector;
 
 
+/**
+ * Displays a Selector object as the current toString value of the selected item
+ * 
+ * @author Leevi
+ * 
+ */
 @SuppressWarnings("serial")
 public class SelectorRenderer extends DefaultTableCellRenderer {
 

@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.util.List;
 import javax.swing.JLabel;
 
+
 /**
  * Scrollable panel for displaying GameObject info as strings.
  * 

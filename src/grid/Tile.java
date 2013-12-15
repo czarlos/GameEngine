@@ -22,8 +22,6 @@ public class Tile extends GameObject implements IStats {
     private int myMoveCost;
     private List<Tile> myNeighbors;
     private Tile myParent;
-    private int myLength;
-    private int myDistanceToGoal;
 
     public Tile () {
     }
@@ -78,29 +76,12 @@ public class Tile extends GameObject implements IStats {
         myParent = parent;
     }
 
-    public int getLength () {
-        return myLength;
-    }
-
-    public void setLength (int length) {
-        myLength = length;
-    }
-
-    public int getDistanceToGoal () {
-        return myDistanceToGoal;
-    }
-
-    public void setDistanceToGoal (int distanceToGoal) {
-        myDistanceToGoal = distanceToGoal;
-    }
-
     public void removeStat (String removedStat) {
         myStats.remove(removedStat);
     }
 
     public void changeStatName (String oldName, String newName) {
         myStats.changeName(oldName, newName);
-
     }
 
     public boolean containsStat (String name) {

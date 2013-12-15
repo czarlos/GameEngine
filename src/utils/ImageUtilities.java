@@ -66,11 +66,12 @@ public class ImageUtilities {
         }
         return image;
     }
-    
-    public static BufferedImage getScaledImage(Image source, int width, int height){
+
+    public static BufferedImage getScaledImage (Image source, int width, int height) {
         BufferedImage scaledImage = new BufferedImage(width, height, BufferedImage.TRANSLUCENT);
         Graphics2D graphic = scaledImage.createGraphics();
-        graphic.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        graphic.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                                 RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         graphic.drawImage(source, 0, 0, width, height, null);
         graphic.dispose();
         return scaledImage;

@@ -85,15 +85,17 @@ public abstract class GameTableModel extends AbstractTableModel {
      * @return Object[] - default row
      */
     public abstract Object[] getNew ();
-    
+
     /**
      * Unpacks a GameObject and builds a row in the table model
+     * 
      * @param object
      */
     public abstract void loadObject (Object object);
-    
+
     /**
      * Return list of Objects represented by all rows in the table model
+     * 
      * @return List of Objects
      */
     public abstract Object getObject ();

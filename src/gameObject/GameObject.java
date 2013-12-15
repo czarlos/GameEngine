@@ -6,12 +6,12 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import view.Customizable;
 import view.Drawable;
 
 
 /**
- * GameObject class. Anything that can be placed on the Grid, including Tiles, Units, Trees come from here.
+ * GameObject class. Anything that can be placed on the Grid, including Tiles, Units, Trees come
+ * from here.
  * 
  * @author Kevin, Ken
  * 
@@ -29,6 +29,7 @@ public class GameObject extends Customizable implements Drawable {
 
     /**
      * Sets the object's isActive, and updates the object's image to reflect its status
+     * 
      * @param active boolean to set isActive
      */
     public void setActive (boolean active) {
@@ -50,7 +51,8 @@ public class GameObject extends Customizable implements Drawable {
     }
 
     /**
-     * Checks if a unit can pass through the object. Returns true if the GameUnit is in the passableList.
+     * Checks if a unit can pass through the object. Returns true if the GameUnit is in the
+     * passableList.
      * 
      * @param unit GameUnit that is moving
      * @return boolean of if unit can pass through

@@ -26,7 +26,6 @@ import controllers.Manager;
 public abstract class GameView extends JFrame implements WindowListener {
     protected JComponent myBackground;
     protected JComponent myGame;
-    protected static final String DEFAULT_SAVE_LOCATION="saves";
 
     public GameView () throws HeadlessException {
         super();
@@ -47,7 +46,6 @@ public abstract class GameView extends JFrame implements WindowListener {
         super(title, gc);
         initializeWindow();
     }
-    
 
     protected void initializeWindow () {
         setJMenuBar(createMenuBar(this));
@@ -59,6 +57,7 @@ public abstract class GameView extends JFrame implements WindowListener {
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(this);
     }
+
     
     /**
      * Removes game panel if it is present and displays background image.
@@ -99,7 +98,7 @@ public abstract class GameView extends JFrame implements WindowListener {
             String gameName = loader.getSelected();
             JSONParser p = new JSONParser();
             return p.createObjectFromFile(folder + "/" + gameName,
-                                  controllers.WorldManager.class);
+                                          controllers.WorldManager.class);
         }
         return null;
     }

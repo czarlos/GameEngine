@@ -4,19 +4,17 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 import dialog.dialogs.tableModels.GameTableModel;
 
+
 /**
+ * A JTable that checks for a specific cell editor for each cell, and doesn't assume
+ * the same editor for an entire column
  * 
- * @author Leevi, brooksmershon
- *
+ * @author Leevi
+ * 
  */
 
 @SuppressWarnings("serial")
 public class GameJTable extends JTable {
-    
-    /**
-     * GameTableModel passed in to control JTable
-     * @param gtm
-     */
 
     public GameJTable (GameTableModel gtm) {
         super(gtm);
@@ -29,4 +27,3 @@ public class GameJTable extends JTable {
         return super.getCellEditor(row, column);
     }
 }
-

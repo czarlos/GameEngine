@@ -2,7 +2,6 @@ package dialog.dialogs;
 
 import gameObject.Stats;
 import gameObject.action.Outcomes;
-import grid.GridConstants;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -16,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import controllers.WorldManager;
 import stage.ItemCondition;
 import stage.PositionCondition;
 import stage.StatCondition;
@@ -45,8 +43,10 @@ import dialog.renderers.ImageRenderer;
 
 
 /**
+ * A generic dialog for displaying an editable table model
  * 
  * @author brooksmershon
+ * @author Leevi
  * 
  */
 @SuppressWarnings("serial")
@@ -54,10 +54,8 @@ public class TableDialog extends JDialog {
     GameTableModel myModel;
     List<String> myEnumList;
     GameJTable myTable;
-    WorldManager myWM;
 
-    public TableDialog (GameTableModel gtm, ActionListener okListener, WorldManager wm) {
-        myWM = wm;
+    public TableDialog (GameTableModel gtm, ActionListener okListener) {
         myModel = gtm;
         addTable();
         addButtonPanel(okListener);
@@ -124,13 +122,17 @@ public class TableDialog extends JDialog {
         table.setDefaultEditor(File.class, new ImagePathEditor());
         table.setDefaultEditor(Stats.class, new ModelEditor(
                                                             new StatTableModel(myModel.getED())));
-        table.setDefaultEditor(WinCondition.class, new ModelEditor(
-                                                                   new WinConditionTableModel(myModel.getED())));
+        table.setDefaultEditor(WinCondition.class,
+                               new ModelEditor(
+                                               new WinConditionTableModel(myModel.getED())));
         table.setDefaultEditor(PositionCondition.class,
                                new ModelEditor(new PositionConditionTableModel(myModel.getED())));
-        table.setDefaultEditor(StatCondition.class, new ModelEditor(new StatConditionTableModel(myModel.getED())));
-        table.setDefaultEditor(TurnCondition.class, new ModelEditor(new TurnConditionTableModel(myModel.getED())));
-        table.setDefaultEditor(ItemCondition.class, new ModelEditor(new ItemConditionTableModel(myModel.getED())));
+        table.setDefaultEditor(StatCondition.class,
+                               new ModelEditor(new StatConditionTableModel(myModel.getED())));
+        table.setDefaultEditor(TurnCondition.class,
+                               new ModelEditor(new TurnConditionTableModel(myModel.getED())));
+        table.setDefaultEditor(ItemCondition.class,
+                               new ModelEditor(new ItemConditionTableModel(myModel.getED())));
         table.setDefaultEditor(UnitCountCondition.class,
                                new ModelEditor(new UnitCountConditionTableModel(myModel.getED())));
 

@@ -5,6 +5,13 @@ import controllers.EditorData;
 import stage.TurnCondition;
 
 
+/**
+ * Allows users to edit win conditions that depend on surviving
+ * a certain number of turns
+ * 
+ * @author Leevi
+ * 
+ */
 @SuppressWarnings("serial")
 public class TurnConditionTableModel extends GameTableModel {
 

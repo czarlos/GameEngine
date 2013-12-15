@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import view.player.InfoPanel;
 import view.player.SelectedInfoPanel;
 
+
 /**
  * Override of SelectedInfoPanel to show actions as an InfoPanel (as strings)
  * instead of an ActionInfoPanel (as buttons)

@@ -2,9 +2,9 @@ package tests;
 
 import static org.junit.Assert.*;
 import gameObject.GameUnit;
+import gameObject.Item;
 import gameObject.Stats;
 import gameObject.action.TradeAction;
-import gameObject.item.Item;
 import org.junit.Before;
 import org.junit.Test;
 

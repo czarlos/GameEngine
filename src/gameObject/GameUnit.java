@@ -1,13 +1,12 @@
 package gameObject;
 
 import game.ImageManager;
-import gameObject.item.*;
 import grid.GridConstants;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
@@ -19,10 +18,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @JsonAutoDetect
 public class GameUnit extends InventoryObject implements IStats {
-
     private Stats myStats;
     private Stats myTotalStats;
     private String myAffiliation;
+    @JsonProperty
     private boolean hasMoved;
 
     public GameUnit () {
@@ -30,7 +29,6 @@ public class GameUnit extends InventoryObject implements IStats {
         myTotalStats = new Stats();
     }
 
-    // should ONLY be called by stage when adding units to a team
     public void setAffiliation (String affiliation) {
         myAffiliation = affiliation;
     }
@@ -73,10 +71,6 @@ public class GameUnit extends InventoryObject implements IStats {
 
     public int getTotalStat (String statName) {
         return myTotalStats.getStatValue(statName);
-    }
-
-    public Stats getTotalStats () {
-        return myTotalStats;
     }
 
     // Adding for Outcomes, can potentially change later
@@ -197,38 +191,5 @@ public class GameUnit extends InventoryObject implements IStats {
     public void addStat (Stat stat) {
         myStats.addStat(stat);
         myTotalStats.addStat(stat);
-    }
-
-    @Override
-    public int hashCode () {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (hasMoved ? 1231 : 1237);
-        result = prime * result + ((myAffiliation == null) ? 0 : myAffiliation.hashCode());
-        result = prime * result + ((myStats == null) ? 0 : myStats.hashCode());
-        result = prime * result + ((myTotalStats == null) ? 0 : myTotalStats.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals (Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        GameUnit other = (GameUnit) obj;
-        if (hasMoved != other.hasMoved) return false;
-        if (myAffiliation == null) {
-            if (other.myAffiliation != null) return false;
-        }
-        else if (!myAffiliation.equals(other.myAffiliation)) return false;
-        if (myStats == null) {
-            if (other.myStats != null) return false;
-        }
-        else if (!myStats.equals(other.myStats)) return false;
-        if (myTotalStats == null) {
-            if (other.myTotalStats != null) return false;
-        }
-        else if (!myTotalStats.equals(other.myTotalStats)) return false;
-        return true;
     }
 }

@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import controllers.GameManager;
 import stage.Stage;
-import team.Team;
+import stage.Team;
 import unit_ai.PathFinding;
 import utils.UnitUtilities;
 
@@ -112,9 +112,9 @@ public class AI {
                     .calculateLength(myGrid.getObjectCoordinate(GridConstants.TILE, start),
                                      myGrid.getObjectCoordinate(GridConstants.TILE, end)) <= currentAction
                     .getActionRange()) {
-                
+
                 new AnimateAction(unit.getImagePath(), myGrid.getObject(GridConstants.GAMEUNIT,
-                                                                        other).getImagePath());                
+                                                                        other).getImagePath());
                 currentAction.doAction(unit, myGrid.getObject(GridConstants.GAMEOBJECT,
                                                               other));
                 ((GameManager) myGM)

@@ -1,7 +1,6 @@
 package gameObject;
 
 import game.ImageManager;
-import view.Customizable;
 
 
 public class Stat extends Customizable {
@@ -15,12 +14,6 @@ public class Stat extends Customizable {
         myName = name;
         myImagePath = "resources/grass.png";
         myImage = ImageManager.getImage(myImagePath);
-
-    }
-
-    @Deprecated
-    public Stat (int value) {
-        myValue = value;
     }
 
     public int getValue () {
@@ -33,7 +26,8 @@ public class Stat extends Customizable {
 
     @Override
     public Stat clone () {
-        Stat newStat = new Stat(myValue);
+        Stat newStat = new Stat();
+        newStat.setValue(myValue);
         newStat.setLastIndex(myLastIndex);
         newStat.setImagePath(myImagePath);
         newStat.setName(myName);

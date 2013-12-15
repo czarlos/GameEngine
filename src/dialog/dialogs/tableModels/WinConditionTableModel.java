@@ -8,6 +8,12 @@ import stage.WinCondition;
 import grid.GridConstants;
 
 
+/**
+ * Allows users to add new conditions to a team's win conditions
+ * 
+ * @author Leevi
+ * 
+ */
 @SuppressWarnings("serial")
 public class WinConditionTableModel extends GameTableModel {
 

@@ -6,6 +6,14 @@ import javax.swing.JOptionPane;
 import controllers.EditorData;
 import stage.UnitCountCondition;
 
+
+/**
+ * Allows users to edit win conditions that are based upon how many individuals of
+ * a certain team are present in the game
+ * 
+ * @author Leevi
+ * 
+ */
 @SuppressWarnings("serial")
 public class UnitCountConditionTableModel extends GameTableModel {
 
@@ -20,7 +28,7 @@ public class UnitCountConditionTableModel extends GameTableModel {
     public void loadObject (Object object) {
         myList.clear();
         UnitCountCondition ucc = (UnitCountCondition) object;
-        
+
         Object[] row = new Object[myColumnNames.length];
         row[0] = ucc.getCount();
         row[1] = new Selector(myED.getNames(GridConstants.TEAM), ucc.getAffiliation());

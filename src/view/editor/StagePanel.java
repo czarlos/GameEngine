@@ -5,6 +5,7 @@ import controllers.WorldManager;
 import view.GridWithSide;
 import view.canvas.GridCanvas;
 
+
 /**
  * JPanel to represent a stage. Shows grid for a stage and editing options
  * for that stage.

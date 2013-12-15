@@ -8,14 +8,13 @@ import java.util.List;
  * Is fulfilled when somebody from a specified team has a certain item.
  * 
  * @author Leevi
- * 
  */
 public class ItemCondition extends Condition {
 
     private String myAffiliation;
     private String myItem;
     private int myAmount;
-    
+
     public ItemCondition () {
         myAffiliation = "player";
         myItem = "milk";

@@ -5,16 +5,18 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import controllers.EditorData;
+import stage.Team;
 import stage.WinCondition;
-import team.Team;
 
 
+/**
+ * Allows users to edit team data for a stage
+ * 
+ * @author Leevi
+ * 
+ */
 @SuppressWarnings("serial")
 public class TeamTableModel extends GameTableModel {
-
-    /**
-     * Column names: Name, Graphic, Gold, Win Conditions, Conditions needed to Win, Human?
-     */
 
     public TeamTableModel (EditorData ED) {
         String[] names = { "Name", "Graphic", "Gold", "Win Conditions",
@@ -82,7 +84,7 @@ public class TeamTableModel extends GameTableModel {
     @Override
     public Object[] getNew () {
         Object[] array = new Object[myColumnNames.length + 1];
-        
+
         array[0] = "New Team";
         array[1] = new File("resources/grass.png");
         array[2] = 0;

@@ -4,18 +4,20 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import controllers.EditorData;
+import gameObject.Item;
 import gameObject.Stats;
 import gameObject.action.Action;
-import gameObject.item.Item;
 import grid.GridConstants;
 
 
+/**
+ * Allows users to edit the editor list of items
+ * 
+ * @author Leevi
+ * 
+ */
 @SuppressWarnings("serial")
 public class ItemTableModel extends GameTableModel {
-
-    /**
-     * Column names: Name, Graphic, Stats, Actions
-     */
 
     public ItemTableModel (EditorData ED) {
         String[] names = { "Name", "Graphic", "Stats", "Actions" };
@@ -32,7 +34,7 @@ public class ItemTableModel extends GameTableModel {
         ret[2] = new Stats();
         ret[3] = new ArrayList<Action>();
         ret[4] = -1;
-        
+
         return ret;
     }
 
@@ -40,7 +42,7 @@ public class ItemTableModel extends GameTableModel {
     @Override
     public void loadObject (Object object) {
         List<Item> list = (List<Item>) object;
-        for(int j = 0; j < list.size(); j++){
+        for (int j = 0; j < list.size(); j++) {
             Item i = list.get(j);
             Object[] array = new Object[myColumnNames.length + 1];
             array[0] = i.getName();

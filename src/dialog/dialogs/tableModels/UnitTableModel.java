@@ -12,7 +12,10 @@ import dialog.Selector;
 
 
 /**
+ * Allows users to edit editor gameunits. The default affiliation for new
+ * game units is the 0 index team on the team list.
  * 
+ * @author Leevi
  * @author brooksmershon
  * 
  */
@@ -21,9 +24,6 @@ public class UnitTableModel extends GameTableModel {
 
     String defaultAffiliation;
 
-    /**
-     * Column names: name, Graphic, Affiliation, Stats
-     */
     public UnitTableModel (EditorData ed) {
         String[] names = { "Name", "Graphic", "Affiliation", "Stats" };
         myName = GridConstants.GAMEUNIT;
@@ -34,7 +34,7 @@ public class UnitTableModel extends GameTableModel {
     @Override
     public Object[] getNew () {
         Object[] ret = new Object[myColumnNames.length + 1];
-        
+
         ret[0] = "New Unit";
         ret[1] = new File("resources/grass.png");
         ret[2] = new Selector(myED.getNames(GridConstants.TEAM), defaultAffiliation);
@@ -57,9 +57,9 @@ public class UnitTableModel extends GameTableModel {
     public void loadObject (Object object) {
         List<GameUnit> list = (List<GameUnit>) object;
         defaultAffiliation = list.get(0).getAffiliation();
-        for (int i = 0; i < list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
             Object[] array = new Object[myColumnNames.length + 1];
-            
+
             GameUnit gu = list.get(i);
             array[0] = gu.getName();
             array[1] = new File(gu.getImagePath());

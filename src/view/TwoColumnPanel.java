@@ -13,6 +13,7 @@ import javax.swing.JPanel;
  * generated in this class.
  * 
  */
+@SuppressWarnings("serial")
 public class TwoColumnPanel extends JPanel {
 
     public TwoColumnPanel () {

@@ -10,6 +10,7 @@ import view.canvas.GridCanvas;
  * Class to capture a grid with a side column. This view is used to show the game
  * environment in both the editor and the GUI.
  */
+
 public class GridWithSide extends TwoColumnPanel {
     protected GridCanvas myGrid;
 

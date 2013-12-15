@@ -2,7 +2,7 @@ package gameObject.action;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import gameObject.GameUnit;
-import gameObject.item.Item;
+import gameObject.Item;
 import grid.GridConstants;
 
 

@@ -1,13 +1,10 @@
 package stage;
 
-import gameObject.GameObject;
 import gameObject.GameUnit;
 import grid.Grid;
 import grid.GridConstants;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import team.Team;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -31,55 +28,48 @@ public class Stage {
     private String myName;
     private String preText;
     private String postText;
-    @JsonProperty
     private List<Team> myTeams;
+    @JsonProperty
     private Team myWinningTeam;
-    
     private int myPhaseCount;
 
-    // only for use by deserializer
     public Stage () {
     }
 
-    public Stage (int x, int y, int tileID, String name) {
-        myGrid = new Grid(x, y, tileID);
+    /**
+     * Constructor for the WorldManager to use when creating a new stage
+     * 
+     * @param x Grid width in tiles
+     * @param y Grid height in tiles
+     * @param tileID tileID of the tile to load in
+     * @param name name of the stage
+     */
+    public Stage (int x, int y, String name) {
+        myGrid = new Grid(x, y);
         myName = name;
         myTeams = new ArrayList<Team>();
         preText = "Once upon a time...";
         postText = "Thus the journey ends!";
     }
 
-    /*
-     * Returns true if unit was added to team, false if teamID was invalid Note
-     * this logic works best if editor has a "team editor" tab that allows users
-     * to make teams and assign units to those teams.
+    /**
+     * Gets the team associated with the teamID
+     * 
+     * @param teamID
+     * @return Team associated with the teamID
      */
-
-    public boolean addUnitToTeam (int teamID, GameUnit gu) {
-        if (teamID < myTeams.size()) {
-            gu.setAffiliation(myTeams.get(teamID).getName());
-            return true;
-        }
-        return false;
-    }
-
     @JsonIgnore
     public Team getTeam (int teamID) {
         if (teamID < myTeams.size()) { return myTeams.get(teamID); }
         return null;
     }
 
-    // for use by editor
-    @JsonIgnore
-    public List<Team> getTeams () {
-        return myTeams;
-    }
-
-    @JsonIgnore
-    public void setTeams (List<Team> teams) {
-        myTeams = teams;
-    }
-
+    /**
+     * Helper function for when the user edits a team name in the editor
+     * 
+     * @param teamID ID of the team that changed names
+     * @param newName The new name of the team
+     */
     @JsonIgnore
     public void setTeamName (int teamID, String newName) {
         if (teamID < myTeams.size()) {
@@ -91,34 +81,8 @@ public class Stage {
     }
 
     @JsonIgnore
-    public int getNumberOfTeams () {
-        return myTeams.size();
-    }
-
-    public Grid getGrid () {
-        return myGrid;
-    }
-
-    public void setName (String name) {
-        myName = name;
-    }
-
-    public String getName () {
-        return myName;
-    }
-
-    @JsonIgnore
-    public List<String> getTeamNames () {
-        List<String> ret = new ArrayList<String>();
-        for (Team t : myTeams) {
-            ret.add(t.getName());
-        }
-
-        return ret;
-    }
-
     public List<GameUnit> getTeamUnits (String teamName) {
-        GameUnit[][] units = myGrid.getGameUnits();
+        GameUnit[][] units = (GameUnit[][]) myGrid.getArray(GridConstants.GAMEUNIT);
         List<GameUnit> ret = new ArrayList<GameUnit>();
 
         for (int i = 0; i < units.length; i++) {
@@ -129,6 +93,49 @@ public class Stage {
             }
         }
         return ret;
+    }
+
+    @JsonIgnore
+    public Grid getGrid () {
+        return myGrid;
+    }
+
+    /**
+     * Checks to see if the any of the team's win conditions have been met
+     * If so, it sets myWinningTeam to that team. Teams with higher IDs have
+     * a built in advantage here to offset the fact that their turn comes up later.
+     * 
+     */
+    @JsonIgnore
+    public boolean conditionsMet () {
+        boolean conditionsMet = false;
+
+        for (Team t : myTeams) {
+            conditionsMet = conditionsMet || t.hasWon(this);
+            if (t.hasWon(this)) {
+                myWinningTeam = t;
+            }
+        }
+
+        return conditionsMet;
+    }
+
+    @JsonIgnore
+    public int getNumberOfTeams () {
+        return myTeams.size();
+    }
+
+    @JsonIgnore
+    public Team getWinningTeam () {
+        return myWinningTeam;
+    }
+
+    public void setName (String name) {
+        myName = name;
+    }
+
+    public String getName () {
+        return myName;
     }
 
     public void setPreStory (String pre) {
@@ -147,25 +154,6 @@ public class Stage {
         return postText;
     }
 
-    public boolean conditionsMet () {
-        boolean conditionsMet = false;
-
-        for (Team t : myTeams) {
-            conditionsMet = conditionsMet || t.hasWon(this);
-            if (t.hasWon(this)) {
-                myWinningTeam = t;
-                // teams with lower IDs have a slight disadvantage here but
-                // that's offset by the fact that their turn comes up later.
-            }
-        }
-
-        return conditionsMet;
-    }
-
-    public Team getWinningTeam () {
-        return myWinningTeam;
-    }
-
     public int getPhaseCount () {
         return myPhaseCount;
     }
@@ -174,4 +162,11 @@ public class Stage {
         myPhaseCount = phaseCount;
     }
 
+    public List<Team> getTeams () {
+        return myTeams;
+    }
+
+    public void setTeams (List<Team> teams) {
+        myTeams = teams;
+    }
 }
