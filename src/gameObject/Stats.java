@@ -19,12 +19,17 @@ public class Stats {
     protected List<Stat> myStatList;
 
     /**
-     * Constructor for stats which currently does nothing
+     * Constructor for stats
      */
     public Stats () {
         myStatList = new ArrayList<>();
     }
 
+    /**
+     * Constructor that takes in a Stats instance. Used for cloning the Stats instance
+     * 
+     * @param newStats The Stats instance to clone
+     */
     public Stats (Stats newStats) {
         myStatList = new ArrayList<>();
 
@@ -33,6 +38,11 @@ public class Stats {
         }
     }
 
+    /**
+     * Adds a stat to the stat list
+     * 
+     * @param newStat The new stat to add to the list
+     */
     public void addStat (Stat newStat) {
         myStatList.add(newStat);
     }
@@ -63,10 +73,22 @@ public class Stats {
         }
     }
 
+    /**
+     * Checks whether the stat list contains the given stat
+     * 
+     * @param statName The name of the stat to check the existence of
+     * @return Whether or not the list contains the given stat
+     */
     public boolean contains (String statName) {
         return getStatNames().contains(statName);
     }
 
+    /**
+     * Changes the name of a stat in the stat list
+     * 
+     * @param oldName Original name of the stat to change
+     * @param newName New name for the stat
+     */
     public void changeName (String oldName, String newName) {
         for (Stat stat : myStatList) {
             if (stat.getName().equals(oldName)) {

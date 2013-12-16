@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * GameUnit is any unit in the game that can be interacted with. They can move, perform actions,
  * have stats, and hold items.
  * 
- * @author Kevin, Andy, carlosreyes
+ * @author Kevin, Andy, carlosreyes, Ken
  * 
  */
 @JsonAutoDetect
@@ -160,34 +160,70 @@ public class GameUnit extends InventoryObject implements IStats {
         return interactions;
     };
 
+    /**
+     * Removes the desired stat from the unit's stat list
+     * 
+     * @param stat The name of the stat to be removed
+     */
     public void removeStat (String stat) {
         myStats.remove(stat);
         myTotalStats.remove(stat);
     }
 
+    /**
+     * Changes a stat's name in the unit's stat list
+     * 
+     * @param oldName The original name of the stat
+     * @param newName The new name of the stat
+     */
     public void changeStatName (String oldName, String newName) {
         myStats.changeName(oldName, newName);
         myTotalStats.changeName(oldName, newName);
     }
 
+    /**
+     * @return The unit's Stats instance
+     */
     public Stats getStats () {
         return myStats;
     }
 
+    /**
+     * Gets the value of the desired stat in the unit's stat list
+     * 
+     * @param statName The name of the stat to get the value of
+     * @return The value of the desired stat
+     */
     public int getStat (String statName) {
         return myStats.getStatValue(statName);
     }
 
+    /**
+     * Sets the unit's Stats instance
+     * 
+     * @param stats The Stats instance to set the unit's Stats instance to
+     */
     public void setStats (Stats stats) {
         stats.modExisting("maxhealth", stats.getStatValue("health"));
         myStats = new Stats(stats);
         myTotalStats = new Stats(stats);
     }
 
+    /**
+     * Checks whether the unit's Stats instance contains the given stat
+     * 
+     * @param name The name of the stat to check the existence of
+     * @return Whether or not the unit has the given stat name
+     */
     public boolean containsStat (String name) {
         return myStats.contains(name);
     }
 
+    /**
+     * Adds a stat to the unit's Stats instance
+     * 
+     * @param stat The stat to add to the unit's stat instance
+     */
     public void addStat (Stat stat) {
         myStats.addStat(stat);
         myTotalStats.addStat(stat);

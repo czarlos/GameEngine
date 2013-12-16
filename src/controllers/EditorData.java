@@ -191,6 +191,14 @@ public class EditorData {
         myDataMap.put(gtm.getName(), (List<?>) gtm.getObject());
     }
 
+    /**
+     * Syncs stats throughout the editor with the master list of stats. Removes stats that have been
+     * removed from the master list, adds stats that have been added to the master list, and changes
+     * the name of stats that have been renamed
+     * 
+     * @param newStats The list of new stats in the editor
+     * @param activeStage The current active stage of the editor
+     */
     @SuppressWarnings("unchecked")
     private void syncStats (List<Object> newStats, Stage activeStage) {
         List<String> fullList = getNames(GridConstants.MASTERSTATS);
@@ -270,6 +278,14 @@ public class EditorData {
         }
     }
 
+    /**
+     * Syncs actions throughout the editor with the master list of actions. Removes actions that
+     * have been removed from the master list, adds actions that have been added to the master list,
+     * and changes the name of actions that have been renamed
+     * 
+     * @param newActions The list of new actions in the editor
+     * @param activeStage The current active stage in the editor
+     */
     @SuppressWarnings("unchecked")
     private void syncActions (List<Object> newActions, Stage activeStage) {
         List<String> fullList = getNames(GridConstants.ACTION);

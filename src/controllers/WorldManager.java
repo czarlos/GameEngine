@@ -24,7 +24,6 @@ import dialog.dialogs.tableModels.ItemsTableModel;
  * Interface between the Editor GUI and the backend.
  * 
  * @author Leevi
- * @author Ken McAndrews
  * 
  */
 @JsonAutoDetect
