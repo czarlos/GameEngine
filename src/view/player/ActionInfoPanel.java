@@ -9,14 +9,12 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import controller.actions.grid.BeginDoAction;
 import controller.actions.grid.DoAction;
-import controller.editor.GridController;
-import controller.editor.NClickAction;
+import controller.player.GridController;
+import controller.player.NClickAction;
 
 
 /**
- * Scrollable panel for displaying unit's action info
- * 
- * @author Patrick Schutz
+ * Scrollable panel for displaying unit's actions as buttons.
  * 
  */
 @SuppressWarnings("serial")
@@ -29,6 +27,11 @@ public class ActionInfoPanel extends ScrollableListPane {
         myController = controller;
     }
 
+    /**
+     * Call to populate the ActionInfoPane with action button. 
+     * This override to ScrollableListPane displays the data in this pane as buttons binded to actions
+     * instead of merely strings.
+     */
     @Override
     public void populate (List<String> data) {
 

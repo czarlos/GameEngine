@@ -6,8 +6,11 @@ import javax.swing.ScrollPaneLayout;
 import controllers.Manager;
 import view.canvas.GridCanvas;
 
+/**
+ * Class to capture a grid with a side column. This view is used to show the game
+ * environment in both the editor and the GUI.
+ */
 
-@SuppressWarnings("serial")
 public class GridWithSide extends TwoColumnPanel {
     protected GridCanvas myGrid;
 
@@ -26,6 +29,8 @@ public class GridWithSide extends TwoColumnPanel {
         super.revalidate();
 
         super.revalidate();
+        
+        //also force grid to repaint
         if (myGrid != null) {
             myGrid.repaint();
         }

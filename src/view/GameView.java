@@ -20,7 +20,7 @@ import controllers.Manager;
 @SuppressWarnings("serial")
 /**
  * Class to represent main view for both the game editing environment and the 
- * game play environment. This class encapsulates the things both environments
+ * game play environment. This class encapsulates the things both environments.
  *
  */
 public abstract class GameView extends JFrame implements WindowListener {
@@ -58,17 +58,24 @@ public abstract class GameView extends JFrame implements WindowListener {
         addWindowListener(this);
     }
 
-    public void showBackground () {
-        if (myGame != null) {
+    
+    /**
+     * Removes game panel if it is present and displays background image.
+     */
+    public void showBackground(){
+        if(myGame!=null){
             remove(myGame);
         }
         add(myBackground);
         revalidate();
         repaint();
     }
-
-    public void showGame () {
-        if (myGame != null) {
+    
+    /**
+     * Removes background from pane and attempts to show game panel.
+     */
+    public void showGame(){
+        if(myGame!=null){
             remove(myBackground);
             add(myGame);
         }
@@ -76,6 +83,12 @@ public abstract class GameView extends JFrame implements WindowListener {
         repaint();
     }
 
+    /**
+     * Internal method to look display all JSON options for loading a game
+     * to the user and load in the Manager of the selected game.
+     * @param folder Folder to look for JSON in
+     * @return Manager created from JSON file selected by user.
+     */
     protected Manager loadGame (String folder) {
         LoadGameDialog loader = new LoadGameDialog(folder);
 
@@ -89,8 +102,12 @@ public abstract class GameView extends JFrame implements WindowListener {
         }
         return null;
     }
-
-    protected abstract void loadGame (Manager m);
+    
+    /**
+     * Method to load a game environment from a Manager
+     * @param m Manager to create game environment from
+     */
+    protected abstract void loadGame(Manager m);
 
     protected void clearWindow () {
         setJMenuBar(createMenuBar(this));
@@ -98,6 +115,9 @@ public abstract class GameView extends JFrame implements WindowListener {
         repaint();
     }
 
+    /**
+     * Menu bar to show at the top of the Game View
+     */
     protected abstract JMenuBar createMenuBar (JFrame frame);
 
     protected JPanel createBackground () {
@@ -110,6 +130,7 @@ public abstract class GameView extends JFrame implements WindowListener {
 
     @Override
     public void windowClosing (WindowEvent e) {
+        //Show the options for which environment to start when closing a window.
         new GameStartView();
         dispose();
     }

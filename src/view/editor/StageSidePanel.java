@@ -11,8 +11,8 @@ import controllers.WorldManager;
 
 
 /**
- * Displays object info panels
- * 
+ * Displays object info panels and editor panel for a stage.
+ *
  */
 @SuppressWarnings("serial")
 public class StageSidePanel extends JPanel {
@@ -32,7 +32,7 @@ public class StageSidePanel extends JPanel {
         initSubPanels();
     }
 
-    public void initSubPanels () {
+    protected void initSubPanels () {
         StageEditorPanel panel = new StageEditorPanel(myWorldManager,
                                                       defaultTypes);
         myController.addEditorPanel(panel);
@@ -44,6 +44,11 @@ public class StageSidePanel extends JPanel {
         add(myInfoPanel);
     }
 
+    
+    /**
+     * Select a coordinate for the Info Panel to show information about
+     * @param c Selected coordinate
+     */
     public void displayInformation (Coordinate c) {
         myInfoPanel.makeTabs(myWorldManager.getActionNames(c),
                              myWorldManager.generateInfoList(GridConstants.TILE, c),

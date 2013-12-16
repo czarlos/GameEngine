@@ -42,6 +42,10 @@ public class GameManager extends Manager {
         myView = view;
     }
 
+    /**
+     * Method to set game manager up for player turn.
+     * Called by the GUI to set engine up for human input.
+     */
     public void beginTurn () {
         if (myGameOver) { return; }
         clear();
@@ -76,7 +80,8 @@ public class GameManager extends Manager {
         }
     }
 
-    public void humanWin () {
+    
+    protected void humanWin () {
         myView.showDialog(getPostStory());
         myView.showDialog(getWinningTeam() + " won this stage!");
         if (!nextStage()) {
@@ -86,15 +91,17 @@ public class GameManager extends Manager {
         }
     }
 
-    public void humanLoss () {
-        myGameOver = true;
+    protected void humanLoss () {
+        myGameOver=true;
+
         myView.showDialog("Game Over: AI Won...");
         myView.gameOver();
     }
 
     /**
      * Loops through all of the game units in the current team (whose turn it
-     * is) and sets all of the units to active.
+     * is) and sets all of the units to active. Sets game environment up for next
+     * turn.
      * 
      * @param currentTeam
      */
@@ -107,14 +114,14 @@ public class GameManager extends Manager {
         myActiveTeam = myPhaseCount % myActiveStage.getNumberOfTeams();
     }
 
-    public void setAllUnitsInactive () {
+    protected void setAllUnitsInactive () {
         List<GameUnit> units = myActiveStage.getTeamUnits(getActiveTeamName());
         for (GameUnit unit : units) {
             unit.setActive(false);
         }
     }
 
-    public void setAllUnitsActive () {
+    protected void setAllUnitsActive () {
         List<GameUnit> units2 = myActiveStage.getTeamUnits(getActiveTeamName());
         for (GameUnit unit : units2) {
             unit.setActive(true);
@@ -124,7 +131,7 @@ public class GameManager extends Manager {
     /**
      * Makes a new AI and calls the AI doTurn method to execute AI
      */
-    public void doAITurn () {
+    protected void doAITurn () {
         AI2 ai = new AI2(myActiveStage.getTeam(myActiveTeam), myActiveStage, this);
         ai.doTurn();
     }
@@ -139,7 +146,8 @@ public class GameManager extends Manager {
         return getActiveTeamName() + " - " + myActiveStage.getName() + " - " + myGameName;
     }
 
-    public boolean nextStage () {
+    
+    protected boolean nextStage () {
         myPhaseCount = 0;
         int index = myStages.indexOf(myActiveStage);
 

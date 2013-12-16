@@ -8,15 +8,15 @@ import view.player.SelectedInfoPanel;
 
 
 /**
- * 
+ * Override of SelectedInfoPanel to show actions as an InfoPanel (as strings)
+ * instead of an ActionInfoPanel (as buttons)
  *
  */
 @SuppressWarnings("serial")
 public class SelectedInfoEditorPanel extends SelectedInfoPanel {
 
     public SelectedInfoEditorPanel () {
-        super();
-        setMaximumSize(new Dimension(200, 200));
+        setMaximumSize(new Dimension(200,200));
     }
 
     @Override

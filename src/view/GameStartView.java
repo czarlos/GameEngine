@@ -9,9 +9,15 @@ import javax.swing.JFrame;
 import view.editor.EditorFrame;
 import view.player.PlayerView;
 
-
-@SuppressWarnings("serial")
+/**
+ * View shown when game first launched. Lets user pick between editing 
+ * and playing a game.
+ */
 public class GameStartView extends JFrame {
+    
+    /**
+     * Default constructor loads buttons and sets up the frame.
+     */
     public GameStartView () {
         setLayout(new GridLayout(0, 1));
         JButton startGame = new JButton("Start Game Player");

@@ -18,10 +18,7 @@ import controllers.Manager;
 
 
 /**
- * The main view for playing the game
- * 
- * @author Patrick Schutz
- * 
+ * The main view for playing the game.
  */
 @SuppressWarnings("serial")
 public class PlayerView extends GameView {
@@ -49,7 +46,7 @@ public class PlayerView extends GameView {
         // add action listeners
         loadNewGame.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
-                loadGame(loadGame(GridConstants.DEFAULTSAVELOCATION));
+                loadGame(loadGame(DEFAULT_SAVE_LOCATION));
             }
         });
 
@@ -112,18 +109,33 @@ public class PlayerView extends GameView {
         myGameManager.beginTurn();
     }
 
+    /**
+     * Advance GameManager to next human turn.
+     * While I do not see this class as the best place to put methods to run game play,
+     * I needed these events to run on the UI Thread to avoid threading issues, among other things.
+     * My biggest motivating factor for doing this was to block the GUI while it is not a human's turn,
+     * so a player can't move before the AI is done.
+     */
     public void endTurn () {
         showBackground();
         myGameManager.doUntilHumanTurn();
         myGameManager.beginTurn();
         loadStagePanel();
     }
-
-    public void gameOver () {
+    
+    /**
+     * Called when game is over. Closes current instance of the game player
+     * and starts a new one so the user can either start the game again
+     * or pick a different one.
+     */
+    public void gameOver(){
         dispose();
         new PlayerView();
     }
 
+    /**
+     * Tell player to load the current stage panel from the GameManager
+     */
     public void loadStagePanel () {
         if (myGame != null)
             remove(myGame);
@@ -131,10 +143,18 @@ public class PlayerView extends GameView {
         showGame();
     }
 
+    /**
+     * Show a message to the user
+     * @param story Message to be displayed to the user.
+     */
     public void showDialog (String story) {
         JOptionPane.showMessageDialog(this, story);
     }
 
+    /**
+     * Save game to a file
+     * @param location File name to save game to2
+     */
     protected void saveGame (String location) {
         myGameManager.saveGame(location);
     }

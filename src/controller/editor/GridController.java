@@ -1,5 +1,6 @@
 package controller.editor;
 
+import controller.player.NClickAction;
 import controllers.GameManager;
 import grid.Coordinate;
 import view.canvas.GridMouseListener;
