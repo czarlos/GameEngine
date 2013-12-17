@@ -23,7 +23,6 @@ import controllers.Manager;
 @SuppressWarnings("serial")
 public class PlayerView extends GameView {
     protected GameManager myGameManager;
-    protected static final String DEFAULT_GAME_IN_PROGRESS_SAVE_LOCATION = "gamesInProgress";
 
     public PlayerView () {
     }
@@ -46,7 +45,7 @@ public class PlayerView extends GameView {
         // add action listeners
         loadNewGame.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
-                loadGame(loadGame(DEFAULT_SAVE_LOCATION));
+                loadGame(loadGame(GridConstants.DEFAULTSAVELOCATION));
             }
         });
 
@@ -55,7 +54,7 @@ public class PlayerView extends GameView {
         // add action listeners
         loadGame.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent event) {
-                loadGame(loadGame(DEFAULT_GAME_IN_PROGRESS_SAVE_LOCATION));
+                loadGame(loadGame(GridConstants.DEFAULT_GAME_IN_PROGRESS_SAVE_LOCATION));
             }
         });
 
@@ -64,7 +63,7 @@ public class PlayerView extends GameView {
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                saveGame(DEFAULT_GAME_IN_PROGRESS_SAVE_LOCATION);
+                saveGame(GridConstants.DEFAULT_GAME_IN_PROGRESS_SAVE_LOCATION);
             }
         });
 
@@ -113,7 +112,8 @@ public class PlayerView extends GameView {
      * Advance GameManager to next human turn.
      * While I do not see this class as the best place to put methods to run game play,
      * I needed these events to run on the UI Thread to avoid threading issues, among other things.
-     * My biggest motivating factor for doing this was to block the GUI while it is not a human's turn,
+     * My biggest motivating factor for doing this was to block the GUI while it is not a human's
+     * turn,
      * so a player can't move before the AI is done.
      */
     public void endTurn () {
@@ -122,13 +122,13 @@ public class PlayerView extends GameView {
         myGameManager.beginTurn();
         loadStagePanel();
     }
-    
+
     /**
      * Called when game is over. Closes current instance of the game player
      * and starts a new one so the user can either start the game again
      * or pick a different one.
      */
-    public void gameOver(){
+    public void gameOver () {
         dispose();
         new PlayerView();
     }
@@ -145,6 +145,7 @@ public class PlayerView extends GameView {
 
     /**
      * Show a message to the user
+     * 
      * @param story Message to be displayed to the user.
      */
     public void showDialog (String story) {
@@ -153,6 +154,7 @@ public class PlayerView extends GameView {
 
     /**
      * Save game to a file
+     * 
      * @param location File name to save game to2
      */
     protected void saveGame (String location) {

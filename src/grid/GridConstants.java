@@ -40,6 +40,7 @@ public class GridConstants {
 
     public final static String DEFAULT_PASS_EVERYTHING = "everything";
     public final static String DEFAULTSAVELOCATION = "saves";
+    public final static String DEFAULT_GAME_IN_PROGRESS_SAVE_LOCATION = "gamesInProgress";
 
     public final static String MOVEMENT = "movement";
     public final static String WAIT = "Wait";
